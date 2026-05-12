@@ -124,7 +124,7 @@ We consider a system of $N$ bosonic modes collected into the column vector
 \end{equation}
 and define the Nambu spinor
 \begin{equation}
-    \hat\chi = (\hat{\bb a},\hat{\bb a}^{\hc})^\trans.
+    \hat\chi = (\hat{\bb a},\hat{\bb a}^+)^\trans.
 \end{equation}
 Its canonical commutation relations are encoded by the symplectic form
 \begin{equation}
@@ -151,18 +151,20 @@ and $\xi\in\mathbb C$ is a scalar shift. In block form,
     A =
     \begin{pmatrix}
         K & \Delta \\
-        -\overline{\Delta} & -K^\trans
+        -\overline{\Delta'} & -K^\trans
     \end{pmatrix},
     \qquad
     \Delta^\trans = \Delta,
+    \qquad
+    \Delta'^\trans = \Delta',
 \end{equation}
 which gives
 \begin{equation}
 \begin{aligned}
     \hat h(A,\xi)
-    ={}& \hat{\bb a}^{\hc} K\hat{\bb a}
-    + \frac12\hat{\bb a}^{\hc}\Delta\hat{\bb a}^{\hc\trans}
-    + \frac12\hat{\bb a}^\trans\overline{\Delta}\hat{\bb a} \\
+    ={}& \hat{\bb a}^+ K\hat{\bb a}
+    + \frac12\hat{\bb a}^+\Delta(\hat{\bb a}^+)^\trans
+    + \frac12\hat{\bb a}^\trans\overline{\Delta'}\hat{\bb a} \\
     &\quad + \xi + \frac12\Tr K.
 \end{aligned}
 \label{eq:block_form_h}
@@ -193,7 +195,7 @@ For each interaction channel we may apply a continuous HS transformation,
     s_\gamma^2 = -2\Delta\tau\lambda_\gamma,
     \label{eq:hs_generic}
 \end{equation}
-where the contour and the Gaussian factor $p_\gamma$ depend on the sign of $\lambda_\gamma$. For attractive channels one may take $s_\gamma\in\mathbb R$ and integrate over real fields; for repulsive channels one may equivalently use imaginary shifts or discrete decompositions. Nothing in the formalism below depends on the specific HS choice, provided that after decoupling every time-slice propagator is Gaussian.
+where the contour and the Gaussian factor $p_\gamma$ depend on the sign of $\lambda_\gamma$. For attractive channels ($\lambda_\gamma<0$) one may take $s_\gamma\in\mathbb R$ and integrate over real fields; for repulsive channels ($\lambda_\gamma>0$) one may use imaginary shifts, $s_\gamma\in\ii\mathbb R$. In either case, up to Trotter errors one may also replace the continuous integral with a discrete decomposition. Nothing in the formalism below depends on the specific HS choice, provided that after decoupling every time-slice propagator is Gaussian.
 
 Introducing all auxiliary fields collectively as $\phi$, the partition function takes the AFQMC form
 \begin{equation}
@@ -246,7 +248,7 @@ The square root is the metaplectic branch, fixed by continuity from a stable ref
 
 The number-conserving case is simpler and deserves separate emphasis. If every slice contains no pairing term, then we may write
 \begin{equation}
-    \hat h_\ell = \hat{\bb a}^{\hc} B_\ell \hat{\bb a} + \xi_\ell,
+    \hat h_\ell = \hat{\bb a}^+ B_\ell \hat{\bb a} + \xi_\ell,
     \label{eq:number_conserving_slice}
 \end{equation}
 with an $N\times N$ matrix $B_\ell$, and the corresponding single-particle product is
@@ -285,13 +287,13 @@ This compact expression is the bosonic counterpart of the equal-time Green's fun
     G(\phi)\Omega^{-1} = \left(I_{2N}-\mc M(\phi)\right)^{-1}.
     \label{eq:Gomega_inverse}
 \end{equation}
-The four $N\times N$ blocks of $G$ give, respectively, the anomalous correlators $\langle \hat a_i\hat a_j\rangle_\phi$, the normal correlators $\langle \hat a_i\hat a_j^\hc\rangle_\phi$, $\langle \hat a_i^\hc\hat a_j\rangle_\phi$, and $\langle \hat a_i^\hc\hat a_j^\hc\rangle_\phi$.
+The four $N\times N$ blocks of $G$ give, respectively, the anomalous correlators $\langle \hat a_i\hat a_j\rangle_\phi$, the normal correlators $\langle \hat a_i\hat a_j^+\rangle_\phi$, $\langle \hat a_i^+\hat a_j\rangle_\phi$, and $\langle \hat a_i^+\hat a_j^+\rangle_\phi$.
 
 In the number-conserving case Eq.~\eqref{eq:Gformula} reduces to the more familiar matrix identities
 \begin{equation}
-    \langle \hat a_i \hat a_j^\hc\rangle_\phi = \left(I_N-\mc B\right)^{-1}_{ij},
+    \langle \hat a_i \hat a_j^+\rangle_\phi = \left(I_N-\mc B\right)^{-1}_{ij},
     \qquad
-    \langle \hat a_j^\hc \hat a_i\rangle_\phi = \left[\mc B\left(I_N-\mc B\right)^{-1}\right]_{ij}.
+    \langle \hat a_j^+ \hat a_i\rangle_\phi = \left[\mc B\left(I_N-\mc B\right)^{-1}\right]_{ij}.
     \label{eq:number_green_blocks}
 \end{equation}
 All higher-order equal-time correlators follow from Wick's theorem because $\hat U(\phi)$ is a Gaussian operator. Thus, once the matrix $G(\phi)$ is known, one may evaluate arbitrary local observables, structure factors, and susceptibilities by standard Gaussian contraction rules.
@@ -352,13 +354,13 @@ We now turn to the main conceptual question: under what conditions is the BAFQMC
 
 The concept of reflection positivity was originally introduced in the context of axiomatic quantum field theory~\cite{osterwalder1973axioms}. It has since become a standard mathematical tool in statistical physics~\cite{kondratiev2006reflection,biskup2009reflection}. Its main application in strongly correlated systems started from Lieb's work on spin reflection positivity in the Hubbard model~\cite{lieb1989prl}. Majorana reflection positivity was then proposed~\cite{jaffe2015reflection,jaffe2016characterization} and applied to interacting spinless fermion models~\cite{wei2015prb}. The connection between Majorana reflection positivity and sign-problem-free quantum lattice fermion models was subsequently clarified in Ref.~\cite{wei2016prl}. The bosonic case considered here is simpler in one important respect: the reflected left and right algebras commute rather than anticommute.
 
-Let $\mc F_L$ and $\mc F_R$ be two bosonic Fock spaces generated by annihilation operators $\hat b_i$ and $\hat c_i$ ($i=1,\dots,M$), and let the full Hilbert space be $\mc F=\mc F_L\otimes \mc F_R$. We denote by $\mathfrak A_L$ the algebra generated by $\hat b_i$ and $\hat b_i^\hc$, and by $\mathfrak A_R$ the algebra generated by $\hat c_i$ and $\hat c_i^\hc$. Define an antilinear reflection map $\theta:\mathfrak A_L\to\mathfrak A_R$ through
+Let $\mc F_L$ and $\mc F_R$ be two bosonic Fock spaces generated by annihilation operators $\hat b_i$ and $\hat c_i$ ($i=1,\dots,M$), and let the full Hilbert space be $\mc F=\mc F_L\otimes \mc F_R$. We denote by $\mathfrak A_L$ the algebra generated by $\hat b_i$ and $\hat b_i^+$, and by $\mathfrak A_R$ the algebra generated by $\hat c_i$ and $\hat c_i^+$. Define an antilinear reflection map $\theta:\mathfrak A_L\to\mathfrak A_R$ through
 \begin{equation}
     \theta(\ii) = -\ii,
     \qquad
     \theta(\hat b_i)=\hat c_i,
     \qquad
-    \theta(\hat b_i^\hc)=\hat c_i^\hc,
+    \theta(\hat b_i^+)=\hat c_i^+,
     \label{eq:theta_def}
 \end{equation}
 and extend it multiplicatively. The reflection need not coincide with a literal spatial reflection. Any decomposition into two commuting and isomorphic bosonic algebras works equally well.
@@ -413,7 +415,7 @@ Then the exponential $\ee^{\hat Y_a\theta(\hat Y_a)}$ is a series of reflected s
 For Gaussian bosonic slices, the practically useful specialization of Eq.~\ref{eq:rp_generator} is obtained by taking $\hat q$ quadratic in the left bosons and $\hat X_\mu$ linear in them. 
 In the Nambu basis
 \begin{equation}
-    \hat\chi = (\hat{\bb b},\hat{\bb b}^{\hc},\hat{\bb c},\hat{\bb c}^{\hc})^\trans,
+    \hat\chi = (\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans,
 \end{equation}
 a generic reflection-positive Gaussian slice takes the form
 \begin{equation}
@@ -451,7 +453,7 @@ where $K$ denotes complex conjugation and $U$ is unitary. For the two-flavor bas
 \end{equation}
 Consider slice generators of the form
 \begin{equation}
-    \hat h_\ell = \hat{\bb a}^{\hc} B_\ell \hat{\bb a} + \xi_\ell,
+    \hat h_\ell = \hat{\bb a}^+ B_\ell \hat{\bb a} + \xi_\ell,
     \qquad
     \xi_\ell\in\mathbb R,
     \label{eq:antiunitary_slice}
@@ -493,7 +495,7 @@ and choosing
 Eq.~\eqref{eq:Bsymmetry} is equivalent to the block structure
 \begin{equation}
     \hat h_\ell =
-    \hat{\bb a}^\dagger
+    \hat{\bb a}^+
     \begin{pmatrix}
         D_\ell & F_\ell \\
         -\overline{F_\ell} & \overline{D_\ell}
@@ -522,21 +524,21 @@ Taken together, RP and TRS provide bosonic counterparts of the best-known sign-f
 
 To make the general criteria concrete, consider a two-flavor bosonic lattice model with
 \begin{equation}
-    \hat H_K = \hat{\bb b}^{\hc} B\hat{\bb b} + \hat{\bb c}^{\hc}\overline{B}\hat{\bb c},
+    \hat H_K = \hat{\bb b}^+ B\hat{\bb b} + \hat{\bb c}^+\overline{B}\hat{\bb c},
     \label{eq:example_HK}
 \end{equation}
 and
 \begin{equation}
-    \hat H_U = U_{1}\sum_{i}\left(\hat b_{i}^{\hc}\hat b_{i}+\hat c_{i}^{\hc}\hat c_{i}\right)^{2}+U_{2}\sum_{i}\left(\hat b_{i}^{\hc}\hat b_{i}-\hat c_{i}^{\hc}\hat c_{i}\right)^{2},
+    \hat H_U = U_{1}\sum_{i}\left(\hat b_{i}^+\hat b_{i}+\hat c_{i}^+\hat c_{i}\right)^{2}+U_{2}\sum_{i}\left(\hat b_{i}^+\hat b_{i}-\hat c_{i}^+\hat c_{i}\right)^{2},
     \label{eq:example_HU}
 \end{equation}
 where $B=B^{\hc}$, $U_{1}\leq 0$, and $U_{2}\geq 0$. Here $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$. When $B$ contains frustrated hopping amplitudes, for example on a triangular lattice with nontrivial Peierls phases, the model lies precisely in the frustrated sector that is problematic for local-weight methods but accessible to BAFQMC.
 
 Let us define the on-site combinations
 \begin{equation}
-    \hat n_{i,+}=\hat b_i^{\hc}\hat b_i+\hat c_i^{\hc}\hat c_i,
+    \hat n_{i,+}=\hat b_i^+\hat b_i+\hat c_i^+\hat c_i,
     \qquad
-    \hat n_{i,-}=\hat b_i^{\hc}\hat b_i-\hat c_i^{\hc}\hat c_i.
+    \hat n_{i,-}=\hat b_i^+\hat b_i-\hat c_i^+\hat c_i.
 \end{equation}
 For a Trotter step $\Delta\tau$, the two interaction channels can be decoupled as
 \begin{equation}
@@ -555,9 +557,9 @@ with $\alpha_1=\sqrt{-2\Delta\tau U_1}\in\mathbb R$, and
 with $\alpha_2=\sqrt{2\Delta\tau U_2}\in\mathbb R$. For a fixed auxiliary-field configuration on slice $\ell$, the resulting one-body generator is
 \begin{equation}
 \begin{aligned}
-    \hat h_\ell ={}& -\Delta\tau\left(\hat{\bb b}^{\hc} B\hat{\bb b} + \hat{\bb c}^{\hc}\overline{B}\hat{\bb c}\right) \\
-    &\quad + \sum_i \left(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}\right)\hat b_i^{\hc}\hat b_i \\
-    &\quad + \sum_i \left(\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}\right)\hat c_i^{\hc}\hat c_i.
+    \hat h_\ell ={}& -\Delta\tau\left(\hat{\bb b}^+ B\hat{\bb b} + \hat{\bb c}^+\overline{B}\hat{\bb c}\right) \\
+    &\quad + \sum_i \left(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}\right)\hat b_i^+\hat b_i \\
+    &\quad + \sum_i \left(\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}\right)\hat c_i^+\hat c_i.
 \end{aligned}
 \label{eq:example_slice}
 \end{equation}
@@ -568,7 +570,7 @@ This model is sign-problem-free in two independent ways. First, it is reflection
 \end{equation}
 with
 \begin{equation}
-    \hat q_\ell = -\Delta\tau\,\hat{\bb b}^{\hc} B\hat{\bb b} + \sum_i \left(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}\right)\hat b_i^{\hc}\hat b_i.
+    \hat q_\ell = -\Delta\tau\,\hat{\bb b}^+ B\hat{\bb b} + \sum_i \left(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}\right)\hat b_i^+\hat b_i.
 \end{equation}
 This is the special case of Eq.~\eqref{eq:rp_generator} with $K=0$. Therefore each slice propagator belongs to the RP cone, and the full BAFQMC weight is nonnegative for every auxiliary-field configuration.
 
@@ -576,7 +578,7 @@ Second, the same model also satisfies the TRS criterion. In the single-particle 
 \begin{equation}
     \hat h_\ell =
     \begin{pmatrix}
-        \hat{\bb b}^\dagger & \hat{\bb c}^\dagger
+        \hat{\bb b}^+ & \hat{\bb c}^+
     \end{pmatrix}
     \begin{pmatrix}
         D_\ell & 0 \\
@@ -607,7 +609,7 @@ This example also highlights the physical content of the present work. If $B$ is
 
 As a minimal proof of principle and benchmark, we implemented sign-problem-free BAFQMC for two-flavor Bose-Hubbard models on the triangular lattice. For the number-conserving benchmark we chose the explicit nearest-neighbor kinetic term
 \begin{equation}
-    \hat H_{K}^{\triangle} = t \sum_{\langle i,j\rangle} \left(\hat b_i^{\hc}\hat b_j + \hat c_i^{\hc}\hat c_j + \mathrm{h.c.}\right),
+    \hat H_{K}^{\triangle} = t \sum_{\langle i,j\rangle} \left(\hat b_i^+\hat b_j + \hat c_i^+\hat c_j + \mathrm{h.c.}\right),
     \qquad t>0,
     \label{eq:benchmark_HK}
 \end{equation}
@@ -615,7 +617,7 @@ together with the interaction $\hat H_U$ in Eq.~\eqref{eq:example_HU}. This is t
 
 The paired benchmark adds an onsite anomalous term,
 \begin{equation}
-    \hat H_{\mathrm{pair}}^{\triangle} = \hat H_{K}^{\triangle} + \hat H_U - \Delta_p\sum_i\left(\hat b_i\hat c_i + \hat b_i^{\hc}\hat c_i^{\hc}\right),
+    \hat H_{\mathrm{pair}}^{\triangle} = \hat H_{K}^{\triangle} + \hat H_U - \Delta_p\sum_i\left(\hat b_i\hat c_i + \hat b_i^+\hat c_i^+\right),
     \qquad \Delta_p\ge 0 \, .
     \label{eq:benchmark_pairing}
 \end{equation}
@@ -639,7 +641,7 @@ To be finished......
 
 The central significance of this work is that it opens a new exact-simulation route for frustrated bosonic systems. Up to now, the standard sign-free domain for bosons and spins has been largely identified with models that are unfrustrated in a local basis. The present formulation shows that this boundary is not fundamental. Once the problem is rewritten in auxiliary-field language and the bosons are traced out analytically, the sign structure is controlled by symmetry properties of the HS-decoupled one-body propagators rather than by local matrix elements. This is why the upper-left quadrant of Fig.~\ref{fig:schematic}---frustrated systems with RP/TRS---becomes computable in BAFQMC. In that sense, the work is conceptually comparable to the role played by symmetry-protected determinantal QMC in fermionic systems: it enlarges the class of many-body problems that can be attacked exactly, and it does so in a way that is invisible from the usual world-line perspective.
 
-At the same time, sign-problem-free does not mean numerically effortless. The bosonic determinant formulas carry a characteristic pole structure that has no direct analogue in fermionic AFQMC. In the number-conserving case, the sampling weight has the form $W(\phi)=\ee^{\sum_\ell \xi_\ell}\det(I_N-\mc B)^{-1}$, so poles appear whenever $1$ becomes an eigenvalue of the single-particle propagator $\mc B$. For sufficiently low chemical potential $\mu$, the boson density is dilute and the sampled configurations stay far from these poles; the algorithm is then well behaved. To access higher densities one must increase $\mu$, and the sampled distribution is pushed closer to the pole surface. Some configurations can then cross into sectors that look ``nonphysical'' if interpreted configuration by configuration: for example, the single-particle Green's function may suggest negative occupation numbers. Nevertheless, the normalized ensemble remains meaningful through the regularized, analytically continued interpretation of the weight discussed in Appendix~\ref{app:regularization}. In this sense, apparently nonphysical configurations are an unavoidable part of the regularized bosonic auxiliary-field ensemble, even though the final normalized observables remain physical.
+At the same time, sign-problem-free does not mean numerically effortless. The bosonic determinant formulas carry a characteristic pole structure whose analogue in fermionic AFQMC is the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In fermionic AFQMC the sampling weight is $W(\phi)\propto\det[I_N+\mc B(\phi)]$, a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite. In BAFQMC the weight is $W(\phi)=\ee^{\sum_\ell \xi_\ell}\det(I_N-\mc B)^{-1}$, which has poles but no zeros. The two problems are therefore closely related in this sense: fermions suffer from zeros and bosons from poles, while Bose-Fermi mixtures are subject to both pathologies simultaneously. What is unique to the bosonic case, however, is the appearance of ``nonphysical'' configurations: in the number-conserving case, poles appear whenever $1$ becomes an eigenvalue of the single-particle propagator $\mc B$. For sufficiently low chemical potential $\mu$, the boson density is dilute and the sampled configurations stay far from these poles; the algorithm is then well behaved. To access higher densities one must increase $\mu$, and the sampled distribution is pushed closer to the pole surface. Some configurations can then cross into sectors that look ``nonphysical'' if interpreted configuration by configuration: for example, the single-particle Green's function may suggest negative occupation numbers. Nevertheless, the normalized ensemble remains meaningful through the regularized, analytically continued interpretation of the weight discussed in Appendix~\ref{app:regularization}. In this sense, apparently nonphysical configurations are an unavoidable part of the regularized bosonic auxiliary-field ensemble, even though the final normalized observables remain physical.
 
 The more serious difficulty is numerical rather than conceptual. When the interaction is strong, or when the temperature is lowered so that the imaginary-time evolution becomes longer, the weight distribution broadens and a nonnegligible fraction of configurations can approach the pole surface extremely closely. Their weights then become nearly divergent. This does not introduce a sign problem, but it can badly damage Monte Carlo stability and ergodicity and generate very large statistical errors. Lower temperature makes the problem worse because the product of many time slices produces a broader distribution of single-particle eigenvalues. In practice, this means that finite-temperature number-conserving BAFQMC is best suited to relatively dilute regimes, moderately high temperatures, and weak-to-intermediate interactions.
 
@@ -655,6 +657,10 @@ These observations delineate the practical regime of the present finite-temperat
 
 
 
+
+\begin{acknowledgments}
+Project Supported by the Doctor Foundation of Qingdao Binhai University (No. BCZ2025004).
+\end{acknowledgments}
 
 \bibliographystyle{apsrev4-2}
 \bibliography{BAFQMC-draft}
@@ -721,9 +727,9 @@ In this appendix we derive the trace formulas used in the main text. We first tr
 
 Consider a Gaussian operator of the form
 \begin{equation}
-    \hat U = \exp\left(\hat{\bb a}^{\hc} C\hat{\bb a} + \xi\right),
+    \hat U = \exp\left(\hat{\bb a}^+ C\hat{\bb a} + \xi\right),
 \end{equation}
-where $C$ is an $N\times N$ matrix and $\xi$ is a scalar. Let $\|z\rangle = \exp(\hat{\bb a}^{\hc}z)|0\rangle$ denote the unnormalized bosonic coherent state, with $z\in\mathbb C^N$. The standard resolution of the identity is
+where $C$ is an $N\times N$ matrix and $\xi$ is a scalar. Let $\|z\rangle = \exp(\hat{\bb a}^+z)|0\rangle$ denote the unnormalized bosonic coherent state, with $z\in\mathbb C^N$. The standard resolution of the identity is
 \begin{equation}
     I = \int \frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,
 \end{equation}
@@ -731,9 +737,9 @@ and the overlap is $\langle z\|w\rangle = \ee^{z^\hc w}$.
 
 The operator $\hat U$ acts linearly on coherent states because
 \begin{equation}
-    \hat U\,\hat{\bb a}^{\hc}\hat U^{-1} = \hat{\bb a}^{\hc}\ee^C,
+    \hat U\,\hat{\bb a}^+\hat U^{-1} = \hat{\bb a}^+\ee^C,
 \end{equation}
-which follows from $[\hat{\bb a}^{\hc}C\hat{\bb a},\hat a_i^\hc]=\sum_j \hat a_j^\hc C_{ji}$. Since the vacuum is annihilated by $\hat{\bb a}$ and is therefore invariant under $\hat U$, we obtain
+which follows from $[\hat{\bb a}^+C\hat{\bb a},\hat a_i^+]=\sum_j \hat a_j^+ C_{ji}$. Since the vacuum is annihilated by $\hat{\bb a}$ and is therefore invariant under $\hat U$, we obtain
 \begin{equation}
     \hat U\|z\rangle = \ee^{\xi}\|\ee^C z\rangle.
 \end{equation}
@@ -754,7 +760,7 @@ Because both sides are holomorphic in the entries of $\ee^C$ away from the pole 
 
 For an ordered product of number-conserving slices,
 \begin{equation}
-    \hat U = \prod_{\ell=1}^{L}\exp\left(\hat{\bb a}^{\hc}B_\ell\hat{\bb a}+\xi_\ell\right),
+    \hat U = \prod_{\ell=1}^{L}\exp\left(\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell\right),
 \end{equation}
 the conjugation relation $\hat{\bb a}\,\hat U = \hat U\,\mc B\hat{\bb a}$ with $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ implies that the product itself is represented by the same single-particle matrix $\mc B$. Hence
 \begin{equation}
@@ -780,10 +786,11 @@ where the square root must be interpreted on the metaplectic branch. We now expl
 
 The simplest reference region is the stable diagonal sector. Suppose that $\hat U$ is unitarily equivalent, via a bosonic Bogoliubov transformation, to a diagonal number-conserving Gaussian,
 \begin{equation}
-    \hat U \sim \exp\left(\sum_{j=1}^{N}\varepsilon_j\hat\beta_j^\hc\hat\beta_j + \xi\right),
-    \qquad \Re\,\varepsilon_j < 0.
+    \hat U \sim \exp\left(\sum_{j=1}^{N}\varepsilon_j\hat\beta_j^+\hat\beta_j + \xi\right),
+    \qquad \operatorname{Re}\varepsilon_j < 0.
     \label{eq:stable_diagonal}
 \end{equation}
+Strictly speaking, a bosonic Bogoliubov transformation need not always bring a quadratic form directly to diagonal form; in exceptional cases the normal form may contain Jordan blocks. This does not affect the argument below. An arbitrarily small perturbation restores diagonalizability, so the branch can be fixed in the diagonal case and then obtained by taking the infinitesimal-perturbation limit.
 Then
 \begin{equation}
     \Tr\,\hat U = \ee^{\xi}\prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
@@ -912,11 +919,11 @@ which is Eq.~\eqref{eq:update_ratio_main}.
 \section{Regularized interpretation of the bosonic weight}
 \label{app:regularization}
 
-The bosonic Gaussian trace formula differs from the fermionic one in a crucial respect: the weight has poles. Specifically, due to the Pauli exclusion principle and fermionic statistics, the integrand of the Monte Carlo integral in fermionic AFQMC is proportional to
+The bosonic Gaussian trace formula differs from the fermionic one in a crucial respect: the weight has poles rather than zeros. Specifically, due to the Pauli exclusion principle and fermionic statistics, the integrand of the Monte Carlo integral in fermionic AFQMC is proportional to
 \begin{equation}
     W(\phi)\propto \det\left[I_N+\mc B(\phi)\right]\,.
 \end{equation}
-This is a holomorphic function, making the Monte Carlo sampling---which corresponds to the path integral over the auxiliary field $\phi$---directly well-defined. However, in BAFQMC, the integrand takes the form
+This is a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite, a pathology known as the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In BAFQMC, the integrand takes the form
 \begin{equation}
     W(\phi)\propto\det\left[I_{2N}-\mc M(\phi)\right]^{-1/2}
     \;\text{or}\;
@@ -1000,7 +1007,7 @@ This appendix rewrites the reflection-positivity criterion in the semigroup lang
 
 We again work with two reflected sets of bosons, $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$, and collect them into the Nambu spinor
 \begin{equation}
-    \hat\chi = (\hat{\bb b},\hat{\bb c},\hat{\bb b}^{\hc},\hat{\bb c}^{\hc})^\trans.
+    \hat\chi = (\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans.
 \end{equation}
 A general quadratic generator is written as
 \begin{equation}
@@ -1124,7 +1131,7 @@ This makes the cone structure visible, but it becomes especially transparent aft
         I_M & 0 & 0 & 0
     \end{pmatrix},
 \end{equation}
-which rearranges the block basis from $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^{\hc},\hat{\bb c}^{\hc})$ to $(\hat{\bb c}^{\hc},\hat{\bb c},\hat{\bb b}^{\hc},\hat{\bb b})$. Then
+which rearranges the block basis from $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)$ to $(\hat{\bb c}^+,\hat{\bb c},\hat{\bb b}^+,\hat{\bb b})$. Then
 \begin{equation}
     \Pi^\trans (\eta A_{-}) \Pi =
     \begin{pmatrix}
