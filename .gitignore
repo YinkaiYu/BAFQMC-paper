@@ -1,29 +1,9 @@
-## Build output
-*.pdf
-!figures/*.pdf
-.build/
+# LaTeX build output
+/.build/
+/pdf/
+/BAFQMC-draft*.pdf
 
-## LaTeX auxiliary files (fallback)
-*.aux
-*.bbl
-*.blg
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.synctex.gz
-*.toc
-*.lof
-*.lot
-*.nav
-*.snm
-*.vrb
-*.run.xml
-*.bcf
-*-blx.bib
-*Notes.bib
-
-## Editor and OS files
+# Editor and OS files
 *.swp
 *~
 .DS_Store
