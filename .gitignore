@@ -1,4 +1,9 @@
-## LaTeX auxiliary files
+## Build output
+*.pdf
+!figures/*.pdf
+.build/
+
+## LaTeX auxiliary files (fallback)
 *.aux
 *.bbl
 *.blg
@@ -16,6 +21,7 @@
 *.run.xml
 *.bcf
 *-blx.bib
+*Notes.bib
 
 ## Editor and OS files
 *.swp
