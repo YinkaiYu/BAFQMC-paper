@@ -3,6 +3,11 @@
 /pdf/
 /BAFQMC-draft*.pdf
 
+# Local assistant/tool state
+/.agents/
+/.claude/
+/.codex/
+
 # Editor and OS files
 *.swp
 *~
