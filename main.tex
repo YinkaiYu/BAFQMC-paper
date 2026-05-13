@@ -1,4 +1,4 @@
-\documentclass[twocolumn,aps,prb,10pt,amsmath,amssymb,amsthm,superscriptaddress]{revtex4-2}
+\documentclass[twocolumn,aps,amsmath,amssymb,superscriptaddress]{revtex4-2}
 
 \usepackage{newtxtext}
 \usepackage{newtxmath}
@@ -9,6 +9,7 @@
 \usepackage{bm}
 \usepackage{multirow}
 \usepackage{xcolor}
+\definecolor{PRLBlue}{RGB}{46,48,146}
 \usepackage{braket}
 \usepackage{CJK}
 \usepackage{indentfirst}
@@ -38,20 +39,24 @@
 \newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
-\theoremstyle{remark}
 \newtheorem{remark}{Remark}
 
 \usepackage[
     colorlinks,
-    citecolor=blue,
-    linkcolor=blue,
-    urlcolor=blue,
+    citecolor=PRLBlue,
+    linkcolor=PRLBlue,
+    urlcolor=PRLBlue,
 ]{hyperref}
 \newcommand{\subref}[1]{\textcolor{blue}{#1}}
 \newcommand{\ror}[2]{\href{https://ror.org/#1}{#2}}
 
 \usepackage{orcidlink}
 \usepackage{lipsum}
+
+\makeatletter
+\let\oldaddcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{}
+\makeatother
 
 \begin{document}
 
@@ -101,7 +106,7 @@ Our results have three layers. First, at the formal level, we derive the bosonic
 
 These results are summarized schematically in Fig.~\ref{fig:schematic}. For unfrustrated bosonic models, local-weight methods such as SSE and world-line QMC remain excellent and often simplest choices. BAFQMC does something qualitatively different: it opens a sign-free route into the frustrated sector, provided that reflection positivity (RP) or time-reversal symmetry (TRS) is present in the HS-decoupled problem. The upper-left quadrant of Fig.~\ref{fig:schematic}, characterized by frustration together with RP/TRS, is therefore the new computable territory unlocked by this work.
 
-The rest of the paper is organized as follows. Section~\ref{sec:afqmc} formulates BAFQMC and derives the basic weight and Green-function formulas. Section~\ref{sec:positive} establishes the reflection-positivity and time-reversal-symmetry criteria for nonnegative weights. Section~\ref{sec:examples} presents explicit sign-problem-free models and minimal benchmark results. Section~\ref{sec:discussion} discusses the significance of the method together with the pole structure and practical limitations of the finite-temperature sampling weights. We summarize and outline future directions in Sec.~\ref{sec:summary}. Technical derivations, including the algebra of bosonic quadratic forms, the Gaussian trace formula, the update ratio, and the regularized interpretation of the weight, are collected in the appendices.
+The rest of the paper formulates BAFQMC and derives the basic weight and Green-function formulas, establishes the reflection-positivity and time-reversal-symmetry criteria for nonnegative weights, presents explicit sign-problem-free models and minimal benchmark results, discusses the significance of the method together with the pole structure and practical limitations of the finite-temperature sampling weights, and closes with a summary and outlook. Technical derivations, including the algebra of bosonic quadratic forms, the Gaussian trace formula, the update ratio, and the regularized interpretation of the weight, are provided in the Supplemental Material (SM)~\cite{SM}.
 
 \begin{figure}[bt]
     \centering
@@ -217,7 +222,7 @@ is a bosonic quadratic generator of the form in Eq.~\eqref{eq:hAdef}. The bosoni
 
 \subsection{Bosonic Gaussian trace formula}
 
-The fundamental algebraic fact is that a bosonic Gaussian propagator acts linearly on the Nambu operators. As shown in Appendix~\ref{app:algebra},
+The fundamental algebraic fact is that a bosonic Gaussian propagator acts linearly on the Nambu operators. As shown in Sec.~\ref{app:algebra} of the SM~\cite{SM},
 \begin{equation}
     [\hat h(A,\xi),\hat\chi] = -A\hat\chi,
     \label{eq:commutator_key}
@@ -244,7 +249,7 @@ Whenever the ordinary bosonic trace exists, the weight is given by the bosonic G
     \det\!\left(I_{2N}-\mc M\left(\phi\right)\right)^{-1/2}.
     \label{eq:trace_formula_main}
 \end{equation}
-The square root is the metaplectic branch, fixed by continuity from a stable reference region where the trace is manifestly convergent; Appendix~\ref{app:trace} explains this point in detail and derives the formula in a way that makes the branch choice explicit. Equation~\eqref{eq:trace_formula_main} is the bosonic analogue of the familiar fermionic determinantal weight, with two important differences. First, bosonic convergence is not automatic; second, anomalous terms lead naturally to a square root rather than to an ordinary determinant.
+The square root is the metaplectic branch, fixed by continuity from a stable reference region where the trace is manifestly convergent; Sec.~\ref{app:trace} of the SM~\cite{SM} explains this point in detail and derives the formula in a way that makes the branch choice explicit. Equation~\eqref{eq:trace_formula_main} is the bosonic analogue of the familiar fermionic determinantal weight, with two important differences. First, bosonic convergence is not automatic; second, anomalous terms lead naturally to a square root rather than to an ordinary determinant.
 
 The number-conserving case is simpler and deserves separate emphasis. If every slice contains no pairing term, then we may write
 \begin{equation}
@@ -261,9 +266,9 @@ Then the bosonic weight is single-valued and takes the familiar form
     \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
     \label{eq:trace_formula_number}
 \end{equation}
-This formula is derived directly in Appendix~\ref{app:trace_number} using coherent states. It reduces the bosonic sampling problem to the analysis of an ordinary determinant and is the natural starting point for the time-reversal-symmetry criterion of Sec.~\ref{sec:trs}.
+This formula is derived directly in Sec.~\ref{app:trace_number} of the SM~\cite{SM} using coherent states. It reduces the bosonic sampling problem to the analysis of an ordinary determinant and is the natural starting point for the time-reversal-symmetry criterion below.
 
-In physically stable regimes the ordinary trace and the determinant expressions above coincide. Outside those regimes one must distinguish two situations. For paired evolutions, such as the reflection-positive paired model of Eq.~\eqref{eq:benchmark_pairing}, the sampled configurations relevant in practice stay inside a connected component of $\det(I_{2N}-\mc M)\neq 0$; the metaplectic formula is then fixed by continuity from the convergent region. The number-conserving case is subtler. Because the auxiliary-field integral can cross $\det(I_N-\mc B)=0$, a configuration-by-configuration analytic continuation is no longer the right interpretation of the Monte Carlo weight. There one should instead read Eq.~\eqref{eq:trace_formula_number} as the renormalized finite part selected by a Gaussian cutoff in occupation-number space, as explained in Appendix~\ref{app:regularization}.
+In physically stable regimes the ordinary trace and the determinant expressions above coincide. Outside those regimes one must distinguish two situations. For paired evolutions, such as the reflection-positive paired model of Eq.~\eqref{eq:benchmark_pairing}, the sampled configurations relevant in practice stay inside a connected component of $\det(I_{2N}-\mc M)\neq 0$; the metaplectic formula is then fixed by continuity from the convergent region. The number-conserving case is subtler. Because the auxiliary-field integral can cross $\det(I_N-\mc B)=0$, a configuration-by-configuration analytic continuation is no longer the right interpretation of the Monte Carlo weight. There one should instead read Eq.~\eqref{eq:trace_formula_number} as the renormalized finite part selected by a Gaussian cutoff in occupation-number space, as explained in Sec.~\ref{app:regularization} of the SM~\cite{SM}.
 
 
 
@@ -277,7 +282,7 @@ At fixed auxiliary field, all equal-time observables follow from the bosonic Gre
     = \frac{\Tr\left[\hat\chi_\mu\hat\chi_\nu\hat U(\phi)\right]}{\Tr\,\hat U(\phi)}.
     \label{eq:Gdef}
 \end{equation}
-Using Eq.~\eqref{eq:Mdef} and cyclicity of the trace, Appendix~\ref{app:green} shows that
+Using Eq.~\eqref{eq:Mdef} and cyclicity of the trace, Sec.~\ref{app:green} of the SM~\cite{SM} shows that
 \begin{equation}
     G(\phi) = \left(I_{2N}-\mc M(\phi)\right)^{-1}\Omega.
     \label{eq:Gformula}
@@ -327,7 +332,7 @@ and its corresponding Green's function
 \begin{equation}
     G_\ell = \left(I_{2N}-\mc M_\ell\right)^{-1}\Omega.
 \end{equation}
-Then Appendix~\ref{app:update} shows that the exact Gaussian weight ratio is
+Then Sec.~\ref{app:update} of the SM~\cite{SM} shows that the exact Gaussian weight ratio is
 \begin{equation}
     \frac{W(\phi')}{W(\phi)}
     = \ee^{\delta\xi_\ell}
@@ -336,7 +341,7 @@ Then Appendix~\ref{app:update} shows that the exact Gaussian weight ratio is
 \end{equation}
 This is the bosonic analogue of the fast-update determinant ratio in determinantal QMC. When the local modification affects only a few matrix elements, the matrix inside the determinant differs from the identity by a low-rank operator and can be evaluated using a reduced determinant.
 
-At low temperatures or long imaginary time, the matrix products $\mc M$ and $\mc B$ become strongly ill-conditioned. This numerical issue is familiar from fermionic AFQMC and must also be handled here by stabilized matrix decompositions. In the number-conserving case, standard QR or SVD stabilization applies directly to the product $\mc B$. In the paired case, one may use structure-preserving factorizations for symplectic products. Since the present paper focuses on the sign structure rather than on implementation details, we do not expand on stabilization algorithms further, but we emphasize that the positivity results of Sec.~\ref{sec:positive} are independent of the particular stabilization scheme used in practice.
+At low temperatures or long imaginary time, the matrix products $\mc M$ and $\mc B$ become strongly ill-conditioned. This numerical issue is familiar from fermionic AFQMC and must also be handled here by stabilized matrix decompositions. In the number-conserving case, standard QR or SVD stabilization applies directly to the product $\mc B$. In the paired case, one may use structure-preserving factorizations for symplectic products. Since the present paper focuses on the sign structure rather than on implementation details, we do not expand on stabilization algorithms further, but we emphasize that the positivity results established below are independent of the particular stabilization scheme used in practice.
 
 
 
@@ -428,11 +433,11 @@ a generic reflection-positive Gaussian slice takes the form
     \qquad F = F^\hc \succeq 0.
     \label{eq:rp_block_form}
 \end{equation}
-This criterion allows arbitrary quadratic terms $D$ within each reflected half and arbitrary positive semidefinite couplings $F$ between the two halves. In particular, it naturally compatible with geometrically frustrated lattices. From a practical Monte Carlo viewpoint, Eq.~\eqref{eq:rp_block_form} is a convenient RP test: once each HS-decoupled slice can be written in this form, every slice belongs to the RP cone and the configuration weight is nonnegative. In Sec.~\ref{sec:models} we will use exactly this viewpoint to identify sign-problem-free number-conserving and paired models on the triangular lattice.
+This criterion allows arbitrary quadratic terms $D$ within each reflected half and arbitrary positive semidefinite couplings $F$ between the two halves. In particular, it naturally compatible with geometrically frustrated lattices. From a practical Monte Carlo viewpoint, Eq.~\eqref{eq:rp_block_form} is a convenient RP test: once each HS-decoupled slice can be written in this form, every slice belongs to the RP cone and the configuration weight is nonnegative. Below we use exactly this viewpoint to identify sign-problem-free number-conserving and paired models on the triangular lattice.
 
-One more comment is needed because bosonic weights have poles. The cone argument above is literal whenever the bare trace converges absolutely. In actual BAFQMC, however, some configurations may lie outside that domain, so the weight has to be regularized. In paired RP models, including the benchmark of Eq.~\eqref{eq:benchmark_pairing}, the sampled trajectory stays inside a pole-free connected component, and the metaplectic weight is fixed by continuity from the convergent region. In number-conserving problems the auxiliary-field integral may instead cross $\det(I_N-\mc B)=0$, so a configuration-wise continuation is no longer adequate; Appendix~\ref{app:regularization} then defines the weight by Gaussian-cutoff renormalization.
+One more comment is needed because bosonic weights have poles. The cone argument above is literal whenever the bare trace converges absolutely. In actual BAFQMC, however, some configurations may lie outside that domain, so the weight has to be regularized. In paired RP models, including the benchmark of Eq.~\eqref{eq:benchmark_pairing}, the sampled trajectory stays inside a pole-free connected component, and the metaplectic weight is fixed by continuity from the convergent region. In number-conserving problems the auxiliary-field integral may instead cross $\det(I_N-\mc B)=0$, so a configuration-wise continuation is no longer adequate; Sec.~\ref{app:regularization} of the SM~\cite{SM} then defines the weight by Gaussian-cutoff renormalization.
 
-The same RP condition can also be reformulated at the single-particle level in the semigroup language~\cite{wei2024prb}. There the Gaussian generator splits into a metric-preserving part and a cone part. For regularized sampling weights, the cone part of Gaussian generator can be decomposed into a direct sum of an element in a contraction semigroup and an element in an expansion semigroup. This semigroup picture is what guarantees that, in the paired RP sector where no singularity is crossed, the regularized Gaussian weight stays on the same nonnegative branch as the convergent bare trace. The details are given in Appendix~\ref{app:regularized_rp}.
+The same RP condition can also be reformulated at the single-particle level in the semigroup language~\cite{wei2024prb}. There the Gaussian generator splits into a metric-preserving part and a cone part. For regularized sampling weights, the cone part of Gaussian generator can be decomposed into a direct sum of an element in a contraction semigroup and an element in an expansion semigroup. This semigroup picture is what guarantees that, in the paired RP sector where no singularity is crossed, the regularized Gaussian weight stays on the same nonnegative branch as the convergent bare trace. The details are given in Sec.~\ref{app:regularized_rp} of the SM~\cite{SM}.
 
 \subsection{Time-reversal symmetry}
 \label{sec:trs}
@@ -641,7 +646,7 @@ To be finished......
 
 The central significance of this work is that it opens a new exact-simulation route for frustrated bosonic systems. Up to now, the standard sign-free domain for bosons and spins has been largely identified with models that are unfrustrated in a local basis. The present formulation shows that this boundary is not fundamental. Once the problem is rewritten in auxiliary-field language and the bosons are traced out analytically, the sign structure is controlled by symmetry properties of the HS-decoupled one-body propagators rather than by local matrix elements. This is why the upper-left quadrant of Fig.~\ref{fig:schematic}---frustrated systems with RP/TRS---becomes computable in BAFQMC. In that sense, the work is conceptually comparable to the role played by symmetry-protected determinantal QMC in fermionic systems: it enlarges the class of many-body problems that can be attacked exactly, and it does so in a way that is invisible from the usual world-line perspective.
 
-At the same time, sign-problem-free does not mean numerically effortless. The bosonic determinant formulas carry a characteristic pole structure whose analogue in fermionic AFQMC is the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In fermionic AFQMC the sampling weight is $W(\phi)\propto\det[I_N+\mc B(\phi)]$, a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite. In BAFQMC the weight is $W(\phi)=\ee^{\sum_\ell \xi_\ell}\det(I_N-\mc B)^{-1}$, which has poles but no zeros. The two problems are therefore closely related in this sense: fermions suffer from zeros and bosons from poles, while Bose-Fermi mixtures are subject to both pathologies simultaneously. What is unique to the bosonic case, however, is the appearance of ``nonphysical'' configurations: in the number-conserving case, poles appear whenever $1$ becomes an eigenvalue of the single-particle propagator $\mc B$. For sufficiently low chemical potential $\mu$, the boson density is dilute and the sampled configurations stay far from these poles; the algorithm is then well behaved. To access higher densities one must increase $\mu$, and the sampled distribution is pushed closer to the pole surface. Some configurations can then cross into sectors that look ``nonphysical'' if interpreted configuration by configuration: for example, the single-particle Green's function may suggest negative occupation numbers. Nevertheless, the normalized ensemble remains meaningful through the regularized, analytically continued interpretation of the weight discussed in Appendix~\ref{app:regularization}. In this sense, apparently nonphysical configurations are an unavoidable part of the regularized bosonic auxiliary-field ensemble, even though the final normalized observables remain physical.
+At the same time, sign-problem-free does not mean numerically effortless. The bosonic determinant formulas carry a characteristic pole structure whose analogue in fermionic AFQMC is the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In fermionic AFQMC the sampling weight is $W(\phi)\propto\det[I_N+\mc B(\phi)]$, a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite. In BAFQMC the weight is $W(\phi)=\ee^{\sum_\ell \xi_\ell}\det(I_N-\mc B)^{-1}$, which has poles but no zeros. The two problems are therefore closely related in this sense: fermions suffer from zeros and bosons from poles, while Bose-Fermi mixtures are subject to both pathologies simultaneously. What is unique to the bosonic case, however, is the appearance of ``nonphysical'' configurations: in the number-conserving case, poles appear whenever $1$ becomes an eigenvalue of the single-particle propagator $\mc B$. For sufficiently low chemical potential $\mu$, the boson density is dilute and the sampled configurations stay far from these poles; the algorithm is then well behaved. To access higher densities one must increase $\mu$, and the sampled distribution is pushed closer to the pole surface. Some configurations can then cross into sectors that look ``nonphysical'' if interpreted configuration by configuration: for example, the single-particle Green's function may suggest negative occupation numbers. Nevertheless, the normalized ensemble remains meaningful through the regularized, analytically continued interpretation of the weight discussed in Sec.~\ref{app:regularization} of the SM~\cite{SM}. In this sense, apparently nonphysical configurations are an unavoidable part of the regularized bosonic auxiliary-field ensemble, even though the final normalized observables remain physical.
 
 The more serious difficulty is numerical rather than conceptual. When the interaction is strong, or when the temperature is lowered so that the imaginary-time evolution becomes longer, the weight distribution broadens and a nonnegligible fraction of configurations can approach the pole surface extremely closely. Their weights then become nearly divergent. This does not introduce a sign problem, but it can badly damage Monte Carlo stability and ergodicity and generate very large statistical errors. Lower temperature makes the problem worse because the product of many time slices produces a broader distribution of single-particle eigenvalues. In practice, this means that finite-temperature number-conserving BAFQMC is best suited to relatively dilute regimes, moderately high temperatures, and weak-to-intermediate interactions.
 
@@ -663,7 +668,7 @@ Project Supported by the Doctor Foundation of Qingdao Binhai University (No. BCZ
 \end{acknowledgments}
 
 \bibliographystyle{apsrev4-2}
-\bibliography{BAFQMC-draft}
+\bibliography{references}
 
 
 
@@ -675,545 +680,6 @@ Project Supported by the Doctor Foundation of Qingdao Binhai University (No. BCZ
 
 
 
-\appendix
-
-\section{Algebra of bosonic quadratic forms}
-\label{app:algebra}
-
-This appendix collects the algebraic identities underlying the BAFQMC formulas. Throughout, operator identities are first understood on the finite-particle subspace, which is invariant under polynomials in creation and annihilation operators. Whenever the relevant exponentials are well defined, the same identities extend by closure to their natural operator domains.
-
-Consider the quadratic generator
-\begin{equation}
-    \hat h(A,\xi) = -\frac12\hat\chi^\trans\Omega A\hat\chi + \xi,
-\end{equation}
-with $A\in\mathfrak{sp}(2N,\mathbb C)$, i.e. $\Omega A+A^\trans\Omega=0$. The first step is to determine its action on the Nambu vector. Using $[XY,Z]=X[Y,Z]+[X,Z]Y$ together with $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$, one finds
-\begin{equation}
-\begin{aligned}
-    [\hat h(A,\xi),\hat\chi_\lambda]
-    ={}& -\frac12\sum_{\mu,\nu,\rho}
-    \Omega_{\mu\nu}A_{\nu\rho}
-    [\hat\chi_\mu\hat\chi_\rho,\hat\chi_\lambda] \\
-    ={}& -\frac12\sum_{\mu,\nu,\rho}
-    \Omega_{\mu\nu}A_{\nu\rho}
-    \left(\hat\chi_\mu\Omega_{\rho\lambda}+\Omega_{\mu\lambda}\hat\chi_\rho\right).
-\end{aligned}
-\end{equation}
-The first term is $-\frac12(\Omega A\Omega\hat\chi)_\lambda$, while the second is $+\frac12(A\hat\chi)_\lambda$. Using the symplectic condition in the form $\Omega A\Omega=A^\trans$, the two contributions combine to give
-\begin{equation}
-    [\hat h(A,\xi),\hat\chi] = -A\hat\chi.
-    \label{eq:appendix_commutator}
-\end{equation}
-The corresponding exponential identities then follow from the Baker-Campbell-Hausdorff expansion:
-\begin{equation}
-    \ee^{\hat h(A,\xi)}\hat\chi\,\ee^{-\hat h(A,\xi)} = \ee^{-A}\hat\chi,
-    \qquad
-    \hat\chi\,\ee^{\hat h(A,\xi)} = \ee^{\hat h(A,\xi)}\ee^{A}\hat\chi.
-\end{equation}
-Iterating this relation over an ordered product immediately yields the transfer-matrix relation used in the main text,
-\begin{equation}
-    \hat\chi\,\prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)}
-    = \left(\prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)}\right)
-      \left(\prod_{\ell=1}^{L}\ee^{A_\ell}\right)\hat\chi,
-\end{equation}
-which is Eq.~\eqref{eq:Mdef}.
-
-\section{Bosonic Gaussian trace formula}
-\label{app:trace}
-
-In this appendix we derive the trace formulas used in the main text. We first treat the number-conserving case by a direct coherent-state calculation and then explain the general paired formula and its branch structure.
-
-\subsection{Number-conserving case}
-\label{app:trace_number}
-
-Consider a Gaussian operator of the form
-\begin{equation}
-    \hat U = \exp\left(\hat{\bb a}^+ C\hat{\bb a} + \xi\right),
-\end{equation}
-where $C$ is an $N\times N$ matrix and $\xi$ is a scalar. Let $\|z\rangle = \exp(\hat{\bb a}^+z)|0\rangle$ denote the unnormalized bosonic coherent state, with $z\in\mathbb C^N$. The standard resolution of the identity is
-\begin{equation}
-    I = \int \frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,
-\end{equation}
-and the overlap is $\langle z\|w\rangle = \ee^{z^\hc w}$.
-
-The operator $\hat U$ acts linearly on coherent states because
-\begin{equation}
-    \hat U\,\hat{\bb a}^+\hat U^{-1} = \hat{\bb a}^+\ee^C,
-\end{equation}
-which follows from $[\hat{\bb a}^+C\hat{\bb a},\hat a_i^+]=\sum_j \hat a_j^+ C_{ji}$. Since the vacuum is annihilated by $\hat{\bb a}$ and is therefore invariant under $\hat U$, we obtain
-\begin{equation}
-    \hat U\|z\rangle = \ee^{\xi}\|\ee^C z\rangle.
-\end{equation}
-Consequently,
-\begin{equation}
-\begin{aligned}
-    \Tr\,\hat U
-    &= \int \frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\langle z\|\hat U\|z\rangle \\
-    &= \ee^{\xi}\int \frac{\dd^{2N}z}{\pi^N}\,\exp\left[-z^\hc(I_N-\ee^C)z\right].
-\end{aligned}
-\end{equation}
-Whenever the Hermitian part of $I_N-\ee^C$ is positive, the Gaussian integral converges absolutely and evaluates to
-\begin{equation}
-    \Tr\,\hat U = \ee^{\xi}\det(I_N-\ee^C)^{-1}.
-    \label{eq:number_trace_appendix}
-\end{equation}
-Because both sides are holomorphic in the entries of $\ee^C$ away from the pole $\det(I_N-\ee^C)=0$, the identity extends meromorphically to all matrices with $\det(I_N-\ee^C)\neq 0$. This proves Eq.~\eqref{eq:trace_formula_number} as an algebraic identity. In number-conserving BAFQMC, however, this meromorphic extension is not by itself the Monte Carlo interpretation when the auxiliary-field integral crosses the pole surface; Appendix~\ref{app:regularization} explains how the same determinant formula is then recovered from Gaussian-cutoff renormalization.
-
-For an ordered product of number-conserving slices,
-\begin{equation}
-    \hat U = \prod_{\ell=1}^{L}\exp\left(\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell\right),
-\end{equation}
-the conjugation relation $\hat{\bb a}\,\hat U = \hat U\,\mc B\hat{\bb a}$ with $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ implies that the product itself is represented by the same single-particle matrix $\mc B$. Hence
-\begin{equation}
-    \Tr\,\hat U = \exp\!\left(\sum_{\ell}\xi_\ell\right)\det(I_N-\mc B)^{-1},
-\end{equation}
-as stated in the main text.
-
-\subsection{General paired case and branch choice}
-\label{app:trace_paired}
-
-For general Gaussian propagators with pairing terms, the trace is no longer given by an ordinary determinant but by a metaplectic character. Let
-\begin{equation}
-    \hat U = \prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)},
-    \qquad
-    \mc M = \ee^{A_1}\cdots\ee^{A_L}.
-\end{equation}
-Whenever the trace converges and $\det(I_{2N}-\mc M)\neq 0$, the standard character formula for the metaplectic representation gives~\cite{thomas2008character}
-\begin{equation}
-    \Tr\,\hat U = \exp\!\left(\sum_{\ell}\xi_\ell\right)\det(I_{2N}-\mc M)^{-1/2},
-    \label{eq:character_formula_appendix}
-\end{equation}
-where the square root must be interpreted on the metaplectic branch. We now explain how that branch is fixed.
-
-The simplest reference region is the stable diagonal sector. Suppose that $\hat U$ is unitarily equivalent, via a bosonic Bogoliubov transformation, to a diagonal number-conserving Gaussian,
-\begin{equation}
-    \hat U \sim \exp\left(\sum_{j=1}^{N}\varepsilon_j\hat\beta_j^+\hat\beta_j + \xi\right),
-    \qquad \operatorname{Re}\varepsilon_j < 0.
-    \label{eq:stable_diagonal}
-\end{equation}
-Strictly speaking, a bosonic Bogoliubov transformation need not always bring a quadratic form directly to diagonal form; in exceptional cases the normal form may contain Jordan blocks. This does not affect the argument below. An arbitrarily small perturbation restores diagonalizability, so the branch can be fixed in the diagonal case and then obtained by taking the infinitesimal-perturbation limit.
-Then
-\begin{equation}
-    \Tr\,\hat U = \ee^{\xi}\prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
-    \label{eq:diag_trace_paired}
-\end{equation}
-On the other hand, the associated Nambu transfer matrix is similar to
-\begin{equation}
-    \diag\left(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},\ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}\right).
-\end{equation}
-Hence $\det(I_{2N}-\mc M)$ is a perfect square up to the normal-ordering factor already absorbed into $\xi$, and Eq.~\eqref{eq:diag_trace_paired} fixes the relevant branch of the square root uniquely. In other words, the notation
-\begin{equation}
-    \det(I_{2N}-\mc M)^{-1/2}
-\end{equation}
-in the main text does \emph{not} mean the principal branch of the complex square root; it means the branch obtained by continuous continuation from the stable diagonal region, where the trace is unambiguously given by Eq.~\eqref{eq:diag_trace_paired}.
-
-To extend the formula beyond that region, note that both sides of Eq.~\eqref{eq:character_formula_appendix} are holomorphic functions of the matrix entries of $\mc M$ on every connected component of the nonsingular manifold
-\begin{equation}
-    \{\mc M\in Sp(2N,\mathbb C)\; ;\; \det(I_{2N}-\mc M)\neq 0\}.
-\end{equation}
-Because they agree on the nonempty open subset corresponding to stable diagonal propagators, the identity theorem implies that they agree on the entire connected component. This yields Eq.~\eqref{eq:trace_formula_main}. Sign or phase ambiguities can only appear when a path in auxiliary-field space precisely crosses the pole $\det(I_{2N}-\mc M)=0$, exactly as expected from the metaplectic double cover.
-
-\section{Equal-time Green's function and local-update ratio}
-\label{app:green}
-
-This appendix derives Eqs.~\eqref{eq:Gformula} and~\eqref{eq:update_ratio_main}.
-
-\subsection{Equal-time Green's function}
-
-Let
-\begin{equation}
-    \hat U = \prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)},
-    \qquad
-    \mc M = \ee^{A_1}\cdots\ee^{A_L}.
-\end{equation}
-From Eq.~\eqref{eq:Mdef},
-\begin{equation}
-    \hat\chi\hat U = \hat U\mc M\hat\chi.
-    \label{eq:chiUappendix}
-\end{equation}
-Multiply this identity on the right by $\hat\chi^\trans$ and take the trace:
-\begin{equation}
-    \Tr\left(\hat\chi\hat U\hat\chi^\trans\right)
-    = \Tr\left(\hat U\mc M\hat\chi\hat\chi^\trans\right)
-    = (\Tr\hat U)\,\mc M G,
-    \label{eq:first_G_step}
-\end{equation}
-where $G$ is the matrix defined in Eq.~\eqref{eq:Gdef}. On the other hand, using $\hat\chi_\mu\hat\chi_\nu = \hat\chi_\nu\hat\chi_\mu + \Omega_{\mu\nu}$,
-\begin{equation}
-    \hat\chi\hat U\hat\chi^\trans = (\hat\chi\hat\chi^\trans-\Omega)\hat U,
-\end{equation}
-whence
-\begin{equation}
-    \Tr\left(\hat\chi\hat U\hat\chi^\trans\right)
-    = (\Tr\hat U)(G-\Omega).
-    \label{eq:second_G_step}
-\end{equation}
-Comparing Eqs.~\eqref{eq:first_G_step} and~\eqref{eq:second_G_step}, we find
-\begin{equation}
-    G-\Omega = \mc M G.
-\end{equation}
-Rearranging gives
-\begin{equation}
-    (I_{2N}-\mc M)G = \Omega,
-\end{equation}
-and therefore
-\begin{equation}
-    G = (I_{2N}-\mc M)^{-1}\Omega.
-\end{equation}
-This is Eq.~\eqref{eq:Gformula}.
-
-\subsection{Update ratio}
-\label{app:update}
-
-Now suppose only slice $\ell$ changes, so that
-\begin{equation}
-    \ee^{A_\ell'} = (I_{2N}+\Delta_\ell)\ee^{A_\ell},
-    \qquad
-    \delta\xi_\ell = \xi_\ell'-\xi_\ell.
-\end{equation}
-Using the cyclic invariance of the trace, we are free to reorder the product so that slice $\ell$ appears first. Define
-\begin{equation}
-    \mc M_\ell = \ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}},
-\end{equation}
-and similarly
-\begin{equation}
-    \mc M_\ell' = (I_{2N}+\Delta_\ell)\mc M_\ell.
-\end{equation}
-Then
-\begin{equation}
-    \frac{W'}{W}
-    = \ee^{\delta\xi_\ell}
-      \frac{\det(I_{2N}-\mc M_\ell')^{-1/2}}{\det(I_{2N}-\mc M_\ell)^{-1/2}}.
-\end{equation}
-Factor the updated matrix as
-\begin{equation}
-\begin{aligned}
-    I_{2N}-\mc M_\ell'
-    &= I_{2N}-(I_{2N}+\Delta_\ell)\mc M_\ell \\
-    &= \left[I_{2N}-\Delta_\ell(I_{2N}-\mc M_\ell)^{-1}\mc M_\ell\right]
-       (I_{2N}-\mc M_\ell).
-\end{aligned}
-\end{equation}
-Therefore
-\begin{equation}
-    \frac{W'}{W}
-    = \ee^{\delta\xi_\ell}
-      \det\left[I_{2N}-\Delta_\ell(I_{2N}-\mc M_\ell)^{-1}\mc M_\ell\right]^{-1/2}.
-    \label{eq:update_intermediate}
-\end{equation}
-Using
-\begin{equation}
-    G_\ell\Omega^{-1} = (I_{2N}-\mc M_\ell)^{-1},
-\end{equation}
-and the identity
-\begin{equation}
-    I_{2N}-(I_{2N}-\mc M_\ell)^{-1} = -(I_{2N}-\mc M_\ell)^{-1}\mc M_\ell,
-\end{equation}
-Eq.~\eqref{eq:update_intermediate} becomes
-\begin{equation}
-    \frac{W'}{W}
-    = \ee^{\delta\xi_\ell}
-      \det\left[I_{2N}+\Delta_\ell\left(I_{2N}-G_\ell\Omega^{-1}\right)\right]^{-1/2},
-\end{equation}
-which is Eq.~\eqref{eq:update_ratio_main}.
-
-\section{Regularized interpretation of the bosonic weight}
-\label{app:regularization}
-
-The bosonic Gaussian trace formula differs from the fermionic one in a crucial respect: the weight has poles rather than zeros. Specifically, due to the Pauli exclusion principle and fermionic statistics, the integrand of the Monte Carlo integral in fermionic AFQMC is proportional to
-\begin{equation}
-    W(\phi)\propto \det\left[I_N+\mc B(\phi)\right]\,.
-\end{equation}
-This is a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite, a pathology known as the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In BAFQMC, the integrand takes the form
-\begin{equation}
-    W(\phi)\propto\det\left[I_{2N}-\mc M(\phi)\right]^{-1/2}
-    \;\text{or}\;
-    \det\left[I_{N}-\mc B(\phi)\right]^{-1} \,.
-\end{equation}
-These expressions exhibit pole structures. In particular, in the number-conserving case, the path integral over the auxiliary field $\phi$ actually crosses the poles where $\det\left[I_{N}-\mc B(\phi)\right]=0$. Near these poles, the bare trace formula for the sampling weight intrinsically diverges, rendering its path integral ill-defined. Below, we provide a regularized interpretation of this situation, demonstrating that these divergent parts cancel exactly. Therefore, as long as the chemical potential $\mu$ is chosen within a physical (sufficiently low) range, the results obtained by sampling according to the standard BAFQMC procedure described in Sec.~\ref{sec:afqmc} remain exact and physical, even if a fraction of the sampled auxiliary-field configurations indeed cross the poles.
-
-Let $r_1(\phi),\dots,r_N(\phi)$ be the eigenvalues of $\mc B(\phi)$. Formally, the bare bosonic trace is the generating series of all occupation-number sectors,
-\begin{equation}
-\begin{aligned}
-    W_{\mathrm{bare}}(\phi)
-    =& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-    \sum_{n_1,\dots,n_N\ge0} a_{\bb n}(\phi), \\
-    a_{\bb n}(\phi)={}& \prod_{i=1}^{N} r_i(\phi)^{n_i}.
-\end{aligned}
-\end{equation}
-When $|r_i(\phi)|<1$ for all $i$, this series converges absolutely and reproduces Eq.~\eqref{eq:trace_formula_number}. If some eigenvalue moves outside the unit circle, however, large-occupation sectors are amplified rather than suppressed, and the bare trace ceases to exist. Physically this is why BAFQMC can encounter poles even though the final grand-canonical partition function is finite.
-
-We therefore define, at fixed configuration $\phi$, the Gaussian-cutoff trace
-\begin{equation}
-\begin{aligned}
-    W_{\Lambda}(\phi)
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \sum_{n_1,\dots,n_N\ge0} a_{\bb n}(\phi) \\
-    &\times \exp\!\left[-\frac{|a_{\bb n}(\phi)|^2}{\Lambda^2}\right].
-\end{aligned}
-    \label{eq:gaussian_cutoff_weight}
-\end{equation}
-For every finite $\Lambda$, the extra Gaussian factor suppresses sufficiently large occupation sectors and the sum is absolutely convergent. The regulator is deliberately chosen in occupation-number space: it suppresses the bosonic states that are responsible for the divergence, rather than trying to move the configuration away from the pole by hand.
-
-It is useful to see the mechanism first in one mode. If $W_{\mathrm{bare}}\sim \sum_{n\ge0} r^n$, then
-\begin{equation}
-    W_{\Lambda}(r)=\sum_{n\ge0} r^n \exp\!\left(-\frac{|r|^{2n}}{\Lambda^2}\right).
-\end{equation}
-For $|r|<1$, the regulator becomes irrelevant as $\Lambda\to\infty$ and $W_{\Lambda}(r)\to (1-r)^{-1}$. For $|r|>1$, the terms with $n\lesssim n_{*}(\Lambda)\equiv \ln\Lambda/\ln|r|$ are almost unsuppressed, so the regulated sum is well approximated by a large partial geometric series:
-\begin{equation}
-    W_{\Lambda}(r)\approx \sum_{n=0}^{n_{*}(\Lambda)} r^n
-    = -\frac{r^{\,n_{*}(\Lambda)+1}}{1-r}+\frac{1}{1-r}.
-\end{equation}
-The first term is cutoff dependent and diverges with $\Lambda$; the second term is cutoff independent. The Gaussian cutoff therefore separates the regulated trace into a divergent piece and a finite piece. The multivariate series in Eq.~\eqref{eq:gaussian_cutoff_weight} behaves in the same way:
-\begin{equation}
-    W_{\Lambda}(\phi)
-    = P_{\Lambda}(\phi)
-    + W_{\mathrm{reg}}(\phi)
-    + O(\Lambda^{-1}),
-\end{equation}
-where $P_{\Lambda}(\phi)$ collects all cutoff-dependent terms that vanish or diverge as $\Lambda\to\infty$, while the $\Lambda$-independent part is
-\begin{equation}
-\begin{aligned}
-    W_{\mathrm{reg}}(\phi)
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)} \\
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
-\end{aligned}
-    \label{eq:reg_weight_appendix}
-\end{equation}
-This finite part coincides with the ordinary trace.
-
-The full auxiliary-field partition function is therefore introduced in two steps. First one keeps the cutoff finite,
-\begin{equation}
-    Z_{\Lambda}
-    = \int \mc D\phi\; P_{\mathrm{aux}}(\phi)\,W_{\Lambda}(\phi).
-\end{equation}
-Only after the auxiliary-field integral is performed does one remove the regulator:
-\begin{equation}
-    Z = \lim_{\Lambda\to\infty} Z_{\Lambda}.
-\end{equation}
-If the physical grand-canonical partition function is finite, the cutoff-dependent pieces contained in $P_{\Lambda}(\phi)$ must cancel after the full auxiliary-field integration; otherwise $Z_{\Lambda}$ would diverge. What survives is exactly the finite part in Eq.~\eqref{eq:reg_weight_appendix}, so that 
-\begin{equation}
-    Z
-    = \int \mc D\phi\; P_{\mathrm{aux}}(\phi)\,W_{\mathrm{reg}}(\phi).
-\end{equation}
-This is why the determinant formula used in BAFQMC should be regarded, in the number-conserving pole-crossing problem, as a renormalized sampling weight rather than as a naive bare trace.
-
-
-\section{Regularized reflection positivity from the semigroup viewpoint}
-\label{app:regularized_rp}
-
-This appendix rewrites the reflection-positivity criterion in the semigroup language~\cite{wei2024prb}. Its purpose is not to replace the cone proof of Sec.~\ref{sec:reflection}, which is the cleanest way to see positivity of the bare convergent trace. Rather, this appendix explains why the same positivity survives when the bosonic weight is understood through the regularized Gaussian formula used in BAFQMC.
-
-We again work with two reflected sets of bosons, $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$, and collect them into the Nambu spinor
-\begin{equation}
-    \hat\chi = (\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans.
-\end{equation}
-A general quadratic generator is written as
-\begin{equation}
-    \hat h = -\frac12\hat\chi^\trans\Omega A\hat\chi,
-\end{equation}
-with $A\in\mathfrak{sp}(4M,\mathbb C)$. Making the reflected left/right structure explicit, one may parameterize $A$ as
-\begin{equation}
-    A=
-    \begin{pmatrix}
-        B_{11} & B_{12} & C_{11} & C_{12} \\
-        B_{21} & B_{22} & C_{12}^\trans & C_{22} \\
-        D_{11} & D_{12} & -B_{11}^\trans & -B_{21}^\trans \\
-        D_{12}^\trans & D_{22} & -B_{12}^\trans & -B_{22}^\trans
-    \end{pmatrix},
-    \label{eq:A_reflected_general}
-\end{equation}
-where $C_{11}=C_{11}^\trans$, $C_{22}=C_{22}^\trans$, $D_{11}=D_{11}^\trans$, and $D_{22}=D_{22}^\trans$.
-
-The reflection used in Sec.~\ref{sec:reflection} is represented on the single-particle space by $J_1$ followed by complex conjugation, with
-\begin{equation}
-    J_1=
-    \begin{pmatrix}
-        0 & I_M & 0 & 0 \\
-        I_M & 0 & 0 & 0 \\
-        0 & 0 & 0 & I_M \\
-        0 & 0 & I_M & 0
-    \end{pmatrix}.
-\end{equation}
-Reflection symmetry of the quadratic generator is therefore
-\begin{equation}
-    J_1^\trans A J_1 = \bar A.
-    \label{eq:J1_reflection_condition}
-\end{equation}
-This is simply the matrix form of exchanging the $\hat b$ and $\hat c$ sectors while conjugating coefficients.
-
-The semigroup viewpoint introduces a second anti-linear structure, represented by $J_2$ followed by complex conjugation,
-\begin{equation}
-    J_2=
-    \begin{pmatrix}
-        0 & I_M & 0 & 0 \\
-        -I_M & 0 & 0 & 0 \\
-        0 & 0 & 0 & I_M \\
-        0 & 0 & -I_M & 0
-    \end{pmatrix},
-\end{equation}
-and the associated Hermitian involution
-\begin{equation}
-    \eta = J_2\Omega,
-    \qquad
-    \eta^\hc = \eta,
-    \qquad
-    \eta^2 = I_{4M}.
-\end{equation}
-The role of $\eta$ is easy to state physically: it separates the part of the Gaussian evolution that merely preserves the natural indefinite metric from the part that produces genuine contraction or expansion. Matrices satisfying
-\begin{equation}
-    g^\hc\eta g = \eta
-\end{equation}
-form the maximal subgroup associated with this metric. Relaxing the equality to
-\begin{equation}
-    g^\hc\eta g - \eta \preceq 0
-    \qquad\text{or}\qquad
-    g^\hc\eta g - \eta \succeq 0
-\end{equation}
-defines the corresponding contraction and expansion semigroups.
-
-With $J_2$ in hand, the reflected generator splits naturally into
-\begin{equation}
-    A = A_{+} + A_{-},
-    \qquad
-    A_{\pm} = \frac12\left(A \pm J_2^\trans \bar A J_2\right).
-    \label{eq:Apm_def}
-\end{equation}
-This decomposition has a simple meaning. The $A_{+}$ part is even under the $J_2$ anti-linear symmetry and behaves like a metric-preserving piece. The $A_{-}$ part is odd under that symmetry and contains the couplings that control whether the evolution moves into a contraction or expansion sector.
-
-Using Eqs.~\eqref{eq:A_reflected_general} and~\eqref{eq:Apm_def}, one finds
-\begin{equation}
-    A_{+}=
-    \begin{pmatrix}
-        B_{11} & 0 & C_{11} & 0 \\
-        0 & \bar B_{11} & 0 & \bar C_{11} \\
-        D_{11} & 0 & -\bar B_{11} & 0 \\
-        0 & \bar D_{11} & 0 & -B_{11}
-    \end{pmatrix},
-    \label{eq:Aplus_form}
-\end{equation}
-where $C_{11}=C_{11}^\trans$ and $D_{11}=D_{11}^\trans$. Combining the symplectic condition with $J_2^\trans A_{+}J_2=\bar A_{+}$ gives
-\begin{equation}
-    A_{+}^\hc\eta + \eta A_{+} = 0.
-\end{equation}
-Therefore $\exp(A_{+})$ preserves the metric $\eta$. This is the part of the reflected Gaussian propagator that moves inside the maximal subgroup but does not change the sign structure of the regularized weight.
-
-The complementary part is
-\begin{equation}
-    A_{-}=
-    \begin{pmatrix}
-        0 & B_{12} & 0 & C_{12} \\
-        \bar B_{12} & 0 & \bar C_{12} & 0 \\
-        0 & D_{12} & 0 & -B_{12}^{\hc} \\
-        \bar D_{12} & 0 & -B_{12}^\trans & 0
-    \end{pmatrix},
-    \label{eq:Aminus_form}
-\end{equation}
-with $C_{12}=C_{12}^{\hc}$ and $D_{12}=D_{12}^{\hc}$. Unlike $A_{+}$, this piece is not metric-preserving. Instead, the combination $\eta A_{-}$ is Hermitian:
-\begin{equation}
-    \eta A_{-} = J_2\Omega A_{-} =
-    \begin{pmatrix}
-        \bar D_{12} & 0 & -B_{12}^\trans & 0 \\
-        0 & -D_{12} & 0 & B_{12}^{\hc} \\
-        -\bar B_{12} & 0 & -\bar C_{12} & 0 \\
-        0 & B_{12} & 0 & C_{12}
-    \end{pmatrix}.
-    \label{eq:etaAminus}
-\end{equation}
-This makes the cone structure visible, but it becomes especially transparent after a simple reordering of basis. Introduce the permutation matrix
-\begin{equation}
-    \Pi=
-    \begin{pmatrix}
-        0 & 0 & 0 & I_M \\
-        0 & I_M & 0 & 0 \\
-        0 & 0 & I_M & 0 \\
-        I_M & 0 & 0 & 0
-    \end{pmatrix},
-\end{equation}
-which rearranges the block basis from $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)$ to $(\hat{\bb c}^+,\hat{\bb c},\hat{\bb b}^+,\hat{\bb b})$. Then
-\begin{equation}
-    \Pi^\trans (\eta A_{-}) \Pi =
-    \begin{pmatrix}
-        K & 0 \\
-        0 & -\bar K
-    \end{pmatrix},
-    \qquad
-    K =
-    \begin{pmatrix}
-        C_{12} & B_{12} \\
-        B_{12}^{\hc} & -D_{12}
-    \end{pmatrix}.
-    \label{eq:etaAminus_diag}
-\end{equation}
-So after this reordering, all the information in the cone part is reduced to a single Hermitian block $K$. This is the same object that appears in the operator formulation: positivity of the reflected bilinear couplings in Eq.~\eqref{eq:rp_block_form} is exactly the requirement
-\begin{equation}
-    K \succeq 0.
-    \label{eq:K_positive}
-\end{equation}
-The semigroup meaning of Eq.~\eqref{eq:K_positive} is now immediate. One block in Eq.~\eqref{eq:etaAminus_diag} is positive, while the other is its negative complex conjugate. Equivalently, the reflected cone part always comes as a paired expansion sector together with its companion contraction sector. This is the single-particle version of reflection positivity.
-
-Why does this help with the regularized bosonic weight? In the convergent region, positivity is already guaranteed by the cone argument of Sec.~\ref{sec:reflection}. For the paired RP sector we then move within a pole-free connected component and keep the same metaplectic branch. The point of the semigroup decomposition above is that it prevents the reflected Gaussian propagator from wandering arbitrarily in matrix space. The $A_{+}$ piece moves only inside the metric-preserving subgroup, while the $A_{-}$ piece enters through the paired block structure of Eq.~\eqref{eq:etaAminus_diag}. Starting from any convergent reflection-positive reference point, one can continuously deform the propagator within the same reflected semigroup sector without touching the singular locus, and the regularized determinant therefore stays on the same nonnegative branch. In this sense the semigroup structure is the single-particle image of RP for the paired regularized weight.
-
-For an ordered product of reflection-positive slices, the same decomposition is applied slice by slice. The reflected structure is therefore preserved throughout the imaginary-time evolution, and the full BAFQMC configuration weight remains nonnegative after regularization as well. This statement is the paired counterpart of Appendix~\ref{app:regularization}: it relies on staying in one pole-free component rather than on subtracting cutoff-dependent divergences.
-
-\section{Details of the time-reversal-symmetry argument}
-\label{app:kramers}
-
-We now spell out the time-reversal-symmetry argument used in Sec.~\ref{sec:trs}. The logic is the same as in the familiar Kramers pairing argument for antiunitary symmetries~\cite{sakurai2017modern}, except that here it is applied to the single-particle propagator $\mc B$, which need not be Hermitian. Let
-\begin{equation}
-    \mc B = \ee^{B_1}\cdots\ee^{B_L},
-    \qquad
-    U^\hc\overline{B_\ell}U = B_\ell,
-    \qquad
-    UU^*=-I_N.
-\end{equation}
-Since complex conjugation commutes with the matrix exponential,
-\begin{equation}
-    U^\hc\overline{\ee^{B_\ell}}U = \ee^{B_\ell},
-\end{equation}
-and hence, by multiplication,
-\begin{equation}
-    U^\hc\overline{\mc B}U = \mc B.
-    \label{eq:Bsym_prod}
-\end{equation}
-Define the antiunitary operator $\Theta=UK$ on the single-particle space. Equation~\eqref{eq:Bsym_prod} is precisely the statement that $\Theta$ commutes with $\mc B$.
-
-If $\mc Bv=\lambda v$, then
-\begin{equation}
-    \mc B(\Theta v)=\Theta(\mc Bv)=\lambda^*\Theta v,
-\end{equation}
-so nonreal eigenvalues appear in complex-conjugate pairs. The remaining issue is the multiplicity of real eigenvalues.
-
-Let $r\in\mathbb R$ be a real eigenvalue, and let $\mc E_r$ be its generalized eigenspace,
-\begin{equation}
-    \mc E_r = \ker\left[(\mc B-rI_N)^m\right],
-\end{equation}
-for $m$ large enough that the kernel stabilizes. Because $\Theta$ commutes with $\mc B$, the space $\mc E_r$ is invariant under $\Theta$. Moreover, $\Theta^2=UU^*=-I_N$ on $\mc E_r$. We claim that this forces $\dim_\mathbb C \mc E_r$ to be even.
-
-Indeed, if a nonzero vector $v\in\mc E_r$ satisfied $\Theta v = \alpha v$ for some complex $\alpha$, then applying $\Theta$ once more would give
-\begin{equation}
-    -v = \Theta^2 v = \Theta(\alpha v) = \overline{\alpha}\Theta v = |\alpha|^2 v,
-\end{equation}
-which is impossible. Thus $v$ and $\Theta v$ are linearly independent. Starting from any nonzero $v_1\in\mc E_r$, the pair $\{v_1,\Theta v_1\}$ spans a two-dimensional $\Theta$-invariant subspace. Repeating the construction on the orthogonal complement produces a basis of $\mc E_r$ in such pairs, so $\dim_\mathbb C\mc E_r$ is even. Since the dimension of $\mc E_r$ is exactly the algebraic multiplicity $m_r$ of the eigenvalue $r$, every real eigenvalue has even algebraic multiplicity.
-
-We may therefore factor the characteristic polynomial of $\mc B$ as
-\begin{equation}
-    \det(xI_N-\mc B)
-    = \prod_{\lambda\notin\mathbb R}(x-\lambda)(x-\lambda^*)
-      \prod_{r\in\mathbb R}(x-r)^{m_r},
-\end{equation}
-with $m_r$ even. Setting $x=1$ yields
-\begin{equation}
-    \det(I_N-\mc B)
-    = \prod_{\lambda\notin\mathbb R}|1-\lambda|^2
-      \prod_{r\in\mathbb R}(1-r)^{m_r}
-    \ge 0.
-\end{equation}
-Finally, since the slice scalars $\xi_\ell$ are real,
-\begin{equation}
-    W(\phi) = \exp\!\left(\sum_\ell \xi_\ell\right)\det(I_N-\mc B)^{-1}\ge 0,
-\end{equation}
-whenever the determinant is nonzero. This completes the time-reversal-symmetry argument.
+\input{SM.tex}
 
 \end{document}

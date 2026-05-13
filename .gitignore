@@ -1,7 +1,7 @@
 # LaTeX build output
 /.build/
 /pdf/
-/BAFQMC-draft*.pdf
+/main*.pdf
 
 # Local assistant/tool state
 /.agents/
