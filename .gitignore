@@ -6,13 +6,13 @@
 # Local figure previews generated from PDFs
 /figures/*.png
 
-# Local reference-paper PDFs used for style analysis
-/docs/prl_style_corpus/pdfs/
-
-# Local assistant/tool state
+# Local assistant/tool state, except project-level Codex configuration/skills
 /.agents/
 /.claude/
-/.codex/
+/.codex/*
+!/.codex/config.toml
+!/.codex/skills/
+!/.codex/skills/**
 
 # Editor and OS files
 *.swp

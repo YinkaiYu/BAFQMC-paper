@@ -1,0 +1,90 @@
+# Project-local Codex configuration for the BAFQMC paper.
+# This file is intentionally focused on manuscript work, not software engineering.
+
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+personality = "pragmatic"
+approvals_reviewer = "guardian_subagent"
+
+[plugins."superpowers@openai-curated"]
+enabled = false
+
+[[skills.config]]
+path = "./.codex/skills/bafqmc-prl-revision/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "/home/yyk/.codex/skills/latex-beamer-poster/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/android-native-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/buddy-sings/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/flutter-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/frontend-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/fullstack-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/gif-sticker-maker/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/ios-application-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-docx/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-multimodal-toolkit/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-music-gen/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-music-playlist/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-pdf/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/minimax-xlsx/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/pptx-generator/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/react-native-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/shader-dev/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/.codex/minimax-skills/skills/vision-analysis/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/home/yyk/project/instreet-paimon/skills/paimon-instreet-autopilot/SKILL.md"
+enabled = false

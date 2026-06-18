@@ -32,6 +32,7 @@ Before delivering any manuscript edit to the user:
 - Keep the prose in polished scientific English suitable for APS journals.
 - Prefer PRL-like structure: sharp motivation, compact statement of novelty, minimal repetition, and direct connection between formal results and physical consequences.
 - The central framing follows Fig. 1: bosonic sign-problem-free regions are classified by the presence of RP/TRS and by lattice frustration. BAFQMC covers the RP/TRS half-plane; SSE/WLQMC covers the unfrustrated half-plane; the frustrated but RP/TRS quadrant is the new computable territory revealed by this work.
+- For substantial PRL restructuring, style analysis, Section IV rewriting, Introduction rewriting, or post-edit review, use the project-level skill at `.codex/skills/bafqmc-prl-revision/SKILL.md`.
 - Write for the paper's actual audience: readers, referees, and editors. The manuscript should read as a coherent scientific story, not as a record of the author-assistant collaboration.
 - Do not insert sentences or paragraphs that explicitly answer the user's prompt, advertise the revision, or call attention to the fact that a requested change was made. Such text is inappropriate in the manuscript because readers do not have the collaboration context.
 - Preserve mathematical precision. Do not simplify sign-positivity, regularization, or branch-choice arguments in ways that weaken the claims.
@@ -40,12 +41,7 @@ Before delivering any manuscript edit to the user:
 - Prefer concise PRL-style paragraphs in the main text. Put longer derivations, caveats, and implementation details in the Supplemental Material.
 - Gradually move the tone from a mathematics-paper style toward a theoretical-physics style. Maintain rigor, but avoid unnecessarily obscure mathematical jargon and explain the physical picture whenever it helps the reader understand the formal result.
 - Write with appropriate confidence: the sign-problem-free bosonic auxiliary-field quantum Monte Carlo method proposed here is a highly innovative and important contribution. The prose should make the significance clear.
-- Avoid framing arguments with unnecessary "not ... but ..." constructions. State the intended positive claim directly instead of first attributing a view to the reader and negating it.
-- Minimize dashes in prose. Use shorter sentences, commas, parentheses, or separate sentences when they are clearer.
-- Use the previous sign-problem-free QMC Letter/Rapid papers as style references only. Do not let their physics content distort this manuscript's claims.
-- The Introduction should read as a complete, continuous story. Every sentence should serve motivation, context, novelty, or significance; avoid generic roadmap prose unless it materially helps the reader.
-- Reference coverage should be broad, correct, and purposeful. The final bibliography is expected to be substantially larger than the current draft, likely on the order of 60--100 references if justified by the literature.
-- Add references whenever a condensed logical step relies on known background or when the reader needs a route to the underlying literature.
+- Reference coverage should be broad, correct, and purposeful. Add references whenever a condensed logical step relies on known background or when the reader needs a route to the underlying literature.
 
 ## Current Manuscript State
 
@@ -67,4 +63,3 @@ Before delivering any manuscript edit to the user:
 - If the user's request is ambiguous or underspecified, ask a clarifying question before making a change that could affect the physics, claims, comparison baseline, or manuscript structure.
 - Keep generated build artifacts out of version control; `.build/` and `pdf/` are ignored.
 - Generated PNG previews of PDF figures are local inspection artifacts and should stay ignored by git.
-- Use `opencode` as an optional external prose reviewer when revising important manuscript passages, especially the Introduction and concluding prose.

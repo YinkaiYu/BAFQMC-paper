@@ -6,7 +6,7 @@
 
 **Architecture:** Work in small reviewable manuscript-edit passes. Each pass changes one conceptual layer: structure, Section II, Section III, benchmark Section IV, concluding remarks, then abstract/introduction. Main text must stay self-contained and convincing without detailed proofs; SM must remain rigorous enough to support all moved claims.
 
-**Tech Stack:** REVTeX 4.2, `latexmk main.tex`, `.latexmkrc` PDF copy to `pdf/`, repository diff-PDF workflow once the comparison base is chosen, benchmark reports from the two data repositories, APS/PRL author instructions, local PNG previews generated from PDF figures, `opencode` for optional prose review, and the four sign-problem-free QMC Letter/Rapid style references.
+**Tech Stack:** REVTeX 4.2, `latexmk main.tex`, `.latexmkrc` PDF copy to `pdf/`, repository diff-PDF workflow, benchmark reports from the two data repositories, APS/PRL author instructions, local PNG previews generated from PDF figures, the project-level `.codex/skills/bafqmc-prl-revision` skill, `opencode` for optional prose review, and the four sign-problem-free QMC Letter/Rapid style references.
 
 ---
 
@@ -100,15 +100,12 @@
 These must be resolved before edits that change physics claims or figure content.
 
 1. Diff baseline:
-   - Before any manuscript edit is called complete, choose the baseline for `pdf/main-diff.pdf`.
-   - If no established diff command is documented, ask for the comparison base rather than inventing one.
+   - Default baseline for `pdf/main-diff.pdf`: the previous version or commit containing substantive manuscript-content edits.
+   - Ask the author only when this default is ambiguous for a given edit.
 
 2. Reference-corpus workflow:
-   - Commit only notes/metadata and keep arXiv PDFs outside version control under `docs/prl_style_corpus/pdfs/`.
-   - Avoid committing copyrighted publisher PDFs.
-
-3. Skill location:
-   - Decide whether the PRL-style writing skill should be global under `$CODEX_HOME/skills` or kept as a repository-local documented workflow.
+   - Style references are integrated into the project-level skill at `.codex/skills/bafqmc-prl-revision`.
+   - Do not maintain a separate `docs/prl_style_corpus` directory.
 
 ## Resolved Author Decisions
 
@@ -116,6 +113,7 @@ These must be resolved before edits that change physics claims or figure content
 - The main-text application/example section should initially use the real positive triangular hopping used in the benchmark.
 - Fig. 1 must remain in the main text.
 - Section IV is a good first manuscript section to rewrite after repository infrastructure and style corpus are ready.
+- The PRL revision skill should be project-level, not global.
 
 ## Phase 0: Baseline And Guardrails
 
@@ -133,17 +131,18 @@ These must be resolved before edits that change physics claims or figure content
   - Expected: a written baseline in the active revision notes.
 
 - [ ] Step 3: Decide diff baseline with the author.
-  - Ask which base should be used for `pdf/main-diff.pdf`.
-  - Do not generate a diff PDF until the baseline is known.
+  - Default to the previous version or commit containing substantive manuscript-content edits.
+  - Ask the author only when that base is ambiguous.
 
-## Phase 1: Build The PRL Style Corpus
+## Phase 1: Maintain The Project PRL Revision Skill
 
 **Files:**
-- Create: `docs/prl_style_corpus/sign_problem_letters.md`.
-- Download locally, ignored by git: `docs/prl_style_corpus/pdfs/*.pdf`.
+- Maintain: `.codex/skills/bafqmc-prl-revision/SKILL.md`.
+- Maintain: `.codex/skills/bafqmc-prl-revision/references/*.md`.
+- Maintain: `.codex/skills/bafqmc-prl-revision/assets/reference-pdfs/*.pdf`.
 - Modify later if approved: no manuscript source files.
 
-- [ ] Step 1: Read and summarize the four reference papers.
+- [x] Step 1: Read and summarize the four reference papers.
   - Sources:
     - arXiv:1408.2269 / Phys. Rev. B 91, 241117(R) (2015).
     - arXiv:1506.05349 / Phys. Rev. Lett. 115, 250601 (2015).
@@ -152,13 +151,13 @@ These must be resolved before edits that change physics claims or figure content
   - Extract only style structure: abstract shape, section rhythm, theorem/proof placement, figure usage, relation between main text and SM.
   - Estimate words in the main article PDFs to calibrate realistic Letter length, recognizing that arXiv/PDF extraction counts are approximate.
 
-- [ ] Step 2: Convert style lessons into a reusable local checklist.
+- [x] Step 2: Convert style lessons into a reusable local checklist.
   - Include: one-sentence physical principle, two to three core equations, proof sketch only, benchmark/model demonstration, limitations/outlook.
 
-- [ ] Step 3: Decide whether to create a formal Codex skill later.
-  - If approved, use the skill-creator workflow in a separate turn.
-  - The skill should encode writing conventions, not paper-specific physics details.
-  - A skill draft should include: Fig. 1-style positive framing, avoidance of unnecessary "not ... but ..." logic, minimized dashes, citation verification discipline, and optional `opencode` prose review.
+- [x] Step 3: Create a project-level Codex skill.
+  - Location: `.codex/skills/bafqmc-prl-revision`.
+  - The skill is targeted to this manuscript transformation.
+  - It includes reference PDFs, style analysis, paragraph blueprints, review prompts, and citation verification workflow.
 
 ## Phase 2: Reorganize Supplemental Material First
 
@@ -352,7 +351,8 @@ These must be resolved before edits that change physics claims or figure content
   - Fix introduced warnings before delivery.
 
 - [ ] Step 3: Refresh diff PDF.
-  - Use the repository's established diff workflow once the baseline is known.
+  - Use the repository's established diff workflow.
+  - Default comparison base: the previous substantive manuscript-content edit commit.
   - Expected: `pdf/main-diff.pdf` refreshed.
 
 - [ ] Step 4: Inspect PDF.
@@ -387,10 +387,8 @@ These must be resolved before edits that change physics claims or figure content
 
 Use this sequence for the next working turn after author decisions:
 
-- [ ] Create `docs/prl_style_corpus/sign_problem_letters.md`.
-- [ ] Download arXiv PDFs for the four style-reference papers into the ignored PDF cache.
-- [ ] Estimate their main-text word counts and record limitations of the count.
-- [ ] Draft a PRL-writing skill proposal or create a global skill after author confirmation on skill location.
+- [x] Create project-level `.codex/skills/bafqmc-prl-revision`.
+- [x] Integrate arXiv PDFs and style-reference analysis into the project skill assets.
 - [ ] Run baseline compile and record warnings.
 - [ ] Copy the two benchmark PDFs into `figures/` with approved names.
 - [ ] Add SM numerical-details section using the two reports.
