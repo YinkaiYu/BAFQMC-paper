@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section IV Revision Companion</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18202a;
+      --muted: #5d6878;
+      --line: #d8dee8;
+      --paper: #f6f7f9;
+      --panel: #ffffff;
+      --blue: #1f6f9f;
+      --gold: #9a6b13;
+      --red: #a83b2c;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .figure-panel img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .figure-panel + .figure-panel {
+      margin-top: 16px;
+    }
+
+    .caption {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      border-left: 4px solid var(--blue);
+      background: #f8fbfd;
+      padding: 10px 12px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .equation {
+      overflow-x: auto;
+      white-space: nowrap;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
+      padding: 11px 12px;
+      margin: 10px 0;
+      background: #fbfbfc;
+      border: 1px solid var(--line);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #fbfbfc;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .callout {
+      border-left: 4px solid var(--gold);
+      background: #fffaf0;
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+
+    .risk {
+      border-left-color: var(--red);
+      background: #fff7f5;
+    }
+
+    @media (max-width: 900px) {
+      .grid,
+      .two {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Section IV Revision Companion</h1>
+        <p class="subtle">Working board for the Sec. IV rewrite. This is a discussion aid, not manuscript text.</p>
+      </div>
+      <p class="subtle">Figures: <code>benchmark_number_conserving</code>, <code>benchmark_pairing_delta</code></p>
+    </header>
+
+    <section class="grid">
+      <div>
+        <div class="panel figure-panel">
+          <h2>Fig. 2 Candidate: Number-Conserving Benchmark</h2>
+          <img src="../../../figures/benchmark_number_conserving.png" alt="Number-conserving benchmark figure">
+          <p class="caption">3x3 triangular lattice. Top row scans U2 at U1=0, mu=-3.5, beta=4. Bottom row scans U1 at U2=1, mu=-7, beta=1. Panels show rho, -E, S_SF(K), and S_DW(K).</p>
+        </div>
+
+        <div class="panel figure-panel">
+          <h2>Fig. 3 Candidate: Pairing Benchmark</h2>
+          <img src="../../../figures/benchmark_pairing_delta.png" alt="Pairing benchmark figure">
+          <p class="caption">3x3 triangular lattice. Delta scan at U1=0, U2=1, mu=-5, beta=4. Panels show the same four observables, using the Nambu-basis BAFQMC implementation.</p>
+        </div>
+      </div>
+
+      <div class="flow">
+        <div class="panel">
+          <h2>Recommended Main-Text Flow</h2>
+          <div class="step">
+            <strong>1. State one benchmark family.</strong>
+            Use a two-flavor Bose-Hubbard model on the triangular lattice with real positive hopping.
+          </div>
+          <div class="step">
+            <strong>2. Mark the sign-free structure.</strong>
+            For U1 <= 0 and U2 >= 0, the density channels admit the RP/TRS-compatible auxiliary-field form. Delta adds an onsite reflected pairing channel.
+          </div>
+          <div class="step">
+            <strong>3. Present two cuts.</strong>
+            Fig. 2 uses Delta=0 and number conservation. Fig. 3 turns on Delta and uses the paired Nambu formulation.
+          </div>
+          <div class="step">
+            <strong>4. Move details to the SM.</strong>
+            Keep ED cutoffs, block-size diagnostics, K-point conventions, and observable formulae out of the main text unless a compact definition is needed.
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Unified Model Formula</h2>
+          <p class="subtle">Candidate equation for the main text.</p>
+          <div class="equation">
+            H_mu = H_phys - mu N, &nbsp;&nbsp;
+            H_phys = t sum_&lt;ij&gt;,a (a_ai^dag a_aj + h.c.)
+            + U1 sum_i n_{i,+}^2
+            + U2 sum_i n_{i,-}^2
+            + Delta sum_i (b_i^dag c_i^dag + b_i c_i)
+          </div>
+          <div class="chips">
+            <span class="chip">n_i,+ = n_b,i + n_c,i</span>
+            <span class="chip">n_i,- = n_b,i - n_c,i</span>
+            <span class="chip">t &gt; 0</span>
+            <span class="chip">U1 <= 0</span>
+            <span class="chip">U2 >= 0</span>
+            <span class="chip">Delta >= 0</span>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="callout">
+            <strong>Main-text emphasis.</strong>
+            This example lies in the frustrated triangular-lattice sector and in the RP/TRS sign-free sector of Fig. 1.
+          </div>
+          <div class="callout risk">
+            <strong>Point to verify.</strong>
+            Pairing sign convention must follow the report: +Delta(b^dag c^dag + bc). The RP block statement should be checked against this convention before editing equations.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
