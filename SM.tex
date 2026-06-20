@@ -580,19 +580,20 @@ whenever the determinant is nonzero. This completes the time-reversal-symmetry a
 \section{Benchmark model, observables, and numerical details}
 \label{app:benchmark_details}
 
-This section records the conventions used for the benchmark figures in the main text. The simulations use the physical Hamiltonian in Eq.~\eqref{eq:benchmark_pairing}; the grand-canonical sampling weight contains $\hat H-\mu \hat N$, with $\hat N=\sum_i(\hat n_{b,i}+\hat n_{c,i})$. The energy plotted in Figs.~\ref{fig:benchmark_number} and~\ref{fig:benchmark_pairing} is always $E=\langle \hat H\rangle$, not $\langle \hat H-\mu\hat N\rangle$.
+This section records the conventions used for the benchmark figures in the main text. The simulations use the physical Hamiltonian in Eq.~\eqref{eq:benchmark_pairing}; the grand-canonical sampling weight contains $\hat H-\mu \hat N$, with $\hat N=\sum_i(\hat n_{b,i}+\hat n_{c,i})$. The energy plotted in Figs.~\ref{fig:benchmark_number} and~\ref{fig:benchmark_pairing} is $E=\langle \hat H\rangle$; the chemical potential enters only the sampling weight.
 
 \subsection{Density-channel decoupling}
 \label{app:benchmark_hs}
 
-For $U_1\le0$ and $U_2\ge0$, the two onsite interactions are decoupled exactly as in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}. For fixed auxiliary fields on time slice $\ell$, the number-conserving part of the one-body generator is
+For $U_1\le0$ and $U_2\ge0$, the two onsite interactions are decoupled exactly as in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}. For fixed auxiliary fields on time slice $\ell$, the number-conserving part of the grand-canonical one-body generator is
 \begin{equation}
 \begin{aligned}
     \hat h_\ell^{(0)}
     ={}& -\Delta\tau\, t\sum_{\langle ij\rangle}
     \left(\hat b_i^{\hc}\hat b_j+\hat c_i^{\hc}\hat c_j+\hc\right)\\
     &+\sum_i\left(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}\right)\hat n_{b,i}
-    +\sum_i\left(\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}\right)\hat n_{c,i}.
+    +\sum_i\left(\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}\right)\hat n_{c,i}\\
+    &+\Delta\tau\mu\sum_i\left(\hat n_{b,i}+\hat n_{c,i}\right).
 \end{aligned}
 \end{equation}
 The two flavor sectors are therefore complex conjugates. This gives the RP form $\hat q_\ell+\theta(\hat q_\ell)$ with $\theta(\hat b_i)=\hat c_i$ and $\theta(\ii)=-\ii$, and also the TRS block form used in the main text.
@@ -600,18 +601,18 @@ The two flavor sectors are therefore complex conjugates. This gives the RP form 
 \subsection{Pairing-sign convention}
 \label{app:benchmark_pairing_convention}
 
-The benchmark reports use the physical convention
+The numerical benchmarks use the physical convention
 \begin{equation}
     \hat H_\Delta=\Delta\sum_i\left(\hat b_i^{\hc}\hat c_i^{\hc}+\hat b_i\hat c_i\right),
     \qquad \Delta\ge0.
 \end{equation}
-Introduce $\tilde c_i=-\hat c_i$. This global gauge transformation leaves the hopping term and the density interactions invariant but sends
+Introduce $\hat{\tilde c}_i=-\hat c_i$. This global gauge transformation leaves the hopping term and the density interactions invariant but sends
 \begin{equation}
     \hat H_\Delta
     \mapsto
-    -\Delta\sum_i\left(\hat b_i^{\hc}\tilde c_i^{\hc}+\hat b_i\tilde c_i\right).
+    -\Delta\sum_i\left(\hat b_i^{\hc}\hat{\tilde c}_i^{\hc}+\hat b_i\hat{\tilde c}_i\right).
 \end{equation}
-In this gauge the Trotter generator contains $+\Delta\tau\Delta\sum_i(\hat b_i^{\hc}\tilde c_i^{\hc}+\hat b_i\tilde c_i)$, which is the positive reflected anomalous block in Eq.~\eqref{eq:rp_block_form}. In the main-text RP ordering $(\hat{\bb b},\hat{\bb b}^{\hc},\hat{\tilde{\bb c}},\hat{\tilde{\bb c}}^{\hc})^\trans$, this corresponds to $F=(\Delta\tau\Delta/2)I_{2N_s}\succeq0$. The gauge transformation is unitary and does not change the trace or the Monte Carlo weight, so the report convention and the RP-positive block convention describe the same sign-free model.
+In this gauge the Trotter generator contains $+\Delta\tau\Delta\sum_i(\hat b_i^{\hc}\hat{\tilde c}_i^{\hc}+\hat b_i\hat{\tilde c}_i)$, which is the positive reflected anomalous block in Eq.~\eqref{eq:rp_block_form}. In the RP ordering $(\hat{\bb b},\hat{\bb b}^{\hc},\hat{\tilde{\bb c}},\hat{\tilde{\bb c}}^{\hc})^\trans$, this corresponds to $F=(\Delta\tau\Delta/2)I_{2N_s}\succeq0$. The gauge transformation is unitary and does not change the trace or the Monte Carlo weight, so the benchmark convention and the RP-positive block convention describe the same sign-free model.
 
 \subsection{Observable and geometry conventions}
 \label{app:benchmark_observables}
@@ -644,11 +645,11 @@ and
     \qquad
     \hat n_i=\hat n_{b,i}+\hat n_{c,i}.
 \end{equation}
-The plotted energy panel uses $-E$ so that all four panels can be displayed on positive vertical scales in the low-density benchmark windows.
+The plotted energy panel uses $-E$, which keeps all four panels on positive vertical scales.
 
 \subsection{Numerical parameters}
 \label{app:benchmark_numerics}
 
 For Fig.~\ref{fig:benchmark_number}, the number-conserving calculations set $\Delta=0$ and use $\Delta\tau=0.01$. The upper row scans $U_2=0,0.125,0.25,0.375,0.5,0.75,1,1.25,1.5,2$ at $U_1=0$, $\mu=-3.5$, and $\beta=4$. The lower row scans $U_1=-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0$ at $U_2=1$, $\mu=-7$, and $\beta=1$. Each BAFQMC point uses $100000$ production samples grouped into blocks of size $10000$.
 
-For Fig.~\ref{fig:benchmark_pairing}, the paired calculations fix $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and scan $\Delta=0,0.05,\ldots,0.30$. The production runs use $\Delta\tau=0.01$, $500$ warmup sweeps, and $100000$ samples grouped into blocks of size $10000$. The finite-$\Delta$ ED references use a truncated occupation basis with convergence checked against the low-density weight in the highest retained shells. The small residuals at the largest $\Delta$ values are much smaller than the scale of the curves in Fig.~\ref{fig:benchmark_pairing}; time-step and ED-cutoff floors are the natural systematic checks for future refinements.
+For Fig.~\ref{fig:benchmark_pairing}, the paired calculations fix $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and scan $\Delta=0,0.05,\ldots,0.30$. The production runs use $\Delta\tau=0.01$, $500$ warmup sweeps, and $100000$ samples grouped into blocks of size $10000$. The finite-$\Delta$ ED references use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. At the largest $\Delta$ values, the leading residual systematics are the time-step error and the ED occupation cutoff.
