@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delta 符号与 pairing BAFQMC benchmark 的规范等价性</title>
+  <style>
+    body { margin: 0; color: #202428; background: #fff; font: 15px/1.68 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 1120px; margin: 0 auto; padding: 28px 24px 48px; }
+    h1 { margin: 0 0 6px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 30px 0 10px; font-size: 20px; line-height: 1.35; border-bottom: 1px solid #d0d7de; padding-bottom: 4px; }
+    h3 { margin: 22px 0 8px; font-size: 16px; line-height: 1.35; }
+    p { margin: 8px 0; }
+    code { background: #f6f8fa; padding: 1px 4px; border-radius: 4px; font-size: 0.92em; overflow-wrap: anywhere; }
+    .meta { color: #57606a; margin-bottom: 18px; }
+    .summary { border-left: 4px solid #1f6f8b; background: #f6f8fa; padding: 12px 15px; margin: 16px 0 20px; }
+    .warning { border-left: 4px solid #9a6700; background: #fff8c5; padding: 12px 15px; margin: 16px 0; }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 16px; }
+    table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13px; }
+    th, td { border: 1px solid #d0d7de; padding: 6px 8px; vertical-align: top; }
+    th { background: #f6f8fa; text-align: left; }
+    figure { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #d0d7de; }
+    figure img { display: block; width: 100%; max-width: 100%; height: auto; }
+    figcaption { margin-top: 7px; color: #3b434b; font-size: 13px; line-height: 1.45; }
+    .figure-story { margin: 18px 0 28px; }
+    .interpretation { margin-top: 8px; }
+    .small { color: #57606a; font-size: 13px; }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+  </style>
+  <script>
+    window.MathJax = {tex: {inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']]}};
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <h1>\(\Delta\) 符号与 pairing BAFQMC benchmark 的规范等价性</h1>
+  <p class="meta">生成日期：2026-06-21；分析对象：
+    <code>code_bosonDQMC_paring/data/20260605_pairing_delta_mu_m5_production</code>；
+    结论状态：当前 \(+\Delta\) benchmark 不因规范变换问题而失效。</p>
+
+  <div class="summary">
+    <p><strong>核心结论。</strong> 现有 pairing benchmark 使用的物理模型是
+    \(+\Delta\sum_i(b_i^+c_i^+ + b_i c_i)\)。全局变换
+    \(c_i\mapsto -c_i\) 是由 \(U_c=\exp(i\pi N_c)\) 实现的合法幺正规范变换，
+    它把 \(+\Delta\) convention 映射到 \(-\Delta\) convention。这个变换不需要在 Monte Carlo
+    程序中显式执行，因为每个辅助场配置的 Nambu 传播矩阵只是做相似变换；trace 不变，
+    determinant 表达式和 local update ratio 在相同的连续 metaplectic 分支约定下随之不变。</p>
+    <p>因此，仅从 \(\Delta\) 前的符号和规范变换是否显式实现这一点看，没有理由判定现有
+    \(\Delta>0\) benchmark 是错的，也没有必要只为符号 convention 重跑一遍。若论文改写成
+    \(-\Delta(b^+c^+ + bc)\) convention，主图中的密度、能量、\(S_{\rm SF}\)、\(S_{\rm DW}\)
+    仍应与当前数据等价；只有 odd under \(c\to -c\) 的 pairing amplitude 会反号。</p>
+  </div>
+
+  <h2>1. 问题与模型 convention</h2>
+  <p>pairing benchmark 报告和 ED/DQMC 代码采用同一个物理 Hamiltonian convention：</p>
+  <div class="scroll">\[
+    H_{\rm phys}=H_t+H_U+H_\Delta,\qquad
+    H_\Delta=\Delta\sum_i\left(b_i^+c_i^+ + b_i c_i\right),\qquad \Delta\ge0 .
+  \]</div>
+  <p>grand-canonical 采样使用 \(H_\mu=H_{\rm phys}-\mu(N_b+N_c)\)。在报告的主参数窗口中，
+  \(U_1=0\)、\(U_2=1\)、\(\beta=4\)、\(\mu=-5\)，并扫描
+  \(\Delta=0,0.05,\ldots,0.30\)。</p>
+  <p>源码层面的对应关系是明确的。ED 脚本用 QuSpin 的 <code>++</code> 和 <code>--</code>
+  项构造 \(+\Delta(b^+c^+ + bc)\)。Fortran BAFQMC 在
+  \(\chi=(b,c,b^+,c^+)^T\) 的四分量 Nambu convention 下，构造的 commutator matrix pairing block 为</p>
+  <div class="scroll">\[
+  A_\Delta =
+  \begin{pmatrix}
+  0&0&0&\Delta I\\
+  0&0&\Delta I&0\\
+  0&-\Delta I&0&0\\
+  -\Delta I&0&0&0
+  \end{pmatrix},
+  \]</div>
+  <p>这正是 pairing 报告和 <code>docs/physics.md</code> 中记录的 convention。</p>
+
+  <h2>2. 规范变换是合法的</h2>
+  <p>定义 \(N_c=\sum_i n_{c,i}\) 和</p>
+  <div class="scroll">\[
+    U_c=\exp(i\pi N_c).
+  \]</div>
+  <p>它在 Fock 空间上是幺正算符，并且</p>
+  <div class="scroll">\[
+    U_c^\dagger c_i U_c=-c_i,\qquad
+    U_c^\dagger c_i^+ U_c=-c_i^+,\qquad
+    U_c^\dagger n_{c,i}U_c=n_{c,i}.
+  \]</div>
+  <p>因此，\(c\) flavor 的 hopping、密度相互作用、化学势项全部不变，pairing 项反号：</p>
+  <div class="scroll">\[
+  U_c^\dagger
+  \left[\Delta\sum_i(b_i^+c_i^+ + b_i c_i)\right]U_c
+  =
+  -\Delta\sum_i(b_i^+c_i^+ + b_i c_i).
+  \]</div>
+  <p>这说明 \(+\Delta\) 和 \(-\Delta\) 两个 Hamiltonian 是幺正等价的同一个物理谱问题。
+  这个等价不依赖晶格是否受挫，也不依赖辅助场取值。</p>
+
+  <h2>3. 为什么程序不需要显式做规范变换</h2>
+  <p>对每个辅助场配置，密度 HS 项只含 \(n_b\pm n_c\)，所以也在 \(U_c\) 下不变。令</p>
+  <div class="scroll">\[
+    S=\operatorname{diag}(I,-I,I,-I)
+  \]</div>
+  <p>表示四分量 Nambu basis \((b,c,b^+,c^+)^T\) 中的 \(c\to -c\) 变换。若 \(A_\ell(+\Delta)\)
+  和 \(A_\ell(-\Delta)\) 是同一辅助场配置在两个 convention 下的 commutator matrix，则</p>
+  <div class="scroll">\[
+    A_\ell(+\Delta)=S\,A_\ell(-\Delta)\,S^{-1},
+    \qquad
+    e^{A_\ell(+\Delta)}=S\,e^{A_\ell(-\Delta)}\,S^{-1}.
+  \]</div>
+  <p>整个 imaginary-time product 也只是相似变换：</p>
+  <div class="scroll">\[
+    \mathcal M_+( \phi )
+    =\prod_{\ell}e^{A_\ell(+\Delta)}
+    =
+    S\left[\prod_{\ell}e^{A_\ell(-\Delta)}\right]S^{-1}
+    =S\,\mathcal M_-(\phi)\,S^{-1}.
+  \]</div>
+  <p>于是</p>
+  <div class="scroll">\[
+    \det\!\left[I-\mathcal M_+(\phi)\right]
+    =
+    \det\!\left[I-\mathcal M_-(\phi)\right].
+  \]</div>
+  <p>因此 BAFQMC 权重、local determinant ratio 和接受率不因是否显式换到 \(\tilde c=-c\)
+  basis 而改变。非 determinant 的 HS Gaussian measure 和常数因子也不变，因为辅助场只耦合到密度。
+  正文中把 \(+\Delta\) convention 通过 \(\tilde c=-c\) 写成 RP-positive block，
+  是在证明 sign-free structure；代码在原始 basis 里计算，是同一个 trace 的另一组坐标表示。</p>
+
+  <h2>4. 与 RP block form 的关系</h2>
+  <p>Monte Carlo 采样的是 \(e^{-\delta\tau H}\)。为避免把时间步长和 pairing amplitude 都写作
+  \(\Delta\)，本节临时用 \(\delta\tau\) 表示 imaginary-time step。对于物理 convention
+  \(H_\Delta=+\Delta(b^+c^+ + bc)\)，原始 basis 中的 pairing generator 是</p>
+  <div class="scroll">\[
+    -\delta\tau\,\Delta\sum_i(b_i^+c_i^+ + b_i c_i).
+  \]</div>
+  <p>设 \(\tilde c_i=-c_i\)，则</p>
+  <div class="scroll">\[
+    b_i^+c_i^+ + b_i c_i
+    =
+    -\left(b_i^+\tilde c_i^+ + b_i\tilde c_i\right),
+  \]</div>
+  <p>所以同一个 generator 在 gauged basis 中成为</p>
+  <div class="scroll">\[
+    +\delta\tau\,\Delta\sum_i
+    \left(b_i^+\tilde c_i^+ + b_i\tilde c_i\right).
+  \]</div>
+  <p>在论文的 RP Nambu ordering
+  \((\mathbf b,\mathbf b^+,\tilde{\mathbf c},\tilde{\mathbf c}^+)^T\) 中，
+  这对应正半定的 reflected anomalous block</p>
+  <div class="scroll">\[
+    F=\frac{\delta\tau\Delta}{2}I_{2N_s}\succeq0.
+  \]</div>
+  <p>这一步是证明工具，不是额外的数值算法步骤。</p>
+
+  <h2>5. 代码与数据证据</h2>
+  <div class="figure-story">
+    <h3>主图 benchmark</h3>
+    <figure>
+      <img src="figures/main_delta_1x4_linear.png" alt="BAFQMC and ED comparison for density, minus energy, single-particle structure factor, and density-wave structure factor versus Delta">
+      <figcaption><strong>Figure 1.</strong> \(3\times3\) triangular pairing benchmark at \(U_1=0\), \(U_2=1\), \(\beta=4\), and \(\mu=-5\), scanning \(\Delta=0,0.05,\ldots,0.30\). The four panels show \(\rho\), \(-E\), \(S_{\rm SF}(K)\), and \(S_{\rm DW}(K)\). Red points are ED references and blue open circles are BAFQMC block means with standard-error bars.</figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>这张图说明 ED 与 BAFQMC 在同一个 \(+\Delta\) convention 下比较。主图量都是 \(c\to -c\)
+      规范偶的量，或者是 Hamiltonian 自身的能量，因此换成 \(-\Delta\) convention 后曲线不应改变。</p>
+    </div>
+  </div>
+
+  <div class="figure-story">
+    <h3>pairing-sector 诊断</h3>
+    <figure>
+      <img src="figures/pairing_sector_1x3.png" alt="Pairing-sector diagnostic observables versus Delta">
+      <figcaption><strong>Figure 2.</strong> Same parameter set as Figure 1. Panels show the pairing-energy contribution, cross-flavor double occupancy, and pair superfluid structure factor. These observables directly test the finite-\(\Delta\) Nambu code path.</figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>其中 pairing amplitude \(P_\Delta=N_s^{-1}\sum_i\langle b_i^+c_i^+ + b_i c_i\rangle\)
+      在 \(c\to -c\) 下会反号。pairing energy \(\Delta P_\Delta\) 与 Hamiltonian convention
+      一起变换，物理能量不变。因此 pairing amplitude 的符号不应单独用于判断 benchmark 是否错。</p>
+    </div>
+  </div>
+
+  <div class="figure-story">
+    <h3>时间步长诊断</h3>
+    <figure>
+      <img src="figures/dtau_overlay_1x4.png" alt="Delta tau overlay diagnostic for pairing benchmark">
+      <figcaption><strong>Figure 3.</strong> Overlay of ED, production BAFQMC at \(\Delta\tau=0.010\), and smaller-\(\Delta\tau\) checks. This diagnostic addresses the residual high-\(\Delta\) deviations on the scale of Monte Carlo error bars.</figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>高 \(\Delta\) 点存在可分辨的微小系统误差，但报告中的诊断指向 Trotter step 和 ED cutoff floor。
+      这类误差与 \(+\Delta\) versus \(-\Delta\) convention 无关。</p>
+    </div>
+  </div>
+
+  <h2>6. Phase 和 branch 诊断</h2>
+  <p>Fortran local update 使用 <code>det(Pblock)**(-0.5d0)</code>。如果实际路径存在隐藏相位或跨越错误分支，
+  最直接的症状之一是 local ratio 的 phase 统计异常。production run 的 <code>info.txt</code> 给出：</p>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>\(\Delta\)</th><th>mean abs arg proposed</th><th>mean abs arg accepted</th><th>branch \(\pi\) fraction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.00</td><td>\(5.047\times10^{-18}\)</td><td>\(4.860\times10^{-18}\)</td><td>0</td></tr>
+        <tr><td>0.05</td><td>\(4.404\times10^{-17}\)</td><td>\(4.243\times10^{-17}\)</td><td>0</td></tr>
+        <tr><td>0.10</td><td>\(6.013\times10^{-17}\)</td><td>\(5.794\times10^{-17}\)</td><td>0</td></tr>
+        <tr><td>0.15</td><td>\(4.184\times10^{-17}\)</td><td>\(4.031\times10^{-17}\)</td><td>0</td></tr>
+        <tr><td>0.20</td><td>\(3.687\times10^{-17}\)</td><td>\(3.553\times10^{-17}\)</td><td>0</td></tr>
+        <tr><td>0.25</td><td>\(1.294\times10^{-15}\)</td><td>\(1.317\times10^{-15}\)</td><td>0</td></tr>
+        <tr><td>0.30</td><td>\(5.012\times10^{-17}\)</td><td>\(4.830\times10^{-17}\)</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>这些数值在双精度舍入误差量级，支持当前 production 数据没有出现 hidden phase problem 或 branch-\(\pi\)
+  crossing。严格的数学正定性仍应在论文中通过 RP/gauge 等价来表述，而不是只依赖这个数值诊断。</p>
+
+  <h2>7. 对论文写法和是否重跑的建议</h2>
+  <p>建议保留报告 convention，即在正文物理 Hamiltonian 中写</p>
+  <div class="scroll">\[
+    +\Delta\sum_i(b_i^+c_i^+ + b_i c_i),
+  \]</div>
+  <p>随后在 sign-free 结构说明中写：通过全局规范变换
+  \(\tilde c_i=-c_i\)，同一个 imaginary-time generator 具有
+  \(F=(\Delta\tau\Delta/2)I_{2N_s}\succeq0\) 的 RP block form。这样的写法同时满足两个要求：
+  物理 Hamiltonian 与 benchmark 报告一致，sign-free proof 在最透明的 RP-positive convention 下进行。</p>
+  <p>当前没有必要因为 \(\Delta\) 符号重跑 benchmark。若将来为了审稿或读者习惯改用
+  \(-\Delta\) Hamiltonian convention，现有主图数据仍可作为等价数据使用，但需要同步说明 pairing amplitude
+  的符号 convention。</p>
+
+  <h2>8. 复现索引</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>项目</th><th>路径或文件</th><th>用于本报告的内容</th></tr></thead>
+      <tbody>
+        <tr><td>pairing production report</td><td><code>/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC_paring/data/20260605_pairing_delta_mu_m5_production/publication_report/report_pairing_delta_mu_m5_production_zh.html</code></td><td>Hamiltonian convention, benchmark parameters, figure interpretation</td></tr>
+        <tr><td>physics notes</td><td><code>/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC_paring/docs/physics.md</code></td><td>Nambu basis, commutator matrix, determinant ratio, Green-function block table</td></tr>
+        <tr><td>Fortran kinetic/pairing matrix</td><td><code>src/non_interact.f90</code></td><td>\(A_{b,c^+}=A_{c,b^+}=+\Delta\), \(A_{b^+,c}=A_{c^+,b}=-\Delta\)</td></tr>
+        <tr><td>Fortran local update</td><td><code>src/localU.f90</code></td><td>local determinant ratio \(\det(P)^{-1/2}\), phase tracking</td></tr>
+        <tr><td>ED implementation</td><td><code>benchmarks/ed/ed_pairing_triangle_general.py</code></td><td>QuSpin <code>++</code>/<code>--</code> terms with positive \(\Delta\)</td></tr>
+        <tr><td>production comparison CSV</td><td><code>summary/comparison_observables.csv</code></td><td>ED and BAFQMC numerical comparison</td></tr>
+        <tr><td>run info files</td><td><code>inputs/triangle_pairing_delta_3x3_D*_mum5_b4/info.txt</code></td><td>phase and branch diagnostics</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">本报告是临时研究备忘，不是论文正文。论文正文应只保留必要的物理 Hamiltonian、sign-free block structure 和对 SM 的引用。</p>
+</main>
+</body>
+</html>
