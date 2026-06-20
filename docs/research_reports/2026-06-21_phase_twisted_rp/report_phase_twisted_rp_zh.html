@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>相位扭转反射正定性与 pairing BAFQMC 的直接 sign-free 判据</title>
+  <style>
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body { margin: 0; color: #202428; background: #fff; font: 15px/1.68 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 48px; overflow-x: hidden; }
+    h1 { margin: 0 0 6px; font-size: 28px; line-height: 1.2; }
+    h2 { margin: 30px 0 10px; font-size: 20px; line-height: 1.35; border-bottom: 1px solid #d0d7de; padding-bottom: 4px; }
+    h3 { margin: 22px 0 8px; font-size: 16px; line-height: 1.35; }
+    p { margin: 8px 0; }
+    code { background: #f6f8fa; padding: 1px 4px; border-radius: 4px; font-size: 0.92em; overflow-wrap: anywhere; }
+    table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 13px; }
+    th, td { border: 1px solid #d0d7de; padding: 7px 9px; vertical-align: top; }
+    th { background: #f6f8fa; text-align: left; }
+    figure { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #d0d7de; }
+    figure img { display: block; width: 100%; max-width: 100%; height: auto; }
+    figcaption { margin-top: 7px; color: #3b434b; font-size: 13px; line-height: 1.45; }
+    .meta { color: #57606a; margin-bottom: 18px; }
+    .summary { border-left: 4px solid #1f6f8b; background: #f6f8fa; padding: 12px 15px; margin: 16px 0 20px; }
+    .takeaway { border-left: 4px solid #22a06b; background: #eefaf3; padding: 12px 15px; margin: 16px 0; }
+    .caveat { border-left: 4px solid #9a6700; background: #fff8c5; padding: 12px 15px; margin: 16px 0; }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 16px; }
+    .figure-story { margin: 18px 0 28px; }
+    .interpretation { margin-top: 8px; }
+    .small { color: #57606a; font-size: 13px; }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    mjx-container[display="true"] > mjx-math { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+  </style>
+  <script>
+    window.MathJax = {tex: {inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']]}};
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <h1>相位扭转反射正定性与 pairing BAFQMC 的直接 sign-free 判据</h1>
+  <p class="meta">生成日期：2026-06-21；分析对象：BAFQMC manuscript Section III/IV 的 RP 判据与 \(+\Delta(b^+c^+ + bc)\) benchmark；
+  结论状态：可以不在正文中把 pairing benchmark 解释为显式规范变换。</p>
+
+  <div class="summary">
+    <p><strong>核心结论。</strong> pairing benchmark 的 \(+\Delta\) convention 可以在原始 Monte Carlo basis 中直接证明 sign-free。做法是把 RP 判据中的反射映射从固定的
+    \(\theta_0(b_i)=c_i\) 写成相位扭转反射
+    \(\theta_E(b_i)=\eta_i c_i\)，其中 \(|\eta_i|=1\)。对于当前 paired triangular benchmark 取统一相位
+    \(\eta_i=-1\)。这样 Trotter generator
+    \(-\delta\tau\Delta\sum_i(b_i^+c_i^+ + b_i c_i)\) 直接等于一个正的 reflected-square cone 项。</p>
+    <p>因此，论文正文可以避免把这一点表述为“先做全局规范变换”。更自然的写法是在 RP 判据处说明反射同构允许包含单位相位，在应用部分直接选择
+    \(\theta_-(b_i)=-c_i\)。详细的等价性和相位选择约束可以放到 SM。</p>
+    <p><strong>关于复数 pairing amplitude。</strong> 若物理 Hamiltonian 写成 Hermitian 形式
+    \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)，则任意整体复相位都是 sign-free 的。若字面写成同一个复数
+    \(\Delta(b_i^+c_i^+ + b_i c_i)\)，则除 \(\Delta\) 为实数外 Hamiltonian 一般不是 Hermitian，也不应作为正文 sign-free 声明。</p>
+  </div>
+
+  <div class="figure-story">
+    <h3>从显式规范变换到相位反射</h3>
+    <figure>
+      <img src="figures/phase_twisted_reflection.svg" alt="Schematic comparison of fixed reflection, explicit gauge transform, and phase-twisted reflection">
+      <figcaption><strong>Figure 1.</strong> 固定反射 \(\theta_0(b)=c\) 下，当前 \(+\Delta\) Hamiltonian 的 imaginary-time pairing generator 对应负的 cone block。显式 \(c\to -c\) 规范变换能把它写成正 block；等价地，可以把这个相位直接放入反射映射 \(\theta_-(b)=-c\)。后者不改变 Monte Carlo basis，也不引入额外算法步骤。</figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>图中的三种写法给出同一个 trace。区别只在论证语言：固定反射加规范变换是两步叙述；相位扭转反射是一条直接判据。</p>
+    </div>
+  </div>
+
+  <h2>1. 科学问题</h2>
+  <p>当前正文 Section IV 为了说明 \(+\Delta(b^+c^+ + bc)\) 的 sign-free structure，写了全局规范变换
+  \(\tilde c_i=-c_i\)。这在数学上正确，也和代码没有显式变换不矛盾。写作上它引入了一个额外实体：读者可能以为算法或 benchmark 做了某个 basis change。</p>
+  <p>更紧凑的物理叙事是：RP 判据本身选择的是左、右 bosonic algebra 之间的反线性同构。这个同构本来就包含相位 convention。只要 cone proof 在相位扭转后仍成立，正文就可以直接使用这个更自然的反射。</p>
+
+  <h2>2. 相位扭转反射</h2>
+  <p>令左半系统由 \(b_i,b_i^+\) 生成，右半系统由 \(c_i,c_i^+\) 生成。取一个对角单位相位矩阵
+  \(E=\mathrm{diag}(\eta_1,\ldots,\eta_M)\)，\(|\eta_i|=1\)，定义反线性映射</p>
+  <div class="scroll">\[
+    \theta_E(\mathrm i)=-\mathrm i,\qquad
+    \theta_E(b_i)=\eta_i c_i,\qquad
+    \theta_E(b_i^+)=\eta_i^* c_i^+ .
+  \]</div>
+  <p>它和原来的 \(\theta_0\) 一样，是从左 algebra 到右 algebra 的反线性乘法同构，并且满足
+  \(\theta_E(X^+)=\theta_E(X)^+\)。相位只改变左右 flavor 的识别方式，不改变 Hilbert space 或 Monte Carlo 传播矩阵。</p>
+
+  <h2>3. Cone proof 不变</h2>
+  <p>定义相位扭转 cone</p>
+  <div class="scroll">\[
+    \mathcal K_{\theta_E}
+    =
+    \left\{\sum_r R_r\,\theta_E(R_r)\,;\;R_r\in\mathfrak A_L\right\}.
+  \]</div>
+  <p>这个 cone 对加法和乘法仍然封闭，因为左、右 bosonic algebra 彼此对易。trace 正性也保持。设 \(\Gamma_E\) 是右 Fock space 上实现
+  \(c_i\mapsto\eta_i c_i\) 的 number-conserving unitary，则</p>
+  <div class="scroll">\[
+    \theta_E(R)=\Gamma_E\,\theta_0(R)\,\Gamma_E^+,
+    \qquad
+    \mathrm{Tr}_{R}\,\theta_E(R)
+    =
+    \mathrm{Tr}_{R}\,\theta_0(R)
+    =
+    \overline{\mathrm{Tr}_{L}R}.
+  \]</div>
+  <p>于是</p>
+  <div class="scroll">\[
+    \mathrm{Tr}_{L\otimes R}\!\left[R\,\theta_E(R)\right]
+    =
+    |\mathrm{Tr}_{L}R|^2\ge0.
+  \]</div>
+  <p>因此主文 RP 判据中的所有 cone argument 对 \(\theta_E\) 原样成立。</p>
+
+  <h2>4. 生成元判据</h2>
+  <p>若某个 slice generator 可以写成</p>
+  <div class="scroll">\[
+    h=q+\theta_E(q)+\sum_{\mu,\nu}K_{\mu\nu}X_\mu\theta_E(X_\nu)+\xi,
+    \qquad
+    K=K^+\succeq0,\quad \xi\in\mathbb R,
+  \]</div>
+  <p>则 \(\exp h\in e^\xi \mathcal K_{\theta_E}\)，从而整个 auxiliary-field 配置权重非负。证明和固定反射版本相同：
+  \(q+\theta_E(q)\) 的 exponential 是 \(e^q\theta_E(e^q)\)，而 \(K=R^+R\) 后 mixed term 可以写成
+  \(\sum_a Y_a\theta_E(Y_a)\)。</p>
+
+  <div class="takeaway">
+    <p><strong>判据的正确扩展。</strong> \(K\succeq0\) 不是被放宽。被放宽的是反射同构的选择。实际使用时应表述为：存在一个相位反射 \(\theta_E\)，使每个 HS slice 属于对应的 RP cone。</p>
+  </div>
+
+  <h2>5. Gaussian block 的 coordinate-invariant 版本</h2>
+  <p>把左 Nambu 向量记为 \(x=(\mathbf b,\mathbf b^+)^T\)，右 Nambu 向量记为
+  \(y=(\mathbf c,\mathbf c^+)^T\)，并定义</p>
+  <div class="scroll">\[
+    P_E=\begin{pmatrix}E&0\\0&E^*\end{pmatrix},\qquad
+    \theta_E(x)=P_E y .
+  \]</div>
+  <p>若左半部分为 \(q=x^T D x\)，则右半部分应为</p>
+  <div class="scroll">\[
+    \theta_E(q)=y^T P_E^T\bar D P_E y .
+  \]</div>
+  <p>若 mixed block 在原始 coordinate 中写成 \(x^T F_{\rm coord}y\)，则它属于正 cone 的条件是</p>
+  <div class="scroll">\[
+    K=F_{\rm coord}P_E^{-1}
+    =K^+\succeq0 .
+  \]</div>
+  <p>这就是比固定 \(\theta_0\) 更实用的 Gaussian RP 测试。固定反射相当于 \(P_E=I\)，于是要求
+  \(F_{\rm coord}\succeq0\)。相位扭转反射允许 \(F_{\rm coord}\) 带一个可由反射吸收的单位相位。</p>
+
+  <h2>6. 半群表述如何适配</h2>
+  <p>当前 SM 的 \(\textit{Regularized reflection positivity from the semigroup viewpoint}\) 使用固定反射矩阵 \(J_1\) 和 \(J_2\)。如果论文正文采用相位扭转反射，SM 中这部分也应同步改成相位协变形式。令 \(E=\mathrm{diag}(\eta_i)\)，在 SM 的 Nambu ordering
+  \((\mathbf b,\mathbf c,\mathbf b^+,\mathbf c^+)^T\) 中应使用</p>
+  <div class="scroll">\[
+    J_{1,E}=
+    \begin{pmatrix}
+      0&E&0&0\\
+      E&0&0&0\\
+      0&0&0&E^*\\
+      0&0&E^*&0
+    \end{pmatrix},
+    \qquad
+    J_{2,E}=
+    \begin{pmatrix}
+      0&E&0&0\\
+      -E&0&0&0\\
+      0&0&0&E^*\\
+      0&0&-E^*&0
+    \end{pmatrix}.
+  \]</div>
+  <p>它们分别取代当前 SM 中的 \(J_1,J_2\)。因为 \(E\bar E=I\)，这些矩阵保持相同的反线性结构：
+  \(J_{1,E}\bar J_{1,E}=I\)，\(J_{2,E}\bar J_{2,E}=-I\)。相应的 reflection condition 和 semigroup splitting 变成</p>
+  <div class="scroll">\[
+    J_{1,E}^{T}AJ_{1,E}=\bar A,\qquad
+    A_{\pm}^{(E)}
+    =
+    \frac12\left(A\pm J_{2,E}^{T}\bar A J_{2,E}\right),
+    \qquad
+    \eta_E=J_{2,E}\Omega .
+  \]</div>
+  <p>之后的半群论证是协变的：metric-preserving part 满足
+  \((A_+^{(E)})^+\eta_E+\eta_E A_+^{(E)}=0\)，cone part 由 phase-dressed Hermitian block 控制。也就是说，SM 里 \(K\succeq0\) 的结论不变，但 \(K\) 应理解为在选定相位反射下抽出的 block，而不是固定 \(E=I\) 的 block。</p>
+  <p>在 Gaussian coordinate 语言中，这个 phase-dressed block 正是上一节的</p>
+  <div class="scroll">\[
+    K_E=F_{\rm coord}P_E^{-1},\qquad
+    P_E=\begin{pmatrix}E&0\\0&E^*\end{pmatrix}.
+  \]</div>
+  <p>因此，如果正文采用 \(\theta_-\)，SM 不能继续只写固定 \(J_1,J_2\) 而不说明相位 convention。最简洁的修改方式是在 SM 半群节开头把 \(J_1,J_2\) 推广为 \(J_{1,E},J_{2,E}\)，随后说明当前正文公式是 \(E=I\) 的特例，paired benchmark 使用 \(E=-I\)。</p>
+
+  <h2>7. 当前 pairing benchmark 的直接证明</h2>
+  <p>主文物理 Hamiltonian 使用</p>
+  <div class="scroll">\[
+    H_\Delta=\Delta\sum_i(b_i^+c_i^+ + b_i c_i),\qquad \Delta\ge0.
+  \]</div>
+  <p>Monte Carlo slice 中 pairing generator 为</p>
+  <div class="scroll">\[
+    h_\Delta=-\delta\tau\Delta\sum_i(b_i^+c_i^+ + b_i c_i).
+  \]</div>
+  <p>直接选择统一相位反射</p>
+  <div class="scroll">\[
+    \theta_-(b_i)=-c_i,\qquad
+    \theta_-(b_i^+)=-c_i^+ .
+  \]</div>
+  <p>令 \(X_i^{(1)}=b_i\)、\(X_i^{(2)}=b_i^+\)。则</p>
+  <div class="scroll">\[
+    \delta\tau\Delta\sum_i
+    \left[
+      X_i^{(1)}\theta_-(X_i^{(1)})
+      +
+      X_i^{(2)}\theta_-(X_i^{(2)})
+    \right]
+    =
+    -\delta\tau\Delta\sum_i(b_i c_i+b_i^+c_i^+).
+  \]</div>
+  <p>因此 operator-level mixed cone matrix 是</p>
+  <div class="scroll">\[
+    K=\delta\tau\Delta\,I\succeq0.
+  \]</div>
+  <p>若把同一项写成 Nambu quadratic matrix，由于 \(\chi^T M\chi\) 对 \(b^+c^+\) 和 \(bc\) 计数方式不同，正文中对应的 reflected anomalous block 可写为
+  \(F=(\delta\tau\Delta/2)I\)。这个证明完全在原始 \(b,c\) basis 中进行。代码不需要显式变换 \(c\to -c\)，论文正文也可以不把 sign-free 结构叙述成先做规范变换。</p>
+
+  <h2>8. 对 number-conserving 项的约束</h2>
+  <p>相位反射不是任意可选的装饰；它必须同时让同一个 slice 的 number-conserving 部分满足
+  \(q+\theta_E(q)\)。如果 \(\eta_i\) 随 site 变化，\(\theta_E(b_i^+b_j)=\eta_i^*\eta_j c_i^+c_j\)，会给右 flavor hopping 产生 Peierls 相位。因此 phase choice 需要和右半部分的 hopping pattern 一致。</p>
+  <p>当前 benchmark 取统一相位 \(\eta_i=-1\)，所以</p>
+  <div class="scroll">\[
+    \theta_-(b_i^+b_j)=c_i^+c_j,\qquad
+    \theta_-(n_{b,i})=n_{c,i}.
+  \]</div>
+  <p>hopping、density interaction、chemical-potential terms 的 RP/TRS 结构都保持不变。paired term 同时获得正 cone block。</p>
+
+  <h2>9. 复数 pairing amplitude 的情况</h2>
+  <p>如果将 pairing amplitude 推广为复数，必须先固定物理 Hamiltonian 的 Hermiticity convention。自然的 Hermitian 写法是</p>
+  <div class="scroll">\[
+    H_\Delta
+    =
+    \sum_i\left(\Delta\, b_i^+c_i^+ + \Delta^*\, b_i c_i\right),
+    \qquad
+    \Delta=|\Delta|\mathrm e^{\mathrm i\varphi}.
+  \]</div>
+  <p>对应的 imaginary-time generator 为</p>
+  <div class="scroll">\[
+    h_\Delta
+    =
+    -\delta\tau\sum_i\left(\Delta\, b_i^+c_i^+ + \Delta^*\, b_i c_i\right).
+  \]</div>
+  <p>选择统一相位反射</p>
+  <div class="scroll">\[
+    \theta_\varphi(b_i)=-\mathrm e^{-\mathrm i\varphi}c_i,\qquad
+    \theta_\varphi(b_i^+)=-\mathrm e^{\mathrm i\varphi}c_i^+ .
+  \]</div>
+  <p>则有</p>
+  <div class="scroll">\[
+    \delta\tau|\Delta|\sum_i
+    \left[b_i\theta_\varphi(b_i)+b_i^+\theta_\varphi(b_i^+)\right]
+    =
+    -\delta\tau\sum_i\left(\Delta^* b_i c_i+\Delta b_i^+c_i^+\right),
+  \]</div>
+  <p>因此 mixed cone matrix 仍为</p>
+  <div class="scroll">\[
+    K_\Delta=\delta\tau|\Delta|\,I\succeq0.
+  \]</div>
+  <p>由于这里的相位是全局常数，\(\eta_i^*\eta_j=1\)，number-conserving hopping、density interaction 和 chemical-potential terms 的 RP 结构不受影响。换言之，若正文采用 Hermitian pairing convention，则任意整体复数 \(\Delta\) 都可以由相位反射直接覆盖。</p>
+  <div class="caveat">
+    <p><strong>不要混淆两种写法。</strong> 字面表达式
+    \(\Delta\sum_i(b_i^+c_i^+ + b_i c_i)\) 只有在 \(\Delta\in\mathbb R\) 时才是 Hermitian。若 \(\Delta\) 为一般复数而仍给 \(b_i^+c_i^+\) 和 \(b_i c_i\) 同一个系数，通常得不到实的反射正定 cone coefficient，也不能直接宣称为非负权重模型。若未来要在正文中允许复数 pairing，应写成
+    \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)。</p>
+  </div>
+
+  <h2>10. 建议的论文写法</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>位置</th><th>建议</th><th>理由</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Main text, RP criterion</td>
+          <td>在定义 \(\theta\) 后加一句：反射同构可以包含固定单位相位，例如 \(\theta(b_i)=\eta_i c_i\)。</td>
+          <td>让判据自身覆盖 pairing benchmark，避免应用部分另引入规范变换。</td>
+        </tr>
+        <tr>
+          <td>Main text, Gaussian RP block</td>
+          <td>正文仍保留简洁的 \(F\succeq0\) 形式，可称其为某个已选反射 convention 下的 block form。</td>
+          <td>PRL 正文不需要展开 \(P_E\) 矩阵，避免技术细节压住物理故事。</td>
+        </tr>
+        <tr>
+          <td>Main text, Section IV pairing paragraph</td>
+          <td>写成“choosing the phase-twisted reflection \(\theta_-(b_i)=-c_i\), the anomalous Nambu block has \(F=(\delta\tau\Delta/2)I\succeq0\)”之类。</td>
+          <td>直接使用判据，不再说“after a global gauge transformation”。</td>
+        </tr>
+        <tr>
+          <td>SM</td>
+          <td>给出本报告第 2--9 节的详细公式；同时把半群节的 \(J_1,J_2,\eta\) 改成相位协变版本，或明确当前固定反射只是 \(E=I\) 特例。</td>
+          <td>保留严格推导和读者可查路径，同时正文保持干净。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caveat">
+    <p><strong>边界条件。</strong> 这个扩展没有改变可计算物理区域的本质分类。它只是把固定 basis 中看似负的 mixed block 识别为另一个合法反射 cone 中的正 block。更一般的相位、子格相位或 flavor rotation 是否可用，要逐个检查 number-conserving 部分和 HS decoupled slice 的全部 block 结构。</p>
+  </div>
+
+  <h2>11. 可复用判据摘要</h2>
+  <div class="scroll">\[
+    \boxed{
+    \begin{gathered}
+    \theta_E(b_i)=\eta_i c_i,\quad
+    \theta_E(b_i^+)=\eta_i^*c_i^+,\quad |\eta_i|=1,\\
+    h_\ell=q_\ell+\theta_E(q_\ell)+
+    \sum_{\mu\nu}K_{\ell,\mu\nu}X_{\ell,\mu}\theta_E(X_{\ell,\nu})+\xi_\ell,\\
+    K_\ell\succeq0,\quad \xi_\ell\in\mathbb R
+    \quad\Longrightarrow\quad
+    W(\phi)\ge0 .
+    \end{gathered}}
+  \]</div>
+  <p>对当前 \(+\Delta\) benchmark，取 \(\eta_i=-1\)，即可直接得到 \(K_\Delta=\delta\tau\Delta I\succeq0\)。</p>
+  <p>对 Hermitian 复数 pairing
+  \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)，取 \(\eta_i=-\mathrm e^{-\mathrm i\arg\Delta}\)，即可得到
+  \(K_\Delta=\delta\tau|\Delta|I\succeq0\)。</p>
+
+  <h2>12. 审计索引</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>材料</th><th>路径</th><th>用途</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Current RP criterion</td><td><code>main.tex</code>, Section III, Reflection positivity</td><td>固定 \(\theta_0(b)=c\)、cone proof、Gaussian block form</td></tr>
+        <tr><td>Current semigroup RP</td><td><code>SM.tex</code>, <code>Regularized reflection positivity from the semigroup viewpoint</code></td><td>当前固定 \(J_1,J_2,\eta\)；若采用相位反射，应改成 \(J_{1,E},J_{2,E},\eta_E\)</td></tr>
+        <tr><td>Current benchmark paragraph</td><td><code>main.tex</code>, Section IV</td><td>当前用 global gauge transformation 解释 paired block</td></tr>
+        <tr><td>Benchmark SM convention</td><td><code>SM.tex</code>, pairing-sign convention</td><td>说明 \(+\Delta\) benchmark 与 gauged convention 等价</td></tr>
+        <tr><td>Previous sign report</td><td><code>docs/research_reports/2026-06-21_delta_sign_gauge/report_delta_sign_gauge_zh.html</code></td><td>证明旧 benchmark 无需重跑；本报告进一步优化正文判据语言</td></tr>
+        <tr><td>Generated schematic</td><td><code>figures/phase_twisted_reflection.svg</code></td><td>展示三种等价证明语言</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="small">备注：本报告使用 \(\delta\tau\) 表示 imaginary-time step，以避免和 pairing amplitude \(\Delta\) 在同一公式中视觉混淆。论文正文仍可沿用现有 \(\Delta\tau\) 记号。</p>
+</main>
+</body>
+</html>
