@@ -514,7 +514,7 @@ with $D_\ell$ and $F_\ell$ arbitrary complex $M\times M$ matrices. The criterion
 
 Several remarks help place the criterion in context. First, the condition is imposed on the HS-decoupled one-body propagators, not on the bare interacting Hamiltonian in a particular basis. A model may look sign-problematic microscopically and still admit a sign-free BAFQMC decoupling. Second, the condition $\Theta^2=-1$ is essential. If an antiunitary symmetry squares to $+1$, eigenvalues still come in conjugate pairs, but real eigenvalues need not have even multiplicity, so the determinant can change sign. Third, the present time-reversal-symmetry argument is restricted to number-conserving slices. Once anomalous pairing terms are allowed, one must also control the branch structure of the metaplectic square root in the bosonic trace formula, which is why reflection positivity is the more flexible criterion for paired BAFQMC.
 
-Taken together, RP and TRS provide bosonic counterparts of the best-known sign-free mechanisms in fermionic AFQMC. RP is broader and naturally accommodates pairing terms, while TRS gives a simple determinant-based test in number-conserving settings. Most importantly, both criteria show that the BAFQMC sign problem is governed by global symmetry and by the algebra of Gaussian propagators, not by local-level geometric frustration.
+Taken together, RP and TRS provide bosonic counterparts of the best-known sign-free mechanisms in fermionic AFQMC. RP is broader and naturally accommodates pairing terms, while TRS gives a simple determinant-based test in number-conserving settings. Most importantly, the two criteria identify the RP/TRS half-plane of Fig.~\ref{fig:schematic}: global symmetry and the algebra of Gaussian propagators control the BAFQMC weight.
 
 
 
@@ -525,7 +525,7 @@ Taken together, RP and TRS provide bosonic counterparts of the best-known sign-f
 \section{Examples and applications}
 \label{sec:examples}
 
-A direct benchmark of the RP/TRS criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$:
+A concrete testbed for the RP/TRS criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$:
 \begin{equation}
 \begin{aligned}
     \hat H ={}&
@@ -545,7 +545,7 @@ A direct benchmark of the RP/TRS criteria is a frustrated two-flavor Bose-Hubbar
 \end{aligned}
 \label{eq:benchmark_pairing}
 \end{equation}
-where $t>0$, $U_1\le0$, $U_2\ge0$, and $\Delta=|\Delta|\ee^{\ii\varphi}$; the benchmark data below use real $\Delta\ge0$. The positive hopping on the triangular lattice places the model in the frustrated half-plane of Fig.~\ref{fig:schematic}. The sign-free structure follows by applying the criteria of Sec.~\ref{sec:positive} after HS decoupling.
+The sign-free regime of this model is $U_1\le0$ and $U_2\ge0$. The sign-free structure follows by applying the criteria of Sec.~\ref{sec:positive} after HS decoupling. For the benchmark data we choose the frustrated hopping convention $t=1$. On the triangular lattice, this real positive hopping has a sign problem in local-weight methods such as world-line QMC or SSE. In BAFQMC, for the real hopping considered here, the RP/TRS criteria are insensitive to the sign of $t$.
 
 The interactions are decoupled in density channels for all values of $\Delta$. The $U_1$ channel produces a real potential $\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})$, and the $U_2$ channel produces an imaginary relative potential $\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})$, with $\alpha_1=\sqrt{-2\Delta\tau U_1}$ and $\alpha_2=\sqrt{2\Delta\tau U_2}$. Thus the two flavors see conjugate one-body potentials. When $\Delta=0$, the number-conserving slice has the block form
 \begin{equation}
@@ -577,15 +577,15 @@ Figure~\ref{fig:benchmark_number} shows the number-conserving case, $\Delta=0$. 
     \label{fig:benchmark_number}
 \end{figure*}
 
-The paired term probes the more general BAFQMC formulation. For $\Delta\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the phase-twisted reflection $\theta_\varphi(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives a reflected anomalous bilinear,
+The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives a reflected anomalous bilinear,
 \begin{equation}
     \Delta\tau|\Delta|\sum_i
     \left[
-    \hat b_i^+\theta_\varphi(\hat b_i^+)
-    +\hat b_i\theta_\varphi(\hat b_i)
+    \hat b_i^+\theta(\hat b_i^+)
+    +\hat b_i\theta(\hat b_i)
     \right],
 \end{equation}
-so in this phase-adapted reflection convention the positive reflected cone coefficient in Eq.~\eqref{eq:rp_block_form} is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. This finite-$\Delta$ model therefore uses the anomalous bosonic Gaussian trace formula and extends finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows that the same four observables agree with ED on the scale of the curves, benchmarking the paired Nambu implementation in the same frustrated model family.
+so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. This finite-$\Delta$ model therefore uses the anomalous bosonic Gaussian trace formula and extends finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows that the same four observables agree with ED on the scale of the curves, benchmarking the paired Nambu implementation in the same frustrated model family.
 
 \begin{figure*}[bt]
     \centering

@@ -403,7 +403,7 @@ Reflection symmetry of the quadratic generator is therefore
     \label{eq:J1_reflection_condition}
 \end{equation}
 This is the matrix form of exchanging the $\hat b$ and $\hat c$ sectors while conjugating coefficients.
-A phase-twisted reflection $\theta_E(\hat b_i)=\eta_i\hat c_i$, with $E=\diag_i(\eta_i)$ and $|\eta_i|=1$, is obtained by replacing the identity blocks in $J_1$ by $E$ in the annihilation sectors and by $E^*$ in the creation sectors. The same replacement gives the phase-adapted matrices $J_{2,E}$ and $\eta_E=J_{2,E}\Omega$ used in the semigroup decomposition. We display the $E=I_M$ representative below; for general $E$, the block $K\succeq0$ should be read in the corresponding phase-adapted convention.
+A reflection with fixed phases, $\theta_E(\hat b_i)=\eta_i\hat c_i$, with $E=\diag_i(\eta_i)$ and $|\eta_i|=1$, is obtained by replacing the identity blocks in $J_1$ by $E$ in the annihilation sectors and by $E^*$ in the creation sectors. The same replacement gives the corresponding matrices $J_{2,E}$ and $\eta_E=J_{2,E}\Omega$ used in the semigroup decomposition. We display the $E=I_M$ representative below; for general $E$, the condition $K\succeq0$ is evaluated after this replacement.
 
 The semigroup viewpoint introduces a second anti-linear structure, represented by $J_2$ followed by complex conjugation,
 \begin{equation}
@@ -586,30 +586,22 @@ whenever the determinant is nonzero. This completes the time-reversal-symmetry a
 
 For $U_1\le0$ and $U_2\ge0$, the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} uses the density-channel HS identities
 \begin{equation}
-\begin{aligned}
     \ee^{-\Delta\tau U_1(\hat n_{b,i}+\hat n_{c,i})^2}
-    ={}&
+    =
     \int \frac{\dd\phi_{i\ell}}{\sqrt{2\pi}}\,
-    \ee^{-\phi_{i\ell}^2/2} \\
-    &\times
-    \ee^{\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})},
+    \ee^{-\phi_{i\ell}^2/2+\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})},
     \qquad
     \alpha_1=\sqrt{-2\Delta\tau U_1},
-\end{aligned}
 \label{eq:benchmark_hs_total}
 \end{equation}
 and
 \begin{equation}
-\begin{aligned}
     \ee^{-\Delta\tau U_2(\hat n_{b,i}-\hat n_{c,i})^2}
-    ={}&
+    =
     \int \frac{\dd\varphi_{i\ell}}{\sqrt{2\pi}}\,
-    \ee^{-\varphi_{i\ell}^2/2} \\
-    &\times
-    \ee^{\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})},
+    \ee^{-\varphi_{i\ell}^2/2+\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})},
     \qquad
     \alpha_2=\sqrt{2\Delta\tau U_2}.
-\end{aligned}
 \label{eq:benchmark_hs_relative}
 \end{equation}
 For fixed auxiliary fields on time slice $\ell$, these transformations generate onsite potentials
@@ -619,12 +611,7 @@ For fixed auxiliary fields on time slice $\ell$, these transformations generate 
     v_{c,i\ell}=\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}.
 \end{equation}
 The grand-canonical sampling weight contains $\hat H-\mu\hat N$, so the chemical potential adds
-$+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator. The pairing term in Eq.~\eqref{eq:benchmark_pairing} is not HS-decoupled; it contributes
-\begin{equation}
-    \Delta\tau\sum_i\left(\Delta\,\hat b_i^+\hat c_i^+
-    +\Delta^*\,\hat b_i\hat c_i\right)
-\end{equation}
-to each Nambu slice.
+$+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 
 \subsection{Numerical parameters}
 \label{app:benchmark_numerics}

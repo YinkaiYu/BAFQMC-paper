@@ -38,7 +38,7 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 
 - Fig. 1 remains in the main text and drives the story.
 - The Section IV example should initially use real positive triangular hopping, matching the benchmark.
-- The Section IV pairing term should use the Hermitian negative-sign convention: `-\Delta b^+c^+ - \Delta^*bc`. For real benchmark data, read the plotted horizontal axis as `\Delta\ge0` in this convention.
+- The Section IV pairing term should use the Hermitian negative-sign convention: `-\Delta b^+c^+ - \Delta^*bc`. The sign-free claim allows arbitrary complex `\Delta`; benchmark captions may specify the plotted real `\Delta` axis.
 - The expected diff baseline is the previous commit with substantive manuscript-content edits.
 
 ## Assets
