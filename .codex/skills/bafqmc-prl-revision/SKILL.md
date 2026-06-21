@@ -38,7 +38,7 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 
 - Fig. 1 remains in the main text and drives the story.
 - The Section IV example should initially use real positive triangular hopping, matching the benchmark.
-- The pairing term should use the report convention: `+\Delta(b^\dagger c^\dagger+bc)`.
+- The Section IV pairing term should use the Hermitian negative-sign convention: `-\Delta b^+c^+ - \Delta^*bc`. For real benchmark data, read the plotted horizontal axis as `\Delta\ge0` in this convention.
 - The expected diff baseline is the previous commit with substantive manuscript-content edits.
 
 ## Assets

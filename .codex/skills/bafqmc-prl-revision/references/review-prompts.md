@@ -9,7 +9,7 @@ Review the changed manuscript section for physics consistency. Check:
 - Does it preserve the Fig. 1 classification: BAFQMC sign-free for RP/TRS, SSE/WLQMC sign-free for unfrustrated systems, and the upper-left quadrant as new computable territory?
 - Are TRS/RP assumptions stated accurately?
 - Are paired/Nambu branch and pole statements no stronger than supported?
-- Does the pairing term use `+\Delta(b^\dagger c^\dagger+bc)` consistently?
+- Does the pairing term use the current Hermitian convention `-\Delta b^+c^+ - \Delta^*bc` consistently, without gauge-transform wording in the manuscript?
 - Does the benchmark wording avoid overclaiming beyond `3x3` proof-of-principle data?
 
 Return findings first, with file and line references when possible.

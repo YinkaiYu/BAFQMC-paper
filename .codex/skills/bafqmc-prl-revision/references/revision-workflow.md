@@ -15,7 +15,7 @@ Use this workflow for each substantive manuscript-edit round.
 - Preserve notation and equation labels where possible.
 - Keep Fig. 1 classification visible in the conceptual logic.
 - Do not introduce process-facing prose or user-prompt language into the manuscript.
-- Use the report convention for the pairing term: `+\Delta(b^\dagger c^\dagger+bc)`.
+- Use the current Section IV pairing convention: `-\Delta b^+c^+ - \Delta^*bc`. Do not describe it as a gauge transform in the manuscript.
 - Use real positive triangular hopping in the main example unless the author asks for the complex hopping generalization.
 
 ## After Drafting
