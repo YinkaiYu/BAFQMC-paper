@@ -38,7 +38,7 @@
 <body>
 <main>
   <h1>相位扭转反射正定性与 pairing BAFQMC 的直接 sign-free 判据</h1>
-  <p class="meta">生成日期：2026-06-21；分析对象：BAFQMC manuscript Section III/IV 的 RP 判据与 \(+\Delta(b^+c^+ + bc)\) benchmark；
+  <p class="meta">生成日期：2026-06-21；更新日期：2026-06-22；分析对象：BAFQMC manuscript Section III/IV 的 RP 判据与 Hermitian pairing benchmark；
   结论状态：可以不在正文中把 pairing benchmark 解释为显式规范变换。</p>
 
   <div class="summary">
@@ -52,6 +52,10 @@
     <p><strong>关于复数 pairing amplitude。</strong> 若物理 Hamiltonian 写成 Hermitian 形式
     \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)，则任意整体复相位都是 sign-free 的。若字面写成同一个复数
     \(\Delta(b_i^+c_i^+ + b_i c_i)\)，则除 \(\Delta\) 为实数外 Hamiltonian 一般不是 Hermitian，也不应作为正文 sign-free 声明。</p>
+    <p><strong>关于 \(+\Delta\) 与 \(-\Delta\)。</strong> 当前 benchmark 图中的
+    \(\rho\)、\(-E\)、\(S_{\rm SF}(K)\)、\(S_{\rm DW}(K)\) 对 pairing 符号不敏感。两个 Hamiltonian 由全局 flavor 相位
+    \(c_i\mapsto -c_i\) 幺正等价，因此这些 gauge-even observables 和热力学能量完全相同。若正文希望让反射相位因子取 \(1\)，可以把模型写成
+    \(-\Delta b_i^+c_i^+-\Delta^*b_i c_i\)，并把图中的横轴理解为 \(|\Delta|\)。</p>
   </div>
 
   <div class="figure-story">
@@ -260,7 +264,58 @@
     \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)。</p>
   </div>
 
-  <h2>10. 建议的论文写法</h2>
+  <h2>10. \(+\Delta\) 与 \(-\Delta\) 是否影响 benchmark 图</h2>
+  <p>令 \(P=\sum_i(b_i^+c_i^+ + b_i c_i)\)，并先考虑实数 \(\Delta\ge0\)。两个实 pairing convention 为</p>
+  <div class="scroll">\[
+    H_{+}=H_0+\Delta P,\qquad
+    H_{-}=H_0-\Delta P .
+  \]</div>
+  <p>定义右 flavor 的全局相位变换 \(U_c\)：</p>
+  <div class="scroll">\[
+    U_c c_i U_c^+=-c_i,\qquad
+    U_c c_i^+ U_c^+=-c_i^+,\qquad
+    U_c b_i U_c^+=b_i .
+  \]</div>
+  <p>hopping、density interaction、chemical-potential terms 均不变，而 \(P\mapsto -P\)。因此</p>
+  <div class="scroll">\[
+    H_- = U_c H_+ U_c^+,\qquad
+    Z_-=\mathrm{Tr}\,\mathrm e^{-\beta H_-}=Z_+ .
+  \]</div>
+  <p>若可观测量 \(O\) 满足 \(U_c^+OU_c=O\)，则</p>
+  <div class="scroll">\[
+    \langle O\rangle_-=\langle O\rangle_+ .
+  \]</div>
+  <p>当前 benchmark 图中的 density \(\rho\)、superfluid structure factor
+  \(S_{\rm SF}(K)\propto\langle b_i^+b_j+c_i^+c_j\rangle\)，以及 density-wave structure factor
+  \(S_{\rm DW}(K)\) 都是 \(U_c\)-even，因此在 \(H_+\) 与 \(H_-\) 中取值相同。能量需要单独说：图中能量是各自 Hamiltonian 的热平均
+  \(E_\pm=\mathrm{Tr}(H_\pm\mathrm e^{-\beta H_\pm})/Z_\pm\)，由于 \(H_-=U_cH_+U_c^+\)，所以 \(E_-=E_+\)。若能量 estimator 被分解为 kinetic、interaction 与 pairing 三部分，裸 pairing expectation 会变号，但 pairing Hamiltonian term 的贡献保持相同。</p>
+  <div class="caveat">
+    <p><strong>限制。</strong> 这个等价不适用于所有可观测量。裸 pairing amplitude
+    \(P=\sum_i(b_i^+c_i^+ + b_i c_i)\) 是 \(U_c\)-odd，因此 \(\langle P\rangle_-= -\langle P\rangle_+\)。若以后画 pairing order parameter 或 anomalous Green function，需要同时变换可观测量的 convention。当前两张 benchmark 图没有展示这类 gauge-odd quantity。</p>
+  </div>
+  <p>从写作上看，若正文采用</p>
+  <div class="scroll">\[
+    H_{\rm pair}
+    =
+    -\sum_i\left(\Delta\, b_i^+c_i^+ + \Delta^*\,b_i c_i\right),
+    \qquad
+    \Delta=|\Delta|\mathrm e^{\mathrm i\varphi},
+  \]</div>
+  <p>则 imaginary-time generator 是</p>
+  <div class="scroll">\[
+    h_{\rm pair}
+    =
+    \delta\tau\sum_i\left(\Delta\, b_i^+c_i^+ + \Delta^*\,b_i c_i\right).
+  \]</div>
+  <p>此时选择</p>
+  <div class="scroll">\[
+    \theta_\varphi(b_i)=\mathrm e^{-\mathrm i\varphi}c_i,\qquad
+    \theta_\varphi(b_i^+)=\mathrm e^{\mathrm i\varphi}c_i^+ ,
+  \]</div>
+  <p>即可得到 \(K_\Delta=\delta\tau|\Delta|I\succeq0\)。对于实数 \(\Delta\ge0\)，这就是最简单的固定反射
+  \(\theta_0(b_i)=c_i\)。这也是正文里最自然的应用写法。</p>
+
+  <h2>11. 建议的论文写法</h2>
   <div class="scroll">
     <table>
       <thead>
@@ -279,12 +334,13 @@
         </tr>
         <tr>
           <td>Main text, Section IV pairing paragraph</td>
-          <td>写成“choosing the phase-twisted reflection \(\theta_-(b_i)=-c_i\), the anomalous Nambu block has \(F=(\delta\tau\Delta/2)I\succeq0\)”之类。</td>
-          <td>直接使用判据，不再说“after a global gauge transformation”。</td>
+          <td>优先写 Hermitian convention
+          \(H_{\rm pair}=-\sum_i(\Delta b_i^+c_i^+ + \Delta^* b_i c_i)\)。实数 \(\Delta\ge0\) 时直接用 \(\theta(b_i)=c_i\)，anomalous block 为 \(F=(\delta\tau\Delta/2)I\succeq0\)。</td>
+          <td>直接使用判据，不再说“after a global gauge transformation”；固定反射相位为 \(1\)，读者负担最低。</td>
         </tr>
         <tr>
           <td>SM</td>
-          <td>给出本报告第 2--9 节的详细公式；同时把半群节的 \(J_1,J_2,\eta\) 改成相位协变版本，或明确当前固定反射只是 \(E=I\) 特例。</td>
+          <td>给出本报告第 2--10 节的详细公式；同时把半群节的 \(J_1,J_2,\eta\) 改成相位协变版本，或明确当前固定反射只是 \(E=I\) 特例。</td>
           <td>保留严格推导和读者可查路径，同时正文保持干净。</td>
         </tr>
       </tbody>
@@ -295,7 +351,7 @@
     <p><strong>边界条件。</strong> 这个扩展没有改变可计算物理区域的本质分类。它只是把固定 basis 中看似负的 mixed block 识别为另一个合法反射 cone 中的正 block。更一般的相位、子格相位或 flavor rotation 是否可用，要逐个检查 number-conserving 部分和 HS decoupled slice 的全部 block 结构。</p>
   </div>
 
-  <h2>11. 可复用判据摘要</h2>
+  <h2>12. 可复用判据摘要</h2>
   <div class="scroll">\[
     \boxed{
     \begin{gathered}
@@ -312,8 +368,10 @@
   <p>对 Hermitian 复数 pairing
   \(\Delta b_i^+c_i^+ + \Delta^* b_i c_i\)，取 \(\eta_i=-\mathrm e^{-\mathrm i\arg\Delta}\)，即可得到
   \(K_\Delta=\delta\tau|\Delta|I\succeq0\)。</p>
+  <p>对推荐的负号 convention
+  \(-\Delta b_i^+c_i^+-\Delta^* b_i c_i\)，取 \(\eta_i=\mathrm e^{-\mathrm i\arg\Delta}\)。实数 \(\Delta\ge0\) 时 \(\eta_i=1\)，即固定反射。</p>
 
-  <h2>12. 审计索引</h2>
+  <h2>13. 审计索引</h2>
   <div class="scroll">
     <table>
       <thead>
@@ -324,6 +382,7 @@
         <tr><td>Current semigroup RP</td><td><code>SM.tex</code>, <code>Regularized reflection positivity from the semigroup viewpoint</code></td><td>当前固定 \(J_1,J_2,\eta\)；若采用相位反射，应改成 \(J_{1,E},J_{2,E},\eta_E\)</td></tr>
         <tr><td>Current benchmark paragraph</td><td><code>main.tex</code>, Section IV</td><td>当前用 global gauge transformation 解释 paired block</td></tr>
         <tr><td>Benchmark SM convention</td><td><code>SM.tex</code>, pairing-sign convention</td><td>说明 \(+\Delta\) benchmark 与 gauged convention 等价</td></tr>
+        <tr><td>Benchmark observables</td><td><code>main.tex</code>, benchmark captions and observable definitions</td><td>\(\rho\)、\(S_{\rm SF}\)、\(S_{\rm DW}\) 是 \(c_i\mapsto -c_i\) 下的 even quantities；\(-E\) 由 Hamiltonian 的幺正等价保证不变</td></tr>
         <tr><td>Previous sign report</td><td><code>docs/research_reports/2026-06-21_delta_sign_gauge/report_delta_sign_gauge_zh.html</code></td><td>证明旧 benchmark 无需重跑；本报告进一步优化正文判据语言</td></tr>
         <tr><td>Generated schematic</td><td><code>figures/phase_twisted_reflection.svg</code></td><td>展示三种等价证明语言</td></tr>
       </tbody>
