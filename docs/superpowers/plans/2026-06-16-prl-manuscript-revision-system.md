@@ -22,13 +22,17 @@
 - Number-conserving benchmark report: `/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC/data/20260603_bafqmc_ed_3x3_observables_v2_standard/publication_report/report_manual_stage_zh.html`.
 - Paired benchmark report: `/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC_paring/data/20260605_pairing_delta_mu_m5_production/publication_report/report_pairing_delta_mu_m5_production_zh.html`.
 
-**Measured baseline:**
+**Measured baseline and current status:**
 - `texcount -merge -incbib -brief main.tex` reports about `6555+98+159` words with a `main.bbl` missing warning.
 - Local analysis of four sign-problem-free QMC Letter/Rapid style references gives approximate main-article word counts in the 3600--4400 range before acknowledgments or appendices. The target should therefore be a compact 4.5--5 page Letter, not an artificially overcompressed draft.
 - PRL abstract should remain no more than 600 characters.
-- Existing Section II and Section III carry most of the mathematical proof load in the main text.
-- Section IV contains `To be finished......`.
+- Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the paired/Nambu determinant, and one Green-function identity; the detailed HS reduction, algebra, Green blocks, update ratio, and stabilization discussion now sit in the Supplemental Material.
+- Existing Section III still carries substantial mathematical proof load in the main text.
+- Section IV has been rewritten around the new triangular-lattice benchmarks; the unfinished marker has been removed.
 - Section V and Section VI should be merged; Section VI is empty.
+- Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
+- Status on 2026-06-22: the Section II pass is complete against baseline `79a1b9b`; `pdf/main.pdf` and the SM-aware `pdf/main-diff.pdf` have been refreshed.
+- The last completed manuscript-content pass is Section II plus the supporting Supplemental Material; the next content pass is Section III unless the author requests further Section II polishing.
 
 **Main diagnosis:**
 - The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
@@ -101,6 +105,7 @@ These must be resolved before edits that change physics claims or figure content
 
 1. Diff baseline:
    - Default baseline for `pdf/main-diff.pdf`: the previous version or commit containing substantive manuscript-content edits.
+   - Current next-pass default: compare Section II changes against commit `79a1b9b`, unless the author specifies another baseline.
    - Ask the author only when this default is ambiguous for a given edit.
 
 2. Reference-corpus workflow:
@@ -109,11 +114,14 @@ These must be resolved before edits that change physics claims or figure content
 
 ## Resolved Author Decisions
 
-- Pairing term in main text should use the report convention: `+\Delta(b^\dagger c^\dagger+bc)`.
+- Pairing term in main text should use the Hermitian negative-sign convention `-\Delta b_i^+c_i^+-\Delta^*b_i c_i`.
+- The paired sign-free statement allows arbitrary complex `\Delta`; benchmark captions may specify the plotted real `\Delta` axis.
 - The main-text application/example section should initially use the real positive triangular hopping used in the benchmark.
 - Fig. 1 must remain in the main text.
 - Section IV is a good first manuscript section to rewrite after repository infrastructure and style corpus are ready.
 - The PRL revision skill should be project-level, not global.
+- In manuscript Hamiltonians, use creation superscript `+` rather than `\dagger`, consistent with the draft notation.
+- Do not introduce unnecessary intermediate notation such as `a_{\alpha i}` or `n_{i,\pm}` in the benchmark Hamiltonian when direct `b,c` notation is clearer.
 
 ## Phase 0: Baseline And Guardrails
 
@@ -192,31 +200,35 @@ These must be resolved before edits that change physics claims or figure content
 - Modify: `main.tex`.
 - Verify references into: `SM.tex`.
 
-- [ ] Step 1: Rename Section II to `Bosonic Auxiliary-Field Quantum Monte Carlo`.
+- [x] Step 1: Rename Section II to `Bosonic Auxiliary-Field Quantum Monte Carlo`.
 
-- [ ] Step 2: Start from the HS ensemble.
+- [x] Step 2: Start from the HS ensemble.
   - Retain only:
     - `Z=\int \mc D\phi P_{\mathrm{aux}}(\phi)W(\phi)`.
     - `W(\phi)=\Tr \hat U(\phi)`.
     - a sentence that `\hat U(\phi)` is a product of bosonic Gaussian slices.
 
-- [ ] Step 3: Present number-conserving BAFQMC first.
+- [x] Step 3: Present number-conserving BAFQMC first.
   - Retain:
     - `\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell`.
     - `\mc B=\ee^{B_1}\cdots\ee^{B_L}`.
     - `W_{\rm nc}=\ee^{\sum_\ell\xi_\ell}\det(I-\mc B)^{-1}`.
     - one compact Green-function identity.
 
-- [ ] Step 4: Present paired/Nambu BAFQMC second.
+- [x] Step 4: Present paired/Nambu BAFQMC second.
   - Retain:
     - `\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans`.
     - `\mc M=\ee^{A_1}\cdots\ee^{A_L}`.
     - `W_{\rm p}=\ee^{\sum_\ell\xi_\ell}\det(I-\mc M)^{-1/2}`.
     - one sentence on the metaplectic branch fixed by continuity.
 
-- [ ] Step 5: Move local-update ratio and stabilization details to SM.
+- [x] Step 5: Move local-update ratio and stabilization details to SM.
 
-- [ ] Step 6: Compile and inspect.
+- [x] Step 6: Keep only one compact Green-function formula in the main text.
+  - Retain `G=(I_{2N}-\mc M)^{-1}\Omega` for observables.
+  - Move block-level correlator identities and the local-update derivation to SM.
+
+- [x] Step 7: Compile and inspect.
   - Run: `latexmk main.tex`.
   - Check: no introduced warnings; Section II no longer reads like a derivation.
 
@@ -257,38 +269,39 @@ These must be resolved before edits that change physics claims or figure content
 - Add or replace: `figures/benchmark_number_conserving.pdf`, `figures/benchmark_pairing_delta.pdf`.
 - Possibly remove or leave unused: `figures/benchmark.pdf`.
 
-- [ ] Step 1: Copy candidate PDFs into `figures/` with stable names.
+- [x] Step 1: Copy candidate PDFs into `figures/` with stable names.
   - Number-conserving source: `paper_candidate_main_4x2.pdf`.
   - Paired source: `paper_candidate_main_delta_1x4_linear.pdf`.
   - Status on 2026-06-16: completed for `figures/benchmark_number_conserving.pdf` and `figures/benchmark_pairing_delta.pdf`.
 
-- [ ] Step 2: Rewrite the model in one consistent notation.
-  - Include chemical potential in the grand-canonical discussion.
-  - Use a distinct symbol for hopping matrix, such as `T`, to avoid conflict with single-particle propagator `\mc B`.
-  - Use `\hat n_{i,\pm}` for the two interaction channels.
+- [x] Step 2: Rewrite the model in one consistent notation.
+  - Physical Hamiltonian uses direct `b,c` notation and the Hermitian pairing term `-\Delta b_i^+c_i^+-\Delta^*b_i c_i`.
+  - Chemical potential appears in benchmark parameters and captions, not in the physical Hamiltonian.
+  - The text defines the triangular primitive vectors and the benchmark hopping convention `t=1`.
 
-- [ ] Step 3: Explain sign freedom after HS decoupling.
+- [x] Step 3: Explain sign freedom after HS decoupling.
   - Main text:
     - `U_1` channel gives identical real fields.
     - `U_2` channel gives opposite imaginary fields.
-    - two flavors form conjugate/Kramers partners.
-    - the same slice also has an RP interpretation where appropriate.
+    - two flavors form conjugate/Kramers partners for `\Delta=0`.
+    - the paired case uses the RP criterion with the reflection `\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i`.
   - SM:
-    - full HS formulas and decoupled slice matrix.
+    - full HS formulas and numerical details.
 
-- [ ] Step 4: Add paired extension consistently.
-  - Use `+\Delta(b^\dagger c^\dagger+bc)`.
+- [x] Step 4: Add paired extension consistently.
+  - Use `-\Delta b_i^+c_i^+-\Delta^*b_i c_i`.
   - State that the paired/Nambu formulation is protected by RP.
   - Avoid overclaiming beyond the plotted `3x3` benchmark.
 
-- [ ] Step 5: Insert Fig. 2 and Fig. 3.
+- [x] Step 5: Insert Fig. 2 and Fig. 3.
   - Fig. 2 caption: `U_2` and `U_1` scans, `3x3`, `rho`, `-E`, `S_{\rm SF}(K)`, `S_{\rm DW}(K)`, ED vs BAFQMC, main parameters.
   - Fig. 3 caption: Delta scan, paired/Nambu formulation, same four observables, main parameters.
   - Put detailed MC/ED parameters in SM, not in overloaded captions.
 
-- [ ] Step 6: Compile and inspect figures.
+- [x] Step 6: Compile and inspect figures.
   - Run: `latexmk main.tex`.
   - Open `pdf/main.pdf` and inspect layout around Figs. 2 and 3.
+  - Completed in commits `a826e73` and `79a1b9b`; `pdf/main-diff.pdf` was generated with SM-aware `latexpand`.
 
 ## Phase 6: Merge Discussion And Summary
 
@@ -389,9 +402,20 @@ Use this sequence for the next working turn after author decisions:
 
 - [x] Create project-level `.codex/skills/bafqmc-prl-revision`.
 - [x] Integrate arXiv PDFs and style-reference analysis into the project skill assets.
-- [ ] Run baseline compile and record warnings.
-- [ ] Copy the two benchmark PDFs into `figures/` with approved names.
-- [ ] Add SM numerical-details section using the two reports.
-- [ ] Rewrite Section IV first, because the new benchmark results now define what the manuscript can honestly claim.
+- [x] Run baseline compile and record warnings.
+- [x] Copy the two benchmark PDFs into `figures/` with approved names.
+- [x] Add SM numerical-details section using the two reports.
+- [x] Rewrite Section IV first, because the new benchmark results now define what the manuscript can honestly claim.
 
 This starts with the repository infrastructure and style calibration, then moves to the unfinished application section. The Introduction should be rewritten after the core results and benchmark narrative are stable.
+
+## Next Suggested Execution Block: Section II And SM
+
+Use this sequence for the Section II pass.
+
+- [ ] Compress the opening of Section II so it defines the BAFQMC ensemble without deriving the HS transformation in detail.
+- [ ] Reverse the formal order inside Section II: number-conserving determinant first, paired/Nambu metaplectic formula second.
+- [ ] Move commutator identities, linear-action derivations, local-update ratio derivation, and stabilization comments out of the main text.
+- [ ] Keep in the main text only the formulas needed later by Section III and Section IV: `Z`, `W`, the number-conserving determinant, the paired determinant, and one Green-function identity.
+- [ ] Ensure SM contains the moved material with stable labels or clear replacement labels.
+- [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against commit `79a1b9b` unless the author specifies another baseline.

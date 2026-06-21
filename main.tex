@@ -118,230 +118,92 @@ The rest of the paper formulates BAFQMC and derives the basic weight and Green-f
 
 
 
-\section{AFQMC for bosonic systems}
+\section{Bosonic Auxiliary-Field Quantum Monte Carlo}
 \label{sec:afqmc}
 
-\subsection{Quadratic bosonic generators and Hubbard-Stratonovich decoupling}
-
-We consider a system of $N$ bosonic modes collected into the column vector
+We consider $N$ bosonic modes collected into
 \begin{equation}
     \hat{\bb a} = (\hat a_1,\ldots,\hat a_N)^\trans,
 \end{equation}
-and define the Nambu spinor
-\begin{equation}
-    \hat\chi = (\hat{\bb a},\hat{\bb a}^+)^\trans.
-\end{equation}
-Its canonical commutation relations are encoded by the symplectic form
-\begin{equation}
-    [\hat\chi_\mu,\hat\chi_\nu] = \Omega_{\mu\nu},
-    \qquad
-    \Omega =
-    \begin{pmatrix}
-        0 & I_N \\
-        -I_N & 0
-    \end{pmatrix}.
-\end{equation}
-A general one-body bosonic operator can be written as
-\begin{equation}
-    \hat h(A,\xi) = -\frac12 \hat\chi^\trans \Omega A \hat\chi + \xi,
-    \label{eq:hAdef}
-\end{equation}
-where $A$ belongs to the complex symplectic Lie algebra,
-\begin{equation}
-    \Omega A + A^\trans \Omega = 0,
-    \label{eq:symplectic_condition}
-\end{equation}
-and $\xi\in\mathbb C$ is a scalar shift. In block form,
-\begin{equation}
-    A =
-    \begin{pmatrix}
-        K & \Delta \\
-        -\overline{\Delta'} & -K^\trans
-    \end{pmatrix},
-    \qquad
-    \Delta^\trans = \Delta,
-    \qquad
-    \Delta'^\trans = \Delta',
-\end{equation}
-which gives
-\begin{equation}
-\begin{aligned}
-    \hat h(A,\xi)
-    ={}& \hat{\bb a}^+ K\hat{\bb a}
-    + \frac12\hat{\bb a}^+\Delta(\hat{\bb a}^+)^\trans
-    + \frac12\hat{\bb a}^\trans\overline{\Delta'}\hat{\bb a} \\
-    &\quad + \xi + \frac12\Tr K.
-\end{aligned}
-\label{eq:block_form_h}
-\end{equation}
-The scalar $\xi$ is essential: it absorbs the normal-ordering constant $\frac12\Tr K$ and allows us to represent physical quadratic Hamiltonians without ambiguity.
-
-We study interacting bosonic Hamiltonians of the form
-\begin{equation}
-    \hat H = \hat H_0 + \hat H_{\mathrm{int}},
-\end{equation}
-with $\hat H_0$ a one-body operator and $\hat H_{\mathrm{int}}$ an interaction that can be decomposed into squares of one-body operators,
-\begin{equation}
-    \hat H_{\mathrm{int}} = \sum_\gamma \lambda_\gamma \hat O_\gamma^2.
-    \label{eq:hint_square}
-\end{equation}
-This includes the standard Bose-Hubbard density interaction, density-density interactions between different sites or flavors, and many spin interactions once written in a bosonic representation. A Trotter-Suzuki decomposition at inverse temperature $\beta=L_\tau\Delta\tau$ gives
-\begin{equation}
-    Z = \Tr\,\ee^{-\beta \hat H}
-    = \Tr\left[\prod_{\ell=1}^{L_\tau} \ee^{-\Delta\tau \hat H_0}\ee^{-\Delta\tau \hat H_{\mathrm{int}}}\right]
-    + O(\Delta\tau^2).
-\end{equation}
-For each interaction channel we may apply a continuous HS transformation,
-\begin{equation}
-    \ee^{-\Delta\tau \lambda_\gamma \hat O_\gamma^2}
-    = \int \dd\phi_\gamma\, p_\gamma(\phi_\gamma)
-    \ee^{s_\gamma \phi_\gamma \hat O_\gamma},
-    \qquad
-    s_\gamma^2 = -2\Delta\tau\lambda_\gamma,
-    \label{eq:hs_generic}
-\end{equation}
-where the contour and the Gaussian factor $p_\gamma$ depend on the sign of $\lambda_\gamma$. For attractive channels ($\lambda_\gamma<0$) one may take $s_\gamma\in\mathbb R$ and integrate over real fields; for repulsive channels ($\lambda_\gamma>0$) one may use imaginary shifts, $s_\gamma\in\ii\mathbb R$. In either case, up to Trotter errors one may also replace the continuous integral with a discrete decomposition. Nothing in the formalism below depends on the specific HS choice, provided that after decoupling every time-slice propagator is Gaussian.
-
-Introducing all auxiliary fields collectively as $\phi$, the partition function takes the AFQMC form
+and assume that the interactions have been decoupled by a Trotter-Suzuki and Hubbard-Stratonovich (HS) construction. After introducing the auxiliary fields, the partition function takes the standard AFQMC form
 \begin{equation}
     Z = \int \mc D\phi\; P_{\mathrm{aux}}(\phi)\, W(\phi),
+    \qquad
+    W(\phi)=\Tr\,\hat U(\phi),
     \label{eq:Z_afqmc}
 \end{equation}
-where $P_{\mathrm{aux}}(\phi)$ is the product of bare HS measures and
+where $P_{\mathrm{aux}}$ is the bare HS measure and
 \begin{equation}
-    W(\phi) = \Tr\, \hat U(\phi),
-    \qquad
-    \hat U(\phi) = \prod_{\ell=1}^{L} \ee^{\hat h_\ell(\phi_\ell)}.
+    \hat U(\phi)=\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}
     \label{eq:weight_def}
 \end{equation}
-Here $L$ denotes the total number of Gaussian factors after Trotter splitting and HS decoupling, and each
-\begin{equation}
-    \hat h_\ell(\phi_\ell) = \hat h\left(A_\ell(\phi_\ell),\xi_\ell(\phi_\ell)\right)
-\end{equation}
-is a bosonic quadratic generator of the form in Eq.~\eqref{eq:hAdef}. The bosonic sign problem is the statement that $W(\phi)$ cannot be chosen real and nonnegative for all auxiliary-field configurations. The remainder of this section derives the explicit Gaussian formula for $W(\phi)$ and the observables needed in a Monte Carlo implementation.
+is a product of one-body bosonic Gaussian propagators. The HS reduction and the algebra of these Gaussian operators are summarized in Secs.~\ref{app:hs_general} and~\ref{app:algebra} of the SM~\cite{SM}. The sign problem is the possibility that $W(\phi)$ cannot be chosen real and nonnegative for all configurations.
 
-\subsection{Bosonic Gaussian trace formula}
-
-The fundamental algebraic fact is that a bosonic Gaussian propagator acts linearly on the Nambu operators. As shown in Sec.~\ref{app:algebra} of the SM~\cite{SM},
+The number-conserving case gives the cleanest starting point. If each slice preserves boson number, then
 \begin{equation}
-    [\hat h(A,\xi),\hat\chi] = -A\hat\chi,
-    \label{eq:commutator_key}
-\end{equation}
-so that
-\begin{equation}
-    \ee^{\hat h(A,\xi)}\hat\chi\,\ee^{-\hat h(A,\xi)} = \ee^{-A}\hat\chi,
-    \qquad
-    \hat\chi\,\ee^{\hat h(A,\xi)} = \ee^{\hat h(A,\xi)}\ee^{A}\hat\chi.
-    \label{eq:linear_action}
-\end{equation}
-For the full ordered product \eqref{eq:weight_def}, we therefore have
-\begin{equation}
-    \hat\chi\,\hat U(\phi) = \hat U(\phi)\,\mc M(\phi)\hat\chi,
-    \qquad
-    \mc M(\phi) = \ee^{A_1}\ee^{A_2}\cdots \ee^{A_L}.
-    \label{eq:Mdef}
-\end{equation}
-The matrix $\mc M$ is the single-particle transfer matrix associated with the auxiliary-field configuration.
-
-Whenever the ordinary bosonic trace exists, the weight is given by the bosonic Gaussian trace formula
-\begin{equation}
-    W(\phi) = \exp\!\left[\sum_{\ell=1}^L \xi_\ell(\phi_\ell)\right]
-    \det\!\left(I_{2N}-\mc M\left(\phi\right)\right)^{-1/2}.
-    \label{eq:trace_formula_main}
-\end{equation}
-The square root is the metaplectic branch, fixed by continuity from a stable reference region where the trace is manifestly convergent; Sec.~\ref{app:trace} of the SM~\cite{SM} explains this point in detail and derives the formula in a way that makes the branch choice explicit. Equation~\eqref{eq:trace_formula_main} is the bosonic analogue of the familiar fermionic determinantal weight, with two important differences. First, bosonic convergence is not automatic; second, anomalous terms lead naturally to a square root rather than to an ordinary determinant.
-
-The number-conserving case is simpler and deserves separate emphasis. If every slice contains no pairing term, then we may write
-\begin{equation}
-    \hat h_\ell = \hat{\bb a}^+ B_\ell \hat{\bb a} + \xi_\ell,
+    \hat h_\ell = \hat{\bb a}^+ B_\ell \hat{\bb a}+\xi_\ell,
     \label{eq:number_conserving_slice}
 \end{equation}
-with an $N\times N$ matrix $B_\ell$, and the corresponding single-particle product is
+with $B_\ell$ an $N\times N$ matrix and $\xi_\ell$ a scalar shift. The associated single-particle propagator is
 \begin{equation}
-    \mc B = \ee^{B_1}\ee^{B_2}\cdots\ee^{B_L}.
+    \mc B(\phi)=\ee^{B_1}\ee^{B_2}\cdots\ee^{B_L},
 \end{equation}
-Then the bosonic weight is single-valued and takes the familiar form
+and the bosonic trace formula is
 \begin{equation}
-    W(\phi)=\exp\!\left[\sum_{\ell=1}^L \xi_\ell(\phi_\ell)\right]
+    W_{\rm nc}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
     \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
     \label{eq:trace_formula_number}
 \end{equation}
-This formula is derived directly in Sec.~\ref{app:trace_number} of the SM~\cite{SM} using coherent states. It reduces the bosonic sampling problem to the analysis of an ordinary determinant and is the natural starting point for the time-reversal-symmetry criterion below.
+This single-valued determinant formula is the bosonic counterpart of the determinantal weight in fermionic AFQMC, with a minus sign in $I_N-\mc B$ reflecting Bose statistics. It is also the starting point for the time-reversal-symmetry criterion in Sec.~\ref{sec:trs}.
 
-In physically stable regimes the ordinary trace and the determinant expressions above coincide. Outside those regimes one must distinguish two situations. For paired evolutions, such as the reflection-positive paired model of Eq.~\eqref{eq:benchmark_pairing}, the sampled configurations relevant in practice stay inside a connected component of $\det(I_{2N}-\mc M)\neq 0$; the metaplectic formula is then fixed by continuity from the convergent region. The number-conserving case is subtler. Because the auxiliary-field integral can cross $\det(I_N-\mc B)=0$, a configuration-by-configuration analytic continuation is no longer the right interpretation of the Monte Carlo weight. There one should instead read Eq.~\eqref{eq:trace_formula_number} as the renormalized finite part selected by a Gaussian cutoff in occupation-number space, as explained in Sec.~\ref{app:regularization} of the SM~\cite{SM}.
+Paired or anomalous HS decouplings require the Nambu vector
+\begin{equation}
+    \hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans,
+    \qquad
+    [\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu},
+    \qquad
+    \Omega=
+    \begin{pmatrix}
+        0&I_N\\
+        -I_N&0
+    \end{pmatrix}.
+\end{equation}
+A general Gaussian slice can be written as
+\begin{equation}
+    \hat h(A,\xi)=-\frac12\hat\chi^\trans\Omega A\hat\chi+\xi,
+    \qquad
+    A\in\mathfrak{sp}(2N,\mathbb C),
+    \label{eq:hAdef}
+\end{equation}
+where $\xi$ includes the normal-ordering scalar. The ordered product in Eq.~\eqref{eq:weight_def} is represented on the single-particle Nambu space by
+\begin{equation}
+    \hat\chi\,\hat U(\phi)=\hat U(\phi)\,\mc M(\phi)\hat\chi,
+    \qquad
+    \mc M(\phi)=\ee^{A_1}\ee^{A_2}\cdots\ee^{A_L}.
+    \label{eq:Mdef}
+\end{equation}
+Whenever the trace is defined, the paired bosonic Gaussian formula is
+\begin{equation}
+    W_{\rm p}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+    \det\!\left(I_{2N}-\mc M(\phi)\right)^{-1/2}.
+    \label{eq:trace_formula_main}
+\end{equation}
+The square root denotes the metaplectic branch fixed by continuous continuation from a convergent reference region, as derived in Sec.~\ref{app:trace_paired} of the SM~\cite{SM}. This branch choice is the main new feature relative to number-conserving BAFQMC and is essential when applying reflection positivity to paired propagators.
 
-
-
-
-
-\subsection{Equal-time Green's function and observables}
-
-At fixed auxiliary field, all equal-time observables follow from the bosonic Green's function
+At fixed $\phi$, equal-time observables are obtained from
 \begin{equation}
     G(\phi)_{\mu\nu}
-    = \frac{\Tr\left[\hat\chi_\mu\hat\chi_\nu\hat U(\phi)\right]}{\Tr\,\hat U(\phi)}.
+    =\frac{\Tr\!\left[\hat\chi_\mu\hat\chi_\nu\hat U(\phi)\right]}{\Tr\,\hat U(\phi)}.
     \label{eq:Gdef}
 \end{equation}
-Using Eq.~\eqref{eq:Mdef} and cyclicity of the trace, Sec.~\ref{app:green} of the SM~\cite{SM} shows that
+The Gaussian identity derived in the SM gives
 \begin{equation}
-    G(\phi) = \left(I_{2N}-\mc M(\phi)\right)^{-1}\Omega.
+    G(\phi)=\left(I_{2N}-\mc M(\phi)\right)^{-1}\Omega.
     \label{eq:Gformula}
 \end{equation}
-This compact expression is the bosonic counterpart of the equal-time Green's function in fermionic AFQMC. Since $\Omega^{-1}=-\Omega$, one also has
-\begin{equation}
-    G(\phi)\Omega^{-1} = \left(I_{2N}-\mc M(\phi)\right)^{-1}.
-    \label{eq:Gomega_inverse}
-\end{equation}
-The four $N\times N$ blocks of $G$ give, respectively, the anomalous correlators $\langle \hat a_i\hat a_j\rangle_\phi$, the normal correlators $\langle \hat a_i\hat a_j^+\rangle_\phi$, $\langle \hat a_i^+\hat a_j\rangle_\phi$, and $\langle \hat a_i^+\hat a_j^+\rangle_\phi$.
+All higher equal-time correlators follow by Wick contraction. Number-conserving Green-function blocks are given in Sec.~\ref{app:green} of the SM, while local-update ratios and stabilization details are collected in Sec.~\ref{app:update} of the SM~\cite{SM}.
 
-In the number-conserving case Eq.~\eqref{eq:Gformula} reduces to the more familiar matrix identities
-\begin{equation}
-    \langle \hat a_i \hat a_j^+\rangle_\phi = \left(I_N-\mc B\right)^{-1}_{ij},
-    \qquad
-    \langle \hat a_j^+ \hat a_i\rangle_\phi = \left[\mc B\left(I_N-\mc B\right)^{-1}\right]_{ij}.
-    \label{eq:number_green_blocks}
-\end{equation}
-All higher-order equal-time correlators follow from Wick's theorem because $\hat U(\phi)$ is a Gaussian operator. Thus, once the matrix $G(\phi)$ is known, one may evaluate arbitrary local observables, structure factors, and susceptibilities by standard Gaussian contraction rules.
-
-\subsection{Importance sampling and local updates}
-
-The Monte Carlo weight for an auxiliary-field configuration is
-\begin{equation}
-    P(\phi) = P_{\mathrm{aux}}(\phi)\,W(\phi).
-\end{equation}
-For a local proposal that changes a single auxiliary field from $\phi$ to $\phi'$, the Metropolis acceptance probability is
-\begin{equation}
-    p_{\mathrm{acc}}(\phi\to\phi') =
-    \min\!\left\{1,
-    \frac{P_{\mathrm{aux}}(\phi')}{P_{\mathrm{aux}}(\phi)}
-    \frac{W(\phi')}{W(\phi)}\right\}.
-\end{equation}
-Suppose only slice $\ell$ is modified, with
-\begin{equation}
-    \ee^{A_\ell'} = \left(I_{2N}+\Delta_\ell\right)\ee^{A_\ell},
-    \qquad
-    \delta\xi_\ell = \xi_\ell' - \xi_\ell.
-    \label{eq:delta_def}
-\end{equation}
-Note that the $\delta\xi_\ell$ here originates from the commutator term when the Hamiltonian is written in the Nambu representation.
-Introduce the cyclically ordered product starting at slice $\ell$,
-\begin{equation}
-    \mc M_\ell = \ee^{A_\ell}\ee^{A_{\ell+1}}\cdots \ee^{A_L}\ee^{A_1}\cdots \ee^{A_{\ell-1}},
-\end{equation}
-and its corresponding Green's function
-\begin{equation}
-    G_\ell = \left(I_{2N}-\mc M_\ell\right)^{-1}\Omega.
-\end{equation}
-Then Sec.~\ref{app:update} of the SM~\cite{SM} shows that the exact Gaussian weight ratio is
-\begin{equation}
-    \frac{W(\phi')}{W(\phi)}
-    = \ee^{\delta\xi_\ell}
-    \det\!\left[I_{2N}+\Delta_\ell\left(I_{2N}-G_\ell\Omega^{-1}\right)\right]^{-1/2}.
-    \label{eq:update_ratio_main}
-\end{equation}
-This is the bosonic analogue of the fast-update determinant ratio in determinantal QMC. When the local modification affects only a few matrix elements, the matrix inside the determinant differs from the identity by a low-rank operator and can be evaluated using a reduced determinant.
-
-At low temperatures or long imaginary time, the matrix products $\mc M$ and $\mc B$ become strongly ill-conditioned. This numerical issue is familiar from fermionic AFQMC and must also be handled here by stabilized matrix decompositions. In the number-conserving case, standard QR or SVD stabilization applies directly to the product $\mc B$. In the paired case, one may use structure-preserving factorizations for symplectic products. Since the present paper focuses on the sign structure rather than on implementation details, we do not expand on stabilization algorithms further, but we emphasize that the positivity results established below are independent of the particular stabilization scheme used in practice.
+Bosonic weights have poles rather than zeros. In the number-conserving case Eq.~\eqref{eq:trace_formula_number} should be understood as the Gaussian-cutoff finite part when auxiliary fields cross $\det(I_N-\mc B)=0$; in paired RP sectors the metaplectic branch is followed within a pole-free component. The regularized interpretation is developed in Sec.~\ref{app:regularization} of the SM~\cite{SM}.
 
 
 
