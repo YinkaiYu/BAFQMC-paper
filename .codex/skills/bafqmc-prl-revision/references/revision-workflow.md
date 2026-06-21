@@ -35,6 +35,7 @@ latexmk main.tex
 
 4. Refresh `pdf/main.pdf`.
 5. Refresh `pdf/main-diff.pdf` against the previous substantive content-edit commit, unless the author specifies another baseline.
+   When using `latexpand`, run it from the old/new source directories, not from the repository root, so `\input{SM.tex}` expands the matching old/new Supplemental Material rather than the current working-tree file.
 6. Run a process-language scan on changed manuscript files:
 
 ```bash
