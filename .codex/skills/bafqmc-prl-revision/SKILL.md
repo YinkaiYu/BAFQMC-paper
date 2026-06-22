@@ -1,6 +1,6 @@
 ---
 name: bafqmc-prl-revision
-description: Use when revising this BAFQMC manuscript toward PRL style, especially Section IV, Introduction, Fig. 1 framing, reference expansion, or post-edit manuscript review.
+description: Use when revising this BAFQMC manuscript toward PRL style, especially Section II formalism, Supplemental Material restructuring, Section IV benchmarks, Introduction/Fig. 1 framing, references, or post-edit review.
 ---
 
 # BAFQMC PRL Revision
@@ -33,6 +33,26 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 - Use reference Letters as tone and rhythm models only; do not import their physics claims.
 - Keep the main text readable as physics. Move derivations, branch-choice details, update ratios, and numerical parameters to SM when they interrupt the story.
 - Preserve notation: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.
+
+## Formalism Rules
+
+- In Sec. II, start from the physical HS picture: auxiliary fields decouple interactions into one-body Hamiltonians, and AFQMC samples spacetime auxiliary-field configurations.
+- Use "HS transformation"; avoid invented shorthand such as "HS reduction".
+- Do not spend displayed equations on notation-only definitions. Put vectors, commutators, and matrix conventions inline near their first use.
+- Avoid nested main-text notation when a direct formula is readable. Prefer `W(\phi)=\Tr[\prod_\ell e^{\hat h_\ell(\phi_\ell)}]` over introducing an extra `\hat U(\phi)`.
+- Define the HS measure in physical terms as products of Gaussian factors from the HS transformation.
+- Present number-conserving BAFQMC before paired/Nambu BAFQMC. Use `W(\phi)` unless a new symbol removes real complexity.
+- In the main number-conserving trace formula, omit optional scalar factors such as `\xi_\ell`; state once that scalar factors are absorbed into the HS weight when present, and leave the detailed convention to SM.
+- Explain the bosonic determinant by comparing it with the fermionic AFQMC determinant: the bosonic formula has `I-\mc B` and the inverse determinant.
+- Keep metaplectic branch choices, Nambu Green functions, and update-ratio derivations in SM unless the author explicitly asks for them in the main text.
+- Avoid forward references from the main body to later main-text sections. Cite SM for derivations.
+
+## Supplemental Material Rules
+
+- Organize detailed formalism from simple to general: HS transformation, number-conserving trace formula, number-conserving Green functions, number-conserving local update, then paired/Nambu formulas.
+- Give concrete HS examples for attractive and repulsive density channels, including the benchmark decoupling, before abstract implementation details.
+- Include update ratios for the number-conserving case before paired/Nambu update ratios.
+- Keep derivations rigorous in SM, but avoid duplicating model motivation or benchmark narrative from the main text.
 
 ## Project Decisions
 

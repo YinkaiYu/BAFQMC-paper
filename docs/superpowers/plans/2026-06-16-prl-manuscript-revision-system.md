@@ -26,13 +26,13 @@
 - `texcount -merge -incbib -brief main.tex` reports about `6555+98+159` words with a `main.bbl` missing warning.
 - Local analysis of four sign-problem-free QMC Letter/Rapid style references gives approximate main-article word counts in the 3600--4400 range before acknowledgments or appendices. The target should therefore be a compact 4.5--5 page Letter, not an artificially overcompressed draft.
 - PRL abstract should remain no more than 600 characters.
-- Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the paired/Nambu determinant, and one Green-function identity; the detailed HS reduction, algebra, Green blocks, update ratio, and stabilization discussion now sit in the Supplemental Material.
+- Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the number-conserving Green-function identity, and the paired/Nambu determinant; the detailed HS transformation, algebra, branch choices, Green-function derivations, update ratios, and stabilization discussion now sit in the Supplemental Material.
 - Existing Section III still carries substantial mathematical proof load in the main text.
 - Section IV has been rewritten around the new triangular-lattice benchmarks; the unfinished marker has been removed.
 - Section V and Section VI should be merged; Section VI is empty.
 - Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
-- Status on 2026-06-22: the Section II pass is complete against baseline `79a1b9b`; `pdf/main.pdf` and the SM-aware `pdf/main-diff.pdf` have been refreshed.
-- The last completed manuscript-content pass is Section II plus the supporting Supplemental Material; the next content pass is Section III unless the author requests further Section II polishing.
+- Status on 2026-06-22: Section IV benchmark writing is in place, and Section II plus the supporting Supplemental Material have gone through two compression passes. The second pass removes notation-only display equations, avoids extra main-text variables such as `\hat U(\phi)` and `W_{\rm nc}`, puts number-conserving Green functions in the main text, and moves branch and update-ratio details to the Supplemental Material.
+- The last completed manuscript-content pass is the refined Section II plus supporting Supplemental Material; the next content pass is Section III unless the author requests further Section II polishing.
 
 **Main diagnosis:**
 - The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
@@ -105,7 +105,7 @@ These must be resolved before edits that change physics claims or figure content
 
 1. Diff baseline:
    - Default baseline for `pdf/main-diff.pdf`: the previous version or commit containing substantive manuscript-content edits.
-   - Current next-pass default: compare Section II changes against commit `79a1b9b`, unless the author specifies another baseline.
+   - For the current refined Section II/SM pass, compare against commit `5d8a10a`, unless the author specifies another baseline.
    - Ask the author only when this default is ambiguous for a given edit.
 
 2. Reference-corpus workflow:
@@ -173,24 +173,26 @@ These must be resolved before edits that change physics claims or figure content
 - Modify: `SM.tex`.
 - Read from: `main.tex`.
 
-- [ ] Step 1: Reorder SM so it follows the future main-text order.
-  - Proposed SM order:
-    1. Number-conserving trace formula.
-    2. Paired/Nambu trace formula and metaplectic branch.
-    3. Green functions, observables, and update ratios.
-    4. Kramers TRS proof.
-    5. Reflection positivity proof and Gaussian slice criterion.
+- [x] Step 1: Reorder SM formalism so it follows the reader-friendly order.
+  - Current SM formalism order:
+    1. HS transformation, including concrete attractive/repulsive identities and benchmark density-channel decoupling.
+    2. Number-conserving trace formula.
+    3. Number-conserving Green functions.
+    4. Number-conserving local update ratio.
+    5. Paired/Nambu algebra, trace formula, branch choice, Green functions, and update ratio.
     6. Regularized bosonic weights and pole structure.
-    7. Numerical details and benchmark parameters.
+    7. Regularized RP semigroup viewpoint.
+    8. Numerical details and benchmark parameters.
 
-- [ ] Step 2: Move proof material out of current main-text II/III into SM where not already duplicated.
+- [x] Step 2: Move proof material out of current main-text Section II into SM where not already duplicated.
   - Keep equation labels stable where possible.
   - Add new labels only when necessary for cross references.
+  - Section III proof-load reduction remains a separate future pass.
 
-- [ ] Step 3: Add numerical-details scaffolding to SM.
+- [x] Step 3: Add numerical-details scaffolding to SM.
   - Include triangular geometry, boundary condition, `K` point convention, observables, `dtau`, samples, block size, ED truncation/cutoff, reliability rules, and paired time-step diagnostics.
 
-- [ ] Step 4: Compile.
+- [x] Step 4: Compile.
   - Run: `latexmk main.tex`.
   - Expected: no new undefined references or citation warnings.
 
@@ -203,30 +205,32 @@ These must be resolved before edits that change physics claims or figure content
 - [x] Step 1: Rename Section II to `Bosonic Auxiliary-Field Quantum Monte Carlo`.
 
 - [x] Step 2: Start from the HS ensemble.
-  - Retain only:
-    - `Z=\int \mc D\phi P_{\mathrm{aux}}(\phi)W(\phi)`.
-    - `W(\phi)=\Tr \hat U(\phi)`.
-    - a sentence that `\hat U(\phi)` is a product of bosonic Gaussian slices.
+  - Retain:
+    - the physical HS picture: interactions become one-body Hamiltonians in fluctuating auxiliary fields.
+    - `Z=\int \mc D\phi P_{\rm HS}(\phi)W(\phi)`.
+    - direct `W(\phi)=\Tr[\prod_\ell e^{\hat h_\ell(\phi_\ell)}]`.
+    - a plain explanation that `P_{\rm HS}` is the product of Gaussian factors generated by the HS transformation.
 
 - [x] Step 3: Present number-conserving BAFQMC first.
   - Retain:
-    - `\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell`.
-    - `\mc B=\ee^{B_1}\cdots\ee^{B_L}`.
-    - `W_{\rm nc}=\ee^{\sum_\ell\xi_\ell}\det(I-\mc B)^{-1}`.
-    - one compact Green-function identity.
+    - inline slice form `\hat h_\ell(\phi_\ell)=\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}`.
+    - `W(\phi)=\det(I-\mc B)^{-1}`.
+    - the comparison with the fermionic AFQMC determinant.
+    - the number-conserving equal-time Green-function identity.
+    - a short statement that local updates reduce to low-rank determinant ratios, with details in SM.
 
 - [x] Step 4: Present paired/Nambu BAFQMC second.
   - Retain:
-    - `\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans`.
-    - `\mc M=\ee^{A_1}\cdots\ee^{A_L}`.
-    - `W_{\rm p}=\ee^{\sum_\ell\xi_\ell}\det(I-\mc M)^{-1/2}`.
-    - one sentence on the metaplectic branch fixed by continuity.
+    - inline Nambu notation and commutator definitions near first use.
+    - `W(\phi)=\ee^{\sum_\ell\xi_\ell}\det(I-\mc M)^{-1/2}`.
+    - a sentence that explicit pairing terms are handled by this anomalous Gaussian trace.
+    - branch and Nambu Green-function details in SM.
 
 - [x] Step 5: Move local-update ratio and stabilization details to SM.
 
-- [x] Step 6: Keep only one compact Green-function formula in the main text.
-  - Retain `G=(I_{2N}-\mc M)^{-1}\Omega` for observables.
-  - Move block-level correlator identities and the local-update derivation to SM.
+- [x] Step 6: Keep only the number-conserving Green-function formula in the main text.
+  - Retain the two equal-time blocks `\langle a_i a_j^+\rangle_\phi` and `\langle a_j^+ a_i\rangle_\phi`.
+  - Move Nambu Green functions and all local-update derivations to SM.
 
 - [x] Step 7: Compile and inspect.
   - Run: `latexmk main.tex`.
