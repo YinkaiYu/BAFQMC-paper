@@ -43,8 +43,7 @@
 
 The HS transformation used to obtain Eq.~\eqref{eq:Z_afqmc} starts from
 \begin{equation}
-    \hat H=\hat H_0+\hat H_{\mathrm{int}},
-    \qquad
+    \hat H=\hat H_0+\hat H_{\mathrm{int}},\qquad
     \hat H_{\mathrm{int}}=\sum_\gamma\lambda_\gamma\hat O_\gamma^2,
 \end{equation}
 where $\hat H_0$ and $\hat O_\gamma$ are one-body operators. A first-order Trotter-Suzuki decomposition gives
@@ -53,6 +52,7 @@ where $\hat H_0$ and $\hat O_\gamma$ are one-body operators. A first-order Trott
     =\Tr\left[\prod_{\ell=1}^{L_\tau}\ee^{-\Delta\tau\hat H_0}
     \ee^{-\Delta\tau\hat H_{\mathrm{int}}}\right]+O(\Delta\tau).
 \end{equation}
+The index $\ell$ denotes an imaginary-time slice in this section; after the HS transformation it is convenient in the main text to combine time, site, and channel labels into one spacetime auxiliary-field index.
 For an attractive channel, $\lambda_\gamma<0$, the elementary Gaussian identity is
 \begin{equation}
     \ee^{-\Delta\tau\lambda_\gamma\hat O_\gamma^2}
@@ -72,9 +72,6 @@ For a repulsive channel, $\lambda_\gamma>0$, the same real Gaussian field couple
     \label{eq:hs_repulsive}
 \end{equation}
 Applying these identities on every time slice gives the AFQMC integral in Eq.~\eqref{eq:Z_afqmc}. The factor $P_{\rm HS}(\phi)$ is the product of all elementary Gaussian weights $\ee^{-\phi_{\gamma\ell}^2/2}/\sqrt{2\pi}$, while the remaining exponential operators are one-body bosonic propagators in the auxiliary-field background.
-
-\subsection{Benchmark density channels}
-\label{app:benchmark_hs}
 
 For $U_1\le0$ and $U_2\ge0$, the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} uses Eq.~\eqref{eq:hs_attractive} for the total-density channel and Eq.~\eqref{eq:hs_repulsive} for the relative-density channel:
 \begin{equation}
@@ -98,9 +95,9 @@ and
 \end{equation}
 For fixed auxiliary fields on time slice $\ell$, these transformations generate onsite potentials
 \begin{equation}
-    v_{b,i\ell}=\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell},
-    \qquad
+    v_{b,i\ell}=\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell},\qquad
     v_{c,i\ell}=\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}.
+    \label{eq:benchmark_hs_potentials}
 \end{equation}
 The grand-canonical sampling weight contains $\hat H-\mu\hat N$, so the chemical potential adds
 $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
@@ -113,92 +110,97 @@ $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 
 Consider a Gaussian operator of the form
 \begin{equation}
-    \hat U=\exp(\hat{\bb a}^+C\hat{\bb a}+\xi),
+    \hat U(C)=\exp(\hat{\bb a}^+C\hat{\bb a}),
 \end{equation}
-where $C$ is an $N\times N$ matrix and $\xi$ is a scalar. Let $\|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$ be the unnormalized bosonic coherent state. Using
+where $C$ is an $N\times N$ matrix. Let $\|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$ be the unnormalized bosonic coherent state. The coherent-state resolution of identity is
 \begin{equation}
-    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,
-    \qquad
-    \langle z\|w\rangle=\ee^{z^\hc w},
+    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,\qquad
+    \langle z\|w\rangle=\ee^{z^\hc w}.
 \end{equation}
-and $\hat U\|z\rangle=\ee^\xi\|\ee^C z\rangle$, one obtains
+Since $\ee^{\hat{\bb a}^+C\hat{\bb a}}\hat{\bb a}^+\ee^{-\hat{\bb a}^+C\hat{\bb a}}=\hat{\bb a}^+\ee^{C}$, the Gaussian operator maps coherent states as $\hat U(C)\|z\rangle=\|\ee^C z\rangle$. Therefore
 \begin{equation}
-\begin{aligned}
-    \Tr\,\hat U
-    &=\ee^\xi\int\frac{\dd^{2N}z}{\pi^N}
-    \exp[-z^\hc(I_N-\ee^C)z] \\
-    &=\ee^\xi\det(I_N-\ee^C)^{-1},
-\end{aligned}
+    \Tr\,\hat U(C)=\int\frac{\dd^{2N}z}{\pi^N}\exp[-z^\hc(I_N-\ee^C)z]=\det(I_N-\ee^C)^{-1},
     \label{eq:number_trace_appendix}
 \end{equation}
 whenever the Gaussian integral converges. Both sides are holomorphic away from $\det(I_N-\ee^C)=0$, so the identity extends meromorphically to nonsingular $I_N-\ee^C$.
 
 For an ordered product of number-conserving slices,
 \begin{equation}
-    \hat U=\prod_{\ell=1}^{L}\exp[\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}+\xi_\ell],
-    \qquad
-    \mc B=\ee^{B_1}\cdots\ee^{B_L},
+    \hat U=\prod_{\ell=1}^{L}\exp[\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}],\qquad
+    \mc B=\ee^{B_1(\phi_1)}\cdots\ee^{B_L(\phi_L)},
 \end{equation}
-the same coherent-state calculation gives
+the product acts on coherent states by the single-particle matrix $\mc B$, and the trace formula becomes
 \begin{equation}
-    \Tr\,\hat U
-    =\exp\!\left(\sum_\ell\xi_\ell\right)\det(I_N-\mc B)^{-1}.
+    \Tr\,\hat U=\det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-When the scalar factor is not needed explicitly, it can be absorbed into the HS weight, giving Eq.~\eqref{eq:trace_formula_number}. When the auxiliary-field integral crosses the pole surface $\det(I_N-\mc B)=0$, Eq.~\eqref{eq:number_trace_product} is interpreted by the Gaussian-cutoff finite part described in Sec.~\ref{app:regularization}.
+This is Eq.~\eqref{eq:trace_formula_number}. When the auxiliary-field integral crosses the pole surface $\det(I_N-\mc B)=0$, Eq.~\eqref{eq:number_trace_product} is interpreted by the Gaussian-cutoff finite part described in Sec.~\ref{app:regularization}.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
 
 At fixed $\phi$, define
 \begin{equation}
-    G^>_{ij}=\langle \hat a_i\hat a_j^+\rangle_\phi,
-    \qquad
-    G^<_{ij}=\langle \hat a_j^+\hat a_i\rangle_\phi.
+    G_{ij}=\langle \hat a_i\hat a_j^+\rangle_\phi,\qquad
+    \bar G_{ij}=\langle \hat a_j^+\hat a_i\rangle_\phi,
 \end{equation}
-The product of number-conserving slices satisfies
+where $\langle\cdots\rangle_\phi=\Tr[(\cdots)\hat U]/\Tr\hat U$. The linear action of a single slice follows from
+$[\hat{\bb a}^+B\hat{\bb a},\hat a_i]=-\sum_jB_{ij}\hat a_j$, giving
+\begin{equation}
+    \hat{\bb a}\,\ee^{\hat{\bb a}^+B\hat{\bb a}}
+    =
+    \ee^{\hat{\bb a}^+B\hat{\bb a}}\,\ee^B\hat{\bb a}.
+\end{equation}
+Applying this relation through all slices gives
 \begin{equation}
     \hat{\bb a}\hat U=\hat U\,\mc B\hat{\bb a}.
 \end{equation}
-Using cyclicity of the trace and the canonical commutator gives
+Now
 \begin{equation}
-    G^< = \mc B G^>,
-    \qquad
-    G^> = I_N+G^<.
+    \bar G_{ij}=\frac{\Tr(\hat a_j^+\hat a_i\hat U)}{\Tr\hat U}
+    =\frac{\Tr(\hat a_i\hat U\hat a_j^+)}{\Tr\hat U}
+    =\sum_k\mc B_{ik}G_{kj},
 \end{equation}
-Therefore
+where the second equality is cyclicity of the trace and the third uses the linear action above. Thus $\bar G=\mc B G$. The canonical commutator also gives $G=I_N+\bar G$. Combining the two equations yields
 \begin{equation}
-    G^>=(I_N-\mc B)^{-1},
-    \qquad
-    G^<=\mc B(I_N-\mc B)^{-1},
+    G=(I_N-\mc B)^{-1},\qquad
+    \bar G=\mc B(I_N-\mc B)^{-1},
 \end{equation}
 which is Eq.~\eqref{eq:number_green_blocks}. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian.
 
-\subsection{Local update ratio}
+\subsection{Local update and Metropolis ratio}
 \label{app:update_number}
 
 Suppose a local proposal changes only slice $\ell$ and, after cyclically ordering the product from that slice, changes the single-particle matrix as
 \begin{equation}
-    \ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell},
-    \qquad
+    \ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell},\qquad
     \mc B_\ell=\ee^{B_\ell}\ee^{B_{\ell+1}}\cdots\ee^{B_L}\ee^{B_1}\cdots\ee^{B_{\ell-1}}.
 \end{equation}
-Then $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$, and
+Then $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. With $G_\ell=(I_N-\mc B_\ell)^{-1}$,
 \begin{equation}
-\begin{aligned}
     I_N-\mc B_\ell'
-    &=I_N-(I_N+\Delta_\ell)\mc B_\ell \\
-    &=\left[I_N-\Delta_\ell(I_N-\mc B_\ell)^{-1}\mc B_\ell\right](I_N-\mc B_\ell).
-\end{aligned}
+    =\left[I_N+\Delta_\ell(I_N-G_\ell)\right](I_N-\mc B_\ell),
 \end{equation}
-Thus the number-conserving weight ratio is
+where we used $G_\ell\mc B_\ell=G_\ell-I_N$. Thus the determinant part of the number-conserving weight ratio is
 \begin{equation}
     \frac{W'}{W}
     =
-    \det\!\left[I_N+\Delta_\ell(I_N-G^>_\ell)\right]^{-1},
+    \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1},
     \label{eq:update_ratio_number}
 \end{equation}
-where $G^>_\ell=(I_N-\mc B_\ell)^{-1}$. If the proposal changes only one onsite HS field, $\Delta_\ell$ is rank one, and the determinant in Eq.~\eqref{eq:update_ratio_number} reduces to a scalar by the matrix determinant lemma. Scalar shifts in the slice multiply the ratio by the corresponding factor $\ee^{\delta\xi_\ell}$.
+If the proposal changes only one onsite HS field, $\Delta_\ell$ has nonzero entries only in the single-particle sectors attached to that site, and the determinant in Eq.~\eqref{eq:update_ratio_number} reduces to the determinant of that small local block by the matrix determinant lemma.
+
+The Metropolis step samples the full auxiliary-field measure, not only the determinant. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$, the acceptance probability is
+\begin{equation}
+    p(\phi\to\phi')=\min\left(1,\left|R\right|\right),\qquad
+    R=R_{\rm HS}R_{\rm det},
+\end{equation}
+with
+\begin{equation}
+    R_{\rm HS}=\exp\left[-\frac12(\phi_{i\ell}'^{\,2}-\phi_{i\ell}^{2})\right],\qquad
+    R_{\rm det}=\det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}.
+\end{equation}
+For the benchmark density channels in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}, a proposed update changes the onsite potentials $v_{b,i\ell}$ and $v_{c,i\ell}$ in Eq.~\eqref{eq:benchmark_hs_potentials} only through the corresponding local diagonal entries of $\ee^{B_\ell}$. The Gaussian factor $R_{\rm HS}$ is therefore essential in the total acceptance ratio even though it is not part of the bosonic trace.
 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
@@ -237,16 +239,13 @@ In block form,
 \end{equation}
 which gives
 \begin{equation}
-\begin{aligned}
-    \hat h(A,\xi)
-    ={}& \hat{\bb a}^+K\hat{\bb a}
+    \hat h(A,\xi)=\hat{\bb a}^+K\hat{\bb a}
     +\frac12\hat{\bb a}^+\Delta(\hat{\bb a}^+)^\trans
-    +\frac12\hat{\bb a}^\trans\overline{\Delta'}\hat{\bb a} \\
-    &\quad+\xi+\frac12\Tr K.
-\end{aligned}
+    +\frac12\hat{\bb a}^\trans\overline{\Delta'}\hat{\bb a}
+    +\xi+\frac12\Tr K.
 \label{eq:block_form_h}
 \end{equation}
-The scalar $\xi$ absorbs the normal-ordering constant when a physical quadratic Hamiltonian is represented in Nambu form.
+The scalar $\xi$ absorbs the normal-ordering constant when a physical quadratic Hamiltonian is represented in Nambu form. This constant is invisible in the single-particle matrix $\ee^A$, but it multiplies the Monte Carlo weight.
 
 Using $[XY,Z]=X[Y,Z]+[X,Z]Y$ and the symplectic condition, one finds
 \begin{equation}
@@ -285,7 +284,7 @@ Whenever the trace converges and $\det(I_{2N}-\mc M)\neq0$, the standard charact
     \det(I_{2N}-\mc M)^{-1/2}.
     \label{eq:character_formula_appendix}
 \end{equation}
-The square root is fixed by continuity from a stable diagonal sector. In that sector,
+The square root in Eq.~\eqref{eq:character_formula_appendix} is not an ordinary single-valued function of $\mc M$. It is the character of the metaplectic lift of the symplectic matrix $\mc M$, so a branch choice is part of the Gaussian operator. The physical branch is fixed by continuity from a stable diagonal sector. In that sector,
 \begin{equation}
     \hat U\sim\exp\left(\sum_{j=1}^{N}\varepsilon_j\hat\beta_j^+\hat\beta_j+\xi\right),
     \qquad
@@ -299,10 +298,11 @@ and hence
 \end{equation}
 The corresponding Nambu matrix is similar to
 \begin{equation}
-    \diag(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},
-    \ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}),
+    \diag(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},\ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}),
 \end{equation}
 so Eq.~\eqref{eq:diag_trace_paired} fixes the branch of Eq.~\eqref{eq:character_formula_appendix}. Analytic continuation on each connected component of $\det(I_{2N}-\mc M)\neq0$ then gives Eq.~\eqref{eq:trace_formula_main}.
+
+This statement has a direct algorithmic meaning. One starts from a reference configuration whose trace is known to be on the positive branch, for example a sufficiently stable diagonal configuration. During local Metropolis updates the ratio of two nearby weights is evaluated on the branch continuously connected to the identity update, where $\Delta_\ell=0$ and the ratio is one. Accepted updates therefore transport the metaplectic branch along the Monte Carlo trajectory. In the reflection-positive paired sector used for the benchmark, the relevant configurations lie in the same pole-free component, so the branch fixed at the reference point determines the sampled weight throughout the trajectory.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -319,35 +319,98 @@ From Eq.~\eqref{eq:Mdef},
     \hat\chi\hat U=\hat U\mc M\hat\chi.
     \label{eq:chiUappendix}
 \end{equation}
-Multiplying by $\hat\chi^\trans$ and taking the trace gives
+In components, multiplying by $\hat\chi_\nu$ on the right and taking the trace gives
 \begin{equation}
-    \Tr(\hat\chi\hat U\hat\chi^\trans)
-    =(\Tr\hat U)\mc M G.
+    \frac{\Tr(\hat\chi_\mu\hat U\hat\chi_\nu)}{\Tr\hat U}
+    =(\mc M G)_{\mu\nu}.
 \end{equation}
-Using $\hat\chi_\mu\hat\chi_\nu=\hat\chi_\nu\hat\chi_\mu+\Omega_{\mu\nu}$ gives the same trace as $(\Tr\hat U)(G-\Omega)$. Hence
+Cyclicity gives the same trace as
 \begin{equation}
-    G=(I_{2N}-\mc M)^{-1}\Omega,
+    \frac{\Tr(\hat U\hat\chi_\nu\hat\chi_\mu)}{\Tr\hat U}
+    =G_{\mu\nu}-\Omega_{\mu\nu},
+\end{equation}
+where we used $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$. Hence $\mc M G=G-\Omega$. Defining
+\begin{equation}
+    Q=(I_{2N}-\mc M)^{-1},
     \qquad
-    G\Omega^{-1}=(I_{2N}-\mc M)^{-1}.
+    G=Q\Omega,
     \label{eq:Gformula}
 \end{equation}
+gives the equal-time Nambu Green function in matrix form.
 
 For a local update in a paired/Nambu simulation, suppose
 \begin{equation}
-    \ee^{A_\ell'}=(I_{2N}+\Delta_\ell)\ee^{A_\ell},
-    \qquad
+    \ee^{A_\ell'}=(I_{2N}+\Delta_\ell)\ee^{A_\ell},\qquad
     \delta\xi_\ell=\xi_\ell'-\xi_\ell,
     \label{eq:delta_def}
 \end{equation}
-and define the cyclic product $\mc M_\ell=\ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}}$. Repeating the determinant manipulation used in Eq.~\eqref{eq:update_ratio_number} gives
+and define the cyclic product $\mc M_\ell=\ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}}$ and $Q_\ell=(I_{2N}-\mc M_\ell)^{-1}$. Repeating the determinant manipulation used in Eq.~\eqref{eq:update_ratio_number} gives
 \begin{equation}
     \frac{W'}{W}
     =
     \ee^{\delta\xi_\ell}
-    \det\left[I_{2N}+\Delta_\ell\left(I_{2N}-G_\ell\Omega^{-1}\right)\right]^{-1/2}.
+    \det\left[I_{2N}+\Delta_\ell\left(I_{2N}-Q_\ell\right)\right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-At long imaginary time the products $\mc M$ and $\mc B$ must be stabilized, for example by QR or SVD methods in the number-conserving case and by structure-preserving factorizations in the paired case. These stabilization choices do not affect the sign-free criteria in the main text.
+The square root in Eq.~\eqref{eq:update_ratio_main} is chosen by the same local continuation described above: for $\Delta_\ell=0$ the determinant is one and the ratio is one, and a small proposal follows the continuous branch from that point.
+
+For the paired benchmark, the onsite Nambu basis is $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. Write the two HS coefficients on site $i$ and time slice $\ell$ as
+\begin{equation}
+    \lambda_{1,i\ell}=\alpha_1\phi_{i\ell},\qquad
+    \lambda_{2,i\ell}=\ii\alpha_2\varphi_{i\ell}.
+\end{equation}
+The density part of the HS slice obeys
+\begin{equation}
+\begin{aligned}
+    &\lambda_{1,i\ell}(\hat n_{b,i}+\hat n_{c,i})
+    +\lambda_{2,i\ell}(\hat n_{b,i}-\hat n_{c,i}) \\
+    &\quad =
+    -\frac12\hat\chi_i^\trans\Omega
+    \begin{pmatrix}
+        \lambda_{1,i\ell}+\lambda_{2,i\ell}&0&0&0\\
+        0&\lambda_{1,i\ell}-\lambda_{2,i\ell}&0&0\\
+        0&0&-\lambda_{1,i\ell}-\lambda_{2,i\ell}&0\\
+        0&0&0&-\lambda_{1,i\ell}+\lambda_{2,i\ell}
+    \end{pmatrix}
+    \hat\chi_i
+    -\lambda_{1,i\ell}.
+\end{aligned}
+    \label{eq:nambu_hs_constant}
+\end{equation}
+The final term is the normal-ordering constant. It contributes to the scalar factor $\xi_\ell$ and is easy to miss because it is absent from the Nambu matrix. Thus a local $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$ has
+\begin{equation}
+    R_{\rm const}=\exp[-\alpha_1(\phi_{i\ell}'-\phi_{i\ell})],
+\end{equation}
+whereas a $U_2$-field proposal has $R_{\rm const}=1$.
+
+The full local Metropolis ratio for the paired benchmark is therefore
+\begin{equation}
+    R=R_{\rm HS}R_{\rm const}R_{\rm det},\qquad
+    p(\phi\to\phi')=\min(1,|R|),
+    \label{eq:paired_metropolis_ratio}
+\end{equation}
+with
+\begin{equation}
+    R_{\rm HS}=\exp\left[-\frac12(\phi'^{\,2}-\phi^2)\right],\qquad
+    R_{\rm det}=\det P^{-1/2}.
+\end{equation}
+Here $P$ is the local block of the matrix in Eq.~\eqref{eq:update_ratio_main}. If the proposal changes one site and one HS channel, then
+\begin{equation}
+    P_{\rho\sigma}=\delta_{\rho\sigma}
+    +d_\rho\left(\delta_{\rho\sigma}-(Q_\ell)_{i\rho,i\sigma}\right),
+    \qquad
+    \rho,\sigma\in\{b,c,b^+,c^+\}.
+    \label{eq:paired_local_block}
+\end{equation}
+For a $U_1$ update with $\delta\lambda_1=\alpha_1(\phi'-\phi)$,
+\begin{equation}
+    d=(\ee^{\delta\lambda_1}-1,\ee^{\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1),
+\end{equation}
+while for a $U_2$ update with $\delta\lambda_2=\ii\alpha_2(\varphi'-\varphi)$,
+\begin{equation}
+    d=(\ee^{\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{\delta\lambda_2}-1).
+\end{equation}
+Equations~\eqref{eq:paired_metropolis_ratio} and~\eqref{eq:paired_local_block} display the three factors in the paired BAFQMC update: the Gaussian HS ratio, the normal-ordering constant ratio, and the Nambu determinant ratio. At long imaginary time the products $\mc M$ and $\mc B$ must be stabilized, for example by QR or SVD methods in the number-conserving case and by structure-preserving factorizations in the paired case. These stabilization choices do not affect the sign-free criteria in the main text.
 
 \section{Regularized interpretation of the bosonic weight}
 \label{app:regularization}
@@ -594,7 +657,7 @@ For an ordered product of reflection-positive slices, the same decomposition is 
 \section{Details of the time-reversal-symmetry argument}
 \label{app:kramers}
 
-We now spell out the time-reversal-symmetry argument used in the main text. The logic is the same as in the familiar Kramers pairing argument for antiunitary symmetries~\cite{sakurai2017modern}, except that here it is applied to the single-particle propagator $\mc B$, which need not be Hermitian. Let
+We now spell out the time-reversal-symmetry argument used in the main text. The logic is the same as in the familiar Kramers pairing argument for antiunitary symmetries~\cite{sakurai2017modern}, except that here it is applied to the single-particle propagation matrix $\mc B$, which need not be Hermitian. Let
 \begin{equation}
     \mc B = \ee^{B_1}\cdots\ee^{B_L},
     \qquad
