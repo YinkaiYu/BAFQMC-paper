@@ -169,27 +169,14 @@ Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. Th
 
 \phantomsection\label{sec:positive}
 \noindent{\it Conditions for nonnegative weights}---
-For fixed auxiliary fields, BAFQMC reduces the interacting boson problem to a Gaussian trace. The sign question can therefore be answered directly from the HS-decoupled one-body slices. We use two criteria. The first is a time-reversal-symmetry (TRS) test for number-conserving slices. The second is a reflection-positivity (RP) test that also covers paired Gaussian slices.
+For fixed auxiliary fields, BAFQMC reduces the interacting boson problem to a Gaussian trace. The sign question can therefore be answered directly from the HS-decoupled one-body slices. The two criteria used below can be stated as follows.
 
-The TRS criterion applies to number-conserving slice generators satisfying
-\begin{equation}
-\begin{gathered}
-    \hat h_\ell = \hat{\bb a}^+ B_\ell \hat{\bb a} + \xi_\ell,
-    \qquad
-    \xi_\ell\in\mathbb R,\\
-    U^\hc \overline{B_\ell} U = B_\ell,
-    \qquad
-    UU^*=-I_N.
-\end{gathered}
-\label{eq:Bsymmetry}
-\end{equation}
-Here $\Theta=UK$ is the Kramers antiunitary symmetry, and $K$ denotes complex conjugation. Kramers pairing of the eigenmodes of the full propagation matrix $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ implies
-\begin{equation}
-    \det(I_N-\mc B)\ge0.
-\end{equation}
-The number-conserving BAFQMC weight is therefore nonnegative wherever the determinant formula is finite.
+\begin{theorem}[TRS criterion]
+\label{thm:trs}
+For number-conserving slices $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell$ with $\xi_\ell\in\mathbb R$, suppose there is a Kramers antiunitary symmetry $\Theta=UK$ such that $UU^*=-I_N$ and $U^\hc\overline{B_\ell}U=B_\ell$ for every slice. Then the full propagation matrix $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ obeys $\det(I_N-\mc B)\ge0$, and the BAFQMC weight is nonnegative wherever the number-conserving determinant formula is finite.
+\end{theorem}
 
-For the two-flavor basis used below, write $\hat{\bb a}=(\hat b_1,\ldots,\hat b_M,\hat c_1,\ldots,\hat c_M)^\trans$ and choose the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. Then Eq.~\eqref{eq:Bsymmetry} is equivalent to the block structure
+For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
 \begin{equation}
     \hat h_\ell =
     \hat{\bb a}^+
@@ -201,9 +188,11 @@ For the two-flavor basis used below, write $\hat{\bb a}=(\hat b_1,\ldots,\hat b_
     + \xi_\ell \,,
     \label{eq:block_TRS}
 \end{equation}
-with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The derivation, including the non-Hermitian eigenvalue pairing, is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
+with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The proof of Theorem~\ref{thm:trs}, including the non-Hermitian eigenvalue pairing, is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
 
-The RP criterion starts from two reflected boson sets $\hat b_i$ and $\hat c_i$. Let $\theta$ be the antilinear map that sends $\ii$ to $-\ii$, $\hat b_i$ to $\hat c_i$, and $\hat b_i^+$ to $\hat c_i^+$. If each HS-decoupled slice can be written as
+\begin{theorem}[RP criterion]
+\label{thm:rp}
+Let $\theta$ be the antilinear reflection that sends $\ii$ to $-\ii$, $\hat b_i$ to $\hat c_i$, and $\hat b_i^+$ to $\hat c_i^+$. If each HS-decoupled slice can be written as
 \begin{equation}
 \begin{aligned}
     \hat h_\ell =
@@ -217,7 +206,9 @@ The RP criterion starts from two reflected boson sets $\hat b_i$ and $\hat c_i$.
 \end{aligned}
 \label{eq:rp_generator}
 \end{equation}
-with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons, then the ordered product has nonnegative trace. This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. It is especially useful here because the two reflected boson sectors commute, so products of reflection-positive slices remain reflection-positive without fermionic sign factors. The proof is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
+with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons, then the ordered product has nonnegative trace. Hence $W(\phi)\ge0$ whenever the corresponding bosonic trace is finite.
+\end{theorem}
+This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. It is especially useful here because the two reflected boson sectors commute, so products of reflection-positive slices remain reflection-positive without fermionic sign factors. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
 
 For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. In the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, a reflected Gaussian slice has nonnegative BAFQMC weight if it can be written as
 \begin{equation}
@@ -260,24 +251,7 @@ A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard mo
 \end{equation}
 The sign-free HS conditions for this model are $U_1\le0$ and $U_2\ge0$; grand-canonical stability is a separate convergence requirement for bosonic traces. The $\Delta=0$ and $\Delta\ne0$ cases realize the criteria above in different ways. For the benchmark data we choose the frustrated hopping convention $t=1$. On the triangular lattice, this real positive hopping has a sign problem in local-weight methods such as world-line QMC or SSE. In BAFQMC, for the real hopping considered here, the TRS/RP criteria are insensitive to the sign of $t$.
 
-The interactions are decoupled in density channels for all values of $\Delta$. The $U_1$ channel produces a real potential $\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})$, and the $U_2$ channel produces an imaginary relative potential $\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})$, with $\alpha_1=\sqrt{-2\Delta\tau U_1}$ and $\alpha_2=\sqrt{2\Delta\tau U_2}$. Thus the two flavors see conjugate one-body potentials. When $\Delta=0$, the number-conserving slice has the block form
-\begin{equation}
-    \hat h_\ell^{(0)}
-    =
-    \begin{pmatrix}
-        \hat{\bb b}^+ & \hat{\bb c}^+
-    \end{pmatrix}
-    \begin{pmatrix}
-        D_\ell & 0\\
-        0 & \overline{D_\ell}
-    \end{pmatrix}
-    \begin{pmatrix}
-        \hat{\bb b}\\
-        \hat{\bb c}
-    \end{pmatrix}.
-\label{eq:benchmark_trs_block}
-\end{equation}
-Here $D_\ell=-\Delta\tau\,tA_\triangle+\diag_i(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell})$, where $A_\triangle$ is the triangular-lattice nearest-neighbor adjacency matrix; the grand-canonical chemical potential only adds a real diagonal term to both blocks. Equation~\eqref{eq:benchmark_trs_block} is Eq.~\eqref{eq:block_TRS} with $F_\ell=0$. It is also reflection positive: with $\theta(\hat b_i)=\hat c_i$ and $\theta(\ii)=-\ii$, one has $\hat h_\ell^{(0)}=\hat q_\ell+\theta(\hat q_\ell)$ for $\hat q_\ell=\hat{\bb b}^+D_\ell\hat{\bb b}$. The density-channel model is therefore sign-free by both TRS and RP.
+The interactions are decoupled in density channels for all values of $\Delta$. The $U_1$ channel produces a real potential $\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})$, and the $U_2$ channel produces an imaginary relative potential $\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})$, with $\alpha_1=\sqrt{-2\Delta\tau U_1}$ and $\alpha_2=\sqrt{2\Delta\tau U_2}$. Thus the two flavors see conjugate one-body potentials. When $\Delta=0$, the number-conserving slice is diagonal in flavor space, with $b$ block $D_\ell=-\Delta\tau\,tA_\triangle+\diag_i(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell})$ and $c$ block $\overline{D_\ell}$, where $A_\triangle$ is the triangular-lattice nearest-neighbor adjacency matrix. The grand-canonical chemical potential only adds a real diagonal term to both blocks. This is Eq.~\eqref{eq:block_TRS} with $F_\ell=0$. It is also reflection positive: with $\theta(\hat b_i)=\hat c_i$ and $\theta(\ii)=-\ii$, one has $\hat h_\ell^{(0)}=\hat q_\ell+\theta(\hat q_\ell)$ for $\hat q_\ell=\hat{\bb b}^+D_\ell\hat{\bb b}$. The density-channel model is therefore sign-free by both TRS and RP.
 
 We benchmark Eq.~\eqref{eq:benchmark_pairing} on a $3\times3$ triangular lattice with periodic boundary conditions against finite-temperature reference calculations. The simulations are grand-canonical, with the chemical potential specified in each figure caption, while $E=\langle \hat H\rangle$ denotes the physical energy of Eq.~\eqref{eq:benchmark_pairing}. The plotted observables are the density $\rho=\langle N_b+N_c\rangle/N_s$, where $N_s$ is the number of sites, and the energy shown as $-E$. We also measure the structure factors $S_{\rm SF}(K)=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}\langle \hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle$ and $S_{\rm DW}(K)=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}\langle \hat n_i\hat n_j\rangle$, with $\hat n_i=\hat n_{b,i}+\hat n_{c,i}$ and $K=(4\pi/3,0)$.
 
@@ -290,15 +264,7 @@ Figure~\ref{fig:benchmark_number} shows the number-conserving case, $\Delta=0$. 
     \label{fig:benchmark_number}
 \end{figure*}
 
-The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives a reflected anomalous bilinear,
-\begin{equation}
-    \Delta\tau|\Delta|\sum_i
-    \left[
-    \hat b_i^+\theta(\hat b_i^+)
-    +\hat b_i\theta(\hat b_i)
-    \right],
-\end{equation}
-so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The finite-$\Delta$ benchmark is therefore sign-free by the paired RP criterion and uses the anomalous bosonic Gaussian trace formula, extending finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows agreement with ED within statistical error bars, benchmarking the paired Nambu implementation in the same frustrated model family.
+The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives the reflected anomalous bilinear $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$, so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The finite-$\Delta$ benchmark is therefore sign-free by the paired RP criterion and uses the anomalous bosonic Gaussian trace formula, extending finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows agreement with ED within statistical error bars, benchmarking the paired Nambu implementation in the same frustrated model family.
 
 \begin{figure*}[bt]
     \centering
