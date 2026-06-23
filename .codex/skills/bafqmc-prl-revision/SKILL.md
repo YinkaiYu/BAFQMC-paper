@@ -14,10 +14,9 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 
 ## Required Workflow
 
-1. Before drafting or rewriting, read the relevant reference:
-   - Style and reference-letter voice: `references/style-analysis.md`.
-   - Sentence patterns and style cues: `references/style-micro-excerpts.md`.
-   - Paragraph structure patterns: `references/paragraph-blueprints.md`.
+1. Before drafting or rewriting, read only the reference files relevant to the task:
+   - PRL voice and paragraph shape: `references/style-analysis.md`, `references/style-micro-excerpts.md`, `references/paragraph-blueprints.md`.
+   - Section II, SM derivations, algorithms, and reproducibility: `references/formalism-algorithm-guidelines.md`.
    - Revision procedure and review loop: `references/revision-workflow.md`.
    - Citation additions: `references/reference-verification.md`.
    - Independent review prompts: `references/review-prompts.md`.
@@ -40,38 +39,15 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 - Distinguish operators from matrices in prose. Call $\mc B$ or $\mc M$ a single-particle propagation matrix or coefficient matrix, not an operator.
 - Preserve notation: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.
 
-## Formalism Rules
+## Formalism And SM Principles
 
-- In Sec. II, start from the physical HS picture: auxiliary fields decouple interactions into one-body Hamiltonians, and AFQMC samples spacetime auxiliary-field configurations.
-- Use "HS transformation"; avoid invented shorthand such as "HS reduction".
-- Do not spend displayed equations on notation-only definitions. Put vectors, commutators, and matrix conventions inline near their first use.
-- Avoid nested main-text notation when a direct formula is readable. Prefer `W(\phi)=\Tr[\prod_\ell e^{\hat h_\ell(\phi_\ell)}]` over introducing an extra `\hat U(\phi)`.
-- Define the HS measure in physical terms as the Gaussian factors actually used in the manuscript. For the current continuous-field presentation, write the direct product of real Gaussian weights rather than previewing unused field types.
-- Present number-conserving BAFQMC before paired/Nambu BAFQMC. Use `W(\phi)` unless a new symbol removes real complexity.
-- Describe particle-number conservation as a property of the one-body evolution being considered, not as a decoupling class that implies unused alternatives.
-- In the main number-conserving trace formula, omit optional scalar factors such as `\xi_\ell` unless they are active in the formula being discussed.
-- Explain the bosonic determinant by comparing it with the fermionic AFQMC determinant through the two concrete differences: `I+\mc B` becomes `I-\mc B`, and the determinant appears in the denominator. Avoid saying Bose statistics "change the sign" because that can be confused with the sign problem.
-- Cite established trace-formula sources when a formula is known from prior bosonic AFQMC literature, and use SM for this manuscript's derivation or convention.
-- For Nambu formulas, track scalar normal-ordering factors separately from matrix products and include those scalar factors in update ratios when they change under a proposal.
-- Introduce Nambu formulas as needed by a stated pairing term in `\hat h_\ell`; do not start a paragraph with an unexplained technical requirement.
-- Keep metaplectic branch choices, Nambu Green functions, and update-ratio derivations in SM unless the author explicitly asks for them in the main text.
-- Avoid forward references from the main body to later main-text sections. Cite SM for derivations.
-
-## Supplemental Material Rules
-
-- Organize detailed formalism from simple to general: HS transformation, number-conserving trace formula, number-conserving Green functions, number-conserving local update, then paired/Nambu formulas.
-- Give concrete HS examples for attractive and repulsive density channels, including the benchmark decoupling, before abstract implementation details.
-- Include update ratios for the number-conserving case before paired/Nambu update ratios.
-- Keep derivations rigorous and followable in SM. Do not compress algebraic steps so aggressively that a reader cannot reproduce identities such as `a U = U \mc B a`, Green-function relations, determinant ratios, or branch choices.
-- Avoid phrases such as "repeating the same manipulation" when the omitted step is needed to check a formula. Write the determinant factorization, branch continuation, and local-block reduction explicitly.
-- Do not introduce intermediate symbols unless they remove real complexity. A one-use symbol that hides the object the reader must evaluate usually increases the burden.
-- In SM, explain Metropolis importance sampling as a ratio of the full auxiliary-field measure. Include every factor that changes under a proposal: determinant or square-root determinant ratio, HS Gaussian ratio, and any normal-ordering/scalar-constant ratio.
-- In sign-free Metropolis formulas, write the physical acceptance ratio as a real nonnegative quantity and avoid unnecessary absolute values. If finite-precision code represents a sign-free ratio as complex, discuss phase monitoring or branch diagnostics separately from the mathematical acceptance formula.
-- For paired/Nambu updates, describe the metaplectic branch through local continuation from the identity update for each proposal. State benchmark-specific pole-distance and phase diagnostics separately, and keep the discussion at the physical algorithm level.
-- For implementation-backed benchmark details, include the HS fields used, initialization distribution, local proposal distribution and widths, warmup procedure, stabilization cadence, production statistics, and exact-diagonalization truncation checks when available.
-- When a benchmark uses conjugate reflected sectors, spell out the algorithmic consequence in SM: determinant ratios, Green functions, and local updates can be evaluated in one sector and reconstructed by complex conjugation in the partner sector.
-- Use the one-column SM width. Avoid line breaks and `aligned` environments whose only purpose is saving two-column space; keep multi-line equations only when they clarify a derivation or a large block matrix.
-- Keep derivations rigorous in SM, but avoid duplicating model motivation or benchmark narrative from the main text.
+- Lead with the physical AFQMC picture, then introduce the minimum notation needed for the result.
+- Keep the main text compact and reader-facing. Use prose to lower the reader's workload, and reserve displayed equations for core results rather than intermediate notation.
+- Do not let compression remove logical support. Move the support to SM and make it more reproducible there.
+- Derive before claiming. For every nontrivial formula or implementation-backed relation, show the object being manipulated, the algebraic step, and the condition under which it is used.
+- Keep formulas faithful to the physical sampling measure and to the algorithm actually used. Do not add mathematical operations or diagnostics for explanatory convenience.
+- Separate mathematical identities, branch conventions, numerical stabilization, and implementation diagnostics as distinct claims.
+- Prefer reader-facing explanations over author-facing emphasis. A paragraph should sound like it belongs in a paper, not like a reply to a revision note.
 
 ## Project Decisions
 

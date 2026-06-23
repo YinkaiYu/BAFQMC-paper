@@ -108,25 +108,39 @@ $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 \subsection{Trace formula}
 \label{app:trace_number}
 
-Consider a Gaussian operator of the form
+Consider first the one-mode operator $\hat U(\varepsilon)=\exp(\varepsilon\hat a^+\hat a)$. In the occupation-number basis,
+\begin{equation}
+    \Tr\,\hat U(\varepsilon)
+    =
+    \sum_{n=0}^{\infty}\ee^{n\varepsilon}
+    =
+    \frac{1}{1-\ee^\varepsilon},
+    \qquad |\ee^\varepsilon|<1.
+\end{equation}
+For $N$ independent modes this gives $\prod_m(1-\ee^{\varepsilon_m})^{-1}$. This is the physical content of the bosonic determinant formula: each single-particle eigenmode contributes a geometric sum over its possible boson occupation numbers. The finite-temperature bosonic AFQMC construction in Ref.~\cite{rubenstein2012pra} uses this same occupation-number argument.
+
+For a general matrix $C$, the coherent-state calculation gives a basis-independent form of the same result. Let
 \begin{equation}
     \hat U(C)=\exp(\hat{\bb a}^+C\hat{\bb a}),
 \end{equation}
-where $C$ is an $N\times N$ matrix. Let $\|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$ be the unnormalized bosonic coherent state. The coherent-state resolution of identity is
+and let $\|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$ be the unnormalized bosonic coherent state. The coherent-state resolution of identity is
 \begin{equation}
     I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,\qquad
     \langle z\|w\rangle=\ee^{z^\hc w}.
 \end{equation}
-Since $\ee^{\hat{\bb a}^+C\hat{\bb a}}\hat{\bb a}^+\ee^{-\hat{\bb a}^+C\hat{\bb a}}=\hat{\bb a}^+\ee^{C}$, the Gaussian operator maps coherent states as $\hat U(C)\|z\rangle=\|\ee^C z\rangle$. Therefore
+Since $\ee^{\hat{\bb a}^+C\hat{\bb a}}\hat{\bb a}^+\ee^{-\hat{\bb a}^+C\hat{\bb a}}=\hat{\bb a}^+\ee^{C}$, the Gaussian operator maps coherent states as $\hat U(C)\|z\rangle=\|\ee^C z\rangle$. Hence, in the convergent region,
 \begin{equation}
-    \Tr\,\hat U(C)=\int\frac{\dd^{2N}z}{\pi^N}\exp[-z^\hc(I_N-\ee^C)z]=\det(I_N-\ee^C)^{-1},
+    \Tr\,\hat U(C)
+    =
+    \int\frac{\dd^{2N}z}{\pi^N}
+    \exp[-z^\hc(I_N-\ee^C)z]
+    =
+    \det(I_N-\ee^C)^{-1}.
     \label{eq:number_trace_appendix}
 \end{equation}
-whenever the Gaussian integral converges. A sufficient condition is that the Hermitian part of $I_N-\ee^C$ is positive definite. In that convergent domain the trace is an ordinary Hilbert-space trace, the integral is absolutely convergent, and the last equality is the standard complex Gaussian integral.
+Convergence means that the Gaussian suppresses large coherent-state amplitudes. A sufficient condition is that the Hermitian part of $I_N-\ee^C$ is positive definite. In a diagonal stable case this reduces to the transparent requirement $|\ee^{\varepsilon_m}|<1$ for every single-particle mode, so every geometric series over boson occupation numbers converges.
 
-The determinant expression used in BAFQMC is obtained by analytic continuation from this convergent domain. Let $E=\ee^C$. For finite $N$, the coherent-state integral is a holomorphic function of the entries of $E$ wherever the integral converges absolutely, and $\det(I_N-E)^{-1}$ is holomorphic on the nonsingular set $\det(I_N-E)\ne0$. Since the two functions agree on the open convergent region, the identity theorem extends the equality to any connected region reached without crossing the pole surface. Thus Eq.~\eqref{eq:number_trace_appendix} is a meromorphic Gaussian trace formula.
-
-This continuation should not be confused with a convergent occupation-number trace at every value of $E$. If $E$ is diagonalizable and all eigenvalues satisfy $|r_i|<1$, the trace is the product of the convergent geometric series $\prod_i(1-r_i)^{-1}$. The determinant gives the meromorphic continuation of that product beyond this stable domain. When an eigenvalue reaches $r_i=1$, the occupation-number series has a genuine pole; when $|r_i|>1$, the series no longer converges even though the meromorphic expression still has a finite algebraic value away from the pole. Therefore, when the auxiliary-field integral itself crosses the pole surface, Eq.~\eqref{eq:number_trace_appendix} must be interpreted as the finite part selected by the Gaussian-cutoff construction in Sec.~\ref{app:regularization}, not as a naive configuration-by-configuration Hilbert-space trace.
+Outside this stable region, the determinant is still the algebraic continuation of the same geometric sums, but the ordinary Hilbert-space trace need not converge configuration by configuration. The pole occurs when an eigenvalue of $\ee^C$ reaches one. In the AFQMC integral this issue is handled by the Gaussian-cutoff finite-part construction in Sec.~\ref{app:regularization}. The present subsection only derives the trace formula in the convergent region where it is an ordinary trace.
 
 For an ordered product of number-conserving slices,
 \begin{equation}
@@ -138,7 +152,7 @@ the product acts on coherent states by the single-particle matrix $\mc B$, and t
     \Tr\,\hat U=\det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-This is Eq.~\eqref{eq:trace_formula_number}. If scalar factors are kept outside the one-body matrix product, the right-hand side is multiplied by their product. In the main-text convention those factors are included in the auxiliary-field measure unless they arise from the Nambu normal-ordering constant discussed below.
+This is Eq.~\eqref{eq:trace_formula_number}.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
@@ -192,9 +206,40 @@ where we used $G_\ell\mc B_\ell=G_\ell-I_N$. Thus the determinant part of the nu
     \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1},
     \label{eq:update_ratio_number}
 \end{equation}
-If the proposal changes only one onsite HS field, $\Delta_\ell$ has nonzero entries only in the single-particle sectors attached to that site, and the determinant in Eq.~\eqref{eq:update_ratio_number} reduces to the determinant of that small local block by the matrix determinant lemma.
+The same factorization gives the updated equal-time Green function. Let
+\begin{equation}
+    C_\ell=I_N+\Delta_\ell(I_N-G_\ell).
+\end{equation}
+Since $I_N-\mc B_\ell'=C_\ell(I_N-\mc B_\ell)$,
+\begin{equation}
+    G_\ell'=(I_N-\mc B_\ell')^{-1}=G_\ell C_\ell^{-1}.
+    \label{eq:number_green_update_general}
+\end{equation}
+For a proposal that changes a single onsite field in a single flavor,
+\begin{equation}
+    \Delta_\ell=\delta\ket{i}\bra{i}.
+\end{equation}
+Then
+\begin{equation}
+    C_\ell=I_N+\delta\ket{i}\bra{i}(I_N-G_\ell),
+\end{equation}
+so the matrix determinant lemma gives
+\begin{equation}
+    \det C_\ell=1+\delta(1-G_{\ell;ii}),
+\end{equation}
+and the Sherman-Morrison formula gives
+\begin{equation}
+    C_\ell^{-1}
+    =
+    I_N
+    -
+    \frac{\delta\ket{i}(\bra{i}-\bra{i}G_\ell)}
+         {1+\delta(1-G_{\ell;ii})}.
+    \label{eq:number_sherman_morrison}
+\end{equation}
+Substituting Eq.~\eqref{eq:number_sherman_morrison} into Eq.~\eqref{eq:number_green_update_general} gives the rank-one accepted-update formula below. If the proposal changes several local single-particle components, the same derivation gives a determinant and a Woodbury update in that local block.
 
-The Metropolis step samples the full auxiliary-field measure, not only the determinant. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in a sign-free number-conserving simulation, the acceptance probability is
+The Metropolis step samples the full auxiliary-field measure, not only the determinant. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in our sign-problem-free simulation, the acceptance probability is
 \begin{equation}
     p(\phi\to\phi')
     =
@@ -205,18 +250,40 @@ The Metropolis step samples the full auxiliary-field measure, not only the deter
 \end{equation}
 Here the exponential factor is the ratio of the two Gaussian HS weights.
 
-For the density-channel Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$, the algorithm can be made more explicit. The HS fields in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} generate the onsite potentials in Eq.~\eqref{eq:benchmark_hs_potentials}. Since the hopping and chemical-potential terms are real, the two flavor matrices on every time slice satisfy
+For the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$, the HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} give a number-conserving slice
+\begin{equation}
+\begin{aligned}
+    \hat h_\ell^{(0)}
+    ={}&
+    \sum_{ij}\hat b_i^+K_{ij}\hat b_j
+    +\sum_i v_{b,i\ell}\hat n_{b,i} \\
+    &+\sum_{ij}\hat c_i^+K_{ij}\hat c_j
+    +\sum_i v_{c,i\ell}\hat n_{c,i}.
+\end{aligned}
+    \label{eq:number_benchmark_slice}
+\end{equation}
+Here $K$ contains the hopping and chemical-potential contribution in the one-body Trotter slice, and
+\begin{equation}
+    v_{b,i\ell}=\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell},
+    \qquad
+    v_{c,i\ell}=\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}.
+\end{equation}
+Thus the two flavors see complex-conjugate onsite fields. Since the same real matrix $K$ appears in both sectors, the complete one-body slice matrices satisfy
 \begin{equation}
     B_{c,\ell}=\overline{B_{b,\ell}},
-    \qquad
-    \mc B_c=\overline{\mc B_b}.
 \end{equation}
-The corresponding Green functions obey
+The cyclic products and equal-time Green functions then obey
 \begin{equation}
-    G_c=(I_N-\mc B_c)^{-1}=\overline{G_b}.
+    \mc B_{c,\ell}=\overline{\mc B_{b,\ell}},
+    \qquad
+    G_{c,\ell}=(I_N-\mc B_{c,\ell})^{-1}
+    =\overline{(I_N-\mc B_{b,\ell})^{-1}}
+    =\overline{G_{b,\ell}}.
     \label{eq:conj_green_benchmark}
 \end{equation}
-A local proposal at site $i$ therefore needs only the $b$-flavor determinant ratio
+Therefore the production calculation only needs to carry the $b$-sector stabilized matrix product and Green function explicitly. The $c$-sector determinant ratio, Green function, and local update are obtained by complex conjugation. This reduces the matrix work without changing the sampled two-flavor weight.
+
+A local proposal at site $i$ changes the $b$-sector slice by a diagonal factor $1+\delta_b$ at that site. The single-flavor determinant ratio is
 \begin{equation}
     r_b=
     \left[
@@ -224,7 +291,15 @@ A local proposal at site $i$ therefore needs only the $b$-flavor determinant rat
     \right]^{-1},
     \label{eq:single_flavor_local_ratio}
 \end{equation}
-where $G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1}$ is the cyclic equal-time Green function. The $c$-flavor ratio is $r_c=\overline{r_b}$. For a $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$, $\delta_b=\ee^{\alpha_1(\phi_{i\ell}'-\phi_{i\ell})}-1$. For a $U_2$-field proposal $\varphi_{i\ell}\to\varphi_{i\ell}'$, $\delta_b=\ee^{\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})}-1$. Thus the determinant part of the two-flavor ratio is
+where $G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1}$ is the cyclic equal-time Green function. For a $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$,
+\begin{equation}
+    \delta_b=\ee^{\alpha_1(\phi_{i\ell}'-\phi_{i\ell})}-1,
+\end{equation}
+whereas for a $U_2$-field proposal $\varphi_{i\ell}\to\varphi_{i\ell}'$,
+\begin{equation}
+    \delta_b=\ee^{\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})}-1.
+\end{equation}
+The $c$-flavor ratio is $r_c=\overline{r_b}$, so the determinant part of the two-flavor ratio is
 \begin{equation}
     r_b r_c=|r_b|^2,
 \end{equation}
@@ -236,16 +311,61 @@ and the local Metropolis probability used for the $\Delta=0$ benchmark is
     \right),
     \label{eq:benchmark_number_local_ratio}
 \end{equation}
-where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$. This is the physical reason that the calculation can propagate the $b$-flavor Green function and reconstruct the $c$ flavor by complex conjugation.
+where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$.
+
+After an accepted proposal, the $b$-sector Green function is updated by the rank-one formula
+\begin{equation}
+    G_{b,\ell}'=
+    G_{b,\ell}
+    -
+    \frac{\delta_b}{1+\delta_b(1-G_{b,\ell;ii})}
+    G_{b,\ell}\ket{i}
+    \left(\bra{i}-\bra{i}G_{b,\ell}\right).
+    \label{eq:number_green_rank_one}
+\end{equation}
+The $c$-sector update is the complex conjugate of Eq.~\eqref{eq:number_green_rank_one}.
 
 \subsection{Numerical stabilization in the number-conserving calculation}
 \label{app:stabilization_number}
 
-Long imaginary-time products are stabilized by splitting the single-particle product into segments of $N_{\rm wrap}$ time slices. Each accumulated segment is factorized by column-pivoted QR with a separated diagonal scale,
+The local-update formulas above are exact algebraic identities, but long imaginary-time products cannot be formed by naive multiplication. At time slice $\ell$ the algorithm works with the cyclic product
+\begin{equation}
+    \mc B_{b,\ell}
+    =
+    B_{b,\ell}B_{b,\ell+1}\cdots B_{b,L}B_{b,1}\cdots B_{b,\ell-1}
+\end{equation}
+and the Green function $G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1}$. During a sweep, accepted local proposals are incorporated with Eq.~\eqref{eq:number_green_rank_one}. Moving the equal-time cut through imaginary time only cyclically permutes the product, so in exact arithmetic the propagated Green function is related to the previous one by a similarity transformation with the corresponding slice matrix. This propagation is used only for short intervals because roundoff errors grow with repeated multiplication.
+
+The sweep is therefore organized into short propagation windows. In the production runs reported here, a full stabilized recomputation is made after every $N_{\rm wrap}=10$ time slices. At that point the locally propagated Green function is replaced by one obtained from a stabilized representation of the full cyclic product.
+
+The same window size is used to build that representation. Each block product $X$ over $N_{\rm wrap}$ slices is factorized by column-pivoted QR with separated scales,
 \begin{equation}
     X P=U D V,
 \end{equation}
-where $P$ is a permutation matrix, $U$ is well conditioned, $D$ stores the column scales, and $V$ contains the remaining triangular factor. Left and right products around the equal-time slice are stored in this scaled form. The equal-time Green function is then obtained by solving the stabilized linear system for $(I_N-\mc B_\ell)^{-1}$ rather than by explicitly multiplying all time slices into $\mc B_\ell$. In the production runs reported here $N_{\rm wrap}=10$.
+where $P$ is a permutation matrix, $U$ is the unitary QR factor, $D$ stores the magnitudes of the diagonal scales, and $V$ contains the remaining triangular and permutation factors. Multiplying blocks in this scaled form keeps exponentially large and small directions separate instead of losing them to roundoff.
+
+The stabilized recomputation uses left and right scaled products around the equal-time cut. With the orientation convention used in the simulation, the cyclic product is represented as
+\begin{equation}
+    \mc B_{b,\ell}=U_RD_RV_RV_LD_LU_L,
+\end{equation}
+where $U_L$ and $U_R$ are unitary. Therefore
+\begin{equation}
+    I_N-\mc B_{b,\ell}
+    =
+    U_R
+    \left[(U_LU_R)^{-1}-D_RV_RV_LD_L\right]
+    U_L.
+\end{equation}
+The numerically sensitive inverse is thus reduced to the scaled middle factor
+\begin{equation}
+    M_{\rm stab}=(U_LU_R)^{-1}-D_RV_RV_LD_L
+    =U_R^\hc U_L^\hc-D_RV_RV_LD_L,
+\end{equation}
+and the Green function is obtained as
+\begin{equation}
+    G_{b,\ell}=U_L^\hc M_{\rm stab}^{-1}U_R^\hc.
+\end{equation}
+In practice $M_{\rm stab}^{-1}$ is obtained by another pivoted-QR solve rather than by explicitly inverting an ill-conditioned matrix. The subtraction in $M_{\rm stab}$ is the bosonic $I_N-\mc B_{b,\ell}$ structure, the analogue of the sign change in the stabilized boson Green-function inversion discussed in Ref.~\cite{rubenstein2012pra}. The factorization changes only the numerical representation of the same cyclic product. It does not change the AFQMC weight or the equal-time Green function. The $c$-sector Green function is then reconstructed as $G_{c,\ell}=\overline{G_{b,\ell}}$.
 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
@@ -347,7 +467,7 @@ The corresponding Nambu matrix is similar to
 \end{equation}
 so Eq.~\eqref{eq:diag_trace_paired} fixes the branch of Eq.~\eqref{eq:character_formula_appendix}. Analytic continuation on each connected component of $\det(I_{2N}-\mc M)\neq0$ then gives Eq.~\eqref{eq:trace_formula_main}.
 
-For local Monte Carlo updates, the branch is fixed at the level of the ratio between two nearby configurations. Suppose the proposal changes the slice through a left update matrix $\Gamma_\ell$. Introduce a continuous interpolation $s\Gamma_\ell$ with $0\le s\le1$. At $s=0$ the update is the identity and the ratio is exactly one. The square root in the determinant ratio is the value obtained by continuously following this path as long as the interpolating determinant does not cross zero. In the low-density parameter window used for the finite-$\Delta$ benchmark, the sampled configurations remain far from the pole surface. The local shifts can therefore be chosen small enough that this continuation is stable while still giving usable acceptance rates. The numerical implementation monitors the phase of the proposed ratio as a branch diagnostic; no phase reweighting is used in the sign-free branch.
+For the finite-$\Delta$ reflection-positive benchmark, the sampling branch is chosen as the continuation of the stable diagonal branch in Eq.~\eqref{eq:diag_trace_paired} within the low-density component that does not cross the pole surface $\det(I_{2N}-\mc M)=0$. The local update formula below uses the square-root branch obtained by continuing from the identity update within this component. The benchmark parameters and proposal width are chosen for this low-density regime.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -385,7 +505,7 @@ which gives the equal-time Nambu Green function in matrix form.
 
 For a local update in a paired/Nambu simulation, suppose
 \begin{equation}
-    \ee^{A_\ell'}=(I_{2N}+\Gamma_\ell)\ee^{A_\ell},\qquad
+    \ee^{A_\ell'}=(I_{2N}+\Delta_\ell)\ee^{A_\ell},\qquad
     \delta\xi_\ell=\xi_\ell'-\xi_\ell,
     \label{eq:delta_def}
 \end{equation}
@@ -393,7 +513,7 @@ and define the cyclic product
 \begin{equation}
     \mc M_\ell=\ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}}.
 \end{equation}
-The updated cyclic product is $\mc M_\ell'=(I_{2N}+\Gamma_\ell)\mc M_\ell$. Therefore
+The updated cyclic product is $\mc M_\ell'=(I_{2N}+\Delta_\ell)\mc M_\ell$. Therefore
 \begin{equation}
     \frac{W'}{W}
     =
@@ -408,12 +528,12 @@ Now factor the matrix in the numerator:
 \begin{equation}
 \begin{aligned}
     I_{2N}-\mc M_\ell'
-    &= I_{2N}-(I_{2N}+\Gamma_\ell)\mc M_\ell \\
-    &= I_{2N}-\mc M_\ell-\Gamma_\ell\mc M_\ell \\
+    &= I_{2N}-(I_{2N}+\Delta_\ell)\mc M_\ell \\
+    &= I_{2N}-\mc M_\ell-\Delta_\ell\mc M_\ell \\
     &=
     \left[
     I_{2N}
-    +\Gamma_\ell\left(I_{2N}-(I_{2N}-\mc M_\ell)^{-1}\right)
+    +\Delta_\ell\left(I_{2N}-(I_{2N}-\mc M_\ell)^{-1}\right)
     \right]
     (I_{2N}-\mc M_\ell).
 \end{aligned}
@@ -427,11 +547,11 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \ee^{\delta\xi_\ell}
     \det\left[
     I_{2N}
-    +\Gamma_\ell\left(I_{2N}-(I_{2N}-\mc M_\ell)^{-1}\right)
+    +\Delta_\ell\left(I_{2N}-(I_{2N}-\mc M_\ell)^{-1}\right)
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-The square root in Eq.~\eqref{eq:update_ratio_main} is chosen by the local continuation described above. For $\Gamma_\ell=0$ the determinant is one and the ratio is one. For a finite proposal one follows the path $s\Gamma_\ell$, $0\le s\le1$. If the determinant along this path stays away from zero, the sign-free branch of the ratio is uniquely determined.
+The square root in Eq.~\eqref{eq:update_ratio_main} is the branch connected to the identity update $\Delta_\ell=0$, where the determinant is one and the ratio is one. This local-continuation prescription is the branch convention used for the finite-$\Delta$ benchmark in the low-density nonsingular component described above.
 
 For the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} at finite pairing $\Delta\ne0$, the density interactions are decoupled by the same HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}. The onsite Nambu basis is $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
 \begin{equation}
@@ -473,31 +593,134 @@ with
     R_{\rm HS}=\exp\left[-\frac12(x'^{\,2}-x^2)\right],\qquad
     R_{\rm det}=(\det P)^{-1/2}.
 \end{equation}
-Here $x$ is the real HS field being updated. The ratio $R$ is evaluated on the sign-free branch fixed by the continuation described above, so it is real and nonnegative in the RP benchmark regime. The matrix $P$ is the local block of the matrix in Eq.~\eqref{eq:update_ratio_main}. If the proposal changes one site and one HS channel, then
+Here $x$ is the real HS field being updated, and $R_{\rm det}$ denotes the square-root determinant on the branch specified above. In the RP sign-free sector this gives the nonnegative sampling ratio used in Eq.~\eqref{eq:paired_metropolis_ratio}.
+
+The reduction to the local matrix $P$ is a direct application of the matrix determinant lemma. Let
 \begin{equation}
-    P_{\rho\sigma}=\delta_{\rho\sigma}
-    +d_\rho\left\{
+    \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1}
+\end{equation}
+and introduce the local projector
+\begin{equation}
+    S_i=(\ket{ib},\ket{ic},\ket{ib^+},\ket{ic^+}).
+\end{equation}
+For a proposal that changes one site and one HS channel,
+\begin{equation}
+    \Delta_\ell=S_iDS_i^\hc,
+\end{equation}
+where $D$ is a $4\times4$ matrix in the onsite Nambu basis. The determinant matrix in Eq.~\eqref{eq:update_ratio_main} is
+\begin{equation}
+    C_\ell=I_{2N}+\Delta_\ell(I_{2N}-\widetilde G_\ell)
+    =
+    I_{2N}+S_iD S_i^\hc(I_{2N}-\widetilde G_\ell).
+\end{equation}
+The matrix determinant lemma gives
+\begin{equation}
+    \det C_\ell
+    =
+    \det\!\left[
+    I_4+D S_i^\hc(I_{2N}-\widetilde G_\ell)S_i
+    \right]
+    \equiv \det P.
+    \label{eq:paired_local_det_lemma}
+\end{equation}
+In components,
+\begin{equation}
+    P_{\rho\sigma}
+    =
     \delta_{\rho\sigma}
-    -\left[(I_{2N}-\mc M_\ell)^{-1}\right]_{i\rho,i\sigma}
-    \right\},
+    +
+    \sum_{\tau\in\{b,c,b^+,c^+\}}
+    D_{\rho\tau}
+    \left[
+    \delta_{\tau\sigma}
+    -
+    \left((I_{2N}-\mc M_\ell)^{-1}\right)_{i\tau,i\sigma}
+    \right],
     \qquad
     \rho,\sigma\in\{b,c,b^+,c^+\}.
     \label{eq:paired_local_block}
 \end{equation}
-For a local $U_1$ update $\phi_{i\ell}\to\phi_{i\ell}'$ with $\delta\lambda_1=\alpha_1(\phi_{i\ell}'-\phi_{i\ell})$,
+For the HS updates used here, $D$ is diagonal in the local Nambu basis. For a local $U_1$ update $\phi_{i\ell}\to\phi_{i\ell}'$ with $\delta\lambda_1=\alpha_1(\phi_{i\ell}'-\phi_{i\ell})$,
 \begin{equation}
-    d=(\ee^{\delta\lambda_1}-1,\ee^{\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1),
+    D=\diag(\ee^{\delta\lambda_1}-1,\ee^{\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1,\ee^{-\delta\lambda_1}-1),
 \end{equation}
 while for a local $U_2$ update $\varphi_{i\ell}\to\varphi_{i\ell}'$ with $\delta\lambda_2=\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})$,
 \begin{equation}
-    d=(\ee^{\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{\delta\lambda_2}-1).
+    D=\diag(\ee^{\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{-\delta\lambda_2}-1,\ee^{\delta\lambda_2}-1).
 \end{equation}
-Equations~\eqref{eq:paired_metropolis_ratio} and~\eqref{eq:paired_local_block} display the three factors in the paired BAFQMC update: the Gaussian HS ratio, the normal-ordering constant ratio, and the Nambu determinant ratio. In finite precision the local square-root ratio is represented as a complex number, so the implementation records its phase as a branch diagnostic and uses the nonnegative representative of the monitored sign-free ratio. In the reported low-density window the recorded phases stay at roundoff scale, so this numerical procedure is equivalent to sampling the nonnegative branch in Eq.~\eqref{eq:paired_metropolis_ratio}.
+The same local block controls the accepted resolvent update. From Eq.~\eqref{eq:paired_factorization},
+\begin{equation}
+    \widetilde G_\ell'
+    =
+    \widetilde G_\ell C_\ell^{-1}.
+\end{equation}
+Applying the Woodbury identity to $C_\ell=I_{2N}+S_iD S_i^\hc(I_{2N}-\widetilde G_\ell)$ gives
+\begin{equation}
+    C_\ell^{-1}
+    =
+    I_{2N}
+    -
+    S_i P^{-1}D S_i^\hc(I_{2N}-\widetilde G_\ell).
+    \label{eq:paired_woodbury}
+\end{equation}
+Therefore
+\begin{equation}
+    \widetilde G_\ell'
+    =
+    \widetilde G_\ell
+    -
+    \sum_{\rho,\sigma,\tau\in\{b,c,b^+,c^+\}}
+    \widetilde G_\ell\ket{i\rho}
+    (P^{-1})_{\rho\sigma}D_{\sigma\tau}
+    \left(\bra{i\tau}-\bra{i\tau}\widetilde G_\ell\right).
+    \label{eq:paired_green_update}
+\end{equation}
+Together, Eqs.~\eqref{eq:paired_metropolis_ratio}, \eqref{eq:paired_local_block}, and~\eqref{eq:paired_green_update} give the local paired-BAFQMC step in terms of the Gaussian HS ratio, the normal-ordering constant ratio, the Nambu determinant ratio, and the low-rank update of the equal-time resolvent.
 
 \subsection{Numerical stabilization in the paired calculation}
 \label{app:stabilization_paired}
 
-The paired calculation uses the same scaled-product strategy as the number-conserving calculation, but the matrices act on the full Nambu space of dimension $4N_s$. The imaginary-time product is divided into segments of $N_{\rm wrap}$ slices and each segment is stored in a pivoted-QR form with separated scales. The equal-time object needed in Eq.~\eqref{eq:paired_local_block} is the resolvent $(I_{2N}-\mc M_\ell)^{-1}$. It is recomputed from the stabilized left and right products at wrapping points and then updated locally between recomputations. The benchmark implementation also compares propagated and recomputed Green functions as a stability check. In the production runs reported here $N_{\rm wrap}=10$.
+The paired calculation stabilizes the same object that appears in the update formulas, namely the equal-time Nambu resolvent
+\begin{equation}
+    \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1},
+    \qquad
+    \mc M_\ell=M_\ell M_{\ell+1}\cdots M_LM_1\cdots M_{\ell-1},
+\end{equation}
+where $M_\ell=\ee^{A_\ell}$ is the single-slice Nambu matrix. In the benchmark with two flavors on $N_s$ sites, this matrix acts on a $4N_s$-dimensional space. During a sweep, accepted HS proposals are incorporated into $\widetilde G_\ell$ by Eq.~\eqref{eq:paired_green_update}. Moving the equal-time cut to the next slice cyclically permutes the product $\mc M_\ell$. In exact arithmetic this is a similarity transformation of the same full imaginary-time product, but repeated propagation is numerically unstable for long products.
+
+The Nambu calculation therefore follows the same short-window stabilization scheme as the number-conserving calculation. In the reported finite-$\Delta$ runs, the resolvent is recomputed after every $N_{\rm wrap}=10$ slices. The slice product over each such window is stored in a column-pivoted QR form with separated scales,
+\begin{equation}
+    X P=U D V.
+\end{equation}
+The matrices $U$, $D$, and $V$ have the same role as in Sec.~\ref{app:stabilization_number}: $U$ is the unitary QR factor, $D$ carries the large and small scales, and $V$ contains the residual triangular and permutation factors.
+
+At a wrapping point the algorithm forms stabilized left and right products around the equal-time cut. With the same orientation convention as in Sec.~\ref{app:stabilization_number}, the Nambu product is represented as
+\begin{equation}
+    \mc M_\ell=U_RD_RV_RV_LD_LU_L,
+\end{equation}
+and hence
+\begin{equation}
+    M_{\rm stab}^{\rm Nambu}
+    =
+    (U_LU_R)^{-1}-D_RV_RV_LD_L
+    =
+    U_R^\hc U_L^\hc-D_RV_RV_LD_L.
+\end{equation}
+Equivalently,
+\begin{equation}
+    I_{2N}-\mc M_\ell
+    =
+    U_R M_{\rm stab}^{\rm Nambu}U_L.
+\end{equation}
+The resolvent used in Eqs.~\eqref{eq:paired_local_block} and~\eqref{eq:paired_green_update} is therefore recomputed as
+\begin{equation}
+    \widetilde G_\ell
+    =
+    U_L^\hc\left(M_{\rm stab}^{\rm Nambu}\right)^{-1}U_R^\hc.
+\end{equation}
+As in the number-conserving calculation, the inverse of $M_{\rm stab}^{\rm Nambu}$ is evaluated by a pivoted-QR solve. This stabilized solve is just a rescaled evaluation of $(I_{2N}-\mc M_\ell)^{-1}$. It therefore leaves the trace formula, the Metropolis ratio, and the equal-time Green functions unchanged in exact arithmetic.
+
+The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the exact slice matrices and their products obey the corresponding symplectic relation. The stabilization above does not introduce an additional symplectic projection or a different physical evolution. It stores the same product in a scaled form and periodically replaces the locally propagated resolvent by the stabilized one, which controls roundoff without changing the AFQMC integrand being sampled.
 
 \section{Regularized interpretation of the bosonic weight}
 \label{app:regularization}
@@ -821,6 +1044,6 @@ where $x$ is the real HS field being updated. For the number-conserving benchmar
 
 The number-conserving data in Fig.~\ref{fig:benchmark_number} use the $\Delta=0$ algorithm in Sec.~\ref{app:update_number}. The upper row fixes $U_1=0$, $\mu=-3.5$, and $\beta=4$ and scans the repulsive channel $U_2$. The lower row fixes $U_2=1$, $\mu=-7$, and $\beta=1$ and scans the attractive channel $U_1$ in a low-density window. The complex-conjugate relation between the two flavors, Eq.~\eqref{eq:conj_green_benchmark}, is used throughout this benchmark.
 
-The finite-$\Delta$ data in Fig.~\ref{fig:benchmark_pairing} use the Nambu algorithm in Sec.~\ref{app:green_paired}. The parameters are $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and $\Delta=0,0.05,\ldots,0.30$. Since $U_1=0$ in this scan, the normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive in the production data, although it is part of the general paired update formula. The local square-root ratio is evaluated as a complex number in finite precision, and the argument of every proposed local ratio is monitored. In the reported production window the measured phases remain at roundoff scale and no near-branch-cut events are observed, so the sampled ratio coincides with the nonnegative sign-free branch used in Eq.~\eqref{eq:paired_metropolis_ratio}.
+The finite-$\Delta$ data in Fig.~\ref{fig:benchmark_pairing} use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and $\Delta=0,0.05,\ldots,0.30$. Since $U_1=0$ in this scan, the normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive in the production data, although it is part of the general paired update formula. This finite-$\Delta$ scan lies in the same low-density, pole-free regime used in the branch discussion of Sec.~\ref{app:green_paired}.
 
 The number-conserving references are finite-temperature ED or, at the free-boson point, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached; the low-density $U_1$ window in Fig.~\ref{fig:benchmark_number} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark_pairing} use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. The largest paired points may still be limited by Trotter-step and ED-cutoff effects.
