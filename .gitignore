@@ -1,7 +1,9 @@
 # LaTeX build output
 /.build/
+/.latex-workshop/
 /pdf/
 /main*.pdf
+/*.synctex.gz
 
 # Local figure previews generated from PDFs
 /figures/*.png
