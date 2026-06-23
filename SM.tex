@@ -537,14 +537,18 @@ The finite-$\Delta$ benchmark in the main text uses $U_1=0$. The fluctuating HS 
     \qquad
     \alpha_2=\sqrt{2\Delta\tau U_2},
 \end{equation}
-which acts on an occupation-number state only by a phase of unit modulus. It does not lower the real energy cost of putting more bosons into the system. Let $\hat K_{\Delta,\mu}$ denote the remaining one-body Hamiltonian in the Trotter slice, including hopping, chemical potential, and onsite pairing. When this paired quadratic Hamiltonian is on the stable side of the bosonic pairing instability, its quasiparticle energies are positive and $\Tr\,\ee^{-\Delta\tau\hat K_{\Delta,\mu}}$ is finite on the finite lattice. Inserting the phase factors $\hat V_{2,\ell}$ between such imaginary-time steps cannot make large-occupation sectors grow. Equivalently, the full product
+which acts on every occupation-number state only by a phase of unit modulus. It does not change the real cost of putting more bosons into the system.
+
+Let $\hat K_{\Delta,\mu}$ denote the remaining one-body Hamiltonian in the Trotter slice, including hopping, chemical potential, and onsite pairing. When this paired quadratic Hamiltonian is on the stable side of the bosonic pairing instability, all Bogoliubov quasiparticle energies are positive and $\Tr\,\ee^{-\Delta\tau\hat K_{\Delta,\mu}}$ is finite on the finite lattice. In the translation-invariant zero-field limit this stability condition is the familiar requirement that the positive normal-state energy $\varepsilon_k$ stay above the pairing amplitude $|\Delta|$ for every momentum mode. The benchmark parameters are chosen inside this stable regime.
+
+The operator $\hat V_{2,\ell}$ is unitary. On a finite lattice, $\ee^{-\Delta\tau\hat K_{\Delta,\mu}}$ is a trace-class Gaussian operator in the stable regime, and multiplying it by unitary factors preserves trace convergence. Equivalently, the unitary phase factors cannot make high-occupation Fock sectors grow. Thus the full product
 \begin{equation}
     \hat U(\varphi)=
     \prod_{\ell}
     \ee^{-\Delta\tau\hat K_{\Delta,\mu}}
     \hat V_{2,\ell}(\varphi)
 \end{equation}
-has a finite Fock-space trace for all real $U_2$ fields in this stable parameter regime. Hence the determinant factor in Eq.~\eqref{eq:paired_trace_component} does not encounter a pole for the auxiliary-field configurations sampled in this benchmark, and the square-root branch is fixed once by continuity from the zero-field stable point. This argument uses the absence of a real total-density HS field in the finite-$\Delta$ benchmark. If a real HS channel that changes onsite energies is also sampled, or if the paired quadratic Hamiltonian itself is tuned to the bosonic instability, the pole structure must be analyzed separately.
+has a finite Fock-space trace for all real $U_2$ auxiliary fields in this stable parameter regime. Hence the determinant factor in Eq.~\eqref{eq:paired_trace_component} does not encounter a pole as the $U_2$ field is varied, and the square-root branch is fixed once by continuity from the zero-field stable point. This argument uses the absence of a real total-density HS field in the finite-$\Delta$ benchmark. If a real HS channel that changes onsite energies is also sampled, or if the paired quadratic Hamiltonian itself is tuned to the bosonic instability, the pole structure must be analyzed separately.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -830,6 +834,215 @@ where $D_N^{-1}$ is a diagonal rescaling and $V_N^{-1}$ is applied by a triangul
 
 The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the exact slice matrices and their products obey the corresponding symplectic relation. The stabilization above does not introduce an additional symplectic projection or a different physical evolution. It stores the same product in a scaled form and periodically replaces the locally propagated resolvent by the stabilized one, which controls roundoff without changing the AFQMC integrand being sampled.
 
+\section{Proofs of the nonnegative-weight criteria}
+\label{app:nonnegative_proofs}
+
+\subsection{Time-reversal-symmetry criterion}
+\label{app:trs_proof}
+
+We first prove the determinant statement used for number-conserving slices in the main text. Consider
+\begin{equation}
+    \hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell,
+    \qquad
+    \xi_\ell\in\mathbb R,
+\end{equation}
+and assume that each one-particle matrix satisfies
+\begin{equation}
+    U^\hc\overline{B_\ell}U=B_\ell,
+    \qquad
+    UU^*=-I_N.
+    \label{eq:trs_slice_sm}
+\end{equation}
+The number-conserving trace formula gives
+\begin{equation}
+    W(\phi)=\exp\!\left(\sum_\ell\xi_\ell\right)
+    \det(I_N-\mc B)^{-1},
+    \qquad
+    \mc B=\ee^{B_1}\cdots\ee^{B_L}.
+\end{equation}
+Since complex conjugation commutes with the exponential, Eq.~\eqref{eq:trs_slice_sm} implies
+\begin{equation}
+    U^\hc\overline{\ee^{B_\ell}}U=\ee^{B_\ell}.
+\end{equation}
+Multiplying the slices in their imaginary-time order gives
+\begin{equation}
+    U^\hc\overline{\mc B}U=\mc B.
+    \label{eq:Bsym_prod}
+\end{equation}
+Thus the antiunitary operator $\Theta=UK$ commutes with the full propagation matrix $\mc B$.
+
+If $\mc Bv=\lambda v$, then
+\begin{equation}
+    \mc B(\Theta v)=\Theta(\mc Bv)=\lambda^*\Theta v.
+\end{equation}
+Therefore every nonreal eigenvalue comes with its complex conjugate. For a real eigenvalue $r$, one must also control the multiplicity. Let
+\begin{equation}
+    \mc E_r=\ker\left[(\mc B-rI_N)^m\right]
+\end{equation}
+be the generalized eigenspace, with $m$ large enough that the kernel has stabilized. Because $\Theta$ commutes with $\mc B$, the space $\mc E_r$ is mapped to itself. On this space $\Theta^2=UU^*=-I_N$.
+
+No nonzero vector in $\mc E_r$ can be proportional to its time-reversed partner. If $\Theta v=\alpha v$ for a nonzero $v$, applying $\Theta$ again gives
+\begin{equation}
+    -v=\Theta^2v=\Theta(\alpha v)=\overline{\alpha}\Theta v
+    =|\alpha|^2v,
+\end{equation}
+which is impossible. Hence $v$ and $\Theta v$ are linearly independent. Repeating this pairing construction gives a basis of $\mc E_r$ made of such two-dimensional pairs, so $\dim_\mathbb C\mc E_r$ is even. This dimension is the algebraic multiplicity $m_r$ of the real eigenvalue $r$.
+
+The characteristic polynomial can then be evaluated at $x=1$ as
+\begin{equation}
+    \det(I_N-\mc B)
+    =
+    \prod_{\lambda\notin\mathbb R}|1-\lambda|^2
+    \prod_{r\in\mathbb R}(1-r)^{m_r}
+    \ge0,
+    \label{eq:trs_det_positive_sm}
+\end{equation}
+because all $m_r$ are even. The exponential scalar factor in $W(\phi)$ is positive. Therefore the number-conserving BAFQMC weight is nonnegative whenever the determinant is nonzero. If the determinant vanishes, the configuration lies on a bosonic pole and is handled by the regularized interpretation in Sec.~\ref{app:regularization}.
+
+\subsection{Reflection-positivity criterion}
+\label{app:rp_proof}
+
+We next prove the reflected-pair criterion used for both the number-conserving and paired examples. Let $\mc F_L$ and $\mc F_R$ be two bosonic Fock spaces generated by $\hat b_i$ and $\hat c_i$ ($i=1,\ldots,M$). The full space is $\mc F=\mc F_L\otimes\mc F_R$. Let $\mathfrak A_L$ be the operator algebra generated by the $b$ bosons, and let $\mathfrak A_R$ be the corresponding algebra generated by the $c$ bosons. Operators in the two algebras commute.
+
+Define the antilinear reflection $\theta:\mathfrak A_L\to\mathfrak A_R$ by
+\begin{equation}
+    \theta(\ii)=-\ii,\qquad
+    \theta(\hat b_i)=\hat c_i,\qquad
+    \theta(\hat b_i^+)=\hat c_i^+,
+    \label{eq:theta_def_sm}
+\end{equation}
+and extend it multiplicatively. Fixed flavor phases can be included by replacing $\hat c_i$ with $\eta_i\hat c_i$, $|\eta_i|=1$, which only changes the reflection convention.
+
+The basic reflection-positive operators are finite sums of the form
+\begin{equation}
+    \hat X=\sum_r \hat R_r\,\theta(\hat R_r),
+    \qquad
+    \hat R_r\in\mathfrak A_L.
+    \label{eq:rp_positive_set_sm}
+\end{equation}
+They have two elementary properties. First, they are closed under multiplication. For a single product,
+\begin{equation}
+    \hat R\theta(\hat R)\,\hat S\theta(\hat S)
+    =
+    \hat R\hat S\,\theta(\hat R\hat S),
+\end{equation}
+where we used the commutation of left and right boson operators and the multiplicative property of $\theta$. Sums follow by bilinearity. Second, whenever the traces exist,
+\begin{equation}
+    \Tr_{\mc F}\left[\hat R\theta(\hat R)\right]
+    =
+    \Tr_{\mc F_L}(\hat R)\,
+    \Tr_{\mc F_R}[\theta(\hat R)]
+    =
+    \left|\Tr_{\mc F_L}(\hat R)\right|^2
+    \ge0.
+\end{equation}
+The last equality follows by choosing identical occupation-number bases in $\mc F_L$ and $\mc F_R$ and using the antilinearity of $\theta$. Thus every finite sum in Eq.~\eqref{eq:rp_positive_set_sm} has a nonnegative trace.
+
+Suppose each HS slice has a real scalar part and a propagator of the form
+\begin{equation}
+    \ee^{\hat h_\ell(\phi_\ell)}
+    =
+    \ee^{\xi_\ell(\phi_\ell)}\hat X_\ell,
+    \qquad
+    \xi_\ell(\phi_\ell)\in\mathbb R,
+\end{equation}
+where $\hat X_\ell$ is reflection-positive in the sense of Eq.~\eqref{eq:rp_positive_set_sm}. Closure under multiplication then gives
+\begin{equation}
+    \prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}
+    =
+    \exp\!\left[\sum_{\ell}\xi_\ell(\phi_\ell)\right]\hat X,
+\end{equation}
+with $\hat X$ again reflection-positive. Taking the Fock-space trace gives
+\begin{equation}
+    W(\phi)=
+    \Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}
+    \ge0
+\end{equation}
+whenever the bare trace converges.
+
+It remains to show why the generator condition in the main text is sufficient. Consider a single slice generator
+\begin{equation}
+    \hat h=
+    \hat q+\theta(\hat q)
+    +\sum_{\mu,\nu}C_{\mu\nu}\hat X_\mu\theta(\hat X_\nu)
+    +\xi,
+    \qquad
+    C=C^\hc\succeq0,\quad \xi\in\mathbb R,
+    \label{eq:rp_generator_sm}
+\end{equation}
+with $\hat q,\hat X_\mu\in\mathfrak A_L$. Choose a factorization
+\begin{equation}
+    C_{\mu\nu}=\sum_a L_{a\mu}\overline{L_{a\nu}},
+\end{equation}
+and define
+\begin{equation}
+    \hat Y_a=\sum_\mu L_{a\mu}\hat X_\mu.
+\end{equation}
+Because $\theta$ is antilinear,
+\begin{equation}
+    \sum_{\mu,\nu}C_{\mu\nu}\hat X_\mu\theta(\hat X_\nu)
+    =
+    \sum_a \hat Y_a\theta(\hat Y_a).
+\end{equation}
+Because $\hat q$ and $\theta(\hat q)$ act on the two commuting sectors, the exponential of the first two terms is already reflection-positive:
+\begin{equation}
+    \ee^{\hat q+\theta(\hat q)}
+    =
+    \ee^{\hat q}\theta(\ee^{\hat q}).
+\end{equation}
+For each mixed term, left and right operators commute, so
+\begin{equation}
+    \ee^{s\hat Y_a\theta(\hat Y_a)}
+    =
+    \sum_{n=0}^{\infty}
+    \frac{s^n}{n!}\,
+    \hat Y_a^n\,\theta(\hat Y_a^n),
+    \qquad s\ge0,
+\end{equation}
+which is reflection-positive term by term. Finally,
+\begin{equation}
+    \ee^{\hat h}
+    =
+    \ee^\xi
+    \lim_{n\to\infty}
+    \left[
+    \ee^{(\hat q+\theta(\hat q))/n}
+    \prod_a \ee^{\hat Y_a\theta(\hat Y_a)/n}
+    \right]^n
+\end{equation}
+by the Lie-Trotter product formula~\cite{trotter1959product}. Each finite-$n$ factor is reflection-positive, and multiplication preserves reflection positivity. The limit is understood either in the convergent trace sense or after the Gaussian regularization described below. Thus Eq.~\eqref{eq:rp_generator_sm} is a sufficient condition for nonnegative weights.
+
+For Gaussian BAFQMC slices the criterion is easy to apply. Let
+\begin{equation}
+    \hat{\bb z}=(\hat{\bb b},\hat{\bb b}^+)^\trans,
+    \qquad
+    \theta(\hat{\bb z})=(\hat{\bb c},\hat{\bb c}^+)^\trans
+\end{equation}
+in the chosen reflection convention. A left-sector quadratic term has the form $\hat q=\hat{\bb z}^\trans D\hat{\bb z}$. The reflected term is $\theta(\hat q)=\theta(\hat{\bb z})^\trans\overline{D}\,\theta(\hat{\bb z})$. Taking the operators $\hat X_\mu$ to be the components of $\hat{\bb z}$ turns the mixed part of Eq.~\eqref{eq:rp_generator_sm} into
+\begin{equation}
+    \sum_{\mu,\nu}F_{\mu\nu}\hat z_\mu\theta(\hat z_\nu),
+    \qquad
+    F=F^\hc\succeq0.
+\end{equation}
+Collecting the left and right Nambu components into
+\begin{equation}
+    \hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans
+\end{equation}
+gives the block form
+\begin{equation}
+    \hat h=
+    \hat\chi^\trans
+    \begin{pmatrix}
+        D & F\\
+        F^\trans & \overline{D}
+    \end{pmatrix}
+    \hat\chi+\xi,
+    \qquad
+    F=F^\hc\succeq0,\quad \xi\in\mathbb R.
+    \label{eq:rp_block_sm}
+\end{equation}
+This is the practical Gaussian RP test quoted in the main text. It is written in reflected-sector order, where the first block contains the $b$ operators and their conjugates and the second block contains the reflected $c$ operators and their conjugates. Other parts of the SM use the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$; the two descriptions are related by a fixed permutation of rows and columns. The reflection may include fixed phases; in that case the same derivation holds after absorbing those phases into the definition of $\theta$.
+
 \section{Regularized interpretation of the bosonic weight}
 \label{app:regularization}
 
@@ -917,12 +1130,13 @@ This is why the determinant formula used in BAFQMC should be regarded, in the nu
 \section{Regularized reflection positivity from the semigroup viewpoint}
 \label{app:regularized_rp}
 
-This section gives the semigroup form of reflection positivity~\cite{wei2024prb} for the regularized Gaussian weights used in BAFQMC. The cone proof in the main text establishes positivity of the bare convergent trace; the semigroup form tracks the same reflected sector through the regularized Gaussian formula.
+This section gives the single-particle matrix form of reflection positivity~\cite{wei2024prb} for the regularized Gaussian weights used in BAFQMC. The operator proof in Sec.~\ref{app:rp_proof} establishes positivity of the bare convergent trace. The matrix form below explains how the same reflected structure appears in the Nambu propagation matrices used in the paired algorithm.
 
-We again work with two reflected sets of bosons, $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$, and collect them into the Nambu spinor
+We again work with two reflected sets of bosons, $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$, and collect them into the conventional Nambu spinor
 \begin{equation}
     \hat\chi = (\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans.
 \end{equation}
+A fixed permutation converts this order to the reflected-sector order used in Eq.~\eqref{eq:rp_block_sm}; the positivity condition is unchanged by that relabeling.
 A general quadratic generator is written as
 \begin{equation}
     \hat h = -\frac12\hat\chi^\trans\Omega A\hat\chi,
@@ -940,7 +1154,7 @@ with $A\in\mathfrak{sp}(4M,\mathbb C)$. Making the reflected left/right structur
 \end{equation}
 where $C_{11}=C_{11}^\trans$, $C_{22}=C_{22}^\trans$, $D_{11}=D_{11}^\trans$, and $D_{22}=D_{22}^\trans$.
 
-The reflection used in the main text is represented on the single-particle space by $J_1$ followed by complex conjugation, with
+The reflection used in Sec.~\ref{app:rp_proof} is represented on the single-particle space by $J_1$ followed by complex conjugation, with
 \begin{equation}
     J_1=
     \begin{pmatrix}
@@ -1068,68 +1282,7 @@ After this reordering, all the information in the cone part is reduced to a sing
 \end{equation}
 Equation~\eqref{eq:K_positive} has a direct semigroup interpretation. One block in Eq.~\eqref{eq:etaAminus_diag} is positive, while the other is its negative complex conjugate. Equivalently, the reflected cone part always comes as a paired expansion sector together with its companion contraction sector. This is the single-particle version of reflection positivity.
 
-In the convergent region, positivity is already guaranteed by the cone argument in the main text. For the paired RP sector we then move within a pole-free connected component and keep the same metaplectic branch. The semigroup decomposition prevents the reflected Gaussian propagator from wandering arbitrarily in matrix space. The $A_{+}$ piece moves only inside the metric-preserving subgroup, while the $A_{-}$ piece enters through the paired block structure of Eq.~\eqref{eq:etaAminus_diag}. Starting from any convergent reflection-positive reference point, one can continuously deform the propagator within the same reflected semigroup sector without touching the singular locus, and the regularized determinant therefore stays on the same nonnegative branch. In this sense the semigroup structure is the single-particle image of RP for the paired regularized weight.
-
-For an ordered product of reflection-positive slices, the same decomposition is applied slice by slice. The reflected structure is therefore preserved throughout the imaginary-time evolution, and the full BAFQMC configuration weight remains nonnegative after regularization as well. This statement is the paired counterpart of Sec.~\ref{app:regularization}: it relies on staying in one pole-free component rather than on subtracting cutoff-dependent divergences.
-
-\section{Details of the time-reversal-symmetry argument}
-\label{app:kramers}
-
-We now spell out the time-reversal-symmetry argument used in the main text. The logic is the same as in the familiar Kramers pairing argument for antiunitary symmetries~\cite{sakurai2017modern}, except that here it is applied to the single-particle propagation matrix $\mc B$, which need not be Hermitian. Let
-\begin{equation}
-    \mc B = \ee^{B_1}\cdots\ee^{B_L},
-    \qquad
-    U^\hc\overline{B_\ell}U = B_\ell,
-    \qquad
-    UU^*=-I_N.
-\end{equation}
-Since complex conjugation commutes with the matrix exponential,
-\begin{equation}
-    U^\hc\overline{\ee^{B_\ell}}U = \ee^{B_\ell},
-\end{equation}
-and hence, by multiplication,
-\begin{equation}
-    U^\hc\overline{\mc B}U = \mc B.
-    \label{eq:Bsym_prod}
-\end{equation}
-Define the antiunitary operator $\Theta=UK$ on the single-particle space. Equation~\eqref{eq:Bsym_prod} is precisely the statement that $\Theta$ commutes with $\mc B$.
-
-If $\mc Bv=\lambda v$, then
-\begin{equation}
-    \mc B(\Theta v)=\Theta(\mc Bv)=\lambda^*\Theta v,
-\end{equation}
-so nonreal eigenvalues appear in complex-conjugate pairs. The remaining issue is the multiplicity of real eigenvalues.
-
-Let $r\in\mathbb R$ be a real eigenvalue, and let $\mc E_r$ be its generalized eigenspace,
-\begin{equation}
-    \mc E_r = \ker\left[(\mc B-rI_N)^m\right],
-\end{equation}
-for $m$ large enough that the kernel stabilizes. Because $\Theta$ commutes with $\mc B$, the space $\mc E_r$ is invariant under $\Theta$. Moreover, $\Theta^2=UU^*=-I_N$ on $\mc E_r$. We claim that this forces $\dim_\mathbb C \mc E_r$ to be even.
-
-Indeed, if a nonzero vector $v\in\mc E_r$ satisfied $\Theta v = \alpha v$ for some complex $\alpha$, then applying $\Theta$ once more would give
-\begin{equation}
-    -v = \Theta^2 v = \Theta(\alpha v) = \overline{\alpha}\Theta v = |\alpha|^2 v,
-\end{equation}
-which is impossible. Thus $v$ and $\Theta v$ are linearly independent. Starting from any nonzero $v_1\in\mc E_r$, the pair $\{v_1,\Theta v_1\}$ spans a two-dimensional $\Theta$-invariant subspace. Repeating the construction on the orthogonal complement produces a basis of $\mc E_r$ in such pairs, so $\dim_\mathbb C\mc E_r$ is even. Since the dimension of $\mc E_r$ is exactly the algebraic multiplicity $m_r$ of the eigenvalue $r$, every real eigenvalue has even algebraic multiplicity.
-
-We may therefore factor the characteristic polynomial of $\mc B$ as
-\begin{equation}
-    \det(xI_N-\mc B)
-    = \prod_{\lambda\notin\mathbb R}(x-\lambda)(x-\lambda^*)
-      \prod_{r\in\mathbb R}(x-r)^{m_r},
-\end{equation}
-with $m_r$ even. Setting $x=1$ yields
-\begin{equation}
-    \det(I_N-\mc B)
-    = \prod_{\lambda\notin\mathbb R}|1-\lambda|^2
-      \prod_{r\in\mathbb R}(1-r)^{m_r}
-    \ge 0.
-\end{equation}
-Finally, since the slice scalars $\xi_\ell$ are real,
-\begin{equation}
-    W(\phi) = \exp\!\left(\sum_\ell \xi_\ell\right)\det(I_N-\mc B)^{-1}\ge 0,
-\end{equation}
-whenever the determinant is nonzero. This completes the time-reversal-symmetry argument.
+The operator proof in Sec.~\ref{app:rp_proof} is sufficient whenever the Fock-space trace converges. In the finite-$\Delta$ benchmark, Sec.~\ref{app:trace_paired} shows why the $U_2$ relative-density field does not generate a pole: the fluctuating factor is unitary, while the paired quadratic step remains in the stable regime. The square root in the Nambu trace formula is then fixed by the stable zero-field reference point. The matrix decomposition above is the corresponding single-particle statement: each reflected slice has a part that only changes the basis within the reflected Gaussian structure and a part controlled by the positive block $K$ in Eq.~\eqref{eq:K_positive}. Applying the same decomposition slice by slice preserves the reflected structure through the full imaginary-time product.
 
 \section{Benchmark numerical details}
 \label{app:benchmark_details}
@@ -1154,4 +1307,4 @@ The number-conserving data in Fig.~\ref{fig:benchmark_number} use the $\Delta=0$
 
 The finite-$\Delta$ data in Fig.~\ref{fig:benchmark_pairing} use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and $\Delta=0,0.05,\ldots,0.30$. Since $U_1=0$ in this scan, the normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive in the production data, although it is part of the general paired update formula. The only fluctuating field is the $U_2$ relative-density phase field, so the branch discussion of Sec.~\ref{app:trace_paired} applies once the paired quadratic Hamiltonian is stable.
 
-The number-conserving references are finite-temperature ED or, at the free-boson point, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached; the low-density $U_1$ window in Fig.~\ref{fig:benchmark_number} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark_pairing} use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. The largest paired points may still be limited by Trotter-step and ED-cutoff effects.
+The number-conserving references are finite-temperature ED or, at the free-boson point, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached; the low-density $U_1$ window in Fig.~\ref{fig:benchmark_number} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark_pairing} use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. With these settings, the BAFQMC and ED results agree within the reported statistical error bars.
