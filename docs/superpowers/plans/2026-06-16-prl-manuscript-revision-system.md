@@ -13,8 +13,8 @@
 ## Current Snapshot
 
 **Files inspected:**
-- `main.tex`: 685 lines, 6 sections, 11 subsections, many displayed equations.
-- `SM.tex`: 578 lines, already contains most proof material needed after compression.
+- `main.tex`: 458 lines after the Section II and benchmark passes; it still has numbered `\section` headings and Section III still has two `\subsection` blocks.
+- `SM.tex`: 1157 lines after the Section II/SM algorithm pass; it now carries the HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury local updates, stabilization details, regularized weights, and benchmark numerical parameters.
 - `figures/benchmark.pdf`: current old Fig. 2, to be replaced.
 - `figures/benchmark_number_conserving.pdf`: copied candidate number-conserving benchmark figure for future Fig. 2.
 - `figures/benchmark_pairing_delta.pdf`: copied candidate paired Delta benchmark figure for future Fig. 3.
@@ -26,13 +26,13 @@
 - `texcount -merge -incbib -brief main.tex` reports about `6555+98+159` words with a `main.bbl` missing warning.
 - Local analysis of four sign-problem-free QMC Letter/Rapid style references gives approximate main-article word counts in the 3600--4400 range before acknowledgments or appendices. The target should therefore be a compact 4.5--5 page Letter, not an artificially overcompressed draft.
 - PRL abstract should remain no more than 600 characters.
-- Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the number-conserving Green-function identity, and the paired/Nambu determinant; the detailed HS transformation, algebra, branch choices, Green-function derivations, update ratios, and stabilization discussion now sit in the Supplemental Material.
-- Existing Section III still carries substantial mathematical proof load in the main text.
+- Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the number-conserving Green-function identity, and the paired/Nambu determinant; the detailed HS transformation, trace derivations, branch choices, Green-function derivations, update ratios, and stabilization discussion now sit in the Supplemental Material.
+- Existing Section III still carries substantial proof load in the main text, presents RP before TRS, and uses standalone subsections. This is the next major mismatch with the intended PRL style.
 - Section IV has been rewritten around the new triangular-lattice benchmarks; the unfinished marker has been removed.
 - Section V and Section VI should be merged; Section VI is empty.
 - Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
 - Status on 2026-06-22: Section IV benchmark writing is in place, and Section II plus the supporting Supplemental Material have gone through two compression passes. The second pass removes notation-only display equations, avoids extra main-text variables such as `\hat U(\phi)` and `W_{\rm nc}`, puts number-conserving Green functions in the main text, and moves branch and update-ratio details to the Supplemental Material.
-- The last completed manuscript-content pass is the refined Section II plus supporting Supplemental Material; the next content pass is Section III unless the author requests further Section II polishing.
+- The last completed manuscript-content pass is commit `7fcd482`, which refined Section II/SM algorithm derivations and branch wording. The next content pass is the main-text Section III plus the corresponding SM proof migration.
 
 **Main diagnosis:**
 - The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
@@ -41,12 +41,17 @@
 ## Revision Principles
 
 - Main text answers: what is the new principle, what are the minimal formulas, why are weights nonnegative, and where is it demonstrated.
-- SM answers: how trace formulas, branches, cones, update ratios, regularization, and numerical details are derived.
+- SM answers: how trace formulas, branches, reflection-positivity proofs, update ratios, regularization, and numerical details are derived.
 - Use number-conserving cases first, then paired/non-number-conserving cases.
 - Use TRS first in Section III because it follows directly from the number-conserving determinant.
 - Use RP second because it is the broader criterion and naturally covers paired slices.
+- Main-text Section III should lower the reader's workload: state criteria in words a theoretical-physics reader can immediately use, then give only the decisive formulas.
+- It is acceptable, and likely clearer, to present the two criteria as compact theorem-like statements in prose. Do not include proof paragraphs in the main text.
+- Detailed proofs belong in SM and must be written pedagogically, with no hidden steps such as "the same manipulation gives" when the algebra is important.
+- Avoid obscure mathematical vocabulary in the main text. Words such as algebra, cone, semigroup, metaplectic branch, and generalized eigenspace should appear only in SM or only when unavoidable.
 - Do not remove mathematical precision. Move proof details to SM with clean cross references.
-- Avoid theorem/proof style in the main text. Use short physical explanations plus the decisive formula.
+- Avoid theorem/proof style in the main text beyond concise criterion statements. Use short physical explanations plus the decisive formula.
+- Use PRL-like run-in headings in the main text, e.g. `{\it Conditions for nonnegative weights}---`, instead of standalone numbered section headings. Keep ordinary `\section`/`\subsection` structure in SM.
 - Keep the introduction mostly intact until Sections II to V have been rewritten, then adjust it to match the final story.
 - Avoid unnecessary "not ... but ..." constructions. State positive claims directly.
 - Minimize dashes in manuscript prose.
@@ -56,25 +61,25 @@
 
 ## Target Main-Text Structure
 
-1. `Introduction`
+1. `{\it Introduction}---` or an equivalent PRL-style opening paragraph
    - Purpose: introduce the sign-problem classification shown in Fig. 1 and motivate the RP/TRS half-plane as the BAFQMC sign-free domain.
    - Fig. 1 must remain in the main text as a core schematic.
 
-2. `Bosonic Auxiliary-Field Quantum Monte Carlo`
+2. `{\it Bosonic auxiliary-field quantum Monte Carlo}---`
    - Purpose: define the sampled weights and observables.
    - Order: number-conserving determinant first, paired/Nambu metaplectic determinant second.
    - Target: compact enough to avoid derivation mode, with only the displayed equations needed for weights and basic observables.
 
-3. `Symmetry Conditions for Nonnegative Weights`
+3. `{\it Conditions for nonnegative weights}---`
    - Purpose: state and interpret the two sign-free mechanisms.
    - Order: Kramers TRS first, RP second.
-   - Target: criterion statements plus short physical proof sketches, with detailed cone/Kramers proofs in SM.
+   - Target: two compact, usable criteria and a short physical interpretation. Do not use subsections. Do not include detailed proof sketches; send Kramers multiplicity, reflected-square positivity, Lie-Trotter closure, and branch/pole arguments to SM.
 
-4. `Frustrated Two-Flavor Bose-Hubbard Model`
+4. `{\it Frustrated two-flavor Bose-Hubbard model}---`
    - Purpose: give one model family, explain why it is sign-free in BAFQMC despite frustrated hopping, and present Fig. 2/Fig. 3 benchmarks.
    - Target: enough space to make the model, sign-free mechanism, and two benchmarks clear without turning into a numerical report.
 
-5. `Concluding Remarks`
+5. `{\it Discussion and outlook}---` or `{\it Concluding remarks}---`
    - Purpose: merge current Discussion and Summary.
    - Target: concise but not perfunctory.
    - Content: significance, pole limitation, projector BAFQMC outlook.
@@ -105,7 +110,7 @@ These must be resolved before edits that change physics claims or figure content
 
 1. Diff baseline:
    - Default baseline for `pdf/main-diff.pdf`: the previous version or commit containing substantive manuscript-content edits.
-   - For the current refined Section II/SM pass, compare against commit `5d8a10a`, unless the author specifies another baseline.
+   - For the next Section III/SM pass, compare against commit `7fcd482`, unless the author specifies another baseline.
    - Ask the author only when this default is ambiguous for a given edit.
 
 2. Reference-corpus workflow:
@@ -122,6 +127,9 @@ These must be resolved before edits that change physics claims or figure content
 - The PRL revision skill should be project-level, not global.
 - In manuscript Hamiltonians, use creation superscript `+` rather than `\dagger`, consistent with the draft notation.
 - Do not introduce unnecessary intermediate notation such as `a_{\alpha i}` or `n_{i,\pm}` in the benchmark Hamiltonian when direct `b,c` notation is clearer.
+- For the next Section III rewrite, state the TRS criterion before the RP criterion.
+- Main-text Section III should be flat PRL prose with run-in italic heading text, not standalone subsections.
+- Main-text criteria should be directly usable by physics readers. Avoid main-text proof vocabulary such as cone, semigroup, generalized eigenspace, and metaplectic branch unless the sentence genuinely needs it.
 
 ## Phase 0: Baseline And Guardrails
 
@@ -236,35 +244,153 @@ These must be resolved before edits that change physics claims or figure content
   - Run: `latexmk main.tex`.
   - Check: no introduced warnings; Section II no longer reads like a derivation.
 
-## Phase 4: Rewrite Section III
+## Phase 4: Rewrite Section III And Move Proofs To SM
 
 **Files:**
-- Modify: `main.tex`.
-- Modify if needed: `SM.tex`.
+- Modify: `main.tex` around the current `\section{Conditions for nonnegative weights}` block, presently lines 172--343.
+- Modify: `SM.tex`, especially the current proof-related sections `Regularized reflection positivity from the semigroup viewpoint` and `Details of the time-reversal-symmetry argument`, presently lines 917--1133.
+- Do not modify: `references.bib` unless a new citation is necessary and its metadata has been verified.
 
-- [ ] Step 1: Rename Section III to `Symmetry Conditions for Nonnegative Weights`.
+**Main-text contract for this phase:**
+- Replace the standalone Section III heading with a PRL-style run-in heading: `{\it Conditions for nonnegative weights}---`.
+- Remove the Section III subsections. The main text should be a flat sequence of short paragraphs.
+- State the TRS criterion first, because it follows directly from the number-conserving determinant formula.
+- State the RP criterion second, because it is broader and covers paired/Nambu slices.
+- Main text should contain only criteria, consequences, and references to SM proofs. Avoid the proof vocabulary `cone`, `semigroup`, `generalized eigenspace`, and `metaplectic branch` in the main text.
+- Detailed proofs must be in SM and must be expanded rather than compressed.
 
-- [ ] Step 2: Put TRS first.
-  - Retain:
-    - `\Theta=UK`, `UU^*=-I`.
-    - `U^\hc\overline{B_\ell}U=B_\ell`.
-    - determinant factorization showing nonnegativity.
-    - two-flavor block form only if it supports the model section.
-  - Move generalized-eigenspace proof to SM.
+- [ ] Step 1: Inspect the current Section III and proof support.
+  - Run: `sed -n '172,344p' main.tex`.
+  - Run: `sed -n '917,1133p' SM.tex`.
+  - Run: `rg -n "cone|semigroup|generalized eigenspace|metaplectic|subsection|Reflection positivity|Time-reversal" main.tex SM.tex`.
+  - Expected: identify which proof paragraphs are still in main text and which SM proof sections need to receive them.
 
-- [ ] Step 3: Put RP second.
-  - Retain:
-    - reflection map definition in one line.
-    - reflected-square sufficient condition.
-    - Gaussian block criterion with positive reflected coupling if needed.
-  - Move cone closure, trace-factorization proof, Lie-Trotter proof, and semigroup discussion to SM.
+- [ ] Step 2: Flatten the main-text heading and remove Section III subsections.
+  - Replace `\section{Conditions for nonnegative weights}` with the run-in paragraph lead `{\it Conditions for nonnegative weights}---`.
+  - Remove `\subsection{Reflection positivity}` and `\subsection{Time-reversal symmetry}` from the main text.
+  - Keep labels only if they are still referenced. If a label is kept after a run-in heading, put it immediately after the heading text and verify that the reference target remains useful.
+  - Run: `rg -n '^\\section|^\\subsection|\\{\\it Conditions for nonnegative weights\\}' main.tex`.
+  - Expected: Section III has no `\subsection`, and the run-in heading appears exactly once.
 
-- [ ] Step 4: End Section III with the physical point.
-  - Required message: the RP/TRS half-plane in Fig. 1 is sign-free for BAFQMC, including the frustrated RP/TRS quadrant.
+- [ ] Step 3: Write the TRS criterion first in reader-facing prose.
+  - Keep the criterion in the number-conserving setting only.
+  - Keep these main-text objects:
+    - `\Theta=UK`, with `UU^*=-I`.
+    - the slice condition `U^\hc\overline{B_\ell}U=B_\ell`.
+    - the conclusion that the eigenvalues of the full single-particle product give `\det(I_N-\mc B)\ge0`, so the bosonic weight is nonnegative whenever finite.
+  - Move the proof that real eigenvalues have even multiplicity to SM.
+  - The main text should say the physical reason in one or two sentences: Kramers partners make real eigenvalue crossings occur in pairs, while nonreal eigenvalues come with their complex conjugates.
+  - Do not include a generalized-eigenspace proof in `main.tex`.
+  - Run: `rg -n "generalized eigenspace|algebraic multiplicity|m_r|Kramers reasoning" main.tex`.
+  - Expected: no matches in `main.tex`; the detailed proof is reserved for SM.
 
-- [ ] Step 5: Compile and inspect.
+- [ ] Step 4: Write the RP criterion second in reader-facing prose.
+  - Define the reflection in one line, for example `\theta(\hat b_i)=\hat c_i`, `\theta(\ii)=-\ii`, allowing fixed phases only if needed for the paired benchmark.
+  - State the sufficient condition as a directly usable reflected-pair form. A compact main-text formula may be:
+    ```tex
+    \hat h_\ell=\hat q_\ell+\theta(\hat q_\ell)
+    +\sum_\mu \hat Y_{\ell\mu}\theta(\hat Y_{\ell\mu})
+    +\xi_\ell,
+    \qquad \xi_\ell\in\mathbb R .
+    ```
+  - For Gaussian slices, keep the practical Nambu block test only if it is needed to make the benchmark sign-free check readable:
+    ```tex
+    \hat h_\ell=\hat\chi^\trans
+    \begin{pmatrix}
+        D_\ell&F_\ell\\
+        F_\ell^\trans&\bar D_\ell
+    \end{pmatrix}
+    \hat\chi+\xi_\ell,
+    \qquad F_\ell=F_\ell^\hc\succeq0 .
+    ```
+  - Explain in prose that the reflected terms pair each contribution with its reflected partner, so the trace of the full product is nonnegative. Do not prove closure or trace positivity in the main text.
+  - Run: `rg -n "cone|Lie-Trotter|semigroup|trace-factorization|\\mc K_\\theta" main.tex`.
+  - Expected: no matches in `main.tex`.
+
+- [ ] Step 5: End the main-text criteria block with the Fig. 1 message.
+  - Required message: TRS and RP identify the RP/TRS half-plane of Fig. 1 as sign-free for BAFQMC, including the frustrated but RP/TRS quadrant that is not naturally covered by world-line methods.
+  - Do not repeat the detailed comparison to SSE/WLQMC here if the Introduction and Discussion already cover it.
+  - Add cross references to SM proof sections, for example `Sec.~\ref{app:trs_proof}` and `Sec.~\ref{app:rp_proof}` after those labels are created.
+
+- [ ] Step 6: Commit the coherent main-text rewrite.
   - Run: `latexmk main.tex`.
-  - Check: the section states criteria rather than proving every lemma.
+  - Expected: compile succeeds. Temporary undefined references are not acceptable; create the SM labels before this commit if the main text already references them.
+  - Run: `git add main.tex SM.tex && git commit -m "Flatten nonnegative-weight criteria"`.
+
+- [ ] Step 7: Create or reorganize SM proof sections in TRS-then-RP order.
+  - Add a clear SM section after the Gaussian-formula sections and before the regularization section, or rename/reorder the existing proof sections, so readers can find the proof immediately after the formulas it supports.
+  - Use labels:
+    - `\label{app:trs_proof}` for the TRS proof.
+    - `\label{app:rp_proof}` for the RP proof.
+  - TRS proof content:
+    1. State `U^\hc\overline{B_\ell}U=B_\ell` and show it passes to `\mc B`.
+    2. Show nonreal eigenvalues pair as `\lambda,\lambda^*`.
+    3. Explain real eigenvalues carefully using the invariant generalized eigenspace and `\Theta^2=-1`.
+    4. Evaluate `\det(I_N-\mc B)` as products of nonnegative factors.
+  - RP proof content:
+    1. Define the two reflected Fock spaces and the antilinear map `\theta`.
+    2. Define reflected-square sums in SM; it is fine to call this a cone in SM after defining it.
+    3. Prove addition, multiplication, and nonnegative trace step by step.
+    4. Prove the slice-generator sufficient condition by diagonalizing the positive coupling matrix and using the Lie-Trotter product formula.
+    5. Derive the Gaussian/Nambu block criterion from the operator condition.
+    6. Keep branch and regularized-weight qualifications separate from the bare-trace positivity proof.
+  - Avoid proof shortcuts such as "it is easy to see" or "the same argument gives".
+
+- [ ] Step 8: Keep advanced regularization material in SM but out of the main text.
+  - The existing semigroup discussion may remain in SM as an advanced explanation of regularized RP weights.
+  - Update its opening sentence if needed so it no longer says "the cone proof in the main text"; after this phase the cone proof should be in SM.
+  - Cross-link it from the RP proof only after the elementary RP proof is complete.
+  - Run: `rg -n "main text establishes|cone proof in the main text|as shown in the main text" SM.tex`.
+  - Expected: no stale statements claiming that detailed proofs remain in main text.
+
+- [ ] Step 9: Verify source-level style constraints.
+  - Run: `rg -n "cone|semigroup|generalized eigenspace|metaplectic|Lie-Trotter|\\mc K_\\theta" main.tex`.
+  - Expected: no matches in `main.tex`.
+  - Run: `rg -n '^\\subsection\\{Reflection positivity\\}|^\\subsection\\{Time-reversal symmetry\\}' main.tex`.
+  - Expected: no matches.
+  - Run: `rg -n "\\{\\it Conditions for nonnegative weights\\}" main.tex`.
+  - Expected: exactly one match.
+
+- [ ] Step 10: Compile, refresh PDFs, and inspect warnings.
+  - Run: `latexmk main.tex`.
+  - Expected: `pdf/main.pdf` refreshed, no undefined references or citation warnings introduced.
+  - Refresh diff PDF against commit `7fcd482`:
+    ```bash
+    BASE=7fcd482
+    rm -rf .build/diff-work
+    mkdir -p .build/diff-work/old .build/diff-work/new pdf
+    git show ${BASE}:main.tex > .build/diff-work/old/main.tex
+    git show ${BASE}:SM.tex > .build/diff-work/old/SM.tex
+    git show ${BASE}:references.bib > .build/diff-work/old/references.bib
+    cp main.tex SM.tex references.bib .build/diff-work/new/
+    (cd .build/diff-work/old && latexpand main.tex > ../old.tex)
+    (cd .build/diff-work/new && latexpand main.tex > ../new.tex)
+    latexdiff --math-markup=0 .build/diff-work/old.tex .build/diff-work/new.tex > .build/diff-work/main-diff.tex
+    latexmk .build/diff-work/main-diff.tex
+    ```
+  - Expected: `pdf/main-diff.pdf` refreshed.
+  - Run: `rg -n "Warning|undefined|Citation|Label\\(s\\)|Rerun|Overfull|Underfull|empty year" .build/main.log .build/main-diff.log .build/main.blg .build/main-diff.blg`.
+  - Expected: only known baseline warnings remain. If the `SM` empty-year BibTeX warning remains, report it as pre-existing unless this phase changes the `SM` bibliography entry.
+
+- [ ] Step 11: Request an independent review before final delivery.
+  - Use the review prompts from `.codex/skills/bafqmc-prl-revision/references/review-prompts.md`.
+  - Ask specifically:
+    - Does main-text Section III state usable TRS and RP criteria without proof burden?
+    - Is TRS before RP?
+    - Are all proof details now in SM and sufficiently explicit?
+    - Does the main text avoid obscure mathematical vocabulary?
+  - Address actionable findings, then rerun Step 10.
+
+- [ ] Step 12: Commit the final Section III/SM pass.
+  - Run: `git diff --check`.
+  - Expected: no whitespace errors.
+  - Run: `git status --short`.
+  - Expected: only intended tracked source changes plus ignored/generated artifacts.
+  - Commit:
+    ```bash
+    git add main.tex SM.tex
+    git commit -m "Revise nonnegative-weight criteria"
+    ```
 
 ## Phase 5: Rewrite Section IV Around The New Benchmarks
 
@@ -354,6 +480,13 @@ These must be resolved before edits that change physics claims or figure content
   - Decide whether to retain `a^+` notation globally or migrate to `a^\dagger` in a separate author-approved pass.
   - Check `Eq.~\eqref{...}`, `Fig.~\ref{...}`, and `Sec.~\ref{...}` style.
 
+- [ ] Step 5: Apply the PRL run-in heading style consistently in the main text.
+  - Convert standalone main-text `\section{...}` headings to compact italic paragraph leads, for example `{\it Bosonic auxiliary-field quantum Monte Carlo}---`.
+  - Keep ordinary numbered `\section` and `\subsection` headings in `SM.tex`; the run-in style is for the Letter main text only.
+  - Preserve cross references only where they still help the reader. If a main-text `\label` no longer points to a numbered section, either move the label to a stable nearby anchor or rewrite the reference so it does not rely on section numbering.
+  - Run: `rg -n '^\\section|^\\subsection|\\{\\it ' main.tex`.
+  - Expected: no standalone `\section` or `\subsection` headings remain in `main.tex`, and each run-in heading begins a coherent PRL-style paragraph.
+
 ## Phase 8: Verification Before Each Delivered Manuscript Edit
 
 **Files:**
@@ -413,13 +546,26 @@ Use this sequence for the next working turn after author decisions:
 
 This starts with the repository infrastructure and style calibration, then moves to the unfinished application section. The Introduction should be rewritten after the core results and benchmark narrative are stable.
 
-## Next Suggested Execution Block: Section II And SM
+## Completed Execution Block: Section II And SM
 
-Use this sequence for the Section II pass.
+The Section II/SM formalism and algorithm pass is complete as of commit `7fcd482`.
 
-- [ ] Compress the opening of Section II so it defines the BAFQMC ensemble without deriving the HS transformation in detail.
-- [ ] Reverse the formal order inside Section II: number-conserving determinant first, paired/Nambu metaplectic formula second.
-- [ ] Move commutator identities, linear-action derivations, local-update ratio derivation, and stabilization comments out of the main text.
-- [ ] Keep in the main text only the formulas needed later by Section III and Section IV: `Z`, `W`, the number-conserving determinant, the paired determinant, and one Green-function identity.
-- [ ] Ensure SM contains the moved material with stable labels or clear replacement labels.
-- [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against commit `79a1b9b` unless the author specifies another baseline.
+- [x] Compress the opening of Section II so it defines the BAFQMC ensemble without deriving the HS transformation in detail.
+- [x] Present number-conserving determinant and Green-function formulas before paired/Nambu formulas.
+- [x] Move commutator identities, linear-action derivations, local-update ratio derivations, Sherman-Morrison/Woodbury updates, branch discussion, and stabilization details out of the main text.
+- [x] Keep in the main text only the formulas needed later by Section III and Section IV: `Z`, `W`, the number-conserving determinant, the paired determinant, and one Green-function identity.
+- [x] Expand SM rather than merely shorten the manuscript: include concrete HS identities, b/c conjugacy, determinant ratios, Green updates, Nambu local blocks, stabilization, and numerical parameters.
+- [x] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf`.
+
+## Next Suggested Execution Block: Section III And SM
+
+Use this sequence for the next working turn.
+
+- [ ] Rewrite main-text Section III as a flat PRL-style criteria block headed by `{\it Conditions for nonnegative weights}---`.
+- [ ] State the TRS criterion first for number-conserving propagators, with only the antiunitary condition and determinant nonnegativity in the main text.
+- [ ] State the RP criterion second, with only the reflected-pair condition and the practical Gaussian/Nambu block test in the main text.
+- [ ] Move the Kramers multiplicity proof, reflected-square trace proof, closure/Lie-Trotter proof, Gaussian block derivation, and branch/pole qualifications to SM.
+- [ ] Rewrite SM proofs in TRS-then-RP order and make each derivation explicit enough that a reader can reproduce the argument without code or collaboration context.
+- [ ] Remove main-text subsections and main-text proof vocabulary such as cone, semigroup, generalized eigenspace, and metaplectic branch.
+- [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against commit `7fcd482` unless the author specifies another baseline.
+- [ ] Commit the completed Section III/SM pass.
