@@ -840,13 +840,11 @@ The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the 
 \subsection{Time-reversal-symmetry criterion}
 \label{app:trs_proof}
 
-We first prove the determinant statement used for number-conserving slices in the main text. Consider
+We prove the TRS criterion for number-conserving slices
 \begin{equation}
-    \hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}+\xi_\ell,
-    \qquad
-    \xi_\ell\in\mathbb R,
+    \hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}.
 \end{equation}
-and assume that each one-particle matrix satisfies
+Let the one-particle action of the antiunitary symmetry be $\Theta=UK$. The condition $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$ and $\Theta^2=-1$ is equivalent to
 \begin{equation}
     U^\hc\overline{B_\ell}U=B_\ell,
     \qquad
@@ -855,8 +853,7 @@ and assume that each one-particle matrix satisfies
 \end{equation}
 The number-conserving trace formula gives
 \begin{equation}
-    W(\phi)=\exp\!\left(\sum_\ell\xi_\ell\right)
-    \det(I_N-\mc B)^{-1},
+    W(\phi)=\det(I_N-\mc B)^{-1},
     \qquad
     \mc B=\ee^{B_1}\cdots\ee^{B_L}.
 \end{equation}
@@ -897,7 +894,7 @@ The characteristic polynomial can then be evaluated at $x=1$ as
     \ge0,
     \label{eq:trs_det_positive_sm}
 \end{equation}
-because all $m_r$ are even. The exponential scalar factor in $W(\phi)$ is positive. Therefore the number-conserving BAFQMC weight is nonnegative whenever the determinant is nonzero. If the determinant vanishes, the configuration lies on a bosonic pole and is handled by the regularized interpretation in Sec.~\ref{app:regularization}.
+because all $m_r$ are even. If the trace is finite, $\det(I_N-\mc B)$ is nonzero. Equation~\eqref{eq:trs_det_positive_sm} then implies $\det(I_N-\mc B)>0$, and therefore $W(\phi)>0$.
 
 \subsection{Reflection-positivity criterion}
 \label{app:rp_proof}
@@ -907,11 +904,12 @@ We next prove the reflected-pair criterion used for both the number-conserving a
 Define the antilinear reflection $\theta:\mathfrak A_L\to\mathfrak A_R$ by
 \begin{equation}
     \theta(\ii)=-\ii,\qquad
-    \theta(\hat b_i)=\hat c_i,\qquad
-    \theta(\hat b_i^+)=\hat c_i^+,
+    \theta(\hat b_i)=\eta_i\hat c_i,\qquad
+    \theta(\hat b_i^+)=\overline{\eta_i}\hat c_i^+,
+    \qquad |\eta_i|=1,
     \label{eq:theta_def_sm}
 \end{equation}
-and extend it multiplicatively. Fixed flavor phases can be included by replacing $\hat c_i$ with $\eta_i\hat c_i$, $|\eta_i|=1$, which only changes the reflection convention.
+and extend it multiplicatively.
 
 The basic reflection-positive operators are finite sums of the form
 \begin{equation}
@@ -936,7 +934,7 @@ where we used the commutation of left and right boson operators and the multipli
     \left|\Tr_{\mc F_L}(\hat R)\right|^2
     \ge0.
 \end{equation}
-The last equality follows by choosing identical occupation-number bases in $\mc F_L$ and $\mc F_R$ and using the antilinearity of $\theta$. Thus every finite sum in Eq.~\eqref{eq:rp_positive_set_sm} has a nonnegative trace.
+The last equality follows by choosing occupation-number bases in $\mc F_L$ and $\mc F_R$ with the same number labels and using the antilinearity of $\theta$. The phases $\eta_i$ are a unitary relabeling of the right basis and do not change the trace. Thus every finite sum in Eq.~\eqref{eq:rp_positive_set_sm} has a nonnegative trace.
 
 Suppose each HS slice has a real scalar part and a propagator of the form
 \begin{equation}

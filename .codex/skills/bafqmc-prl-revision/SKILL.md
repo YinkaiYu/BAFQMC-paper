@@ -35,6 +35,9 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 - When main-text material is shortened, preserve or expand the removed logical detail in SM if it supports a formula, branch choice, update ratio, or numerical claim. Do not make the total manuscript less reproducible by moving fast in the main text.
 - Do not make the main text more general than the paper actually uses. Avoid unused channel indices, optional scalar-factor caveats, or conditional language that suggests unpresented cases.
 - Avoid forward references from an early section to later benchmark choices unless the reader has already met that object. Early formalism should cite SM for derivations and examples, not preview later narrative steps.
+- Open each section by naming the new physics or algorithmic question it answers. Do not begin by restating a result from the previous section unless the restatement is needed for the transition.
+- For theorem-like criteria, keep the statement to assumptions and conclusion. Put determinant intuition, proof mechanisms, examples, pole issues, and implementation consequences in surrounding prose or SM.
+- Apply an economy-of-notation rule. Do not introduce scalar factors, auxiliary variables, diagnostics, or branch parameters unless they are used by the local result and reduce the reader's work.
 - Define physical indices, operators, and commutators before relying on compact formulas. Avoid terse "if" formulations when the method always has that structure.
 - Distinguish operators from matrices in prose. Call $\mc B$ or $\mc M$ a single-particle propagation matrix or coefficient matrix, not an operator.
 - Preserve notation: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.
@@ -48,6 +51,7 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 - Keep formulas faithful to the physical sampling measure and to the algorithm actually used. Do not add mathematical operations or diagnostics for explanatory convenience.
 - Separate mathematical identities, branch conventions, numerical stabilization, and implementation diagnostics as distinct claims.
 - Prefer reader-facing explanations over author-facing emphasis. A paragraph should sound like it belongs in a paper, not like a reply to a revision note.
+- In SM, teach the algorithm from the definitions already established in the manuscript. Reintroduce objects such as slice matrices, cyclic products, Green functions, and local blocks before using them after a long gap.
 
 ## Project Decisions
 

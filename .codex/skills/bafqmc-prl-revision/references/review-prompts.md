@@ -23,9 +23,21 @@ Compare the changed section against the style-reference notes in `.codex/skills/
 - Does it minimize dashes?
 - Does every paragraph have a clear role in the story?
 - Are proofs and implementation details kept out of the main text when they interrupt the flow?
+- Does each section opening introduce the new question or claim, rather than repeating previous material or jumping to an undefined issue?
+- Are theorem-like statements limited to assumptions and conclusions, with intuition, examples, and caveats moved outside the statement?
 - Is it attractive enough to keep a theorist reading?
 
 Return concrete edits or concerns, not generic praise.
+
+## Reader-Burden Review
+
+Review the changed text as a first-time theoretical-physics reader. Flag places where the reader must reconstruct missing context. Check:
+
+- Are all operators, indices, fields, matrices, and commutators defined before compact formulas use them?
+- Are symbols reintroduced after a long gap before they are used in derivations or algorithms?
+- Does the prose avoid one-use variables, scalar factors, diagnostics, or branch parameters that do not help the local result?
+- Are determinant identities, update ratios, conjugacy relations, and stabilization formulas derived at the point where the reader needs them, rather than hidden behind phrases such as "similarly" or "the same manipulation"?
+- Does an early formal section avoid relying on later benchmark details unless the benchmark object has already been introduced?
 
 ## Process-Language Review
 
