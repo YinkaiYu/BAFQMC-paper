@@ -31,6 +31,8 @@ Write the manuscript as a Letter that makes this classification, the RP/TRS crit
 - Minimize dashes.
 - Do not insert process-facing sentences that answer the author’s prompt or advertise a revision.
 - Use reference Letters as tone and rhythm models only; do not import their physics claims.
+- Avoid catalogue sentences that list neighboring concepts when the paper does not use each one locally. Summarize the relevant lesson and cite the literature.
+- State the manuscript's original criteria in active voice. Do not make central results sound like automatic consequences of earlier formulas when their proofs or scope are broader.
 - Keep the main text readable as physics. Move derivations, branch-choice details, update ratios, and numerical parameters to SM when they interrupt the story.
 - When main-text material is shortened, preserve or expand the removed logical detail in SM if it supports a formula, branch choice, update ratio, or numerical claim. Do not make the total manuscript less reproducible by moving fast in the main text.
 - Do not make the main text more general than the paper actually uses. Avoid unused channel indices, optional scalar-factor caveats, or conditional language that suggests unpresented cases.

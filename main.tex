@@ -169,14 +169,14 @@ Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. Th
 
 \phantomsection\label{sec:positive}
 \noindent{\it Conditions for nonnegative weights}---
-The central issue is when every auxiliary-field configuration in BAFQMC has a nonnegative weight. In fermionic AFQMC, such sign-problem-free regions are often identified by sufficient conditions based on antiunitary symmetries, Majorana positivity, reflection positivity, or related semigroup structures~\cite{lieb1989prl,wu2005prb,wang2015prl,li2015prb,wei2016prl,li2016prl,li2019arcmp,wei2024prb}. For bosons, the Gaussian trace formulas above lead to the following two sufficient criteria.
+The central issue is when every auxiliary-field configuration in BAFQMC has a nonnegative weight. In fermionic AFQMC, the absence of the sign problem can often be determined from global symmetries of the HS-decoupled Hamiltonians, as developed extensively in Refs.~\cite{lieb1989prl,wu2005prb,wang2015prl,li2015prb,wei2016prl,li2016prl,li2019arcmp,wei2024prb}. We propose two bosonic sufficient criteria in the same spirit.
 
 \begin{theorem}[TRS criterion]
 \label{thm:trs}
-For number-conserving HS slices, suppose there is a Kramers antiunitary symmetry $\Theta$ with $\Theta^2=-1$ such that $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$ for every $\ell$. Then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever this trace is finite.
+If all $\hat h_\ell$ respect an antiunitary symmetry $\Theta$ with $\Theta^2=-1$, namely $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$, then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever $W$ is finite.
 \end{theorem}
 
-For $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry condition is $U^\hc\overline{B_\ell}U=B_\ell$ and $UU^*=-I_N$. It gives $\det(I_N-\mc B)\ge0$ for $\mc B=\ee^{B_1}\cdots\ee^{B_L}$, while the finite number-conserving trace formula gives $W=\det(I_N-\mc B)^{-1}$. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
+The mechanism is transparent in the number-conserving case. For $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry condition is $U^\hc\overline{B_\ell}U=B_\ell$ and $UU^*=-I_N$. Kramers pairing gives $\det(I_N-\mc B)\ge0$ for $\mc B=\ee^{B_1}\cdots\ee^{B_L}$. Thus, whenever the trace is finite, the determinant is strictly positive and $W=\det(I_N-\mc B)^{-1}>0$. The proof is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
 \begin{equation}
     \hat h_\ell =
     \hat{\bb a}^+
@@ -187,29 +187,23 @@ For $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry c
     \hat{\bb a}\,,
     \label{eq:block_TRS}
 \end{equation}
-with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The proof of Theorem~\ref{thm:trs} is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
+with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$.
 
 \begin{theorem}[RP criterion]
 \label{thm:rp}
 Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta(\hat b_i)=\eta_i\hat c_i$, and $\theta(\hat b_i^+)=\overline{\eta_i}\hat c_i^+$, with $|\eta_i|=1$. If each HS-decoupled slice can be written as
 \begin{equation}
-\begin{aligned}
     \hat h_\ell =
-    {}&\hat q_\ell+\theta(\hat q_\ell)
+    \hat q_\ell+\theta(\hat q_\ell)
     +\sum_{\mu,\nu} C_{\ell,\mu\nu}\,
-    \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu})
-    +\xi_\ell,\\
-    &C_\ell=C_\ell^\hc\succeq0,
-    \qquad
-    \xi_\ell\in\mathbb R,
-\end{aligned}
+    \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu}),
 \label{eq:rp_generator}
 \end{equation}
-with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
+with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
 \end{theorem}
-Taking $\eta_i=1$ gives the convention used in the explicit forms below. This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
+This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
 
-For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. In the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, a reflected Gaussian slice has nonnegative BAFQMC weight if it can be written as
+For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and using the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, a reflected Gaussian slice has nonnegative BAFQMC weight if it can be written as
 \begin{equation}
     \hat h_\ell = \hat\chi^\trans
     \begin{pmatrix}
