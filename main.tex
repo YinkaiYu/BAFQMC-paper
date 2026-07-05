@@ -115,6 +115,13 @@ The rest of the paper formulates BAFQMC and derives the basic weight and Green-f
     \label{fig:schematic}
 \end{figure}
 
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/benchmark_number_conserving.pdf}
+    \caption{\textbf{Number-conserving benchmark on a frustrated triangular lattice.} BAFQMC and finite-temperature reference results for Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$ on a $3\times3$ triangular lattice. The upper row varies $U_2$ at fixed $U_1=0$, $\mu=-3.5$, and $\beta=4$; the lower row varies $U_1$ at fixed $U_2=1$, $\mu=-7$, and $\beta=1$. The four columns show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$, respectively. Red points denote reference values, and blue open circles denote BAFQMC block means with standard-error bars.}
+    \label{fig:benchmark_number}
+\end{figure*}
+
 
 
 
@@ -162,10 +169,12 @@ $\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes
 \end{equation}
 Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. This anomalous Gaussian trace is what allows BAFQMC to treat Hamiltonians with explicit pairing terms; the derivation and the corresponding Nambu Green functions are given in Sec.~\ref{app:paired_gaussian} of the SM~\cite{SM}.
 
-
-
-
-
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/benchmark_pairing_delta.pdf}
+    \caption{\textbf{Paired benchmark on the frustrated triangular lattice.} BAFQMC and ED results for Eq.~\eqref{eq:benchmark_pairing} on the same $3\times3$ triangular lattice with $U_1=0$, $U_2=1$, $\mu=-5$, and $\beta=4$, shown as a function of real $\Delta\ge0$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$. Red points denote ED references, and blue open circles denote BAFQMC block means with standard-error bars. The finite-$\Delta$ data test anomalous one-body propagation in the Nambu BAFQMC formulation.}
+    \label{fig:benchmark_pairing}
+\end{figure*}
 
 \phantomsection\label{sec:positive}
 \noindent{\it Conditions for nonnegative weights}---
@@ -217,7 +226,6 @@ The matrices $D_\ell$ describe arbitrary quadratic terms within one reflected se
 
 Together, TRS and RP identify the RP/TRS half-plane of Fig.~\ref{fig:schematic}: after a suitable HS decoupling, global symmetry of the Gaussian slices is enough to make BAFQMC sign-problem-free even on frustrated lattices.
 
-
 \phantomsection\label{sec:examples}
 \noindent{\it Examples and applications}---
 A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. The operators $\hat b_i$ and $\hat c_i$ annihilate the two bosonic flavors on site $i$. They obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing. We define $\hat n_{b,i}=\hat b_i^+\hat b_i$ and $\hat n_{c,i}=\hat c_i^+\hat c_i$. The Hamiltonian is
@@ -248,21 +256,7 @@ We benchmark Eq.~\eqref{eq:benchmark_pairing} on a $3\times3$ triangular lattice
 
 Figure~\ref{fig:benchmark_number} shows the number-conserving case, $\Delta=0$. The upper row varies $U_2$ at fixed $U_1=0$, $\mu=-3.5$, and $\beta=4$; the lower row varies $U_1$ at fixed $U_2=1$, $\mu=-7$, and $\beta=1$. Across density, energy, and both $K$-point structure factors, BAFQMC follows the reference values within the plotted statistical resolution. This benchmark probes the frustrated RP/TRS quadrant of Fig.~\ref{fig:schematic} in a minimal finite cluster.
 
-\begin{figure*}[bt]
-    \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_number_conserving.pdf}
-    \caption{\textbf{Number-conserving benchmark on a frustrated triangular lattice.} BAFQMC and finite-temperature reference results for Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$ on a $3\times3$ triangular lattice. The upper row varies $U_2$ at fixed $U_1=0$, $\mu=-3.5$, and $\beta=4$; the lower row varies $U_1$ at fixed $U_2=1$, $\mu=-7$, and $\beta=1$. The four columns show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$, respectively. Red points denote reference values, and blue open circles denote BAFQMC block means with standard-error bars.}
-    \label{fig:benchmark_number}
-\end{figure*}
-
 The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives the reflected anomalous bilinear $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$, so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The finite-$\Delta$ benchmark is therefore sign-free by the paired RP criterion and uses the anomalous bosonic Gaussian trace formula, extending finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows agreement with ED within statistical error bars, benchmarking the paired Nambu implementation in the same frustrated model family.
-
-\begin{figure*}[bt]
-    \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_pairing_delta.pdf}
-    \caption{\textbf{Paired benchmark on the frustrated triangular lattice.} BAFQMC and ED results for Eq.~\eqref{eq:benchmark_pairing} on the same $3\times3$ triangular lattice with $U_1=0$, $U_2=1$, $\mu=-5$, and $\beta=4$, shown as a function of real $\Delta\ge0$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$. Red points denote ED references, and blue open circles denote BAFQMC block means with standard-error bars. The finite-$\Delta$ data test anomalous one-body propagation in the Nambu BAFQMC formulation.}
-    \label{fig:benchmark_pairing}
-\end{figure*}
 
 \phantomsection\label{sec:discussion}
 \noindent{\it Discussion}---
