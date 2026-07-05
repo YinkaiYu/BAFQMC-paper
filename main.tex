@@ -176,7 +176,7 @@ The central issue is when every auxiliary-field configuration in BAFQMC has a no
 If all $\hat h_\ell$ respect an antiunitary symmetry $\Theta$ with $\Theta^2=-1$, namely $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$, then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever $W$ is finite.
 \end{theorem}
 
-The mechanism is transparent in the number-conserving case. For $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry condition is $U^\hc\overline{B_\ell}U=B_\ell$ and $UU^*=-I_N$. Kramers pairing gives $\det(I_N-\mc B)\ge0$ for $\mc B=\ee^{B_1}\cdots\ee^{B_L}$. Thus, whenever the trace is finite, the determinant is strictly positive and $W=\det(I_N-\mc B)^{-1}>0$. The proof is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
+The reason is intuitive. For number-conserving $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry condition is $U^\hc\overline{B_\ell}U=B_\ell$ and $UU^*=-I_N$. The full propagation matrix $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ has nonreal eigenvalues paired as complex conjugates, while its real-eigenvalue subspaces have Kramers degeneracy. Hence $\det(I_N-\mc B)\ge0$. Thus, whenever the trace is finite, the determinant is strictly positive and $W=\det(I_N-\mc B)^{-1}>0$. The proof is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
 \begin{equation}
     \hat h_\ell =
     \hat{\bb a}^+
@@ -199,7 +199,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
     \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu}),
 \label{eq:rp_generator}
 \end{equation}
-with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
+with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever $W$ is finite.
 \end{theorem}
 This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and using the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, a reflected Gaussian slice has nonnegative BAFQMC weight if it can be written as
 \begin{equation}
@@ -220,7 +220,7 @@ Together, TRS and RP identify the RP/TRS half-plane of Fig.~\ref{fig:schematic}:
 
 \phantomsection\label{sec:examples}
 \noindent{\it Examples and applications}---
-A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. The operators $\hat b_i$ and $\hat c_i$ annihilate the two bosonic flavors on site $i$. They obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing, and $\hat n_{b,i}=\hat b_i^+\hat b_i$, $\hat n_{c,i}=\hat c_i^+\hat c_i$. The Hamiltonian is
+A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. The operators $\hat b_i$ and $\hat c_i$ annihilate the two bosonic flavors on site $i$. They obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, while $[\hat b_i,\hat c_j]=[\hat b_i,\hat c_j^+]=0$ and all remaining commutators vanish. We define $\hat n_{b,i}=\hat b_i^+\hat b_i$ and $\hat n_{c,i}=\hat c_i^+\hat c_i$. The Hamiltonian is
 \begin{equation}
 \begin{aligned}
     \hat H ={}&
