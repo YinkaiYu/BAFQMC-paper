@@ -140,7 +140,7 @@ Since $\ee^{\hat{\bb a}^+C\hat{\bb a}}\hat{\bb a}^+\ee^{-\hat{\bb a}^+C\hat{\bb 
 \end{equation}
 Convergence means that the Gaussian suppresses large coherent-state amplitudes. A sufficient condition is that the Hermitian part of $I_N-\ee^C$ is positive definite. In a diagonal stable case this reduces to the transparent requirement $|\ee^{\varepsilon_m}|<1$ for every single-particle mode, so every geometric series over boson occupation numbers converges.
 
-Outside this stable region, the determinant is still the algebraic continuation of the same geometric sums, but the ordinary Hilbert-space trace need not converge configuration by configuration. The pole occurs when an eigenvalue of $\ee^C$ reaches one. In the AFQMC integral this issue is handled by the Gaussian-cutoff finite-part construction in Sec.~\ref{app:regularization}. The present subsection only derives the trace formula in the convergent region where it is an ordinary trace.
+Outside this stable region, the determinant is still the algebraic continuation of the same geometric sums, but the ordinary Hilbert-space trace need not converge configuration by configuration. The pole occurs when an eigenvalue of $\ee^C$ reaches one. The finite-part interpretation of this algebraic continuation is discussed in Sec.~\ref{app:regularization}. The present subsection only derives the trace formula in the convergent region where it is an ordinary trace.
 
 For an ordered product of number-conserving slices,
 \begin{equation}
@@ -492,15 +492,15 @@ Let
     \qquad
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
 \end{equation}
-Whenever the trace converges and $\det(I_{2N}-\mc M)\neq0$, the standard character formula for the metaplectic representation gives~\cite{thomas2008character}
+Whenever the trace converges and $\det(I_{2N}-\mc M)\neq0$, the standard trace formula for bosonic Gaussian operators with pairing gives~\cite{thomas2008character}
 \begin{equation}
     \Tr\,\hat U
     =
     \exp\!\left(\sum_\ell\xi_\ell\right)
     \det(I_{2N}-\mc M)^{-1/2}.
-    \label{eq:character_formula_appendix}
+    \label{eq:paired_trace_formula_appendix}
 \end{equation}
-The square root in Eq.~\eqref{eq:character_formula_appendix} is not an ordinary single-valued function of $\mc M$. It is the character of the metaplectic lift of the symplectic matrix $\mc M$, so a branch choice is part of the Gaussian operator. The physical branch is fixed by continuity from a stable diagonal sector. In that sector,
+The determinant formula in Eq.~\eqref{eq:paired_trace_formula_appendix} carries a fixed sign determined by the Gaussian operator. In an ordinary convergent trace this sign can be seen from a stable diagonal example,
 \begin{equation}
     \hat U\sim\exp\left(\sum_{j=1}^{N}\varepsilon_j\hat\beta_j^+\hat\beta_j+\xi\right),
     \qquad
@@ -516,39 +516,86 @@ The corresponding Nambu matrix is similar to
 \begin{equation}
     \diag(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},\ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}),
 \end{equation}
-so Eq.~\eqref{eq:diag_trace_paired} fixes the branch of Eq.~\eqref{eq:character_formula_appendix}. On any connected component of the nonsingular set $\det(I_{2N}-\mc M)\neq0$ reached from such a stable point, the trace is therefore
+so Eq.~\eqref{eq:diag_trace_paired} fixes the sign in Eq.~\eqref{eq:paired_trace_formula_appendix} whenever the trace is represented by such convergent modes.
+
+In the RP sign-free applications of this paper, the sign is fixed even more directly. The operator proof in Sec.~\ref{app:rp_proof} shows that the weight is nonnegative whenever the trace is finite. The determinant expression in Eq.~\eqref{eq:paired_trace_formula_appendix} is therefore evaluated with the square-root sign that gives this nonnegative operator weight. This positivity statement is independent of the pole issue discussed in Sec.~\ref{app:regularization}.
+
+\subsection{Regularized interpretation of determinant weights}
+\label{app:regularization}
+
+The trace formulas above are ordinary Fock-space traces in their convergent domains. The determinant expressions also define the finite part of the Gaussian weight outside those domains, except at the pole surface itself. This point is specific to bosons. In fermionic AFQMC the determinant weight $\det[I_N+\mc B(\phi)]$ can vanish but cannot diverge. Near those zeros the variance of estimators can become infinite~\cite{alexandru2023prd,wan2025infinite}. In BAFQMC the corresponding factors are $\det[I_N-\mc B(\phi)]^{-1}$ or $\det[I_{2N}-\mc M(\phi)]^{-1/2}$, so the numerical difficulty appears as poles rather than zeros.
+
+The finite-part viewpoint applies to any bosonic Gaussian operator, including one with pairing terms. For a fixed auxiliary-field configuration, introduce the projector $\Pi_\Lambda$ onto a finite Fock-space subspace and compute
 \begin{equation}
-    \Tr\,\hat U
+    W_\Lambda(\phi)=\Tr\!\left[\Pi_\Lambda \hat U(\phi)\Pi_\Lambda\right].
+\end{equation}
+When the ordinary trace converges, the limit $\Lambda\to\infty$ gives the trace formulas derived above. When the ordinary trace does not converge, $W_\Lambda$ generally contains cutoff-dependent contributions from high-occupation sectors together with a cutoff-independent finite part. The BAFQMC determinant weight is this finite part:
+\begin{equation}
+    W_{\mathrm{reg}}(\phi)=
+    \exp\!\left[\sum_\ell \xi_\ell(\phi_\ell)\right]
+    \det[I_N-\mc B(\phi)]^{-1}
+\end{equation}
+for number-conserving propagators, and
+\begin{equation}
+    W_{\mathrm{reg}}(\phi)=
+    \exp\!\left[\sum_\ell \xi_\ell(\phi_\ell)\right]
+    \det[I_{2N}-\mc M(\phi)]^{-1/2}
+\end{equation}
+for paired propagators, with the square-root representative fixed as in Sec.~\ref{app:trace_paired}. In RP applications this representative is the one selected by the nonnegative operator trace whenever that trace is finite.
+
+The mechanism is transparent in the number-conserving case when the single-particle propagation matrix is diagonal in a set of canonical modes, with eigenvalues $r_i(\phi)$. The bare trace is then the sum over all occupation-number sectors,
+\begin{equation}
+\begin{aligned}
+    W_{\mathrm{bare}}(\phi)
+    =& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+    \sum_{n_1,\dots,n_N\ge0} a_{\bb n}(\phi), \\
+    a_{\bb n}(\phi)={}& \prod_{i=1}^{N} r_i(\phi)^{n_i}.
+\end{aligned}
+\end{equation}
+When $|r_i(\phi)|<1$ for all $i$, this sum converges absolutely and reproduces Eq.~\eqref{eq:trace_formula_number}. If some eigenvalue moves outside the unit circle, large-occupation sectors are amplified rather than suppressed and the bare trace ceases to exist. The pole itself occurs when an eigenvalue reaches $r_i=1$, where the finite part below is singular.
+
+To display the finite part explicitly, use a mode cutoff $N_{\rm cut}$ in this diagonal example:
+\begin{equation}
+\begin{aligned}
+    W_{N_{\rm cut}}(\phi)
+    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+      \prod_{i=1}^{N}\sum_{n_i=0}^{N_{\rm cut}}r_i^{n_i} \\
+    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+      \prod_{i=1}^{N}\left(
+      \frac{1}{1-r_i}
+      -
+      \frac{r_i^{N_{\rm cut}+1}}{1-r_i}
+      \right).
+\end{aligned}
+    \label{eq:occupation_cutoff_weight}
+\end{equation}
+Expanding the product gives
+\begin{equation}
+    W_{N_{\rm cut}}(\phi)
     =
-    \exp\!\left(\sum_\ell\xi_\ell\right)
-    \left[\det(I_{2N}-\mc M)\right]_{\mathcal C}^{-1/2},
-    \label{eq:paired_trace_component}
+    P_{N_{\rm cut}}(\phi)
+    + W_{\mathrm{reg}}(\phi),
 \end{equation}
-where the subscript indicates the square-root branch inherited from that component $\mathcal C$.
-
-The finite-$\Delta$ benchmark in the main text uses $U_1=0$. The fluctuating HS factor is therefore only the relative-density field
+where $P_{N_{\rm cut}}$ contains every term with at least one cutoff-dependent factor $r_i^{N_{\rm cut}+1}$. The cutoff-independent term is
 \begin{equation}
-    \hat V_{2,\ell}(\varphi)
+\begin{aligned}
+    W_{\mathrm{reg}}(\phi)
+    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+      \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)} \\
+    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+      \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
+\end{aligned}
+    \label{eq:reg_weight_appendix}
+\end{equation}
+In the stable region, $P_{N_{\rm cut}}\to0$ and this finite part is the ordinary trace. Outside that region, $W_{\mathrm{reg}}$ is not the value of a convergent Hilbert-space trace at fixed $\phi$; it is the finite part of the same occupation-number expression. The same determinant expression for a general number-conserving matrix follows by continuity away from $\det(I_N-\mc B)=0$.
+
+Thus the regularized BAFQMC integral is evaluated with
+\begin{equation}
+    Z_{\mathrm{reg}}
     =
-    \exp\left[
-    \ii\alpha_2\sum_i\varphi_{i\ell}
-    (\hat n_{b,i}-\hat n_{c,i})
-    \right],
-    \qquad
-    \alpha_2=\sqrt{2\Delta\tau U_2},
+    \int \mc D\phi\; P_{\rm HS}(\phi)\,W_{\mathrm{reg}}(\phi).
 \end{equation}
-which acts on every occupation-number state only by a phase of unit modulus. It does not change the real cost of putting more bosons into the system.
-
-Let $\hat K_{\Delta,\mu}$ denote the remaining one-body Hamiltonian in the Trotter slice, including hopping, chemical potential, and onsite pairing. When this paired quadratic Hamiltonian is on the stable side of the bosonic pairing instability, all Bogoliubov quasiparticle energies are positive and $\Tr\,\ee^{-\Delta\tau\hat K_{\Delta,\mu}}$ is finite on the finite lattice. In the translation-invariant zero-field limit this stability condition is the familiar requirement that the positive normal-state energy $\varepsilon_k$ stay above the pairing amplitude $|\Delta|$ for every momentum mode. The benchmark parameters are chosen inside this stable regime.
-
-The operator $\hat V_{2,\ell}$ is unitary. On a finite lattice, $\ee^{-\Delta\tau\hat K_{\Delta,\mu}}$ is a trace-class Gaussian operator in the stable regime, and multiplying it by unitary factors preserves trace convergence. Equivalently, the unitary phase factors cannot make high-occupation Fock sectors grow. Thus the full product
-\begin{equation}
-    \hat U(\varphi)=
-    \prod_{\ell}
-    \ee^{-\Delta\tau\hat K_{\Delta,\mu}}
-    \hat V_{2,\ell}(\varphi)
-\end{equation}
-has a finite Fock-space trace for all real $U_2$ auxiliary fields in this stable parameter regime. Hence the determinant factor in Eq.~\eqref{eq:paired_trace_component} does not encounter a pole as the $U_2$ field is varied, and the square-root branch is fixed once by continuity from the zero-field stable point. This argument uses the absence of a real total-density HS field in the finite-$\Delta$ benchmark. If a real HS channel that changes onsite energies is also sampled, or if the paired quadratic Hamiltonian itself is tuned to the bosonic instability, the pole structure must be analyzed separately.
+This finite-part prescription does not remove the numerical difficulty caused by nearby poles. It only separates that difficulty from the sign problem addressed by the TRS and RP criteria.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -632,7 +679,7 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-The square root in Eq.~\eqref{eq:update_ratio_main} is the branch connected to the identity update $\Delta_\ell=0$, where the determinant is one and the ratio is one. For the finite-$\Delta$ benchmark just discussed, a $U_2$ proposal changes only the relative-density phase field. Since the sampled configurations stay in the region where the trace is finite, this local square root is the restriction of the same global branch fixed at zero field.
+Whenever the paired ensemble satisfies the RP criterion, both $W$ and $W'$ are the nonnegative operator weights fixed in Sec.~\ref{app:rp_proof}. For configurations with nonzero denominator, the determinant factor in Eq.~\eqref{eq:update_ratio_main} is chosen as the positive real ratio $W'/W$. This prescription gives one for the identity update $\Delta_\ell=0$.
 
 For the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} at finite pairing $\Delta\ne0$, the density interactions are decoupled by the same HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}. The onsite Nambu basis is $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
 \begin{equation}
@@ -731,7 +778,7 @@ The determinant contribution to a local proposal is therefore
 \begin{equation}
     R_{\rm det}=(\det P_i)^{-1/2},
 \end{equation}
-with the square-root branch specified above. Combining this determinant factor with the Gaussian HS measure and the normal-ordering constant gives the full local Metropolis ratio
+with the nonnegative square-root representative specified above. Combining this determinant factor with the Gaussian HS measure and the normal-ordering constant gives the full local Metropolis ratio
 \begin{equation}
     R=
     \exp\left[-\frac12(x'^{\,2}-x^2)\right]
@@ -1008,7 +1055,7 @@ which is reflection-positive term by term. Finally,
     \prod_a \ee^{\hat Y_a\theta(\hat Y_a)/n}
     \right]^n
 \end{equation}
-by the Lie-Trotter product formula~\cite{trotter1959product}. Each finite-$n$ factor is reflection-positive, and multiplication preserves reflection positivity. The limit is understood either in the convergent trace sense or after the Gaussian regularization described below. Thus Eq.~\eqref{eq:rp_generator_sm} is a sufficient condition for nonnegative weights.
+by the Lie-Trotter product formula~\cite{trotter1959product}. Each finite-$n$ factor is reflection-positive, and multiplication preserves reflection positivity. Thus Eq.~\eqref{eq:rp_generator_sm} is a sufficient condition for nonnegative weights whenever the trace is finite.
 
 For Gaussian BAFQMC slices the criterion is easy to apply. Let
 \begin{equation}
@@ -1041,247 +1088,6 @@ gives the block form
 \end{equation}
 This is the practical Gaussian RP test quoted in the main text. It is written in reflected-sector order, where the first block contains the $b$ operators and their conjugates and the second block contains the reflected $c$ operators and their conjugates. Other parts of the SM use the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$; the two descriptions are related by a fixed permutation of rows and columns. The reflection may include fixed phases; in that case the same derivation holds after absorbing those phases into the definition of $\theta$.
 
-\section{Regularized interpretation of the bosonic weight}
-\label{app:regularization}
-
-The bosonic Gaussian trace formula differs from the fermionic one in a crucial respect: the weight has poles rather than zeros. Specifically, due to the Pauli exclusion principle and fermionic statistics, the integrand of the Monte Carlo integral in fermionic AFQMC is proportional to
-\begin{equation}
-    W(\phi)\propto \det\left[I_N+\mc B(\phi)\right]\,.
-\end{equation}
-This is a holomorphic function that can vanish but never diverges; near those zeros the variance of estimators can become infinite, a pathology known as the infinite variance problem~\cite{alexandru2023prd,wan2025infinite}. In BAFQMC, the integrand takes the form
-\begin{equation}
-    W(\phi)\propto\det\left[I_{2N}-\mc M(\phi)\right]^{-1/2}
-    \;\text{or}\;
-    \det\left[I_{N}-\mc B(\phi)\right]^{-1} \,.
-\end{equation}
-These expressions exhibit pole structures. In particular, in the number-conserving case, the path integral over the auxiliary field $\phi$ actually crosses the poles where $\det\left[I_{N}-\mc B(\phi)\right]=0$. Near these poles, the bare trace formula for the sampling weight intrinsically diverges, rendering its path integral ill-defined. The regularized interpretation below shows that these divergent parts cancel exactly. Therefore, as long as the chemical potential $\mu$ is chosen within a physical (sufficiently low) range, the results obtained by sampling according to the standard BAFQMC procedure described in the main text remain exact and physical, even if a fraction of the sampled auxiliary-field configurations indeed cross the poles.
-
-Let $r_1(\phi),\dots,r_N(\phi)$ be the eigenvalues of $\mc B(\phi)$. Formally, the bare bosonic trace is the generating series of all occupation-number sectors,
-\begin{equation}
-\begin{aligned}
-    W_{\mathrm{bare}}(\phi)
-    =& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-    \sum_{n_1,\dots,n_N\ge0} a_{\bb n}(\phi), \\
-    a_{\bb n}(\phi)={}& \prod_{i=1}^{N} r_i(\phi)^{n_i}.
-\end{aligned}
-\end{equation}
-When $|r_i(\phi)|<1$ for all $i$, this series converges absolutely and reproduces Eq.~\eqref{eq:trace_formula_number}. If some eigenvalue moves outside the unit circle, however, large-occupation sectors are amplified rather than suppressed, and the bare trace ceases to exist. Physically this is why BAFQMC can encounter poles even though the final grand-canonical partition function is finite.
-
-We therefore define, at fixed configuration $\phi$, the Gaussian-cutoff trace
-\begin{equation}
-\begin{aligned}
-    W_{\Lambda}(\phi)
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \sum_{n_1,\dots,n_N\ge0} a_{\bb n}(\phi) \\
-    &\times \exp\!\left[-\frac{|a_{\bb n}(\phi)|^2}{\Lambda^2}\right].
-\end{aligned}
-    \label{eq:gaussian_cutoff_weight}
-\end{equation}
-For every finite $\Lambda$, the extra Gaussian factor suppresses sufficiently large occupation sectors and the sum is absolutely convergent. The regulator is deliberately chosen in occupation-number space: it suppresses the bosonic states that are responsible for the divergence, rather than trying to move the configuration away from the pole by hand.
-
-It is useful to see the mechanism first in one mode. If $W_{\mathrm{bare}}\sim \sum_{n\ge0} r^n$, then
-\begin{equation}
-    W_{\Lambda}(r)=\sum_{n\ge0} r^n \exp\!\left(-\frac{|r|^{2n}}{\Lambda^2}\right).
-\end{equation}
-For $|r|<1$, the regulator becomes irrelevant as $\Lambda\to\infty$ and $W_{\Lambda}(r)\to (1-r)^{-1}$. For $|r|>1$, the terms with $n\lesssim n_{*}(\Lambda)\equiv \ln\Lambda/\ln|r|$ are almost unsuppressed, so the regulated sum is well approximated by a large partial geometric series:
-\begin{equation}
-    W_{\Lambda}(r)\approx \sum_{n=0}^{n_{*}(\Lambda)} r^n
-    = -\frac{r^{\,n_{*}(\Lambda)+1}}{1-r}+\frac{1}{1-r}.
-\end{equation}
-The first term is cutoff dependent and diverges with $\Lambda$; the second term is cutoff independent. The Gaussian cutoff therefore separates the regulated trace into a divergent piece and a finite piece. The multivariate series in Eq.~\eqref{eq:gaussian_cutoff_weight} behaves in the same way:
-\begin{equation}
-    W_{\Lambda}(\phi)
-    = P_{\Lambda}(\phi)
-    + W_{\mathrm{reg}}(\phi)
-    + O(\Lambda^{-1}),
-\end{equation}
-where $P_{\Lambda}(\phi)$ collects all cutoff-dependent terms that vanish or diverge as $\Lambda\to\infty$, while the $\Lambda$-independent part is
-\begin{equation}
-\begin{aligned}
-    W_{\mathrm{reg}}(\phi)
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)} \\
-    ={}& \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-      \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
-\end{aligned}
-    \label{eq:reg_weight_appendix}
-\end{equation}
-This finite part coincides with the ordinary trace.
-
-The full auxiliary-field partition function is therefore introduced in two steps. First one keeps the cutoff finite,
-\begin{equation}
-    Z_{\Lambda}
-    = \int \mc D\phi\; P_{\rm HS}(\phi)\,W_{\Lambda}(\phi).
-\end{equation}
-Only after the auxiliary-field integral is performed does one remove the regulator:
-\begin{equation}
-    Z = \lim_{\Lambda\to\infty} Z_{\Lambda}.
-\end{equation}
-If the physical grand-canonical partition function is finite, the cutoff-dependent pieces contained in $P_{\Lambda}(\phi)$ must cancel after the full auxiliary-field integration; otherwise $Z_{\Lambda}$ would diverge. What survives is exactly the finite part in Eq.~\eqref{eq:reg_weight_appendix}, so that 
-\begin{equation}
-    Z
-    = \int \mc D\phi\; P_{\rm HS}(\phi)\,W_{\mathrm{reg}}(\phi).
-\end{equation}
-This is why the determinant formula used in BAFQMC should be regarded, in the number-conserving pole-crossing problem, as a renormalized sampling weight rather than as a naive bare trace.
-
-
-\section{Regularized reflection positivity from the semigroup viewpoint}
-\label{app:regularized_rp}
-
-This section gives the single-particle matrix form of reflection positivity~\cite{wei2024prb} for the regularized Gaussian weights used in BAFQMC. The operator proof in Sec.~\ref{app:rp_proof} establishes positivity of the bare convergent trace. The matrix form below explains how the same reflected structure appears in the Nambu propagation matrices used in the paired algorithm.
-
-We again work with two reflected sets of bosons, $\hat{\bb b}=(\hat b_1,\ldots,\hat b_M)^\trans$ and $\hat{\bb c}=(\hat c_1,\ldots,\hat c_M)^\trans$, and collect them into the conventional Nambu spinor
-\begin{equation}
-    \hat\chi = (\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans.
-\end{equation}
-A fixed permutation converts this order to the reflected-sector order used in Eq.~\eqref{eq:rp_block_sm}; the positivity condition is unchanged by that relabeling.
-A general quadratic generator is written as
-\begin{equation}
-    \hat h = -\frac12\hat\chi^\trans\Omega A\hat\chi,
-\end{equation}
-with $A\in\mathfrak{sp}(4M,\mathbb C)$. Making the reflected left/right structure explicit, one may parameterize $A$ as
-\begin{equation}
-    A=
-    \begin{pmatrix}
-        B_{11} & B_{12} & C_{11} & C_{12} \\
-        B_{21} & B_{22} & C_{12}^\trans & C_{22} \\
-        D_{11} & D_{12} & -B_{11}^\trans & -B_{21}^\trans \\
-        D_{12}^\trans & D_{22} & -B_{12}^\trans & -B_{22}^\trans
-    \end{pmatrix},
-    \label{eq:A_reflected_general}
-\end{equation}
-where $C_{11}=C_{11}^\trans$, $C_{22}=C_{22}^\trans$, $D_{11}=D_{11}^\trans$, and $D_{22}=D_{22}^\trans$.
-
-The reflection used in Sec.~\ref{app:rp_proof} is represented on the single-particle space by $J_1$ followed by complex conjugation, with
-\begin{equation}
-    J_1=
-    \begin{pmatrix}
-        0 & I_M & 0 & 0 \\
-        I_M & 0 & 0 & 0 \\
-        0 & 0 & 0 & I_M \\
-        0 & 0 & I_M & 0
-    \end{pmatrix}.
-\end{equation}
-Reflection symmetry of the quadratic generator is therefore
-\begin{equation}
-    J_1^\trans A J_1 = \bar A.
-    \label{eq:J1_reflection_condition}
-\end{equation}
-This is the matrix form of exchanging the $\hat b$ and $\hat c$ sectors while conjugating coefficients.
-A reflection with fixed phases, $\theta_E(\hat b_i)=\eta_i\hat c_i$, with $E=\diag_i(\eta_i)$ and $|\eta_i|=1$, is obtained by replacing the identity blocks in $J_1$ by $E$ in the annihilation sectors and by $E^*$ in the creation sectors. The same replacement gives the corresponding matrices $J_{2,E}$ and $\eta_E=J_{2,E}\Omega$ used in the semigroup decomposition. We display the $E=I_M$ representative below; for general $E$, the condition $K\succeq0$ is evaluated after this replacement.
-
-The semigroup viewpoint introduces a second anti-linear structure, represented by $J_2$ followed by complex conjugation,
-\begin{equation}
-    J_2=
-    \begin{pmatrix}
-        0 & I_M & 0 & 0 \\
-        -I_M & 0 & 0 & 0 \\
-        0 & 0 & 0 & I_M \\
-        0 & 0 & -I_M & 0
-    \end{pmatrix},
-\end{equation}
-and the associated Hermitian involution
-\begin{equation}
-    \eta = J_2\Omega,
-    \qquad
-    \eta^\hc = \eta,
-    \qquad
-    \eta^2 = I_{4M}.
-\end{equation}
-The involution $\eta$ separates the part of the Gaussian evolution that preserves the natural indefinite metric from the part that produces genuine contraction or expansion. Matrices satisfying
-\begin{equation}
-    g^\hc\eta g = \eta
-\end{equation}
-form the maximal subgroup associated with this metric. Relaxing the equality to
-\begin{equation}
-    g^\hc\eta g - \eta \preceq 0
-    \qquad\text{or}\qquad
-    g^\hc\eta g - \eta \succeq 0
-\end{equation}
-defines the corresponding contraction and expansion semigroups.
-
-With $J_2$ in hand, the reflected generator splits naturally into
-\begin{equation}
-    A = A_{+} + A_{-},
-    \qquad
-    A_{\pm} = \frac12\left(A \pm J_2^\trans \bar A J_2\right).
-    \label{eq:Apm_def}
-\end{equation}
-This decomposition separates two roles. The $A_{+}$ part is even under the $J_2$ anti-linear symmetry and behaves like a metric-preserving piece. The $A_{-}$ part is odd under that symmetry and contains the couplings that control whether the evolution moves into a contraction or expansion sector.
-
-Using Eqs.~\eqref{eq:A_reflected_general} and~\eqref{eq:Apm_def}, one finds
-\begin{equation}
-    A_{+}=
-    \begin{pmatrix}
-        B_{11} & 0 & C_{11} & 0 \\
-        0 & \bar B_{11} & 0 & \bar C_{11} \\
-        D_{11} & 0 & -\bar B_{11} & 0 \\
-        0 & \bar D_{11} & 0 & -B_{11}
-    \end{pmatrix},
-    \label{eq:Aplus_form}
-\end{equation}
-where $C_{11}=C_{11}^\trans$ and $D_{11}=D_{11}^\trans$. Combining the symplectic condition with $J_2^\trans A_{+}J_2=\bar A_{+}$ gives
-\begin{equation}
-    A_{+}^\hc\eta + \eta A_{+} = 0.
-\end{equation}
-Therefore $\exp(A_{+})$ preserves the metric $\eta$. This is the part of the reflected Gaussian propagator that moves inside the maximal subgroup but does not change the sign structure of the regularized weight.
-
-The complementary part is
-\begin{equation}
-    A_{-}=
-    \begin{pmatrix}
-        0 & B_{12} & 0 & C_{12} \\
-        \bar B_{12} & 0 & \bar C_{12} & 0 \\
-        0 & D_{12} & 0 & -B_{12}^{\hc} \\
-        \bar D_{12} & 0 & -B_{12}^\trans & 0
-    \end{pmatrix},
-    \label{eq:Aminus_form}
-\end{equation}
-with $C_{12}=C_{12}^{\hc}$ and $D_{12}=D_{12}^{\hc}$. Unlike $A_{+}$, this piece is not metric-preserving. Instead, the combination $\eta A_{-}$ is Hermitian:
-\begin{equation}
-    \eta A_{-} = J_2\Omega A_{-} =
-    \begin{pmatrix}
-        \bar D_{12} & 0 & -B_{12}^\trans & 0 \\
-        0 & -D_{12} & 0 & B_{12}^{\hc} \\
-        -\bar B_{12} & 0 & -\bar C_{12} & 0 \\
-        0 & B_{12} & 0 & C_{12}
-    \end{pmatrix}.
-    \label{eq:etaAminus}
-\end{equation}
-This makes the cone structure visible, but it becomes especially transparent after a simple reordering of basis. Introduce the permutation matrix
-\begin{equation}
-    \Pi=
-    \begin{pmatrix}
-        0 & 0 & 0 & I_M \\
-        0 & I_M & 0 & 0 \\
-        0 & 0 & I_M & 0 \\
-        I_M & 0 & 0 & 0
-    \end{pmatrix},
-\end{equation}
-which rearranges the block basis from $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)$ to $(\hat{\bb c}^+,\hat{\bb c},\hat{\bb b}^+,\hat{\bb b})$. Then
-\begin{equation}
-    \Pi^\trans (\eta A_{-}) \Pi =
-    \begin{pmatrix}
-        K & 0 \\
-        0 & -\bar K
-    \end{pmatrix},
-    \qquad
-    K =
-    \begin{pmatrix}
-        C_{12} & B_{12} \\
-        B_{12}^{\hc} & -D_{12}
-    \end{pmatrix}.
-    \label{eq:etaAminus_diag}
-\end{equation}
-After this reordering, all the information in the cone part is reduced to a single Hermitian block $K$. This is the same object that appears in the operator formulation: positivity of the reflected bilinear couplings in Eq.~\eqref{eq:rp_block_form} is exactly the requirement
-\begin{equation}
-    K \succeq 0.
-    \label{eq:K_positive}
-\end{equation}
-Equation~\eqref{eq:K_positive} has a direct semigroup interpretation. One block in Eq.~\eqref{eq:etaAminus_diag} is positive, while the other is its negative complex conjugate. Equivalently, the reflected cone part always comes as a paired expansion sector together with its companion contraction sector. This is the single-particle version of reflection positivity.
-
-The operator proof in Sec.~\ref{app:rp_proof} is sufficient whenever the Fock-space trace converges. In the finite-$\Delta$ benchmark, Sec.~\ref{app:trace_paired} shows why the $U_2$ relative-density field does not generate a pole: the fluctuating factor is unitary, while the paired quadratic step remains in the stable regime. The square root in the Nambu trace formula is then fixed by the stable zero-field reference point. The matrix decomposition above is the corresponding single-particle statement: each reflected slice has a part that only changes the basis within the reflected Gaussian structure and a part controlled by the positive block $K$ in Eq.~\eqref{eq:K_positive}. Applying the same decomposition slice by slice preserves the reflected structure through the full imaginary-time product.
-
 \section{Benchmark numerical details}
 \label{app:benchmark_details}
 
@@ -1303,6 +1109,6 @@ where $x$ is the real HS field being updated. For the number-conserving benchmar
 
 The number-conserving data in Fig.~\ref{fig:benchmark_number} use the $\Delta=0$ algorithm in Sec.~\ref{app:update_number}. The upper row fixes $U_1=0$, $\mu=-3.5$, and $\beta=4$ and scans the repulsive channel $U_2$. The lower row fixes $U_2=1$, $\mu=-7$, and $\beta=1$ and scans the attractive channel $U_1$ in a low-density window. The complex-conjugate relation between the two flavors, Eq.~\eqref{eq:conj_green_benchmark}, is used throughout this benchmark.
 
-The finite-$\Delta$ data in Fig.~\ref{fig:benchmark_pairing} use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and $\Delta=0,0.05,\ldots,0.30$. Since $U_1=0$ in this scan, the normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive in the production data, although it is part of the general paired update formula. The only fluctuating field is the $U_2$ relative-density phase field, so the branch discussion of Sec.~\ref{app:trace_paired} applies once the paired quadratic Hamiltonian is stable.
+The finite-$\Delta$ data in Fig.~\ref{fig:benchmark_pairing} use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U_1=0$, $U_2=1$, $\mu=-5$, $\beta=4$, and $\Delta=0,0.05,\ldots,0.30$. Since $U_1=0$ in this scan, the normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive in the production data, although it is part of the general paired update formula. The only fluctuating field is the $U_2$ relative-density phase field, and the paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
 
 The number-conserving references are finite-temperature ED or, at the free-boson point, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached; the low-density $U_1$ window in Fig.~\ref{fig:benchmark_number} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark_pairing} use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. With these settings, the BAFQMC and ED results agree within the reported statistical error bars.

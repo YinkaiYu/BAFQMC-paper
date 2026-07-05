@@ -12,6 +12,8 @@
 /.agents/
 /.claude/
 /.codex/*
+/.omo/
+/.playwright-cli/
 !/.codex/config.toml
 !/.codex/skills/
 !/.codex/skills/**

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concluding remarks reference audit</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18212f;
+      --muted: #5d6878;
+      --line: #d9dee7;
+      --panel: #f7f8fb;
+      --accent: #174b7a;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: white;
+      line-height: 1.62;
+    }
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 40px 28px 64px;
+    }
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 21px;
+    }
+    h3 {
+      margin-top: 22px;
+      font-size: 17px;
+      color: var(--accent);
+    }
+    p {
+      margin: 10px 0;
+    }
+    a {
+      color: #0a5596;
+      text-decoration-thickness: 1px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      background: #eef2f7;
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-size: 0.92em;
+    }
+    .meta {
+      margin: 12px 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .callout {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      padding: 14px 16px;
+      margin: 18px 0;
+    }
+    .scroll {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      margin: 16px 0 26px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      font-size: 14px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f0f3f8;
+      color: #253145;
+      font-weight: 650;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .ok {
+      color: #19692c;
+      font-weight: 650;
+    }
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+  <script>
+    window.MathJax = {tex: {inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']]}};
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <h1>Concluding remarks reference audit</h1>
+  <div class="meta">
+    生成日期：2026-07-06。范围：本轮为正文无符号判据文献链和 <em>Concluding remarks</em> 展望段落新增、恢复或重点使用的参考文献。
+  </div>
+
+  <div class="callout">
+    <p><strong>审计结论。</strong> 本报告列出的 9 个 BibTeX 条目已用 DOI/Crossref 元数据核对作者、题名、期刊、卷号、期号、页码或文章号、年份和 DOI；含 arXiv 版本的条目也用 arXiv 页面核对题名、作者和 arXiv 编号。当前 BibTeX 未发现需要立即修正的元数据错误。</p>
+    <p>APS 近年文章的 Crossref 元数据常把 017203、155142、041105、025003、075146 等记录为 <code>article-number</code>。本稿 BibTeX 采用 APS/RevTeX 常见写法，把这些文章号放在 <code>pages</code> 字段中；这不是页码范围，但在 APS 文献格式中是正确的文章编号表达。</p>
+  </div>
+
+  <h2>引用策略</h2>
+  <p>正文中有两类不同的引用需求。第一类是费米子 AFQMC 中“无符号问题判据可以由 HS 解耦后单体哈密顿量的全局对称性给出”的历史背景。这里引用早期核物理 AFMC、高能格点 QCD、凝聚态 AFQMC 和后来的 Majorana/semigroup 发展，目的是说明我们的 TRS/RP 判据与一个已有且成熟的费米子 QMC 传统相呼应。</p>
+  <p>第二类是 <em>Concluding remarks</em> 中的展望：受阻挫玻色子和自旋模型长期受局域权重 QMC 符号问题限制，但这些模型承载 supersolid、chiral Mott insulator 和 spin-liquid 等重要物理。这里的引用不是为了穷举领域，而是给读者一个可信的入口，说明 BAFQMC 打开的“frustrated but RP/TRS”区域对应真实且重要的物理问题。</p>
+
+  <h2>逐条引用说明与元数据核验</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>BibTeX key</th>
+          <th>论文用途</th>
+          <th>为什么适合引用</th>
+          <th>核验结果</th>
+          <th>核验来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>lang1993prc</code></td>
+          <td>费米子辅助场 Monte Carlo 无符号问题文献链中的早期非凝聚态例子。</td>
+          <td>该文系统建立核壳模型的辅助场路径积分 Monte Carlo，并讨论 fermion Monte Carlo 的 sign problem 及一类无符号相互作用。它比凝聚态 AFQMC 的现代 TRS/Majorana 判据更早，适合支撑“全局结构/相互作用类别可决定无符号性”的历史背景。</td>
+          <td><span class="ok">匹配。</span> 作者 G. H. Lang, C. W. Johnson, S. E. Koonin, W. E. Ormand；题名 <em>Monte Carlo evaluation of path integrals for the nuclear shell model</em>；<em>Phys. Rev. C</em> 48, 1518--1545 (1993)；DOI 10.1103/PhysRevC.48.1518；arXiv:nucl-th/9305009。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevC.48.1518">APS DOI</a>；<a href="https://arxiv.org/abs/nucl-th/9305009">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>hands2000epjc</code></td>
+          <td>费米子/格点场论中由对称性和 determinant 结构控制符号性质的早期背景。</td>
+          <td>该文研究 two-color QCD 中 dense adjoint matter，明确讨论全局对称性、fermion determinant 的符号以及进入有限密度后符号涨落的问题。它不是本文的直接技术来源，但适合说明“antiunitary/global symmetry 与 determinant sign 的关系”早已出现在凝聚态之外的 AFQMC/格点模拟语境中。</td>
+          <td><span class="ok">匹配。</span> 作者 S. Hands, I. Montvay, S. Morrison, M. Oevers, L. Scorzato, J. Skullerud；题名 <em>Numerical study of dense adjoint matter in two color QCD</em>；<em>Eur. Phys. J. C</em> 17, 285--302 (2000)；DOI 10.1007/s100520000477；arXiv:hep-lat/0006018。</td>
+          <td><a href="https://doi.org/10.1007/s100520000477">DOI landing page</a>；<a href="https://arxiv.org/abs/hep-lat/0006018">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>henelius2000prb</code></td>
+          <td><em>Concluding remarks</em> 中“frustration 是局域权重 QMC 的中心障碍”的支撑文献。</td>
+          <td>该文题目和内容都直接讨论 frustrated quantum spin systems 的 Monte Carlo sign problem，并分析 SSE/operator-loop 语境下符号问题何时可缓解、何时仍然困难。它是正文对 local-weight QMC 受挫折限制的最直接引用。</td>
+          <td><span class="ok">匹配。</span> Patrik Henelius, Anders W. Sandvik；<em>Sign problem in Monte Carlo simulations of frustrated quantum spin systems</em>；<em>Phys. Rev. B</em> 62, 1102--1113 (2000)；DOI 10.1103/PhysRevB.62.1102；arXiv:cond-mat/0001351。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevB.62.1102">APS DOI</a>；<a href="https://arxiv.org/abs/cond-mat/0001351">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>wang2009prl</code></td>
+          <td>受阻挫三角晶格 hard-core boson 的 supersolid 物理例子。</td>
+          <td>正文展望中提到 triangular hard-core bosons 和 supersolid。该 PRL 研究 frustrated nearest-neighbor hopping 与 repulsion 的 triangular-lattice hard-core boson 模型，并给出 extended supersolid phase，是这一物理方向的精确入口。</td>
+          <td><span class="ok">匹配。</span> Fa Wang, Frank Pollmann, Ashvin Vishwanath；<em>Extended Supersolid Phase of Frustrated Hard-Core Bosons on a Triangular Lattice</em>；<em>Phys. Rev. Lett.</em> 102, 017203 (2009)；DOI 10.1103/PhysRevLett.102.017203；arXiv:0809.1667。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.102.017203">APS DOI</a>；<a href="https://arxiv.org/abs/0809.1667">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>zaletel2014prb</code></td>
+          <td>受阻挫 triangular-lattice bosons 的 chiral Mott 物理例子。</td>
+          <td>正文展望中提到 chiral Mott physics。该文直接研究 frustrated triangular lattice 上 interacting bosons 的 chiral bosonic Mott insulator，是与本文“受阻挫玻色系统”最贴近的代表性理论文献之一。</td>
+          <td><span class="ok">匹配。</span> Michael P. Zaletel, S. A. Parameswaran, Andreas Rüegg, Ehud Altman；<em>Chiral bosonic Mott insulator on the frustrated triangular lattice</em>；<em>Phys. Rev. B</em> 89, 155142 (2014)；DOI 10.1103/PhysRevB.89.155142；arXiv:1308.3237。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevB.89.155142">APS DOI</a>；<a href="https://arxiv.org/abs/1308.3237">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>yan2011science</code></td>
+          <td>受阻挫 kagome 自旋模型中 spin-liquid 物理的代表性数值研究。</td>
+          <td>正文展望中提到 frustrated quantum magnets 和 spin-liquid physics。该 Science 论文用 DMRG 研究 kagome Heisenberg antiferromagnet，并给出 gapped spin-liquid ground state 的强证据。它说明许多受阻挫自旋难题长期依赖 DMRG 等非 sign-free QMC 方法。</td>
+          <td><span class="ok">匹配。</span> Simeng Yan, David A. Huse, Steven R. White；<em>Spin-Liquid Ground State of the \(S=1/2\) Kagome Heisenberg Antiferromagnet</em>；<em>Science</em> 332, 1173--1176 (2011)；DOI 10.1126/science.1201080；arXiv:1011.6114。</td>
+          <td><a href="https://www.science.org/doi/10.1126/science.1201080">Science DOI</a>；<a href="https://arxiv.org/abs/1011.6114">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>zhu2015prb</code></td>
+          <td>triangular-lattice \(J_1-J_2\) frustrated magnet 的 spin-liquid 例子。</td>
+          <td>该文研究 triangular lattice 上 \(S=1/2\) \(J_1-J_2\) Heisenberg model 的 spin-liquid phase，和本文 triangular-lattice frustrated setting 在物理动机上接近，适合支撑“受阻挫自旋模型有重要未解物理”的展望。</td>
+          <td><span class="ok">匹配。</span> Zhenyue Zhu, Steven R. White；<em>Spin liquid phase of the \(S=1/2\) \(J_1-J_2\) Heisenberg model on the triangular lattice</em>；<em>Phys. Rev. B</em> 92, 041105 (2015)；DOI 10.1103/PhysRevB.92.041105；arXiv:1502.04831。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevB.92.041105">APS DOI</a>；<a href="https://arxiv.org/abs/1502.04831">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>zhou2017rmp</code></td>
+          <td>spin-liquid 物理和受阻挫量子磁性的综述入口。</td>
+          <td>作为 RMP 综述，该文给读者提供 spin liquid states 的整体背景，避免展望段落只引用少数个案。它支撑“spin-liquid physics 是受阻挫量子磁性中的核心问题”这一广泛背景。</td>
+          <td><span class="ok">匹配。</span> Yi Zhou, Kazushi Kanoda, Tai-Kai Ng；<em>Quantum spin liquid states</em>；<em>Rev. Mod. Phys.</em> 89, 025003 (2017)；DOI 10.1103/RevModPhys.89.025003；arXiv:1607.03228。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/RevModPhys.89.025003">APS DOI</a>；<a href="https://arxiv.org/abs/1607.03228">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+        <tr>
+          <td><code>wei2024prb</code></td>
+          <td>费米子 QMC 无符号判据文献链中的现代 semigroup 发展。</td>
+          <td>正文只把它用于费米子 AFQMC 中无符号判据的已有发展脉络，不再把它用于本文 bosonic RP 的半群证明。这样保留引用的历史价值，同时避免把已删除且不适合本文的半群论证重新引入。</td>
+          <td><span class="ok">匹配。</span> Zhong-Chao Wei；<em>Semigroup approach to the sign problem in quantum Monte Carlo simulations</em>；<em>Phys. Rev. B</em> 110, 075146 (2024)；DOI 10.1103/PhysRevB.110.075146；arXiv:1712.09412。</td>
+          <td><a href="https://link.aps.org/doi/10.1103/PhysRevB.110.075146">APS DOI</a>；<a href="https://arxiv.org/abs/1712.09412">arXiv</a>；Crossref DOI API。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>当前正文中的引用位置</h2>
+  <p><code>lang1993prc</code>、<code>hands2000epjc</code>、<code>wei2024prb</code> 与已有的 <code>wu2005prb</code>、<code>li2015prb</code>、<code>wang2015prl</code>、<code>wei2016prl</code>、<code>li2016prl</code>、<code>li2019arcmp</code> 一起，用于 <em>Conditions for nonnegative weights</em> 开头的费米子 AFQMC 背景句。这个 citation cluster 的功能是“已有费米子 QMC 中，无符号判据可由 HS 解耦后的全局结构/对称性给出”，不是逐条介绍每一种判据。</p>
+  <p><code>henelius2000prb</code> 用于 <em>Concluding remarks</em> 中“frustration 长期是 local-weight QMC 的中心障碍”。<code>wang2009prl</code>、<code>zaletel2014prb</code>、<code>yan2011science</code>、<code>zhu2015prb</code>、<code>zhou2017rmp</code> 用于同一段中“frustrated bosonic and spin problems host supersolid, chiral Mott, and spin-liquid physics”。</p>
+
+  <h2>建议作者重点复核的取舍</h2>
+  <p>我认为这些条目元数据可靠，引用用途也基本匹配。唯一需要作者判断的是 citation cluster 的粒度：<code>hands2000epjc</code> 更像是“对称性与 determinant sign 关系的早期格点场论背景”，而不是一个直接的 sign-free construction 论文。如果正文句子保持现在的 broad phrasing，它可以保留；如果后续要把句子收窄为“所有这些文献都给出 sign-problem-free sufficient conditions”，则应重新评估是否保留该条。</p>
+
+  <h2>可复现核验记录</h2>
+  <p>Crossref 核验使用 DOI API <code>https://api.crossref.org/works/&lt;doi&gt;</code>。出版社页面优先使用 APS DOI landing page、Science DOI page 和 Springer DOI page。arXiv 核验使用对应 abstract 页面。核验字段包括 author list、title、journal、volume、issue、page/article number、year、DOI 和 arXiv identifier。</p>
+  <p class="note">本报告不替代作者最终文献审查；它记录的是本轮修改中我对 BibTeX 信息和引用用途的逐条核验。</p>
+</main>
+</body>
+</html>
