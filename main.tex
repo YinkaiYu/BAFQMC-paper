@@ -164,10 +164,10 @@ $\hat h_\ell(\phi_\ell)=-\frac12\hat\chi^\trans\Omega A_\ell(\phi_\ell)\hat\chi+
 $\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes the normal-ordering constant in this Nambu representation. The corresponding trace formula is
 \begin{equation}
     W(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-    \det\!\left(I_{2N}-\mc M(\phi)\right)^{-1/2}.
+    \left[(-1)^N\det\!\left(I_{2N}-\mc M(\phi)\right)\right]^{-1/2}.
     \label{eq:trace_formula_main}
 \end{equation}
-Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. This anomalous Gaussian trace is what allows BAFQMC to treat Hamiltonians with explicit pairing terms; the derivation and the corresponding Nambu Green functions are given in Sec.~\ref{app:paired_gaussian} of the SM~\cite{SM}.
+Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. This anomalous Gaussian trace is what allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula and Nambu Green functions are derived in Secs.~\ref{app:trace_paired} and~\ref{app:green_paired} of the SM~\cite{SM}.
 
 \begin{figure*}[t]
     \centering
