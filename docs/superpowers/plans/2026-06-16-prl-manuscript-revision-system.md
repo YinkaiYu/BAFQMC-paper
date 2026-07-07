@@ -33,7 +33,7 @@
 - Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
 - Status on 2026-06-22: Section IV benchmark writing is in place, and Section II plus the supporting Supplemental Material have gone through two compression passes. The second pass removes notation-only display equations, avoids extra main-text variables such as `\hat U(\phi)` and `W_{\rm nc}`, puts number-conserving Green functions in the main text, and moves branch and update-ratio details to the Supplemental Material.
 - Status on 2026-07-06: Section III has been flattened and theoremized through commits `caee0e7`--`846d3be`; figure placement was adjusted in `559dc79`.
-- Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The next content pass is to rewrite the Introduction from the current PRB-like overview into a PRL-style story and add verified references where the narrative relies on known background.
+- Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The Introduction has now been rewritten into a five-paragraph PRL-style story that moves from the QMC sign problem, to the local-weight frustration barrier, to the auxiliary-field symmetry viewpoint, to the new BAFQMC answer. Verified Introduction references and a citation-audit HTML report were added in the current pass.
 
 **Main diagnosis:**
 - The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
@@ -57,7 +57,7 @@
 - Do not remove mathematical precision. Move proof details to SM with clean cross references.
 - Avoid theorem/proof style in the main text beyond concise criterion statements. Use short physical explanations plus the decisive formula.
 - Use PRL-like run-in headings in the main text, e.g. `{\it Conditions for nonnegative weights}---`, instead of standalone numbered section headings. Keep ordinary `\section`/`\subsection` structure in SM.
-- The Introduction is now the next major pass. It should be rewritten as a PRL-style story that motivates the work from the QMC sign problem, the local-weight frustration barrier in bosonic/spin simulations, the auxiliary-field symmetry viewpoint developed in fermionic AFQMC, and the missing bosonic counterpart that this paper supplies.
+- The Introduction should remain a PRL-style story that motivates the work from the QMC sign problem, the local-weight frustration barrier in bosonic/spin simulations, the auxiliary-field symmetry viewpoint developed in fermionic AFQMC, and the missing bosonic counterpart that this paper supplies.
 - The Introduction should cite background claims with broad but purposeful reference clusters. Every added or modified BibTeX entry must be verified against authoritative sources before use, and a citation report should be written for author review.
 - Avoid unnecessary "not ... but ..." constructions. State positive claims directly.
 - Minimize dashes in manuscript prose.
@@ -617,27 +617,27 @@ The pole/branch framing and ending rewrite are complete as of commits `f00aec9` 
 - [x] Add only necessary outlook references after verifying metadata.
 - [x] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, generate `pdf/main-diff.pdf`, run prose review, and commit the completed pass.
 
-## Next Suggested Execution Block: PRL Introduction Rewrite
+## Completed Execution Block: PRL Introduction Rewrite
 
-Use this sequence for the next working turn.
+The Introduction rewrite was completed in the current 2026-07-08 pass and awaits final compile/diff verification plus commit.
 
-- [ ] Commit this plan update before changing manuscript sources.
-- [ ] Map the Introduction story into four to five PRL paragraphs:
+- [x] Commit the initial plan update before changing manuscript sources.
+- [x] Map the Introduction story into four to five PRL paragraphs:
   - QMC as a numerically exact nonperturbative tool and the sign problem as the key tractability boundary.
   - The conventional bosonic/spin local-weight viewpoint, where frustration in WLQMC/SSE creates negative weights and makes many frustrated models inaccessible.
   - The auxiliary-field viewpoint, where positivity is controlled by symmetries of HS-decoupled one-body propagators rather than by local matrix elements.
   - The missing bosonic AFQMC sign-free framework and the central question answered by this work.
   - The BAFQMC answer: finite-temperature method, TRS/RP sufficient criteria, Fig. 1 classification, and triangular-lattice benchmark.
-- [ ] Dispatch focused literature-research subagents or perform equivalent focused searches for the Introduction citation clusters:
+- [x] Dispatch focused literature-research subagents or perform equivalent focused searches for the Introduction citation clusters:
   - General QMC/sign-problem background and computational complexity.
   - WLQMC/SSE, Marshall sign transformations, frustration, and bosonic/spin sign problems.
-  - Frustrated bosonic/spin target physics such as fractional quantum Hall, chiral Mott, spin liquid, and charge-4e or related multi-boson superconducting orders when directly relevant.
+  - Frustrated bosonic/spin target physics such as fractional quantum Hall, chiral Mott, spin liquid, and directly relevant multi-boson orders.
   - Fermionic AFQMC sign-free criteria based on TRS, RP, Majorana positivity, and related symmetry principles.
   - Earlier bosonic AFQMC uses and their limitations.
-- [ ] Verify every new or edited BibTeX entry against an authoritative source such as APS, DOI/Crossref, arXiv, publisher pages, or journal pages. Do not infer author lists, article numbers, years, or DOIs from memory.
-- [ ] Write a citation report for author review that states which claim each reference supports, why it belongs in the Introduction, and which source verified the metadata.
-- [ ] Rewrite the Introduction in `main.tex` with confident PRL prose. Avoid defensive wording, process-facing explanations, unnecessary mathematical jargon, and premature discussion of SM regularization.
-- [ ] Keep display equations out of the Introduction unless absolutely necessary. Use Fig. 1 as the conceptual map rather than a late afterthought.
-- [ ] Run `opencode` prose review on the revised Introduction and address actionable reader-facing findings.
+- [x] Verify every new or edited BibTeX entry against an authoritative source such as APS, DOI/Crossref, arXiv, publisher pages, or journal pages. Do not infer author lists, article numbers, years, or DOIs from memory.
+- [x] Write a citation report for author review that states which claim each reference supports, why it belongs in the Introduction, and which source verified the metadata.
+- [x] Rewrite the Introduction in `main.tex` with confident PRL prose. Avoid defensive wording, process-facing explanations, unnecessary mathematical jargon, and premature discussion of SM regularization.
+- [x] Keep display equations out of the Introduction unless absolutely necessary. Use Fig. 1 as the conceptual map rather than a late afterthought.
+- [x] Run `opencode` prose review on the revised Introduction and address actionable reader-facing findings.
 - [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against the previous substantive manuscript-content baseline.
 - [ ] Run warning/process-language scans, report any remaining warnings, and commit the completed Introduction pass.

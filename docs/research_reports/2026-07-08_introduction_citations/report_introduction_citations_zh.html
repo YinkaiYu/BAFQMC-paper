@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introduction 引文核验报告</title>
+  <style>
+    body {
+      margin: 0;
+      color: #1b1f23;
+      background: #f6f8fa;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+      background: #fff;
+      min-height: 100vh;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    h2 { margin-top: 34px; padding-top: 12px; border-top: 1px solid #d8dee4; font-size: 21px; }
+    h3 { margin: 22px 0 8px; font-size: 17px; }
+    p { margin: 10px 0; }
+    .meta {
+      color: #57606a;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+    .callout {
+      border-left: 4px solid #0969da;
+      background: #f0f6ff;
+      padding: 12px 14px;
+      margin: 18px 0;
+    }
+    .scroll { overflow-x: auto; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 840px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #d8dee4;
+      padding: 8px 10px;
+      vertical-align: top;
+    }
+    th {
+      background: #f6f8fa;
+      text-align: left;
+      font-weight: 650;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.95em;
+      background: #f6f8fa;
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+    a { color: #0969da; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Introduction 引文核验报告</h1>
+  <div class="meta">生成日期：2026-07-08；对象：<code>main.tex</code> Introduction 重写与 <code>references.bib</code> 新增条目。</div>
+
+  <div class="callout">
+    <p><strong>结论。</strong>本轮 Introduction 的引用按“论断成组”组织，而不是逐句堆叠。新增 BibTeX 条目均用 DOI/Crossref 内容协商、APS/publisher 页面或 arXiv 页面核验了作者、题名、期刊、卷页、年份、DOI 和可用的 arXiv 编号。没有修改既有 BibTeX 条目的 metadata。</p>
+  </div>
+
+  <h2>正文引文逻辑</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Introduction 中的论断</th>
+          <th>正文引用</th>
+          <th>用途说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>QMC 是量子多体与格点场论中的核心非微扰工具。</td>
+          <td><code>foulkes2001rmp</code>, <code>alexandru2022rmp</code></td>
+          <td>Foulkes 等综述支撑凝聚态/材料 QMC 的基准地位；Alexandru 等 RMP 支撑路径积分 Monte Carlo 与 sign problem 在 QCD、核物理、凝聚态等领域的共同背景。</td>
+        </tr>
+        <tr>
+          <td>符号/相位涨落导致平均符号指数衰减；不存在通用高效解法。</td>
+          <td><code>loh1990prb</code>, <code>troyer2005prl</code></td>
+          <td>Loh 等给出平均符号指数衰减的经典表述；Troyer-Wiese 给出 sign problem NP-hard 的复杂性论证。</td>
+        </tr>
+        <tr>
+          <td>玻色/自旋系统的常见 sign-free 区域主要来自 world-line/worm/SSE 等局部权重算法。</td>
+          <td><code>prokofev1998pla</code>, <code>sandvik1999prb</code>, <code>evertz2003advphys</code></td>
+          <td>分别支撑 worm/world-line 和 SSE/loop 算法的局部构型权重背景。</td>
+        </tr>
+        <tr>
+          <td>Marshall 变换是 bipartite 反铁磁的标准无符号机制；部分阻挫模型可由 dimer/cluster basis 特殊规避。</td>
+          <td><code>marshall1955proc</code>, <code>nakamura1998prb</code>, <code>alet2016prl</code></td>
+          <td>用最少文献覆盖“无阻挫/特殊 basis 例外”，避免把正文写成局部算法综述。</td>
+        </tr>
+        <tr>
+          <td>三角、kagome 等阻挫晶格的局部权重 QMC 通常有符号问题。</td>
+          <td><code>henelius2000prb</code></td>
+          <td>直接支撑 frustrated spin systems 中局部 QMC sign problem 的经典论断。</td>
+        </tr>
+        <tr>
+          <td>阻挫玻色/自旋模型承载 supersolid、chiral Mott、bosonic FQH、kagome frustrated superfluidity、spin liquid 等目标物理。</td>
+          <td><code>sorensen2005prl</code>, <code>wang2009prl</code>, <code>yan2011science</code>, <code>wang2011prl</code>, <code>you2012prl</code>, <code>zaletel2014prb</code>, <code>zhu2015prb</code>, <code>zhou2017rmp</code></td>
+          <td>该 citation cluster 支撑“为什么突破阻挫玻色/自旋 sign problem 重要”。正文把每个物理对象直接绑定到对应引用：<code>wang2009prl</code> 支撑 supersolid，<code>zaletel2014prb</code> 支撑 chiral Mott，<code>sorensen2005prl</code> 和 <code>wang2011prl</code> 支撑 bosonic FQH，<code>you2012prl</code> 支撑 kagome frustrated superfluidity，<code>yan2011science</code>、<code>zhu2015prb</code>、<code>zhou2017rmp</code> 支撑 spin-liquid 背景。</td>
+        </tr>
+        <tr>
+          <td>AFQMC 通过 HS 场 trace out 量子算符并采样全局 determinant-type 权重。</td>
+          <td><code>blankenbecler1981prd</code></td>
+          <td>BSS 论文是 finite-temperature determinant/auxiliary-field QMC 的基础来源。</td>
+        </tr>
+        <tr>
+          <td>费米子 AFQMC 中，decoupled one-body Hamiltonian 的 TRS/RP/Majorana symmetry 可给出无符号判据。</td>
+          <td><code>lang1993prc</code>, <code>hands2000epjc</code>, <code>wu2005prb</code>, <code>li2015prb</code>, <code>wang2015prl</code>, <code>wei2016prl</code>, <code>li2016prl</code>, <code>li2019arcmp</code>, <code>wei2024prb</code></td>
+          <td>这一组覆盖凝聚态外更早的 TRS/sign-problem 关系、Wu-Zhang TRS 判据、Majorana 与 split-orthogonal 判据、综述和后续半群表述。顺序保留 <code>li2015prb</code> 在 <code>wang2015prl</code> 前面。</td>
+        </tr>
+        <tr>
+          <td>此前已有 bosonic AFQMC 方向，但没有给出本文这种适用于阻挫玻色系统的通用对称性无符号判据。</td>
+          <td><code>purwanto2004pre</code>, <code>rubenstein2012pra</code></td>
+          <td>Purwanto-Zhang 支撑 projector/ground-state bosonic AFQMC；Rubenstein-Zhang-Reichman 支撑 finite-temperature Bose-Fermi mixture AFQMC。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>新增 BibTeX 条目核验</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>文献</th>
+          <th>核验来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>foulkes2001rmp</code></td><td>W. M. C. Foulkes et al., Rev. Mod. Phys. 73, 33--83 (2001), DOI 10.1103/RevModPhys.73.33.</td><td><a href="https://link.aps.org/doi/10.1103/RevModPhys.73.33">APS DOI page</a> and DOI BibTeX.</td></tr>
+        <tr><td><code>alexandru2022rmp</code></td><td>A. Alexandru et al., Rev. Mod. Phys. 94, 015006 (2022), DOI 10.1103/RevModPhys.94.015006, arXiv:2007.05436.</td><td><a href="https://link.aps.org/doi/10.1103/RevModPhys.94.015006">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/2007.05436">arXiv</a>.</td></tr>
+        <tr><td><code>loh1990prb</code></td><td>E. Y. Loh et al., Phys. Rev. B 41, 9301--9307 (1990), DOI 10.1103/PhysRevB.41.9301.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevB.41.9301">APS DOI page</a> and DOI BibTeX.</td></tr>
+        <tr><td><code>troyer2005prl</code></td><td>M. Troyer and U.-J. Wiese, Phys. Rev. Lett. 94, 170201 (2005), DOI 10.1103/PhysRevLett.94.170201, arXiv:cond-mat/0408370.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.94.170201">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/cond-mat/0408370">arXiv</a>.</td></tr>
+        <tr><td><code>prokofev1998pla</code></td><td>N. V. Prokof'ev, B. V. Svistunov, and I. S. Tupitsyn, Phys. Lett. A 238, 253--257 (1998), DOI 10.1016/S0375-9601(97)00957-2.</td><td><a href="https://www.sciencedirect.com/science/article/pii/S0375960197009572">ScienceDirect DOI page</a> and DOI BibTeX.</td></tr>
+        <tr><td><code>sandvik1999prb</code></td><td>A. W. Sandvik, Phys. Rev. B 59, R14157--R14160 (1999), DOI 10.1103/PhysRevB.59.R14157, arXiv:cond-mat/9902226.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevB.59.R14157">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/cond-mat/9902226">arXiv</a>.</td></tr>
+        <tr><td><code>evertz2003advphys</code></td><td>H. G. Evertz, Adv. Phys. 52, 1--66 (2003), DOI 10.1080/0001873021000049195, arXiv:cond-mat/9707221.</td><td><a href="https://www.tandfonline.com/doi/abs/10.1080/0001873021000049195">Taylor &amp; Francis DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/cond-mat/9707221">arXiv</a>.</td></tr>
+        <tr><td><code>marshall1955proc</code></td><td>W. Marshall, Proc. R. Soc. Lond. A 232, 48--68 (1955), DOI 10.1098/rspa.1955.0200.</td><td><a href="https://royalsocietypublishing.org/doi/10.1098/rspa.1955.0200">Royal Society DOI page</a> and DOI BibTeX.</td></tr>
+        <tr><td><code>nakamura1998prb</code></td><td>T. Nakamura, Phys. Rev. B 57, R3197--R3200 (1998), DOI 10.1103/PhysRevB.57.R3197, arXiv:cond-mat/9707019.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevB.57.R3197">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/cond-mat/9707019">arXiv</a>.</td></tr>
+        <tr><td><code>alet2016prl</code></td><td>F. Alet, K. Damle, and S. Pujari, Phys. Rev. Lett. 117, 197203 (2016), DOI 10.1103/PhysRevLett.117.197203, arXiv:1511.01586.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.117.197203">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/1511.01586">arXiv</a>.</td></tr>
+        <tr><td><code>blankenbecler1981prd</code></td><td>R. Blankenbecler, D. J. Scalapino, and R. L. Sugar, Phys. Rev. D 24, 2278--2286 (1981), DOI 10.1103/PhysRevD.24.2278.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevD.24.2278">APS DOI page</a> and DOI BibTeX.</td></tr>
+        <tr><td><code>purwanto2004pre</code></td><td>W. Purwanto and S. Zhang, Phys. Rev. E 70, 056702 (2004), DOI 10.1103/PhysRevE.70.056702, arXiv:physics/0403146.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevE.70.056702">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/physics/0403146">arXiv</a>.</td></tr>
+        <tr><td><code>sorensen2005prl</code></td><td>A. S. Sørensen, E. Demler, and M. D. Lukin, Phys. Rev. Lett. 94, 086803 (2005), DOI 10.1103/PhysRevLett.94.086803, arXiv:cond-mat/0405079.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.94.086803">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/cond-mat/0405079">arXiv</a>.</td></tr>
+        <tr><td><code>wang2011prl</code></td><td>Y.-F. Wang, Z.-C. Gu, C.-D. Gong, and D. N. Sheng, Phys. Rev. Lett. 107, 146803 (2011), DOI 10.1103/PhysRevLett.107.146803, arXiv:1103.1686.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.107.146803">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/1103.1686">arXiv</a>.</td></tr>
+        <tr><td><code>you2012prl</code></td><td>Y.-Z. You, Z. Chen, X.-Q. Sun, and H. Zhai, Phys. Rev. Lett. 109, 265302 (2012), DOI 10.1103/PhysRevLett.109.265302, arXiv:1207.4795.</td><td><a href="https://link.aps.org/doi/10.1103/PhysRevLett.109.265302">APS DOI page</a>, DOI BibTeX, and <a href="https://arxiv.org/abs/1207.4795">arXiv</a>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>未采用或暂缓采用的候选</h2>
+  <p><strong>Charge-4e superconductivity。</strong>调研中可找到电子体系/PDW 语境下的 charge-4e 文献，但与本 Introduction 当前叙事中的阻挫玻色/自旋模型不是最直接对应。为避免给读者增加额外背景负担，正文暂用 <code>you2012prl</code> 支撑 kagome frustrated superfluidity 这一更贴近玻色模型的例子。</p>
+  <p><strong>更多 cluster-basis 例外。</strong>Wessel 等 SciPost 2017、Stapmanns 等 PRL 2018 可进一步支撑 frustrated ladder/bilayer 的 basis 规避，但当前正文一句话只需要 <code>nakamura1998prb</code> 和 <code>alet2016prl</code> 即可。若作者希望突出双层阻挫模型，可再加入。</p>
+  <p><strong>JCP 2020 canonical finite-temperature AFQMC。</strong>调研时发现相关候选，但本轮没有在正文使用，因此没有写入 BibTeX。</p>
+</main>
+</body>
+</html>
