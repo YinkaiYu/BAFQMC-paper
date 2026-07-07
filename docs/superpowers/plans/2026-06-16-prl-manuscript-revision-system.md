@@ -4,7 +4,7 @@
 
 **Goal:** Turn the current BAFQMC manuscript into a Physical Review Letters style manuscript whose main text presents the Fig. 1 sign-problem classification, the RP/TRS criteria, and the benchmarks compactly, while the Supplemental Material carries derivations and implementation details.
 
-**Architecture:** Work in small reviewable manuscript-edit passes. Each pass changes one conceptual layer: structure, Section II, Section III, benchmark Section IV, concluding remarks, then abstract/introduction. Main text must stay self-contained and convincing without detailed proofs; SM must remain rigorous enough to support all moved claims.
+**Architecture:** Work in small reviewable manuscript-edit passes. Each pass changes one conceptual layer: structure, Section II, Section III, benchmark Section IV, concluding remarks, then introduction/abstract. Main text must stay self-contained and convincing without detailed proofs; SM must remain rigorous enough to support all moved claims.
 
 **Tech Stack:** REVTeX 4.2, `latexmk main.tex`, `.latexmkrc` PDF copy to `pdf/`, repository diff-PDF workflow, benchmark reports from the two data repositories, APS/PRL author instructions, local PNG previews generated from PDF figures, the project-level `.codex/skills/bafqmc-prl-revision` skill, `opencode` for optional prose review, and the four sign-problem-free QMC Letter/Rapid style references.
 
@@ -13,8 +13,8 @@
 ## Current Snapshot
 
 **Files inspected:**
-- `main.tex`: 301 lines as of 2026-07-06. The main text now uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, Discussion, and Summary/outlook. Section II, Section III, and the benchmark example have been compressed into Letter-style prose.
-- `SM.tex`: 1308 lines as of 2026-07-06. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, a now-obsolete semigroup section, and benchmark numerical parameters.
+- `main.tex`: 294 lines as of 2026-07-08. The main text now uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks. Section II, Section III, the benchmark example, and the ending have been compressed into Letter-style prose.
+- `SM.tex`: 1194 lines as of 2026-07-08. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
 - `figures/benchmark_number_conserving.pdf`: current Fig. 2, placed at the top of page 3.
 - `figures/benchmark_pairing_delta.pdf`: current Fig. 3, placed at the top of page 4.
 - `experts/comment1.md` to `experts/comment4.md`: independent comments converge on the same structural recommendation.
@@ -28,11 +28,12 @@
 - Section II has been compacted into the AFQMC ensemble, the number-conserving determinant, the number-conserving Green-function identity, and the paired/Nambu determinant; detailed HS transformations, trace derivations, Green functions, update ratios, and stabilization discussion sit in the Supplemental Material.
 - Section III has been rewritten as a flat PRL-style criteria block. TRS is stated first, RP second, both in theorem-like form, with proof details in the SM.
 - The benchmark example has been rewritten around the triangular-lattice number-conserving and paired data. The unfinished marker has been removed.
-- Discussion and Summary/outlook remain to be merged into a three-paragraph `Concluding remarks` block.
-- The SM semigroup section is obsolete and should be removed. The manuscript should no longer use a semigroup argument to discuss paired poles, branch connectivity, or the absence of poles.
+- Discussion and Summary/outlook have been merged into a three-paragraph `Concluding remarks` block. The conclusion now states the method, the TRS/RP criteria, the benchmark significance, the finite-temperature determinant-pole limitation, and projector/canonical outlook without surfacing the SM regularization discussion.
+- The SM semigroup section has been removed. The manuscript no longer uses a semigroup argument to discuss paired poles, branch connectivity, or the absence of poles.
 - Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
 - Status on 2026-06-22: Section IV benchmark writing is in place, and Section II plus the supporting Supplemental Material have gone through two compression passes. The second pass removes notation-only display equations, avoids extra main-text variables such as `\hat U(\phi)` and `W_{\rm nc}`, puts number-conserving Green functions in the main text, and moves branch and update-ratio details to the Supplemental Material.
-- Status on 2026-07-06: Section III has been flattened and theoremized through commits `caee0e7`--`846d3be`; figure placement was adjusted in `559dc79`. The next content pass is to align pole/branch language with the sign-problem criteria and rewrite the ending as `Concluding remarks`.
+- Status on 2026-07-06: Section III has been flattened and theoremized through commits `caee0e7`--`846d3be`; figure placement was adjusted in `559dc79`.
+- Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The next content pass is to rewrite the Introduction from the current PRB-like overview into a PRL-style story and add verified references where the narrative relies on known background.
 
 **Main diagnosis:**
 - The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
@@ -56,7 +57,8 @@
 - Do not remove mathematical precision. Move proof details to SM with clean cross references.
 - Avoid theorem/proof style in the main text beyond concise criterion statements. Use short physical explanations plus the decisive formula.
 - Use PRL-like run-in headings in the main text, e.g. `{\it Conditions for nonnegative weights}---`, instead of standalone numbered section headings. Keep ordinary `\section`/`\subsection` structure in SM.
-- Keep the introduction mostly intact until Sections II to V have been rewritten, then adjust it to match the final story.
+- The Introduction is now the next major pass. It should be rewritten as a PRL-style story that motivates the work from the QMC sign problem, the local-weight frustration barrier in bosonic/spin simulations, the auxiliary-field symmetry viewpoint developed in fermionic AFQMC, and the missing bosonic counterpart that this paper supplies.
+- The Introduction should cite background claims with broad but purposeful reference clusters. Every added or modified BibTeX entry must be verified against authoritative sources before use, and a citation report should be written for author review.
 - Avoid unnecessary "not ... but ..." constructions. State positive claims directly.
 - Minimize dashes in manuscript prose.
 - Treat the four comparison papers as style references, not as sources that should shape this paper's physics content.
@@ -604,15 +606,38 @@ The main-text criteria rewrite is complete as of commits `caee0e7` through `846d
 - [x] Remove main-text subsections and main-text proof vocabulary.
 - [x] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, generate `pdf/main-diff.pdf`, and commit the completed Section III/SM pass.
 
-## Next Suggested Execution Block: Pole Framing And Concluding Remarks
+## Completed Execution Block: Pole Framing And Concluding Remarks
+
+The pole/branch framing and ending rewrite are complete as of commits `f00aec9` through `07568ac`.
+
+- [x] Delete the obsolete SM semigroup section and remove dependent branch/no-pole claims.
+- [x] Rephrase paired Nambu square-root branch language so RP operator positivity fixes the positive branch in sign-free applications.
+- [x] Keep the regularized finite-part interpretation of determinant weights in the SM, while keeping the main-text criteria focused on the sign problem.
+- [x] Replace the old discussion/outlook material with three-paragraph `{\it Concluding remarks}---`.
+- [x] Add only necessary outlook references after verifying metadata.
+- [x] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, generate `pdf/main-diff.pdf`, run prose review, and commit the completed pass.
+
+## Next Suggested Execution Block: PRL Introduction Rewrite
 
 Use this sequence for the next working turn.
 
-- [ ] Commit this plan update.
-- [ ] Delete the obsolete SM semigroup section and remove all dependent branch/no-pole claims.
-- [ ] Rephrase paired Nambu square-root branch language so RP operator positivity fixes the positive branch in sign-free applications.
-- [ ] Keep the regularized finite-part interpretation of determinant weights, but separate it from the TRS/RP sign-free criteria.
-- [ ] Replace current `Discussion` plus empty `Summary and outlook` with three-paragraph `{\it Concluding remarks}---`.
-- [ ] Add only necessary outlook references after verifying metadata.
+- [ ] Commit this plan update before changing manuscript sources.
+- [ ] Map the Introduction story into four to five PRL paragraphs:
+  - QMC as a numerically exact nonperturbative tool and the sign problem as the key tractability boundary.
+  - The conventional bosonic/spin local-weight viewpoint, where frustration in WLQMC/SSE creates negative weights and makes many frustrated models inaccessible.
+  - The auxiliary-field viewpoint, where positivity is controlled by symmetries of HS-decoupled one-body propagators rather than by local matrix elements.
+  - The missing bosonic AFQMC sign-free framework and the central question answered by this work.
+  - The BAFQMC answer: finite-temperature method, TRS/RP sufficient criteria, Fig. 1 classification, and triangular-lattice benchmark.
+- [ ] Dispatch focused literature-research subagents or perform equivalent focused searches for the Introduction citation clusters:
+  - General QMC/sign-problem background and computational complexity.
+  - WLQMC/SSE, Marshall sign transformations, frustration, and bosonic/spin sign problems.
+  - Frustrated bosonic/spin target physics such as fractional quantum Hall, chiral Mott, spin liquid, and charge-4e or related multi-boson superconducting orders when directly relevant.
+  - Fermionic AFQMC sign-free criteria based on TRS, RP, Majorana positivity, and related symmetry principles.
+  - Earlier bosonic AFQMC uses and their limitations.
+- [ ] Verify every new or edited BibTeX entry against an authoritative source such as APS, DOI/Crossref, arXiv, publisher pages, or journal pages. Do not infer author lists, article numbers, years, or DOIs from memory.
+- [ ] Write a citation report for author review that states which claim each reference supports, why it belongs in the Introduction, and which source verified the metadata.
+- [ ] Rewrite the Introduction in `main.tex` with confident PRL prose. Avoid defensive wording, process-facing explanations, unnecessary mathematical jargon, and premature discussion of SM regularization.
+- [ ] Keep display equations out of the Introduction unless absolutely necessary. Use Fig. 1 as the conceptual map rather than a late afterthought.
+- [ ] Run `opencode` prose review on the revised Introduction and address actionable reader-facing findings.
 - [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against the previous substantive manuscript-content baseline.
-- [ ] Run independent review, address actionable findings, and commit the completed pass.
+- [ ] Run warning/process-language scans, report any remaining warnings, and commit the completed Introduction pass.
