@@ -108,27 +108,30 @@ $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 \subsection{Trace formula}
 \label{app:trace_number}
 
-Consider first the one-mode operator $\hat U(\varepsilon)=\exp(\varepsilon\hat a^+\hat a)$. In the occupation-number basis,
+For fixed auxiliary fields, a number-conserving Gaussian product has the form
 \begin{equation}
-    \Tr\,\hat U(\varepsilon)
-    =
-    \sum_{n=0}^{\infty}\ee^{n\varepsilon}
-    =
-    \frac{1}{1-\ee^\varepsilon},
-    \qquad |\ee^\varepsilon|<1.
+    \hat U=\prod_{\ell=1}^{L}\exp[\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}],
+    \qquad
+    \mc B=\ee^{B_1(\phi_1)}\cdots\ee^{B_L(\phi_L)} .
 \end{equation}
-For $N$ independent modes this gives $\prod_m(1-\ee^{\varepsilon_m})^{-1}$. This is the physical content of the bosonic determinant formula: each single-particle eigenmode contributes a geometric sum over its possible boson occupation numbers. The finite-temperature bosonic AFQMC construction in Ref.~\cite{rubenstein2012pra} uses this same occupation-number argument.
+The determinant trace formula is most transparent when $\mc B$ is already diagonal. If its eigenvalues are $r_1,\ldots,r_N$, the Fock-space trace is the product of ordinary geometric sums over boson occupation numbers,
+\begin{equation}
+    \Tr\,\hat U
+    =
+    \sum_{n_1,\ldots,n_N\ge0}\prod_{i=1}^{N}r_i^{n_i}
+    =
+    \prod_{i=1}^{N}\frac{1}{1-r_i},
+    \qquad |r_i|<1 .
+\end{equation}
+This occupation-number derivation shows the physical origin of the inverse determinant: each single-particle mode contributes all nonnegative boson occupations. The finite-temperature bosonic AFQMC construction in Ref.~\cite{rubenstein2012pra} uses the same geometric-series argument.
 
-For a general matrix $C$, the coherent-state calculation gives a basis-independent form of the same result. Let
+The coherent-state derivation gives the matrix form of this result without choosing a diagonal basis. We use unnormalized coherent states $|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$, for which
 \begin{equation}
-    \hat U(C)=\exp(\hat{\bb a}^+C\hat{\bb a}),
+    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,|z\rangle\langle z|,
+    \qquad
+    \langle z|w\rangle=\ee^{z^\hc w}.
 \end{equation}
-and let $\|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$ be the unnormalized bosonic coherent state. The coherent-state resolution of identity is
-\begin{equation}
-    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,\|z\rangle\langle z\|,\qquad
-    \langle z\|w\rangle=\ee^{z^\hc w}.
-\end{equation}
-The linear action of $\hat U(C)$ follows from
+For a single slice,
 \begin{equation}
     [\hat{\bb a}^+C\hat{\bb a},\hat a_i^+]
     =\sum_j \hat a_j^+ C_{ji},
@@ -137,54 +140,33 @@ The linear action of $\hat U(C)$ follows from
     \ee^{-\hat{\bb a}^+C\hat{\bb a}}
     =\hat{\bb a}^+\ee^{C}.
 \end{equation}
-The vacuum is invariant under $\hat U(C)$, so
+The vacuum is invariant, and applying this relation slice by slice gives
 \begin{equation}
-    \hat U(C)\|z\rangle
-    =\|\ee^Cz\rangle.
+    \hat U|z\rangle=|\mc B z\rangle .
 \end{equation}
-Substituting the coherent-state identity into the trace gives
+Substituting the coherent-state identity into the trace then gives
 \begin{equation}
-    \Tr\,\hat U(C)
+    \Tr\,\hat U
     =
     \int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}
-    \langle z\|\hat U(C)\|z\rangle
+    \langle z|\hat U|z\rangle
     =
     \int\frac{\dd^{2N}z}{\pi^N}
-    \exp[-z^\hc(I_N-\ee^C)z].
+    \exp[-z^\hc(I_N-\mc B)z].
 \end{equation}
-Let $A=I_N-\ee^C$. The coherent-state integral is easiest to evaluate first when $C$ is Hermitian and negative definite, so $0<\ee^C<I_N$ and $A$ is Hermitian positive definite. A unitary change of variables diagonalizes $A$ and the integral factorizes into one-mode complex Gaussian integrals,
+When the Hermitian part of $I_N-\mc B$ is positive definite, this is an ordinary convergent complex Gaussian integral. The standard complex Gaussian identity,
 \begin{equation}
     \int\frac{\dd^2 z}{\pi}\,\ee^{-a|z|^2}=\frac{1}{a},
     \qquad \operatorname{Re}a>0.
 \end{equation}
-Thus the $N$-mode integral is $\prod_i a_i^{-1}=\det A^{-1}$. In this seed region the coherent-state integral and the ordinary occupation-number trace are both convergent, so this proves the determinant formula as an ordinary trace.
-
-The ordinary Hilbert-space trace has a slightly more physical convergence condition. If $\ee^C$ is diagonalizable with eigenvalues $r_i$ and all $|r_i|<1$, the trace is the product of convergent geometric series $\prod_i(1-r_i)^{-1}$. Nondiagonal stable matrices are obtained by continuity, or by approaching their Jordan form with diagonalizable matrices while keeping all eigenvalues inside the unit circle. Thus the fixed-field trace converges when the single-particle propagation matrix is stable, and in that region
+generalizes to matrices as $\int \dd^{2N}z\,\exp(-z^\hc A z)/\pi^N=\det A^{-1}$ in this convergent domain, for example by Schur triangularization and successive Gaussian integration. The result is
 \begin{equation}
-    \Tr\,\hat U(C)
+    \Tr\,\hat U
     =
-    \det(I_N-\ee^C)^{-1}.
-    \label{eq:number_trace_appendix}
-\end{equation}
-In a diagonal stable case this condition reduces to the transparent requirement $|\ee^{\varepsilon_m}|<1$ for every single-particle mode, so every geometric series over boson occupation numbers converges.
-
-Outside this stable region, the determinant is still the finite part of the same occupation-number sums, but the ordinary Hilbert-space trace need not converge configuration by configuration. That interpretation is discussed in Sec.~\ref{app:regularization}. The present subsection only derives the trace formula in the convergent region where it is an ordinary trace.
-
-For an ordered product of number-conserving slices,
-\begin{equation}
-    \hat U=\prod_{\ell=1}^{L}\exp[\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}],\qquad
-    \mc B=\ee^{B_1(\phi_1)}\cdots\ee^{B_L(\phi_L)},
-\end{equation}
-the one-slice result can be applied successively:
-\begin{equation}
-    \hat U\|z\rangle=\|\mc Bz\rangle.
-\end{equation}
-Repeating the coherent-state trace with $\ee^C$ replaced by the full propagation matrix $\mc B$ gives
-\begin{equation}
-    \Tr\,\hat U=\det(I_N-\mc B)^{-1}.
+    \det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-This is Eq.~\eqref{eq:trace_formula_number}.
+The diagonal occupation-number derivation and the coherent-state Gaussian integral agree in their common convergent domain. Stable nondiagonal products follow by continuity from diagonalizable products, including limits in which the single-particle matrix develops Jordan blocks while its eigenvalues remain inside the unit circle. The Gaussian-cutoff construction in Sec.~\ref{app:regularization} uses the same occupation-number series to define the determinant finite part for fixed-field configurations whose bare trace does not converge. Equation~\eqref{eq:number_trace_product} is Eq.~\eqref{eq:trace_formula_number}.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
@@ -524,12 +506,12 @@ Let
     \qquad
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
 \end{equation}
-The Nambu formula can be understood by reducing first to stable quasiparticle modes. Consider one mode with
+The Nambu trace formula follows from the same occupation-number sum after the quadratic operator is brought to stable quasiparticle form. For one mode,
 \begin{equation}
     \hat h=\varepsilon\hat\beta^+\hat\beta,
     \qquad \operatorname{Re}\varepsilon<0.
 \end{equation}
-Its ordinary trace is the convergent geometric series
+The trace is
 \begin{equation}
     \Tr\,\ee^{\hat h}
     =
@@ -545,13 +527,15 @@ In the Nambu convention of Eq.~\eqref{eq:hAdef}, the same operator is written as
     \qquad
     \xi=-\frac{\varepsilon}{2}.
 \end{equation}
-The shift by $-\varepsilon/2$ removes the normal-ordering constant in $-\frac12\hat\chi^\trans\Omega A\hat\chi=\varepsilon\hat\beta^+\hat\beta+\varepsilon/2$. The corresponding Nambu propagation matrix is $M=\diag(\ee^\varepsilon,\ee^{-\varepsilon})$. Hence
+The scalar $\xi$ removes the normal-ordering constant because
+$-\frac12\hat\chi^\trans\Omega A\hat\chi=\varepsilon\hat\beta^+\hat\beta+\varepsilon/2$.
+The corresponding Nambu propagation matrix is $M=\diag(\ee^\varepsilon,\ee^{-\varepsilon})$, and
 \begin{equation}
     -\det(I_2-M)
     =
     \ee^{-\varepsilon}(1-\ee^\varepsilon)^2.
 \end{equation}
-For this stable mode, the square-root representative that reproduces the operator trace is
+The square-root representative associated with this operator trace is
 \begin{equation}
     [-\det(I_2-M)]^{1/2}
     =
@@ -566,18 +550,27 @@ in this stable region. With this representative,
 which reproduces the ordinary trace.
 This calculation also shows where the square root enters: one physical bosonic mode appears as two reciprocal Nambu eigenvalues, $\ee^\varepsilon$ and $\ee^{-\varepsilon}$.
 
-For $N$ stable quasiparticle modes the ordinary trace is
+For $N$ stable quasiparticle modes,
 \begin{equation}
     \Tr\,\ee^{\sum_j\varepsilon_j\hat\beta_j^+\hat\beta_j}
     =
     \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
 \end{equation}
-In the corresponding Nambu representation the matrix is similar to
+In Nambu space the propagation matrix is similar to
 \begin{equation}
     \diag(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},
           \ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}),
 \end{equation}
-and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Multiplying the one-mode square-root choices gives exactly the product trace above. In the TRS/RP applications considered in this work, the physical modes come in two reflected or time-reversed sectors, so $N$ is even. The product of the one-mode signs is then one. A Bogoliubov change of quasiparticle basis is a change of variables in Fock space and a similarity transformation of the Nambu matrix, so the trace and $\det(I_{2N}-\mc M)$ are unchanged. Therefore, whenever the Gaussian trace converges, the product of slices obeys the bosonic Nambu trace formula used in the main text~\cite{thomas2008character}
+and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Multiplying the one-mode square-root choices gives
+\begin{equation}
+    \left[\det(I_{2N}-M)\right]_{\rm op}^{1/2}
+    =
+    \exp\!\left(-\frac12\sum_j\varepsilon_j\right)
+    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})
+\end{equation}
+for the even-$N$ TRS/RP cases considered in this work, where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
+
+The stable quasiparticle form is the generic case. If the bosonic quadratic form has Jordan blocks, one may add an infinitesimal stable perturbation that splits the blocks, apply the diagonal quasiparticle result, and then remove the perturbation. The trace and determinant vary continuously away from singular determinant denominators, so the limiting formula is unchanged. A Bogoliubov change of quasiparticle basis is a change of variables in Fock space and a similarity transformation of the Nambu matrix. Therefore, whenever the Gaussian trace converges, the product of slices obeys the bosonic Nambu trace formula used in the main text~\cite{thomas2008character}
 \begin{equation}
     \Tr\,\hat U
     =
@@ -585,7 +578,7 @@ and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Mul
     \det(I_{2N}-\mc M)^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-The formula contains a square root because the Nambu basis doubles the degrees of freedom. Passing from the operator trace $\Tr\prod_\ell\ee^{\hat h_\ell}$ to the Nambu propagation matrix is therefore a one-to-two representation: the matrix determinant alone gives two possible square-root signs for the same underlying Gaussian operator. This sign ambiguity is the normal redundancy of the Nambu basis, not an additional Monte Carlo sign problem. When the trace is evaluated as an operator trace, its sign is already fixed, as in the stable quasiparticle calculation above. In the RP sign-free applications of this paper, the proof in Sec.~\ref{app:rp_proof} is formulated directly for the original operator trace $\Tr\prod_\ell\ee^{\hat h_\ell}$ and shows that this weight is nonnegative. The Nambu determinant formula is then used with the positive square-root representative of that operator weight.
+The square root appears because the Nambu basis doubles the degrees of freedom. Passing from the operator trace $\Tr\prod_\ell\ee^{\hat h_\ell}$ to the Nambu propagation matrix is a one-to-two representation, so the determinant alone leaves a square-root sign to be fixed by the underlying Gaussian operator. In the RP applications of this paper, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -874,57 +867,61 @@ The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the 
 \section{Gaussian-cutoff regularization of determinant weights}
 \label{app:regularization}
 
-The trace formulas derived above have two related but distinct meanings. In their convergent domain they are ordinary Fock-space traces at fixed auxiliary field. Outside that domain they should be read as the cutoff-independent part left after the high-occupation divergent terms are removed from the same bosonic occupation-number sums. This section explains that regularized meaning.
-
-Start from a physical bosonic Hamiltonian for which the grand-canonical partition function is finite. After Trotter and HS decompositions, the finite-temperature AFQMC expression is
+The determinant weights used in BAFQMC have a natural finite-part interpretation obtained by damping large boson occupations before the auxiliary fields are integrated. Start from a physical bosonic Hamiltonian for which the grand-canonical partition function is finite. After Trotter and HS decompositions,
 \begin{equation}
     Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm bare}(\phi),
     \qquad
     W_{\rm bare}(\phi)=\Tr\left[\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}\right].
 \end{equation}
-This equation is formal if the trace at fixed $\phi$ does not converge. The full trace of $\ee^{-\beta\hat H}$ can be finite even though the fixed-field trace $W_{\rm bare}(\phi)$ is not finite for every $\phi$. For a number-conserving Gaussian field with single-particle propagation matrix $\mc B(\phi)$, the ordinary fixed-field trace converges when all eigenvalues satisfy $|r_i(\phi)|<1$. If at least one mode has $|r_i(\phi)|\ge1$, the occupation-number sum is not absolutely convergent. When $|r_i|>1$, large boson occupation numbers are amplified. When $|r_i|=1$, the geometric sum also fails to converge, with $r_i=1$ being the determinant pole. We call configurations for which the fixed-field trace converges ``physical'' in this section, and those for which it diverges ``nonphysical''. The quotation marks are important: nonphysical configurations are not discarded from the auxiliary-field integral. They are included through the regularized weight defined below.
+For a fixed auxiliary-field configuration, the Gaussian trace may fail to converge even though the full partition function is finite. The determinant formula is then understood as the cutoff-independent part of the same occupation-number sum.
 
-The main issue in this section is not the pole surface itself. At $r_i=1$ the determinant expression is singular. The question addressed here is broader: away from that singular point, for example when $|r_i|>1$ or $|r_i|=1$ with $r_i\ne1$, the bare trace diverges while the determinant expression can still be finite. The regularization explains what that finite determinant computes.
-
-The number-conserving diagonal case contains the essential mechanism. Suppose that the fixed-field Gaussian operator can be written in normal modes with factors $r_1(\phi),\ldots,r_N(\phi)$. The bare fixed-field trace is
+Consider first a number-conserving fixed-field product with single-particle eigenvalues $r_1(\phi),\ldots,r_N(\phi)$. In a diagonal normal-mode basis the bare fixed-field trace is the generating series
 \begin{equation}
-    W_{\rm bare}(\phi)=\sum_{n_1,\ldots,n_N\ge0}\prod_{i=1}^{N}r_i(\phi)^{n_i}.
+    W_{\rm bare}(\phi)=\sum_{\bb n\ge0} a_{\bb n}(\phi),
+    \qquad
+    a_{\bb n}(\phi)=\prod_{i=1}^{N}r_i(\phi)^{n_i},
     \label{eq:bare_occupation_series}
 \end{equation}
-If all $|r_i|<1$, the sum converges to the determinant formula. If at least one $|r_i|\ge1$, Eq.~\eqref{eq:bare_occupation_series} does not define a convergent trace. To separate the divergent part from the finite part, first impose a sharp occupation cutoff:
+where $\bb n=(n_1,\ldots,n_N)$. For $|r_i|<1$ in every mode, Eq.~\eqref{eq:bare_occupation_series} converges to $\prod_i(1-r_i)^{-1}$. If some mode amplifies large occupations, the same series is regulated by a Gaussian cutoff on the occupation-sector contribution,
 \begin{equation}
-    W_{N_{\rm cut}}(\phi)=\prod_{i=1}^{N}\sum_{n_i=0}^{N_{\rm cut}}r_i^{n_i}.
-    \label{eq:occupation_cutoff_weight}
-\end{equation}
-For $r_i\ne1$ each one-mode partial sum is
-\begin{equation}
-    \sum_{n_i=0}^{N_{\rm cut}}r_i^{n_i}=\frac{1}{1-r_i}-\frac{r_i^{N_{\rm cut}+1}}{1-r_i}.
-\end{equation}
-Substituting this identity into Eq.~\eqref{eq:occupation_cutoff_weight} and expanding the product gives
-\begin{equation}
-    W_{N_{\rm cut}}(\phi)=P_{N_{\rm cut}}(\phi)+W_{\rm reg}(\phi).
-\end{equation}
-Here $P_{N_{\rm cut}}$ contains every term with at least one cutoff-dependent factor $r_i^{N_{\rm cut}+1}$, while the cutoff-independent term is
-\begin{equation}
-    W_{\rm reg}(\phi)=\prod_{i=1}^{N}\frac{1}{1-r_i(\phi)}
-    =\det[I_N-\mc B(\phi)]^{-1}.
-    \label{eq:reg_weight_appendix}
-\end{equation}
-Thus the determinant is not the divergent bare trace of a nonphysical configuration. It is the cutoff-independent part obtained after removing the terms generated by indefinitely high boson occupations.
-
-A smooth Gaussian cutoff in occupation number gives the same cutoff-independent term. In one mode one may replace the sharp cutoff by
-\begin{equation}
-    W_{\Lambda}(r)=\sum_{n=0}^{\infty}r^n\exp\!\left(-\frac{n^2}{\Lambda^2}\right).
+    W_{\Lambda}(\phi)
+    =
+    \sum_{\bb n\ge0}
+    \prod_{i=1}^{N}
+    r_i(\phi)^{n_i}
+    \exp\!\left[-\frac{|r_i(\phi)|^{2n_i}}{\Lambda^2}\right].
     \label{eq:gaussian_cutoff_weight}
 \end{equation}
-For finite $\Lambda$ this sum is well defined for any fixed $r$. As $\Lambda$ grows, the regulator keeps more occupation sectors and generates cutoff-dependent terms. The cutoff-independent term is the same as in the sharp-cutoff calculation:
+The cutoff is placed in Fock space and damps large occupations in each amplifying mode.
+
+The one-mode case shows how the determinant emerges. For $W_{\rm bare}(r)=\sum_{n\ge0}r^n$ with $|r|>1$,
+\begin{equation}
+    W_{\Lambda}(r)
+    =
+    \sum_{n\ge0}r^n
+    \exp\!\left(-\frac{|r|^{2n}}{\Lambda^2}\right).
+\end{equation}
+The terms with $n\lesssim n_*(\Lambda)=\ln\Lambda/\ln|r|$ are almost unchanged, while larger occupations are smoothly suppressed. The regulated sum therefore has the large-$\Lambda$ form
 \begin{equation}
     W_{\Lambda}(r)=P_{\Lambda}(r)+\frac{1}{1-r}+o(1),
     \qquad r\ne1,
 \end{equation}
-where $P_{\Lambda}$ depends on the regulator and on $\Lambda$. Applying this cutoff mode by mode, or equivalently using a Fock-space regulator that damps high occupation sectors, gives the finite part in Eq.~\eqref{eq:reg_weight_appendix}. The sharp cutoff displays the algebra exactly, while the Gaussian cutoff makes clear that the regulator acts on high boson occupations rather than on the auxiliary field.
+where $P_{\Lambda}$ contains the cutoff-dependent growing part. For $|r|<1$, the same finite term is obtained because the regulator becomes irrelevant in the convergent series. Applying the argument mode by mode gives
+\begin{equation}
+    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W_{\rm reg}(\phi)+o(1),
+\end{equation}
+with
+\begin{equation}
+    W_{\rm reg}(\phi)
+    =
+    \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)}
+    =
+    \det[I_N-\mc B(\phi)]^{-1}.
+    \label{eq:reg_weight_appendix}
+\end{equation}
+The determinant weight is the cutoff-independent finite part of the fixed-field bosonic occupation sum.
 
-The finite-part prescription should be applied to the auxiliary-field representation of the regulated physical trace, not to an isolated fixed-field trace alone. Let $R_\Lambda$ be a Fock-space regulator that damps high total occupation numbers and tends to the identity as $\Lambda\to\infty$. With the regulator kept finite, the trace is finite and the HS identity can be used inside the trace:
+The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\Lambda$ denote the corresponding Fock-space regulator. With finite $\Lambda$,
 \begin{equation}
     Z_{\Lambda}
     =
@@ -937,32 +934,32 @@ The finite-part prescription should be applied to the auxiliary-field representa
     R_\Lambda\prod_{\ell}\ee^{\hat h_\ell(\phi_\ell)}
     \right].
 \end{equation}
-The left-hand side tends to the physical partition function $Z$ as the regulator is removed. The fixed-field trace on the right has an expansion of the form $P_\Lambda(\phi)+W_{\rm reg}(\phi)+o(1)$, where $P_\Lambda$ contains regulator-dependent high-occupation terms and $W_{\rm reg}$ is the cutoff-independent term identified above. The determinant weight used in BAFQMC is this cutoff-independent finite part of the regulated auxiliary-field representation. Equivalently, the regularized AFQMC representation of the partition function is
+The left-hand side tends to the physical partition function as $\Lambda\to\infty$. On the right-hand side, each fixed-field trace has the finite-part expansion displayed above. The cutoff-dependent terms have zero net contribution to the finite physical partition function after the full auxiliary-field integration, leaving the regularized AFQMC representation
 \begin{equation}
     Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
 \end{equation}
-This is the Monte Carlo meaning of the determinant weight on nonphysical auxiliary-field configurations. One samples the regularized finite part, not the divergent bare trace or the regulator-dependent high-occupation pieces.
+This is the sampling weight represented by the determinant formula.
 
-The same finite-part interpretation applies to Gaussian propagators with pairing. In a stable quasiparticle basis the bare trace has the form
+The same construction applies to Gaussian propagators with pairing. In a stable quasiparticle basis,
 \begin{equation}
     W_{\rm bare}(\phi)
     =
+    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
     \sum_{n_1,\ldots,n_N\ge0}
     \prod_{j=1}^{N}\ee^{n_j\varepsilon_j(\phi)}.
 \end{equation}
-The same occupation cutoff removes the regulator-dependent high-occupation terms and leaves
+Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
 \begin{equation}
     W_{\rm reg}(\phi)
     =
+    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
     \prod_{j=1}^{N}\frac{1}{1-\ee^{\varepsilon_j(\phi)}}.
 \end{equation}
 In Nambu notation this finite part is written as
 \begin{equation}
     W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\det[I_{2N}-\mc M(\phi)]^{-1/2},
 \end{equation}
-where the normal-ordering scalar and the square-root sign are fixed as in Sec.~\ref{app:trace_paired}. The square-root sign again reflects the one-to-two Nambu representation. In the convergent domain, the operator-level RP proof selects the nonnegative representative. Outside that domain, the same representative is used in the corresponding regularized finite part.
-
-This regularization is separate from the infinite-variance problem associated with singular determinant denominators. The finite part itself diverges on the pole surface, and configurations close to that surface can still produce large weights and numerical difficulty. The point of the present section is narrower: away from the pole surface, determinant weights for nonconvergent fixed-field traces are well defined as regularized finite parts.
+where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
 
 \section{Proofs of the nonnegative-weight criteria}
 \label{app:nonnegative_proofs}
