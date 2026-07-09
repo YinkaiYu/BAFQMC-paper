@@ -4,7 +4,7 @@
 
 **Goal:** Turn the current BAFQMC manuscript into a Physical Review Letters style manuscript whose main text presents the Fig. 1 sign-problem classification, the RP/TRS criteria, and the benchmarks compactly, while the Supplemental Material carries derivations and implementation details.
 
-**Architecture:** Work in small reviewable manuscript-edit passes. Each pass changes one conceptual layer: structure, Section II, Section III, benchmark Section IV, concluding remarks, then introduction/abstract. Main text must stay self-contained and convincing without detailed proofs; SM must remain rigorous enough to support all moved claims.
+**Architecture:** Work in small reviewable manuscript-edit passes. Early passes changed one conceptual layer at a time: structure, Section II, Section III, benchmark Section IV, concluding remarks, then introduction. The project has now entered an iterative refinement stage for main-text and SM details. Each new pass should address a focused author-feedback bundle, then run review, notation/heading/prose audit, citation/BibTeX audit, compilation, diff-PDF refresh, and commit before delivery. Main text must stay self-contained and convincing without detailed proofs; SM must remain rigorous enough to support all moved claims.
 
 **Tech Stack:** REVTeX 4.2, `latexmk main.tex`, `.latexmkrc` PDF copy to `pdf/`, repository diff-PDF workflow, benchmark reports from the two data repositories, APS/PRL author instructions, local PNG previews generated from PDF figures, the project-level `.codex/skills/bafqmc-prl-revision` skill, `opencode` for optional prose review, and the four sign-problem-free QMC Letter/Rapid style references.
 
@@ -13,8 +13,8 @@
 ## Current Snapshot
 
 **Files inspected:**
-- `main.tex`: 294 lines as of 2026-07-08. The main text now uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks. Section II, Section III, the benchmark example, and the ending have been compressed into Letter-style prose.
-- `SM.tex`: 1194 lines as of 2026-07-08. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
+- `main.tex`: 287 lines as of 2026-07-09. The main text now uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks. Section II, Section III, the benchmark example, the ending, and the Introduction have been compressed into Letter-style prose.
+- `SM.tex`: 1194 lines as of 2026-07-09. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
 - `figures/benchmark_number_conserving.pdf`: current Fig. 2, placed at the top of page 3.
 - `figures/benchmark_pairing_delta.pdf`: current Fig. 3, placed at the top of page 4.
 - `experts/comment1.md` to `experts/comment4.md`: independent comments converge on the same structural recommendation.
@@ -33,11 +33,12 @@
 - Before the Section II pass, commit `79a1b9b` compiled to an 18-page PDF including Supplemental Material, with `pdf/main.pdf` and `pdf/main-diff.pdf` refreshed.
 - Status on 2026-06-22: Section IV benchmark writing is in place, and Section II plus the supporting Supplemental Material have gone through two compression passes. The second pass removes notation-only display equations, avoids extra main-text variables such as `\hat U(\phi)` and `W_{\rm nc}`, puts number-conserving Green functions in the main text, and moves branch and update-ratio details to the Supplemental Material.
 - Status on 2026-07-06: Section III has been flattened and theoremized through commits `caee0e7`--`846d3be`; figure placement was adjusted in `559dc79`.
-- Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The Introduction has now been rewritten into a five-paragraph PRL-style story that moves from the QMC sign problem, to the local-weight frustration barrier, to the auxiliary-field symmetry viewpoint, to the new BAFQMC answer. Verified Introduction references and a citation-audit HTML report were added in the current pass.
+- Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The Introduction was rewritten into a five-paragraph PRL-style story that moves from the QMC sign problem, to the local-weight frustration barrier, to the auxiliary-field symmetry viewpoint, to the new BAFQMC answer. Verified Introduction references and a citation-audit HTML report were added.
+- Status on 2026-07-09: The Introduction pass was compiled, `pdf/main.pdf` and `pdf/main-diff.pdf` were refreshed against commit `559dc79cf5dd25f4e574824d9acf3aca44268d1a`, and the completed pass was committed as `4d4d766`. Fig. 2 is placed at the top of page 3 and Fig. 3 at the top of page 4 in `pdf/main.pdf`.
 
 **Main diagnosis:**
-- The manuscript has a strong Letter-level result, but the current main text reads like a proof/methods paper.
-- The main story should follow Fig. 1: bosonic systems can be classified by the presence of RP/TRS and by lattice frustration. BAFQMC is sign-free in the RP/TRS half-plane, SSE/WLQMC are sign-free in the unfrustrated half-plane, and the frustrated but RP/TRS quadrant is the new computable territory revealed by this work.
+- The core PRL structure is now in place, but the main text and SM still require many detail-level revisions for reader flow, notation consistency, proof pedagogy, benchmark clarity, and exact claim boundaries.
+- The main story should continue to follow Fig. 1: bosonic systems can be classified by the presence of RP/TRS and by lattice frustration. BAFQMC is sign-free in the RP/TRS half-plane, SSE/WLQMC are sign-free in the unfrustrated half-plane, and the frustrated but RP/TRS quadrant is the new computable territory revealed by this work.
 
 ## Revision Principles
 
@@ -64,6 +65,7 @@
 - Treat the four comparison papers as style references, not as sources that should shape this paper's physics content.
 - Use `opencode` for external prose review when drafting high-stakes paragraphs, especially the Introduction.
 - Add references generously but only after verifying metadata against authoritative sources. Report every new or changed BibTeX entry for author review.
+- During the current refinement stage, do not postpone review and audits until the end. Every substantive edit round must include reader-facing review, notation/heading/prose audit, citation/BibTeX audit, compile/diff refresh when manuscript sources change, and a git commit.
 
 ## Target Main-Text Structure
 
@@ -111,6 +113,52 @@
   - Local PNG preview: `figures/benchmark_pairing_delta.png`, ignored by git.
   - Main facts from report: `3x3` triangular lattice, `U_1=0`, `U_2=1`, `beta=4`, `mu=-5`; scan `Delta=0,0.05,...,0.30`; `dtau=0.01`; `100000` samples; block size `10000`; observables `rho`, `-E`, `S_{\rm SF}(K)`, `S_{\rm DW}(K)`.
   - Required caution: report notes small high-Delta residuals likely tied to time-step or ED-reference floors; main text should state agreement on curve scale and put diagnostic details in SM.
+
+## Current Iterative Refinement Protocol
+
+The manuscript has moved beyond the large structural rewrite. The next stage will likely require many author-feedback rounds on both the main text and the SM. Treat each round as a complete, reviewable edit pass rather than as a partial draft.
+
+For every substantive manuscript-edit round:
+
+- [ ] Step 1: Localize the author-feedback bundle.
+  - Identify which part of the paper the feedback targets: main-text story, Section II formulas, criteria/theorem wording, benchmark explanation, SM derivation, regularization, numerical algorithm, references, abstract, or figure/caption layout.
+  - Preserve the reader's reading order. A fix should make sense to a reader who has no context from the author-agent discussion.
+
+- [ ] Step 2: Implement a focused edit.
+  - Make the smallest coherent manuscript change that resolves the feedback.
+  - Avoid process-facing prose, internal shorthand, or sentences that sound like they are answering the author rather than teaching the reader.
+  - Do not weaken the central sign-free claim unless a physics error requires it. If a claim is narrowed, record the reason in the response to the author.
+
+- [ ] Step 3: Run reader-facing review.
+  - Check whether each new paragraph has a clear purpose, follows from previous context, and lowers rather than raises the reader's workload.
+  - Remove unnecessary jargon, invented concepts, defensive caveats, and "not ... but ..." constructions unless the contrast is essential.
+  - For SM edits, verify that derivations are pedagogical and do not hide important algebra behind phrases such as "similarly" or "the same manipulation gives."
+
+- [ ] Step 4: Run notation / heading / prose audit.
+  - Check main-text run-in headings and SM numbered headings.
+  - Check notation consistency: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, `\Omega`, and bosonic creation operators written as `^+` where this matches the manuscript style.
+  - Check that displayed equations are reserved for core formulas in the main text, while derivations stay in SM.
+  - Run source scans appropriate to the edit, for example:
+    ```bash
+    rg -n '^\\section|^\\subsection' main.tex
+    rg -n -F '{\\it ' main.tex
+    rg -n "semigroup|metaplectic|connected component|pole-free|branch connected" main.tex SM.tex
+    ```
+
+- [ ] Step 5: Run citation and BibTeX audit.
+  - If citations or bibliography entries are added or changed, verify author list, title, journal, volume, page/article number, year, DOI, and arXiv identifier against authoritative sources before committing.
+  - If no citations are changed, still run a citation-key consistency check so the edit does not introduce missing keys.
+  - Update or create a citation report whenever a round adds or materially changes references.
+
+- [ ] Step 6: Run verification artifacts for manuscript-source edits.
+  - Compile with `latexmk main.tex`.
+  - Refresh `pdf/main.pdf` and `pdf/main-diff.pdf` using the established diff workflow and the author-specified baseline if one is given.
+  - Inspect relevant warnings, figure placement, equation overflow, unresolved references, and changed PDF pages.
+
+- [ ] Step 7: Commit every completed modification round.
+  - Run `git diff --check`.
+  - Commit all intended source and report changes with a focused message.
+  - Do not leave a completed edit uncommitted.
 
 ## Open Author Decisions
 
@@ -349,14 +397,14 @@ These must be resolved before edits that change physics claims or figure content
     6. Keep branch and regularized-weight qualifications separate from the bare-trace positivity proof.
   - Avoid proof shortcuts such as "it is easy to see" or "the same argument gives".
 
-- [ ] Step 8: Remove obsolete semigroup material in SM.
+- [x] Step 8: Remove obsolete semigroup material in SM.
   - Delete `Regularized reflection positivity from the semigroup viewpoint`.
   - Remove cross references, labels, and prose that rely on semigroup decomposition, paired pole absence, or branch connectivity.
   - Keep the regularized finite-part interpretation of bosonic determinant weights in the preceding regularization section.
   - Run: `rg -n "semigroup|connected component|pole-free|branch connected|stable zero-field|does not encounter a pole" main.tex SM.tex`.
   - Expected: no remaining semigroup argument or overstrong no-pole claim. Ordinary mentions of determinant poles and finite/infinite variance are allowed.
 
-- [ ] Step 9: Verify source-level style constraints.
+- [x] Step 9: Verify source-level style constraints.
   - Run: `rg -n "cone|semigroup|generalized eigenspace|metaplectic|Lie-Trotter|\\mc K_\\theta" main.tex`.
   - Expected: no matches in `main.tex`.
   - Run: `rg -n '^\\subsection\\{Reflection positivity\\}|^\\subsection\\{Time-reversal symmetry\\}' main.tex`.
@@ -364,7 +412,7 @@ These must be resolved before edits that change physics claims or figure content
   - Run: `rg -n "\\{\\it Conditions for nonnegative weights\\}" main.tex`.
   - Expected: exactly one match.
 
-- [ ] Step 10: Compile, refresh PDFs, and inspect warnings.
+- [x] Step 10: Compile, refresh PDFs, and inspect warnings.
   - Run: `latexmk main.tex`.
   - Expected: `pdf/main.pdf` refreshed, no undefined references or citation warnings introduced.
   - Refresh diff PDF against commit `7fcd482`:
@@ -385,7 +433,7 @@ These must be resolved before edits that change physics claims or figure content
   - Run: `rg -n "Warning|undefined|Citation|Label\\(s\\)|Rerun|Overfull|Underfull|empty year" .build/main.log .build/main-diff.log .build/main.blg .build/main-diff.blg`.
   - Expected: only known baseline warnings remain. If the `SM` empty-year BibTeX warning remains, report it as pre-existing unless this phase changes the `SM` bibliography entry.
 
-- [ ] Step 11: Request an independent review before final delivery.
+- [x] Step 11: Request an independent review before final delivery.
   - Use the review prompts from `.codex/skills/bafqmc-prl-revision/references/review-prompts.md`.
   - Ask specifically:
     - Does main-text Section III state usable TRS and RP criteria without proof burden?
@@ -394,7 +442,7 @@ These must be resolved before edits that change physics claims or figure content
     - Does the main text avoid obscure mathematical vocabulary?
   - Address actionable findings, then rerun Step 10.
 
-- [ ] Step 12: Commit the final Section III/SM pass.
+- [x] Step 12: Commit the final Section III/SM pass.
   - Run: `git diff --check`.
   - Expected: no whitespace errors.
   - Run: `git status --short`.
@@ -459,71 +507,83 @@ These must be resolved before edits that change physics claims or figure content
   - Record that the semigroup route is obsolete and must be deleted.
   - Record that sign freedom and pole/infinite-variance behavior are distinct claims.
 
-- [ ] Step 2: Remove the obsolete semigroup section from SM.
+- [x] Step 2: Remove the obsolete semigroup section from SM.
   - Delete `\section{Regularized reflection positivity from the semigroup viewpoint}` and all equations and labels used only there.
   - Remove references to paired trajectories avoiding poles, pole-free components, or semigroup decompositions.
   - Keep the operator-level TRS/RP proofs and the regularized finite-part interpretation.
   - Run: `rg -n "semigroup|connected component|pole-free|stable zero-field|does not encounter a pole|branch connected" main.tex SM.tex`.
   - Expected: no obsolete semigroup/no-pole claim remains.
 
-- [ ] Step 3: Adjust paired trace and local-ratio branch wording.
+- [x] Step 3: Adjust paired trace and local-ratio branch wording.
   - State that RP fixes the nonnegative weight at the operator level.
   - Present the Nambu determinant square root as the positive branch required by this sign-free representative when the RP criterion applies.
   - Do not invoke auxiliary-field path continuation, low-density connected components, or branch diagnostics.
   - Keep trace-convergence and regularized-weight caveats separate from sign freedom.
 
-- [ ] Step 4: Replace current `Discussion` and empty `Summary and outlook` with `Concluding remarks`.
+- [x] Step 4: Replace current `Discussion` and empty `Summary and outlook` with `Concluding remarks`.
   - Use one run-in heading: `{\it Concluding remarks}---`.
   - Paragraph 1: summarize finite-temperature BAFQMC, the two sufficient sign-free criteria, and the triangular-lattice benchmarks; state that BAFQMC opens a frustrated RP/TRS territory beyond local-weight world-line/SSE restrictions.
   - Paragraph 2: acknowledge the finite-temperature pole/infinite-variance issue as a separate numerical-stability limitation. The tone should be clear but not self-defeating.
   - Paragraph 3: outlook toward frustrated bosonic/spin problems and future bosonic projector or canonical AFQMC. Add only purposeful references, with verified BibTeX metadata.
 
-- [ ] Step 5: Update local cross references and intro/abstract roadmap if they still mention a separate Discussion/Summary or overstate pole analysis.
+- [x] Step 5: Update local cross references and intro/abstract roadmap if they still mention a separate Discussion/Summary or overstate pole analysis.
   - Main text should not promise a detailed pole-structure analysis as a central result.
   - It may mention practical finite-temperature pole limitations in the concluding remarks.
 
-- [ ] Step 6: Compile and refresh artifacts.
+- [x] Step 6: Compile and refresh artifacts.
   - Run: `latexmk main.tex`.
   - Refresh `pdf/main-diff.pdf` using the established SM-aware `latexpand` and `latexdiff` workflow against the previous substantive manuscript-content baseline.
   - Inspect `pdf/main.pdf` around the ending and reference list.
   - Run process-language and obsolete-term scans.
 
-- [ ] Step 7: Independent review and commit.
+- [x] Step 7: Independent review and commit.
   - Use the review prompts from `.codex/skills/bafqmc-prl-revision/references/review-prompts.md`.
   - Ask specifically whether the manuscript now separates sign freedom from pole/infinite-variance limitations and whether `Concluding remarks` sounds like a PRL close.
   - Address actionable findings, rerun verification, then commit the coherent manuscript pass.
 
-## Phase 7: Finalize Introduction, Abstract, References, And Notation
+## Phase 7: Iterative Main/SM Refinement, Abstract, References, And Notation
 
 **Files:**
 - Modify: `main.tex`, `references.bib`.
+- Modify as needed in later feedback rounds: `SM.tex`.
 
-- [ ] Step 1: Update Introduction only after Sections II to V stabilize.
+- [x] Step 1: Update Introduction only after Sections II to V stabilize.
   - Make it a complete, continuous story that introduces Fig. 1 naturally.
   - Align claims with actual Fig. 2/Fig. 3 content.
   - Remove long roadmap paragraph unless it earns its space.
   - Add missing literature citations at the appropriate claims, with metadata verified first.
+  - Status: completed in commit `4d4d766` with a citation-audit report in `docs/research_reports/2026-07-08_introduction_citations/`.
+
+- [ ] Step 1a: Enter the iterative author-feedback refinement stage.
+  - Apply the `Current Iterative Refinement Protocol` to every future detail-revision round.
+  - Expect repeated passes over the main text and SM, especially derivations, notation, cross references, branch/regularization language, numerical-algorithm descriptions, and reader-facing prose.
+  - Do not defer review, notation/heading/prose audit, or citation/BibTeX audit to a final cleanup stage. Each round must include them before delivery.
 
 - [ ] Step 2: Write the abstract last.
   - Constraint: no more than 600 characters including spaces for PRL.
   - Include: BAFQMC, sign-free criteria, frustrated bosonic models, benchmark.
   - Exclude: local update ratios, long pole discussion, implementation details.
+  - Current status: not yet rewritten. The present abstract still reflects an earlier methods-paper framing and should be replaced after the next main/SM detail-feedback round is stable, or earlier if the author asks.
 
 - [ ] Step 3: Audit references.
-  - Add complete BibTeX for the four comparison Letter/Rapid papers if missing.
+  - Maintain the Introduction citation audit already created for the 2026-07-08 pass.
+  - Add complete BibTeX for any missing comparison Letter/Rapid papers only if they are cited or needed for style/context.
   - Verify metadata against arXiv, DOI, or APS pages before editing `references.bib`.
+  - Run a missing-citation-key scan in every manuscript-edit round, even when no bibliography entries are changed.
 
 - [ ] Step 4: Audit notation.
   - Maintain manuscript macros: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, `\Omega`.
   - Decide whether to retain `a^+` notation globally or migrate to `a^\dagger` in a separate author-approved pass.
   - Check `Eq.~\eqref{...}`, `Fig.~\ref{...}`, and `Sec.~\ref{...}` style.
+  - Run this audit every round, not only once before final submission.
 
-- [ ] Step 5: Apply the PRL run-in heading style consistently in the main text.
+- [x] Step 5: Apply the PRL run-in heading style consistently in the main text.
   - Convert standalone main-text `\section{...}` headings to compact italic paragraph leads, for example `{\it Bosonic auxiliary-field quantum Monte Carlo}---`.
   - Keep ordinary numbered `\section` and `\subsection` headings in `SM.tex`; the run-in style is for the Letter main text only.
   - Preserve cross references only where they still help the reader. If a main-text `\label` no longer points to a numbered section, either move the label to a stable nearby anchor or rewrite the reference so it does not rely on section numbering.
   - Run: `rg -n '^\\section|^\\subsection|\\{\\it ' main.tex`.
   - Expected: no standalone `\section` or `\subsection` headings remain in `main.tex`, and each run-in heading begins a coherent PRL-style paragraph.
+  - Status: current main text has run-in headings for Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks.
 
 ## Phase 8: Verification Before Each Delivered Manuscript Edit
 
@@ -619,7 +679,7 @@ The pole/branch framing and ending rewrite are complete as of commits `f00aec9` 
 
 ## Completed Execution Block: PRL Introduction Rewrite
 
-The Introduction rewrite was completed in the current 2026-07-08 pass and awaits final compile/diff verification plus commit.
+The Introduction rewrite was completed in the 2026-07-08/2026-07-09 pass and committed as `4d4d766`.
 
 - [x] Commit the initial plan update before changing manuscript sources.
 - [x] Map the Introduction story into four to five PRL paragraphs:
@@ -639,5 +699,16 @@ The Introduction rewrite was completed in the current 2026-07-08 pass and awaits
 - [x] Rewrite the Introduction in `main.tex` with confident PRL prose. Avoid defensive wording, process-facing explanations, unnecessary mathematical jargon, and premature discussion of SM regularization.
 - [x] Keep display equations out of the Introduction unless absolutely necessary. Use Fig. 1 as the conceptual map rather than a late afterthought.
 - [x] Run `opencode` prose review on the revised Introduction and address actionable reader-facing findings.
-- [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against the previous substantive manuscript-content baseline.
-- [ ] Run warning/process-language scans, report any remaining warnings, and commit the completed Introduction pass.
+- [x] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and generate `pdf/main-diff.pdf` against the previous substantive manuscript-content baseline.
+- [x] Run warning/process-language scans, report any remaining warnings, and commit the completed Introduction pass.
+
+## Active Next Block: Iterative Detail Refinement
+
+The next work block is not a single final cleanup. The author will continue giving detailed feedback on the main text and SM, and each feedback round should be treated as a complete edit-review-verify-commit cycle.
+
+- [ ] Apply author feedback to the targeted manuscript region.
+- [ ] Review the changed text from the reader's perspective.
+- [ ] Audit notation, headings, prose, and cross references.
+- [ ] Audit citations and BibTeX keys; verify metadata for any added or changed references.
+- [ ] Compile with `latexmk main.tex`, refresh `pdf/main.pdf`, and refresh `pdf/main-diff.pdf` for manuscript-source edits.
+- [ ] Commit each completed round before delivery.
