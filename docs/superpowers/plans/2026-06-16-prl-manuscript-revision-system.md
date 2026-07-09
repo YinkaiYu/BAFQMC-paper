@@ -563,7 +563,7 @@ These must be resolved before edits that change physics claims or figure content
   - Constraint: no more than 600 characters including spaces for PRL.
   - Include: BAFQMC, sign-free criteria, frustrated bosonic models, benchmark.
   - Exclude: local update ratios, long pole discussion, implementation details.
-  - Status: rewritten in the 2026-07-09 abstract pass as a 593-character PRL-style abstract centered on frustrated bosons, auxiliary-field symmetry criteria, and the triangular-lattice benchmark.
+  - Status: rewritten in the 2026-07-09 abstract pass, then expanded after comparison with the local PRL/Rapid reference abstracts. The current abstract follows the reference-paper rhythm: barrier, new auxiliary-field principle, two symmetry criteria, new frustrated RP/TRS territory, and triangular-lattice benchmark.
 
 - [ ] Step 3: Audit references.
   - Maintain the Introduction citation audit already created for the 2026-07-08 pass.
