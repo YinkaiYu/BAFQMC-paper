@@ -559,11 +559,11 @@ These must be resolved before edits that change physics claims or figure content
   - Expect repeated passes over the main text and SM, especially derivations, notation, cross references, branch/regularization language, numerical-algorithm descriptions, and reader-facing prose.
   - Do not defer review, notation/heading/prose audit, or citation/BibTeX audit to a final cleanup stage. Each round must include them before delivery.
 
-- [ ] Step 2: Write the abstract last.
+- [x] Step 2: Write the abstract last.
   - Constraint: no more than 600 characters including spaces for PRL.
   - Include: BAFQMC, sign-free criteria, frustrated bosonic models, benchmark.
   - Exclude: local update ratios, long pole discussion, implementation details.
-  - Current status: not yet rewritten. The present abstract still reflects an earlier methods-paper framing and should be replaced after the next main/SM detail-feedback round is stable, or earlier if the author asks.
+  - Status: rewritten in the 2026-07-09 abstract pass as a 593-character PRL-style abstract centered on frustrated bosons, auxiliary-field symmetry criteria, and the triangular-lattice benchmark.
 
 - [ ] Step 3: Audit references.
   - Maintain the Introduction citation audit already created for the 2026-07-08 pass.
