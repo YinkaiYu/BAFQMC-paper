@@ -13,6 +13,7 @@
 \setcounter{equation}{0}
 \setcounter{figure}{0}
 \setcounter{table}{0}
+\setcounter{secnumdepth}{2}
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\Alph{subsection}}
 \renewcommand{\theequation}{S\arabic{equation}}
@@ -568,9 +569,9 @@ and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Mul
     \exp\!\left(-\frac12\sum_j\varepsilon_j\right)
     \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})
 \end{equation}
-for the even-$N$ TRS/RP cases considered in this work, where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
+for the even-$N$ cases considered in this work, where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
 
-The stable quasiparticle form is the generic case. If the bosonic quadratic form has Jordan blocks, one may add an infinitesimal stable perturbation that splits the blocks, apply the diagonal quasiparticle result, and then remove the perturbation. The trace and determinant vary continuously away from singular determinant denominators, so the limiting formula is unchanged. A Bogoliubov change of quasiparticle basis is a change of variables in Fock space and a similarity transformation of the Nambu matrix. Therefore, whenever the Gaussian trace converges, the product of slices obeys the bosonic Nambu trace formula used in the main text
+For the stable, trace-convergent even-$N$ sector relevant here, the standard bosonic quadratic-operator trace formula gives~\cite{munn1978ensemble}
 \begin{equation}
     \Tr\,\hat U
     =
@@ -578,7 +579,7 @@ The stable quasiparticle form is the generic case. If the bosonic quadratic form
     \det(I_{2N}-\mc M)^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-The square root appears because the Nambu basis doubles the degrees of freedom. Passing from the operator trace $\Tr\prod_\ell\ee^{\hat h_\ell}$ to the Nambu propagation matrix is a one-to-two representation, so the determinant alone leaves a square-root sign to be fixed by the underlying Gaussian operator. In the RP applications of this paper, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
+Here the square root is the representative fixed by continuity from the convergent diagonal quasiparticle trace. It appears because the Nambu basis doubles the physical modes, so the propagation matrix alone determines the trace only up to this operator-fixed representative. In the RP applications of this paper, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}

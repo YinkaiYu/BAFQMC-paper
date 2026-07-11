@@ -1,4 +1,4 @@
-\documentclass[twocolumn,aps,amsmath,amssymb,superscriptaddress]{revtex4-2}
+\documentclass[twocolumn,aps,prl,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
 
 \usepackage{newtxtext}
 \usepackage{newtxmath}
@@ -10,6 +10,10 @@
 \usepackage{multirow}
 \usepackage{xcolor}
 \definecolor{PRLBlue}{RGB}{46,48,146}
+\newcommand{\runinsection}[2][0.6\baselineskip]{%
+    \par\addvspace{#1}%
+    \noindent\mbox{\color{PRLBlue}\itshape #2}\hspace{0.15em}---\hspace{0.3em}\ignorespaces
+}
 \usepackage{braket}
 \usepackage{CJK}
 \usepackage{indentfirst}
@@ -84,25 +88,25 @@
 \date{\today}
 
 \begin{abstract}
-    Conventional local-weight quantum Monte Carlo formulations make broad classes of frustrated bosonic systems appear sign limited because local matrix-element signs or hopping fluxes cannot be removed by a simple onsite gauge. We show that this obstruction is representation dependent. After Hubbard-Stratonovich decoupling, bosonic auxiliary-field quantum Monte Carlo samples global fixed-field Gaussian traces whose positivity can be certified at the level of the decoupled evolution. We formulate finite-temperature BAFQMC and prove that time-reversal symmetry and reflection positivity are two general sufficient criteria for nonnegative configuration weights. These criteria certify sign-free access to a frustrated bosonic sector beyond the natural onsite local-weight route. Benchmarks for a triangular-lattice two-flavor Bose-Hubbard model agree with finite-temperature exact diagonalization.
+    The sign problem severely limits the reach of numerically exact quantum Monte Carlo simulations. Geometrical frustration makes this barrier especially acute for interacting bosons. We develop a sign-problem-free finite-temperature bosonic auxiliary-field quantum Monte Carlo (BAFQMC) method and prove that time-reversal symmetry and reflection positivity each provide a general sufficient condition for nonnegative Monte Carlo weights. Under either criterion, BAFQMC is sign-problem-free even on frustrated lattices where conventional world-line and stochastic-series-expansion methods remain sign-problematic. We benchmark the method on a two-flavor Bose-Hubbard model on the triangular lattice and find quantitative agreement with finite-temperature exact diagonalization. BAFQMC thus substantially expands the reach of numerically exact finite-temperature simulations of frustrated bosonic matter.
 \end{abstract}
 
 \maketitle
 
 \phantomsection\label{sec:introduction}
-\noindent{\it Introduction}---
-Quantum Monte Carlo (QMC) methods are among the central controlled, nonperturbative tools for quantum many-body physics, especially for strongly correlated systems where perturbation theory fails~\cite{gubernatis2016book,beccaSorella2017,assaadEvertz2008,foulkes2001rmp}. In a chosen statistical representation, QMC replaces direct enumeration of an exponentially large Hilbert space by stochastic sampling of configurations, and nonnegative weights together with efficient updates can make this sampling practical. The advantage is lost when sign or phase fluctuations turn observables into small differences of large positive and negative contributions; in sign-severe regimes the average sign or phase often decays exponentially with space-time volume~\cite{loh1990prb,troyer2005prl}. No generic polynomial cure is expected in the worst case, so progress depends on model- and representation-specific structure~\cite{troyer2005prl}.
+\runinsection[0pt]{Introduction}
+Quantum Monte Carlo (QMC) methods are among the most powerful computational tools of modern physics~\cite{gubernatis2016book,beccaSorella2017,assaadEvertz2008,kooninDeanLanganke1997}. They are particularly valuable for strongly correlated quantum systems, where perturbative analytical approaches often fail and QMC can still deliver unbiased and numerically exact results. The central idea is to rewrite a quantum partition function as a sum or integral over configurations and use importance sampling to explore the exponentially large configuration space without enumerating it explicitly. This strategy, however, relies on nonnegative weights that can be interpreted as probabilities. Quantum-mechanical configuration weights can instead be negative or complex. Contributions with opposite signs or different phases then nearly cancel, and the computational effort needed to resolve their difference typically grows exponentially with system size or inverse temperature~\cite{loh1990prb}. This is the notorious QMC sign problem. Although no universal solution is expected~\cite{troyer2005prl}, the sign problem can be avoided or mitigated in important classes of physical systems. Much of QMC's continued impact has come from repeated discoveries of sign-problem-free formulations for important models~\cite{marshall1955proc,lang1993prc,chandrasekharanWiese1999,wu2005prb,li2015prb,wang2015prl,wei2016prl,li2016prl,niuLu2025}, together with a deepening physical understanding of the sign problem that has revealed new ways around it~\cite{li2019arcmp,guptaAlbashHen2020,hangleiter2020,levyClark2021,mondainiTaratScalettar2022,zhangPanXuMeng2022,panMeng2024,yu2026}.
 
-For bosons and spins, the conventional local-weight picture is especially powerful when a product basis makes the short-time or operator-string matrix elements nonnegative and permits efficient local or loop updates~\cite{suzuki1976,sandvik1999prb,prokofev1998pla,evertz2003advphys,syljuasenSandvik2002}. A Hamiltonian with nonpositive off-diagonal matrix elements in that basis is called stoquastic~\cite{bravyi2015}. Frustrated transverse exchange signs or hopping fluxes can leave an invariant sign around a loop, obstructing the simple onsite sign convention that makes the corresponding local expansion weights nonnegative on bipartite lattices in the natural local representation~\cite{marshall1955proc,hatanoSuzuki1992,henelius2000prb,hen2021}. This obstruction is not representation independent: clever basis choices and regroupings solve or mitigate important special cases~\cite{nakamura1998prb,chandrasekharanWiese1999,alet2016prl,wessel2017,weber2022,hangleiter2020,guptaAlbashHen2020}. Nevertheless, broad sign-frustrated bosonic settings, including supersolid, chiral, paired-fluid, and multiparticle regimes, remain natural targets for a sign-free formulation beyond conventional onsite local weights~\cite{wang2009prl,dhar2013,zaletel2014prb,you2012prl,jiangFuXu2012,baldelli2024}.
+For bosonic and spin systems, the sign problem is commonly attributed to geometrical frustration~\cite{marshall1955proc,hatanoSuzuki1992,henelius2000prb,panMeng2024}. Off-diagonal hopping or exchange processes carry signs that cannot generally be made mutually compatible around closed loops of frustrated lattices such as the triangular and kagome lattices~\cite{hen2021}. Apart from a limited number of models where specially designed formulations, bases, or regroupings eliminate or substantially reduce the negative signs~\cite{nakamura1998prb,nyfeler2008,alet2016prl,wessel2017,stapmanns2018,weber2022,weberCaciWessel2022,murotaTodo2025,shackleton2026}, most frustrated bosonic and spin systems still lack sign-problem-free QMC formulations. For broad classes of chiral topological bosonic phases, the sign problem is even believed to be intrinsic~\cite{ringelKovrizhin2017,golanSmithRingel2020,smithGolanRingel2020,seo2025}. Geometrical frustration has therefore become almost synonymous with the sign problem in bosonic QMC. This computational barrier has placed some of the most sought-after phenomena in quantum matter beyond the reach of unbiased large-scale simulations, including bosonic fractional quantum Hall states~\cite{sorensen2005prl,wang2011prl,leonard2023}, frustrated supersolids~\cite{wang2009prl,gallegos2025}, chiral Mott phases and deconfined quantum criticality~\cite{dhar2013,zaletel2014prb,baldelli2024}, multiparticle and paired superfluids~\cite{you2012prl,jiangFuXu2012,burba2026}, and quantum spin liquids~\cite{yan2011science,zhu2015prb,zhou2017rmp,balents2010,gallegos2025}.
 
-The local obstruction belongs to that matrix-element organization of the partition function, not to the partition function itself. Auxiliary-field QMC (AFQMC) reorganizes the problem by decoupling interactions with Hubbard-Stratonovich fields, tracing the fixed-field Gaussian quantum problem exactly, and sampling a global Gaussian weight~\cite{stratonovich1957,hubbard1959,scalapino1981prl,blankenbecler1981prd,hirsch1981prl,assaadEvertz2008,rubenstein2012pra}. Nuclear shell-model Monte Carlo and fermionic AFQMC have shown that such global weights can be nonnegative configuration by configuration when the chosen decoupled evolution satisfies suitable symmetry or positivity structures~\cite{lang1993prc,kooninDeanLanganke1997,wu2005prb,li2015prb,wang2015prl,wei2016prl,li2016prl,li2019arcmp}. Auxiliary-field formulations have also been developed for bosons~\cite{sugiyamaKoonin1986,ulmkeScalettar2000,purwanto2004pre,rubenstein2012pra,shen2020,malpettiRoscilde2017}. Bosonic AFQMC has lacked general symmetry criteria for nonnegative configuration weights. Can Hamiltonian symmetries overcome the sign problem in frustrated bosonic systems?
+But this familiar identification of frustration with the sign problem hides a crucial assumption. It is rooted in QMC formulations that assemble the sampled weight from local matrix elements, such as world-line QMC (WLQMC) and stochastic-series-expansion QMC (SSE)~\cite{suzuki1976,sandvik1999prb,prokofev1998pla,evertz2003advphys,syljuasenSandvik2002,satoAssaadGrover2018,panMeng2024}. By contrast, auxiliary-field QMC (AFQMC), widely used for interacting fermions, reorganizes the partition function before sampling. A Hubbard-Stratonovich (HS) transformation decouples the interactions, the original quantum degrees of freedom are traced out exactly at fixed auxiliary fields, and Monte Carlo sampling is performed over the resulting global weight~\cite{stratonovich1957,hubbard1959,scalapino1981prl,blankenbecler1981prd,hirsch1981prl,assaadEvertz2008}. Because the local operator degrees of freedom have already been traced out, geometrical frustration of individual matrix elements no longer dictates the sign. For fermions, AFQMC can still suffer a sign problem because the determinant weight may be negative, while global symmetries of the decoupled Hamiltonian can protect its positivity. In fermionic and Majorana-fermion AFQMC, time-reversal symmetry (TRS)~\cite{lang1993prc,kooninDeanLanganke1997,wu2005prb,li2016prl}, reflection positivity (RP)~\cite{wei2016prl,wei2024prb}, and related structures~\cite{li2015prb,wang2015prl,li2019arcmp,zhangBultinck2025} have provided general routes to sign-problem-free simulations. These symmetry criteria have enabled extensive large-scale fermionic QMC studies~\cite{berg2012science,schattner2016prx,schattner2016prl,li2017prb,gerlach2017prb,lederer2017pnas,xu2017prx,jiang2017prb,liJiangJianYao2017natcomm,liJiangYao2017prl,liVaeziMendlYao2018sciadv,liYao2017prb,gazit2017natphys,assaadGrover2016prx}. AFQMC and related auxiliary-field methods have also been applied to interacting bosons~\cite{sugiyamaKoonin1986,ulmkeScalettar2000,purwanto2004pre,purwanto2005pra,rubenstein2012pra,shen2020,malpettiRoscilde2017}, but no general criterion has been available to determine when their weights are sign-problem-free. When negative or complex weights arise, exact calculations are confined to small systems, while simulations at larger scales require approximations with systematic bias. Can Hamiltonian symmetries be harnessed to solve the sign problem in bosonic systems?
 
-The answer is affirmative. We formulate a finite-temperature bosonic auxiliary-field quantum Monte Carlo (BAFQMC) method and prove that time-reversal symmetry (TRS) and reflection positivity (RP) provide two general sufficient criteria for nonnegative configuration weights. Fig.~\ref{fig:schematic} schematically compares this HS-decoupled, TRS- or RP-certified route with the conventional local-sign-free route and identifies the frustrated but TRS- or RP-certified sector as a newly certified computable territory. As a concrete test, we apply BAFQMC to a frustrated triangular-lattice two-flavor Bose-Hubbard model and find agreement with finite-temperature exact diagonalization, while the analytic criteria guarantee configuration-wise positivity.
+The answer is affirmative. We formulate a sign-problem-free finite-temperature bosonic auxiliary-field quantum Monte Carlo (BAFQMC) method and prove that TRS and RP each provide a general sufficient condition for nonnegative configuration weights. As illustrated in Fig.~\ref{fig:schematic}, when the HS-decoupled Hamiltonian satisfies either criterion, BAFQMC is sign-problem-free even in the presence of lattice frustration. This brings within reach unbiased, numerically exact simulations of a broad class of frustrated models that remain sign-problematic in WLQMC and SSE, opening a new route to long-sought phases of frustrated bosonic matter. As a proof of principle and benchmark, we solve a two-flavor Bose-Hubbard model on the triangular lattice and obtain results in quantitative agreement with finite-temperature exact diagonalization, demonstrating the reliability of BAFQMC.
 
 \begin{figure}[bt]
     \centering
     \includegraphics[width=\linewidth]{figures/schematic.pdf}
-    \caption{\textbf{Schematic comparison of sufficient routes to nonnegative bosonic QMC weights.} The horizontal direction represents the conventional onsite local-weight route, where a chosen local representation has nonnegative matrix-element weights or instead encounters frustration-driven loop-sign or flux obstructions. The vertical direction represents the present BAFQMC route, where a chosen Hubbard-Stratonovich decomposition is certified by time-reversal symmetry or reflection positivity and the fixed-field bosonic Gaussian trace is finite. The upper-left sector is the frustrated but TRS- or RP-certified territory newly certified by this work. The diagram compares sufficient criteria only; it neither classifies all sign-free formulations nor guarantees efficient sampling.}
+    \caption{\textbf{Schematic illustration of sign-problem-free regimes in bosonic QMC.} Frustrated and unfrustrated lattices occupy the left and right halves. Systems satisfying either BAFQMC symmetry criterion, TRS or RP, and systems satisfying neither occupy the upper and lower halves. BAFQMC supplies a sign-free route in the upper half-plane, while world-line QMC (WLQMC) and stochastic-series-expansion QMC (SSE) supply one in the right half-plane. The upper-right quadrant is sign-free by both routes, and the upper-left quadrant is the frustrated regime made accessible by BAFQMC.}
     \label{fig:schematic}
 \end{figure}
 
@@ -117,7 +121,7 @@ The answer is affirmative. We formulate a finite-temperature bosonic auxiliary-f
 
 
 \phantomsection\label{sec:afqmc}
-\noindent{\it Bosonic auxiliary-field quantum Monte Carlo}---
+\runinsection{Bosonic auxiliary-field quantum Monte Carlo}
 In AFQMC, the interaction is first decoupled by a Hubbard-Stratonovich (HS) transformation. The Trotter and HS decompositions introduce spacetime auxiliary fields $\phi$, and for each fixed field configuration the bosons evolve under one-body Hamiltonians. BAFQMC samples these auxiliary fields and evaluates the bosonic trace exactly at fixed $\phi$. The partition function takes the form
 \begin{equation}
     Z = \int \mc D\phi\; P_{\rm HS}(\phi)\, W(\phi),
@@ -161,15 +165,15 @@ $\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes
 Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$, and the square root denotes the representative fixed by the operator trace. This anomalous Gaussian trace is what allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula and Nambu Green functions are derived in Secs.~\ref{app:trace_paired} and~\ref{app:green_paired} of the SM~\cite{SM}.
 
 \phantomsection\label{sec:positive}
-\noindent{\it Conditions for nonnegative weights}---
+\runinsection{Conditions for nonnegative weights}
 The central issue is when every auxiliary-field configuration in BAFQMC has a nonnegative weight. In fermionic AFQMC, the absence of the sign problem can often be determined from global symmetries of the HS-decoupled Hamiltonians, as developed extensively in Refs.~\cite{lang1993prc,wu2005prb,li2015prb,wang2015prl,wei2016prl,li2016prl,li2019arcmp,wei2024prb}. We propose two bosonic sufficient criteria in the same spirit.
 
 \begin{theorem}[TRS criterion]
 \label{thm:trs}
-If all $\hat h_\ell$ respect an antiunitary symmetry $\Theta$ with $\Theta^2=-1$, namely $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$, then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever $W$ is finite.
+For number-conserving slices $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$, suppose there is a one-particle Kramers antiunitary $\Theta=UK$, with $UU^*=-I_N$, such that $U^\hc\overline{B_\ell}U=B_\ell$ for every $\ell$. Then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever $W$ is finite.
 \end{theorem}
 
-The reason is intuitive. For number-conserving $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ and $\Theta=UK$, the symmetry condition is $U^\hc\overline{B_\ell}U=B_\ell$ and $UU^*=-I_N$. Applying Kramers theorem to the full propagation matrix $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ gives $\det(I_N-\mc B)\ge0$. Thus, whenever the trace is finite, the determinant is strictly positive and $W=\det(I_N-\mc B)^{-1}>0$. The proof is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
+The full propagation matrix $\mc B=\ee^{B_1}\cdots\ee^{B_L}$ inherits the antiunitary symmetry. Its nonreal eigenvalues occur in complex-conjugate pairs, while every real eigenvalue has even algebraic multiplicity. It follows that $\det(I_N-\mc B)\ge0$; whenever the trace is finite, the determinant is strictly positive and $W=\det(I_N-\mc B)^{-1}>0$. The proof is given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}. For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. We use the phase convention $\Theta\hat b_i\Theta^{-1}=\hat c_i$, $\Theta\hat c_i\Theta^{-1}=-\hat b_i$, and $\Theta\ii\Theta^{-1}=-\ii$. In this convention, the theorem becomes the block test
 \begin{equation}
     \hat h_\ell =
     \hat{\bb a}^+
@@ -194,7 +198,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
 \end{equation}
 with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever $W$ is finite.
 \end{theorem}
-This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and using the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, a reflected Gaussian slice has nonnegative BAFQMC weight if it can be written as
+This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and using the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, suppose every slice can be written as
 \begin{equation}
     \hat h_\ell = \hat\chi^\trans
     \begin{pmatrix}
@@ -206,9 +210,9 @@ This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms
     F_\ell=F_\ell^\hc\succeq0,\quad \xi_\ell\in\mathbb R .
     \label{eq:rp_block_form}
 \end{equation}
-The matrices $D_\ell$ describe arbitrary quadratic terms within one reflected sector, while $F_\ell$ contains the positive reflected couplings between the two sectors. This criterion is insensitive to geometric frustration and naturally includes pairing terms.
+Then the complete BAFQMC configuration weight is nonnegative. The matrices $D_\ell$ describe arbitrary quadratic terms within one reflected sector, while $F_\ell$ contains the positive reflected couplings between the two sectors. This criterion is insensitive to geometric frustration and naturally includes pairing terms.
 
-Together, TRS and RP define the TRS- or RP-certified region shown schematically in Fig.~\ref{fig:schematic}: after a suitable HS decoupling, global symmetry of the Gaussian slices is enough to make BAFQMC sign-problem-free even on frustrated lattices.
+Together, TRS and RP define the symmetry-protected region shown schematically in Fig.~\ref{fig:schematic}: global symmetry of the Gaussian slices is enough to make BAFQMC sign-problem-free even on frustrated lattices.
 
 \begin{figure*}[t]
     \centering
@@ -218,7 +222,7 @@ Together, TRS and RP define the TRS- or RP-certified region shown schematically 
 \end{figure*}
 
 \phantomsection\label{sec:examples}
-\noindent{\it Examples and applications}---
+\runinsection{Examples and applications}
 A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. The operators $\hat b_i$ and $\hat c_i$ annihilate the two bosonic flavors on site $i$. They obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing. We define $\hat n_{b,i}=\hat b_i^+\hat b_i$ and $\hat n_{c,i}=\hat c_i^+\hat c_i$. The Hamiltonian is
 \begin{equation}
 \begin{aligned}
@@ -250,7 +254,7 @@ Figure~\ref{fig:benchmark_number} shows the number-conserving case, $\Delta=0$. 
 The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives the reflected anomalous bilinear $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$, so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The finite-$\Delta$ benchmark is therefore sign-free by the paired RP criterion and uses the anomalous bosonic Gaussian trace formula, extending finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. Figure~\ref{fig:benchmark_pairing} shows agreement with ED within statistical error bars, benchmarking the paired Nambu implementation in the same frustrated model family.
 
 \phantomsection\label{sec:concluding}
-\noindent{\it Concluding remarks}---
+\runinsection{Conclusion}
 We have formulated a finite-temperature bosonic auxiliary-field quantum Monte Carlo method with nonnegative configuration weights under broad symmetry conditions. The two sufficient criteria, based on time-reversal symmetry and reflection positivity, give practical tests that can be applied after HS decoupling. As a benchmark, we used them to simulate frustrated two-flavor Bose-Hubbard models on the triangular lattice and obtained agreement with exact diagonalization within statistical errors. The broader message is that BAFQMC shifts the organizing principle for bosonic sign-free simulations from local weights to symmetries of the decoupled Gaussian problem. This opens a sign-free route into the frustrated sector of Fig.~\ref{fig:schematic}, beyond the natural domain of world-line QMC and stochastic series expansion.
 
 This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. The statistical distinction appears in the Gaussian trace: fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$. The inverse determinant can generate large weights near its poles, giving a bosonic analogue of the infinite-variance problem known in fermionic AFQMC~\cite{alexandru2023prd,wan2025infinite}. This numerical difficulty is most relevant when the sampled trajectory approaches such poles, for example at higher chemical potential, and its severity depends on the Hamiltonian, the HS decomposition, and the determinant representation.
@@ -263,11 +267,9 @@ The main opportunity is to revisit frustrated bosonic and spin systems from an a
 
 
 
-\begin{acknowledgments}
+\runinsection{Acknowledgments}
 Y.-K.Y. and Z.-X.L. are supported by the National Natural Science Foundation of China under Grant Nos. 12347107 and 12474146, and Beijing Natural Science Foundation under Grant No. JR25007. Z.-X.L. is supported by the New Cornerstone Investigator Program. Z.-C.W. is supported by the Doctor Foundation of Qingdao Binhai University (No. BCZ2025004).
-\end{acknowledgments}
 
-\bibliographystyle{apsrev4-2}
 \bibliography{references}
 
 
