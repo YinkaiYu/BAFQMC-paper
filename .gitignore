@@ -8,15 +8,18 @@
 # Local figure previews generated from PDFs
 /figures/*.png
 
-# Local assistant/tool state, except project-level Codex configuration/skills
+# Local assistant/tool state, except project-level Codex/OpenCode configuration/skills
 /.agents/
 /.claude/
 /.codex/*
 /.omo/
+/.opencode/*
 /.playwright-cli/
 !/.codex/config.toml
 !/.codex/skills/
 !/.codex/skills/**
+!/.opencode/skills/
+!/.opencode/skills/**
 
 # Editor and OS files
 *.swp
