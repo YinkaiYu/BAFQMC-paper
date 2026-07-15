@@ -40,10 +40,16 @@ Assume an intelligent theoretical physicist who is not already inside this proje
 
 - Introduce the physical object before its formal representation.
 - Explain a new distinction before naming it with specialist terminology.
+- Prefer language familiar to theoretical physicists over obscure mathematical
+  terminology when both express the same content.
 - Define symbols and assumptions before compact formulas rely on them.
 - After a long gap, reintroduce the object needed locally instead of forcing a backward search.
 - Prefer one additional explanatory step over an unexplained technical label.
-- Remove definitions, variables, and caveats that are never used locally.
+- Remove definitions, variables, acronyms, and caveats that are never used locally.
+- Do not expose code names, internal shorthand, or a newly invented category merely
+  to save the writer a sentence of explanation.
+- Introduce a new symbol or conceptual entity only when it is necessary or reused
+  enough to lower the total reading burden.
 - Do not compress transitions until the argument becomes abrupt.
 - Do not expand by listing terminology. Expand the causal or physical explanation.
 
@@ -63,6 +69,11 @@ Place information at the layer where it changes the reader's decision or underst
 
 Do not move every qualification upward in the name of rigor. A correct caveat is misplaced when it obscures the main result before the reader understands it. Conversely, never hide a condition that changes the truth of a claim.
 
+The research and derivation layer is more exhaustive than every presentation layer.
+Before deciding what to omit from the Letter, work through all nontrivial algebra,
+assumptions, branch choices, limiting cases, and consistency checks. Omission from the
+main text is a presentation decision, not permission to leave the reasoning undone.
+
 ## 5. Use Confidence Correctly
 
 Confidence comes from selecting the strongest supportable claim and stating it directly.
@@ -75,6 +86,10 @@ Confidence comes from selecting the strongest supportable claim and stating it d
 - State a real limitation once, at the point where it affects interpretation, applicability, or reproducibility.
 
 The target is bold and accurate, not timid and not promotional without evidence.
+
+Prefer direct positive constructions. Avoid habitual negation-then-correction forms,
+semicolon chains, conspicuous colon scaffolding, and defensive detours that make a
+correct result harder to understand.
 
 ## 6. Make Evidence Serve Claims
 
@@ -137,6 +152,10 @@ For mature prose that has undergone several author iterations:
 - after research changes the physics picture, revisit the prose rather than preserving an outdated sentence mechanically.
 
 New evidence can justify a new sentence or a new structure, but the burden is to improve the reader's story, not merely to expose the research finding.
+
+Readers move through the manuscript from front to back. Check every transition from
+that sequential viewpoint; later definitions, private discussion, and revision
+history cannot repair a logical jump in the current paragraph.
 
 ## 11. Section-Level Tests
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "BAFQMC PRL Revision"
   short_description: "Revise BAFQMC with project-specific PRL standards"
-  default_prompt: "Use $bafqmc-prl-revision to revise this manuscript section with story-led PRL prose, verified evidence, and project-consistent physics."
+  default_prompt: "Use $bafqmc-prl-revision to revise this manuscript section with reader-first PRL prose, complete internal reasoning, verified evidence, and project-consistent physics."
