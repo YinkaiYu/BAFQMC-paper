@@ -29,6 +29,8 @@ Use these as adaptable patterns:
 ## BAFQMC-Specific Voice Targets
 
 - Use assertive, precise claims such as "BAFQMC covers the RP/TRS half-plane" instead of hedged claims such as "BAFQMC may help with some cases".
-- Put classification first: define the sign-free domains before explaining derivations.
+- In the abstract and Introduction, establish the broad problem and physical stakes before the classification. In the formalism, move quickly from the physical AFQMC picture to the weight and criteria.
+- Let citations sit behind the story. Do not turn a sentence into a taxonomy merely because the research report found many relevant terms or methods.
 - Exclude process language: never write "we now modify", "as requested", "this addresses", or "we have added".
 - Avoid reader-correction framing: do not begin by negating what the reader supposedly thinks.
+- Prefer short conceptual turns and ordinary physics language over invented labels.

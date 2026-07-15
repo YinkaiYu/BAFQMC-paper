@@ -1,6 +1,9 @@
 # Formalism And Algorithm Guidelines
 
 Use this reference for Section II formalism, Supplemental Material derivations, update ratios, branch conventions, numerical stabilization, and benchmark reproducibility details.
+Apply the manuscript-wide story, evidence, reader-burden, and precision-layer rules
+in `manuscript-story-evidence-principles.md` before using the technical guidance
+below.
 
 ## Main Text
 

@@ -17,24 +17,16 @@ Implication: do not overcompress this manuscript to a skeletal 3000-word draft. 
 
 ## Common Introduction Pattern
 
-The introductions usually move in this sequence:
+The reference Letters share a useful rhetorical progression: establish a broad problem, make its physical cost visible, expose a missing principle, state the new principle confidently, and connect it to computable models. They differ in their opening details, so they are voice models rather than a template to copy.
 
-1. Name a broad computational obstacle in one sentence.
-2. State why it matters physically, often with several literature citations in one compact sentence.
-3. Identify the limitation of existing sign-free principles or algorithms.
-4. Introduce a new representation, symmetry, or classification principle.
-5. State what is proven and what new model territory follows.
-6. Move quickly to the core formula, table, schematic, or model.
+For this manuscript, follow the author-approved four-paragraph story in `introduction-frontmatter-guidelines.md`:
 
-For this manuscript:
+1. Begin briefly from the fundamental interacting many-body problem, introduce QMC and the sign problem, and end with the historical importance of sign-free developments.
+2. Make the frustration-related bosonic/spin barrier and its physical cost severe.
+3. Delay the `local matrix elements` qualification until the conceptual reversal, then contrast fermionic AFQMC's global fixed-field weight and symmetry-protected positivity with the missing bosonic criterion.
+4. Answer the broad bosonic question affirmatively and state BAFQMC, TRS/RP, Fig. 1, and the triangular benchmark.
 
-1. Start from bosonic/spin QMC and sign-free domains.
-2. Introduce the RP/TRS versus frustration classification in Fig. 1.
-3. Explain that BAFQMC gives the RP/TRS half-plane.
-4. Emphasize the upper-left quadrant, frustrated but RP/TRS, as the new computable territory.
-5. Then state BAFQMC weight formulas, criteria, and triangular benchmarks.
-
-Avoid starting with a generic QMC tutorial. The reader should reach the new classification quickly.
+The first paragraph may explain QMC to broad readers, but it must remain purposeful rather than textbook-like. Do not introduce Fig. 1 before the frustration barrier and AFQMC reversal have made its axes meaningful.
 
 ## Per-Paper Style Notes
 
@@ -117,15 +109,11 @@ What to avoid:
 
 ## Introduction Blueprint For This Manuscript
 
-Use this skeleton when rewriting the Introduction:
+Do not improvise a new structure from the reference Letters. Use the detailed four-paragraph blueprint in `introduction-frontmatter-guidelines.md`.
 
-1. **Obstacle and domain.** One compact paragraph on sign-free QMC for bosons/spins and why sign structure controls access to frustrated quantum matter.
-2. **Classification map.** Introduce Fig. 1 as a classification by RP/TRS and frustration. State the two sign-free half-planes.
-3. **Gap.** Explain that bosonic AFQMC needs a Gaussian trace formula and positivity criteria, including paired/Nambu formulations and pole control.
-4. **This work.** State finite-temperature BAFQMC, number-conserving TRS, RP including paired fields, and triangular benchmarks.
-5. **Significance.** Identify the upper-left quadrant as the new computable territory and connect it to the benchmark model.
+The central dramatic device is delayed qualification. Paragraph 2 lets the reader absorb the familiar association between frustration and the bosonic sign problem. Paragraph 3 then reveals that this consensus belongs to local-matrix-element formulations and introduces AFQMC as a method normally associated with fermions. The resulting contrast is local frustration versus global symmetry-protected fixed-field weights.
 
-Each paragraph should have one purpose. Avoid a final roadmap paragraph unless it improves readability.
+The Introduction should not discuss paired/Nambu trace branches, bosonic poles, or the exact number-conserving scope of the TRS theorem. Those details belong in the formalism and SM. Avoid a roadmap paragraph unless it materially lowers reader burden.
 
 ## Tone And Sentence Habits
 
@@ -139,10 +127,10 @@ The reference papers use direct, high-confidence claims:
 
 Useful tone for this manuscript:
 
-- "The classification in Fig. 1 separates two sign-free mechanisms for bosonic simulations."
-- "BAFQMC makes the upper half-plane accessible whenever the HS-decoupled propagators satisfy RP or TRS."
-- "The triangular-lattice benchmarks test the frustrated RP/TRS quadrant directly."
-- "The paired benchmark probes the same sign-free principle in Nambu space."
+- "The answer is affirmative."
+- "We formulate a sign-problem-free finite-temperature bosonic auxiliary-field quantum Monte Carlo method."
+- "When the HS-decoupled Hamiltonian satisfies either criterion, BAFQMC is sign-problem-free even in the presence of lattice frustration."
+- "The triangular-lattice benchmark demonstrates the reliability of BAFQMC."
 
 Avoid:
 
@@ -165,7 +153,8 @@ For this manuscript, prefer "classification", "criterion", "sign-free route", "c
 
 - Broad obstacle: "The sign problem remains a central obstacle for unbiased simulations of ..."
 - Principle statement: "We identify a symmetry criterion under which the configuration weight is nonnegative."
-- Classification statement: "The resulting classification separates the BAFQMC sign-free domain from the local-weight sign-free domain."
+- Reversal statement: "This familiar identification hides a crucial assumption."
+- Classification statement: "Figure 1 summarizes the two sign-free routes and the frustrated territory opened by BAFQMC."
 - Formula setup: "For a fixed auxiliary-field configuration, the bosonic degrees of freedom can be traced exactly, giving ..."
 - Criterion-to-model bridge: "This condition is imposed after HS decoupling and is therefore directly testable in the one-body propagators."
 - Benchmark bridge: "We demonstrate the construction on a frustrated two-flavor Bose-Hubbard model on the triangular lattice."
@@ -219,6 +208,9 @@ In this manuscript, prefer 5--8 sentence paragraphs for the Introduction and 3--
 ## Common Failure Modes To Catch
 
 - Replacing Fig. 1's classification with an inaccurate slogan about frustration.
+- Letting a technically correct literature review displace the BAFQMC narrative.
+- Introducing `local-weight`, stoquasticity, or gauge-flux details before broad readers understand the problem.
+- Compressing the Introduction until its transitions and AFQMC physical picture become abrupt.
 - Explaining all algebra before the reader knows why the result matters.
 - Moving all caveats into the main text and losing the Letter story.
 - Describing benchmark plots as a numerical report rather than proof-of-principle evidence.
