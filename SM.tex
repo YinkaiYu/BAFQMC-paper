@@ -167,7 +167,7 @@ generalizes to matrices as $\int \dd^{2N}z\,\exp(-z^\hc A z)/\pi^N=\det A^{-1}$ 
     \det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-The diagonal occupation-number derivation and the coherent-state Gaussian integral agree in their common convergent domain. Stable nondiagonal products follow by continuity from diagonalizable products, including limits in which the single-particle matrix develops Jordan blocks while its eigenvalues remain inside the unit circle. The Gaussian-cutoff construction in Sec.~\ref{app:regularization} uses the same occupation-number series to define the determinant finite part for fixed-field configurations whose bare trace does not converge. Equation~\eqref{eq:number_trace_product} is Eq.~\eqref{eq:trace_formula_number}.
+The diagonal occupation-number derivation and the coherent-state Gaussian integral agree in their common convergent domain. Stable nondiagonal products follow by continuity from diagonalizable products, including limits in which the single-particle matrix develops Jordan blocks while its eigenvalues remain inside the unit circle. Section~\ref{app:regularization} uses the same occupation-number generating function to distinguish the ordinary trace from its algebraic continuation outside the convergent domain. Equation~\eqref{eq:number_trace_product} is Eq.~\eqref{eq:trace_formula_number}.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
@@ -663,7 +663,7 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-Whenever the paired ensemble satisfies the RP criterion and the operator traces converge, both $W$ and $W'$ are the nonnegative weights fixed in Sec.~\ref{app:rp_proof}. In the regularized determinant formulation one uses the same nonnegative representative. For configurations with nonzero denominator, the square-root determinant factor in Eq.~\eqref{eq:update_ratio_main} is therefore the positive real ratio $W'/W$, and it equals one for the identity update $\Delta_\ell=0$.
+Whenever the paired ensemble satisfies the RP criterion and the operator traces converge, both $W$ and $W'$ are the nonnegative weights fixed in Sec.~\ref{app:rp_proof}. For configurations in the same pole-free part of this domain, the square-root determinant factor in Eq.~\eqref{eq:update_ratio_main} is therefore the positive real ratio $W'/W$, and it equals one for the identity update $\Delta_\ell=0$. Continuation outside the trace-convergent domain and the obstruction at a pole are discussed in Secs.~\ref{app:regularization} and~\ref{app:infinite_variance}.
 
 For the benchmark Hamiltonian in Eq.~\eqref{eq:benchmark_pairing} at finite pairing $\Delta\ne0$, the density interactions are decoupled by the same HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}. The onsite Nambu basis is $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
 \begin{equation}
@@ -865,102 +865,22 @@ where $D_N^{-1}$ is a diagonal rescaling and $V_N^{-1}$ is applied by a triangul
 
 The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the exact slice matrices and their products obey the corresponding symplectic relation. The stabilization above does not introduce an additional symplectic projection or a different physical evolution. It stores the same product in a scaled form and periodically replaces the locally propagated resolvent by the stabilized one, which controls roundoff without changing the AFQMC integrand being sampled.
 
-\section{Gaussian-cutoff regularization of determinant weights}
+\section{Trace convergence and continuation of determinant weights}
 \label{app:regularization}
 
-The determinant weights used in BAFQMC have a natural finite-part interpretation obtained by damping large boson occupations before the auxiliary fields are integrated. Start from a physical bosonic Hamiltonian for which the grand-canonical partition function is finite. After Trotter and HS decompositions,
-\begin{equation}
-    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm bare}(\phi),
-    \qquad
-    W_{\rm bare}(\phi)=\Tr\left[\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}\right].
-\end{equation}
-For a fixed auxiliary-field configuration, the Gaussian trace may fail to converge even though the full partition function is finite. The determinant formula is then understood as the cutoff-independent part of the same occupation-number sum.
+For a fixed auxiliary-field configuration, the determinant formulas have two distinct meanings. They equal ordinary Fock-space traces in the convergence domain derived in Secs.~\ref{app:trace_number} and~\ref{app:trace_paired}. Away from that domain, the same matrix expressions can be continued algebraically as long as their determinant denominators remain nonzero. This distinction is important because an algebraic continuation does not by itself define a normalizable Monte Carlo measure.
 
-Consider first a number-conserving fixed-field product with single-particle eigenvalues $r_1(\phi),\ldots,r_N(\phi)$. In a diagonal normal-mode basis the bare fixed-field trace is the generating series
+The number-conserving case makes the continuation precise. Since the Gaussian product $\hat U(\phi)$ preserves total particle number, let $\Tr_n$ denote its trace in the finite sector with exactly $n$ bosons. Introducing a fugacity $z$ gives
 \begin{equation}
-    W_{\rm bare}(\phi)=\sum_{\bb n\ge0} a_{\bb n}(\phi),
-    \qquad
-    a_{\bb n}(\phi)=\prod_{i=1}^{N}r_i(\phi)^{n_i},
-    \label{eq:bare_occupation_series}
+    \sum_{n=0}^{\infty}z^n\Tr_n\hat U(\phi)
+    =\det[I_N-z\mc B(\phi)]^{-1}.
+    \label{eq:fugacity_generating_function}
 \end{equation}
-where $\bb n=(n_1,\ldots,n_N)$. For $|r_i|<1$ in every mode, Eq.~\eqref{eq:bare_occupation_series} converges to $\prod_i(1-r_i)^{-1}$. If some mode amplifies large occupations, the same series is regulated by a Gaussian cutoff on the occupation-sector contribution,
-\begin{equation}
-    W_{\Lambda}(\phi)
-    =
-    \sum_{\bb n\ge0}
-    \prod_{i=1}^{N}
-    r_i(\phi)^{n_i}
-    \exp\!\left[-\frac{|r_i(\phi)|^{2n_i}}{\Lambda^2}\right].
-    \label{eq:gaussian_cutoff_weight}
-\end{equation}
-The cutoff is placed in Fock space and damps large occupations in each amplifying mode.
+The series converges for $|z|\rho[\mc B(\phi)]<1$, where $\rho$ is the spectral radius. At $z=1$ this is the ordinary grand-canonical trace when every eigenvalue of $\mc B$ lies inside the unit circle. The determinant on the right-hand side is a meromorphic function of $z$ and supplies a unique algebraic continuation to $z=1$ whenever $\det(I_N-\mc B)\ne0$. If $\rho(\mc B)>1$, that continued value is no longer the sum of the divergent occupation-number series.
 
-The one-mode case shows how the determinant emerges. For $W_{\rm bare}(r)=\sum_{n\ge0}r^n$ with $|r|>1$,
-\begin{equation}
-    W_{\Lambda}(r)
-    =
-    \sum_{n\ge0}r^n
-    \exp\!\left(-\frac{|r|^{2n}}{\Lambda^2}\right).
-\end{equation}
-The terms with $n\lesssim n_*(\Lambda)=\ln\Lambda/\ln|r|$ are almost unchanged, while larger occupations are smoothly suppressed. The regulated sum therefore has the large-$\Lambda$ form
-\begin{equation}
-    W_{\Lambda}(r)=P_{\Lambda}(r)+\frac{1}{1-r}+o(1),
-    \qquad r\ne1,
-\end{equation}
-where $P_{\Lambda}$ contains the cutoff-dependent growing part. For $|r|<1$, the same finite term is obtained because the regulator becomes irrelevant in the convergent series. Applying the argument mode by mode gives
-\begin{equation}
-    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W_{\rm reg}(\phi)+o(1),
-\end{equation}
-with
-\begin{equation}
-    W_{\rm reg}(\phi)
-    =
-    \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)}
-    =
-    \det[I_N-\mc B(\phi)]^{-1}.
-    \label{eq:reg_weight_appendix}
-\end{equation}
-The determinant weight is the cutoff-independent finite part of the fixed-field bosonic occupation sum.
+The paired trace is fixed in its stable domain by the quasiparticle sum in Sec.~\ref{app:trace_paired}. Starting from such a convergent reference configuration, its square-root representative can be transported continuously along a specified path on which $\det(I_{2N}-\mc M)$ never vanishes. This continuation retains the normal-ordering scalar and the operator-fixed square root at the reference point. A path through a determinant zero cannot carry the same branch across the singularity.
 
-The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\Lambda$ denote the corresponding Fock-space regulator. With finite $\Lambda$,
-\begin{equation}
-    Z_{\Lambda}
-    =
-    \Tr\left[
-    R_\Lambda\prod_{\ell}\ee^{-\Delta\tau \hat H}
-    \right]
-    =
-    \int\mc D\phi\;P_{\rm HS}(\phi)\,
-    \Tr\left[
-    R_\Lambda\prod_{\ell}\ee^{\hat h_\ell(\phi_\ell)}
-    \right].
-\end{equation}
-The left-hand side tends to the physical partition function as $\Lambda\to\infty$. On the right-hand side, each fixed-field trace has the finite-part expansion displayed above. The cutoff-dependent terms have zero net contribution to the finite physical partition function after the full auxiliary-field integration, leaving the regularized AFQMC representation
-\begin{equation}
-    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
-\end{equation}
-This is the sampling weight represented by the determinant formula.
-
-The same construction applies to Gaussian propagators with pairing. In a stable quasiparticle basis,
-\begin{equation}
-    W_{\rm bare}(\phi)
-    =
-    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-    \sum_{n_1,\ldots,n_N\ge0}
-    \prod_{j=1}^{N}\ee^{n_j\varepsilon_j(\phi)}.
-\end{equation}
-Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
-\begin{equation}
-    W_{\rm reg}(\phi)
-    =
-    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
-    \prod_{j=1}^{N}\frac{1}{1-\ee^{\varepsilon_j(\phi)}}.
-\end{equation}
-In Nambu notation this finite part is written as
-\begin{equation}
-    W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\det[I_{2N}-\mc M(\phi)]^{-1/2},
-\end{equation}
-where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
+We use the term continued determinant weight only in this algebraic sense. Establishing an auxiliary-field integral outside the trace-convergent domain requires an additional regulator or contour prescription and a proof that it reproduces the physical trace. In particular, algebraic continuation cannot convert a nonintegrable positive pole on the real auxiliary-field domain into an ordinary probability density. The pole structure, its numerical consequences, and pole-free formulations are discussed in Sec.~\ref{app:infinite_variance}.
 
 \section{Proofs of the nonnegative-weight criteria}
 \label{app:nonnegative_proofs}
@@ -1168,6 +1088,124 @@ gives the block form
     \label{eq:rp_block_sm}
 \end{equation}
 This is the practical Gaussian RP test quoted in the main text. It is written in reflected-sector order, where the first block contains the $b$ operators and their conjugates and the second block contains the reflected $c$ operators and their conjugates. Other parts of the SM use the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$; the two descriptions are related by a fixed permutation of rows and columns. The reflection may include fixed phases; in that case the same derivation holds after absorbing those phases into the definition of $\theta$.
+
+\section{Infinite variance and determinant poles}
+\label{app:infinite_variance}
+
+The nonnegative-weight criteria established in this work address the sign problem. They determine whether contributions from different auxiliary-field configurations cancel through negative or complex phases. Reliable importance sampling also requires a normalizable probability measure and sufficiently well-behaved moments of the measured observables. These statistical requirements are logically independent. A simulation can therefore be sign-problem-free and still have an infinite-variance problem, in which the observable has a finite mean and a divergent second moment~\cite{shi2016pre,ulybyshev2022pre,alexandru2023prd,wan2025infinite}.
+
+Fermionic AFQMC provides a useful introduction. With the finite-temperature convention used in the main text, a single fermion determinant is $D_{\rm F}(\phi)=\det[I_N+\mc B_{\rm F}(\phi)]$, and a node occurs when $\mc B_{\rm F}$ has an eigenvalue $-1$. Many sign-free formulations sample a product such as $f(\phi)=|D_{\rm F}(\phi)|^2$. If the numerator of an observable is $g(\phi)$, its local estimator is $O_{\rm loc}=g/f$, and
+\begin{equation}
+    \langle O_{\rm loc}\rangle_f
+    =\frac{\int\dd\phi\,g(\phi)}{\int\dd\phi\,f(\phi)},
+    \qquad
+    \langle O_{\rm loc}^2\rangle_f
+    =\frac{\int\dd\phi\,g(\phi)^2/f(\phi)}{\int\dd\phi\,f(\phi)}.
+    \label{eq:fermion_infinite_variance}
+\end{equation}
+Near a smooth determinant node, let $x$ measure distance normal to the nodal set. A simple real zero of $D_{\rm F}$ gives $f\sim x^2$. When $g$ remains nonzero, the first integrand in Eq.~\eqref{eq:fermion_infinite_variance} is regular while the second behaves as $x^{-2}$. The node therefore gives an integrable contribution to the mean and a divergent contribution to the second moment. A generic complex zero has two transverse real directions, whose radial volume element changes this divergence to a logarithm. In matrix language, Wick contractions contain $(I_N+\mc B_{\rm F})^{-1}$ and become large near the node. Exact zero-weight configurations are suppressed by importance sampling, while nearby configurations generate rare spikes and power-law tails. The ordinary central-limit theorem then fails, and conventional standard-error estimates can substantially understate the uncertainty~\cite{shi2016pre,alexandru2023prd,wan2025infinite}. Cancellations among Wick contractions can soften this behavior, so the tail exponent depends on the observable, model, and HS decomposition~\cite{wan2025infinite}.
+
+Several remedies have been developed for fermionic calculations. The bridge-link method inserts an additional imaginary-time propagator and uses the bridge-integrated overlap in the estimator denominator, where the original determinant zero is removed~\cite{shi2016pre}. Extra-slice reweighting can evaluate the bridge factor nonperturbatively, provided that the reciprocal factor is estimated without bias~\cite{alexandru2023prd}. Synchronizing local measurements with local field updates strongly suppresses spikes at essentially unchanged cost, although the formal heavy-tail exponent remains~\cite{ulybyshev2022pre}. Recent work also gives tail-aware confidence intervals for existing data and an exact bridge operator that eliminates the divergence for a broad class of observables in sign-free fermion models~\cite{wan2025infinite}.
+
+Bosonic AFQMC reverses the local sampling geometry. The number-conserving weight is
+\begin{equation}
+    W_{\rm B}(\phi)=\det[I_N-\mc B(\phi)]^{-1},
+    \label{eq:boson_pole_weight}
+\end{equation}
+so an eigenvalue $\lambda=1$ produces a pole~\cite{rubenstein2012pra}. The unit circle has a separate role. All eigenvalues inside it guarantee convergence of the bare Fock-space trace, while an eigenvalue can cross the unit circle away from $1$ without making Eq.~\eqref{eq:boson_pole_weight} singular. The determinant beyond that convergence boundary is the algebraic continuation described in Sec.~\ref{app:regularization}. Figure~\ref{fig:pole_schematic} summarizes these distinctions. Along a one-dimensional slice through configuration space, a fermion zero suppresses the node and a boson pole enhances its neighborhood. The number of independent directions transverse to the pole set determines whether this enhancement causes a divergent variance or the stronger failure of normalization.
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}[font=\small,>=Latex]
+        \begin{scope}[shift={(0,0)}]
+            \draw[->,gray!80] (-1.65,0)--(1.75,0) node[right] {$\operatorname{Re}\lambda$};
+            \draw[->,gray!80] (0,-1.5)--(0,1.55) node[above] {$\operatorname{Im}\lambda$};
+            \draw[dashed,gray!75] (0,0) circle (1.12);
+            \node[gray!80,anchor=south west] at (-1.05,-1.15) {$|\lambda|=1$};
+            \foreach \p in {(-0.58,0.22),(-0.28,-0.51),(0.18,0.60),(0.52,-0.18),(0.12,-0.16)}
+                \fill[PRLBlue] \p circle (1.6pt);
+            \foreach \p in {(-1.28,0.48),(0.72,1.08),(1.22,-0.72)}
+                \fill[orange!85!black] \p circle (1.6pt);
+            \draw[->,thick,gray!85] (0.48,0.18) to[out=35,in=205] (1.18,0.72);
+            \draw[red!75!black,very thick] (0.99,-0.09)--(1.17,0.09);
+            \draw[red!75!black,very thick] (0.99,0.09)--(1.17,-0.09);
+            \node[red!75!black,anchor=west] at (1.18,0.12) {$\lambda=1$};
+            \node[anchor=north] at (0,-1.75) {(a) Number-conserving spectrum};
+        \end{scope}
+        \begin{scope}[shift={(6.0,-0.05)}]
+            \draw[->,gray!80] (-1.75,0)--(1.75,0) node[right] {$x$};
+            \draw[->,gray!80] (0,0)--(0,1.65) node[above] {weight};
+            \draw[densely dotted,red!65!black] (0,0)--(0,1.48);
+            \draw[thick,PRLBlue] (-1.45,1.05) .. controls (-0.75,0.25) and (-0.35,0.02) .. (0,0)
+                .. controls (0.35,0.02) and (0.75,0.25) .. (1.45,1.05);
+            \draw[thick,orange!85!black] (-1.45,0.24) .. controls (-0.75,0.38) and (-0.32,0.92) .. (-0.16,1.48);
+            \draw[thick,orange!85!black] (0.16,1.48) .. controls (0.32,0.92) and (0.75,0.38) .. (1.45,0.24);
+            \node[PRLBlue,anchor=west] at (0.62,0.86) {$f\sim x^2$};
+            \node[orange!85!black,anchor=west] at (0.55,1.34) {$W_{\rm B}\sim x^{-2}$};
+            \node[anchor=north] at (0,-1.70) {(b) A transverse slice};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{\textbf{Zeros, convergence, and poles.} (a) The dashed unit circle bounds the convergence region of the ordinary number-conserving bosonic trace. Blue eigenvalues lie in this region, while orange eigenvalues illustrate a continuation outside it. Only the marked point $\lambda=1$ is a pole of $\det(I_N-\mc B)^{-1}$. The full Nambu spectrum is not shown because its eigenvalues occur in reciprocal pairs. (b) On a one-dimensional slice normal to a determinant zero, a typical sign-free fermion weight vanishes quadratically, whereas a Kramers-paired bosonic inverse determinant can diverge quadratically. The full transverse dimension controls the integrability of the pole.}
+    \label{fig:pole_schematic}
+\end{figure}
+
+A minimal Kramers pair gives a concrete bosonic example. In a basis where the antiunitary symmetry acts with $U=\ii\sigma_y$, a general two-dimensional Kramers-symmetric block has the form
+\begin{equation}
+    \mc B_{\rm K}=\begin{pmatrix}u&v\\-v^*&u^*\end{pmatrix},
+    \qquad
+    \det(I_2-\mc B_{\rm K})=|1-u|^2+|v|^2\equiv r^2.
+    \label{eq:kramers_pole_block}
+\end{equation}
+The corresponding weight scales as $r^{-2}$. Direct multiplication also gives $(I_2-\mc B_{\rm K})^\hc(I_2-\mc B_{\rm K})=r^2I_2$, so the Green function has $\|G\|_2=r^{-1}$. Assuming a smooth nonzero HS density and a locally full-rank map to the four real directions in the complex numbers $u$ and $v$, the volume element is proportional to $r^3\dd r$. The normalization is then finite, $\int r^3\dd r\,W_{\rm B}\sim\int r\dd r$, while the Green-function second moment diverges logarithmically,
+\begin{equation}
+    \int r^3\dd r\,W_{\rm B}\|G\|_2^2
+    \sim\int\frac{\dd r}{r}.
+    \label{eq:boson_kramers_variance}
+\end{equation}
+This is a genuine bosonic infinite-variance mechanism within a sign-free Kramers class. A restricted HS decomposition can reach the pole through fewer transverse directions. In that case even $\int\dd\phi\,W_{\rm B}$ can diverge. More generally, a weight $W\sim r^{-p}$ in $c$ transverse real directions is normalizable only for $c>p$, and the second moment of an observable $O\sim r^{-m}$ requires $c>p+2m$. The outcome is therefore controlled by the HS map as well as by the determinant multiplicity and the observable.
+
+The TRS proof in Sec.~\ref{app:trs_proof} remains valid on every nonsingular configuration. Complex eigenvalues of $\mc B$ occur in conjugate pairs and real eigenvalues have even multiplicity, so $\det(I_N-\mc B)\ge0$ whether the eigenvalues lie inside or outside the unit circle. Moving an eigenvalue through the unit circle away from $1$ changes convergence of the bare trace and leaves this matrix-level sign statement unchanged. At $\lambda=1$ the weight itself is undefined. Approaching that point makes the Green function numerically ill-conditioned according to
+\begin{equation}
+    \|G\|_2=\frac{1}{\sigma_{\min}(I_N-\mc B)},
+    \label{eq:pole_condition_number}
+\end{equation}
+where $\sigma_{\min}$ is the smallest singular value. Product stabilization controls the exponentially separated scales accumulated during imaginary-time propagation. It cannot restore digits lost when the physical resolvent in Eq.~\eqref{eq:pole_condition_number} is nearly singular. Determinant ratios, Wick contractions, and acceptance decisions then become unreliable before an exact pole is reached.
+
+For paired propagation, the weight is $\exp(\sum_\ell\xi_\ell)\det(I_{2N}-\mc M)^{-1/2}$ and the Green function is $G=(I_{2N}-\mc M)^{-1}\Omega$. The symplectic structure forces eigenvalues of $\mc M$ to occur in reciprocal pairs, so the full Nambu spectrum cannot lie entirely inside the unit circle. A reciprocal pair $r,r^{-1}$ gives $\det(I_2-\mc M)=-(1-r)^2/r$ and hence a simple pole after taking the operator-fixed square root. The RP argument in Sec.~\ref{app:rp_proof} proves nonnegativity where the operator trace converges. Starting from that domain, a specified path that avoids $\det(I_{2N}-\mc M)=0$ transports the square-root representative continuously. A path through the pole loses this continuation, and RP alone does not assign a regularized value on the other side. The same numerical warning appears first through $\sigma_{\min}(I_{2N}-\mc M)$, since multiplication by $\Omega$ does not change the singular values of the resolvent.
+
+The physical control parameters are transparent for a single number-conserving mode whose trace converges. With energy $\varepsilon$ and chemical potential $\mu<\varepsilon$,
+\begin{equation}
+    \lambda=\ee^{-\beta(\varepsilon-\mu)},
+    \qquad
+    W=\frac{1}{1-\lambda},
+    \qquad
+    \bar n=\frac{\lambda}{1-\lambda}.
+    \label{eq:single_mode_pole}
+\end{equation}
+Large occupation directly places $\lambda=\bar n/(1+\bar n)$ near the pole. For a number-conserving many-mode product, the chemical potential commutes with every slice and
+\begin{equation}
+    \mc B(\phi;\mu)=\ee^{\beta\mu}\mc B(\phi;0).
+    \label{eq:chemical_potential_scaling}
+\end{equation}
+Increasing $\mu$ expands the eigenvalue cloud radially and can drive typical configurations toward $1$, producing a model- and HS-dependent practical density limit before pole-induced tails become severe~\cite{rubenstein2012pra}. Temperature enters together with density. At fixed occupation, Eq.~\eqref{eq:single_mode_pole} gives $\varepsilon-\mu=\beta^{-1}\ln(1+1/\bar n)$, so the distance $\varepsilon-\mu$ required to maintain that occupation shrinks as the temperature is lowered. Longer imaginary-time products also become harder to condition. At a fixed positive gap $\varepsilon-\mu$, cooling decreases the occupation and moves this mode away from the pole. The demanding regime is therefore the joint low-temperature, high-density or nearly condensed limit.
+
+Several structures can exclude this pole mechanism. In a number-conserving formulation, a simple sufficient condition is a common matrix norm for which
+\begin{equation}
+    \prod_{\ell=1}^{L}\|\ee^{B_\ell(\phi_\ell)}\|<1
+    \quad\text{for every allowed }\phi.
+    \label{eq:strict_contraction_pole_free}
+\end{equation}
+Submultiplicativity then gives $\rho(\mc B)<1$, so the fixed-field trace converges and $\lambda=1$ is excluded. This condition can arise from a uniformly damped propagation domain closed under multiplication. The semigroup approach to fermionic sign-free conditions~\cite{wei2024prb} suggests a systematic search for bosonic propagation domains satisfying Eq.~\eqref{eq:strict_contraction_pole_free}. Reciprocal Nambu spectra require a different condition from ordinary Euclidean contraction.
+
+Fixing the total boson number removes the grand-canonical inverse-determinant pole at its source. The trace in a sector with $n$ bosons is the finite coefficient
+\begin{equation}
+    \Tr_n\hat U(\phi)
+    =[z^n]\det[I_N-z\mc B(\phi)]^{-1},
+    \label{eq:canonical_pole_free}
+\end{equation}
+where $[z^n]$ extracts the coefficient of $z^n$. This coefficient is a polynomial in the entries of $\mc B$ and remains finite when an eigenvalue reaches $1$~\cite{shen2020}. Canonical sampling can still encounter zeros of this polynomial, and the grand-canonical TRS and RP proofs do not automatically establish the sign of every fixed-number coefficient. A canonical sign-free criterion must therefore be proved for the projected weight. Bosonic projector AFQMC offers a related fixed-particle-number route to ground-state properties and is another natural setting for such a criterion~\cite{purwanto2004pre}.
+
+The fermionic bridge-link advances motivate a bosonic auxiliary sampling density whose reweighting factor cancels the pole while keeping both the normalization and measured moments finite. The canonical and projector routes above remove the grand-canonical denominator, while propagation domains satisfying Eq.~\eqref{eq:strict_contraction_pole_free} exclude the pole configuration by configuration. Deforming the auxiliary-field contour offers another possible route, provided that the deformation reproduces the target partition function and preserves a nonnegative sampling measure. When sampled configurations approach a pole, reliable access to denser and lower-temperature regimes additionally requires control of the pole statistics. Such developments will extend the parameter range of the sign-free framework established here.
 
 \section{Benchmark numerical details}
 \label{app:benchmark_details}

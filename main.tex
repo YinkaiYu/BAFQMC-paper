@@ -9,6 +9,8 @@
 \usepackage{bm}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \definecolor{PRLBlue}{RGB}{46,48,146}
 \newcommand{\runinsection}[2][0.6\baselineskip]{%
     \par\addvspace{#1}%
@@ -257,9 +259,9 @@ The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|
 \runinsection{Conclusion}
 We have formulated a finite-temperature bosonic auxiliary-field quantum Monte Carlo method with nonnegative configuration weights under broad symmetry conditions. The two sufficient criteria, based on time-reversal symmetry and reflection positivity, give practical tests that can be applied after HS decoupling. As a benchmark, we used them to simulate frustrated two-flavor Bose-Hubbard models on the triangular lattice and obtained agreement with exact diagonalization within statistical errors. The broader message is that BAFQMC shifts the organizing principle for bosonic sign-free simulations from local weights to symmetries of the decoupled Gaussian problem. This opens a sign-free route into the frustrated sector of Fig.~\ref{fig:schematic}, beyond the natural domain of world-line QMC and stochastic series expansion.
 
-This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. The statistical distinction appears in the Gaussian trace: fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$. The inverse determinant can generate large weights near its poles, giving a bosonic analogue of the infinite-variance problem known in fermionic AFQMC~\cite{alexandru2023prd,wan2025infinite}. This numerical difficulty is most relevant when the sampled trajectory approaches such poles, for example at higher chemical potential, and its severity depends on the Hamiltonian, the HS decomposition, and the determinant representation.
+This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. The statistical distinction appears in the Gaussian trace: fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$. The resulting pole and variance questions are independent of the sign problem and are discussed in Sec.~\ref{app:infinite_variance} of the SM~\cite{SM}.
 
-The main opportunity is to revisit frustrated bosonic and spin systems from an auxiliary-field perspective. Frustration has long obstructed local-weight QMC~\cite{henelius2000prb}, and triangular hard-core bosons, frustrated Bose-Hubbard models, and frustrated quantum magnets host supersolid, chiral Mott, and spin-liquid physics that has often required methods outside sign-free QMC~\cite{wang2009prl,zaletel2014prb,yan2011science,zhu2015prb,zhou2017rmp}. Whenever such models admit an RP or TRS HS decoupling, BAFQMC provides a constructive route to finite-temperature simulation without a sign problem. The same criteria should also guide bosonic projector AFQMC, where ground-state properties can be targeted directly. Canonical fixed-particle-number formulations are another natural direction, since removing grand-canonical high-occupation sectors offers a practical way to avoid determinant-pole variance problems while retaining the sign-free symmetry structure.
+The main opportunity is to revisit frustrated bosonic and spin systems from an auxiliary-field perspective. Frustration has long obstructed local-weight QMC~\cite{henelius2000prb}, and triangular hard-core bosons, frustrated Bose-Hubbard models, and frustrated quantum magnets host supersolid, chiral Mott, and spin-liquid physics that has often required methods outside sign-free QMC~\cite{wang2009prl,zaletel2014prb,yan2011science,zhu2015prb,zhou2017rmp}. Whenever such models admit an RP or TRS HS decoupling, BAFQMC provides a constructive route to finite-temperature simulation without a sign problem.
 
 
 
