@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>稳定配对传播与 U2 辅助场的逐构型无极点证明</title>
+  <style>
+    :root {
+      --ink: #202428;
+      --muted: #58636e;
+      --line: #d4dbe2;
+      --soft: #f5f7f9;
+      --blue: #176b87;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #8a5a12;
+      --gold-bg: #fff8e6;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: white;
+      font: 16px/1.72 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main { width: min(1080px, calc(100vw - 36px)); margin: 0 auto; padding: 38px 0 60px; }
+    header { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 10px; font-size: 32px; line-height: 1.24; letter-spacing: 0; }
+    h2 { margin: 38px 0 13px; padding-top: 9px; border-top: 1px solid var(--line); font-size: 23px; line-height: 1.4; }
+    h3 { margin: 26px 0 9px; font-size: 18px; line-height: 1.45; }
+    p { margin: 9px 0; }
+    ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 6px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    .meta { color: var(--muted); display: grid; gap: 4px; font-size: 14px; }
+    .lead { margin: 22px 0 18px; font-size: 17px; }
+    .result, .warning, .scope, .note {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--soft);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .note { color: #34404a; }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .equation-note { color: var(--muted); font-size: 14px; margin-top: -5px; }
+    .figure-story { margin: 24px 0 34px; }
+    figure { margin: 12px 0 8px; }
+    figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: white; }
+    figcaption { margin-top: 8px; color: #39434d; font-size: 14px; line-height: 1.55; }
+    .interpretation { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .proof-flow {
+      display: grid;
+      grid-template-columns: 1fr 42px 1fr 42px 1fr;
+      align-items: stretch;
+      gap: 8px;
+      margin: 18px 0 20px;
+    }
+    .proof-step { padding: 12px; border: 1px solid var(--line); background: white; min-height: 118px; }
+    .proof-step strong { display: block; margin-bottom: 5px; color: var(--blue); }
+    .arrow { display: grid; place-items: center; color: var(--muted); font-size: 24px; }
+    table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid var(--line); padding: 7px 9px; vertical-align: top; text-align: right; white-space: nowrap; }
+    th { background: var(--soft); font-weight: 650; }
+    th:first-child, td:first-child, .text { text-align: left; }
+    .small { color: var(--muted); font-size: 13px; }
+    .candidate { border-left: 3px solid var(--line); padding-left: 15px; }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    mjx-container[display="true"] > mjx-math { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    @media (max-width: 800px) {
+      main { width: min(100vw - 22px, 1080px); padding-top: 25px; }
+      h1 { font-size: 27px; }
+      h2 { font-size: 21px; }
+      .proof-flow { grid-template-columns: 1fr; }
+      .arrow { min-height: 25px; transform: rotate(90deg); }
+      table { font-size: 13px; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>稳定配对传播与 \(U_2\) 辅助场的逐构型无极点证明</h1>
+    <div class="meta">
+      <div>生成日期：2026-07-19</div>
+      <div>对象：文章 Fig. 3 的 paired BAFQMC benchmark，\(U_1=0,\ U_2=1,\ \mu=-5,\ \beta=4\)</div>
+      <div>状态：严格的有限系统证明 + 独立 Nambu 矩阵抽查</div>
+      <div>主要依据：<a href="../../../main.tex">main.tex</a> 与 <a href="../../../SM.tex">SM.tex</a> 中的配对高斯迹公式、\(U_2\) HS 分解和极点定义</div>
+    </div>
+  </header>
+
+  <p class="lead">
+    本报告回答一个具体问题：当无相互作用的配对哈密顿量本身物理稳定，而唯一的辅助场来自
+    \(U_2(\hat n_b-\hat n_c)^2\) 时，任意实辅助场构型是否都不可能使 Nambu 传播矩阵碰到玻色极点？
+  </p>
+
+  <div class="result">
+    <p><strong>结论：可以严格证明，而且结论比“采样时大概遇不到”更强。</strong></p>
+    <p>
+      对任意有限格点数、任意有限 Trotter 时间片数，只要完整的自由配对哈密顿量具有严格正的最低准粒子激发能，
+      并且所有辅助场因子都是 \(U_2\) 产生的相位旋转，那么每一个辅助场构型的玻色 Fock 空间求和都绝对收敛。
+      因而 \(\det[I-\mathcal M(\varphi)]\neq0\)，构型空间中不存在极点。
+    </p>
+    <p>
+      进一步地，因为实辅助场只通过单位复数相位进入传播矩阵，有限构型空间等价于一个紧致的相位空间。
+      连续函数 \(\sigma_{\min}[I-\mathcal M(\varphi)]\) 因此具有严格正的全局最小值。
+      所以 Green 函数及其有限阶 Wick 收缩不会产生由 determinant 极点引起的 infinite-variance tail。
+    </p>
+  </div>
+
+  <div class="warning">
+    <p><strong>必须修正一句容易产生歧义的话。</strong></p>
+    <p>
+      有 pairing 时，“裸单粒子最低能级高于化学势”
+      \(\epsilon_{\min}>\mu\) 本身还不够。本文均匀 onsite pairing 的正确严格条件是
+      \(\epsilon_{\min}-\mu>|\Delta|\)，等价于完整二次哈密顿量的最低 Bogoliubov 激发能严格大于零。
+      报告后面会给出一个反例，说明为什么不能漏掉 \(|\Delta|\)。
+    </p>
+  </div>
+
+  <h2>1. 先把问题中的对象逐一说清</h2>
+
+  <h3>1.1 自由配对部分</h3>
+  <p>把化学势放进无相互作用部分后，文章模型的二次哈密顿量可以写成</p>
+  <div class="scroll">\[
+    \hat K_0
+    =
+    \hat{\boldsymbol b}^{+}h\hat{\boldsymbol b}
+    +\hat{\boldsymbol c}^{+}h\hat{\boldsymbol c}
+    -\Delta\sum_i\hat b_i^{+}\hat c_i^{+}
+    -\Delta^*\sum_i\hat b_i\hat c_i,
+    \qquad h=tA_\triangle-\mu I.
+  \]</div>
+  <p>
+    \(A_\triangle\) 是三角格最近邻矩阵。这里 \(\hat K_0=\hat H_0-\mu\hat N\) 才是进入 grand-canonical
+    虚时间传播的对象。pairing 的整体相位可以通过一个 flavor 的全局相位变换移走，因此稳定性只依赖
+    \(|\Delta|\)。
+  </p>
+
+  <h3>1.2 \(U_2\) 辅助场</h3>
+  <p>在一个格点、一个时间片上，排斥的相对密度相互作用采用</p>
+  <div class="scroll">\[
+    \mathrm e^{-\Delta\tau U_2(\hat n_{b,i}-\hat n_{c,i})^2}
+    =
+    \int\frac{\mathrm d\varphi_{i\ell}}{\sqrt{2\pi}}
+    \mathrm e^{-\varphi_{i\ell}^2/2}
+    \mathrm e^{\mathrm i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})},
+    \qquad
+    \theta_{i\ell}=\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}.
+  \]</div>
+  <p>
+    所以固定辅助场后的 \(U_2\) 因子没有改变任何 Fock 态的振幅，只给不同粒子数态乘上相位。
+    把一个时间片所有格点合并起来，记
+  </p>
+  <div class="scroll">\[
+    \hat V_\ell(\varphi_\ell)
+    =\exp\!\left[
+      \mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})
+    \right].
+  \]</div>
+
+  <h3>1.3 什么叫“极点”</h3>
+  <p>
+    对整个虚时间周期，把 Nambu 单体传播矩阵记为 \(\mathcal M(\varphi)\)。文章中的固定构型权重和
+    Green 函数分别是
+  </p>
+  <div class="scroll">\[
+    W(\varphi)=
+    \exp[\Xi]
+    \det[I-\mathcal M(\varphi)]^{-1/2},
+    \qquad
+    G(\varphi)=[I-\mathcal M(\varphi)]^{-1}\Omega.
+  \]</div>
+  <p>因此以下三句话完全等价：</p>
+  <ol>
+    <li>\(\mathcal M(\varphi)\) 有一个本征值等于 \(1\)；</li>
+    <li>\(\det[I-\mathcal M(\varphi)]=0\)；</li>
+    <li>权重分母和 Green 函数同时奇异。</li>
+  </ol>
+  <p>本报告所说的“无极点”，就是证明第二条对每一个实辅助场构型都不发生。</p>
+
+  <h2>2. 第一步：把物理稳定条件完整推出来</h2>
+
+  <h3>2.1 先对角化普通单粒子部分</h3>
+  <p>
+    因为本文 benchmark 的 hopping 为实数，\(h\) 是实对称矩阵。取正交矩阵 \(O\)，使
+  </p>
+  <div class="scroll">\[
+    O^{\mathsf T}hO=\operatorname{diag}(\xi_1,\ldots,\xi_{N_s}),
+    \qquad \xi_\nu=\epsilon_\nu-\mu.
+  \]</div>
+  <p>同时变换两个 flavor，</p>
+  <div class="scroll">\[
+    \hat b_i=\sum_\nu O_{i\nu}\hat b_\nu,
+    \qquad
+    \hat c_i=\sum_\nu O_{i\nu}\hat c_\nu.
+  \]</div>
+  <p>由于 \(O^{\mathsf T}O=I\)，onsite pairing 仍然逐模配对：</p>
+  <div class="scroll">\[
+    \sum_i\hat b_i^+\hat c_i^+
+    =\sum_{i,\nu,\nu'}O_{i\nu}O_{i\nu'}\hat b_\nu^+\hat c_{\nu'}^+
+    =\sum_\nu\hat b_\nu^+\hat c_\nu^+.
+  \]</div>
+  <p>因此 \(\hat K_0\) 分解成彼此独立的双模问题：</p>
+  <div class="scroll">\[
+    \hat K_0=\sum_\nu\hat K_{0,\nu},
+    \qquad
+    \hat K_{0,\nu}
+    =\xi_\nu(\hat n_{b,\nu}+\hat n_{c,\nu})
+    -|\Delta|(\hat b_\nu^+\hat c_\nu^++\hat b_\nu\hat c_\nu).
+  \]</div>
+
+  <h3>2.2 对每个双模问题做配对变换</h3>
+  <p>定义新的玻色算符 \(\hat\alpha_\nu,\hat\beta_\nu\)：</p>
+  <div class="scroll">\[
+    \hat b_\nu=u_\nu\hat\alpha_\nu+v_\nu\hat\beta_\nu^+,
+    \qquad
+    \hat c_\nu=u_\nu\hat\beta_\nu+v_\nu\hat\alpha_\nu^+,
+    \qquad
+    u_\nu=\cosh r_\nu,
+    \quad v_\nu=\sinh r_\nu.
+  \]</div>
+  <p>
+    因为 \(u_\nu^2-v_\nu^2=1\)，新算符仍满足标准玻色对易关系。下面把代数中最关键的两项明确展开：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \hat n_{b,\nu}+\hat n_{c,\nu}
+    &=(u_\nu^2+v_\nu^2)
+      (\hat n_{\alpha,\nu}+\hat n_{\beta,\nu})+2v_\nu^2 \\
+    &\quad+2u_\nu v_\nu
+      (\hat\alpha_\nu^+\hat\beta_\nu^++\hat\alpha_\nu\hat\beta_\nu),\\[4pt]
+    \hat b_\nu^+\hat c_\nu^++\hat b_\nu\hat c_\nu
+    &=(u_\nu^2+v_\nu^2)
+      (\hat\alpha_\nu^+\hat\beta_\nu^++\hat\alpha_\nu\hat\beta_\nu)\\
+    &\quad+2u_\nu v_\nu
+      (\hat n_{\alpha,\nu}+\hat n_{\beta,\nu}+1).
+  \end{aligned}
+  \]</div>
+  <p>令异常项 \(\hat\alpha^+\hat\beta^++\hat\alpha\hat\beta\) 的系数为零，得到</p>
+  <div class="scroll">\[
+    2\xi_\nu u_\nu v_\nu-|\Delta|(u_\nu^2+v_\nu^2)=0
+    \quad\Longleftrightarrow\quad
+    \tanh(2r_\nu)=\frac{|\Delta|}{\xi_\nu}.
+  \]</div>
+  <p>
+    右边必须严格小于 \(1\)，所以需要 \(\xi_\nu>|\Delta|\)。在这个条件下代回去，双模哈密顿量成为
+  </p>
+  <div class="scroll">\[
+    \hat K_{0,\nu}
+    =E_\nu(\hat n_{\alpha,\nu}+\hat n_{\beta,\nu})+(E_\nu-\xi_\nu),
+    \qquad
+    E_\nu=\sqrt{\xi_\nu^2-|\Delta|^2}>0.
+  \]</div>
+  <p>
+    \(E_\nu\) 就是该空间模的准粒子激发能。所有模都稳定的条件因此是
+  </p>
+  <div class="scroll">\[
+    \boxed{
+      \min_\nu(\epsilon_\nu-\mu)>|\Delta|
+      \quad\Longleftrightarrow\quad
+      E_{\min}>0.
+    }
+  \]</div>
+
+  <h3>2.3 为什么只写 \(\epsilon_{\min}>\mu\) 不够</h3>
+  <p>
+    取一个单模例子：\(\epsilon=0,\ \mu=-0.1,\ |\Delta|=0.2\)。虽然 \(\epsilon>\mu\)，但
+    \(\xi=\epsilon-\mu=0.1<|\Delta|\)。在双模压缩真空中增大参数 \(r\)，能量期望值为
+  </p>
+  <div class="scroll">\[
+    \langle\hat K_0\rangle_r
+    =2\xi\sinh^2r-2|\Delta|\sinh r\cosh r
+    \underset{r\to\infty}{\sim}
+    \frac{\xi-|\Delta|}{2}\,\mathrm e^{2r}\to-\infty.
+  \]</div>
+  <p>
+    这说明裸能级高于化学势仍可能被 pairing 压垮。若 \(\xi=|\Delta|\)，最低激发能恰为零，热占据数求和也会发散。
+    因此定理必须使用严格的完整配对稳定条件。
+  </p>
+
+  <div class="figure-story">
+    <h3>Fig. 3 参数位于稳定区深处</h3>
+    <figure>
+      <img src="figures/stability_region.png" alt="Paired free-boson stability region and the Fig. 3 benchmark gap">
+      <figcaption>
+        <strong>图 1.</strong>
+        (a) \(3\times3\) 三角格的最低裸能级为 \(\epsilon_{\min}=-3\)。绿色区域满足
+        \(\mu<\epsilon_{\min}-|\Delta|\)，红色区域不满足严格配对稳定条件。蓝线是 Fig. 3 的
+        \(\mu=-5,\ 0\le|\Delta|\le0.30\)。
+        (b) 同一参数线上最低准粒子能隙
+        \(E_{\min}=\sqrt{(\epsilon_{\min}-\mu)^2-|\Delta|^2}\)；整个扫描中
+        \(E_{\min}\ge1.977\)。
+      </figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>
+        benchmark 与稳定边界之间不是数值舍入量级的微小距离。即使在最大 pairing
+        \(|\Delta|=0.30\) 处，正常能量差仍为 \(2\)，最低配对激发能约为 \(1.977\)。
+      </p>
+    </div>
+  </div>
+
+  <h2>3. 第二步：证明 \(U_2\) 场只转相位、不放大振幅</h2>
+  <p>定义每个格点的相对粒子数</p>
+  <div class="scroll">\[
+    \hat Q_i=\hat n_{b,i}-\hat n_{c,i}.
+  \]</div>
+  <p>
+    \(\hat Q_i\) 是厄米算符，\(\theta_{i\ell}\) 是实数，因此
+  </p>
+  <div class="scroll">\[
+    \hat V_\ell^+
+    =\exp\!\left[-\mathrm i\sum_i\theta_{i\ell}\hat Q_i\right]
+    =\hat V_\ell^{-1},
+    \qquad
+    \lVert\hat V_\ell|\psi\rangle\rVert
+    =\lVert|\psi\rangle\rVert.
+  \]</div>
+  <p>
+    这就是“单位相位变换”的完整含义：\(\hat V_\ell\) 是长度保持的幺正变换。它可以把一个态混合到别的相位方向，
+    但不能把任何态的范数放大。空间不均匀的 \(\theta_{i\ell}\) 一般不与 hopping 对易；后面的证明不需要对易。
+  </p>
+  <p>在代码使用的 onsite Nambu 顺序 \((b,c,b^+,c^+)^{\mathsf T}\) 中，对应的单体矩阵正是</p>
+  <div class="scroll">\[
+    D_{i\ell}^{(2)}=
+    \operatorname{diag}
+    \left(
+      \mathrm e^{\mathrm i\theta_{i\ell}},
+      \mathrm e^{-\mathrm i\theta_{i\ell}},
+      \mathrm e^{-\mathrm i\theta_{i\ell}},
+      \mathrm e^{\mathrm i\theta_{i\ell}}
+    \right).
+  \]</div>
+  <p>四个对角元的模都等于 \(1\)，与文章和 Fortran 实现中的 \(U_2\) 更新矩阵一致。</p>
+
+  <h2>4. 核心证明：任意相位历史的 Fock 空间求和都绝对收敛</h2>
+
+  <div class="proof-flow" aria-label="Proof flow">
+    <div class="proof-step">
+      <strong>自由传播</strong>
+      稳定性给出所有 \(E_\nu>0\)，所以所有玻色占据数的热求和收敛。
+    </div>
+    <div class="arrow">→</div>
+    <div class="proof-step">
+      <strong>\(U_2\) 场</strong>
+      每个 \(\hat V_\ell\) 只转相位，最大放大倍数恰为 \(1\)。
+    </div>
+    <div class="arrow">→</div>
+    <div class="proof-step">
+      <strong>完整构型</strong>
+      任意交替乘积仍具有有限的绝对热迹，故 Nambu determinant 不可能为零。
+    </div>
+  </div>
+
+  <h3>4.1 自由热求和为什么有限</h3>
+  <p>把自由基态能量记为</p>
+  <div class="scroll">\[
+    E_{\mathrm{vac}}=\sum_\nu(E_\nu-\xi_\nu),
+  \]</div>
+  <p>并把它从哈密顿量中减掉：</p>
+  <div class="scroll">\[
+    \hat K_0-E_{\mathrm{vac}}
+    =\sum_\nu E_\nu
+      (\hat n_{\alpha,\nu}+\hat n_{\beta,\nu})\ge0.
+  \]</div>
+  <p>一个时间片的去常数自由传播记为</p>
+  <div class="scroll">\[
+    \hat R=\mathrm e^{-\Delta\tau(\hat K_0-E_{\mathrm{vac}})}.
+  \]</div>
+  <p>
+    在准粒子占据数基底中，\(\hat R\) 的对角元都是非负数
+    \(\exp[-\Delta\tau\sum_\nu E_\nu(n_{\alpha,\nu}+n_{\beta,\nu})]\)。
+    把所有占据数组合求和，得到
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    Z_R
+    &=\sum_{\{n_{\alpha},n_{\beta}\}}
+      \exp\!\left[-\Delta\tau\sum_\nu E_\nu
+      (n_{\alpha,\nu}+n_{\beta,\nu})\right]\\
+    &=\prod_\nu
+      \left(\sum_{n_{\alpha,\nu}=0}^{\infty}\mathrm e^{-\Delta\tau E_\nu n_{\alpha,\nu}}\right)
+      \left(\sum_{n_{\beta,\nu}=0}^{\infty}\mathrm e^{-\Delta\tau E_\nu n_{\beta,\nu}}\right)\\
+    &=\prod_\nu\frac{1}{(1-\mathrm e^{-\Delta\tau E_\nu})^2}<\infty.
+  \end{aligned}
+  \]</div>
+  <p>最后一个不等式只用了 \(E_\nu>0\) 和有限模数 \(N_s\)。</p>
+
+  <h3>4.2 用两个简单的“矩阵绝对大小”事实控制乘积</h3>
+  <p>
+    为了不依靠正负抵消来声称收敛，我们需要控制绝对值。对任意算符 \(X\)，把它的所有奇异值
+    \(s_r(X)\ge0\) 相加，记为
+  </p>
+  <div class="scroll">\[
+    \lVert X\rVert_1=\sum_r s_r(X).
+  \]</div>
+  <p>这里只用到两个基本事实：</p>
+  <ol>
+    <li>
+      \(|\operatorname{Tr}X|\le\lVert X\rVert_1\)。从奇异值分解
+      \(X=\sum_rs_r|u_r\rangle\langle v_r|\) 出发，
+      \(|\operatorname{Tr}X|\le\sum_rs_r|\langle v_r|u_r\rangle|\le\sum_rs_r\)。
+    </li>
+    <li>
+      \(\lVert AXB\rVert_1\le\lVert A\rVert\,\lVert X\rVert_1\,\lVert B\rVert\)，
+      其中没有下标的 \(\lVert A\rVert\) 是 \(A\) 对任意归一化态的最大放大倍数。
+    </li>
+  </ol>
+  <p class="equation-note">
+    数学文献有时会给 \(\lVert X\rVert_1<\infty\) 另起一个专门名称。本报告不使用这个术语；真正需要的只有上面已经写出的绝对收敛定义和两个不等式。
+  </p>
+  <p>
+    对 \(\hat R\)，最大的对角元是基态对应的 \(1\)，所以
+    \(\lVert\hat R\rVert=1\)；全部奇异值之和正好等于刚才的 \(Z_R\)，所以
+    \(\lVert\hat R\rVert_1=Z_R<\infty\)。对 \(U_2\) 相位旋转，\(\lVert\hat V_\ell\rVert=1\)。
+  </p>
+
+  <h3>4.3 对任意构型应用这个界</h3>
+  <p>固定全部 \(U_2\) 场后，去掉自由基态常数的完整传播算符可以写成</p>
+  <div class="scroll">\[
+    \widetilde U(\varphi)
+    =\hat R\hat V_L\hat R\hat V_{L-1}\cdots\hat R\hat V_1.
+  \]</div>
+  <p>
+    无论这些因子是否对易，反复使用上一节的第二个不等式，都有
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \lVert\widetilde U(\varphi)\rVert_1
+    &\le
+    \lVert\hat R\rVert_1
+    \left(\prod_{\ell=2}^{L}\lVert\hat R\rVert\right)
+    \left(\prod_{\ell=1}^{L}\lVert\hat V_\ell\rVert\right)\\
+    &=Z_R\times1^{L-1}\times1^L=Z_R<\infty.
+  \end{aligned}
+  \]</div>
+  <p>因此完整 Fock 空间求和满足统一的绝对值界</p>
+  <div class="scroll">\[
+    \left|\operatorname{Tr}\widetilde U(\varphi)\right|
+    \le\lVert\widetilde U(\varphi)\rVert_1
+    \le Z_R.
+  \]</div>
+  <p>恢复每个时间片的基态常数，只多出有限的构型无关因子：</p>
+  <div class="scroll">\[
+    \left|\operatorname{Tr}U(\varphi)\right|
+    \le\mathrm e^{-\beta E_{\mathrm{vac}}}Z_R<\infty.
+  \]</div>
+
+  <div class="result">
+    <p><strong>到这里，逐构型收敛已经证明完毕。</strong></p>
+    <p>
+      证明没有使用 \([\hat V_\ell,\hat K_0]=0\)，没有要求不同时间片的场相同，也没有限制
+      \(\varphi_{i\ell}\) 的大小。唯一用到的是自由配对传播稳定，以及每个 HS 因子是幺正相位旋转。
+    </p>
+  </div>
+
+  <h3>4.4 从有限 Fock 求和推出 Nambu determinant 不为零</h3>
+  <p>
+    \(\widetilde U(\varphi)\) 是二次玻色算符的乘积，文章已经推导其 Nambu 高斯迹公式。对绝对收敛的普通 Fock
+    空间求和，该公式给出
+  </p>
+  <div class="scroll">\[
+    \operatorname{Tr}U(\varphi)
+    =\exp[\Xi]\det[I-\mathcal M(\varphi)]^{-1/2},
+  \]</div>
+  <p>
+    其中 \(\exp[\Xi]\) 是有限且非零的 normal-ordering 常数。若存在某个构型使
+    \(\det[I-\mathcal M(\varphi)]=0\)，右边就会发散；这与刚刚证明的有限绝对上界矛盾。因此
+  </p>
+  <div class="scroll">\[
+    \boxed{
+      \det[I-\mathcal M(\varphi)]\neq0
+      \quad\text{for every real }U_2\text{ field configuration }\varphi.
+    }
+  \]</div>
+  <p>
+    这一步只关心 determinant 是否为零，不涉及平方根选正支还是负支。本文的 RP 条件另外保证收敛区域内的物理权重非负。
+  </p>
+
+  <h2>5. 为什么还能排除“无限接近极点”的 heavy tail</h2>
+  <p>
+    上一节排除了每一个精确极点。对有限格点和有限时间片，还可以继续证明构型不能无限逼近极点。
+  </p>
+  <p>
+    虽然 \(\varphi_{i\ell}\in\mathbb R\) 没有界，但传播矩阵只依赖相位
+  </p>
+  <div class="scroll">\[
+    z_{i\ell}=\mathrm e^{\mathrm i\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}},
+    \qquad |z_{i\ell}|=1.
+  \]</div>
+  <p>
+    每个 \(z_{i\ell}\) 只在单位圆上取值。有限个单位圆的直积是一个有界而闭合的相位空间。
+    \(\mathcal M\) 是有限个矩阵的乘积，所以随这些相位连续变化。定义
+  </p>
+  <div class="scroll">\[
+    d(\boldsymbol z)=\sigma_{\min}[I-\mathcal M(\boldsymbol z)],
+  \]</div>
+  <p>
+    其中 \(\sigma_{\min}\) 是最小奇异值，也就是 \(I-\mathcal M\) 把归一化向量压缩后的最小长度。
+    已知每一点都没有极点，所以 \(d(\boldsymbol z)>0\)。连续正函数在这个有限相位空间上一定取得最小值，于是存在
+  </p>
+  <div class="scroll">\[
+    \delta_{N_s,L_\tau}(\beta,E_{\min},U_2)>0,
+    \qquad
+    d(\boldsymbol z)\ge\delta_{N_s,L_\tau}
+    \quad\text{for all }\boldsymbol z.
+  \]</div>
+  <p>因此</p>
+  <div class="scroll">\[
+    \lVert G(\varphi)\rVert_2
+    =\lVert[I-\mathcal M(\varphi)]^{-1}\Omega\rVert_2
+    \le\delta_{N_s,L_\tau}^{-1}.
+  \]</div>
+  <p>
+    有限阶物理观测量是有限个 Green 函数矩阵元的 Wick 收缩，因而也是有界的。若估计量还显式含有有限次辅助场多项式，
+    原始 HS 权重 \(\exp(-\varphi^2/2)\) 的所有多项式矩仍然有限。由此可见，Fig. 3 的有限系统不会出现由
+    determinant pole 产生的 infinite-variance problem。
+  </p>
+
+  <div class="scope">
+    <p><strong>这个结论的精确范围。</strong></p>
+    <p>
+      正下界 \(\delta_{N_s,L_\tau}\) 会依赖系统大小、逆温、自由能隙和时间片数。证明没有声称当
+      \(N_s\to\infty\)、\(\beta\to\infty\) 或 \(E_{\min}\to0\) 时仍存在与这些极限无关的统一下界。
+      它严格覆盖文章 Fig. 3 所使用的有限 \(3\times3\)、有限 \(\beta\)、有限 \(\Delta\tau\) 计算。
+    </p>
+  </div>
+
+  <h2>6. 第二条路线：用虚时间传播半群重新组织证明</h2>
+
+  <h3>6.1 “半群”在这里是什么意思</h3>
+  <p>
+    这里不需要先接受一套抽象数学语言。所谓半群，只要求一类传播算符具有下面的闭合性：
+  </p>
+  <div class="scroll">\[
+    X\ \text{allowed},\quad Y\ \text{allowed}
+    \quad\Longrightarrow\quad
+    XY\ \text{still allowed}.
+  \]</div>
+  <p>
+    它与“群”的差别是：半群不要求每个传播都能安全地倒着走。虚时间传播正是这种情况。
+    稳定哈密顿量向前传播会压低高能、高占据态；它的逆算符却会指数放大这些态，因此通常不能作为有限温玻色传播。
+  </p>
+
+  <h3>6.2 稳定自由哈密顿量生成衰减半群</h3>
+  <p>仍然使用去掉基态常数的正算符</p>
+  <div class="scroll">\[
+    \widetilde K_0
+    =\hat K_0-E_{\mathrm{vac}}
+    =\sum_aE_a\hat\gamma_a^+\hat\gamma_a,
+    \qquad E_a>0,
+  \]</div>
+  <p>其中指标 \(a\) 已经把每个空间模的两个准粒子 flavor 合并在一起。对任意虚时间 \(s\ge0\)，定义</p>
+  <div class="scroll">\[
+    R(s)=\mathrm e^{-s\widetilde K_0}.
+  \]</div>
+  <p>同一个生成元的指数满足</p>
+  <div class="scroll">\[
+    R(s_1)R(s_2)=R(s_1+s_2),
+    \qquad R(0)=I.
+  \]</div>
+  <p>
+    这就是最基本的虚时间传播半群。因为 \(\widetilde K_0\ge0\)，所有本征值
+    \(\mathrm e^{-s\sum_aE_an_a}\) 都不超过 \(1\)，所以
+  </p>
+  <div class="scroll">\[
+    \lVert R(s)\rVert\le1.
+  \]</div>
+  <p>对任何严格正的 \(s\)，高占据态还受到指数抑制，因此奇异值之和为</p>
+  <div class="scroll">\[
+    \lVert R(s)\rVert_1
+    =\prod_a\frac{1}{1-\mathrm e^{-sE_a}}<\infty,
+    \qquad s>0.
+  \]</div>
+  <p>
+    \(s=0\) 时 \(R(0)=I\)，无限维 Fock 空间中 \(\operatorname{Tr}I\) 发散；任意
+    \(s>0\) 则立即进入绝对热迹有限的内部。这正是严格正能隙带来的“热平滑”作用。
+  </p>
+
+  <h3>6.3 \(U_2\) 场生成相位旋转群</h3>
+  <p>把所有格点相位收集成 \(\boldsymbol\theta\)，定义</p>
+  <div class="scroll">\[
+    V(\boldsymbol\theta)
+    =\exp\!\left(\mathrm i\sum_i\theta_iQ_i\right).
+  \]</div>
+  <p>因为不同 \(Q_i\) 彼此对易，</p>
+  <div class="scroll">\[
+    V(\boldsymbol\theta)V(\boldsymbol\theta')
+    =V(\boldsymbol\theta+\boldsymbol\theta'),
+    \qquad
+    V(\boldsymbol\theta)^{-1}=V(-\boldsymbol\theta),
+    \qquad
+    \lVert V(\boldsymbol\theta)\rVert=1.
+  \]</div>
+  <p>
+    所以 \(U_2\) 场本身形成一个相位旋转群。它不提供热衰减，但也不破坏已有的衰减。
+  </p>
+
+  <h3>6.4 定义真正与极点有关的“允许传播半群”</h3>
+  <p>考虑满足下面两个条件的高斯传播算符集合：</p>
+  <div class="scroll">\[
+    \mathfrak S
+    =
+    \left\{
+      X:\ \lVert X\rVert\le1,\quad \lVert X\rVert_1<\infty
+    \right\}.
+  \]</div>
+  <p>
+    第一个条件表示传播不放大任意归一化态，第二个条件表示全部玻色态的绝对热求和有限。
+    现在直接验证乘法闭合。若 \(X,Y\in\mathfrak S\)，则
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \lVert XY\rVert
+    &\le\lVert X\rVert\,\lVert Y\rVert\le1,\\
+    \lVert XY\rVert_1
+    &\le\lVert X\rVert_1\,\lVert Y\rVert
+    \le\lVert X\rVert_1<\infty.
+  \end{aligned}
+  \]</div>
+  <p>
+    因而 \(XY\in\mathfrak S\)。这一步就是半群证明的核心：绝对热迹有限的收缩传播对连续相乘封闭。
+  </p>
+
+  <h3>6.5 每个 Trotter 时间片和完整构型都留在这个半群内</h3>
+  <p>对任意 \(U_2\) 场，一个去基态常数的时间片是</p>
+  <div class="scroll">\[
+    S_\ell=R(\Delta\tau)V(\boldsymbol\theta_\ell).
+  \]</div>
+  <p>它满足</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \lVert S_\ell\rVert
+    &\le\lVert R(\Delta\tau)\rVert
+      \lVert V(\boldsymbol\theta_\ell)\rVert\le1,\\
+    \lVert S_\ell\rVert_1
+    &\le\lVert R(\Delta\tau)\rVert_1
+      \lVert V(\boldsymbol\theta_\ell)\rVert
+    =\lVert R(\Delta\tau)\rVert_1<\infty.
+  \end{aligned}
+  \]</div>
+  <p>所以每个 \(S_\ell\in\mathfrak S\)。利用半群的乘法闭合性，完整构型</p>
+  <div class="scroll">\[
+    \widetilde U(\varphi)=S_LS_{L-1}\cdots S_1
+  \]</div>
+  <p>
+    也属于 \(\mathfrak S\)。换句话说，无论每个时间片怎样选择相位，乘积始终留在“全部玻色态绝对求和有限”的传播区域。
+  </p>
+
+  <h3>6.6 从 Fock 传播半群映射到 Nambu 高斯半群</h3>
+  <p>
+    每个 \(S_\ell\) 都是高斯算符，因此它对 Nambu 算符的线性变换由一个矩阵 \(M_\ell\) 表示。
+    算符相乘对应 Nambu 矩阵按同样的虚时间顺序相乘：
+  </p>
+  <div class="scroll">\[
+    S_L\cdots S_1
+    \quad\longmapsto\quad
+    \mathcal M=M_L\cdots M_1.
+  \]</div>
+  <p>
+    因此 \(\mathfrak S\) 中高斯算符的 Nambu 矩阵也形成一个乘法闭合的高斯传播半群。
+    在这个半群内，Fock 空间迹有限；配对高斯迹公式于是要求
+  </p>
+  <div class="scroll">\[
+    \det(I-\mathcal M)\neq0.
+  \]</div>
+  <p>
+    determinant 极点是这个高斯半群的边界：一旦 \(\mathcal M\) 出现本征值 \(1\)，某个玻色方向便不再抑制任意大的占据数，
+    绝对热求和随之失效。稳定自由衰减与任意 \(U_2\) 旋转生成的半群始终在边界以内，所以不能碰到极点。
+  </p>
+
+  <div class="result">
+    <p><strong>半群版本的结论。</strong></p>
+    <p>
+      \(R(\Delta\tau)\) 提供严格的热衰减，\(V(\boldsymbol\theta_\ell)\) 只改变方向而不改变长度。
+      每个 \(R(\Delta\tau)V(\boldsymbol\theta_\ell)\) 都属于绝对热迹有限的高斯传播半群；
+      半群闭合性保证任意时间片乘积仍在其中，因而其 Nambu determinant 不能为零。
+    </p>
+  </div>
+
+  <h3>6.7 为什么不能只写一个 Nambu 不定度规条件</h3>
+  <p>
+    配对 Nambu 矩阵的本征值成倒数对出现，所以它在普通欧氏范数下不可能让所有方向同时收缩。
+    某些半群表述会引入不定度规 \(\eta\)，考察
+    \(g^+\eta g-\eta\preceq0\) 或 \(g^+\eta g=\eta\)。这种结构适合组织反射正定性和 determinant 的符号，
+    但单靠它不能推出 \(\det(I-g)\neq0\)：一个保持不定度规的矩阵仍然可能有本征值 \(1\)。
+  </p>
+  <p>
+    所以上面的 pole-free 半群证明特意在完整 Fock 高斯传播上加入“绝对热迹有限”这一条件。
+    它记录了玻色高占据态是否真正受到抑制，正好补上仅靠 Nambu 不定度规无法提供的信息。
+  </p>
+
+  <div class="note">
+    <p><strong>两条证明的关系。</strong></p>
+    <p>
+      第 4 节是逐个不等式展开的直接证明；第 6 节把同一物理机制组织成一个乘法闭合的传播集合。
+      前者最便于逐行核查，后者最适合在 Supplemental Material 中概括“为什么任意多时间片相乘仍安全”。
+      两条路线不是互相独立的物理假设，而是同一严格收敛机制的局部写法与半群写法。
+    </p>
+  </div>
+
+  <h2>7. 两个直观检查</h2>
+
+  <h3>7.1 单空间模的图像</h3>
+  <p>
+    若只有一个空间模，\(U_2\) 相位在重排后的 \((b,c^+)\) Nambu sector 中是整体相位，因而与自由双模传播对易。
+    把所有时间片相位相加为 \(\Theta\)，一圈传播的两个本征值为
+  </p>
+  <div class="scroll">\[
+    \lambda_+=\mathrm e^{\mathrm i\Theta}\mathrm e^{-\beta E},
+    \qquad
+    \lambda_-=\mathrm e^{\mathrm i\Theta}\mathrm e^{+\beta E}.
+  \]</div>
+  <p>
+    当 \(E>0\) 时，一个本征值的模严格小于 \(1\)，另一个严格大于 \(1\)，所以无论 \(\Theta\) 如何都不可能等于 \(1\)。
+    当 \(E=0\) 时，它们落到单位圆上，\(\Theta=0\pmod{2\pi}\) 就会命中极点。这正好显示严格正能隙的重要性。
+  </p>
+  <p>
+    多格点的空间不均匀相位不与 hopping 对易，因此不能把这个单模公式直接套到一般构型；第 4 节的绝对收敛证明才是一般证明。
+  </p>
+
+  <h3>7.2 独立 Nambu 矩阵抽查</h3>
+  <p>
+    为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的共轭 sector：
+  </p>
+  <div class="scroll">\[
+    A_+=
+    \begin{pmatrix}
+      tA_\triangle-\mu I&\Delta I\\
+      -\Delta I&-(tA_\triangle-\mu I)
+    \end{pmatrix},
+    \qquad
+    D_\ell=\operatorname{diag}(\mathrm e^{\mathrm i\theta_{1\ell}},\ldots,
+    \mathrm e^{\mathrm i\theta_{N_s\ell}})\oplus
+    \operatorname{diag}(\mathrm e^{\mathrm i\theta_{1\ell}},\ldots,
+    \mathrm e^{\mathrm i\theta_{N_s\ell}}).
+  \]</div>
+  <p>
+    使用 Fig. 3 的 \(U_2=1,\mu=-5,\beta=4,\Delta\tau=0.01\)，对每个
+    \(\Delta=0,0.05,\ldots,0.30\) 从裸 HS 高斯分布独立抽取 128 个完整相位历史，共 896 个构型。
+  </p>
+
+  <div class="figure-story">
+    <figure>
+      <img src="figures/random_phase_check.png" alt="Random U2 phase history check of distance from Nambu poles">
+      <figcaption>
+        <strong>图 2.</strong>
+        Fig. 3 参数下随机 \(U_2\) 相位历史的独立矩阵抽查。
+        (a) 一圈传播矩阵 \(\mathcal M\) 的本征值到 \(1\) 的最小距离。
+        (b) determinant 矩阵 \(I-\mathcal M\) 的最小奇异值，它直接控制 Green 函数的最大放大倍数。
+        小提琴形状显示每个 \(\Delta\) 的 128 个样本分布；圆点为中位数，方块为样本最小值。
+      </figcaption>
+    </figure>
+    <div class="interpretation">
+      <p>
+        896 个随机构型均未接近机器零。全组最小本征值距离为 \(6.53\times10^{-2}\)，
+        全组最小奇异值为 \(1.17\times10^{-2}\)。随着 pairing 增大，矩阵的非正规性使最小奇异值下降，
+        但它在本次抽查中仍远离双精度舍入尺度。
+      </p>
+      <p>
+        这张图不是对连续构型空间的证明，因为有限随机点不可能覆盖所有相位；它只核对了本文矩阵约定、参数和严格证明的数值表现。
+      </p>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>\(|\Delta|\)</th>
+          <th>\(E_{\min}\)</th>
+          <th>samples</th>
+          <th>min \(\min_j|\lambda_j-1|\)</th>
+          <th>median \(\min_j|\lambda_j-1|\)</th>
+          <th>min \(\sigma_{\min}(I-\mathcal M)\)</th>
+          <th>median \(\sigma_{\min}(I-\mathcal M)\)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0.00</td><td>2.000000</td><td>128</td><td>0.999956</td><td>0.999987</td><td>0.999949</td><td>0.999981</td></tr>
+        <tr><td>0.05</td><td>1.999375</td><td>128</td><td>0.336332</td><td>0.987883</td><td>0.418123</td><td>0.888901</td></tr>
+        <tr><td>0.10</td><td>1.997498</td><td>128</td><td>0.545501</td><td>0.959785</td><td>0.379793</td><td>0.803376</td></tr>
+        <tr><td>0.15</td><td>1.994367</td><td>128</td><td>0.065283</td><td>0.931370</td><td>0.063179</td><td>0.699406</td></tr>
+        <tr><td>0.20</td><td>1.989975</td><td>128</td><td>0.351433</td><td>0.919504</td><td>0.044758</td><td>0.655734</td></tr>
+        <tr><td>0.25</td><td>1.984313</td><td>128</td><td>0.365427</td><td>0.901639</td><td>0.017833</td><td>0.577511</td></tr>
+        <tr><td>0.30</td><td>1.977372</td><td>128</td><td>0.217504</td><td>0.881224</td><td>0.011727</td><td>0.510608</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8. 这如何解释 Fig. 3 没有出现 pole / infinite variance</h2>
+  <p>Fig. 3 同时满足本证明所需的全部条件：</p>
+  <ol>
+    <li>\(3\times3\) 三角格是有限系统，\(L_\tau=400\) 是有限时间片数；</li>
+    <li>\(\epsilon_{\min}=-3,\mu=-5\)，所以 \(\epsilon_{\min}-\mu=2\)；</li>
+    <li>\(|\Delta|\le0.30\)，故 \(E_{\min}\ge1.977>0\)；</li>
+    <li>\(U_1=0\)，没有实指数的 total-density 辅助场；</li>
+    <li>唯一波动的 \(U_2\) 辅助场是单位模相位矩阵。</li>
+  </ol>
+  <p>
+    因此 Fig. 3 没有遇到 pole 并非只是一项经验观察，而是该参数和 HS 分解的结构性结果。
+    原 production 输出还记录了每个 \(\Delta\) 点 \(7.2\times10^8\) 次 \(U_2\) local proposals；
+    local ratio 的平均相位绝对值处于 \(10^{-17}\) 到 \(10^{-15}\) 量级，branch-\(\pi\) 计数均为零。
+    这些是 sign/branch 诊断，不是严格的 pole-distance 测量，但与本证明和 benchmark 的平滑统计行为一致。
+  </p>
+
+  <div class="scope">
+    <p><strong>不要把结论错误推广到 \(U_1<0\) 的情形。</strong></p>
+    <p>
+      \(U_1\) 场产生 \(\exp[\alpha_1\phi(\hat n_b+\hat n_c)]\) 的实指数，\(|\phi|\) 大时可以任意放大高占据数态。
+      它不是幺正相位旋转，第 4 节中 \(\lVert V\rVert=1\) 的关键步骤立即失效。因此本命题直接解释的是
+      Fig. 3 的 \(U_1=0\)、仅 \(U_2\) 波动情形；含 \(U_1\) 的一般模型需要另一个更强的逐构型稳定条件。
+    </p>
+  </div>
+
+  <h2>9. 可放入 Supplemental Material 的命题骨架</h2>
+  <div class="candidate">
+    <p><strong>建议命题。</strong>
+      设有限模玻色二次哈密顿量 \(\hat K_0\) 具有严格正的全部 Bogoliubov 激发能。
+      对有限个虚时间片，令每个 HS 因子为
+      \(\hat V_\ell=\exp[\mathrm i\sum_j\theta_{j\ell}\hat Q_j]\)，其中
+      \(\hat Q_j=\hat Q_j^+\)，\(\theta_{j\ell}\in\mathbb R\)。
+      则任意构型的乘积
+      \(\hat U(\theta)=\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}\hat V_\ell\)
+      具有绝对收敛的 Fock 空间迹。若 \(\mathcal M(\theta)\) 是相应 Nambu 传播矩阵，则
+      \(\det[I-\mathcal M(\theta)]\neq0\)。若全部场只通过有限个单位相位进入
+      \(\mathcal M\)，则在整个构型空间上还有
+      \(\inf_\theta\sigma_{\min}[I-\mathcal M(\theta)]>0\)。
+    </p>
+    <p><strong>证明骨架。</strong>
+      写 \(\hat K_0=E_{\mathrm{vac}}+\sum_aE_a\hat\gamma_a^+\hat\gamma_a\)，\(E_a>0\)。
+      对 \(\hat R=\exp[-\Delta\tau(\hat K_0-E_{\mathrm{vac}})]\)，有
+      \(\lVert\hat R\rVert=1\) 和
+      \(\lVert\hat R\rVert_1=\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}<\infty\)。
+      每个 \(\hat V_\ell\) 幺正，所以 \(\lVert\hat V_\ell\rVert=1\)。
+      于是
+      \(\lVert\prod_\ell\hat R\hat V_\ell\rVert_1\le\lVert\hat R\rVert_1\)，
+      从而普通 Fock 迹有限。配对高斯迹公式随即排除
+      \(\det[I-\mathcal M]=0\)。最后，最小奇异值在有限相位环面上连续且处处为正，故其全局最小值严格为正。
+    </p>
+  </div>
+
+  <p>
+    如果将这段加入 SM，建议放在现有 “Infinite variance and determinant poles” 一节的 pole-free structures 部分，
+    紧接当前关于 number-conserving strict contraction 的讨论之后。它正好给出 paired Nambu 情形所需的不同判据，
+    并可在最后一句直接连接 Fig. 3。
+  </p>
+
+  <h2>10. 复现信息与文件索引</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="text">项目</th><th class="text">内容</th></tr></thead>
+      <tbody>
+        <tr><td>报告</td><td class="text"><code>docs/research_reports/2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html</code></td></tr>
+        <tr><td>复现脚本</td><td class="text"><code>analysis/verify_and_plot.py</code></td></tr>
+        <tr><td>稳定区图</td><td class="text"><code>figures/stability_region.pdf</code> 与 <code>figures/stability_region.png</code></td></tr>
+        <tr><td>随机相位图</td><td class="text"><code>figures/random_phase_check.pdf</code> 与 <code>figures/random_phase_check.png</code></td></tr>
+        <tr><td>随机相位原始表</td><td class="text"><code>tables/random_phase_check.csv</code></td></tr>
+        <tr><td>随机相位汇总表</td><td class="text"><code>tables/random_phase_summary.csv</code></td></tr>
+        <tr><td>Python 环境</td><td class="text"><code>/home/yyk/conda/envs/notebook/bin/python</code>；NumPy 2.3.4，SciPy 1.16.2，Matplotlib 3.10.7</td></tr>
+        <tr><td>复现命令</td><td class="text"><code>/home/yyk/conda/envs/notebook/bin/python docs/research_reports/2026-07-19_u2_pole_free_pairing/analysis/verify_and_plot.py</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="small">
+    本报告没有修改 main.tex、SM.tex 或参考文献。数值抽查使用独立 Python 矩阵构造，不调用 production Fortran 程序；
+    其职责是检查公式和参数实现，不替代逐构型证明。
+  </p>
+</main>
+</body>
+</html>
