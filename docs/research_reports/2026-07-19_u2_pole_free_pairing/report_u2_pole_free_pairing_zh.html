@@ -332,7 +332,7 @@
 
   <h3>3.1 \(\eta\) 只负责区分粒子分量和空穴分量</h3>
   <p class="equation-note">
-    从本节开始，矩阵或普通向量右上角的 \(+\) 表示厄米共轭；写在玻色算符上的 \(+\) 仍表示产生算符。
+    本报告把右上角的 \(+\) 专用于玻色产生算符；矩阵、普通向量及一般算符的共轭转置一律写成 \(\dagger\)。
   </p>
   <p>
     先把 \(b,c\) 两种玻色子在所有格点的湮灭算符排成一列 \(\hat{\boldsymbol a}\)，再组成
@@ -363,9 +363,9 @@
     \end{pmatrix}.
   \]</div>
   <p>
-    物理二次哈密顿量是厄米的，意味着 \(K^+=K\)，而产生一对玻色子的系数与湮灭一对玻色子的系数互为复共轭，
-    即 \(\overline{\Delta'}=\Delta^+\)。因此 \(\eta A\) 的两个对角块各自厄米，两个非对角块互为厄米共轭，
-    从而 \((\eta A)^+=\eta A\)。反过来，\(\eta A\) 厄米也逐块给出这些关系，所以它与二次部分的厄米性等价。
+    物理二次哈密顿量是厄米的，意味着 \(K^\dagger=K\)，而产生一对玻色子的系数与湮灭一对玻色子的系数互为复共轭，
+    即 \(\overline{\Delta'}=\Delta^\dagger\)。因此 \(\eta A\) 的两个对角块各自厄米，两个非对角块互为厄米共轭，
+    从而 \((\eta A)^\dagger=\eta A\)。反过来，\(\eta A\) 厄米也逐块给出这些关系，所以它与二次部分的厄米性等价。
     不影响单体传播的实常数没有写进 \(A\)。
   </p>
 
@@ -374,7 +374,7 @@
     对任意非零 Nambu 振幅 \(x\)，若
   </p>
   <div class="scroll">\[
-    x^+\eta A x>0,
+    x^\dagger\eta A x>0,
     \qquad\text{也就是}\qquad \eta A>0,
   \]</div>
   <p>
@@ -431,7 +431,7 @@
       上面的 \(A\) 表示物理自由哈密顿量的 Nambu 动力学矩阵，虚时间因子是 \(\exp(-tA)\)。
       文章则把每个指数中的完整矩阵直接记为 \(A_\ell\)，所以自由部分是
       \(A_\ell^{(0)}=-\Delta\tau A\)。换用文章的记号后，半群生成条件写成
-      \(\eta A_\ell^{(0)}+(A_\ell^{(0)})^+\eta<0\)。两种写法是同一个条件。
+      \(\eta A_\ell^{(0)}+(A_\ell^{(0)})^\dagger\eta<0\)。两种写法是同一个条件。
     </p>
   </div>
   <p>
@@ -472,25 +472,25 @@
       0&\mathrm i\Theta_\ell^{\mathsf T}
     \end{pmatrix},
     \qquad
-    (\eta B_\ell)^+=-\eta B_\ell.
+    (\eta B_\ell)^\dagger=-\eta B_\ell.
   \]</div>
   <p>
     这就是合作者所说的“\(\eta B_\ell\) 反厄米”。它等价于
-    \(B_\ell^+\eta+\eta B_\ell=0\)。为了看清这个条件对指数矩阵意味着什么，令指数参数从 \(0\) 连续增加到 \(1\)：
+    \(B_\ell^\dagger\eta+\eta B_\ell=0\)。为了看清这个条件对指数矩阵意味着什么，令指数参数从 \(0\) 连续增加到 \(1\)：
   </p>
   <div class="scroll">\[
   \begin{aligned}
     \frac{\mathrm d}{\mathrm ds}
-    \left(\mathrm e^{sB_\ell^+}\eta\mathrm e^{sB_\ell}\right)
-    &=\mathrm e^{sB_\ell^+}
-      (B_\ell^+\eta+\eta B_\ell)
+    \left(\mathrm e^{sB_\ell^\dagger}\eta\mathrm e^{sB_\ell}\right)
+    &=\mathrm e^{sB_\ell^\dagger}
+      (B_\ell^\dagger\eta+\eta B_\ell)
       \mathrm e^{sB_\ell}\\
     &=0.
   \end{aligned}
   \]</div>
   <p>在 \(s=0\) 时括号内是 \(\eta\)，所以在 \(s=1\) 时仍然是 \(\eta\)：</p>
   <div class="scroll">\[
-    P_\ell^+\eta P_\ell=\eta.
+    P_\ell^\dagger\eta P_\ell=\eta.
   \]</div>
   <p>
     因此 \(U_2\) 因子不产生沿 \(\eta\) 度量的收缩或膨胀，只做相位旋转。
@@ -515,18 +515,18 @@
     下面把本文所需的每一步直接证明出来，不要求读者预先熟悉半群理论。
   </p>
   <p>
-    在生成元层面，收缩条件写成 \(\eta X+X^+\eta\le0\)。这个条件对非负倍数和相加保持成立，
+    在生成元层面，收缩条件写成 \(\eta X+X^\dagger\eta\le0\)。这个条件对非负倍数和相加保持成立，
     所以满足它的生成元构成一个“锥”。本文的自由虚时生成元是 \(X=-A\)，因而
-    \(\eta X+X^+\eta=-2\eta A<0\)；\(U_2\) 生成元则满足等号
-    \(\eta B_\ell+B_\ell^+\eta=0\)。将这些生成元取指数并按虚时间顺序相乘，就得到下面的收缩半群。
+    \(\eta X+X^\dagger\eta=-2\eta A<0\)；\(U_2\) 生成元则满足等号
+    \(\eta B_\ell+B_\ell^\dagger\eta=0\)。将这些生成元取指数并按虚时间顺序相乘，就得到下面的收缩半群。
   </p>
   <p>我们把满足</p>
   <div class="scroll">\[
-    M^+\eta M-\eta\le0
+    M^\dagger\eta M-\eta\le0
   \]</div>
   <p>
     的传播矩阵称为 \(\eta\)-收缩。这个不等式的意思是：对任意向量 \(x\)，
-    \(x^+(M^+\eta M-\eta)x\le0\)。若对每个非零 \(x\) 都严格小于零，就称为严格 \(\eta\)-收缩。
+    \(x^\dagger(M^\dagger\eta M-\eta)x\le0\)。若对每个非零 \(x\) 都严格小于零，就称为严格 \(\eta\)-收缩。
   </p>
 
   <div class="proof-flow" aria-label="Proof flow">
@@ -537,7 +537,7 @@
     <div class="arrow">→</div>
     <div class="proof-step">
       <strong>\(U_2\) 相位旋转</strong>
-      \(P_\ell^+\eta P_\ell=\eta\)，所以它只沿收缩区域的边界转动。
+      \(P_\ell^\dagger\eta P_\ell=\eta\)，所以它只沿收缩区域的边界转动。
     </div>
     <div class="arrow">→</div>
     <div class="proof-step">
@@ -551,20 +551,20 @@
   <div class="scroll">\[
   \begin{aligned}
     \frac{\mathrm d}{\mathrm dt}
-    \left[\mathrm e^{-tA^+}\eta\mathrm e^{-tA}\right]
-    &=-\mathrm e^{-tA^+}(A^+\eta+\eta A)\mathrm e^{-tA}\\
-    &=-2\,\mathrm e^{-tA^+}(\eta A)\mathrm e^{-tA}.
+    \left[\mathrm e^{-tA^\dagger}\eta\mathrm e^{-tA}\right]
+    &=-\mathrm e^{-tA^\dagger}(A^\dagger\eta+\eta A)\mathrm e^{-tA}\\
+    &=-2\,\mathrm e^{-tA^\dagger}(\eta A)\mathrm e^{-tA}.
   \end{aligned}
   \]</div>
   <p>
-    第二行用了 \((\eta A)^+=\eta A\)，所以 \(A^+\eta=\eta A\)。
+    第二行用了 \((\eta A)^\dagger=\eta A\)，所以 \(A^\dagger\eta=\eta A\)。
     对任何非零向量 \(x\)，\(\mathrm e^{-tA}x\) 仍然非零；再由 \(\eta A>0\)，可知右边夹在任意非零向量之间都严格为负。
     从 \(t=0\) 积分到一个有限时间片 \(\Delta\tau>0\)，得到
   </p>
   <div class="scroll">\[
-    \mathrm e^{-\Delta\tau A^+}\eta\mathrm e^{-\Delta\tau A}-\eta
+    \mathrm e^{-\Delta\tau A^\dagger}\eta\mathrm e^{-\Delta\tau A}-\eta
     =-2\int_0^{\Delta\tau}\!\mathrm dt\,
-      \mathrm e^{-tA^+}(\eta A)\mathrm e^{-tA}
+      \mathrm e^{-tA^\dagger}(\eta A)\mathrm e^{-tA}
     <0.
   \]</div>
   <p>所以每个自由时间片都是严格 \(\eta\)-收缩。</p>
@@ -587,15 +587,15 @@
 
   <h3>5.2 插入任意 \(U_2\) 相位以后仍然严格收缩</h3>
   <p>
-    第 4 节已经证明 \(P_\ell^+\eta P_\ell=\eta\)。把它放在自由因子右侧，直接得到
+    第 4 节已经证明 \(P_\ell^\dagger\eta P_\ell=\eta\)。把它放在自由因子右侧，直接得到
   </p>
   <div class="scroll">\[
   \begin{aligned}
-    &(\mathrm e^{-\Delta\tau A}P_\ell)^+
+    &(\mathrm e^{-\Delta\tau A}P_\ell)^\dagger
       \eta
       (\mathrm e^{-\Delta\tau A}P_\ell)-\eta\\
-    &\quad=P_\ell^+
-      \left(\mathrm e^{-\Delta\tau A^+}\eta
+    &\quad=P_\ell^\dagger
+      \left(\mathrm e^{-\Delta\tau A^\dagger}\eta
       \mathrm e^{-\Delta\tau A}-\eta\right)P_\ell<0.
   \end{aligned}
   \]</div>
@@ -604,10 +604,10 @@
     若 Trotter 次序把相位因子放在自由因子左侧，同样有
   </p>
   <div class="scroll">\[
-    (P_\ell\mathrm e^{-\Delta\tau A})^+
+    (P_\ell\mathrm e^{-\Delta\tau A})^\dagger
     \eta(P_\ell\mathrm e^{-\Delta\tau A})-\eta
-    =\mathrm e^{-\Delta\tau A^+}
-      (P_\ell^+\eta P_\ell)
+    =\mathrm e^{-\Delta\tau A^\dagger}
+      (P_\ell^\dagger\eta P_\ell)
       \mathrm e^{-\Delta\tau A}-\eta<0.
   \]</div>
   <p>所以证明不依赖自由传播与相位旋转的先后次序，也不要求二者对易。</p>
@@ -616,9 +616,9 @@
   <p>取两个已经满足收缩条件的矩阵 \(M_1,M_2\)。把乘积的收缩量拆开：</p>
   <div class="scroll">\[
   \begin{aligned}
-    &(M_1M_2)^+\eta(M_1M_2)-\eta\\
-    &\quad=M_2^+(M_1^+\eta M_1-\eta)M_2\\
-    &\qquad +(M_2^+\eta M_2-\eta).
+    &(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+    &\quad=M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2\\
+    &\qquad +(M_2^\dagger\eta M_2-\eta).
   \end{aligned}
   \]</div>
   <p>
@@ -632,7 +632,7 @@
   \]</div>
   <p>始终满足</p>
   <div class="scroll">\[
-    \mathcal M(\varphi)^+\eta\mathcal M(\varphi)-\eta<0.
+    \mathcal M(\varphi)^\dagger\eta\mathcal M(\varphi)-\eta<0.
   \]</div>
   <p>
     “满足收缩条件的矩阵相乘后仍满足同一条件”就是这里的半群性质；不需要再引入一个新的抽象集合符号。
@@ -646,14 +646,14 @@
   <p>把这个向量代入严格收缩不等式，左边可以直接算成</p>
   <div class="scroll">\[
   \begin{aligned}
-    v^+\!\left[\mathcal M(\varphi)^+\eta\mathcal M(\varphi)-\eta\right]v
-    &=(\mathcal Mv)^+\eta(\mathcal Mv)-v^+\eta v\\
-    &=(|\lambda|^2-1)v^+\eta v.
+    v^\dagger\!\left[\mathcal M(\varphi)^\dagger\eta\mathcal M(\varphi)-\eta\right]v
+    &=(\mathcal Mv)^\dagger\eta(\mathcal Mv)-v^\dagger\eta v\\
+    &=(|\lambda|^2-1)v^\dagger\eta v.
   \end{aligned}
   \]</div>
   <p>
     严格收缩要求第一行严格小于零。若 \(|\lambda|=1\)，第二行却恰好等于零，无论
-    \(v^+\eta v\) 是正、负还是零，都会产生矛盾。因此
+    \(v^\dagger\eta v\) 是正、负还是零，都会产生矛盾。因此
   </p>
   <div class="scroll">\[
     |\lambda|\ne1
@@ -671,7 +671,7 @@
     <p><strong>半群证明到这里结束。</strong></p>
     <p>
       自由稳定性给出 \(\eta A>0\)，使每个自由虚时间片严格收缩；\(U_2\) 场满足
-      \(P_\ell^+\eta P_\ell=\eta\)，只做保持 \(\eta\) 的相位旋转；收缩条件对矩阵乘法封闭。
+      \(P_\ell^\dagger\eta P_\ell=\eta\)，只做保持 \(\eta\) 的相位旋转；收缩条件对矩阵乘法封闭。
       因此完整传播严格收缩，没有单位圆本征值，也就不可能碰到行列式极点。
     </p>
   </div>
@@ -739,7 +739,7 @@
     指数中是 \(\mathrm i\) 乘以厄米算符，所以 \(\hat P_\ell\) 是幺正的：
   </p>
   <div class="scroll">\[
-    \hat P_\ell^+\hat P_\ell=I,
+    \hat P_\ell^\dagger\hat P_\ell=I,
     \qquad
     \|\hat P_\ell|\psi\rangle\|=\||\psi\rangle\|.
   \]</div>
@@ -771,7 +771,7 @@
   <p><strong>第二个事实：在左右两边乘上不会放大态的算符，奇异值总和不会增加。</strong></p>
   <p>仍从同一个奇异值分解出发：</p>
   <div class="scroll">\[
-    AXB=\sum_rs_r(X)|Au_r\rangle\langle B^+v_r|.
+    AXB=\sum_rs_r(X)|Au_r\rangle\langle B^\dagger v_r|.
   \]</div>
   <p>
     一个秩一算符 \(|p\rangle\langle q|\) 只有一个非零奇异值，其值是
@@ -780,7 +780,7 @@
   <div class="scroll">\[
   \begin{aligned}
     \|AXB\|_{\mathrm{sv}}
-    &\le\sum_rs_r(X)\|Au_r\|\,\|B^+v_r\|\\
+    &\le\sum_rs_r(X)\|Au_r\|\,\|B^\dagger v_r\|\\
     &\le\|A\|\,\|B\|\sum_rs_r(X)\\
     &=\|A\|\,\|X\|_{\mathrm{sv}}\,\|B\|.
   \end{aligned}
@@ -943,8 +943,8 @@
     使用 Fig. 3 的 \(U_2=1,\mu=-5,\beta=4,\Delta\tau=0.01\)，对每个
     \(\Delta=0,0.05,\ldots,0.30\) 从原始 Hubbard--Stratonovich 高斯分布独立抽取 128 个完整相位历史，共 896 个构型。
     脚本还逐个 \(\Delta\) 检查了 \(\eta A>0\)、自由时间片严格满足
-    \(\mathrm e^{-\Delta\tau A^+}\eta\mathrm e^{-\Delta\tau A}-\eta<0\)，以及随机 \(U_2\) 相位矩阵满足
-    \(P_\ell^+\eta P_\ell=\eta\)。
+    \(\mathrm e^{-\Delta\tau A^\dagger}\eta\mathrm e^{-\Delta\tau A}-\eta<0\)，以及随机 \(U_2\) 相位矩阵满足
+    \(P_\ell^\dagger\eta P_\ell=\eta\)。
   </p>
 
   <div class="figure-story">
@@ -1015,7 +1015,7 @@
     <p><strong>不要把结论错误推广到 \(U_1<0\) 的情形。</strong></p>
     <p>
       \(U_1\) 场产生 \(\exp[\alpha_1\phi(\hat n_b+\hat n_c)]\) 的实指数。
-      它的 Nambu 生成元不满足 \(B^+\eta+\eta B=0\)，因此不保持 \(\eta\)；当 \(|\phi|\) 很大时，
+      它的 Nambu 生成元不满足 \(B^\dagger\eta+\eta B=0\)，因此不保持 \(\eta\)；当 \(|\phi|\) 很大时，
       它还会任意放大某些方向。第 4、5 节的关键等式于是失效。本命题直接解释的是 Fig. 3 的
       \(U_1=0\)、仅 \(U_2\) 波动情形；含 \(U_1\) 的一般模型需要另外证明逐构型收缩条件。
     </p>
@@ -1027,23 +1027,23 @@
       令 \(A\) 为有限模自由配对哈密顿量的 Nambu 动力学矩阵，并令
       \(\eta=\operatorname{diag}(I_N,-I_N)\)。假设 \(\eta A>0\)。
       每个 \(U_2\) 辅助场时间片的 Nambu 生成元记为 \(B_\ell\)，并满足
-      \(B_\ell^+\eta+\eta B_\ell=0\)。则对任意有限时间片数和任意实辅助场构型，
+      \(B_\ell^\dagger\eta+\eta B_\ell=0\)。则对任意有限时间片数和任意实辅助场构型，
       有序乘积
       \(\mathcal M=\prod_\ell[\mathrm e^{-\Delta\tau A}\mathrm e^{B_\ell}]\)
-      满足 \(\mathcal M^+\eta\mathcal M-\eta<0\)。因此 \(\mathcal M\) 没有单位圆本征值，特别地
+      满足 \(\mathcal M^\dagger\eta\mathcal M-\eta<0\)。因此 \(\mathcal M\) 没有单位圆本征值，特别地
       \(\det(I_{2N}-\mathcal M)\ne0\)。若辅助场只通过有限个单位相位进入 \(\mathcal M\)，则整个构型空间上还有
       \(\inf\sigma_{\min}(I_{2N}-\mathcal M)>0\)。
     </p>
     <p><strong>证明骨架。</strong>
-      由 \(\eta A>0\) 及 \((\eta A)^+=\eta A\)，积分恒等式
-      \(\mathrm e^{-tA^+}\eta\mathrm e^{-tA}-\eta
-      =-2\int_0^t\mathrm ds\,\mathrm e^{-sA^+}(\eta A)\mathrm e^{-sA}<0\)
-      证明自由因子严格收缩。由 \(B_\ell^+\eta+\eta B_\ell=0\)，有
-      \(\mathrm e^{B_\ell^+}\eta\mathrm e^{B_\ell}=\eta\)。恒等式
-      \((M_1M_2)^+\eta(M_1M_2)-\eta
-      =M_2^+(M_1^+\eta M_1-\eta)M_2+(M_2^+\eta M_2-\eta)\)
+      由 \(\eta A>0\) 及 \((\eta A)^\dagger=\eta A\)，积分恒等式
+      \(\mathrm e^{-tA^\dagger}\eta\mathrm e^{-tA}-\eta
+      =-2\int_0^t\mathrm ds\,\mathrm e^{-sA^\dagger}(\eta A)\mathrm e^{-sA}<0\)
+      证明自由因子严格收缩。由 \(B_\ell^\dagger\eta+\eta B_\ell=0\)，有
+      \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)。恒等式
+      \((M_1M_2)^\dagger\eta(M_1M_2)-\eta
+      =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2+(M_2^\dagger\eta M_2-\eta)\)
       随后证明任意有序乘积仍严格收缩。若 \(\mathcal Mv=\lambda v\) 且 \(|\lambda|=1\)，
-      则 \(v^+(\mathcal M^+\eta\mathcal M-\eta)v=0\)，与严格收缩矛盾。
+      则 \(v^\dagger(\mathcal M^\dagger\eta\mathcal M-\eta)v=0\)，与严格收缩矛盾。
       最后，最小奇异值在有限相位空间上连续且处处为正，故其全局最小值严格为正。
     </p>
   </div>
@@ -1054,7 +1054,7 @@
       \(\hat K_0=E_{\mathrm{vac}}+\sum_aE_a\hat n_a\)，其中所有 \(E_a>0\)。
       对有限个虚时间片，令每个 \(U_2\) 辅助场因子
       \(\hat P_\ell=\exp[\mathrm i\sum_j\theta_{j\ell}\hat Q_j]\)，其中
-      \(\hat Q_j=\hat Q_j^+\) 且 \(\theta_{j\ell}\in\mathbb R\)。则任意构型的算符乘积
+      \(\hat Q_j=\hat Q_j^\dagger\) 且 \(\theta_{j\ell}\in\mathbb R\)。则任意构型的算符乘积
       \(\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell\)
       具有绝对收敛的玻色迹。若 \(\mathcal M\) 是相应 Nambu 传播矩阵，则
       \(\det(I_{2N}-\mathcal M)\ne0\)。若全部辅助场只通过有限个单位相位进入 \(\mathcal M\)，还有
