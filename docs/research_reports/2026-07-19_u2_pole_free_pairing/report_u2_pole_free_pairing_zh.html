@@ -177,11 +177,10 @@
   \]</div>
   <p>
     所以固定辅助场后的 \(U_2\) 因子没有改变任何玻色占据数基矢的振幅，只给不同粒子数态乘上相位。
-    把一个时间片所有格点合并起来，记
+    一个时间片所有格点的因子就是
   </p>
   <div class="scroll">\[
-    \hat V_\ell(\varphi_\ell)
-    =\exp\!\left[
+    \exp\!\left[
       \mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})
     \right].
   \]</div>
@@ -430,8 +429,8 @@
     <p>
       上面的 \(A\) 表示物理自由哈密顿量的 Nambu 动力学矩阵，虚时间因子是 \(\exp(-tA)\)。
       文章则把每个指数中的完整矩阵直接记为 \(A_\ell\)，所以自由部分是
-      \(A_\ell^{(0)}=-\Delta\tau A\)。换用文章的记号后，半群生成条件写成
-      \(\eta A_\ell^{(0)}+(A_\ell^{(0)})^\dagger\eta<0\)。两种写法是同一个条件。
+      \(-\Delta\tau A\)。换用文章的记号后，自由部分左乘 \(\eta\)、再加上共轭转置项的结果小于零。
+      这与本报告的 \(\eta A>0\) 是同一个条件，只是指数中多了负号和时间片宽度。
     </p>
   </div>
   <p>
@@ -451,26 +450,24 @@
     \theta_{i\ell}=\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}\in\mathbb R.
   \]</div>
   <p>
-    在湮灭算符部分，它的系数是实对角矩阵
-    \(\Theta_\ell=\operatorname{diag}(\theta_{1\ell},\ldots,\theta_{N_s\ell},
-    -\theta_{1\ell},\ldots,-\theta_{N_s\ell})\)。相应的 Nambu 指数生成元和相位传播矩阵为
+    按照全局 Nambu 顺序
+    \((b_1,\ldots,b_{N_s},c_1,\ldots,c_{N_s},b_1^+,\ldots,b_{N_s}^+,c_1^+,\ldots,c_{N_s}^+)^{\mathsf T}\)，
+    相应的指数生成元直接写成
   </p>
   <div class="scroll">\[
-    B_\ell=
-    \begin{pmatrix}
-      \mathrm i\Theta_\ell&0\\
-      0&-\mathrm i\Theta_\ell^{\mathsf T}
-    \end{pmatrix},
-    \qquad
-    P_\ell=\mathrm e^{B_\ell}.
+    B_\ell=\mathrm i\,\operatorname{diag}
+    (\theta_{1\ell},\ldots,\theta_{N_s\ell},
+    -\theta_{1\ell},\ldots,-\theta_{N_s\ell},
+    -\theta_{1\ell},\ldots,-\theta_{N_s\ell},
+    \theta_{1\ell},\ldots,\theta_{N_s\ell}).
   \]</div>
-  <p>左乘 \(\eta\) 得到</p>
+  <p>左乘 \(\eta=\operatorname{diag}(I_{2N_s},-I_{2N_s})\) 得到</p>
   <div class="scroll">\[
-    \eta B_\ell=
-    \begin{pmatrix}
-      \mathrm i\Theta_\ell&0\\
-      0&\mathrm i\Theta_\ell^{\mathsf T}
-    \end{pmatrix},
+    \eta B_\ell=\mathrm i\,\operatorname{diag}
+    (\theta_{1\ell},\ldots,\theta_{N_s\ell},
+    -\theta_{1\ell},\ldots,-\theta_{N_s\ell},
+    \theta_{1\ell},\ldots,\theta_{N_s\ell},
+    -\theta_{1\ell},\ldots,-\theta_{N_s\ell}),
     \qquad
     (\eta B_\ell)^\dagger=-\eta B_\ell.
   \]</div>
@@ -490,7 +487,7 @@
   \]</div>
   <p>在 \(s=0\) 时括号内是 \(\eta\)，所以在 \(s=1\) 时仍然是 \(\eta\)：</p>
   <div class="scroll">\[
-    P_\ell^\dagger\eta P_\ell=\eta.
+    \mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta.
   \]</div>
   <p>
     因此 \(U_2\) 因子不产生沿 \(\eta\) 度量的收缩或膨胀，只做相位旋转。
@@ -515,9 +512,10 @@
     下面把本文所需的每一步直接证明出来，不要求读者预先熟悉半群理论。
   </p>
   <p>
-    在生成元层面，收缩条件写成 \(\eta X+X^\dagger\eta\le0\)。这个条件对非负倍数和相加保持成立，
-    所以满足它的生成元构成一个“锥”。本文的自由虚时生成元是 \(X=-A\)，因而
-    \(\eta X+X^\dagger\eta=-2\eta A<0\)；\(U_2\) 生成元则满足等号
+    在生成元层面，收缩条件是“生成元左乘 \(\eta\)，再加上其共轭转置所得项，结果小于等于零”。
+    这个条件对非负倍数和相加保持成立，所以这些生成元形成合作者所说的“锥”。
+    本文的自由虚时生成元是 \(-A\)，对应的左边直接等于 \(-2\eta A<0\)；
+    \(U_2\) 生成元则满足等号
     \(\eta B_\ell+B_\ell^\dagger\eta=0\)。将这些生成元取指数并按虚时间顺序相乘，就得到下面的收缩半群。
   </p>
   <p>我们把满足</p>
@@ -537,7 +535,7 @@
     <div class="arrow">→</div>
     <div class="proof-step">
       <strong>\(U_2\) 相位旋转</strong>
-      \(P_\ell^\dagger\eta P_\ell=\eta\)，所以它只沿收缩区域的边界转动。
+      \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)，所以它只沿收缩区域的边界转动。
     </div>
     <div class="arrow">→</div>
     <div class="proof-step">
@@ -587,16 +585,16 @@
 
   <h3>5.2 插入任意 \(U_2\) 相位以后仍然严格收缩</h3>
   <p>
-    第 4 节已经证明 \(P_\ell^\dagger\eta P_\ell=\eta\)。把它放在自由因子右侧，直接得到
+    第 4 节已经证明 \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)。把相位因子放在自由因子右侧，直接得到
   </p>
   <div class="scroll">\[
   \begin{aligned}
-    &(\mathrm e^{-\Delta\tau A}P_\ell)^\dagger
+    &(\mathrm e^{-\Delta\tau A}\mathrm e^{B_\ell})^\dagger
       \eta
-      (\mathrm e^{-\Delta\tau A}P_\ell)-\eta\\
-    &\quad=P_\ell^\dagger
+      (\mathrm e^{-\Delta\tau A}\mathrm e^{B_\ell})-\eta\\
+    &\quad=\mathrm e^{B_\ell^\dagger}
       \left(\mathrm e^{-\Delta\tau A^\dagger}\eta
-      \mathrm e^{-\Delta\tau A}-\eta\right)P_\ell<0.
+      \mathrm e^{-\Delta\tau A}-\eta\right)\mathrm e^{B_\ell}<0.
   \end{aligned}
   \]</div>
   <p>
@@ -604,13 +602,41 @@
     若 Trotter 次序把相位因子放在自由因子左侧，同样有
   </p>
   <div class="scroll">\[
-    (P_\ell\mathrm e^{-\Delta\tau A})^\dagger
-    \eta(P_\ell\mathrm e^{-\Delta\tau A})-\eta
+    (\mathrm e^{B_\ell}\mathrm e^{-\Delta\tau A})^\dagger
+    \eta(\mathrm e^{B_\ell}\mathrm e^{-\Delta\tau A})-\eta
     =\mathrm e^{-\Delta\tau A^\dagger}
-      (P_\ell^\dagger\eta P_\ell)
+      (\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell})
       \mathrm e^{-\Delta\tau A}-\eta<0.
   \]</div>
-  <p>所以证明不依赖自由传播与相位旋转的先后次序，也不要求二者对易。</p>
+  <div class="note">
+    <p><strong>这里完全没有使用同时对角化。</strong></p>
+    <p>
+      一般的空间非均匀相位 \(\theta_{i\ell}\) 与格点间跃迁不对易，因此通常
+      \([A,B_\ell]\ne0\)。在本文 benchmark 中，由于粒子种类与共轭结构，完整 Nambu 矩阵确实可以预先拆成两个共轭区块；
+      这种固定的粗分块不会使每个区块内的自由跃迁和空间非均匀相位对易，也不能把它们化到同一组独立模上。
+      上面第一条等式为什么仍然成立，可以直接把任意非零向量 \(x\) 代入实际矩阵来看：
+    </p>
+    <div class="scroll">\[
+    \begin{aligned}
+      &x^\dagger\mathrm e^{B_\ell^\dagger}
+      \left(\mathrm e^{-\Delta\tau A^\dagger}\eta
+      \mathrm e^{-\Delta\tau A}-\eta\right)
+      \mathrm e^{B_\ell}x\\
+      &\quad=(\mathrm e^{B_\ell}x)^\dagger
+      \left(\mathrm e^{-\Delta\tau A^\dagger}\eta
+      \mathrm e^{-\Delta\tau A}-\eta\right)
+      (\mathrm e^{B_\ell}x)<0.
+    \end{aligned}
+    \]</div>
+    <p>
+      矩阵指数 \(\mathrm e^{B_\ell}\) 一定可逆，所以 \(x\ne0\) 一定意味着 \(\mathrm e^{B_\ell}x\ne0\)。
+      中间括号对每个非零向量都严格小于零，因而上式仍然严格小于零。
+      相位因子放在左侧时，则直接使用
+      \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)。
+      因而“先自由传播还是先相位旋转都成立”来自上述两个等式，不是来自共同本征基底。
+      即使某个特殊的均匀相位构型恰好与自由部分对易，一般证明也没有使用这个特例。
+    </p>
+  </div>
 
   <h3>5.3 为什么这类矩阵对连续相乘封闭</h3>
   <p>取两个已经满足收缩条件的矩阵 \(M_1,M_2\)。把乘积的收缩量拆开：</p>
@@ -623,12 +649,15 @@
   \]</div>
   <p>
     右边两项都小于等于零，所以乘积仍满足收缩条件。只要其中一个因子严格收缩，并且另一个因子可逆，右边就严格小于零。
-    所有矩阵指数都可逆，而每个时间片都含有严格收缩的自由因子。因此无论 \(U_2\) 场在空间和虚时间上怎样变化，完整乘积
+    所有矩阵指数都可逆，而每个时间片都含有严格收缩的自由因子。
+    这个闭合性同时说明，不仅单个时间片内无论相位因子在左还是在右，结论都成立；
+    任意多个自由因子和相位因子的有序交替乘积也仍然严格收缩。这是对两种不同 Trotter 排列的同一结论，并不是说两个矩阵可以互换。
+    因此无论 \(U_2\) 场在空间和虚时间上怎样变化，完整乘积
   </p>
   <div class="scroll">\[
     \mathcal M(\varphi)
     =\prod_{\ell=1}^{L_\tau}
-      \left[\mathrm e^{-\Delta\tau A}P_\ell(\varphi_\ell)\right]
+      \left[\mathrm e^{-\Delta\tau A}\mathrm e^{B_\ell(\varphi_\ell)}\right]
   \]</div>
   <p>始终满足</p>
   <div class="scroll">\[
@@ -671,7 +700,7 @@
     <p><strong>半群证明到这里结束。</strong></p>
     <p>
       自由稳定性给出 \(\eta A>0\)，使每个自由虚时间片严格收缩；\(U_2\) 场满足
-      \(P_\ell^\dagger\eta P_\ell=\eta\)，只做保持 \(\eta\) 的相位旋转；收缩条件对矩阵乘法封闭。
+      \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)，只做保持 \(\eta\) 的相位旋转；收缩条件对矩阵乘法封闭。
       因此完整传播严格收缩，没有单位圆本征值，也就不可能碰到行列式极点。
     </p>
   </div>
@@ -694,25 +723,22 @@
     去掉不影响收敛性的基态常数，一个自由时间片只有一个明确的物理作用：
   </p>
   <div class="scroll">\[
-    \hat F
-    =\exp\!\left[-\Delta\tau\sum_aE_a\hat n_a\right].
+    \exp\!\left[-\Delta\tau\sum_aE_a\hat n_a\right].
   \]</div>
   <p>
-    这里 \(\hat F\) 是本证明唯一需要长期使用的新记号。在准粒子占据数基底
-    \(|n_1,n_2,\ldots\rangle\) 中，它是对角的，对角元为
+    在准粒子占据数基底 \(|n_1,n_2,\ldots\rangle\) 中，这个自由时间片是对角的，对角元为
   </p>
   <div class="scroll">\[
     \exp\!\left[-\Delta\tau\sum_aE_an_a\right],
     \qquad n_a=0,1,2,\ldots .
   \]</div>
   <p>
-    这些数全都位于 \(0\) 与 \(1\) 之间。由于 \(\hat F\) 是正的厄米算符，它的奇异值就是这些对角元。
-    把全部奇异值相加，等价于把所有玻色占据数组合逐一求和：
+    这些数全都位于 \(0\) 与 \(1\) 之间。由于这个自由时间片是正的厄米算符，它的奇异值就是这些对角元。
+    以下用 \(\|X\|_{\mathrm{sv}}\) 表示算符 \(X\) 的全部奇异值之和。对这个自由时间片，这等价于把所有玻色占据数组合逐一求和：
   </p>
   <div class="scroll">\[
   \begin{aligned}
-    \|\hat F\|_{\mathrm{sv}}
-    &\equiv\sum_r s_r(\hat F)\\
+    \left\|\exp\!\left[-\Delta\tau\sum_aE_a\hat n_a\right]\right\|_{\mathrm{sv}}
     &=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\cdots
       \exp\!\left[-\Delta\tau\sum_aE_an_a\right]\\
     &=\prod_a\left(\sum_{n_a=0}^{\infty}
@@ -729,29 +755,26 @@
   <h3>6.2 \(U_2\) 相位不能放大任何玻色态</h3>
   <p>一个 \(U_2\) 时间片在完整玻色空间中的算符是</p>
   <div class="scroll">\[
-    \hat P_\ell
-    =\exp\!\left[
+    \exp\!\left[
       \mathrm i\sum_i\theta_{i\ell}
       (\hat n_{b,i}-\hat n_{c,i})
     \right].
   \]</div>
   <p>
-    指数中是 \(\mathrm i\) 乘以厄米算符，所以 \(\hat P_\ell\) 是幺正的：
+    指数中是 \(\mathrm i\) 乘以厄米算符，所以这个相位因子是幺正的：
   </p>
   <div class="scroll">\[
-    \hat P_\ell^\dagger\hat P_\ell=I,
-    \qquad
-    \|\hat P_\ell|\psi\rangle\|=\||\psi\rangle\|.
+    \left(\mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}\right)^\dagger
+    \mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}=I.
   \]</div>
   <p>
-    后一个等式说得很直接：无论输入什么归一化玻色态，\(U_2\) 因子都只改变相位或方向，不改变长度。
-    自由因子 \(\hat F\) 的最大本征值是自由准粒子真空对应的 \(1\)，所以它同样不会放大任何态。
+    这个等式说得很直接：无论输入什么归一化玻色态，\(U_2\) 因子都只改变相位或方向，不改变长度。
+    自由时间片的最大本征值是自由准粒子真空对应的 \(1\)，所以它同样不会放大任何态。
   </p>
 
   <h3>6.3 奇异值总和为什么能控制算符乘积</h3>
   <p>
-    对任意算符 \(X\)，把它的奇异值写成 \(s_r(X)\ge0\)，并把总和记为
-    \(\|X\|_{\mathrm{sv}}=\sum_rs_r(X)\)。下面只需要两个事实，而且都可以从奇异值分解直接看出。
+    下面只需要关于上一节所用奇异值总和的两个事实，而且都可以从奇异值分解直接看出。
   </p>
   <p><strong>第一个事实：普通迹的绝对值不超过奇异值总和。</strong></p>
   <p>奇异值分解写成</p>
@@ -769,9 +792,9 @@
   \]</div>
   <p>最后一步只用了两个归一化向量的内积绝对值不超过 \(1\)。</p>
   <p><strong>第二个事实：在左右两边乘上不会放大态的算符，奇异值总和不会增加。</strong></p>
-  <p>仍从同一个奇异值分解出发：</p>
+  <p>用 \(L\) 和 \(R\) 分别表示乘在左侧和右侧的算符。仍从同一个奇异值分解出发：</p>
   <div class="scroll">\[
-    AXB=\sum_rs_r(X)|Au_r\rangle\langle B^\dagger v_r|.
+    LXR=\sum_rs_r(X)|Lu_r\rangle\langle R^\dagger v_r|.
   \]</div>
   <p>
     一个秩一算符 \(|p\rangle\langle q|\) 只有一个非零奇异值，其值是
@@ -779,37 +802,46 @@
   </p>
   <div class="scroll">\[
   \begin{aligned}
-    \|AXB\|_{\mathrm{sv}}
-    &\le\sum_rs_r(X)\|Au_r\|\,\|B^\dagger v_r\|\\
-    &\le\|A\|\,\|B\|\sum_rs_r(X)\\
-    &=\|A\|\,\|X\|_{\mathrm{sv}}\,\|B\|.
+    \|LXR\|_{\mathrm{sv}}
+    &\le\sum_rs_r(X)\|Lu_r\|\,\|R^\dagger v_r\|\\
+    &\le\|L\|\,\|R\|\sum_rs_r(X)\\
+    &=\|L\|\,\|X\|_{\mathrm{sv}}\,\|R\|.
   \end{aligned}
   \]</div>
   <p>
-    这里没有下标的 \(\|A\|\) 是 \(A\) 对任意归一化态的最大放大倍数。
-    因为 \(\hat F\) 和每个 \(\hat P_\ell\) 的最大放大倍数都是 \(1\)，它们乘在左右两侧都不会增加奇异值总和。
+    这里没有下标的 \(\|L\|\) 和 \(\|R\|\) 分别是两个算符对任意归一化态的最大放大倍数。
+    因为自由时间片和每个 \(U_2\) 相位因子的最大放大倍数都是 \(1\)，它们乘在左右两侧都不会增加奇异值总和。
   </p>
 
   <h3>6.4 对任意辅助场历史应用这个界</h3>
   <p>固定全部 \(U_2\) 场后，去掉自由基态常数的完整虚时间算符是</p>
   <div class="scroll">\[
-    \hat F\hat P_{L_\tau}\hat F\hat P_{L_\tau-1}
-    \cdots\hat F\hat P_2\hat F\hat P_1.
+    \mathrm e^{-\Delta\tau\sum_aE_a\hat n_a}
+    \mathrm e^{\mathrm i\sum_i\theta_{iL_\tau}(\hat n_{b,i}-\hat n_{c,i})}
+    \cdots
+    \mathrm e^{-\Delta\tau\sum_aE_a\hat n_a}
+    \mathrm e^{\mathrm i\sum_i\theta_{i1}(\hat n_{b,i}-\hat n_{c,i})}.
   \]</div>
   <p>
-    把其中一个 \(\hat F\) 留在奇异值总和的位置，其他自由因子和相位因子只用最大放大倍数控制。
+    把其中一个自由时间片放在奇异值总和的位置，其他自由时间片和相位因子只用最大放大倍数控制。
     反复使用上一节的第二个事实，得到
   </p>
   <div class="scroll">\[
   \begin{aligned}
     &\left\|
-      \hat F\hat P_{L_\tau}\cdots\hat F\hat P_1
+      \prod_{\ell=1}^{L_\tau}
+      \left[
+        \mathrm e^{-\Delta\tau\sum_aE_a\hat n_a}
+        \mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}
+      \right]
     \right\|_{\mathrm{sv}}\\
     &\quad\le
-      \|\hat F\|_{\mathrm{sv}}
-      \prod_{\ell=2}^{L_\tau}\|\hat F\|
-      \prod_{\ell=1}^{L_\tau}\|\hat P_\ell\|\\
-    &\quad=\|\hat F\|_{\mathrm{sv}}<\infty.
+      \left\|\mathrm e^{-\Delta\tau\sum_aE_a\hat n_a}\right\|_{\mathrm{sv}}
+      \prod_{\ell=2}^{L_\tau}
+      \left\|\mathrm e^{-\Delta\tau\sum_aE_a\hat n_a}\right\|
+      \prod_{\ell=1}^{L_\tau}
+      \left\|\mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}\right\|\\
+    &\quad=\prod_a\frac{1}{1-\mathrm e^{-\Delta\tau E_a}}<\infty.
   \end{aligned}
   \]</div>
   <p>
@@ -821,10 +853,12 @@
     \left|
       \operatorname{Tr}
       \prod_{\ell=1}^{L_\tau}
-      \mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell
+      \mathrm e^{-\Delta\tau\hat K_0}
+      \mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}
     \right|
     \le
-    \mathrm e^{-\beta E_{\mathrm{vac}}}\|\hat F\|_{\mathrm{sv}}<\infty.
+    \mathrm e^{-\beta E_{\mathrm{vac}}}
+    \prod_a\frac{1}{1-\mathrm e^{-\Delta\tau E_a}}<\infty.
   \]</div>
   <p>
     这不是依靠正负或复相位抵消得到的有限值。奇异值总和控制的是绝对大小，所以它证明了逐构型的绝对收敛。
@@ -835,7 +869,8 @@
   <div class="scroll">\[
     \operatorname{Tr}
     \prod_{\ell=1}^{L_\tau}
-      \mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell
+      \mathrm e^{-\Delta\tau\hat K_0}
+      \mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}
     =\exp(\Xi)\det[I-\mathcal M(\varphi)]^{-1/2}.
   \]</div>
   <p>
@@ -925,16 +960,16 @@
 
   <h3>8.2 独立 Nambu 矩阵抽查</h3>
   <p>
-    为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的一对复共轭 Nambu 子空间中的一个：
+    为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的一对复共轭 Nambu 子空间中的一个。
+    脚本在这个子空间中直接使用下列自由生成元和相位矩阵：
   </p>
   <div class="scroll">\[
-    A_+=
     \begin{pmatrix}
       tA_\triangle-\mu I&\Delta I\\
       -\Delta I&-(tA_\triangle-\mu I)
     \end{pmatrix},
     \qquad
-    D_\ell=\operatorname{diag}(\mathrm e^{\mathrm i\theta_{1\ell}},\ldots,
+    \operatorname{diag}(\mathrm e^{\mathrm i\theta_{1\ell}},\ldots,
     \mathrm e^{\mathrm i\theta_{N_s\ell}})\oplus
     \operatorname{diag}(\mathrm e^{\mathrm i\theta_{1\ell}},\ldots,
     \mathrm e^{\mathrm i\theta_{N_s\ell}}).
@@ -944,7 +979,7 @@
     \(\Delta=0,0.05,\ldots,0.30\) 从原始 Hubbard--Stratonovich 高斯分布独立抽取 128 个完整相位历史，共 896 个构型。
     脚本还逐个 \(\Delta\) 检查了 \(\eta A>0\)、自由时间片严格满足
     \(\mathrm e^{-\Delta\tau A^\dagger}\eta\mathrm e^{-\Delta\tau A}-\eta<0\)，以及随机 \(U_2\) 相位矩阵满足
-    \(P_\ell^\dagger\eta P_\ell=\eta\)。
+    \(\mathrm e^{B_\ell^\dagger}\eta\mathrm e^{B_\ell}=\eta\)。
   </p>
 
   <div class="figure-story">
@@ -1052,26 +1087,27 @@
     <p><strong>版本 B：奇异值命题。</strong>
       设有限模自由配对哈密顿量可写成
       \(\hat K_0=E_{\mathrm{vac}}+\sum_aE_a\hat n_a\)，其中所有 \(E_a>0\)。
-      对有限个虚时间片，令每个 \(U_2\) 辅助场因子
-      \(\hat P_\ell=\exp[\mathrm i\sum_j\theta_{j\ell}\hat Q_j]\)，其中
-      \(\hat Q_j=\hat Q_j^\dagger\) 且 \(\theta_{j\ell}\in\mathbb R\)。则任意构型的算符乘积
-      \(\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell\)
+      对有限个虚时间片，每个 \(U_2\) 辅助场因子均为
+      \(\exp[\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]\)，其中 \(\theta_{i\ell}\in\mathbb R\)。
+      则任意构型的算符乘积
+      \(\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}
+      \mathrm e^{\mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})}\)
       具有绝对收敛的玻色迹。若 \(\mathcal M\) 是相应 Nambu 传播矩阵，则
       \(\det(I_{2N}-\mathcal M)\ne0\)。若全部辅助场只通过有限个单位相位进入 \(\mathcal M\)，还有
       \(\inf\sigma_{\min}(I_{2N}-\mathcal M)>0\)。
     </p>
     <p><strong>证明骨架。</strong>
       对去掉基态常数的自由时间片
-      \(\hat F=\exp[-\Delta\tau\sum_aE_a\hat n_a]\)，奇异值总和为
-      \(\|\hat F\|_{\mathrm{sv}}=\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}<\infty\)，
-      最大放大倍数为 \(\|\hat F\|=1\)。每个 \(\hat P_\ell\) 幺正，因此
-      \(\|\hat P_\ell\|=1\)。利用
+      \(\exp[-\Delta\tau\sum_aE_a\hat n_a]\)，奇异值总和为
+      \(\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}<\infty\)，最大放大倍数为 \(1\)。
+      每个 \(U_2\) 相位因子幺正，最大放大倍数也为 \(1\)。利用
       \(|\operatorname{Tr}X|\le\|X\|_{\mathrm{sv}}\) 和
-      \(\|AXB\|_{\mathrm{sv}}\le\|A\|\,\|X\|_{\mathrm{sv}}\,\|B\|\)，可得
-      \(\|\hat F\hat P_{L_\tau}\cdots\hat F\hat P_1\|_{\mathrm{sv}}
-      \le\|\hat F\|_{\mathrm{sv}}<\infty\)。恢复基态常数只乘上有限因子
+      \(\|LXR\|_{\mathrm{sv}}\le\|L\|\,\|X\|_{\mathrm{sv}}\,\|R\|\)，其中 \(L\) 和 \(R\) 是乘在左、右两侧的因子，
+      完整乘积的奇异值总和不超过
+      \(\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}\)，因而有限。恢复基态常数只乘上有限因子
       \(\mathrm e^{-\beta E_{\mathrm{vac}}}\)。配对高斯迹公式随即排除
-      \(\det(I_{2N}-\mathcal M)=0\)。最后由有限相位空间的紧致性得到最小奇异值的严格正下界。
+      \(\det(I_{2N}-\mathcal M)=0\)。最后，有限个单位相位构成的空间有界且包含边界，
+      最小奇异值在其上连续且处处为正，所以它的全局最小值也严格为正。
     </p>
   </div>
 
