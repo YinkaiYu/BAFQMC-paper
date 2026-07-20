@@ -106,7 +106,7 @@
     <div class="meta">
       <div>生成日期：2026-07-19；修订日期：2026-07-20</div>
       <div>对象：文章 Fig. 3 的 paired BAFQMC benchmark，\(U_1=0,\ U_2=1,\ \mu=-5,\ \beta=4\)</div>
-      <div>状态：以 \(\eta\)-收缩半群为主证明 + 独立 Nambu 矩阵抽查</div>
+      <div>状态：\(\eta\)-收缩半群证明 + 奇异值证明 + 独立 Nambu 矩阵抽查</div>
       <div>主要依据：<a href="../../../main.tex">main.tex</a> 与 <a href="../../../SM.tex">SM.tex</a> 中的配对高斯迹公式、\(U_2\) Hubbard--Stratonovich 分解和极点定义</div>
     </div>
   </header>
@@ -128,6 +128,10 @@
       进一步地，因为实辅助场只通过单位复数相位进入传播矩阵，有限构型空间等价于一个紧致的相位空间。
       连续函数 \(\sigma_{\min}[I-\mathcal M(\varphi)]\) 因此具有严格正的全局最小值。
       所以 Green 函数以及由有限个 Green 函数相乘得到的观测量，不会产生由行列式极点引起的无限方差长尾。
+    </p>
+    <p>
+      报告给出两套完整证明。第 5 节直接在有限维 Nambu 矩阵上证明严格 \(\eta\)-收缩；第 6 节从全部玻色占据数的
+      绝对求和出发，用奇异值控制任意交替乘积。两套证明使用相同的物理假设，但强调的物理图像不同。
     </p>
   </div>
 
@@ -672,9 +676,199 @@
     </p>
   </div>
 
-  <h2>6. 为什么还可以排除“无限接近极点”的统计长尾</h2>
+  <h2>6. 第二套证明：用奇异值总和直接控制所有玻色占据数</h2>
   <p>
-    上一节逐构型排除了精确极点。对有限格点数和有限时间片数，还能进一步排除一串构型越来越靠近极点。
+    这套证明不使用 \(\eta\)-度量。它直接回答一个更接近有限温物理的问题：固定任意 \(U_2\) 场以后，
+    对所有玻色占据数的求和是否仍然绝对收敛？若答案是肯定的，配对高斯迹公式就不可能出现行列式极点。
+  </p>
+
+  <h3>6.1 稳定自由传播使高占据数受到指数抑制</h3>
+  <p>第 2 节已经把自由配对哈密顿量写成稳定准粒子的形式：</p>
+  <div class="scroll">\[
+    \hat K_0
+    =E_{\mathrm{vac}}+\sum_a E_a\hat n_a,
+    \qquad E_a>0.
+  \]</div>
+  <p>
+    指标 \(a\) 枚举全部准粒子模；在本文双组分模型中，每个空间模给出两个准粒子模。
+    去掉不影响收敛性的基态常数，一个自由时间片只有一个明确的物理作用：
+  </p>
+  <div class="scroll">\[
+    \hat F
+    =\exp\!\left[-\Delta\tau\sum_aE_a\hat n_a\right].
+  \]</div>
+  <p>
+    这里 \(\hat F\) 是本证明唯一需要长期使用的新记号。在准粒子占据数基底
+    \(|n_1,n_2,\ldots\rangle\) 中，它是对角的，对角元为
+  </p>
+  <div class="scroll">\[
+    \exp\!\left[-\Delta\tau\sum_aE_an_a\right],
+    \qquad n_a=0,1,2,\ldots .
+  \]</div>
+  <p>
+    这些数全都位于 \(0\) 与 \(1\) 之间。由于 \(\hat F\) 是正的厄米算符，它的奇异值就是这些对角元。
+    把全部奇异值相加，等价于把所有玻色占据数组合逐一求和：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \|\hat F\|_{\mathrm{sv}}
+    &\equiv\sum_r s_r(\hat F)\\
+    &=\sum_{n_1=0}^{\infty}\sum_{n_2=0}^{\infty}\cdots
+      \exp\!\left[-\Delta\tau\sum_aE_an_a\right]\\
+    &=\prod_a\left(\sum_{n_a=0}^{\infty}
+      \mathrm e^{-\Delta\tau E_an_a}\right)\\
+    &=\prod_a\frac{1}{1-\mathrm e^{-\Delta\tau E_a}}<\infty.
+  \end{aligned}
+  \]</div>
+  <p>
+    最后一行是有限个收敛等比级数的乘积。严格的 \(E_a>0\) 保证
+    \(0<\mathrm e^{-\Delta\tau E_a}<1\)。若某个 \(E_a=0\)，相应级数变成
+    \(1+1+1+\cdots\)，证明立即失效。这再次显示严格稳定而非半正定的重要性。
+  </p>
+
+  <h3>6.2 \(U_2\) 相位不能放大任何玻色态</h3>
+  <p>一个 \(U_2\) 时间片在完整玻色空间中的算符是</p>
+  <div class="scroll">\[
+    \hat P_\ell
+    =\exp\!\left[
+      \mathrm i\sum_i\theta_{i\ell}
+      (\hat n_{b,i}-\hat n_{c,i})
+    \right].
+  \]</div>
+  <p>
+    指数中是 \(\mathrm i\) 乘以厄米算符，所以 \(\hat P_\ell\) 是幺正的：
+  </p>
+  <div class="scroll">\[
+    \hat P_\ell^+\hat P_\ell=I,
+    \qquad
+    \|\hat P_\ell|\psi\rangle\|=\||\psi\rangle\|.
+  \]</div>
+  <p>
+    后一个等式说得很直接：无论输入什么归一化玻色态，\(U_2\) 因子都只改变相位或方向，不改变长度。
+    自由因子 \(\hat F\) 的最大本征值是自由准粒子真空对应的 \(1\)，所以它同样不会放大任何态。
+  </p>
+
+  <h3>6.3 奇异值总和为什么能控制算符乘积</h3>
+  <p>
+    对任意算符 \(X\)，把它的奇异值写成 \(s_r(X)\ge0\)，并把总和记为
+    \(\|X\|_{\mathrm{sv}}=\sum_rs_r(X)\)。下面只需要两个事实，而且都可以从奇异值分解直接看出。
+  </p>
+  <p><strong>第一个事实：普通迹的绝对值不超过奇异值总和。</strong></p>
+  <p>奇异值分解写成</p>
+  <div class="scroll">\[
+    X=\sum_r s_r(X)|u_r\rangle\langle v_r|,
+  \]</div>
+  <p>其中 \(|u_r\rangle\) 和 \(|v_r\rangle\) 都是归一化向量。因此</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    |\operatorname{Tr}X|
+    &=\left|\sum_rs_r(X)\langle v_r|u_r\rangle\right|\\
+    &\le\sum_rs_r(X)|\langle v_r|u_r\rangle|\\
+    &\le\sum_rs_r(X)=\|X\|_{\mathrm{sv}}.
+  \end{aligned}
+  \]</div>
+  <p>最后一步只用了两个归一化向量的内积绝对值不超过 \(1\)。</p>
+  <p><strong>第二个事实：在左右两边乘上不会放大态的算符，奇异值总和不会增加。</strong></p>
+  <p>仍从同一个奇异值分解出发：</p>
+  <div class="scroll">\[
+    AXB=\sum_rs_r(X)|Au_r\rangle\langle B^+v_r|.
+  \]</div>
+  <p>
+    一个秩一算符 \(|p\rangle\langle q|\) 只有一个非零奇异值，其值是
+    \(\|p\|\,\|q\|\)。再使用奇异值总和对加法的三角不等式，得到
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \|AXB\|_{\mathrm{sv}}
+    &\le\sum_rs_r(X)\|Au_r\|\,\|B^+v_r\|\\
+    &\le\|A\|\,\|B\|\sum_rs_r(X)\\
+    &=\|A\|\,\|X\|_{\mathrm{sv}}\,\|B\|.
+  \end{aligned}
+  \]</div>
+  <p>
+    这里没有下标的 \(\|A\|\) 是 \(A\) 对任意归一化态的最大放大倍数。
+    因为 \(\hat F\) 和每个 \(\hat P_\ell\) 的最大放大倍数都是 \(1\)，它们乘在左右两侧都不会增加奇异值总和。
+  </p>
+
+  <h3>6.4 对任意辅助场历史应用这个界</h3>
+  <p>固定全部 \(U_2\) 场后，去掉自由基态常数的完整虚时间算符是</p>
+  <div class="scroll">\[
+    \hat F\hat P_{L_\tau}\hat F\hat P_{L_\tau-1}
+    \cdots\hat F\hat P_2\hat F\hat P_1.
+  \]</div>
+  <p>
+    把其中一个 \(\hat F\) 留在奇异值总和的位置，其他自由因子和相位因子只用最大放大倍数控制。
+    反复使用上一节的第二个事实，得到
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    &\left\|
+      \hat F\hat P_{L_\tau}\cdots\hat F\hat P_1
+    \right\|_{\mathrm{sv}}\\
+    &\quad\le
+      \|\hat F\|_{\mathrm{sv}}
+      \prod_{\ell=2}^{L_\tau}\|\hat F\|
+      \prod_{\ell=1}^{L_\tau}\|\hat P_\ell\|\\
+    &\quad=\|\hat F\|_{\mathrm{sv}}<\infty.
+  \end{aligned}
+  \]</div>
+  <p>
+    这个推导没有交换任何两个因子，因此不要求 \(U_2\) 相位与跃迁或配对项对易。
+    恢复每个自由时间片的基态常数，只会乘上有限且与辅助场无关的数 \(\mathrm e^{-\beta E_{\mathrm{vac}}}\)。
+    再使用第一个事实，完整玻色迹满足
+  </p>
+  <div class="scroll">\[
+    \left|
+      \operatorname{Tr}
+      \prod_{\ell=1}^{L_\tau}
+      \mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell
+    \right|
+    \le
+    \mathrm e^{-\beta E_{\mathrm{vac}}}\|\hat F\|_{\mathrm{sv}}<\infty.
+  \]</div>
+  <p>
+    这不是依靠正负或复相位抵消得到的有限值。奇异值总和控制的是绝对大小，所以它证明了逐构型的绝对收敛。
+  </p>
+
+  <h3>6.5 从绝对收敛推出没有行列式极点</h3>
+  <p>文章已经推导了同一个二次玻色算符乘积的配对高斯迹公式：</p>
+  <div class="scroll">\[
+    \operatorname{Tr}
+    \prod_{\ell=1}^{L_\tau}
+      \mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell
+    =\exp(\Xi)\det[I-\mathcal M(\varphi)]^{-1/2}.
+  \]</div>
+  <p>
+    \(\exp(\Xi)\) 是由正规排序常数产生的有限非零因子。左边刚刚被证明绝对收敛。
+    若某个辅助场构型满足 \(\det[I-\mathcal M(\varphi)]=0\)，右边必定发散，与左边的有限上界矛盾。因此
+  </p>
+  <div class="scroll">\[
+    \boxed{
+      \det[I-\mathcal M(\varphi)]\ne0
+      \quad\text{for every real }U_2\text{ auxiliary-field configuration.}
+    }
+  \]</div>
+
+  <div class="result">
+    <p><strong>奇异值证明到这里结束。</strong></p>
+    <p>
+      稳定自由传播负责压低高占据态，\(U_2\) 相位因子不能放大任何态，奇异值总和保证这种绝对收敛在任意多次交替相乘后仍然成立。
+      因而固定构型的玻色迹始终有限，行列式分母不可能为零。
+    </p>
+  </div>
+
+  <div class="note">
+    <p><strong>两套证明的侧重点。</strong></p>
+    <p>
+      第 5 节的半群证明完全在有限维 Nambu 矩阵中完成，并得到更强结论：完整传播矩阵没有任何单位圆本征值。
+      本节直接跟踪全部玻色占据数的绝对求和，更容易看出“稳定自由传播压低高占据态、\(U_2\) 只转相位”的有限温物理图像；
+      它为排除极点只需要证明本征值 \(1\) 不出现。两条路线可以在 Supplemental Material 中任选其一，也可以一条作主证、另一条作交叉说明。
+    </p>
+  </div>
+
+  <h2>7. 为什么还可以排除“无限接近极点”的统计长尾</h2>
+  <p>
+    前两节分别逐构型排除了精确极点。对有限格点数和有限时间片数，还能进一步排除一串构型越来越靠近极点。
   </p>
   <p>虽然实辅助场 \(\varphi_{i\ell}\) 没有界，传播矩阵只通过下面的单位复数依赖它：</p>
   <div class="scroll">\[
@@ -688,7 +882,7 @@
     \(\sigma_{\min}[I-\mathcal M]\) 也连续。
   </p>
   <p>
-    第 5 节已经证明它在相位空间的每一点都严格大于零。连续正函数在这个有限相位空间上一定取得最小值，所以
+    第 5 节或第 6 节都已经证明它在相位空间的每一点都严格大于零。连续正函数在这个有限相位空间上一定取得最小值，所以
   </p>
   <div class="scroll">\[
     \min_{\{\,|\mathrm e^{\mathrm i\theta_{i\ell}}|=1\,\}}
@@ -708,9 +902,9 @@
     </p>
   </div>
 
-  <h2>7. 两个直观检查</h2>
+  <h2>8. 两个直观检查</h2>
 
-  <h3>7.1 单空间模的图像</h3>
+  <h3>8.1 单空间模的图像</h3>
   <p>
     若只有一个空间模，\(U_2\) 相位在重排后的 \((b,c^+)\) Nambu 子空间中是整体相位，因而与自由双模传播对易。
     把所有时间片相位相加为 \(\Theta\)，一圈传播的两个本征值为
@@ -729,7 +923,7 @@
     \(\eta\)-收缩半群证明才是一般证明。
   </p>
 
-  <h3>7.2 独立 Nambu 矩阵抽查</h3>
+  <h3>8.2 独立 Nambu 矩阵抽查</h3>
   <p>
     为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的一对复共轭 Nambu 子空间中的一个：
   </p>
@@ -801,7 +995,7 @@
     </table>
   </div>
 
-  <h2>8. 这如何解释 Fig. 3 没有出现 pole / infinite variance</h2>
+  <h2>9. 这如何解释 Fig. 3 没有出现 pole / infinite variance</h2>
   <p>Fig. 3 同时满足本证明所需的全部条件：</p>
   <ol>
     <li>\(3\times3\) 三角格是有限系统，\(L_\tau=400\) 是有限时间片数；</li>
@@ -827,9 +1021,9 @@
     </p>
   </div>
 
-  <h2>9. 可放入 Supplemental Material 的命题骨架</h2>
+  <h2>10. 可放入 Supplemental Material 的两套命题骨架</h2>
   <div class="candidate">
-    <p><strong>建议命题。</strong>
+    <p><strong>版本 A：\(\eta\)-收缩半群命题。</strong>
       令 \(A\) 为有限模自由配对哈密顿量的 Nambu 动力学矩阵，并令
       \(\eta=\operatorname{diag}(I_N,-I_N)\)。假设 \(\eta A>0\)。
       每个 \(U_2\) 辅助场时间片的 Nambu 生成元记为 \(B_\ell\)，并满足
@@ -854,13 +1048,40 @@
     </p>
   </div>
 
+  <div class="candidate">
+    <p><strong>版本 B：奇异值命题。</strong>
+      设有限模自由配对哈密顿量可写成
+      \(\hat K_0=E_{\mathrm{vac}}+\sum_aE_a\hat n_a\)，其中所有 \(E_a>0\)。
+      对有限个虚时间片，令每个 \(U_2\) 辅助场因子
+      \(\hat P_\ell=\exp[\mathrm i\sum_j\theta_{j\ell}\hat Q_j]\)，其中
+      \(\hat Q_j=\hat Q_j^+\) 且 \(\theta_{j\ell}\in\mathbb R\)。则任意构型的算符乘积
+      \(\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}\hat P_\ell\)
+      具有绝对收敛的玻色迹。若 \(\mathcal M\) 是相应 Nambu 传播矩阵，则
+      \(\det(I_{2N}-\mathcal M)\ne0\)。若全部辅助场只通过有限个单位相位进入 \(\mathcal M\)，还有
+      \(\inf\sigma_{\min}(I_{2N}-\mathcal M)>0\)。
+    </p>
+    <p><strong>证明骨架。</strong>
+      对去掉基态常数的自由时间片
+      \(\hat F=\exp[-\Delta\tau\sum_aE_a\hat n_a]\)，奇异值总和为
+      \(\|\hat F\|_{\mathrm{sv}}=\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}<\infty\)，
+      最大放大倍数为 \(\|\hat F\|=1\)。每个 \(\hat P_\ell\) 幺正，因此
+      \(\|\hat P_\ell\|=1\)。利用
+      \(|\operatorname{Tr}X|\le\|X\|_{\mathrm{sv}}\) 和
+      \(\|AXB\|_{\mathrm{sv}}\le\|A\|\,\|X\|_{\mathrm{sv}}\,\|B\|\)，可得
+      \(\|\hat F\hat P_{L_\tau}\cdots\hat F\hat P_1\|_{\mathrm{sv}}
+      \le\|\hat F\|_{\mathrm{sv}}<\infty\)。恢复基态常数只乘上有限因子
+      \(\mathrm e^{-\beta E_{\mathrm{vac}}}\)。配对高斯迹公式随即排除
+      \(\det(I_{2N}-\mathcal M)=0\)。最后由有限相位空间的紧致性得到最小奇异值的严格正下界。
+    </p>
+  </div>
+
   <p>
-    如果将这段加入 SM，建议放在现有 “Infinite variance and determinant poles” 一节的 pole-free structures 部分，
-    紧接当前关于 number-conserving strict contraction 的讨论之后。它给出 paired Nambu 情形所需的 \(\eta\)-收缩判据，
-    并可在最后一句直接连接 Fig. 3。
+    两个版本都适合放在 SM 现有 “Infinite variance and determinant poles” 一节的 pole-free structures 部分，
+    紧接 number-conserving strict contraction 的讨论。版本 A 与现有 semigroup 语言衔接更紧，并给出“没有任何单位圆本征值”的强结论；
+    版本 B 更直接地展示有限温玻色占据数为何收敛。最后一句都可以连接 Fig. 3。
   </p>
 
-  <h2>10. 复现信息与文件索引</h2>
+  <h2>11. 复现信息与文件索引</h2>
   <div class="scroll">
     <table>
       <thead><tr><th class="text">项目</th><th class="text">内容</th></tr></thead>
