@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+from datetime import datetime, timezone
 from pathlib import Path
 
 import matplotlib
@@ -56,7 +57,10 @@ def triangular_adjacency(length: int = 3) -> np.ndarray:
 
 
 def save_figure(fig: plt.Figure, stem: Path) -> None:
-    fig.savefig(stem.with_suffix(".pdf"))
+    fig.savefig(
+        stem.with_suffix(".pdf"),
+        metadata={"CreationDate": datetime(2026, 7, 19, tzinfo=timezone.utc)},
+    )
     fig.savefig(stem.with_suffix(".png"), dpi=300)
     plt.close(fig)
 
@@ -126,6 +130,7 @@ def random_phase_samples() -> list[dict[str, float]]:
     records: list[dict[str, float]] = []
 
     normal_block = adjacency - mu * identity
+    eta_metric = np.diag(np.r_[np.ones(nsite), -np.ones(nsite)])
     for pairing in deltas:
         sector_generator = np.block(
             [
@@ -133,14 +138,26 @@ def random_phase_samples() -> list[dict[str, float]]:
                 [-pairing * identity, -normal_block],
             ]
         )
+        energy_matrix = eta_metric @ sector_generator
+        assert np.allclose(energy_matrix, energy_matrix.conj().T)
+        assert np.linalg.eigvalsh(energy_matrix).min() > 0.0
+
         free_slice = expm(-dtau * sector_generator)
+        free_defect = free_slice.conj().T @ eta_metric @ free_slice - eta_metric
+        assert np.linalg.eigvalsh(free_defect).max() < 0.0
         gap = np.sqrt((np.linalg.eigvalsh(adjacency).min() - mu) ** 2 - pairing**2)
 
         for sample in range(sample_count):
             propagation = np.eye(2 * nsite, dtype=complex)
-            for _ in range(ltau):
+            for time_slice in range(ltau):
                 theta = alpha2 * rng.normal(size=nsite)
                 phase = np.exp(1j * theta)
+                if sample == 0 and time_slice == 0:
+                    phase_matrix = np.diag(np.r_[phase, phase])
+                    assert np.allclose(
+                        phase_matrix.conj().T @ eta_metric @ phase_matrix,
+                        eta_metric,
+                    )
                 # In the (b,c^+) sector, the U2 field multiplies both components
                 # by the same onsite phase. The other sector is its conjugate.
                 propagation = free_slice @ (np.r_[phase, phase][:, None] * propagation)

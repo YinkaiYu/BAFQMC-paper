@@ -104,10 +104,10 @@
   <header>
     <h1>稳定配对传播与 \(U_2\) 辅助场的逐构型无极点证明</h1>
     <div class="meta">
-      <div>生成日期：2026-07-19</div>
+      <div>生成日期：2026-07-19；修订日期：2026-07-20</div>
       <div>对象：文章 Fig. 3 的 paired BAFQMC benchmark，\(U_1=0,\ U_2=1,\ \mu=-5,\ \beta=4\)</div>
-      <div>状态：严格的有限系统证明 + 独立 Nambu 矩阵抽查</div>
-      <div>主要依据：<a href="../../../main.tex">main.tex</a> 与 <a href="../../../SM.tex">SM.tex</a> 中的配对高斯迹公式、\(U_2\) HS 分解和极点定义</div>
+      <div>状态：以 \(\eta\)-收缩半群为主证明 + 独立 Nambu 矩阵抽查</div>
+      <div>主要依据：<a href="../../../main.tex">main.tex</a> 与 <a href="../../../SM.tex">SM.tex</a> 中的配对高斯迹公式、\(U_2\) Hubbard--Stratonovich 分解和极点定义</div>
     </div>
   </header>
 
@@ -119,14 +119,15 @@
   <div class="result">
     <p><strong>结论：可以严格证明，而且结论比“采样时大概遇不到”更强。</strong></p>
     <p>
-      对任意有限格点数、任意有限 Trotter 时间片数，只要完整的自由配对哈密顿量具有严格正的最低准粒子激发能，
-      并且所有辅助场因子都是 \(U_2\) 产生的相位旋转，那么每一个辅助场构型的玻色 Fock 空间求和都绝对收敛。
+      对任意有限格点数、任意有限 Trotter 时间片数，只要完整的自由配对哈密顿量严格稳定，
+      并且所有辅助场因子都是 \(U_2\) 产生的相位旋转，完整 Nambu 传播矩阵就是一个严格的
+      \(\eta\)-收缩。严格收缩矩阵不可能有模等于 \(1\) 的本征值，特别不可能有本征值 \(1\)。
       因而 \(\det[I-\mathcal M(\varphi)]\neq0\)，构型空间中不存在极点。
     </p>
     <p>
       进一步地，因为实辅助场只通过单位复数相位进入传播矩阵，有限构型空间等价于一个紧致的相位空间。
       连续函数 \(\sigma_{\min}[I-\mathcal M(\varphi)]\) 因此具有严格正的全局最小值。
-      所以 Green 函数及其有限阶 Wick 收缩不会产生由 determinant 极点引起的 infinite-variance tail。
+      所以 Green 函数以及由有限个 Green 函数相乘得到的观测量，不会产生由行列式极点引起的无限方差长尾。
     </p>
   </div>
 
@@ -134,7 +135,7 @@
     <p><strong>必须修正一句容易产生歧义的话。</strong></p>
     <p>
       有 pairing 时，“裸单粒子最低能级高于化学势”
-      \(\epsilon_{\min}>\mu\) 本身还不够。本文均匀 onsite pairing 的正确严格条件是
+      \(\epsilon_{\min}>\mu\) 本身还不够。本文均匀格点内配对的正确严格条件是
       \(\epsilon_{\min}-\mu>|\Delta|\)，等价于完整二次哈密顿量的最低 Bogoliubov 激发能严格大于零。
       报告后面会给出一个反例，说明为什么不能漏掉 \(|\Delta|\)。
     </p>
@@ -155,7 +156,7 @@
   \]</div>
   <p>
     \(A_\triangle\) 是三角格最近邻矩阵。这里 \(\hat K_0=\hat H_0-\mu\hat N\) 才是进入 grand-canonical
-    虚时间传播的对象。pairing 的整体相位可以通过一个 flavor 的全局相位变换移走，因此稳定性只依赖
+    虚时间传播的对象。配对强度的整体相位可以通过对其中一种玻色子做全局相位变换移走，因此稳定性只依赖
     \(|\Delta|\)。
   </p>
 
@@ -171,7 +172,7 @@
     \theta_{i\ell}=\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}.
   \]</div>
   <p>
-    所以固定辅助场后的 \(U_2\) 因子没有改变任何 Fock 态的振幅，只给不同粒子数态乘上相位。
+    所以固定辅助场后的 \(U_2\) 因子没有改变任何玻色占据数基矢的振幅，只给不同粒子数态乘上相位。
     把一个时间片所有格点合并起来，记
   </p>
   <div class="scroll">\[
@@ -205,19 +206,19 @@
 
   <h3>2.1 先对角化普通单粒子部分</h3>
   <p>
-    因为本文 benchmark 的 hopping 为实数，\(h\) 是实对称矩阵。取正交矩阵 \(O\)，使
+    因为本文 benchmark 的跃迁矩阵为实数，\(h\) 是实对称矩阵。取正交矩阵 \(O\)，使
   </p>
   <div class="scroll">\[
     O^{\mathsf T}hO=\operatorname{diag}(\xi_1,\ldots,\xi_{N_s}),
     \qquad \xi_\nu=\epsilon_\nu-\mu.
   \]</div>
-  <p>同时变换两个 flavor，</p>
+  <p>同时对 \(b,c\) 两种玻色子做相同变换，</p>
   <div class="scroll">\[
     \hat b_i=\sum_\nu O_{i\nu}\hat b_\nu,
     \qquad
     \hat c_i=\sum_\nu O_{i\nu}\hat c_\nu.
   \]</div>
-  <p>由于 \(O^{\mathsf T}O=I\)，onsite pairing 仍然逐模配对：</p>
+  <p>由于 \(O^{\mathsf T}O=I\)，格点内配对在新基底中仍然逐模配对：</p>
   <div class="scroll">\[
     \sum_i\hat b_i^+\hat c_i^+
     =\sum_{i,\nu,\nu'}O_{i\nu}O_{i\nu'}\hat b_\nu^+\hat c_{\nu'}^+
@@ -323,402 +324,387 @@
     </div>
   </div>
 
-  <h2>3. 第二步：证明 \(U_2\) 场只转相位、不放大振幅</h2>
-  <p>定义每个格点的相对粒子数</p>
-  <div class="scroll">\[
-    \hat Q_i=\hat n_{b,i}-\hat n_{c,i}.
-  \]</div>
+  <h2>3. 把“物理稳定”翻译成一个 Nambu 矩阵不等式</h2>
+
+  <h3>3.1 \(\eta\) 只负责区分粒子分量和空穴分量</h3>
+  <p class="equation-note">
+    从本节开始，矩阵或普通向量右上角的 \(+\) 表示厄米共轭；写在玻色算符上的 \(+\) 仍表示产生算符。
+  </p>
   <p>
-    \(\hat Q_i\) 是厄米算符，\(\theta_{i\ell}\) 是实数，因此
+    先把 \(b,c\) 两种玻色子在所有格点的湮灭算符排成一列 \(\hat{\boldsymbol a}\)，再组成
+    \((\hat{\boldsymbol a},\hat{\boldsymbol a}^+)^{\mathsf T}\)。若湮灭算符一共有 \(N\) 个，定义
   </p>
   <div class="scroll">\[
-    \hat V_\ell^+
-    =\exp\!\left[-\mathrm i\sum_i\theta_{i\ell}\hat Q_i\right]
-    =\hat V_\ell^{-1},
+    \eta=
+    \begin{pmatrix}I_N&0\\0&-I_N\end{pmatrix}.
+  \]</div>
+  <p>
+    上半部分是粒子分量，下半部分是空穴分量，所以 \(\eta\) 给二者相反的符号。
+    它不是文章中表示玻色对易关系的 \(\Omega\)，两者用途不同。
+  </p>
+  <p>按照文章的 Nambu 约定，一个一般的二次生成元写成</p>
+  <div class="scroll">\[
+    A=
+    \begin{pmatrix}
+      K&\Delta\\
+      -\overline{\Delta'}&-K^{\mathsf T}
+    \end{pmatrix}.
+  \]</div>
+  <p>左乘 \(\eta\) 以后，下半块的符号翻转：</p>
+  <div class="scroll">\[
+    \eta A=
+    \begin{pmatrix}
+      K&\Delta\\
+      \overline{\Delta'}&K^{\mathsf T}
+    \end{pmatrix}.
+  \]</div>
+  <p>
+    物理二次哈密顿量是厄米的，意味着 \(K^+=K\)，而产生一对玻色子的系数与湮灭一对玻色子的系数互为复共轭，
+    即 \(\overline{\Delta'}=\Delta^+\)。因此 \(\eta A\) 的两个对角块各自厄米，两个非对角块互为厄米共轭，
+    从而 \((\eta A)^+=\eta A\)。反过来，\(\eta A\) 厄米也逐块给出这些关系，所以它与二次部分的厄米性等价。
+    不影响单体传播的实常数没有写进 \(A\)。
+  </p>
+
+  <h3>3.2 严格正定正是这里需要的物理稳定条件</h3>
+  <p>
+    对任意非零 Nambu 振幅 \(x\)，若
+  </p>
+  <div class="scroll">\[
+    x^+\eta A x>0,
+    \qquad\text{也就是}\qquad \eta A>0,
+  \]</div>
+  <p>
+    那么自由配对哈密顿量沿每一个玻色振幅方向增加能量，没有负能方向，也没有零能方向。
+    这就是本报告使用的“严格物理稳定”。只要求 \(\eta A\ge0\) 仍可能留下零模，而零模的虚时传播本征值正好是 \(1\)，
+    所以半正定不足以排除极点。
+  </p>
+  <p>
+    对本文均匀格点内配对，可在第 2 节的每个空间本征模中直接检查这个条件。
+    将基底重排以后，\(\eta A\) 分成两个相同的 \(2\times2\) 厄米块：
+  </p>
+  <div class="scroll">\[
+    \begin{pmatrix}
+      \epsilon_\nu-\mu&-\Delta\\
+      -\Delta^*&\epsilon_\nu-\mu
+    \end{pmatrix}.
+  \]</div>
+  <p>它的本征值由</p>
+  <div class="scroll">\[
+    \det\!\begin{pmatrix}
+      \epsilon_\nu-\mu-\lambda&-\Delta\\
+      -\Delta^*&\epsilon_\nu-\mu-\lambda
+    \end{pmatrix}
+    =(\epsilon_\nu-\mu-\lambda)^2-|\Delta|^2=0
+  \]</div>
+  <p>给出，即 \(\epsilon_\nu-\mu\pm|\Delta|\)。两者都为正，当且仅当</p>
+  <div class="scroll">\[
+    \epsilon_\nu-\mu>|\Delta|.
+  \]</div>
+  <p>
+    对所有空间模同时成立，就得到第 2 节的条件
+    \(\epsilon_{\min}-\mu>|\Delta|\)。因此合作者所说的 \(\eta A>0\) 在本文模型中确实就是完整的配对稳定条件。
+  </p>
+
+  <h3>3.3 单个自由传播为什么没有单位圆本征值</h3>
+  <p>
+    这一点可以先单独验证。因为 \(\eta A>0\)，它有正定平方根。矩阵 \(A\) 与下面的厄米矩阵相似：
+  </p>
+  <div class="scroll">\[
+    A
+    =(\eta A)^{-1/2}
+    \big[(\eta A)^{1/2}\eta(\eta A)^{1/2}\big]
+    (\eta A)^{1/2}.
+  \]</div>
+  <p>
+    方括号中的矩阵等于自己的厄米共轭，所以本征值全为实数；它还是可逆的，因为 \(\eta A>0\) 和 \(\eta^2=I\)。
+    相似矩阵有相同本征值，因此 \(A\) 的本征值全为非零实数。于是
+    \(\exp(-tA)\) 的本征值都是 \(\exp(-t\varepsilon)\)，其模不可能等于 \(1\)。
+    \(\exp(tA)\) 当然也没有单位圆本征值，但它是反向的膨胀传播；物理虚时间使用的是 \(\exp(-tA)\)。
+  </p>
+  <div class="warning">
+    <p><strong>这里有一个容易混淆的负号。</strong></p>
+    <p>
+      上面的 \(A\) 表示物理自由哈密顿量的 Nambu 动力学矩阵，虚时间因子是 \(\exp(-tA)\)。
+      文章则把每个指数中的完整矩阵直接记为 \(A_\ell\)，所以自由部分是
+      \(A_\ell^{(0)}=-\Delta\tau A\)。换用文章的记号后，半群生成条件写成
+      \(\eta A_\ell^{(0)}+(A_\ell^{(0)})^+\eta<0\)。两种写法是同一个条件。
+    </p>
+  </div>
+  <p>
+    上述本征值论证只处理一个自由因子。实际构型包含许多彼此不对易的自由因子和辅助场因子，不能把各因子的本征值直接相乘。
+    下一节先证明 \(U_2\) 因子保持 \(\eta\)，第 5 节再利用半群闭合性处理完整乘积。
+  </p>
+
+  <h2>4. \(U_2\) 辅助场沿着 \(\eta\)-收缩区域的边界做相位旋转</h2>
+  <p>
+    一个时间片的 \(U_2\) 因子是
+  </p>
+  <div class="scroll">\[
+    \exp\!\left[
+      \mathrm i\sum_i\theta_{i\ell}(\hat n_{b,i}-\hat n_{c,i})
+    \right],
     \qquad
-    \lVert\hat V_\ell|\psi\rangle\rVert
-    =\lVert|\psi\rangle\rVert.
+    \theta_{i\ell}=\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}\in\mathbb R.
   \]</div>
   <p>
-    这就是“单位相位变换”的完整含义：\(\hat V_\ell\) 是长度保持的幺正变换。它可以把一个态混合到别的相位方向，
-    但不能把任何态的范数放大。空间不均匀的 \(\theta_{i\ell}\) 一般不与 hopping 对易；后面的证明不需要对易。
+    在湮灭算符部分，它的系数是实对角矩阵
+    \(\Theta_\ell=\operatorname{diag}(\theta_{1\ell},\ldots,\theta_{N_s\ell},
+    -\theta_{1\ell},\ldots,-\theta_{N_s\ell})\)。相应的 Nambu 指数生成元和相位传播矩阵为
   </p>
-  <p>在代码使用的 onsite Nambu 顺序 \((b,c,b^+,c^+)^{\mathsf T}\) 中，对应的单体矩阵正是</p>
   <div class="scroll">\[
-    D_{i\ell}^{(2)}=
+    B_\ell=
+    \begin{pmatrix}
+      \mathrm i\Theta_\ell&0\\
+      0&-\mathrm i\Theta_\ell^{\mathsf T}
+    \end{pmatrix},
+    \qquad
+    P_\ell=\mathrm e^{B_\ell}.
+  \]</div>
+  <p>左乘 \(\eta\) 得到</p>
+  <div class="scroll">\[
+    \eta B_\ell=
+    \begin{pmatrix}
+      \mathrm i\Theta_\ell&0\\
+      0&\mathrm i\Theta_\ell^{\mathsf T}
+    \end{pmatrix},
+    \qquad
+    (\eta B_\ell)^+=-\eta B_\ell.
+  \]</div>
+  <p>
+    这就是合作者所说的“\(\eta B_\ell\) 反厄米”。它等价于
+    \(B_\ell^+\eta+\eta B_\ell=0\)。为了看清这个条件对指数矩阵意味着什么，令指数参数从 \(0\) 连续增加到 \(1\)：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \frac{\mathrm d}{\mathrm ds}
+    \left(\mathrm e^{sB_\ell^+}\eta\mathrm e^{sB_\ell}\right)
+    &=\mathrm e^{sB_\ell^+}
+      (B_\ell^+\eta+\eta B_\ell)
+      \mathrm e^{sB_\ell}\\
+    &=0.
+  \end{aligned}
+  \]</div>
+  <p>在 \(s=0\) 时括号内是 \(\eta\)，所以在 \(s=1\) 时仍然是 \(\eta\)：</p>
+  <div class="scroll">\[
+    P_\ell^+\eta P_\ell=\eta.
+  \]</div>
+  <p>
+    因此 \(U_2\) 因子不产生沿 \(\eta\) 度量的收缩或膨胀，只做相位旋转。
+    在单格点顺序 \((b,c,b^+,c^+)^{\mathsf T}\) 中，它就是
+  </p>
+  <div class="scroll">\[
     \operatorname{diag}
     \left(
       \mathrm e^{\mathrm i\theta_{i\ell}},
       \mathrm e^{-\mathrm i\theta_{i\ell}},
       \mathrm e^{-\mathrm i\theta_{i\ell}},
       \mathrm e^{\mathrm i\theta_{i\ell}}
-    \right).
+    \right),
   \]</div>
-  <p>四个对角元的模都等于 \(1\)，与文章和 Fortran 实现中的 \(U_2\) 更新矩阵一致。</p>
+  <p>与文章和 production 实现中的 \(U_2\) 更新矩阵完全一致。</p>
 
-  <h2>4. 核心证明：任意相位历史的 Fock 空间求和都绝对收敛</h2>
+  <h2>5. 核心证明：任意多时间片相乘后仍然严格收缩</h2>
+  <p>
+    半群语言在这里做的事情很具体：找出一个对矩阵乘法封闭的传播区域。
+    标准的定义可参见
+    <a href="https://doi.org/10.1103/PhysRevB.110.075146">Z.-C. Wei, Phys. Rev. B 110, 075146 (2024)</a>；
+    下面把本文所需的每一步直接证明出来，不要求读者预先熟悉半群理论。
+  </p>
+  <p>
+    在生成元层面，收缩条件写成 \(\eta X+X^+\eta\le0\)。这个条件对非负倍数和相加保持成立，
+    所以满足它的生成元构成一个“锥”。本文的自由虚时生成元是 \(X=-A\)，因而
+    \(\eta X+X^+\eta=-2\eta A<0\)；\(U_2\) 生成元则满足等号
+    \(\eta B_\ell+B_\ell^+\eta=0\)。将这些生成元取指数并按虚时间顺序相乘，就得到下面的收缩半群。
+  </p>
+  <p>我们把满足</p>
+  <div class="scroll">\[
+    M^+\eta M-\eta\le0
+  \]</div>
+  <p>
+    的传播矩阵称为 \(\eta\)-收缩。这个不等式的意思是：对任意向量 \(x\)，
+    \(x^+(M^+\eta M-\eta)x\le0\)。若对每个非零 \(x\) 都严格小于零，就称为严格 \(\eta\)-收缩。
+  </p>
 
   <div class="proof-flow" aria-label="Proof flow">
     <div class="proof-step">
-      <strong>自由传播</strong>
-      稳定性给出所有 \(E_\nu>0\)，所以所有玻色占据数的热求和收敛。
+      <strong>稳定自由传播</strong>
+      \(\eta A>0\) 使每个有限虚时间自由因子进入严格收缩区域。
     </div>
     <div class="arrow">→</div>
     <div class="proof-step">
-      <strong>\(U_2\) 场</strong>
-      每个 \(\hat V_\ell\) 只转相位，最大放大倍数恰为 \(1\)。
+      <strong>\(U_2\) 相位旋转</strong>
+      \(P_\ell^+\eta P_\ell=\eta\)，所以它只沿收缩区域的边界转动。
     </div>
     <div class="arrow">→</div>
     <div class="proof-step">
       <strong>完整构型</strong>
-      任意交替乘积仍具有有限的绝对热迹，故 Nambu determinant 不可能为零。
+      该区域对乘法封闭，完整传播严格收缩，因而没有单位圆本征值。
     </div>
   </div>
 
-  <h3>4.1 自由热求和为什么有限</h3>
-  <p>把自由基态能量记为</p>
+  <h3>5.1 稳定自由传播进入严格收缩区域</h3>
+  <p>从 \(\eta A>0\) 出发，对自由虚时因子直接求导：</p>
   <div class="scroll">\[
-    E_{\mathrm{vac}}=\sum_\nu(E_\nu-\xi_\nu),
-  \]</div>
-  <p>并把它从哈密顿量中减掉：</p>
-  <div class="scroll">\[
-    \hat K_0-E_{\mathrm{vac}}
-    =\sum_\nu E_\nu
-      (\hat n_{\alpha,\nu}+\hat n_{\beta,\nu})\ge0.
-  \]</div>
-  <p>一个时间片的去常数自由传播记为</p>
-  <div class="scroll">\[
-    \hat R=\mathrm e^{-\Delta\tau(\hat K_0-E_{\mathrm{vac}})}.
+  \begin{aligned}
+    \frac{\mathrm d}{\mathrm dt}
+    \left[\mathrm e^{-tA^+}\eta\mathrm e^{-tA}\right]
+    &=-\mathrm e^{-tA^+}(A^+\eta+\eta A)\mathrm e^{-tA}\\
+    &=-2\,\mathrm e^{-tA^+}(\eta A)\mathrm e^{-tA}.
+  \end{aligned}
   \]</div>
   <p>
-    在准粒子占据数基底中，\(\hat R\) 的对角元都是非负数
-    \(\exp[-\Delta\tau\sum_\nu E_\nu(n_{\alpha,\nu}+n_{\beta,\nu})]\)。
-    把所有占据数组合求和，得到
+    第二行用了 \((\eta A)^+=\eta A\)，所以 \(A^+\eta=\eta A\)。
+    对任何非零向量 \(x\)，\(\mathrm e^{-tA}x\) 仍然非零；再由 \(\eta A>0\)，可知右边夹在任意非零向量之间都严格为负。
+    从 \(t=0\) 积分到一个有限时间片 \(\Delta\tau>0\)，得到
+  </p>
+  <div class="scroll">\[
+    \mathrm e^{-\Delta\tau A^+}\eta\mathrm e^{-\Delta\tau A}-\eta
+    =-2\int_0^{\Delta\tau}\!\mathrm dt\,
+      \mathrm e^{-tA^+}(\eta A)\mathrm e^{-tA}
+    <0.
+  \]</div>
+  <p>所以每个自由时间片都是严格 \(\eta\)-收缩。</p>
+
+  <div class="note">
+    <p><strong>“收缩”不是说所有普通长度都变小。</strong></p>
+    <p>
+      一个稳定单模在准粒子 Nambu 基底中的自由传播是
+      \(\operatorname{diag}(\mathrm e^{-tE},\mathrm e^{tE})\)。粒子方向缩小，倒数配对的空穴方向增大，
+      这正是 Nambu 本征值成倒数对的表现。用 \(\eta=\operatorname{diag}(1,-1)\) 计算却得到
+    </p>
+    <div class="scroll">\[
+      \begin{pmatrix}
+        \mathrm e^{-2tE}-1&0\\
+        0&1-\mathrm e^{2tE}
+      \end{pmatrix}<0.
+    \]</div>
+    <p>因此这里收缩的是带粒子、空穴相反符号的 \(\eta\) 度量，而不是普通欧氏长度。</p>
+  </div>
+
+  <h3>5.2 插入任意 \(U_2\) 相位以后仍然严格收缩</h3>
+  <p>
+    第 4 节已经证明 \(P_\ell^+\eta P_\ell=\eta\)。把它放在自由因子右侧，直接得到
   </p>
   <div class="scroll">\[
   \begin{aligned}
-    Z_R
-    &=\sum_{\{n_{\alpha},n_{\beta}\}}
-      \exp\!\left[-\Delta\tau\sum_\nu E_\nu
-      (n_{\alpha,\nu}+n_{\beta,\nu})\right]\\
-    &=\prod_\nu
-      \left(\sum_{n_{\alpha,\nu}=0}^{\infty}\mathrm e^{-\Delta\tau E_\nu n_{\alpha,\nu}}\right)
-      \left(\sum_{n_{\beta,\nu}=0}^{\infty}\mathrm e^{-\Delta\tau E_\nu n_{\beta,\nu}}\right)\\
-    &=\prod_\nu\frac{1}{(1-\mathrm e^{-\Delta\tau E_\nu})^2}<\infty.
+    &(\mathrm e^{-\Delta\tau A}P_\ell)^+
+      \eta
+      (\mathrm e^{-\Delta\tau A}P_\ell)-\eta\\
+    &\quad=P_\ell^+
+      \left(\mathrm e^{-\Delta\tau A^+}\eta
+      \mathrm e^{-\Delta\tau A}-\eta\right)P_\ell<0.
   \end{aligned}
   \]</div>
-  <p>最后一个不等式只用了 \(E_\nu>0\) 和有限模数 \(N_s\)。</p>
-
-  <h3>4.2 用两个简单的“矩阵绝对大小”事实控制乘积</h3>
   <p>
-    为了不依靠正负抵消来声称收敛，我们需要控制绝对值。对任意算符 \(X\)，把它的所有奇异值
-    \(s_r(X)\ge0\) 相加，记为
+    左右乘一个可逆矩阵不会改变括号内“对所有非零向量都严格为负”的性质。
+    若 Trotter 次序把相位因子放在自由因子左侧，同样有
   </p>
   <div class="scroll">\[
-    \lVert X\rVert_1=\sum_r s_r(X).
+    (P_\ell\mathrm e^{-\Delta\tau A})^+
+    \eta(P_\ell\mathrm e^{-\Delta\tau A})-\eta
+    =\mathrm e^{-\Delta\tau A^+}
+      (P_\ell^+\eta P_\ell)
+      \mathrm e^{-\Delta\tau A}-\eta<0.
   \]</div>
-  <p>这里只用到两个基本事实：</p>
-  <ol>
-    <li>
-      \(|\operatorname{Tr}X|\le\lVert X\rVert_1\)。从奇异值分解
-      \(X=\sum_rs_r|u_r\rangle\langle v_r|\) 出发，
-      \(|\operatorname{Tr}X|\le\sum_rs_r|\langle v_r|u_r\rangle|\le\sum_rs_r\)。
-    </li>
-    <li>
-      \(\lVert AXB\rVert_1\le\lVert A\rVert\,\lVert X\rVert_1\,\lVert B\rVert\)，
-      其中没有下标的 \(\lVert A\rVert\) 是 \(A\) 对任意归一化态的最大放大倍数。
-    </li>
-  </ol>
-  <p class="equation-note">
-    数学文献有时会给 \(\lVert X\rVert_1<\infty\) 另起一个专门名称。本报告不使用这个术语；真正需要的只有上面已经写出的绝对收敛定义和两个不等式。
-  </p>
-  <p>
-    对 \(\hat R\)，最大的对角元是基态对应的 \(1\)，所以
-    \(\lVert\hat R\rVert=1\)；全部奇异值之和正好等于刚才的 \(Z_R\)，所以
-    \(\lVert\hat R\rVert_1=Z_R<\infty\)。对 \(U_2\) 相位旋转，\(\lVert\hat V_\ell\rVert=1\)。
-  </p>
+  <p>所以证明不依赖自由传播与相位旋转的先后次序，也不要求二者对易。</p>
 
-  <h3>4.3 对任意构型应用这个界</h3>
-  <p>固定全部 \(U_2\) 场后，去掉自由基态常数的完整传播算符可以写成</p>
-  <div class="scroll">\[
-    \widetilde U(\varphi)
-    =\hat R\hat V_L\hat R\hat V_{L-1}\cdots\hat R\hat V_1.
-  \]</div>
-  <p>
-    无论这些因子是否对易，反复使用上一节的第二个不等式，都有
-  </p>
+  <h3>5.3 为什么这类矩阵对连续相乘封闭</h3>
+  <p>取两个已经满足收缩条件的矩阵 \(M_1,M_2\)。把乘积的收缩量拆开：</p>
   <div class="scroll">\[
   \begin{aligned}
-    \lVert\widetilde U(\varphi)\rVert_1
-    &\le
-    \lVert\hat R\rVert_1
-    \left(\prod_{\ell=2}^{L}\lVert\hat R\rVert\right)
-    \left(\prod_{\ell=1}^{L}\lVert\hat V_\ell\rVert\right)\\
-    &=Z_R\times1^{L-1}\times1^L=Z_R<\infty.
+    &(M_1M_2)^+\eta(M_1M_2)-\eta\\
+    &\quad=M_2^+(M_1^+\eta M_1-\eta)M_2\\
+    &\qquad +(M_2^+\eta M_2-\eta).
   \end{aligned}
   \]</div>
-  <p>因此完整 Fock 空间求和满足统一的绝对值界</p>
+  <p>
+    右边两项都小于等于零，所以乘积仍满足收缩条件。只要其中一个因子严格收缩，并且另一个因子可逆，右边就严格小于零。
+    所有矩阵指数都可逆，而每个时间片都含有严格收缩的自由因子。因此无论 \(U_2\) 场在空间和虚时间上怎样变化，完整乘积
+  </p>
   <div class="scroll">\[
-    \left|\operatorname{Tr}\widetilde U(\varphi)\right|
-    \le\lVert\widetilde U(\varphi)\rVert_1
-    \le Z_R.
+    \mathcal M(\varphi)
+    =\prod_{\ell=1}^{L_\tau}
+      \left[\mathrm e^{-\Delta\tau A}P_\ell(\varphi_\ell)\right]
   \]</div>
-  <p>恢复每个时间片的基态常数，只多出有限的构型无关因子：</p>
+  <p>始终满足</p>
   <div class="scroll">\[
-    \left|\operatorname{Tr}U(\varphi)\right|
-    \le\mathrm e^{-\beta E_{\mathrm{vac}}}Z_R<\infty.
+    \mathcal M(\varphi)^+\eta\mathcal M(\varphi)-\eta<0.
+  \]</div>
+  <p>
+    “满足收缩条件的矩阵相乘后仍满足同一条件”就是这里的半群性质；不需要再引入一个新的抽象集合符号。
+  </p>
+
+  <h3>5.4 严格收缩为什么排除整个单位圆</h3>
+  <p>假设完整传播矩阵存在本征向量 \(v\ne0\) 和本征值 \(\lambda\)：</p>
+  <div class="scroll">\[
+    \mathcal M(\varphi)v=\lambda v.
+  \]</div>
+  <p>把这个向量代入严格收缩不等式，左边可以直接算成</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    v^+\!\left[\mathcal M(\varphi)^+\eta\mathcal M(\varphi)-\eta\right]v
+    &=(\mathcal Mv)^+\eta(\mathcal Mv)-v^+\eta v\\
+    &=(|\lambda|^2-1)v^+\eta v.
+  \end{aligned}
+  \]</div>
+  <p>
+    严格收缩要求第一行严格小于零。若 \(|\lambda|=1\)，第二行却恰好等于零，无论
+    \(v^+\eta v\) 是正、负还是零，都会产生矛盾。因此
+  </p>
+  <div class="scroll">\[
+    |\lambda|\ne1
+    \qquad\text{for every eigenvalue of }\mathcal M(\varphi).
+  \]</div>
+  <p>极点要求 \(\lambda=1\)，而 \(1\) 位于单位圆上，所以立即得到</p>
+  <div class="scroll">\[
+    \boxed{
+      \det[I-\mathcal M(\varphi)]\ne0
+      \quad\text{for every real }U_2\text{ auxiliary-field configuration.}
+    }
   \]</div>
 
   <div class="result">
-    <p><strong>到这里，逐构型收敛已经证明完毕。</strong></p>
+    <p><strong>半群证明到这里结束。</strong></p>
     <p>
-      证明没有使用 \([\hat V_\ell,\hat K_0]=0\)，没有要求不同时间片的场相同，也没有限制
-      \(\varphi_{i\ell}\) 的大小。唯一用到的是自由配对传播稳定，以及每个 HS 因子是幺正相位旋转。
+      自由稳定性给出 \(\eta A>0\)，使每个自由虚时间片严格收缩；\(U_2\) 场满足
+      \(P_\ell^+\eta P_\ell=\eta\)，只做保持 \(\eta\) 的相位旋转；收缩条件对矩阵乘法封闭。
+      因此完整传播严格收缩，没有单位圆本征值，也就不可能碰到行列式极点。
     </p>
   </div>
 
-  <h3>4.4 从有限 Fock 求和推出 Nambu determinant 不为零</h3>
+  <h2>6. 为什么还可以排除“无限接近极点”的统计长尾</h2>
   <p>
-    \(\widetilde U(\varphi)\) 是二次玻色算符的乘积，文章已经推导其 Nambu 高斯迹公式。对绝对收敛的普通 Fock
-    空间求和，该公式给出
+    上一节逐构型排除了精确极点。对有限格点数和有限时间片数，还能进一步排除一串构型越来越靠近极点。
   </p>
+  <p>虽然实辅助场 \(\varphi_{i\ell}\) 没有界，传播矩阵只通过下面的单位复数依赖它：</p>
   <div class="scroll">\[
-    \operatorname{Tr}U(\varphi)
-    =\exp[\Xi]\det[I-\mathcal M(\varphi)]^{-1/2},
-  \]</div>
-  <p>
-    其中 \(\exp[\Xi]\) 是有限且非零的 normal-ordering 常数。若存在某个构型使
-    \(\det[I-\mathcal M(\varphi)]=0\)，右边就会发散；这与刚刚证明的有限绝对上界矛盾。因此
-  </p>
-  <div class="scroll">\[
-    \boxed{
-      \det[I-\mathcal M(\varphi)]\neq0
-      \quad\text{for every real }U_2\text{ field configuration }\varphi.
-    }
-  \]</div>
-  <p>
-    这一步只关心 determinant 是否为零，不涉及平方根选正支还是负支。本文的 RP 条件另外保证收敛区域内的物理权重非负。
-  </p>
-
-  <h2>5. 为什么还能排除“无限接近极点”的 heavy tail</h2>
-  <p>
-    上一节排除了每一个精确极点。对有限格点和有限时间片，还可以继续证明构型不能无限逼近极点。
-  </p>
-  <p>
-    虽然 \(\varphi_{i\ell}\in\mathbb R\) 没有界，但传播矩阵只依赖相位
-  </p>
-  <div class="scroll">\[
-    z_{i\ell}=\mathrm e^{\mathrm i\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}},
-    \qquad |z_{i\ell}|=1.
-  \]</div>
-  <p>
-    每个 \(z_{i\ell}\) 只在单位圆上取值。有限个单位圆的直积是一个有界而闭合的相位空间。
-    \(\mathcal M\) 是有限个矩阵的乘积，所以随这些相位连续变化。定义
-  </p>
-  <div class="scroll">\[
-    d(\boldsymbol z)=\sigma_{\min}[I-\mathcal M(\boldsymbol z)],
-  \]</div>
-  <p>
-    其中 \(\sigma_{\min}\) 是最小奇异值，也就是 \(I-\mathcal M\) 把归一化向量压缩后的最小长度。
-    已知每一点都没有极点，所以 \(d(\boldsymbol z)>0\)。连续正函数在这个有限相位空间上一定取得最小值，于是存在
-  </p>
-  <div class="scroll">\[
-    \delta_{N_s,L_\tau}(\beta,E_{\min},U_2)>0,
+    \mathrm e^{\mathrm i\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}},
     \qquad
-    d(\boldsymbol z)\ge\delta_{N_s,L_\tau}
-    \quad\text{for all }\boldsymbol z.
-  \]</div>
-  <p>因此</p>
-  <div class="scroll">\[
-    \lVert G(\varphi)\rVert_2
-    =\lVert[I-\mathcal M(\varphi)]^{-1}\Omega\rVert_2
-    \le\delta_{N_s,L_\tau}^{-1}.
+    \left|\mathrm e^{\mathrm i\sqrt{2U_2\Delta\tau}\,\varphi_{i\ell}}\right|=1.
   \]</div>
   <p>
-    有限阶物理观测量是有限个 Green 函数矩阵元的 Wick 收缩，因而也是有界的。若估计量还显式含有有限次辅助场多项式，
-    原始 HS 权重 \(\exp(-\varphi^2/2)\) 的所有多项式矩仍然有限。由此可见，Fig. 3 的有限系统不会出现由
-    determinant pole 产生的 infinite-variance problem。
+    每个相位都在单位圆上。有限个格点和有限个时间片只给出有限个单位圆的直积，这是一个有界且包含其边界的相位空间。
+    完整传播矩阵是有限个矩阵的乘积，因而随这些相位连续变化；
+    \(\sigma_{\min}[I-\mathcal M]\) 也连续。
+  </p>
+  <p>
+    第 5 节已经证明它在相位空间的每一点都严格大于零。连续正函数在这个有限相位空间上一定取得最小值，所以
+  </p>
+  <div class="scroll">\[
+    \min_{\{\,|\mathrm e^{\mathrm i\theta_{i\ell}}|=1\,\}}
+    \sigma_{\min}[I-\mathcal M]>0.
+  \]</div>
+  <p>
+    Green 函数 \([I-\mathcal M]^{-1}\Omega\) 的最大放大倍数就是这个正数的倒数，因此在整个相位空间上一致有界。
+    由 Wick 定理写成有限个 Green 函数乘积的物理观测量也有界。若某个估计量另外显式包含有限次辅助场幂，
+    原始高斯权重 \(\exp(-\varphi^2/2)\) 的相应矩仍然有限。因此 Fig. 3 不会产生由行列式极点引起的无限方差长尾。
   </p>
 
   <div class="scope">
-    <p><strong>这个结论的精确范围。</strong></p>
+    <p><strong>这个结论的范围。</strong></p>
     <p>
-      正下界 \(\delta_{N_s,L_\tau}\) 会依赖系统大小、逆温、自由能隙和时间片数。证明没有声称当
-      \(N_s\to\infty\)、\(\beta\to\infty\) 或 \(E_{\min}\to0\) 时仍存在与这些极限无关的统一下界。
-      它严格覆盖文章 Fig. 3 所使用的有限 \(3\times3\)、有限 \(\beta\)、有限 \(\Delta\tau\) 计算。
-    </p>
-  </div>
-
-  <h2>6. 第二条路线：用虚时间传播半群重新组织证明</h2>
-
-  <h3>6.1 “半群”在这里是什么意思</h3>
-  <p>
-    这里不需要先接受一套抽象数学语言。所谓半群，只要求一类传播算符具有下面的闭合性：
-  </p>
-  <div class="scroll">\[
-    X\ \text{allowed},\quad Y\ \text{allowed}
-    \quad\Longrightarrow\quad
-    XY\ \text{still allowed}.
-  \]</div>
-  <p>
-    它与“群”的差别是：半群不要求每个传播都能安全地倒着走。虚时间传播正是这种情况。
-    稳定哈密顿量向前传播会压低高能、高占据态；它的逆算符却会指数放大这些态，因此通常不能作为有限温玻色传播。
-  </p>
-
-  <h3>6.2 稳定自由哈密顿量生成衰减半群</h3>
-  <p>仍然使用去掉基态常数的正算符</p>
-  <div class="scroll">\[
-    \widetilde K_0
-    =\hat K_0-E_{\mathrm{vac}}
-    =\sum_aE_a\hat\gamma_a^+\hat\gamma_a,
-    \qquad E_a>0,
-  \]</div>
-  <p>其中指标 \(a\) 已经把每个空间模的两个准粒子 flavor 合并在一起。对任意虚时间 \(s\ge0\)，定义</p>
-  <div class="scroll">\[
-    R(s)=\mathrm e^{-s\widetilde K_0}.
-  \]</div>
-  <p>同一个生成元的指数满足</p>
-  <div class="scroll">\[
-    R(s_1)R(s_2)=R(s_1+s_2),
-    \qquad R(0)=I.
-  \]</div>
-  <p>
-    这就是最基本的虚时间传播半群。因为 \(\widetilde K_0\ge0\)，所有本征值
-    \(\mathrm e^{-s\sum_aE_an_a}\) 都不超过 \(1\)，所以
-  </p>
-  <div class="scroll">\[
-    \lVert R(s)\rVert\le1.
-  \]</div>
-  <p>对任何严格正的 \(s\)，高占据态还受到指数抑制，因此奇异值之和为</p>
-  <div class="scroll">\[
-    \lVert R(s)\rVert_1
-    =\prod_a\frac{1}{1-\mathrm e^{-sE_a}}<\infty,
-    \qquad s>0.
-  \]</div>
-  <p>
-    \(s=0\) 时 \(R(0)=I\)，无限维 Fock 空间中 \(\operatorname{Tr}I\) 发散；任意
-    \(s>0\) 则立即进入绝对热迹有限的内部。这正是严格正能隙带来的“热平滑”作用。
-  </p>
-
-  <h3>6.3 \(U_2\) 场生成相位旋转群</h3>
-  <p>把所有格点相位收集成 \(\boldsymbol\theta\)，定义</p>
-  <div class="scroll">\[
-    V(\boldsymbol\theta)
-    =\exp\!\left(\mathrm i\sum_i\theta_iQ_i\right).
-  \]</div>
-  <p>因为不同 \(Q_i\) 彼此对易，</p>
-  <div class="scroll">\[
-    V(\boldsymbol\theta)V(\boldsymbol\theta')
-    =V(\boldsymbol\theta+\boldsymbol\theta'),
-    \qquad
-    V(\boldsymbol\theta)^{-1}=V(-\boldsymbol\theta),
-    \qquad
-    \lVert V(\boldsymbol\theta)\rVert=1.
-  \]</div>
-  <p>
-    所以 \(U_2\) 场本身形成一个相位旋转群。它不提供热衰减，但也不破坏已有的衰减。
-  </p>
-
-  <h3>6.4 定义真正与极点有关的“允许传播半群”</h3>
-  <p>考虑满足下面两个条件的高斯传播算符集合：</p>
-  <div class="scroll">\[
-    \mathfrak S
-    =
-    \left\{
-      X:\ \lVert X\rVert\le1,\quad \lVert X\rVert_1<\infty
-    \right\}.
-  \]</div>
-  <p>
-    第一个条件表示传播不放大任意归一化态，第二个条件表示全部玻色态的绝对热求和有限。
-    现在直接验证乘法闭合。若 \(X,Y\in\mathfrak S\)，则
-  </p>
-  <div class="scroll">\[
-  \begin{aligned}
-    \lVert XY\rVert
-    &\le\lVert X\rVert\,\lVert Y\rVert\le1,\\
-    \lVert XY\rVert_1
-    &\le\lVert X\rVert_1\,\lVert Y\rVert
-    \le\lVert X\rVert_1<\infty.
-  \end{aligned}
-  \]</div>
-  <p>
-    因而 \(XY\in\mathfrak S\)。这一步就是半群证明的核心：绝对热迹有限的收缩传播对连续相乘封闭。
-  </p>
-
-  <h3>6.5 每个 Trotter 时间片和完整构型都留在这个半群内</h3>
-  <p>对任意 \(U_2\) 场，一个去基态常数的时间片是</p>
-  <div class="scroll">\[
-    S_\ell=R(\Delta\tau)V(\boldsymbol\theta_\ell).
-  \]</div>
-  <p>它满足</p>
-  <div class="scroll">\[
-  \begin{aligned}
-    \lVert S_\ell\rVert
-    &\le\lVert R(\Delta\tau)\rVert
-      \lVert V(\boldsymbol\theta_\ell)\rVert\le1,\\
-    \lVert S_\ell\rVert_1
-    &\le\lVert R(\Delta\tau)\rVert_1
-      \lVert V(\boldsymbol\theta_\ell)\rVert
-    =\lVert R(\Delta\tau)\rVert_1<\infty.
-  \end{aligned}
-  \]</div>
-  <p>所以每个 \(S_\ell\in\mathfrak S\)。利用半群的乘法闭合性，完整构型</p>
-  <div class="scroll">\[
-    \widetilde U(\varphi)=S_LS_{L-1}\cdots S_1
-  \]</div>
-  <p>
-    也属于 \(\mathfrak S\)。换句话说，无论每个时间片怎样选择相位，乘积始终留在“全部玻色态绝对求和有限”的传播区域。
-  </p>
-
-  <h3>6.6 从 Fock 传播半群映射到 Nambu 高斯半群</h3>
-  <p>
-    每个 \(S_\ell\) 都是高斯算符，因此它对 Nambu 算符的线性变换由一个矩阵 \(M_\ell\) 表示。
-    算符相乘对应 Nambu 矩阵按同样的虚时间顺序相乘：
-  </p>
-  <div class="scroll">\[
-    S_L\cdots S_1
-    \quad\longmapsto\quad
-    \mathcal M=M_L\cdots M_1.
-  \]</div>
-  <p>
-    因此 \(\mathfrak S\) 中高斯算符的 Nambu 矩阵也形成一个乘法闭合的高斯传播半群。
-    在这个半群内，Fock 空间迹有限；配对高斯迹公式于是要求
-  </p>
-  <div class="scroll">\[
-    \det(I-\mathcal M)\neq0.
-  \]</div>
-  <p>
-    determinant 极点是这个高斯半群的边界：一旦 \(\mathcal M\) 出现本征值 \(1\)，某个玻色方向便不再抑制任意大的占据数，
-    绝对热求和随之失效。稳定自由衰减与任意 \(U_2\) 旋转生成的半群始终在边界以内，所以不能碰到极点。
-  </p>
-
-  <div class="result">
-    <p><strong>半群版本的结论。</strong></p>
-    <p>
-      \(R(\Delta\tau)\) 提供严格的热衰减，\(V(\boldsymbol\theta_\ell)\) 只改变方向而不改变长度。
-      每个 \(R(\Delta\tau)V(\boldsymbol\theta_\ell)\) 都属于绝对热迹有限的高斯传播半群；
-      半群闭合性保证任意时间片乘积仍在其中，因而其 Nambu determinant 不能为零。
-    </p>
-  </div>
-
-  <h3>6.7 为什么不能只写一个 Nambu 不定度规条件</h3>
-  <p>
-    配对 Nambu 矩阵的本征值成倒数对出现，所以它在普通欧氏范数下不可能让所有方向同时收缩。
-    某些半群表述会引入不定度规 \(\eta\)，考察
-    \(g^+\eta g-\eta\preceq0\) 或 \(g^+\eta g=\eta\)。这种结构适合组织反射正定性和 determinant 的符号，
-    但单靠它不能推出 \(\det(I-g)\neq0\)：一个保持不定度规的矩阵仍然可能有本征值 \(1\)。
-  </p>
-  <p>
-    所以上面的 pole-free 半群证明特意在完整 Fock 高斯传播上加入“绝对热迹有限”这一条件。
-    它记录了玻色高占据态是否真正受到抑制，正好补上仅靠 Nambu 不定度规无法提供的信息。
-  </p>
-
-  <div class="note">
-    <p><strong>两条证明的关系。</strong></p>
-    <p>
-      第 4 节是逐个不等式展开的直接证明；第 6 节把同一物理机制组织成一个乘法闭合的传播集合。
-      前者最便于逐行核查，后者最适合在 Supplemental Material 中概括“为什么任意多时间片相乘仍安全”。
-      两条路线不是互相独立的物理假设，而是同一严格收敛机制的局部写法与半群写法。
+      上述正下界会依赖系统大小、逆温、自由能隙和时间片数。证明没有声称在热力学极限、零温极限或能隙闭合极限中仍有同一个统一下界。
+      它严格覆盖 Fig. 3 的有限 \(3\times3\) 格点、有限 \(\beta\) 和有限 \(\Delta\tau\) 计算。
     </p>
   </div>
 
@@ -726,7 +712,7 @@
 
   <h3>7.1 单空间模的图像</h3>
   <p>
-    若只有一个空间模，\(U_2\) 相位在重排后的 \((b,c^+)\) Nambu sector 中是整体相位，因而与自由双模传播对易。
+    若只有一个空间模，\(U_2\) 相位在重排后的 \((b,c^+)\) Nambu 子空间中是整体相位，因而与自由双模传播对易。
     把所有时间片相位相加为 \(\Theta\)，一圈传播的两个本征值为
   </p>
   <div class="scroll">\[
@@ -739,12 +725,13 @@
     当 \(E=0\) 时，它们落到单位圆上，\(\Theta=0\pmod{2\pi}\) 就会命中极点。这正好显示严格正能隙的重要性。
   </p>
   <p>
-    多格点的空间不均匀相位不与 hopping 对易，因此不能把这个单模公式直接套到一般构型；第 4 节的绝对收敛证明才是一般证明。
+    多格点的空间不均匀相位不与格点间跃迁对易，因此不能把这个单模公式直接套到一般构型；第 5 节的
+    \(\eta\)-收缩半群证明才是一般证明。
   </p>
 
   <h3>7.2 独立 Nambu 矩阵抽查</h3>
   <p>
-    为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的共轭 sector：
+    为核对代码层面的矩阵约定，我独立构造了 \(3\times3\) 三角格的一对复共轭 Nambu 子空间中的一个：
   </p>
   <div class="scroll">\[
     A_+=
@@ -760,7 +747,10 @@
   \]</div>
   <p>
     使用 Fig. 3 的 \(U_2=1,\mu=-5,\beta=4,\Delta\tau=0.01\)，对每个
-    \(\Delta=0,0.05,\ldots,0.30\) 从裸 HS 高斯分布独立抽取 128 个完整相位历史，共 896 个构型。
+    \(\Delta=0,0.05,\ldots,0.30\) 从原始 Hubbard--Stratonovich 高斯分布独立抽取 128 个完整相位历史，共 896 个构型。
+    脚本还逐个 \(\Delta\) 检查了 \(\eta A>0\)、自由时间片严格满足
+    \(\mathrm e^{-\Delta\tau A^+}\eta\mathrm e^{-\Delta\tau A}-\eta<0\)，以及随机 \(U_2\) 相位矩阵满足
+    \(P_\ell^+\eta P_\ell=\eta\)。
   </p>
 
   <div class="figure-story">
@@ -770,7 +760,7 @@
         <strong>图 2.</strong>
         Fig. 3 参数下随机 \(U_2\) 相位历史的独立矩阵抽查。
         (a) 一圈传播矩阵 \(\mathcal M\) 的本征值到 \(1\) 的最小距离。
-        (b) determinant 矩阵 \(I-\mathcal M\) 的最小奇异值，它直接控制 Green 函数的最大放大倍数。
+        (b) 行列式中的矩阵 \(I-\mathcal M\) 的最小奇异值，它直接控制 Green 函数的最大放大倍数。
         小提琴形状显示每个 \(\Delta\) 的 128 个样本分布；圆点为中位数，方块为样本最小值。
       </figcaption>
     </figure>
@@ -821,7 +811,7 @@
     <li>唯一波动的 \(U_2\) 辅助场是单位模相位矩阵。</li>
   </ol>
   <p>
-    因此 Fig. 3 没有遇到 pole 并非只是一项经验观察，而是该参数和 HS 分解的结构性结果。
+    因此 Fig. 3 没有遇到 pole 并非只是一项经验观察，而是该参数和 Hubbard--Stratonovich 分解的结构性结果。
     原 production 输出还记录了每个 \(\Delta\) 点 \(7.2\times10^8\) 次 \(U_2\) local proposals；
     local ratio 的平均相位绝对值处于 \(10^{-17}\) 到 \(10^{-15}\) 量级，branch-\(\pi\) 计数均为零。
     这些是 sign/branch 诊断，不是严格的 pole-distance 测量，但与本证明和 benchmark 的平滑统计行为一致。
@@ -830,42 +820,43 @@
   <div class="scope">
     <p><strong>不要把结论错误推广到 \(U_1<0\) 的情形。</strong></p>
     <p>
-      \(U_1\) 场产生 \(\exp[\alpha_1\phi(\hat n_b+\hat n_c)]\) 的实指数，\(|\phi|\) 大时可以任意放大高占据数态。
-      它不是幺正相位旋转，第 4 节中 \(\lVert V\rVert=1\) 的关键步骤立即失效。因此本命题直接解释的是
-      Fig. 3 的 \(U_1=0\)、仅 \(U_2\) 波动情形；含 \(U_1\) 的一般模型需要另一个更强的逐构型稳定条件。
+      \(U_1\) 场产生 \(\exp[\alpha_1\phi(\hat n_b+\hat n_c)]\) 的实指数。
+      它的 Nambu 生成元不满足 \(B^+\eta+\eta B=0\)，因此不保持 \(\eta\)；当 \(|\phi|\) 很大时，
+      它还会任意放大某些方向。第 4、5 节的关键等式于是失效。本命题直接解释的是 Fig. 3 的
+      \(U_1=0\)、仅 \(U_2\) 波动情形；含 \(U_1\) 的一般模型需要另外证明逐构型收缩条件。
     </p>
   </div>
 
   <h2>9. 可放入 Supplemental Material 的命题骨架</h2>
   <div class="candidate">
     <p><strong>建议命题。</strong>
-      设有限模玻色二次哈密顿量 \(\hat K_0\) 具有严格正的全部 Bogoliubov 激发能。
-      对有限个虚时间片，令每个 HS 因子为
-      \(\hat V_\ell=\exp[\mathrm i\sum_j\theta_{j\ell}\hat Q_j]\)，其中
-      \(\hat Q_j=\hat Q_j^+\)，\(\theta_{j\ell}\in\mathbb R\)。
-      则任意构型的乘积
-      \(\hat U(\theta)=\prod_\ell\mathrm e^{-\Delta\tau\hat K_0}\hat V_\ell\)
-      具有绝对收敛的 Fock 空间迹。若 \(\mathcal M(\theta)\) 是相应 Nambu 传播矩阵，则
-      \(\det[I-\mathcal M(\theta)]\neq0\)。若全部场只通过有限个单位相位进入
-      \(\mathcal M\)，则在整个构型空间上还有
-      \(\inf_\theta\sigma_{\min}[I-\mathcal M(\theta)]>0\)。
+      令 \(A\) 为有限模自由配对哈密顿量的 Nambu 动力学矩阵，并令
+      \(\eta=\operatorname{diag}(I_N,-I_N)\)。假设 \(\eta A>0\)。
+      每个 \(U_2\) 辅助场时间片的 Nambu 生成元记为 \(B_\ell\)，并满足
+      \(B_\ell^+\eta+\eta B_\ell=0\)。则对任意有限时间片数和任意实辅助场构型，
+      有序乘积
+      \(\mathcal M=\prod_\ell[\mathrm e^{-\Delta\tau A}\mathrm e^{B_\ell}]\)
+      满足 \(\mathcal M^+\eta\mathcal M-\eta<0\)。因此 \(\mathcal M\) 没有单位圆本征值，特别地
+      \(\det(I_{2N}-\mathcal M)\ne0\)。若辅助场只通过有限个单位相位进入 \(\mathcal M\)，则整个构型空间上还有
+      \(\inf\sigma_{\min}(I_{2N}-\mathcal M)>0\)。
     </p>
     <p><strong>证明骨架。</strong>
-      写 \(\hat K_0=E_{\mathrm{vac}}+\sum_aE_a\hat\gamma_a^+\hat\gamma_a\)，\(E_a>0\)。
-      对 \(\hat R=\exp[-\Delta\tau(\hat K_0-E_{\mathrm{vac}})]\)，有
-      \(\lVert\hat R\rVert=1\) 和
-      \(\lVert\hat R\rVert_1=\prod_a(1-\mathrm e^{-\Delta\tau E_a})^{-1}<\infty\)。
-      每个 \(\hat V_\ell\) 幺正，所以 \(\lVert\hat V_\ell\rVert=1\)。
-      于是
-      \(\lVert\prod_\ell\hat R\hat V_\ell\rVert_1\le\lVert\hat R\rVert_1\)，
-      从而普通 Fock 迹有限。配对高斯迹公式随即排除
-      \(\det[I-\mathcal M]=0\)。最后，最小奇异值在有限相位环面上连续且处处为正，故其全局最小值严格为正。
+      由 \(\eta A>0\) 及 \((\eta A)^+=\eta A\)，积分恒等式
+      \(\mathrm e^{-tA^+}\eta\mathrm e^{-tA}-\eta
+      =-2\int_0^t\mathrm ds\,\mathrm e^{-sA^+}(\eta A)\mathrm e^{-sA}<0\)
+      证明自由因子严格收缩。由 \(B_\ell^+\eta+\eta B_\ell=0\)，有
+      \(\mathrm e^{B_\ell^+}\eta\mathrm e^{B_\ell}=\eta\)。恒等式
+      \((M_1M_2)^+\eta(M_1M_2)-\eta
+      =M_2^+(M_1^+\eta M_1-\eta)M_2+(M_2^+\eta M_2-\eta)\)
+      随后证明任意有序乘积仍严格收缩。若 \(\mathcal Mv=\lambda v\) 且 \(|\lambda|=1\)，
+      则 \(v^+(\mathcal M^+\eta\mathcal M-\eta)v=0\)，与严格收缩矛盾。
+      最后，最小奇异值在有限相位空间上连续且处处为正，故其全局最小值严格为正。
     </p>
   </div>
 
   <p>
     如果将这段加入 SM，建议放在现有 “Infinite variance and determinant poles” 一节的 pole-free structures 部分，
-    紧接当前关于 number-conserving strict contraction 的讨论之后。它正好给出 paired Nambu 情形所需的不同判据，
+    紧接当前关于 number-conserving strict contraction 的讨论之后。它给出 paired Nambu 情形所需的 \(\eta\)-收缩判据，
     并可在最后一句直接连接 Fig. 3。
   </p>
 
