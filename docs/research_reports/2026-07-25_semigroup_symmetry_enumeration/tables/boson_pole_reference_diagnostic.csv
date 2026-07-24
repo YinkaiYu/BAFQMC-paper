@@ -1,0 +1,3 @@
+point,B,P,rho_P,det_I_minus_P,continued_weight,endpoint_pole_free,bare_trace_convergent,same_pole_free_component_as_stable_reference
+stable_reference,-1,0.3678794411714423,0.3678794411714423,0.6321205588285577,0.9595173756674719,1,1,1
+algebraic_other_side,1,2.718281828459045,2.718281828459045,-1.718281828459045,-0.959517375667472,1,0,0

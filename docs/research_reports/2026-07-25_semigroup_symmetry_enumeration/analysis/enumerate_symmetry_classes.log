@@ -1,0 +1,15 @@
+Octave version: 10.3.0
+Random seed: 20260725 (twister)
+Convention: Y = i*sigma_y = [0,1;-1,0]
+boson: 32/32 abstract sign classes have distinct, nonidentity real-Pauli-string witnesses with at most three tensor factors.
+fermion: 32/32 abstract sign classes have distinct, nonidentity real-Pauli-string witnesses with at most three tensor factors.
+Collaborator examples reproduce their stated five signs exactly.
+boson: wrote the eight true eta-contraction sign classes (q2=-tau and r=-s1*s2).
+fermion: wrote the eight true eta-contraction sign classes (q2=-tau and r=-s1*s2).
+Boson reference diagnostic: B=-1 has a convergent positive trace; B=+1 is pole-free only algebraically and has a negative continued weight. The path crosses the pole at B=0.
+boson: scanned all eight corrected eta-maximal-subgroup classes after removing pairing.
+fermion: scanned all eight corrected eta-maximal-subgroup classes after removing pairing.
+Boson s2=+ partner: explicit eta-edge/free and strict-cone generators remain pole-free with a positive closed-form branch weight.
+Boson s2=+ partner quartet: one common eight-dimensional trace-class construction satisfies all four J1 realities.
+Wrote /mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/paper_BAFQMC/docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/../tables/pauli_class_witnesses.csv
+Wrote /mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/paper_BAFQMC/docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/../tables/true_eta_maximal_subgroup_scan.csv

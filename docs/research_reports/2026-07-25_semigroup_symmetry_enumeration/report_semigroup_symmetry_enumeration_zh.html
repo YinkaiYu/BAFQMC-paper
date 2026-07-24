@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>反线性 Z2、收缩半群与无符号条件：32 类穷举和解析分类</title>
+  <style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.72 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 980px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 42px 0 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 27px 0 9px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 20px 0 7px;
+      font-size: 16px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 6px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .equation-note { margin-top: -5px; color: var(--muted); font-size: 14px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.58;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 34px 1fr 34px 1fr;
+      align-items: stretch;
+      gap: 7px;
+      margin: 18px 0 21px;
+    }
+    .flow-step {
+      min-height: 116px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .flow-step strong { display: block; margin-bottom: 5px; color: var(--blue); }
+    .arrow { display: grid; place-items: center; color: var(--muted); font-size: 22px; }
+    table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .source-list li { margin: 8px 0; }
+    .rank {
+      display: inline-block;
+      min-width: 74px;
+      font-weight: 650;
+    }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    mjx-container:not([display="true"]) { display: inline-block; vertical-align: middle; }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 27px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      .flow { grid-template-columns: 1fr; }
+      .arrow { min-height: 22px; transform: rotate(90deg); }
+      table { font-size: 13px; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: {
+          Tr: '\\operatorname{Tr}'
+        }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>反线性 \(Z_2\)、收缩半群与无符号条件：对合作者文稿的逐项审读、32 类穷举和解析分类</h1>
+    <div class="meta">
+      <div>报告日期：2026-07-25</div>
+      <div>审读对象：<a href="../../../experts/ToYinkaiYu.tex">experts/ToYinkaiYu.tex</a></div>
+      <div>关联材料：<a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 的 \(U_2\) 配对无极点报告</a>、<a href="../../../main.tex">main.tex</a>、<a href="../../../SM.tex">SM.tex</a></div>
+      <div>计算环境：GNU Octave 10.3.0，conda-forge 隔离环境 <code>/home/yyk/conda/envs/bafqmc-octave</code></div>
+      <div>证据类型：统一解析筛选、精确有限维反例、32 类 Pauli 穷举、随机诊断和精确 Fock 空间核验</div>
+    </div>
+  </header>
+
+  <p class="lead">
+    合作者抓住了一个重要方向：把“保证权重为实”的反线性结构与“排除零点或极点”的传播半群分开处理，
+    的确比只从 Hamiltonian 的 TRS/RP 名称出发更一般。但是，他消息中的简写命题和
+    <code>ToYinkaiYu.tex</code> 还不是可直接引用的定理。玻色部分可以补成一套
+    \(J_2\)-诱导规范度规下的八类收缩分类；
+    费米部分则把二次型系数 \(gA\) 与实际传播生成元 \(A\) 混在了一起，已有精确反例。
+  </p>
+
+  <div class="summary-grid">
+    <div class="summary-item established">
+      <strong>已经建立</strong>
+      32 个五符号组合都存在实 Pauli 矩阵代表；在
+      \(\eta=-c_{s_2}J_2g\) 这一规范 ansatz 中，严格收缩锥满足
+      \(q_2=-\tau,\ r=-s_1s_2\)，所以玻色和费米各有 8 类。
+    </div>
+    <div class="summary-item corrected">
+      <strong>需要补正</strong>
+      “实且无极点”还必须加上连通的正参考点、沿途 trace/continuation 合法、完整权重连续非零以及
+      operator-fixed 平方根分支，才能推出无符号问题。
+    </div>
+    <div class="summary-item refuted">
+      <strong>已被否定</strong>
+      文稿第 246 行不是 \(e^A\) 的收缩条件。它允许 \(W=2\cos(y/2)\) 从正值经过零变成负值；
+      费米猜测 3、5、6 也有显式负权重反例。
+    </div>
+    <div class="summary-item open">
+      <strong>仍待研究</strong>
+      新的玻色 \(s_2=+1\) 四类已有严格、trace-class 的高斯实现，但尚未构造出一个脱离现有 TRS/RP
+      且具有标准 HS 分解和数值 benchmark 的相互作用模型。
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="目录">
+    <a href="#message">1. 合作者消息到底在说什么</a>
+    <a href="#objects">2. 先区分四个数学对象</a>
+    <a href="#toy-first">3. 文稿第一节逐项解读</a>
+    <a href="#toy-second">4. 文稿第二节的通用框架</a>
+    <a href="#classification">5. 32 类的统一解析分类</a>
+    <a href="#positivity">6. 从半群到无符号的完整证明</a>
+    <a href="#boson-partners">7. 玻色遗漏四类与配对实现</a>
+    <a href="#octave">8. Octave 穷举：补完第三节</a>
+    <a href="#fermion">9. 费米部分的错误与反例</a>
+    <a href="#benchmark">10. 对当前 \(U_2\) benchmark 的含义</a>
+    <a href="#manuscript">11. 对文章的影响和修改建议</a>
+    <a href="#open">12. 结论边界与下一步研究</a>
+    <a href="#reproduce">13. 可复现性与文件索引</a>
+  </nav>
+
+  <figure>
+    <img src="figures/boson_32_class_filter.png"
+         alt="玻色 32 个符号组合经过解析条件筛选后只剩八类，其中四类是文稿已列出的类，四类是新伙伴类">
+    <figcaption>
+      <strong>图 1｜玻色 32 类的解析筛选。</strong>
+      每个格点对应 \((s_1,q_1,s_2,q_2,r)\) 的一种组合。对由 \(J_2\) 诱导的规范度规，严格收缩锥要求
+      \(q_2=+1\) 和 \(r=-s_1s_2\)。蓝色四格是文稿第 222--235 行列出的 \(s_2=-1\)
+      四类；绿色四格是必须令度规带因子 \(i\) 才能看到的 \(s_2=+1\) 伙伴类。
+      灰色组合可以有矩阵代表，但没有与第一反线性结构兼容的规范 \(\eta\)-收缩内部；
+      这张图不排除另选与 \(J_2\) 无关的度规或其他无符号机制。
+    </figcaption>
+  </figure>
+
+  <section id="message">
+    <h2>1. 合作者消息到底在说什么</h2>
+
+    <h3>1.1 “没有极点 + 实权重”这句话的正确版本</h3>
+    <p>
+      他的物理直觉是：一个连续实函数若从正参考点出发，而且沿途既不为零也不发散，就不能改变符号。
+      对玻色高斯迹，符号翻转的主要障碍是
+      \(\det(I-M)=0\) 的极点；对费米高斯迹，障碍是 \(\det(I+M)=0\) 的零点。
+      因而，把“现实性”和“排除单位圆特殊本征值”分给两个不同结构来负责，是合理的研究纲领。
+    </p>
+    <div class="correction">
+      <strong>但原话缺少四项假设。</strong>
+      构型域必须与一个正的物理参考点路径连通；完整 Fock 迹必须存在，或者 continuation/regulator
+      已被单独证明合法；正规序标量不能带来零点或相位跳变；Nambu 行列式平方根必须沿
+      metaplectic/spin 的算符分支连续延拓。只知道某个端点“行列式实且非零”并不够。
+    </div>
+
+    <h3>1.2 “一个 \(Z_2\) reflection symmetry 就够了”是什么意思</h3>
+    <p>
+      这里的 reflection symmetry 应理解为一个实正交矩阵 \(J_1\) 与复共轭 \(K\) 组成的反线性结构
+      \(J_1K\)，它使传播生成元满足 \(J_1^TAJ_1=\bar A\)，从而把传播谱和行列式配成复共轭。
+      它直接保证传播行列式的 radicand 为实；完整权重是否为实还要检查正规序标量和
+      operator lift。它不等于文章目前使用的 reflection positivity。
+    </p>
+    <p>
+      文章中的 RP 还要求跨反射面的耦合属于一个正锥，或者可写成反射成对的算符平方；这个“positivity”
+      部分才直接保证迹非负。单个反线性 reflection 只保证现实性，不能单独排除负号。
+      同样，\(J^2=-I\) 表示反线性算符的平方为 \(-1\)，严格说不是向量空间上的普通 \(Z_2\) 表示；
+      只有其对矩阵的共轭作用是二次作用后回到原点。
+    </p>
+
+    <h3>1.3 “半群通常成对出现”对应什么新发现</h3>
+    <p>
+      合作者已经写出 \(s_2=-1\) 的四类，此时 \(J_2g\) 本身是 Hermitian involution。
+      对称的伙伴是 \(s_2=+1\)：此时 \(J_2g\) 是实反对称矩阵，必须改用
+      \(\eta=-iJ_2g\)。这一处因子 \(i\) 正好产生另外四类。换句话说，“成对出现”的猜想在玻色
+      32 类中确实实现了，但配对不是简单复制，而是由度规的 Hermiticity 决定。
+    </p>
+
+    <h3>1.4 “\(h\) 的对称性由 \(gA\) 决定，符号问题由 \(A\) 决定”是关键提醒</h3>
+    <p>
+      二次算符写作 \(h=\frac12\chi^TgA\chi\)。矩阵 \(gA\) 是算符的二次型系数，
+      \(A\) 才是 Heisenberg/Nambu 传播 \(e^A\) 的生成元。一个 \(J\) 可以把 \(gA\) 映成
+      \(-\overline{gA}\)，同时仍把 \(A\) 映成 \(\bar A\)。前者是 Hamiltonian 的“反对称”，
+      后者仍可保证传播行列式为实。这个区别是正确的，也是非 Hermitian 类可以出现的原因。
+    </p>
+    <p>
+      但这个提醒必须贯彻到底：费米第 246 行恰恰对 \(gA\) 施加了 Wei 型不等式，却用 \(e^A\)
+      计算权重。降指标 \(A\mapsto gA\) 不是相似变换，不能把 \(e^{gA}\) 的半群结论搬给 \(e^A\)。
+    </p>
+
+    <h3>1.5 “去掉 pairing，只检验 maximal subgroup”为什么不够</h3>
+    <p>
+      这可以作为快速寻找矩阵代表、检查 reality 子空间的计算策略，但不能证明无极点或无符号。
+      maximal subgroup 是收缩锥的边界，含有恒等传播；对玻色子 \(M=I\) 本身就是极点。
+      更重要的是，本报告发现的 \(s_2=+1\) 四个伙伴类要进入严格收缩内部，必须含 pairing。
+      先去掉 pairing 会恰好删掉新结构最关键的方向。
+    </p>
+  </section>
+
+  <section id="objects">
+    <h2>2. 先区分四个数学对象</h2>
+
+    <p>统一写成</p>
+    <div class="scroll">\[
+      g^T=\tau g,\qquad g^2=\tau I,\qquad
+      \tau=-1\ {\rm (boson)},\quad \tau=+1\ {\rm (fermion)},
+    \]</div>
+    <div class="scroll">\[
+      h_\ell=\frac12\chi^TgA_\ell\chi,\qquad
+      gA_\ell+A_\ell^Tg=0,\qquad
+      M=\prod_\ell e^{A_\ell}.
+    \]</div>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>对象</th>
+            <th>作用</th>
+            <th>不能与什么混同</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(gA\)</td>
+            <td>二次算符 \(h\) 的系数；玻色时对称，费米时反对称</td>
+            <td>不是一般意义下 \(e^A\) 的生成元</td>
+          </tr>
+          <tr>
+            <td>\(A\)</td>
+            <td>Nambu/Majorana 单体传播生成元，属于 \(\mathfrak{sp}\) 或 \(\mathfrak{so}\)</td>
+            <td>不能任意用 \(gA\) 替换</td>
+          </tr>
+          <tr>
+            <td>\(M=\prod e^{A_\ell}\)</td>
+            <td>决定 \(\det(I\mp M)\) 的零点、极点与 Green 函数</td>
+            <td>行列式只看到投影表示，未自动固定 Fock 算符的双覆盖分支</td>
+          </tr>
+          <tr>
+            <td>\(\Tr\prod e^{h_\ell}\)</td>
+            <td>真正的 Monte Carlo 构型权重</td>
+            <td>还含正规序标量、trace-class 条件和 operator-fixed 平方根</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      取一个实正交矩阵 \(J\)，记
+      \(J^TgJ=sg\)、\(J^2=qI\)。如果
+      \(J^TAJ=\bar A\)，则
+    </p>
+    <div class="scroll">\[
+      J^T\overline{(gA)}J=s\,gA.
+    \]</div>
+    <p>
+      所以 \(s=+1\) 时 \(J K\) 是 \(h\) 的反线性对称；\(s=-1\) 时它是 \(h\) 的反线性
+      反对称。但是在两种情况下，它都可以是传播 \(A\) 的现实结构。合作者强调的
+      “Hamiltonian 对称性”和“符号问题所见的传播对称性”之差，精确地体现在这个 \(s\) 上。
+    </p>
+
+    <h3>2.1 一个最小反例：端点都无极点，符号仍可不同</h3>
+    <p>
+      一模玻色子取 \(h=B(n+\tfrac12)\)。代数延拓的权重是
+    </p>
+    <div class="scroll">\[
+      W(B)=\frac{e^{B/2}}{1-e^B}.
+    \]</div>
+    <p>
+      \(B=-1\) 和 \(B=+1\) 两个端点都满足 \(1-e^B\ne0\)，权重也都为实；但数值分别是
+      \(+0.9595173757\) 和 \(-0.9595173757\)。连接它们的实路径必须穿过 \(B=0\) 的极点，
+      而 \(B=+1\) 端点也不属于裸 Fock 迹收敛域。
+    </p>
+    <div class="warning">
+      这个例子同时说明两件事：“每个端点各自无极点”不等于“处在同一个无极点连通分支”；
+      “代数行列式有限”也不等于“Fock 迹存在”。因此正确命题必须指定正参考点和合法路径。
+    </div>
+  </section>
+
+  <section id="toy-first">
+    <h2>3. <code>ToYinkaiYu.tex</code> 第一节逐项解读</h2>
+
+    <h3>3.1 Case I：当前 \(U_2\) benchmark 的传播结构</h3>
+    <p>
+      第 14--21 行给出
+      \(J_1=I_2\otimes X\otimes I_{N/2}\)、
+      \(J_2=-X\otimes I_N\)。它们满足
+      \(J_1^T\Omega J_1=\Omega\)、\(J_1^2=I\)、
+      \(J_2^T\Omega J_2=-\Omega\)、\(J_2^2=I\) 且彼此对易。
+    </p>
+    <p>
+      物理含义是：\(J_1K\) 交换两个 flavor 并做复共轭，负责现实性；
+      \(J_2\) 把辛形式变号，\(\eta=J_2\Omega=-J_2g\) 是不定度规。
+      在 2026-07-19 的独立报告中，稳定自由配对因子是严格 \(\eta\)-收缩，
+      \(U_2\) 相位因子位于该半群的边界；乘积因此逐构型无极点。
+      这正是合作者第一节所说“Yinkai's case”的几何解释。
+    </p>
+
+    <h3>3.2 Case II：第二个反线性结构</h3>
+    <p>
+      第 23--38 行把 \(J_1^2\) 改为 \(-I\)，并给出
+      \(J_1=-i\sigma_y\otimes Z\)、\(J_2=X\otimes X\) 的显式表示。
+      这里 \(J_1K\) 是 Kramers 型反线性结构，而 \(J_2\) 仍提供收缩度规。
+      这是一个合法的新代数类，不是 Case I 的简单基变换。
+    </p>
+
+    <h3>3.3 第 40--92 行的分块计算</h3>
+    <p>
+      文稿先写出一般 \(\mathfrak{sp}(2N,\mathbb C)\) 生成元，再解
+      \(J_1^TAJ_1=\bar A\)。所得约束
+    </p>
+    <div class="scroll">\[
+      B_{11}=-B_{11}^\dagger,\quad
+      B_{22}=-B_{22}^\dagger,\quad
+      B_{21}=B_{12}^\dagger,
+    \]</div>
+    <div class="scroll">\[
+      C_{11}=-\bar D_{11},\quad
+      C_{22}=-\bar D_{22},\quad
+      C_{12}=\bar D_{12}
+    \]</div>
+    <p>
+      与辛李代数和 reality 条件一致。这部分“硬算”是正确的，可视为通用分类在一个具体表示中的坐标展开。
+    </p>
+
+    <h3>3.4 第 94--175 行：边界与锥内部</h3>
+    <p>
+      再施加 \(J_2^TAJ_2=\pm\bar A\) 后，正号部分给出 maximal subgroup 的生成元，
+      负号部分给出 invariant cone 方向。第 170--175 行写出的半正定块矩阵证明该锥在这个表示中
+      非空。不过结尾的 “Good” 目前只证明了矩阵不等式可满足，还没有单独处理 Fock 迹收敛、
+      正参考点、平方根分支和完整权重。
+    </p>
+    <div class="correction">
+      第一节用 \(g=-\Omega\)，却在后文第 239 行改写为 \(J_2g\) 而没有同步翻转锥方向。
+      最清楚的做法是固定本文报告的约定
+      \(\eta=-J_2g=J_2\Omega\)，并始终写
+      \(\eta A+A^\dagger\eta\preceq0\)；这样不会在 \(\Omega\) 与 \(g\) 之间丢失一个负号。
+    </div>
+  </section>
+
+  <section id="toy-second">
+    <h2>4. <code>ToYinkaiYu.tex</code> 第二节的通用框架</h2>
+
+    <h3>4.1 正确而有价值的骨架</h3>
+    <p>
+      第 177--206 行把玻色和费米统一为
+      \(gA+A^Tg=0\)，并指出二次算符的对易子对应 \([A_1,A_2]\)。
+      这是合适的框架：玻色为复辛李代数，费米为复正交李代数，固定场传播都由 \(e^A\) 表示。
+      用五个符号
+    </p>
+    <div class="scroll">\[
+      J_a^TgJ_a=s_ag,\qquad J_a^2=q_aI,\qquad
+      J_1J_2=rJ_2J_1,\qquad s_a,q_a,r\in\{\pm1\}
+    \]</div>
+    <p>
+      枚举所有关系，也正是合作者所说的 \(2^5=32\) 种情形。
+    </p>
+
+    <h3>4.2 第 209 行迹公式缺少的条件</h3>
+    <p>
+      文稿写
+      \(p=\det(I\mp\prod e^{A_\ell})^{\mp1/2}\)。作为有限维代数恒等式的提示没有问题，
+      但若要成为无符号定理，至少要补充：
+    </p>
+    <ol>
+      <li>玻色 Fock 迹的 trace-class/收敛条件；</li>
+      <li>正规序产生的标量 \(e^\xi\)；</li>
+      <li>Nambu 双倍表示中平方根的 metaplectic 或 spin lift；</li>
+      <li>从正参考点连续选定的算符分支，不能逐点取 principal square root。</li>
+    </ol>
+
+    <h3>4.3 六个玻色情形的状态</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>文稿条目</th>
+            <th>文稿称呼</th>
+            <th>本报告判断</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第 214--216 行</td>
+            <td>TRS</td>
+            <td><span class="yes">保留</span>。与现有 Kramers 现实性路线相关，但仍要附加有限迹条件。</td>
+          </tr>
+          <tr>
+            <td>第 218 行</td>
+            <td>reflection positivity</td>
+            <td><span class="no">名称不成立</span>。单个 \(J_1K\) 只给 reality，不含 RP 的正锥。</td>
+          </tr>
+          <tr>
+            <td>第 222--235 行</td>
+            <td>四个新/非 Hermitian 类</td>
+            <td><span class="yes">可完成为定理</span>。它们是 \(s_2=-1\) 的四个严格收缩类。</td>
+          </tr>
+          <tr>
+            <td>未列出</td>
+            <td>\(s_2=+1\) 伙伴类</td>
+            <td><span class="yes">新增四类</span>。须用 \(\eta=-iJ_2g\)，严格内部需要 pairing。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4.4 费米第 246 行的核心错位</h3>
+    <p>
+      文稿使用
+    </p>
+    <div class="scroll">\[
+      iJ_2gA-iA^\dagger J_2g\preceq0.
+    \]</div>
+    <p>
+      若把 \(C=gA\) 当作 Majorana 二次型，这看起来类似 Wei 的半群条件；
+      但文稿迹公式传播的是 \(e^A\)，不是 \(e^C\)。在 Majorana 基 \(g=I\) 中，正确条件可以写成
+      \(i(J_2A-\bar A J_2)\preceq0\)，等价于对 \(e^A\) 的 Hermitian
+      不定度规收缩。一般 Nambu 基必须直接对 \(A\) 写
+      \(\eta A+A^\dagger\eta\preceq0\)。
+      第 9 节给出第 246 行的二维精确反例。
+    </p>
+  </section>
+
+  <section id="classification">
+    <h2>5. 32 类的统一解析分类</h2>
+
+    <h3>5.1 定义收缩度规</h3>
+    <p>
+      令 \(J_1\) 负责现实性，\(J_2\) 负责半群。采用与现有 \(\eta=J_2\Omega\) 相容的约定
+    </p>
+    <div class="scroll">\[
+      \eta=-c_{s_2}J_2g,\qquad
+      c_{s_2}=
+      \begin{cases}
+        1,&amp;s_2=-1,\\
+        i,&amp;s_2=+1.
+      \end{cases}
+    \]</div>
+    <p>
+      目标是让 \(\eta^\dagger=\eta\)、\(\eta^2=I\)，并使
+    </p>
+    <div class="scroll">\[
+      H_\eta(A)\equiv \eta A+A^\dagger\eta\preceq0
+    \]</div>
+    <p>定义一个乘法封闭的传播半群。</p>
+    <p class="small">
+      以下“必要且充分”只针对这个由 \(J_2\) 直接诱导的规范度规 ansatz。
+      它不是对所有可能 Hermitian involution、所有半群或所有无符号机制的穷尽分类。
+    </p>
+
+    <h3>5.2 第一条筛选：\(q_2=-\tau\)</h3>
+    <p>记 \(S=gA\)，则 \(S^T=-\tau S\)。利用 \(J_2^T=q_2J_2\) 有</p>
+    <div class="scroll">\[
+      \Tr(J_2S)
+      =\Tr[(J_2S)^T]
+      =-\tau q_2\Tr(J_2S).
+    \]</div>
+    <p>
+      若 \(q_2=\tau\)，相关 Hermitian 锥生成元的迹恒为零。
+      一个半负定 Hermitian 矩阵若迹为零，只能等于零，因此锥没有严格内部。
+      所以严格收缩的必要条件是
+    </p>
+    <div class="scroll">\[
+      \boxed{q_2=-\tau.}
+    \]</div>
+    <p>
+      它也是充分条件的一部分：此时上述 \(\eta\) 是 Hermitian involution，
+      \(A_0=-\eta\) 属于相应李代数并满足
+      \(H_\eta(A_0)=-2I\)。
+    </p>
+
+    <h3>5.3 第二条筛选：\(r=-s_1s_2\)</h3>
+    <p>
+      在 \(J_1^TAJ_1=\bar A\) 下，直接计算可得
+    </p>
+    <div class="scroll">\[
+      J_1^T\bar\eta J_1=\kappa\eta,\qquad
+      \kappa=-s_1s_2r,
+    \]</div>
+    <div class="scroll">\[
+      J_1^T\overline{H_\eta(A)}J_1=\kappa H_\eta(A).
+    \]</div>
+    <p>
+      左边是对半负定矩阵的反线性合同，仍应半负定。若 \(\kappa=-1\)，右边却把严格负锥映到严格正锥，
+      两种要求互相矛盾。因此必须有
+    </p>
+    <div class="scroll">\[
+      \boxed{r=-s_1s_2.}
+    \]</div>
+    <p>
+      在这个条件下 \(A_0=-\eta\) 也满足 \(J_1^TA_0J_1=\bar A_0\)，故两条条件合起来既必要又充分。
+      \(q_1,s_1,s_2\) 可以独立取正负，最终正好剩下 \(2^3=8\) 类。
+    </p>
+
+    <div class="result">
+      <strong>规范度规分类定理。</strong>
+      对满足上述实正交五符号关系的玻色或费米 Nambu 生成元，由
+      \(\eta=-c_{s_2}J_2g\) 定义的规范锥具有与 \(J_1K\) reality
+      兼容的非空严格内部，当且仅当
+      \(q_2=-\tau\) 且 \(r=-s_1s_2\)。这不是随机搜索结论，而是解析充要条件。
+    </div>
+
+    <h3>5.4 玻色规范八类和最小 Pauli 代表</h3>
+    <p>
+      以下用 \(R=i\sigma_y=\left(\begin{smallmatrix}0&amp;1\\-1&amp;0\end{smallmatrix}\right)\)，
+      Pauli word 中的 <code>Y</code> 代表这个实矩阵 \(R\)，不是复 Hermitian \(\sigma_y\)。
+      对每行取相应维数的 \(g=-R\otimes I\cdots\)。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">\(s_1\)</th>
+            <th class="num">\(q_1\)</th>
+            <th class="num">\(s_2\)</th>
+            <th class="num">\(q_2\)</th>
+            <th class="num">\(r\)</th>
+            <th>\(\eta\)</th>
+            <th>\(J_1,J_2\) Pauli word</th>
+            <th>来源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">+</td><td class="num">+</td><td class="num">−</td><td class="num">+</td><td class="num">+</td><td>\(-J_2g\)</td><td><code>IX</code>, <code>XI</code></td><td>文稿四类</td></tr>
+          <tr><td class="num">+</td><td class="num">−</td><td class="num">−</td><td class="num">+</td><td class="num">+</td><td>\(-J_2g\)</td><td><code>IY</code>, <code>XI</code></td><td>文稿四类</td></tr>
+          <tr><td class="num">−</td><td class="num">+</td><td class="num">−</td><td class="num">+</td><td class="num">−</td><td>\(-J_2g\)</td><td><code>X</code>, <code>Z</code></td><td>文稿四类</td></tr>
+          <tr><td class="num">−</td><td class="num">−</td><td class="num">−</td><td class="num">+</td><td class="num">−</td><td>\(-J_2g\)</td><td><code>XY</code>, <code>XX</code></td><td>文稿四类</td></tr>
+          <tr><td class="num">+</td><td class="num">+</td><td class="num">+</td><td class="num">+</td><td class="num">−</td><td>\(-iJ_2g\)</td><td><code>IX</code>, <code>IZ</code></td><td class="yes">伙伴类</td></tr>
+          <tr><td class="num">+</td><td class="num">−</td><td class="num">+</td><td class="num">+</td><td class="num">−</td><td>\(-iJ_2g\)</td><td><code>IY</code>, <code>IX</code></td><td class="yes">伙伴类</td></tr>
+          <tr><td class="num">−</td><td class="num">+</td><td class="num">+</td><td class="num">+</td><td class="num">+</td><td>\(-iJ_2g\)</td><td><code>XI</code>, <code>IX</code></td><td class="yes">伙伴类</td></tr>
+          <tr><td class="num">−</td><td class="num">−</td><td class="num">+</td><td class="num">+</td><td class="num">+</td><td>\(-iJ_2g\)</td><td><code>XIY</code>, <code>IXI</code></td><td class="yes">伙伴类</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">
+      不同行允许不同最小张量长度；表中每个代表都由 Octave 直接验证五个符号关系。
+      完整 64 行玻色/费米代表见
+      <a href="tables/pauli_class_witnesses.csv">pauli_class_witnesses.csv</a>。
+    </p>
+  </section>
+
+  <section id="positivity">
+    <h2>6. 从半群到无符号的完整证明</h2>
+
+    <h3>6.1 生成元不等式如何传给传播</h3>
+    <p>若每个生成元满足 \(H_\eta(A)\preceq0\)，则</p>
+    <div class="scroll">\[
+      \frac{d}{dt}\left(e^{tA^\dagger}\eta e^{tA}\right)
+      =
+      e^{tA^\dagger}(\eta A+A^\dagger\eta)e^{tA}
+      \preceq0.
+    \]</div>
+    <p>所以 \(M=e^A\) 满足 \(M^\dagger\eta M-\eta\preceq0\)。两个这样的传播相乘仍在半群内，因为</p>
+    <div class="scroll">\[
+      (M_1M_2)^\dagger\eta(M_1M_2)-\eta
+      =
+      M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+      +(M_2^\dagger\eta M_2-\eta).
+    \]</div>
+    <p>只要乘积中至少有一个因子严格收缩，完整乘积就是严格收缩。</p>
+
+    <h3>6.2 严格收缩排除单位圆</h3>
+    <p>
+      若 \(Mv=\lambda v\)、\(|\lambda|=1\)，则
+    </p>
+    <div class="scroll">\[
+      v^\dagger(M^\dagger\eta M-\eta)v
+      =(|\lambda|^2-1)v^\dagger\eta v=0,
+    \]</div>
+    <p>
+      与严格负定矛盾。因此严格 \(\eta\)-收缩没有单位圆本征值：
+      玻色的 \(\lambda=+1\) 极点和费米的 \(\lambda=-1\) 零点都被排除。
+    </p>
+
+    <h3>6.3 reality 与正参考点完成符号证明</h3>
+    <p>
+      \(J_1^TA_\ell J_1=\bar A_\ell\) 传给完整乘积，使
+      \(\det(I\mp M)\) 为实。但这一步本身不约束正规序标量，尤其在 \(s_1=-1\) 时
+      \(J_1K\) 不是 \(h\) 的普通 Fock 对称。完整权重的现实性必须由标量和 operator lift
+      另外保证。正确的逻辑链是：
+    </p>
+    <div class="flow">
+      <div class="flow-step">
+        <strong>传播 reality + 权重假设</strong>
+        radicand 为实；另验证标量与 operator lift 使完整权重为实。
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-step">
+        <strong>严格半群</strong>
+        排除 \(+1\) 玻色极点或 \(-1\) 费米零点。
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-step">
+        <strong>正参考点与连续分支</strong>
+        同一连通、合法 trace 域内符号不能改变。
+      </div>
+    </div>
+    <div class="result">
+      <strong>解析无符号命题。</strong>
+      若每个构型可从一个已知正、有限且 pole-free 的 trace-class 参考构型沿连续路径到达；
+      路径上的完整高斯算符权重连续、实且有限；正规序标量连续、实且严格为正；
+      平方根采用从该参考点延拓的 operator-fixed 分支；并且除已知无极点的参考端点外，
+      路径上的完整传播都严格 \(\eta\)-收缩，那么每个构型权重都为正。
+    </div>
+    <p>
+      这就是合作者“实 + 无极点”直觉的可发表版本。半群结构并不代替正参考点和 Fock 迹条件；
+      它提供的是一个可乘法封闭、逐构型排除障碍的传播域。
+    </p>
+  </section>
+
+  <section id="boson-partners">
+    <h2>7. 玻色遗漏四类与配对实现</h2>
+
+    <h3>7.1 一个最小的 \(s_2=+1\) 正权重构造</h3>
+    <p>在四维、两模玻色 Nambu 空间取</p>
+    <div class="scroll">\[
+      R=i\sigma_y,\qquad
+      g=-R\otimes I,\qquad
+      J_1=I\otimes X,\qquad
+      J_2=I\otimes Z,\qquad
+      \eta=-iJ_2g=iR\otimes Z.
+    \]</div>
+    <p>令</p>
+    <div class="scroll">\[
+      A_f=-E\,Z\otimes I,\qquad
+      A_c=-\eta=-iR\otimes Z,\qquad E>0.
+    \]</div>
+    <p>则</p>
+    <div class="scroll">\[
+      H_\eta(A_f)=0,\qquad H_\eta(A_c)=-2I.
+    \]</div>
+    <p>
+      \(A_f\) 对应普通阻尼
+      \(h_f=-E\sum_{\alpha=1}^{2}(n_\alpha+\tfrac12)\)，所以 \(e^{h_f}\) 是 trace class。
+      而 \(gA_c=-iI\otimes Z\) 是 anti-Hermitian，故 \(e^{t h_c}\) 有界。
+      因而 \(e^{h_f}e^{t h_c}\) 在 \(t\ge0\) 都是合法的 trace-class 算符；
+      \(t=0\) 是已知正且 pole-free 的半群边界参考点，\(t>0\) 时传播严格收缩。
+    </p>
+
+    <h3>7.2 闭式权重</h3>
+    <p>传播 \(M=e^{A_f}e^{tA_c}\) 分成两个 \(2\times2\) 块，每个块满足</p>
+    <div class="scroll">\[
+      \det M_z=1,\qquad \Tr M_z=2\cosh E\cosh t.
+    \]</div>
+    <p>因此四维 Nambu 算符权重是</p>
+    <div class="scroll">\[
+      \det(I-M)=4(\cosh E\cosh t-1)^2,\qquad
+      \boxed{W_{\rm B}(E,t)=\frac{1}{2(\cosh E\cosh t-1)}>0.}
+    \]</div>
+    <p>
+      \(E=1\) 时，Octave 对 \(t=0,0.25,0.5,1,2\) 得到
+      \(0.920674,0.845232,0.675659,0.362031,0.104050\)，与闭式完全一致。
+      若为实现 \(q_1=-1\) 而复制到八维并加入 spectator 因子，权重会相应平方；
+      不能把四维和八维数值混写。
+    </p>
+    <p>
+      为了不把单个代表误写成整个四类的构造，Octave 还在共同八维空间取
+      \(g=-R\otimes I\otimes I\)、\(J_2=I\otimes Z\otimes I\)，并使用相同的
+      \(A_f=-E Z\otimes I\otimes I\)、\(A_c=-\eta\)。四个 reality 结构依次取
+    </p>
+    <div class="scroll">\[
+      J_1\in\{
+      I\otimes X\otimes I,\,
+      I\otimes R\otimes I,\,
+      Z\otimes I\otimes I,\,
+      Z\otimes I\otimes R
+      \}.
+    \]</div>
+    <p>
+      它们分别实现 \((s_1,q_1)=(+,+),(+,-),(-,+),(-,-)\)。
+      四行的 Lie、reality、边界和严格锥残差都为数值零；
+      \(E=t=1\) 时共同的最大收缩本征值为 \(-0.8646647\)，八维权重为
+      \(0.1310663=[W_{\rm B}(1,1)]^2\)。完整核验见
+      <a href="tables/boson_s2_plus_four_class_witness_test.csv">boson_s2_plus_four_class_witness_test.csv</a>。
+    </p>
+
+    <figure>
+      <img src="figures/counterexample_and_partner.png"
+           alt="左图为费米猜测三的权重沿连通路径穿零变负，右图为玻色新伙伴类的正权重闭式和 Octave 检查">
+      <figcaption>
+        <strong>图 2｜一个精确反例与一个精确正例。</strong>
+        (a) 费米猜测 3 的无 pairing 反例沿共同尺度 \(s\) 从 \(W(0)=4\) 出发，
+        在 \(s_\star=0.8096748539\) 穿零，最终到达
+        \(W(1)=-24.1885664\)。(b) 新玻色 \(s_2=+1\) 伙伴类在 \(E=1\) 时的闭式权重；
+        空心圆为 Octave 独立矩阵计算。左图证明“reality 子空间”不足以保证正性，
+        右图证明伙伴类并非空洞的符号表。
+      </figcaption>
+    </figure>
+
+    <h3>7.3 为什么伙伴类的严格内部必须含 pairing</h3>
+    <p>
+      对 \(s_2=+1\)，可把对称辛 involution 写成
+    </p>
+    <div class="scroll">\[
+      J_2=\begin{pmatrix}P&amp;Q\\-Q&amp;P\end{pmatrix},
+      \qquad P^T=P,\quad Q^T=-Q.
+    \]</div>
+    <p>
+      \(\eta=-iJ_2g\) 的 particle-particle 块 \(K\) 是 Hermitian 且 \(\Tr K=0\)。
+      若纯数守恒、trace-class 的传播为
+      \(M=\operatorname{diag}(U,U^{-T})\) 且 \(\rho(U)&lt;1\)，严格收缩会要求
+    </p>
+    <div class="scroll">\[
+      U^\dagger K U-K&lt;0.
+    \]</div>
+    <p>
+      令 \(R_0=K-U^\dagger KU>0\)，迭代可得
+    </p>
+    <div class="scroll">\[
+      K=\sum_{n=0}^\infty(U^\dagger)^nR_0U^n>0,
+    \]</div>
+    <p>
+      与 \(\Tr K=0\) 矛盾。所以新伙伴类可以具有正的物理 Fock 权重，但进入严格锥内部必然依靠 pairing。
+      这也是“去掉 pairing 只看 maximal subgroup”无法完成第三节的解析原因。
+    </p>
+  </section>
+
+  <section id="octave">
+    <h2>8. Octave 穷举：补完合作者所说的第三节</h2>
+
+    <h3>8.1 安装和算法</h3>
+    <p>
+      当前系统没有可用的系统级 Octave，也没有 sudo 安装权限。为避免修改系统环境，本研究从
+      conda-forge 安装了隔离的 GNU Octave 10.3.0。穷举使用
+      \(I,X,R=i\sigma_y,Z\) 的最多三重 Kronecker 积，并执行：
+    </p>
+    <ol>
+      <li>分别固定玻色 \(g=-R\otimes I\cdots\) 和费米 \(g=X\otimes I\cdots\)；</li>
+      <li>枚举不同的非恒等实 Pauli word \(J_1,J_2\)；</li>
+      <li>直接计算 \(s_1,q_1,s_2,q_2,r\)；</li>
+      <li>为每个五符号组合保存最短 witness；</li>
+      <li>再用解析条件 \(q_2=-\tau,\ r=-s_1s_2\) 过滤 \(J_2\)-诱导的规范严格收缩类；</li>
+      <li>对 maximal-subgroup 线性空间检查 reality、Lie 条件和对易闭包残差，并进行固定随机种子的诊断。</li>
+    </ol>
+
+    <h3>8.2 穷举结果</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>检查</th>
+            <th class="num">玻色</th>
+            <th class="num">费米</th>
+            <th>结论</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>32 个抽象符号类有 Pauli witness</td>
+            <td class="num">32/32</td>
+            <td class="num">32/32</td>
+            <td>五符号关系本身不筛掉任何类</td>
+          </tr>
+          <tr>
+            <td>最多所需张量因子数</td>
+            <td class="num">3</td>
+            <td class="num">3</td>
+            <td>合作者提出的 Pauli 直积库足够</td>
+          </tr>
+          <tr>
+            <td>规范 \(\eta=-c_{s_2}J_2g\) 严格收缩类</td>
+            <td class="num">8/32</td>
+            <td class="num">8/32</td>
+            <td>与该规范 ansatz 的解析充要条件完全一致</td>
+          </tr>
+          <tr>
+            <td>maximal-subgroup 对易闭包残差</td>
+            <td class="num" colspan="2">\(\le4.94\times10^{-15}\)</td>
+            <td>所构造边界空间在数值精度内闭合</td>
+          </tr>
+          <tr>
+            <td>新玻色伙伴闭式核验</td>
+            <td class="num">5/5</td>
+            <td class="num">—</td>
+            <td>矩阵行列式、收缩和解析分支闭式一致</td>
+          </tr>
+          <tr>
+            <td>新玻色伙伴四类共同构造</td>
+            <td class="num">4/4</td>
+            <td class="num">—</td>
+            <td>共同八维 \(A_f,A_c\) 满足四种 \(J_1\) reality</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>8.3 随机扫描能说明什么，不能说明什么</h3>
+    <p>
+      在“去 pairing”的 maximal-subgroup 子空间内，每类抽取 300 个四时间片样本。
+      若样本只满足代数行列式非奇异，确实可出现负的 continuation。
+      代码用 \(\rho(U)&lt;1\) 做了一个较弱的单位圆谱诊断；两个伙伴类分别有 27 和 62 个
+      通过该谱诊断的样本，最小实权重为
+      \(0.119921\) 和 \(0.0435196\)，未见负值。
+    </p>
+    <p class="small">
+      对非正规 \(U\)，\(\rho(U)&lt;1\) 不足以证明二次量子化算符 trace class；
+      后者还需奇异值或直接 Fock 算符的绝对收敛检查。因此这些计数不能称为“物理收敛样本”。
+    </p>
+    <p class="small">
+      maximal-subgroup 扫描每类使用 300 个样本、4 个时间片、独立标准正态系数乘以
+      scale \(0.8\)；种子为
+      \(20260725+1000\,i_{\rm stat}+i_{\rm class}\)。
+      费米 Cases 3、4、6 的辅助扫描各用 10,000 个样本、2--8 个时间片、scale \(2.5\)，
+      种子分别为 20260728、20260729、20260731。
+    </p>
+    <div class="scope">
+      随机扫描只用于寻找反例和检查代码，不能把“未见负值”升级为证明。
+      规范八类结论来自第 5--7 节的解析推导；数值扫描只是独立核对。
+    </div>
+
+    <h3>8.4 对“只验证 maximal subgroup”的最终判断</h3>
+    <p>
+      maximal subgroup 的检查适合完成符号关系的线性代数目录，但不能单独完成无符号分类：
+      边界允许 \(M=I\)，不能排除玻色极点；它也不提供正的 trace-class 锚点。
+      正确的“第三节”应由三部分组成：Pauli witness 的 32 类目录、严格锥的解析筛选、以及完整算符权重的
+      正参考点/反例。本文报告已经分别完成这三部分。
+    </p>
+  </section>
+
+  <section id="fermion">
+    <h2>9. 费米部分的错误与反例</h2>
+
+    <h3>9.1 第 246 行的二维反例</h3>
+    <p>取</p>
+    <div class="scroll">\[
+      g=X,\qquad J_1=X,\qquad J_2=R=i\sigma_y,\qquad
+      A(y)=iyZ,\quad y\ge0.
+    \]</div>
+    <p>
+      它满足费米 Lie 条件、文稿 Case 1 的全部五符号关系以及
+      \(J_1^TAJ_1=\bar A\)。而且文稿不等式严格成立：
+    </p>
+    <div class="scroll">\[
+      iJ_2gA-iA^\dagger J_2g=-2yI&lt;0.
+    \]</div>
+    <p>但是对应的精确 Fock 迹为</p>
+    <div class="scroll">\[
+      h(y)=iy\left(n-\frac12\right),\qquad
+      W(y)=\Tr e^{h(y)}=2\cos\frac y2.
+    \]</div>
+    <p>
+      所以 \(W(\pi)=0\)，\(W(2\pi)=-2\)。传播 \(e^A\) 始终停在单位圆上；
+      真正的 \(\eta\)-收缩式只是边界等式，而不是严格收缩。
+      这直接证明第 246 行不能作为 \(e^A\) 的无零点判据。
+    </p>
+
+    <h3>9.2 猜测 3 和 5：无 pairing 已经足够否定</h3>
+    <p>
+      对文稿猜测 3，取 \(J_1=R\otimes R\)、\(J_2=R\otimes I\)，
+      粒子块三个时间片为
+    </p>
+    <div class="scroll">\[
+      B_1=-2X-2Z,\qquad B_2=-2X,\qquad B_3=2X+Z.
+    \]</div>
+    <p>精确权重是</p>
+    <div class="scroll">\[
+      W=\det(I+e^{B_1}e^{B_2}e^{B_3})
+      =-24.1885664042699.
+    \]</div>
+    <p>
+      三个 slice 的 Nambu 提升分别满足费米 Lie 条件、Case 3 的五符号关系、
+      \(J_1^TA_\ell J_1=\bar A_\ell\) 以及文稿第 246 行的边界等式，脚本所得残差均为零。
+      沿 \(B_\ell\mapsto sB_\ell\) 的连通路径，权重在
+      \(s_\star=0.8096748539369405\) 穿零。相同传播还满足猜测 5 的单个
+      \(J=Z\otimes I\) reality 条件，因此猜测 5 也被否定。
+    </p>
+
+    <h3>9.3 猜测 6：完整 pairing 空间中的精确反例</h3>
+    <p>取</p>
+    <div class="scroll">\[
+      g=X\otimes I,\qquad
+      J_1=Z\otimes R,\qquad
+      J_2=Z\otimes I,
+    \]</div>
+    <div class="scroll">\[
+      A=-\frac{3\pi}{2}I\otimes R-i\pi R\otimes R.
+    \]</div>
+    <p>
+      这个 \(A\) 含 pairing，满足
+      \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和 \(J_2^TAJ_2=\bar A\)，
+      五符号正是猜测 6：
+      \((s_1,q_1,s_2,q_2,r)=(-1,-1,-1,+1,+1)\)。
+      用两模、四维 Fock 空间直接构造 \(h=\frac12\chi^TgA\chi\)，得到
+    </p>
+    <div class="scroll">\[
+      W(s)=\Tr e^{s h}
+      =4\cos\frac{5\pi s}{4}\cos\frac{\pi s}{4},
+      \qquad W(1)=-2.
+    \]</div>
+    <p>
+      这里不是用六个数值点拟合闭式：精确 Fock 矩阵的谱为
+      \(\operatorname{spec}(h)=i\pi\{-\tfrac32,-1,1,\tfrac32\}\)，故
+      \(\Tr e^{sh}=2\cos(\pi s)+2\cos(3\pi s/2)\)，再用和差公式即得上式。
+      Octave 同时比较了精确 Fock 矩阵指数与这个闭式，在
+      \(s=0,0.2,\ldots,1\) 全部达到 \(10^{-12}\) 内一致。
+      因此猜测 6 不是只在某个行列式分支上失败，而是在真实算符迹上失败。
+      这个反例否定的是第 268--269 行“仅凭两个反线性对称性即可正”的 symmetry-only 猜测；
+      它不满足一个正确构造的 \(e^A\) 收缩不等式，因而不否定任何合法的半群定理。
+    </p>
+
+    <h3>9.4 猜测 4 和已知 Wei 类应该怎样表述</h3>
+    <p>
+      猜测 4 的无 pairing 最小代表落在 \(SU(2)\) 中，因而该受限子空间的
+      \(W=4\cos^2(\theta/2)\ge0\)，但允许 \(U=-I\) 的零点；这个子空间本身也不在对易子下闭合。
+      这既不是反例，也不是一般证明。当前证据只能把猜测 4 标为“未建立”。
+    </p>
+    <p>
+      正确的费米路线有两种。第一，在 Majorana 基直接令实际传播生成元 \(A^T=-A\)，使用 Wei 的
+      semigroup reality/contractivity 条件；第二，在 Nambu 基直接要求
+      \(H_\eta(A)\preceq0\)，再用第 5 节的 \(J_2\)-诱导规范八类分类。
+      不能在两条路线之间只替换 \(A\to gA\)。
+      这与
+      <a href="https://doi.org/10.1103/PhysRevB.110.075146">Wei, Phys. Rev. B 110, 075146 (2024)</a>
+      的传播半群表述以及
+      <a href="https://doi.org/10.1103/PhysRevLett.117.267002">Li, Jiang, and Yao, Phys. Rev. Lett. 117, 267002 (2016)</a>
+      的 Majorana-time-reversal 分类相容。
+    </p>
+
+    <h3>9.5 对文稿费米 1--6 的状态表</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>条目</th>
+            <th>状态</th>
+            <th>依据</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td class="no">第 246 行表述被否定</td>
+            <td>二维 \(W(y)=2\cos(y/2)\) 精确反例</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="partial">需改写</td>
+            <td>已知 Majorana 类可以成立，但必须把收缩施加在实际传播生成元上</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="no">否定</td>
+            <td>无 pairing 的 \(W=-24.1885664\) 反例</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="partial">未建立</td>
+            <td>受限 \(SU(2)\) 子空间非负但有零，不能外推到完整配对空间</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="no">否定</td>
+            <td>单个 reality 条件容许与 Case 3 相同的负权重</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td class="no">否定</td>
+            <td>完整两模 pairing 反例 \(W(1)=-2\)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="benchmark">
+    <h2>10. 对当前 \(U_2\) benchmark 的含义</h2>
+
+    <p>
+      2026-07-19 的报告已经证明：当 \(U_1=0\)、自由配对 Hamiltonian 严格稳定、
+      辅助场只来自 \(U_2(n_b-n_c)^2\) 时，自由因子严格 \(\eta\)-收缩，
+      \(U_2\) 相位因子位于同一半群边界；任意乘积无 \(\lambda=1\)，并且紧致相位域给出统一 pole gap。
+    </p>
+    <p>
+      现在再加入 \(J_1K\) 的 flavor-exchange reality 和零场正参考点，就得到另一条完整正性证明：
+      这个特殊 benchmark 在 \(U_1=0\) 时不需要调用 RP 的正锥，也可由
+      “reality + 严格 pole-free 半群 + 正参考点”证明逐构型正权重。
+    </p>
+    <div class="scope">
+      这个结论只覆盖该受限 HS 结构。\(U_1\) 的实密度场一般不保持同一个 \(\eta\)-半群；
+      对完整 benchmark 或文章的一般定理，现有 RP 证明仍然有效且不可删除。
+      新证明是补充路线，不是对 RP 的普遍替代。
+    </div>
+  </section>
+
+  <section id="manuscript">
+    <h2>11. 对文章的影响和修改建议</h2>
+
+    <h3>11.1 当前不应改动的核心叙事</h3>
+    <p>
+      <a href="../../../main.tex">main.tex</a> 中的 TRS theorem 和 RP theorem 仍是正确、独立、
+      物理可检验的充分条件。Fig. 1 以 TRS/RP 和 frustration 组织目前已经证明的 BAFQMC 区域，
+      不会被本研究推翻。主文“sign 与 pole 在逻辑上独立”的陈述也仍正确：
+      新路线只是在一个特殊子类中把“无极点”作为正性证明的额外输入，而不是宣称二者普遍等价。
+    </p>
+
+    <h3>11.2 最小且稳妥的近期修改</h3>
+    <ol>
+      <li>
+        在 SM 当前普通欧氏 strict contraction 讨论之后，增加一个“paired \(\eta\)-contraction
+        semigroup”命题，明确 Hermitian involution、乘法闭包和排除单位圆的证明。
+      </li>
+      <li>
+        对 Fig. 3 的 \(U_1=0\) 特殊切片，注明它除 RP 外还落在一个 pole-free
+        \(\eta\)-半群中，并引用/移入 2026-07-19 报告的稳定性和紧致性证明。
+      </li>
+      <li>
+        不在主文把单个 reflection symmetry 称为 reflection positivity；统一使用
+        “anti-linear reality structure”或“real structure”。
+      </li>
+    </ol>
+
+    <h3>11.3 完成独立同行核验后可以加入的中等修改</h3>
+    <ol>
+      <li>
+        在 SM 加入“reality + pole-free connected domain”引理，逐项写出 trace、标量和平方根分支假设。
+      </li>
+      <li>
+        加入 \(q_2=-\tau,\ r=-s_1s_2\) 的八类表，把“传播结构”与“Hamiltonian 对称性”分栏。
+      </li>
+      <li>
+        把玻色 \(s_2=+1\) 伙伴类作为数学结果列出，并明确严格内部需要 pairing。
+      </li>
+    </ol>
+
+    <h3>11.4 只有在出现新物理模型后才值得做的大改</h3>
+    <p>
+      若能构造一个标准 HS 可实现、明确不满足现有 TRS/RP、但落在新伙伴半群内的相互作用玻色模型，
+      并完成 benchmark，才有理由重写摘要、引言和 Fig. 1。届时主轴应从“两个 Hamiltonian symmetry
+      criteria”扩展为“几类全局 Gaussian propagation positivity structures”。
+      现在就弱化 RP 或宣称发现一般新无符号象限，会超过证据。
+    </p>
+
+    <div class="warning">
+      不建议把 <code>ToYinkaiYu.tex</code> 第 242--270 行原样并入文章。
+      费米第 246 行和猜测 3、5、6 已有精确反例；第 218 行也错误地把单个 reality
+      结构称为 RP。应先按本报告的 \(A\)-传播半群重新定义，再决定是否保留费米统一部分。
+    </div>
+  </section>
+
+  <section id="open">
+    <h2>12. 结论边界与下一步研究</h2>
+
+    <h3>12.1 本报告已经证明到哪里</h3>
+    <ul>
+      <li><span class="rank">定理：</span>\(J_2\)-诱导规范 \(\eta\)-收缩锥的五符号充要条件和八类分类。</li>
+      <li><span class="rank">定理：</span>严格收缩半群的乘法闭包以及对整个单位圆的排除。</li>
+      <li><span class="rank">精确构造：</span>玻色 \(s_2=+1\) 伙伴类的 trace-class 正权重实现。</li>
+      <li><span class="rank">精确反例：</span>费米第 246 行以及猜测 3、5、6。</li>
+      <li><span class="rank">穷举：</span>玻色/费米各 32 类全部有 Pauli witness，严格类与解析筛选一致。</li>
+    </ul>
+
+    <h3>12.2 还没有证明什么</h3>
+    <ul>
+      <li>还没有证明单个 anti-linear \(Z_2\) 对任意玻色高斯族都足够；它只负责现实性。</li>
+      <li>还没有把新伙伴类实现为一个标准局域相互作用的 HS 分解。</li>
+      <li>还没有证明费米猜测 4 的一般正性或构造完整反例。</li>
+      <li>随机扫描没有被用作证明，也不能替代 Fock trace 收敛和分支分析。</li>
+      <li>本报告没有修改主文或 SM，所有论文级改动仍需作者决定和再核验。</li>
+    </ul>
+
+    <h3>12.3 最有价值的下一步</h3>
+    <ol>
+      <li>
+        反向设计 \(s_2=+1\) 伙伴类的 HS slice：从 \(A_f\) 与 pairing 锥方向出发，
+        寻找实 Gaussian 辅助场积分和局域 quartic 相互作用。
+      </li>
+      <li>
+        检查新模型是否真的落在现有 TRS/RP 之外；若仍被 RP 覆盖，它是新证明而不是新物理区域。
+      </li>
+      <li>
+        对候选模型验证每个 slice 的 trace-class 锚点、辅助场全域的严格性、正规序标量和
+        metaplectic branch，然后再做小系统 ED/BAFQMC benchmark。
+      </li>
+      <li>
+        单独解决费米猜测 4；不要用无 pairing 的 \(SU(2)\) 子空间替代完整 Nambu 分类。
+      </li>
+    </ol>
+  </section>
+
+  <section id="reproduce">
+    <h2>13. 可复现性与文件索引</h2>
+
+    <h3>13.1 安装与重跑命令</h3>
+    <p>
+      本机采用用户目录中的 conda-forge 环境。一般安装和 Linux x86-64 的逐包精确重建分别为：
+    </p>
+    <pre>/home/yyk/conda/bin/mamba create -n bafqmc-octave -c conda-forge octave=10.3.0
+
+/home/yyk/conda/bin/conda create -n bafqmc-octave-repro \
+  --file docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/octave_environment_explicit.txt</pre>
+    <p>从仓库根目录重跑全部计算并刷新日志：</p>
+    <pre>/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis'); enumerate_symmetry_classes" \
+  | tee docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/enumerate_symmetry_classes.log
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis'); test_fermion_cases" \
+  | tee docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/test_fermion_cases.log
+
+/home/yyk/conda/envs/notebook/bin/python \
+  docs/research_reports/2026-07-25_semigroup_symmetry_enumeration/analysis/plot_report_figures.py</pre>
+
+    <h3>13.2 核心文件</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>文件</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="analysis/enumerate_symmetry_classes.m">enumerate_symmetry_classes.m</a></td>
+            <td>64 类 witness、八类筛选、maximal-subgroup 扫描、玻色伙伴和一模诊断</td>
+          </tr>
+          <tr>
+            <td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td>
+            <td>费米 Cases 1、3、5、6 的反例、Case 4 诊断、随机扫描和两模 Fock 空间核验</td>
+          </tr>
+          <tr>
+            <td><a href="analysis/plot_report_figures.py">plot_report_figures.py</a></td>
+            <td>从闭式和 CSV 生成两幅 PDF/PNG 图</td>
+          </tr>
+          <tr>
+            <td><a href="analysis/octave_environment_explicit.txt">octave_environment_explicit.txt</a></td>
+            <td>Linux x86-64 conda 逐包精确环境；含 Octave 10.3.0 build</td>
+          </tr>
+          <tr>
+            <td><a href="analysis/figure_environment_versions.txt">figure_environment_versions.txt</a></td>
+            <td>Python、Matplotlib、NumPy 和 SciPy 版本</td>
+          </tr>
+          <tr>
+            <td><a href="analysis/enumerate_symmetry_classes.log">enumerate_symmetry_classes.log</a>；
+                <a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td>
+            <td>两次 Octave 主运行的完整控制台日志</td>
+          </tr>
+          <tr>
+            <td><a href="tables/pauli_class_witnesses.csv">pauli_class_witnesses.csv</a></td>
+            <td>玻色和费米共 64 个最短 Pauli witness</td>
+          </tr>
+          <tr>
+            <td><a href="tables/true_eta_contraction_classes.csv">true_eta_contraction_classes.csv</a></td>
+            <td>\(J_2\)-诱导规范度规筛选保留的 16 类及 Hermiticity 数值核验</td>
+          </tr>
+          <tr>
+            <td><a href="tables/true_eta_maximal_subgroup_scan.csv">true_eta_maximal_subgroup_scan.csv</a></td>
+            <td>边界空间维数、闭包残差和单位圆谱随机诊断</td>
+          </tr>
+          <tr>
+            <td><a href="tables/boson_s2_plus_partner_test.csv">boson_s2_plus_partner_test.csv</a></td>
+            <td>新伙伴类的收缩本征值、pole gap、行列式和闭式权重</td>
+          </tr>
+          <tr>
+            <td><a href="tables/boson_s2_plus_four_class_witness_test.csv">boson_s2_plus_four_class_witness_test.csv</a></td>
+            <td>共同八维构造对四个 \(s_2=+1\) 伙伴类的逐类核验</td>
+          </tr>
+          <tr>
+            <td><a href="tables/boson_pole_reference_diagnostic.csv">boson_pole_reference_diagnostic.csv</a></td>
+            <td>一模玻色“端点无极点但不在同一分支”的诊断</td>
+          </tr>
+          <tr>
+            <td><a href="tables/fermion_case_1_counterexample.csv">fermion_case_1_counterexample.csv</a></td>
+            <td>第 246 行的二维精确反例</td>
+          </tr>
+          <tr>
+            <td><a href="tables/fermion_cases_3_4_6_tests.csv">fermion_cases_3_4_6_tests.csv</a></td>
+            <td>Cases 3、4、6 的无 pairing 子空间测试</td>
+          </tr>
+          <tr>
+            <td><a href="tables/fermion_case_5_counterexample.csv">fermion_case_5_counterexample.csv</a></td>
+            <td>Case 5 单个 reality 条件的负权重反例</td>
+          </tr>
+          <tr>
+            <td><a href="tables/fermion_inequality_sign_diagnostics.csv">fermion_inequality_sign_diagnostics.csv</a></td>
+            <td>第 246 行与 Wei 型传播不等式的 Hermiticity/符号诊断</td>
+          </tr>
+          <tr>
+            <td><a href="tables/fermion_full_pairing_case_6_counterexample.csv">fermion_full_pairing_case_6_counterexample.csv</a></td>
+            <td>Case 6 的完整 pairing Fock 迹与闭式比较</td>
+          </tr>
+          <tr>
+            <td><a href="tables/report_curve_data.csv">report_curve_data.csv</a></td>
+            <td>图 2 的致密曲线数据；Octave 标记另从伙伴类 CSV 读取</td>
+          </tr>
+          <tr>
+            <td><a href="figures/boson_32_class_filter.pdf">boson_32_class_filter.pdf</a>；
+                <a href="figures/counterexample_and_partner.pdf">counterexample_and_partner.pdf</a></td>
+            <td>两幅报告图的矢量 PDF 版本</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>13.3 证据与来源</h3>
+    <ul class="source-list">
+      <li>
+        项目原始材料：
+        <a href="../../../experts/ToYinkaiYu.tex">ToYinkaiYu.tex</a>、
+        <a href="../../../main.tex">main.tex</a>、
+        <a href="../../../SM.tex">SM.tex</a>。
+      </li>
+      <li>
+        既有局部定理：
+        <a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">稳定配对传播与 \(U_2\) 辅助场的逐构型无极点证明</a>。
+      </li>
+      <li>
+        半群一手文献：
+        <a href="https://doi.org/10.1103/PhysRevB.110.075146">Z.-C. Wei, “Semigroup approach to the sign problem in quantum Monte Carlo simulations,” Phys. Rev. B 110, 075146 (2024)</a>。
+      </li>
+      <li>
+        Majorana TRS 一手文献：
+        <a href="https://doi.org/10.1103/PhysRevLett.117.267002">Z.-X. Li, Y.-F. Jiang, and H. Yao, Phys. Rev. Lett. 117, 267002 (2016)</a>。
+      </li>
+    </ul>
+
+    <div class="note">
+      <strong>最终判断。</strong>
+      合作者提出的“reality 与 semigroup 分工”是值得继续发展的核心思想。
+      玻色部分经补充后得到一个比原文更完整的规范度规八类定理，并确实出现四个新伙伴类；
+      但“一个 \(Z_2\) 就够”“只看 maximal subgroup”“费米直接对 \(gA\) 使用同一不等式”
+      三个说法都需要撤回或严格限定。对当前文章最稳妥的处理是先把 paired
+      \(\eta\)-contraction 作为 SM 的补充结构，而不是立即改写主文的 TRS/RP 主线。
+    </div>
+  </section>
+</main>
+</body>
+</html>

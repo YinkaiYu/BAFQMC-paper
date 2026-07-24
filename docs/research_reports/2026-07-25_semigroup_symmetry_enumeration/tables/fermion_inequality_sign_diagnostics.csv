@@ -1,0 +1,3 @@
+example,lie_residual,toy_hermiticity_residual,V_formal_hermiticity_residual,toy_norm,V_formal_norm,plus_norm,max_abs_eigenvalue_expA
+suggested_iZ,2.82842712474619,0,0,0,0,2.82842712474619,1
+valid_skew_Y,0,5.656854249492381,0,2.82842712474619,0,0,1

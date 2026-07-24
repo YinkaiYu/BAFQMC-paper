@@ -1,0 +1,17 @@
+statistics,class_id,tau,s1,q1,s2,q2,r,metric_factor,min_qubits,J1_word,J2_word,metric_hermiticity_residual,min_abs_metric_eigenvalue
+boson,s1+_q1+_s2+_q2+_r-,-1,1,1,1,1,-1,-iJ2g,2,IX,IZ,0,1
+boson,s1+_q1+_s2-_q2+_r+,-1,1,1,-1,1,1,-J2g,2,IX,XI,0,1
+boson,s1+_q1-_s2+_q2+_r-,-1,1,-1,1,1,-1,-iJ2g,2,IY,IX,0,1
+boson,s1+_q1-_s2-_q2+_r+,-1,1,-1,-1,1,1,-J2g,2,IY,XI,0,1
+boson,s1-_q1+_s2+_q2+_r+,-1,-1,1,1,1,1,-iJ2g,2,XI,IX,0,1
+boson,s1-_q1+_s2-_q2+_r-,-1,-1,1,-1,1,-1,-J2g,1,X,Z,0,1
+boson,s1-_q1-_s2+_q2+_r+,-1,-1,-1,1,1,1,-iJ2g,3,XIY,IXI,0,1
+boson,s1-_q1-_s2-_q2+_r-,-1,-1,-1,-1,1,-1,-J2g,2,XY,XX,0,1
+fermion,s1+_q1+_s2+_q2-_r-,1,1,1,1,-1,-1,-iJ2g,2,IX,IY,0,1
+fermion,s1+_q1+_s2-_q2-_r+,1,1,1,-1,-1,1,-J2g,2,IX,YI,0,1
+fermion,s1+_q1-_s2+_q2-_r-,1,1,-1,1,-1,-1,-iJ2g,3,IIY,IYX,0,1
+fermion,s1+_q1-_s2-_q2-_r+,1,1,-1,-1,-1,1,-J2g,2,IY,YI,0,1
+fermion,s1-_q1+_s2+_q2-_r+,1,-1,1,1,-1,1,-iJ2g,2,YY,IY,0,1
+fermion,s1-_q1+_s2-_q2-_r-,1,-1,1,-1,-1,-1,-J2g,1,Z,Y,0,1
+fermion,s1-_q1-_s2+_q2-_r+,1,-1,-1,1,-1,1,-iJ2g,2,YI,IY,0,1
+fermion,s1-_q1-_s2-_q2-_r-,1,-1,-1,-1,-1,-1,-J2g,2,YI,ZY,0,1
