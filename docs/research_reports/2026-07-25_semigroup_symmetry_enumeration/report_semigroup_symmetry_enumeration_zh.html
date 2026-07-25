@@ -111,6 +111,41 @@
     .scope { border-left-color: var(--gold); background: var(--gold-bg); }
     .correction { border-left-color: var(--violet); background: var(--violet-bg); }
     .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .quote-explain:last-child { border-bottom: 0; }
+    .plain-language {
+      margin-top: 9px;
+      padding-left: 15px;
+      border-left: 3px solid var(--blue);
+    }
+    details.source-archive {
+      margin: 18px 0 25px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    details.source-archive summary {
+      padding: 12px 15px;
+      cursor: pointer;
+      color: var(--blue);
+      font-weight: 650;
+    }
+    details.source-archive pre {
+      margin: 0;
+      border-width: 1px 0 0;
+      white-space: pre;
+    }
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -248,7 +283,8 @@
     </div>
     <div class="summary-item refuted">
       <strong>已被否定</strong>
-      文稿第 246 行不是 \(e^A\) 的收缩条件。它允许 \(W=2\cos(y/2)\) 从正值经过零变成负值；
+      note 的费米不等式 \(iJ_2gA-iA^\dagger J_2g\preceq0\) 不是 \(e^A\) 的收缩条件。
+      它允许 \(W=2\cos(y/2)\) 从正值经过零变成负值；
       费米猜测 3、5、6 也有显式负权重反例。
     </div>
     <div class="summary-item open">
@@ -259,7 +295,10 @@
   </div>
 
   <nav class="toc" aria-label="目录">
-    <a href="#message">1. 合作者消息到底在说什么</a>
+    <a href="#reading-guide">阅读指南与最少记号</a>
+    <a href="#message-source">合作者消息：完整引文与逐句解释</a>
+    <a href="#note-source">合作者 note：全文存档</a>
+    <a href="#message">1. 合作者想法的科学判断</a>
     <a href="#objects">2. 先区分四个数学对象</a>
     <a href="#toy-first">3. 文稿第一节逐项解读</a>
     <a href="#toy-second">4. 文稿第二节的通用框架</a>
@@ -274,13 +313,483 @@
     <a href="#reproduce">13. 可复现性与文件索引</a>
   </nav>
 
+  <section id="reading-guide">
+    <h2>阅读指南：先抓住四件事</h2>
+    <p>
+      这份报告同时承担三项工作：解释合作者的原话、核对 note 中的数学、继续完成穷举和证明。
+      为降低阅读负担，正文始终围绕下面四个问题展开。只关心文章怎么改的读者，可以先读本节、
+      “合作者消息”以及第 10、11 节；希望核对证明的读者，再依次读第 2、5、6、7、9 节。
+    </p>
+    <ol>
+      <li><strong>什么保证权重是实数？</strong>由第一个反线性结构 \(J_1K\) 负责；\(K\) 表示复共轭。</li>
+      <li><strong>什么阻止权重穿过无穷大或零？</strong>由第二个结构 \(J_2\) 构造的收缩条件负责。</li>
+      <li><strong>哪个矩阵真正传播？</strong>二次算符写成 \(h=\frac12\chi^TgA\chi\)，但单体传播是 \(e^A\)，不是 \(e^{gA}\)。</li>
+      <li><strong>为什么“实且没有极点”仍不自动等于正？</strong>还要从一个已知为正的参考点连续走到目标构型，并保证途中完整 Fock 迹存在且不为零。</li>
+    </ol>
+    <div class="note">
+      <strong>本报告只保留五个反复使用的记号。</strong>
+      \(h\) 是 Fock 空间中的二次算符；\(gA\) 是写进 \(h\) 的二次型系数；
+      \(A\) 是单体传播生成元；\(M=\prod_\ell e^{A_\ell}\) 是一个辅助场构型的完整单体传播；
+      \(\eta\) 是用来表述“传播会收缩”的 Hermitian 度规。分类部分出现的正负号只是在记录
+      \(J_1,J_2\) 的平方、对易关系以及它们对 \(g\) 的作用，不代表新的物理对象。
+    </div>
+  </section>
+
+  <section id="message-source">
+    <h2>合作者消息：完整引文与逐句解释</h2>
+    <p>
+      下面先逐字保留全部消息，再逐句说明。引文中的英文术语、大小写和括号均沿用原文；
+      解释部分会指出哪些是正确直觉、哪些需要补条件、哪些已被计算反例否定。
+    </p>
+
+    <div class="source-quote">
+      <p>既然这些情形没有极点，只要采样权重是实的，那就一定没有符号问题。而这只要一个Z2的对称性就够了，比如reflection symmetry，连reflection positivity都不用。根据半群理论，无符号问题只需要一个半群结构，再加上一个反线性的Z2对称性，而且两者的要求不互相矛盾。一般照经验来说这种半群都是成对出现，所以有可能还有新的发现。</p>
+      <p>experts/ToYinkaiYu.tex</p>
+      <p>第一节是关于你的发现。我搭了一个玻色费米通用的框架，详见第二节。第三节还没写好，就是硬算。理论上机器能够使用Octave暴力穷举。需要强调一点，玻色子/费米子h的对称性是gA的对称性决定的，而符号问题是A的对称性决定的，两者其实有差别。</p>
+      <p>我以前试过暴力穷举法(第二节J1和J2各两个关系式右边的正负号任意取，J1和J2对易或反对易)，但是后来才发现我的Octave不能用了。你有空可以试试。总共2^5=32种情形。J1和J2取sigma_x, i*sigma_y, sigma_z和单位阵这几种矩阵的直积。验证有没有符号问题时得去掉pairing项，否则没法做。只需要验证maximal subgroup，也就是同时有J1 J2两个对称性的时候就行了。</p>
+      <p>我会尝试用解析方法证明第二节列出的情形没有符号问题。</p>
+      <p>我用的方法很笨，就是手动写出满足条件的J1 J2，然后给矩阵加上这两个对称性。</p>
+    </div>
+
+    <h3>第一段：关于“实、无极点、半群和成对出现”</h3>
+    <div class="quote-explain">
+      <div class="source-quote">“既然这些情形没有极点，只要采样权重是实的，那就一定没有符号问题。”</div>
+      <div class="plain-language">
+        <strong>直观意思：</strong>连续的实数若从正值出发，要变成负值就必须先经过零；
+        玻色高斯权重若要跨越不同符号分支，通常还会遇到
+        \(\det(I-M)=0\) 所对应的发散点。这个直觉有价值，但原句少了“从正参考点出发并沿合法路径连续”
+        这一关键前提。两个孤立端点都为实且有限，仍可能位于极点两侧。第 2.1 节给出一模玻色子的显式反例。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“而这只要一个Z2的对称性就够了，比如reflection symmetry，连reflection positivity都不用。”</div>
+      <div class="plain-language">
+        <strong>直观意思：</strong>这里想让一个反线性变换把每个复本征值与其复共轭配对，使行列式成为实数。
+        这种“现实性”确实不需要 reflection positivity 中的正锥条件。但一个只保证现实性的反射对称并不保证正号；
+        positivity 仍需由半群、正参考点和连续性共同补上。原文把两种不同强度的条件说得过于接近。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“根据半群理论，无符号问题只需要一个半群结构，再加上一个反线性的Z2对称性，而且两者的要求不互相矛盾。”</div>
+      <div class="plain-language">
+        <strong>准确版本：</strong>反线性结构负责“权重为实”，收缩半群负责让乘积传播避开玻色的
+        \(+1\) 本征值或费米的 \(-1\) 本征值。二者必须有共同的生成元，因而“要求不矛盾”本身需要证明。
+        第 5 节证明，在本报告采用的 \(J_2\) 直接诱导度规中，兼容性恰好给出两个正负号条件；
+        第 6 节再补齐从无零点到正权重所需的全部假设。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“一般照经验来说这种半群都是成对出现，所以有可能还有新的发现。”</div>
+      <div class="plain-language">
+        <strong>本报告得到的结果：</strong>玻色部分确实有一组成对结构。note 已列出 \(J_2^TgJ_2=-g\)
+        的四类；把 \(J_2^TgJ_2=+g\) 纳入，并在度规中补上必要的因子 \(i\)，得到另外四类。
+        这是解析分类和 Octave 穷举共同确认的新结果。不过“半群总是成对”尚不是一般定理。
+      </div>
+    </div>
+
+    <h3>第二段：文件位置和三节分工</h3>
+    <div class="quote-explain">
+      <div class="source-quote">“experts/ToYinkaiYu.tex”</div>
+      <div class="plain-language">
+        这是合作者 note 的仓库路径。为使本报告完全自足，下一节已经把该文件的全部 285 行原样转录进来；
+        第 3、4 节则把其中每个物理项目重新排成可读的推导。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“第一节是关于你的发现。”</div>
+      <div class="plain-language">
+        指的是当前 \(U_2\) 配对 benchmark 中出现的两种矩阵结构。note 的 Case I 对应已经验证的
+        \(J_1\) reality 与 \(J_2\Omega\) 收缩；Case II 把 \(J_1^2\) 从 \(+I\) 改成 \(-I\)，
+        并写出一个 Kramers 型代表。第 3 节逐块解释。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“我搭了一个玻色费米通用的框架，详见第二节。”</div>
+      <div class="plain-language">
+        框架的核心是统一写 \(h=\frac12\chi^TgA\chi\)，并用
+        \(\det(I\mp\prod e^{A_\ell})^{\mp1/2}\) 表示高斯迹。这个统一写法是有用的；
+        但玻色与费米的转置性质不同，而且平方根是 Fock 算符双覆盖中的连续分支，不能只按普通复函数处理。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“第三节还没写好，就是硬算。理论上机器能够使用Octave暴力穷举。”</div>
+      <div class="plain-language">
+        第三节原文只留下了费米一般矩阵和“Case 6”标题。这里所谓“硬算”是枚举 Pauli 直积，
+        检查每组 \(J_1,J_2\) 是否满足指定的转置、平方和对易关系。第 8 节已经用 GNU Octave 10.3.0
+        完成这项工作，并把脚本、日志和完整 CSV 表留在报告目录。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“需要强调一点，玻色子/费米子h的对称性是gA的对称性决定的，而符号问题是A的对称性决定的，两者其实有差别。”</div>
+      <div class="plain-language">
+        这是消息中最重要、也最正确的提醒。\(gA\) 是二次算符的系数，\(A\) 才生成单体传播 \(e^A\)。
+        对称变换对二者可能多出一个正负号。遗憾的是，note 后面的费米不等式又对 \(gA\) 施加收缩条件，
+        却拿它推断 \(e^A\) 的符号；第 9 节用精确反例说明这一步为什么不成立。
+      </div>
+    </div>
+
+    <h3>第三段：32 类穷举和“去掉 pairing”</h3>
+    <div class="quote-explain">
+      <div class="source-quote">“我以前试过暴力穷举法(第二节J1和J2各两个关系式右边的正负号任意取，J1和J2对易或反对易)，但是后来才发现我的Octave不能用了。你有空可以试试。”</div>
+      <div class="plain-language">
+        每个 \(J\) 有两个二值信息：它对 \(g\) 保号还是变号、它的平方是 \(+I\) 还是 \(-I\)；
+        再加上 \(J_1,J_2\) 对易还是反对易，共五个正负号。计算任务首先是找矩阵代表，
+        然后才是判断相应对称子空间是否含有真正的收缩方向。这两步不能混为一谈。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“总共2^5=32种情形。”</div>
+      <div class="plain-language">
+        计数正确：五个独立记录位在形式上给出 32 种组合。Octave 找到每种组合的实 Pauli 直积代表，
+        所以不存在“某个正负号组合根本无法由矩阵实现”的遗漏；但只有其中一部分与指定的严格收缩锥兼容。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“J1和J2取sigma_x, i*sigma_y, sigma_z和单位阵这几种矩阵的直积。”</div>
+      <div class="plain-language">
+        选择合理，因为这四个 \(2\times2\) 实矩阵的直积可以系统地产生平方为正或负、彼此对易或反对易的代表。
+        报告中的 \(Y\) 特指实矩阵 \(i\sigma_y\)，不是通常含复数元的 Hermitian \(\sigma_y\)。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“验证有没有符号问题时得去掉pairing项，否则没法做。”</div>
+      <div class="plain-language">
+        这是计算便利条件，不是可用于证明的一般原则。去掉 pairing 后，费米权重可退化为普通单粒子行列式，
+        很适合快速寻找反例；但玻色新伙伴四类的严格收缩内部恰好必须含 pairing。
+        因此报告同时做了无 pairing 的费米检验和保留 pairing 的完整 Fock 空间检验。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“只需要验证maximal subgroup，也就是同时有J1 J2两个对称性的时候就行了。”</div>
+      <div class="plain-language">
+        “同时有两个对称性”适合筛选兼容的边界生成元，但 maximal subgroup 是收缩半群的边界，
+        本身不提供严格收缩。玻色恒等传播甚至正位于极点。因此完整验证还必须检查 invariant cone 的内部，
+        也就是至少一个传播因子让 \(\eta A+A^\dagger\eta\) 严格负定。
+      </div>
+    </div>
+
+    <h3>第四、五段：解析证明与手工构造</h3>
+    <div class="quote-explain">
+      <div class="source-quote">“我会尝试用解析方法证明第二节列出的情形没有符号问题。”</div>
+      <div class="plain-language">
+        第 5、6 节完成了玻色规范度规类的解析证明，并明确补上正参考点、trace-class 和连续分支条件。
+        费米第二节不能按原式证明，因为原式本身允许负权重；第 9 节给出 Cases 1、3、5、6 的反例，
+        Case 4 仍保持开放而不作过度结论。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“我用的方法很笨，就是手动写出满足条件的J1 J2，然后给矩阵加上这两个对称性。”</div>
+      <div class="plain-language">
+        这实际上是可靠的起点：先构造 \(J_1,J_2\)，再投影到同时满足两种约束的矩阵子空间。
+        本报告把手工方法系统化为 Pauli 直积穷举，并用解析迹条件筛掉不可能含严格收缩内部的类；
+        数值枚举负责防漏，解析推导负责说明为什么。
+      </div>
+    </div>
+  </section>
+
+  <section id="note-source">
+    <h2>合作者 note：全文存档</h2>
+    <p>
+      下方折叠区完整保存 <code>experts/ToYinkaiYu.tex</code> 的原文。点击标题即可展开；
+      内容按原文件顺序显示，没有删节或改写。正文第 3、4 节按相同顺序讲解，因此读者无需打开其他文件。
+    </p>
+    <details class="source-archive">
+      <summary>展开 ToYinkaiYu.tex 全文（285 行）</summary>
+      <pre>%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\begin{CJK}{UTF8}{}%
+
+\section{Discovery based on Yinkai's observation}
+
+Case I:Yinkai Yu's case
+
+$J_{1}=I_{2}\otimes\sigma_{x}\otimes I_{N/2}$, $J_{2}=-\sigma_{x}\otimes I_{N}$.
+
+&lt;=&gt; $J^{T}_{1}\Omega J_{1}=\Omega$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+metric is $\eta=J_{2}\Omega$, contraction means ``physical''.
+
+Case II:$J^{T}_{1}\Omega J_{1}=\Omega$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+&lt;=&gt;$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+Assume $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$, where $C_{11}=C^{T}_{11}$, $C_{22}=C^{T}_{22}$, $D_{11}=D^{T}_{11}$,
+$D_{22}=D^{T}_{22}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; -D_{11} &amp; D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; -\bar{C}_{22} &amp; C^{\dagger}_{12}\\
+-\bar{B}_{12} &amp; -B^{T}_{11} &amp; \bar{C}_{12} &amp; -\bar{C}_{11}\\
+C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; B^{\dagger}_{12}\\
+C_{12} &amp; C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the invariant cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$,
+
+so $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$,
+
+\begin{align*}
+J_{2}\Omega A &amp; =\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+&lt;=&gt;$\left(\begin{array}{cccc}
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; B^{T}_{12} &amp; -B^{T}_{11}\\
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{12}
+\end{array}\right)\geq0$. Good.
+
+\section{A short summary for bosons and fermions:}
+
+Let $g=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)=-\Omega$ for bosons and $g=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$ for fermions. $h_{i}=\frac{1}{2}\chi^{T}gA_{i}\chi$, $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)$ for bosons and $\chi=\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+c_{N}\\
+c^{+}_{1}\\
+c^{+}_{2}\\
+\vdots\\
+c^{+}_{N}
+\end{array}\right)$ for fermions. $gA+A^{T}g=0$($sp\left(2N,\mathbb{C}\right)$ for
+bosons, $so\left(2N,\mathbb{C}\right)$ for fermions).&#32;
+
+$\left[\frac{1}{2}\chi^{T}gA_{1}\chi,\frac{1}{2}\chi^{T}gA_{2}\chi\right]=\frac{1}{2}\chi^{T}g\left[A_{1},A_{2}\right]\chi$.
+So we have
+\[
+p=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)=\det\left(I\mp e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{\mp1/2}.
+\]
+
+For bosons, we have 6 cases:
+
+1)Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries) $J^{T}_{1}gJ_{1}=g$,
+$J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=-I_{2N}$,
+$\left[J_{1},J_{2}\right]=0$.
+
+2)reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$.
+
+3-6):
+
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (new case, also
+non-hermitian)
+
+$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+J_{2}gA+A^{\dagger}J_{2}g &amp; \leq0.
+\end{align*}
+
+For fermions, only two cases have been discovered:
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+iJ_{2}gA-iA^{\dagger}J_{2}g &amp; \leq0,
+\end{align*}
+
+1)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Reflection
+positivity)
+
+2)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+Now let's guess based on the similarity between bosonic and fermionic
+cases:
+
+3)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+4)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+5)(?? positivity)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$.
+
+6)(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+\section{Tests for new fermion cases}
+
+For fermions, $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$, $C_{11}=-C^{T}_{11}$, $C_{22}=-C^{T}_{22}$, $D_{11}=-D^{T}_{11}$,
+$D_{22}=-D^{T}_{22}$.
+
+Case 6
+\clearpage
+\end{CJK}
+
+\end{document}</pre>
+    </details>
+  </section>
+
   <figure>
     <img src="figures/boson_32_class_filter.png"
          alt="玻色 32 个符号组合经过解析条件筛选后只剩八类，其中四类是文稿已列出的类，四类是新伙伴类">
     <figcaption>
       <strong>图 1｜玻色 32 类的解析筛选。</strong>
       每个格点对应 \((s_1,q_1,s_2,q_2,r)\) 的一种组合。对由 \(J_2\) 诱导的规范度规，严格收缩锥要求
-      \(q_2=+1\) 和 \(r=-s_1s_2\)。蓝色四格是文稿第 222--235 行列出的 \(s_2=-1\)
+      \(q_2=+1\) 和 \(r=-s_1s_2\)。蓝色四格是 note 在玻色条目 3--6 列出的 \(s_2=-1\)
       四类；绿色四格是必须令度规带因子 \(i\) 才能看到的 \(s_2=+1\) 伙伴类。
       灰色组合可以有矩阵代表，但没有与第一反线性结构兼容的规范 \(\eta\)-收缩内部；
       这张图不排除另选与 \(J_2\) 无关的度规或其他无符号机制。
@@ -334,7 +843,8 @@
       后者仍可保证传播行列式为实。这个区别是正确的，也是非 Hermitian 类可以出现的原因。
     </p>
     <p>
-      但这个提醒必须贯彻到底：费米第 246 行恰恰对 \(gA\) 施加了 Wei 型不等式，却用 \(e^A\)
+      但这个提醒必须贯彻到底：note 的费米不等式
+      \(iJ_2gA-iA^\dagger J_2g\preceq0\) 恰恰对 \(gA\) 施加了 Wei 型约束，却用 \(e^A\)
       计算权重。降指标 \(A\mapsto gA\) 不是相似变换，不能把 \(e^{gA}\) 的半群结论搬给 \(e^A\)。
     </p>
 
@@ -431,12 +941,19 @@
     <h2>3. <code>ToYinkaiYu.tex</code> 第一节逐项解读</h2>
 
     <h3>3.1 Case I：当前 \(U_2\) benchmark 的传播结构</h3>
+    <div class="source-quote">
+      <p>“Case I:Yinkai Yu's case”</p>
+      <p>\(J_{1}=I_{2}\otimes\sigma_{x}\otimes I_{N/2}\),
+      \(J_{2}=-\sigma_{x}\otimes I_{N}\).</p>
+      <p>\(\Longleftrightarrow J^{T}_{1}\Omega J_{1}=\Omega\),
+      \(J^{2}_{1}=I_{2N}\), \(J^{T}_{2}\Omega J_{2}=-\Omega\),
+      \(J^{2}_{2}=I_{2N}\), \([J_{1},J_{2}]=0\).</p>
+      <p>“metric is \(\eta=J_{2}\Omega\), contraction means ‘physical’.”</p>
+    </div>
     <p>
-      第 14--21 行给出
-      \(J_1=I_2\otimes X\otimes I_{N/2}\)、
-      \(J_2=-X\otimes I_N\)。它们满足
-      \(J_1^T\Omega J_1=\Omega\)、\(J_1^2=I\)、
-      \(J_2^T\Omega J_2=-\Omega\)、\(J_2^2=I\) 且彼此对易。
+      第一行直接给出两个矩阵，第二行列出它们的全部代数性质。这里的 \(X\) 就是
+      \(\sigma_x\)。这些关系可逐项相乘验证：\(J_1\) 保持辛形式，\(J_2\) 把辛形式变号，
+      二者都平方为单位阵且彼此对易。
     </p>
     <p>
       物理含义是：\(J_1K\) 交换两个 flavor 并做复共轭，负责现实性；
@@ -447,17 +964,44 @@
     </p>
 
     <h3>3.2 Case II：第二个反线性结构</h3>
+    <div class="source-quote">
+      <p>“Case II:”</p>
+      <p>\(J^{T}_{1}\Omega J_{1}=\Omega\), \(J^{2}_{1}=-I_{2N}\),
+      \(J^{T}_{2}\Omega J_{2}=-\Omega\), \(J^{2}_{2}=I_{2N}\),
+      \([J_{1},J_{2}]=0\).</p>
+      <p>\(\Longleftrightarrow J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}\),
+      \(J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes I_{N/2}\).</p>
+    </div>
     <p>
-      第 23--38 行把 \(J_1^2\) 改为 \(-I\)，并给出
-      \(J_1=-i\sigma_y\otimes Z\)、\(J_2=X\otimes X\) 的显式表示。
+      与 Case I 相比，唯一改变的关键离散性质是 \(J_1^2=-I\)。显式表示为
+      \(J_1=-i\sigma_y\otimes Z\)、\(J_2=X\otimes X\)。
       这里 \(J_1K\) 是 Kramers 型反线性结构，而 \(J_2\) 仍提供收缩度规。
       这是一个合法的新代数类，不是 Case I 的简单基变换。
     </p>
 
-    <h3>3.3 第 40--92 行的分块计算</h3>
+    <h3>3.3 一般辛生成元与 \(J_1\) reality 的分块计算</h3>
+    <div class="source-quote">
+      <p>“Assume”</p>
+      <div class="scroll">\[
+      A=\begin{pmatrix}
+      B_{11}&amp;B_{12}&amp;C_{11}&amp;C_{12}\\
+      B_{21}&amp;B_{22}&amp;C^T_{12}&amp;C_{22}\\
+      D_{11}&amp;D_{12}&amp;-B^T_{11}&amp;-B^T_{21}\\
+      D^T_{12}&amp;D_{22}&amp;-B^T_{12}&amp;-B^T_{22}
+      \end{pmatrix},
+      \quad C_{11}=C^T_{11},\ C_{22}=C^T_{22},\
+      D_{11}=D^T_{11},\ D_{22}=D^T_{22}.
+      \]</div>
+      <p>“\(J_1^TAJ_1=\bar A\). So
+      \(B_{11}=-B^\dagger_{11}\), \(B_{22}=-B^\dagger_{22}\),
+      \(B_{12}=B^\dagger_{21}\),
+      \(C_{11}=-\bar D_{11}\), \(C_{22}=-\bar D_{22}\),
+      \(C_{12}=\bar D_{12}\).”</p>
+    </div>
     <p>
-      文稿先写出一般 \(\mathfrak{sp}(2N,\mathbb C)\) 生成元，再解
-      \(J_1^TAJ_1=\bar A\)。所得约束
+      第一幅矩阵不是额外假设，而是 \(gA+A^Tg=0\) 的一般分块解。右上角 \(C\) 和左下角
+      \(D\) 必须对称，右下角则由左上角 \(B\) 固定。把上节给出的 \(J_1\) 从左右乘上去，
+      再逐块与 \(\bar A\) 比较，便得到
     </p>
     <div class="scroll">\[
       B_{11}=-B_{11}^\dagger,\quad
@@ -473,15 +1017,30 @@
       与辛李代数和 reality 条件一致。这部分“硬算”是正确的，可视为通用分类在一个具体表示中的坐标展开。
     </p>
 
-    <h3>3.4 第 94--175 行：边界与锥内部</h3>
+    <h3>3.4 \(J_2\) 把同一空间分成半群边界与锥内部</h3>
+    <div class="source-quote">
+      <p>“\(J^{T}_{2}AJ_{2}=\pm\bar A\).”</p>
+      <p>“For the generators of maximal subgroup,
+      \(B_{11}=-B^{\dagger}_{22}\),
+      \(B_{12}=-B^{\dagger}_{12}\), \(C_{11}=-C_{22}\),
+      \(C_{12}=C^{T}_{12}\).”</p>
+      <p>“For the generators in the invariant cone,
+      \(B_{11}=B^{\dagger}_{22}\),
+      \(B_{12}=B^{\dagger}_{12}\), \(C_{11}=C_{22}\),
+      \(C_{12}=-C^{T}_{12}\).”</p>
+      <p>\(J_2\Omega A\leq0\), equivalently the explicitly displayed opposite-sign
+      block matrix is positive semidefinite. “Good.”</p>
+    </div>
     <p>
       再施加 \(J_2^TAJ_2=\pm\bar A\) 后，正号部分给出 maximal subgroup 的生成元，
-      负号部分给出 invariant cone 方向。第 170--175 行写出的半正定块矩阵证明该锥在这个表示中
-      非空。不过结尾的 “Good” 目前只证明了矩阵不等式可满足，还没有单独处理 Fock 迹收敛、
+      负号部分给出 invariant cone 方向。note 最后写出的半正定块矩阵说明该锥在这个表示中
+      可以非空。不过结尾的 “Good” 目前只把收缩要求改写成了一个显式矩阵不等式；
+      它还没有单独处理 Fock 迹收敛、
       正参考点、平方根分支和完整权重。
     </p>
     <div class="correction">
-      第一节用 \(g=-\Omega\)，却在后文第 239 行改写为 \(J_2g\) 而没有同步翻转锥方向。
+      第一节用 \(g=-\Omega\)，第二节末尾却改写为 \(J_2gA+A^\dagger J_2g\leq0\)，
+      没有同步解释锥方向为何翻转。
       最清楚的做法是固定本文报告的约定
       \(\eta=-J_2g=J_2\Omega\)，并始终写
       \(\eta A+A^\dagger\eta\preceq0\)；这样不会在 \(\Omega\) 与 \(g\) 之间丢失一个负号。
@@ -492,9 +1051,21 @@
     <h2>4. <code>ToYinkaiYu.tex</code> 第二节的通用框架</h2>
 
     <h3>4.1 正确而有价值的骨架</h3>
+    <div class="source-quote">
+      <p>“Let \(g=\left(\begin{smallmatrix}0&amp;-I_N\\I_N&amp;0\end{smallmatrix}\right)=-\Omega\)
+      for bosons and
+      \(g=\left(\begin{smallmatrix}0&amp;I_N\\I_N&amp;0\end{smallmatrix}\right)\)
+      for fermions.”</p>
+      <p>\(h_i=\frac12\chi^TgA_i\chi\), \(gA+A^Tg=0\)
+      (\(sp(2N,\mathbb C)\) for bosons, \(so(2N,\mathbb C)\) for fermions).</p>
+      <p>\[
+      \left[\frac12\chi^TgA_1\chi,\frac12\chi^TgA_2\chi\right]
+      =\frac12\chi^Tg[A_1,A_2]\chi.
+      \]</p>
+    </div>
     <p>
-      第 177--206 行把玻色和费米统一为
-      \(gA+A^Tg=0\)，并指出二次算符的对易子对应 \([A_1,A_2]\)。
+      这段把玻色和费米统一为 \(gA+A^Tg=0\)，并指出二次算符的对易子对应
+      \([A_1,A_2]\)。
       这是合适的框架：玻色为复辛李代数，费米为复正交李代数，固定场传播都由 \(e^A\) 表示。
       用五个符号
     </p>
@@ -506,10 +1077,15 @@
       枚举所有关系，也正是合作者所说的 \(2^5=32\) 种情形。
     </p>
 
-    <h3>4.2 第 209 行迹公式缺少的条件</h3>
+    <h3>4.2 高斯迹公式缺少的条件</h3>
+    <div class="source-quote">
+      \[
+      p=\mathrm{tr}(e^{h_1}e^{h_2}\cdots e^{h_k})
+      =\det(I\mp e^{A_1}e^{A_2}\cdots e^{A_k})^{\mp1/2}.
+      \]
+    </div>
     <p>
-      文稿写
-      \(p=\det(I\mp\prod e^{A_\ell})^{\mp1/2}\)。作为有限维代数恒等式的提示没有问题，
+      这条式子作为有限维代数恒等式的提示没有问题，
       但若要成为无符号定理，至少要补充：
     </p>
     <ol>
@@ -520,6 +1096,42 @@
     </ol>
 
     <h3>4.3 六个玻色情形的状态</h3>
+    <div class="source-quote">
+      <p><strong>note 原文条目 1：</strong>“Time reversal symmetry: (two \(Z_2\) anti-linear symmetries)”</p>
+      \[
+      J_1^TgJ_1=g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=-I,\quad [J_1,J_2]=0.
+      \]
+      <p><strong>note 原文条目 2：</strong>“reflection positivity:
+      \(J_1^TgJ_1=g,\ J_1^2=I\).”</p>
+      <p><strong>note 原文条目 3（Yinkai's case）：</strong></p>
+      \[
+      J_1^TgJ_1=g,\quad J_1^2=I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=I,\quad [J_1,J_2]=0.
+      \]
+      <p><strong>note 原文条目 4（new case, also non-hermitian）：</strong></p>
+      \[
+      J_1^TgJ_1=g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=I,\quad [J_1,J_2]=0.
+      \]
+      <p><strong>note 原文条目 5（non-hermitian case I）：</strong></p>
+      \[
+      J_1^TgJ_1=-g,\quad J_1^2=I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=I,\quad \{J_1,J_2\}=0.
+      \]
+      <p><strong>note 原文条目 6（non-hermitian case II）：</strong></p>
+      \[
+      J_1^TgJ_1=-g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=I,\quad \{J_1,J_2\}=0.
+      \]
+      <p>六项之后共同施加
+      \(J_1^TAJ_1=\bar A\) 与 \(J_2gA+A^\dagger J_2g\leq0\)。</p>
+    </div>
+    <p>
+      条目 1、2 是 note 用来对照的既有路线；条目 3--6 才是两个结构同时出现的四个候选类。
+      下面的状态表把原称呼与本报告的严格判断并列。尤其要注意，条目 2 只写了一个 reality
+      关系，没有写 reflection positivity 所需的正锥，因此名称强于实际条件。
+    </p>
     <div class="scroll">
       <table>
         <thead>
@@ -531,17 +1143,17 @@
         </thead>
         <tbody>
           <tr>
-            <td>第 214--216 行</td>
+            <td>“Time reversal symmetry: (two \(Z_2\) anti-linear symmetries)”</td>
             <td>TRS</td>
             <td><span class="yes">保留</span>。与现有 Kramers 现实性路线相关，但仍要附加有限迹条件。</td>
           </tr>
           <tr>
-            <td>第 218 行</td>
+            <td>“reflection positivity: \(J_1^TgJ_1=g,\ J_1^2=I\)”</td>
             <td>reflection positivity</td>
             <td><span class="no">名称不成立</span>。单个 \(J_1K\) 只给 reality，不含 RP 的正锥。</td>
           </tr>
           <tr>
-            <td>第 222--235 行</td>
+            <td>“3-6)” 后列出的四组 \(J_1,J_2\) 关系</td>
             <td>四个新/非 Hermitian 类</td>
             <td><span class="yes">可完成为定理</span>。它们是 \(s_2=-1\) 的四个严格收缩类。</td>
           </tr>
@@ -554,10 +1166,14 @@
       </table>
     </div>
 
-    <h3>4.4 费米第 246 行的核心错位</h3>
-    <p>
-      文稿使用
-    </p>
+    <h3>4.4 费米收缩不等式的核心错位</h3>
+    <div class="source-quote">
+      <p>“For fermions, only two cases have been discovered:”</p>
+      \[
+      J_1^TAJ_1=\bar A,\qquad
+      iJ_2gA-iA^\dagger J_2g\leq0.
+      \]
+    </div>
     <div class="scroll">\[
       iJ_2gA-iA^\dagger J_2g\preceq0.
     \]</div>
@@ -567,7 +1183,68 @@
       \(i(J_2A-\bar A J_2)\preceq0\)，等价于对 \(e^A\) 的 Hermitian
       不定度规收缩。一般 Nambu 基必须直接对 \(A\) 写
       \(\eta A+A^\dagger\eta\preceq0\)。
-      第 9 节给出第 246 行的二维精确反例。
+      第 9 节给出这条原文不等式的二维精确反例。
+    </p>
+
+    <h3>4.5 费米六项：原文、含义和当前结论</h3>
+    <div class="source-quote">
+      <p><strong>note 称“only two cases have been discovered”的条目 1（Reflection positivity）：</strong></p>
+      \[
+      J_1^TgJ_1=g,\quad J_1^2=I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=-I,\quad \{J_1,J_2\}=0.
+      \]
+      <p><strong>条目 2（Time-reversal positivity）：</strong></p>
+      \[
+      J_1^TgJ_1=g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=-I,\quad \{J_1,J_2\}=0.
+      \]
+      <p>随后原文说：“Now let's guess based on the similarity between bosonic and fermionic cases:”</p>
+      <p><strong>猜测 3：</strong></p>
+      \[
+      J_1^TgJ_1=-g,\quad J_1^2=I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=-I,\quad [J_1,J_2]=0.
+      \]
+      <p><strong>猜测 4：</strong></p>
+      \[
+      J_1^TgJ_1=-g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=-I,\quad [J_1,J_2]=0.
+      \]
+      <p><strong>猜测 5（原文标作“?? positivity”）：</strong>
+      \(J_1^TgJ_1=-g,\ J_1^2=I\).</p>
+      <p><strong>猜测 6（two \(Z_2\) anti-linear symmetries）：</strong></p>
+      \[
+      J_1^TgJ_1=-g,\quad J_1^2=-I,\quad
+      J_2^TgJ_2=-g,\quad J_2^2=I,\quad [J_1,J_2]=0.
+      \]
+    </div>
+    <p>
+      “discovered” 与 “guess” 的区分在原文中是清楚的，但两组都依赖前一小节那条作用在 \(gA\)
+      上的不等式。由于该不等式没有控制实际传播 \(e^A\)，这些关系本身只能定义对称类别，
+      不能作为无符号定理。第 9 节分别给出条目 1 以及猜测 3、5、6 的负权重反例。
+      猜测 4 在本报告所做的无 pairing 子空间中表现为非负但可为零，而且该子空间对乘法所需的对易子
+      不封闭，所以目前既不能宣布成立，也不能宣布被否定。
+    </p>
+
+    <h3>4.6 note 第三节实际写到了哪里</h3>
+    <div class="source-quote">
+      <p>“\(\backslash\)section{Tests for new fermion cases}”</p>
+      \[
+      A=\begin{pmatrix}
+      B_{11}&amp;B_{12}&amp;C_{11}&amp;C_{12}\\
+      B_{21}&amp;B_{22}&amp;-C^T_{12}&amp;C_{22}\\
+      D_{11}&amp;D_{12}&amp;-B^T_{11}&amp;-B^T_{21}\\
+      -D^T_{12}&amp;D_{22}&amp;-B^T_{12}&amp;-B^T_{22}
+      \end{pmatrix},
+      \]
+      <p>\(C_{11}=-C^T_{11}\), \(C_{22}=-C^T_{22}\),
+      \(D_{11}=-D^T_{11}\), \(D_{22}=-D^T_{22}\).</p>
+      <p>“Case 6”</p>
+    </div>
+    <p>
+      这里与玻色一般矩阵的差别是 \(C,D\) 从对称矩阵变成反对称矩阵，这正是
+      \(so(2N,\mathbb C)\) 的要求。原文件在 “Case 6” 后没有继续计算，因此没有任何第三节结果可供证明。
+      第 8、9 节不是替原文补几行分块乘法，而是完成了更必要的两步：先穷举全部离散关系，
+      再直接计算完整传播和 Fock 权重，避免把一个错误的生成元不等式继续向下推。
     </p>
   </section>
 
@@ -970,7 +1647,7 @@
   <section id="fermion">
     <h2>9. 费米部分的错误与反例</h2>
 
-    <h3>9.1 第 246 行的二维反例</h3>
+    <h3>9.1 note 费米收缩不等式的二维反例</h3>
     <p>取</p>
     <div class="scroll">\[
       g=X,\qquad J_1=X,\qquad J_2=R=i\sigma_y,\qquad
@@ -991,7 +1668,8 @@
     <p>
       所以 \(W(\pi)=0\)，\(W(2\pi)=-2\)。传播 \(e^A\) 始终停在单位圆上；
       真正的 \(\eta\)-收缩式只是边界等式，而不是严格收缩。
-      这直接证明第 246 行不能作为 \(e^A\) 的无零点判据。
+      这直接证明原式
+      \(iJ_2gA-iA^\dagger J_2g\preceq0\) 不能作为 \(e^A\) 的无零点判据。
     </p>
 
     <h3>9.2 猜测 3 和 5：无 pairing 已经足够否定</h3>
@@ -1009,7 +1687,8 @@
     \]</div>
     <p>
       三个 slice 的 Nambu 提升分别满足费米 Lie 条件、Case 3 的五符号关系、
-      \(J_1^TA_\ell J_1=\bar A_\ell\) 以及文稿第 246 行的边界等式，脚本所得残差均为零。
+      \(J_1^TA_\ell J_1=\bar A_\ell\) 以及 note 的边界等式
+      \(iJ_2gA_\ell-iA_\ell^\dagger J_2g=0\)，脚本所得残差均为零。
       沿 \(B_\ell\mapsto sB_\ell\) 的连通路径，权重在
       \(s_\star=0.8096748539369405\) 穿零。相同传播还满足猜测 5 的单个
       \(J=Z\otimes I\) reality 条件，因此猜测 5 也被否定。
@@ -1044,7 +1723,7 @@
       Octave 同时比较了精确 Fock 矩阵指数与这个闭式，在
       \(s=0,0.2,\ldots,1\) 全部达到 \(10^{-12}\) 内一致。
       因此猜测 6 不是只在某个行列式分支上失败，而是在真实算符迹上失败。
-      这个反例否定的是第 268--269 行“仅凭两个反线性对称性即可正”的 symmetry-only 猜测；
+      这个反例否定的是 note 的费米猜测 6，即“仅凭所列两个反线性对称性即可正”；
       它不满足一个正确构造的 \(e^A\) 收缩不等式，因而不否定任何合法的半群定理。
     </p>
 
@@ -1079,7 +1758,7 @@
         <tbody>
           <tr>
             <td>1</td>
-            <td class="no">第 246 行表述被否定</td>
+            <td class="no">原费米收缩不等式被否定</td>
             <td>二维 \(W(y)=2\cos(y/2)\) 精确反例</td>
           </tr>
           <tr>
@@ -1181,8 +1860,9 @@
     </p>
 
     <div class="warning">
-      不建议把 <code>ToYinkaiYu.tex</code> 第 242--270 行原样并入文章。
-      费米第 246 行和猜测 3、5、6 已有精确反例；第 218 行也错误地把单个 reality
+      不建议把 note 的费米六类原样并入文章。
+      费米不等式 \(iJ_2gA-iA^\dagger J_2g\preceq0\) 和猜测 3、5、6 已有精确反例；
+      玻色条目 2 也错误地把单个 reality
       结构称为 RP。应先按本报告的 \(A\)-传播半群重新定义，再决定是否保留费米统一部分。
     </div>
   </section>
@@ -1195,7 +1875,7 @@
       <li><span class="rank">定理：</span>\(J_2\)-诱导规范 \(\eta\)-收缩锥的五符号充要条件和八类分类。</li>
       <li><span class="rank">定理：</span>严格收缩半群的乘法闭包以及对整个单位圆的排除。</li>
       <li><span class="rank">精确构造：</span>玻色 \(s_2=+1\) 伙伴类的 trace-class 正权重实现。</li>
-      <li><span class="rank">精确反例：</span>费米第 246 行以及猜测 3、5、6。</li>
+      <li><span class="rank">精确反例：</span>note 的费米收缩不等式以及猜测 3、5、6。</li>
       <li><span class="rank">穷举：</span>玻色/费米各 32 类全部有 Pauli witness，严格类与解析筛选一致。</li>
     </ul>
 
@@ -1311,7 +1991,7 @@
           </tr>
           <tr>
             <td><a href="tables/fermion_case_1_counterexample.csv">fermion_case_1_counterexample.csv</a></td>
-            <td>第 246 行的二维精确反例</td>
+            <td>note 费米收缩不等式的二维精确反例</td>
           </tr>
           <tr>
             <td><a href="tables/fermion_cases_3_4_6_tests.csv">fermion_cases_3_4_6_tests.csv</a></td>
@@ -1323,7 +2003,7 @@
           </tr>
           <tr>
             <td><a href="tables/fermion_inequality_sign_diagnostics.csv">fermion_inequality_sign_diagnostics.csv</a></td>
-            <td>第 246 行与 Wei 型传播不等式的 Hermiticity/符号诊断</td>
+            <td>note 费米不等式与 Wei 型传播不等式的 Hermiticity/符号诊断</td>
           </tr>
           <tr>
             <td><a href="tables/fermion_full_pairing_case_6_counterexample.csv">fermion_full_pairing_case_6_counterexample.csv</a></td>
