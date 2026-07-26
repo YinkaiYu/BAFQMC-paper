@@ -272,6 +272,8 @@
     <div class="meta">
       <div>报告日期：2026-07-27</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+      <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
+        <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
       <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
       <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
     </div>
@@ -381,10 +383,11 @@
               positive semidefinite
             </td>
             <td>
-              phase gauge 后
-              \(J_1=I_{\rm Nambu}\otimes\sigma_x\)；
-              在上面的显式 realization 中，note 其余离散 relations
-              是这一 reflection 的 matrix completion
+              任意 scalar phase \(\eta_i\) 已包含在 complex
+              \(J_1(\eta_i)\) 中。phase gauge 固定为 \(\eta_i=1\) 后，
+              \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，而
+              \(-J_1J_2=I_{\rm Nambu}\otimes\sigma_z\)
+              标记 \(b/c\) 两侧
             </td>
             <td>
               propagation operator 可写成 reflected squares，
@@ -423,7 +426,72 @@
       </table>
     </div>
 
-    <h3>2.3 同一个 benchmark 为什么会同时落入 RP 与 Yinkai's case</h3>
+    <h3>2.3 reflection phase \(\eta_i\) 与 note 的 \(J_2\) 到底是什么关系</h3>
+    <p>
+      文章的 reflection phase 已经完整地写在 physical reflection matrix 中。
+      在 \((\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^T\) 顺序下，
+    </p>
+    <div class="scroll">\[
+      J_1(\eta_i)=
+      \begin{pmatrix}
+        0&\eta_i&0&0\\
+        \eta_i&0&0&0\\
+        0&0&0&\bar\eta_i\\
+        0&0&\bar\eta_i&0
+      \end{pmatrix}.
+    \]</div>
+    <div class="scroll">\[
+      J_1(\eta_i)\overline{J_1(\eta_i)}=I_4 .
+    \]</div>
+    <p>
+      取 \(\eta_i=1\) 后，这个 matrix 才成为 note 使用的 real
+      \(J_1=I_{\rm Nambu}\otimes\sigma_x\)。note 的另一个 real matrix
+      \(J_2=I_{\rm Nambu}\otimes i\sigma_y\) 满足
+    </p>
+    <div class="scroll">\[
+      -J_1J_2
+      =I_{\rm Nambu}\otimes\sigma_z
+      =\operatorname{diag}(1,-1,1,-1).
+    \]</div>
+    <p>
+      这个 diagonal matrix 只区分 \(b\) side 与 \(c\) side。因此，
+      \(J_1,J_2\) 合在一起可以编码“交换两侧”和“标记两侧”这两部分
+      reflection geometry；它们不是任意 phase \(\eta_i\) 的两个坐标。
+      连续 phase freedom 已经在 \(J_1(\eta_i)\) 内，并可通过同时改变
+      \(b_i,c_i\) 的 basis phases 固定为 1。
+    </p>
+    <div class="correction">
+      <strong>对问题的直接回答。</strong>
+      若“完备地表示反射”是指同时记录 flavor exchange 与
+      \(b/c\) 分区，那么 \(J_1\) 和 \(J_2\) 的确共同提供了这种 matrix
+      encoding。若是指表示 reflection 中任意的 \(U(1)\) phase
+      \(\eta_i\)，则不需要 \(J_2\)：任意 \(\eta_i\) 已由
+      \(J_1(\eta_i)K\) 表示。\(J_2\) 相对 \(J_1\) 只多出一个离散的
+      \(c\)-side minus sign。
+    </div>
+    <div class="warning">
+      <strong>不要把两个 \(\eta\) 混为一谈。</strong>
+      RP 定义中的 \(\eta_i\) 是模为一的 scalar phase；
+      半群章节写的 \(\eta=J_2g\) 是 Nambu 空间中的 Hermitian metric
+      matrix。后者不负责参数化前者。
+    </div>
+    <p>
+      最后，交换与分区仍没有包含 RP 中的“positive”条件。
+      真正保证 weight nonnegative 的额外输入是跨两侧 coefficient matrix
+      \(C\succeq0\)。所以即使 \(J_1,J_2\) 的五条离散 relations 全部成立，
+      仍不能省略对 \(C\) 的检查。
+    </p>
+    <p>
+      <code>experts/RPBAFQMC.tex</code> 进一步确认了分工：它明确写
+      “Reflection symmetry requires \(J_1^TAJ_1=\bar A\)”，随后令
+      \(J_2\Omega\) 作为 contraction semigroup 与 expansion semigroup
+      的 metric。也就是说，\(J_2\) 在合作者原证明中还承担一个技术作用：
+      把 reflection-positive block 的正半定条件改写为 regularized
+      Gaussian propagation 的 contraction/expansion decomposition。
+      这个作用仍与 scalar phase \(\eta_i\) 无关。
+    </p>
+
+    <h3>2.4 同一个 benchmark 为什么会同时落入 RP 与 Yinkai's case</h3>
     <p>
       文章 paired benchmark 的 Hamiltonian 含有相同的 real hopping、
       \(U_2(\hat n_b-\hat n_c)^2\) 和
@@ -456,7 +524,7 @@
       中逐步证明。
     </p>
 
-    <h3>2.4 “Yinkai's case” 在 note 中不是严格统一的物理名称</h3>
+    <h3>2.5 “Yinkai's case” 在 note 中不是严格统一的物理名称</h3>
     <p>
       Case 7 与当前 benchmark 的五条 relations 完全对应，所以这里的名称有明确物理来源。
       但 note 后面还把 Cases 3、4、9 的若干 explicit representatives 称为
@@ -918,7 +986,7 @@
     <ul>
       <li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
       <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
-      <li>Case 10 引用 `ToLeiWang4.pdf`，但仓库内没有该文件，本报告无法核对其内容。</li>
+      <li>用户补充说明 `ToLeiWang4.pdf` 大概对应 <code>experts/RPBAFQMC.tex</code>。该文件解释了 RP Case 2 的 \(J_1,J_2\) 与 contraction/expansion decomposition，但没有使用 Case 10 的五条离散 relations，不能直接作为 Case 10 strict-contraction proof。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
@@ -1115,6 +1183,8 @@
         <tbody>
           <tr><td><a href="../../../main.tex">main.tex</a></td><td>本文 TRS/RP criteria、两 flavor benchmark Hamiltonian 与 paired RP realization</td></tr>
           <tr><td><a href="../../../SM.tex">SM.tex</a></td><td>Kramers eigenvalue pairing、operator-level RP proof、bosonic pole 与现有 pole-free discussion</td></tr>
+          <tr><td><a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a></td><td>合作者较早的 BAFQMC RP note；明确 \(J_1\) 负责 reflection symmetry，\(J_2\Omega\) 负责 regularized-weight contraction/expansion decomposition</td></tr>
+          <tr><td><a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></td><td>“non-hermitian cases”的来源；定义 anti-Hermitian single-body term、Hermitian interaction，并给出两类候选 physical models</td></tr>
           <tr><td><a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 pole-free pairing 报告</a></td><td>Yinkai's Case 7 在 \(U_1=0\) paired benchmark 中的 stability、\(\eta\)-contraction、pole exclusion 与 uniform bound</td></tr>
           <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1824 行连续覆盖、渲染公式并生成本 HTML</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、strict witness 与 residual checks</td></tr>

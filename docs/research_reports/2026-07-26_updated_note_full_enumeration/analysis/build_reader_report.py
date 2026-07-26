@@ -244,29 +244,154 @@ SEGMENTS = [
         \(\Delta\ne0\) 时没有用它来证明 paired Nambu weight，而是使用下面的 RP theorem。</p>
 
         <h4>怎样从文章的 physical reflection 得到 note 的 \(J_1\)</h4>
-        <p><code>main.tex</code> 把两种 flavor 当作 reflection 的两侧，定义</p>
+        <p><code>main.tex</code> 把 \(b\) flavor 与 \(c\) flavor 当作 reflection
+        的两侧，定义</p>
         <div class="scroll">\[
           \theta(i)=-i,\qquad
           \theta(\hat b_i)=\eta_i\hat c_i,\qquad
           \theta(\hat b_i^+)=\bar\eta_i\hat c_i^+ .
         \]</div>
-        <p>先取最简单的 \(\eta_i=1\)。在
-        \((\hat b,\hat c,\hat b^+,\hat c^+)^T\) 中，交换两侧并复共轭正是</p>
+        <p>这里 \(\theta\) 是 anti-linear operation，所以
+        \(\theta(z\hat O)=\bar z\,\theta(\hat O)\)。reflection 还应满足
+        \(\theta^2=1\)。把 \(\theta\) 连续作用两次到 \(\hat b_i\) 上，得到</p>
+        <div class="scroll">\[
+          \theta^2(\hat b_i)
+          =\theta(\eta_i\hat c_i)
+          =\bar\eta_i\,\theta(\hat c_i)
+          =\hat b_i .
+        \]</div>
+        <p>由于 \(|\eta_i|=1\)，上式要求
+        \(\theta(\hat c_i)=\eta_i\hat b_i\)。同理，creation operators 满足
+        \(\theta(\hat c_i^+)=\bar\eta_i\hat b_i^+\)。因此在单格点 Nambu
+        顺序
+        \(\chi_i=(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^T\) 中，
+        physical reflection 的完整 matrix form 是</p>
+        <div class="scroll">\[
+          \theta:\ \chi_i\longmapsto J_1(\eta_i)\,\bar\chi_i,\qquad
+          J_1(\eta_i)=
+          \begin{pmatrix}
+            0&\eta_i&0&0\\
+            \eta_i&0&0&0\\
+            0&0&0&\bar\eta_i\\
+            0&0&\bar\eta_i&0
+          \end{pmatrix}.
+        \]</div>
+        <p>任意 reflection phase 已经完整地包含在这个 \(J_1(\eta_i)\) 中。
+        当 \(\eta_i\) 不是 real number 时，\(J_1(\eta_i)\) 也不是 real
+        matrix；anti-linear operation 平方为一的正确检查是</p>
+        <div class="scroll">\[
+          J_1(\eta_i)\,\overline{J_1(\eta_i)}=I_4 ,
+        \]</div>
+        <p>而不是把 complex matrix 误写成 \(J_1(\eta_i)^2=I_4\)。
+        note 从一开始把 \(J_1,J_2\) 限定为 real orthogonal matrices，
+        因而它实际上已经选取了 \(\eta_i=1\) 的 phase convention。</p>
+
+        <h4>为什么 \(\eta_i\) 可以规范固定为 1</h4>
+        <p>这一点可以直接在 operators 上验证，不需要抽象的群论语言。
+        对每个格点同时重新定义两种 flavor 的 phase：</p>
+        <div class="scroll">\[
+          \hat b_i'
+          =e^{\,i\arg(\eta_i)/2}\hat b_i,\qquad
+          \hat c_i'
+          =e^{\,i\arg(\eta_i)/2}\hat c_i .
+        \]</div>
+        <p>利用 \(\theta\) 的 anti-linearity，有</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          \theta(\hat b_i')
+          &=e^{-i\arg(\eta_i)/2}\eta_i\hat c_i
+            =\hat c_i',\\
+          \theta(\hat c_i')
+          &=e^{-i\arg(\eta_i)/2}\eta_i\hat b_i
+            =\hat b_i'.
+          \end{aligned}
+        \]</div>
+        <p>所以 \(\eta_i\) 确实是 flavor basis 的 phase convention。
+        改变这一 convention 时，Hamiltonian 中 hopping 或 pairing
+        coefficients 的 matrix representation 也要一起变换；物理内容不变。
+        文章的 paired example 取
+        \(\eta_i=e^{-i\arg\Delta}\)，正是在选择 reflection phase 来抵消 pairing
+        amplitude \(\Delta\) 的 phase。换到上面的 primed basis 后，
+        reflection phase 为 1，而 pairing coefficient 相应变成 real
+        nonnegative number。</p>
+
+        <h4>note 中的 \(J_2\) 不是第二个连续 phase 自由度</h4>
+        <p>现在才采用 note 的 real convention \(\eta_i=1\)。在
+        \((\hat b,\hat c,\hat b^+,\hat c^+)^T\) 中，两个 matrices 是</p>
         <div class="scroll">\[
           g=-i\sigma_y\otimes I_2,\qquad
           J_1=I_2\otimes\sigma_x,\qquad
           J_2=I_2\otimes i\sigma_y .
         \]</div>
-        <p>其中 \(J_1K\) 对应文章的 physical reflection；\(J_2\) 是在同一个
-        两侧空间中选取的另一个 real matrix，用来把这一 reflection structure
-        补成 note 所列的五条离散关系。它不是 <code>main.tex</code> 的 RP theorem
-        额外要求的一项物理对称性。矩阵上确有</p>
+        <p>\(J_1K\) 先 complex conjugate，再交换 \(b,c\)，所以它就是
+        physical reflection。要看清 \(J_2\) 多做了什么，只需把两个 matrices
+        相乘：</p>
+        <div class="scroll">\[
+          -J_1J_2
+          =I_2\otimes\sigma_z
+          =\operatorname{diag}(1,-1,1,-1).
+        \]</div>
+        <p>右边在 \(b,b^+\) entries 上取 \(+1\)，在 \(c,c^+\) entries
+        上取 \(-1\)。它没有交换两侧，只标记哪个 Nambu component 属于
+        \(b\) side、哪个属于 \(c\) side。反过来写就是</p>
+        <div class="scroll">\[
+          J_2=-J_1\bigl(I_2\otimes\sigma_z\bigr).
+        \]</div>
+        <p>因此 \(J_2K\) 可以理解成 physical reflection \(J_1K\)
+        再复合一个 \(c\)-side minus sign。这个 minus sign 是一个离散的
+        relative flavor gauge transformation；它不是任意
+        \(\eta_i=e^{i\varphi_i}\) 所包含的连续 \(U(1)\) phase。
+        任意 \(\eta_i\) 已经由上面的 complex matrix \(J_1(\eta_i)\)
+        单独表示，不能把 note 的 \(J_1,J_2\) 当作两个分量，再靠二者组合来生成
+        \(\eta_i\)。</p>
+        <p>从 reflection geometry 看，\(J_1\) 给出“交换两侧并 complex
+        conjugate”，而 \(-J_1J_2\) 给出“哪一侧是 \(b\)，哪一侧是 \(c\)”。
+        二者合起来确实把交换操作与左右分区同时编码进 matrices。
+        但 <code>main.tex</code> 的 operator formulation 一开始已经写成
+        \(\mathcal F_b\otimes\mathcal F_c\)，左右分区是已知的；因此 theorem
+        只需要显式写 \(\theta\)，不需要再把 \(J_2\) 当作第二个 physical
+        reflection assumption。</p>
+        <p>note 把 \(J_2\) 加进来后，得到下面五条离散 relations：</p>
         <div class="scroll">\[
           J_1^2=I_4,\quad J_1^TgJ_1=g,\qquad
           J_2^2=-I_4,\quad J_2^TgJ_2=g,\qquad
           J_1J_2=-J_2J_1 .
         \]</div>
-        <p>但是 reflection symmetry 与 reflection positivity 仍是两件不同的事。
+        <p>新增的 <code>experts/RPBAFQMC.tex</code> 给出了这两个 matrices
+        的直接来源。它先逐字规定</p>
+        <div class="source-quote">
+          “Reflection symmetry requires
+          \(J_1^TAJ_1=\bar A\). Assume that \(J_2\Omega\) plays the role
+          of the metric of the contraction semigroup and the expansion semigroup.”
+        </div>
+        <p>所以在合作者原本的 construction 中，\(J_1\) 明确负责 physical
+        reflection symmetry；\(J_2\) 的证明任务是与 bosonic symplectic
+        matrix \(\Omega\) 相乘，构造 \(J_2\Omega\) metric。
+        该文件随后用</p>
+        <div class="scroll">\[
+          J_2^TAJ_2=\bar A
+          \quad\text{与}\quad
+          J_2^TAJ_2=-\bar A
+        \]</div>
+        <p>分别挑出 maximal-subgroup generators 与 cone generators，
+        并把 reflection-positive coefficient block 的正半定条件改写成
+        contraction part 与 expansion part 的 direct-sum condition。
+        因此，\(-J_1J_2=I_2\otimes\sigma_z\) 仍准确揭示了 \(J_2\)
+        相对 \(J_1\) 多出的 \(b/c\) 分区符号；但 \(J_2\) 在原证明中的用途
+        不止“标记两侧”，还负责把 RP coefficient positivity 接到
+        regularized Gaussian weight 的 semigroup argument。</p>
+
+        <div class="warning">
+          <strong>两个同名的 \(\eta\) 必须分开。</strong>
+          <code>main.tex</code> 的 \(\eta_i\) 是
+          \(\theta(\hat b_i)=\eta_i\hat c_i\) 中的 scalar phase，
+          \(|\eta_i|=1\)。note 后面有时把
+          \(\eta=J_2g\) 称为 metric；那个 \(\eta\) 是一个
+          \(2N\times2N\) Hermitian matrix。二者没有“一个由另一个生成”的关系。
+        </div>
+
+        <h4>为什么这些 matrices 仍不足以给出 reflection positivity</h4>
+        <p>reflection symmetry 与 reflection positivity 是两件不同的事。
         前者只说 \(b\) sector 与 \(c\) sector 互为复共轭；后者还要求每个
         HS-decoupled slice 能整理成</p>
         <div class="scroll">\[
@@ -288,9 +413,13 @@ SEGMENTS = [
         \(F=(\Delta\tau|\Delta|/2)I\ge0\)。因此 paired model 的非负权重来自
         operator-level reflection positivity，而不是仅由
         \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
-        这也解释了 note 为什么把 RP 标成 “non-contraction semigroup”：
-        它通过 reflected squares 证明 trace 非负，不通过下一段的
-        \(J_2g\)-contraction inequality。</p>
+        对 finite bare trace，证明直接来自 reflected squares。
+        <code>experts/RPBAFQMC.tex</code> 还尝试把 regularized weight
+        表成 contraction part 与 expansion part 的 direct sum。
+        因此 note 把 RP 标成 “non-contraction semigroup” 最稳妥的理解是：
+        它不是 Cases 3--16 那种由单一
+        \(J_2gA+A^\dagger J_2g\le0\) 定义的 contraction semigroup，
+        而不是说 RP 与任何 semigroup representation 都毫无关系。</p>
         """,
     ),
     Segment(
@@ -421,9 +550,24 @@ SEGMENTS = [
         <p>这次重新编号很容易造成误读：\(1''\) 和 \(2''\) 不是前面 contraction
         inequality 的通过项；\(3''\)--\(6''\) 才来自该列表。
         与上一版相比，作者已接受 commuting Case 10 为 Failed，所以总数从 7 降为 6。
-        此外，原文没有定义“non-hermitian case”究竟指 \(A\)、\(gA\)、哪一个 block，
-        还是对应的 many-body Hamiltonian。因此读到这个标签时，应以紧邻的矩阵关系为准，
-        不能把标签本身当作证明。</p>
+        本 note 此处没有就地定义 “non-hermitian case”，但新增的
+        <code>experts/SGNH.tex</code> 补出了它的物理含义：作者研究的是</p>
+        <div class="scroll">\[
+          H_K=-H_K^\dagger,\qquad H_U=H_U^\dagger ,
+        \]</div>
+        <p>也就是 single-body term 为 anti-Hermitian，而 interaction term
+        仍为 Hermitian 的 bosonic models。该文件的两组 semigroup conditions
+        正好对应这里的 Cases 3 与 4，并给出具体 Hamiltonians：
+        第一组取 real antisymmetric hopping matrix；
+        第二组使用 \(b,c\) flavors，允许 anti-Hermitian \(B_{11}\) 与
+        symmetric \(B_{12}\)，同时取
+        \(U(\hat n_b-\hat n_c)^2\)。所以这里的 “non-hermitian”
+        主要指 physical single-body Hamiltonian，不是笼统地指任意一个
+        displayed block 不等于自己的 Hermitian conjugate。</p>
+        <p><code>experts/SGNH.tex</code> 声称这些 models sign-problem-free，
+        但当前文件只给出 proof scheme，没有把 metaplectic square-root branch
+        与 regularization 的所有步骤写完。因此这个来源澄清了标签，不能单独替代
+        本报告对 complete bosonic weight 的检查。</p>
         """,
     ),
     Segment(
@@ -887,8 +1031,20 @@ SEGMENTS = [
         contraction interior。新版的 Failed 判断与本报告的解析分类、Octave
         穷举完全一致。</p>
 
-        <p>原文最后引用 “ToLeiWang4.pdf”，但当前仓库中没有该文件。
-        因此本报告不能核对其中的具体推导；上面的直接矩阵证明不依赖该外部文件。</p>
+        <p>用户补充说明 “ToLeiWang4.pdf” 大概是
+        <code>experts/RPBAFQMC.tex</code> 的编译稿。这个判断与文件主题吻合：
+        该文件确实讨论 BAFQMC reflection positivity、regularized weights，
+        以及 contraction/expansion semigroup decomposition。不过它在
+        Supplemental Material 中显式使用的 RP matrices 满足</p>
+        <div class="scroll">\[
+          J_1^TgJ_1=g,\quad J_1^2=I,\qquad
+          J_2^TgJ_2=g,\quad J_2^2=-I,\qquad
+          \{J_1,J_2\}=0 ,
+        \]</div>
+        <p>也就是 note 的 RP Case 2，而不是本段 Case 10 的五条 relations。
+        因而该文件可以解释作者为什么在 RP 讨论中引入第二个 \(J_2\)，
+        却不能直接充当 Case 10 的 strict-contraction proof。上面的
+        Case 10 边界证明仍然需要保留。</p>
         """,
     ),
     Segment(
