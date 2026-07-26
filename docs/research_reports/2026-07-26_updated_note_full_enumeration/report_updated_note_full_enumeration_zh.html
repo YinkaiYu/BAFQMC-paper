@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>ToYinkaiYu-20260726 note 逐段解读与玻色、费米完整穷举</title>
+  <title>ToYinkaiYu-20260726 note 逐段解读、物理对应与完整穷举</title>
   <style>
     :root {
       --ink: #202428;
@@ -267,10 +267,10 @@
   <header>
     <h1>
       <code class="report-file">ToYinkaiYu-20260726.tex</code>
-      <span class="report-title">逐段解读与玻色、费米完整穷举</span>
+      <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
     </h1>
     <div class="meta">
-      <div>报告日期：2026-07-26</div>
+      <div>报告日期：2026-07-27</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
       <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
       <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
@@ -279,21 +279,24 @@
 
   <p class="lead">
     本报告按照实际阅读顺序展开。第一部分先把更新 note 的原文逐段渲染，
-    每段后紧跟耐心展开的公式讲解；只有在 note 全部读完之后，第二部分才解释合作者发来的消息。
-    随后的解析推导和 Octave 穷举使用 note 自己的矩阵关系，不要求读者先学习另一套正负号缩写。
+    每段后紧跟耐心展开的公式讲解。note 全部读完后，第二部分把 \(J_1,J_2\)
+    分别对应到文章的 physical time reversal、reflection positivity 和 paired
+    pole-free benchmark；第三部分才解释合作者发来的消息。随后的解析推导和
+    Octave 穷举使用 note 自己的矩阵关系，不要求读者先学习另一套正负号缩写。
   </p>
 
   <nav class="toc" aria-label="目录">
     <a href="#note-walkthrough">1. note 原文与逐段讲解</a>
-    <a href="#message">2. 合作者消息的完整引文与逐句解释</a>
-    <a href="#question">3. 从 note 的候选条件到可检验问题</a>
-    <a href="#derivation">4. 不另造符号的解析推导</a>
-    <a href="#enumeration">5. Octave 完整穷举</a>
-    <a href="#audit-note">6. 回到 note：逐项核对</a>
-    <a href="#fermion-weight">7. 费米候选与完整权重</a>
-    <a href="#paper">8. 对文章的影响</a>
-    <a href="#conclusion">9. 最终结论</a>
-    <a href="#reproduce">10. 可复现性与文件</a>
+    <a href="#physical-map">2. \(J_1,J_2\) 与文章物理判据的对应</a>
+    <a href="#message">3. 合作者消息的完整引文与逐句解释</a>
+    <a href="#question">4. 从 note 的候选条件到可检验问题</a>
+    <a href="#derivation">5. 不另造符号的解析推导</a>
+    <a href="#enumeration">6. Octave 完整穷举</a>
+    <a href="#audit-note">7. 回到 note：逐项核对</a>
+    <a href="#fermion-weight">8. 费米候选与完整权重</a>
+    <a href="#paper">9. 对文章的影响</a>
+    <a href="#conclusion">10. 最终结论</a>
+    <a href="#reproduce">11. 可复现性与文件</a>
   </nav>
 
   <section id="note-walkthrough">
@@ -457,10 +460,11 @@ class="math inline">\(\left\{ J_{1},J_{2}\right\}
         <p>其中 \(\sigma_x^2=\sigma_z^2=I_2\)，而
         \((i\sigma_y)^2=-I_2\)。不同 Pauli matrices 彼此反对易，例如
         \(\sigma_x(i\sigma_y)=-(i\sigma_y)\sigma_x\)。
-        当 note 写 \(I_2\otimes i\sigma_y\) 时，它是一个 \(4\times4\) matrix；
-        张量积的第一个因子与 Nambu 的 particle/hole 排列有关，第二个因子可表示
-        两个 flavor、site 或 reflection partners。具体物理含义取决于应用，
-        但矩阵关系不依赖这种命名。</p>
+        为了与文章的两种玻色子直接对齐，下面固定 Nambu 顺序为
+        \(\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^T\)。于是张量积的第一个
+        \(2\times2\) 因子作用在 particle/hole 空间，第二个因子作用在
+        \(b/c\) flavor 空间；若每种 flavor 含多个格点，最后再张量乘 site identity。
+        这样每个 Pauli factor 都有明确的物理位置。</p>
 
         <h4>\(J_i^TgJ_i=\pm g\) 在说什么</h4>
         <p>玻色 \(g\) 已在 1.1 定义。最小的 \(N=1\) 情形是</p>
@@ -492,19 +496,42 @@ class="math inline">\(\left\{ J_{1},J_{2}\right\}
           \end{array}
         \]</div>
         <p>这正是“\(h\) 的 symmetry 由 \(gA\) 决定，而 \(A\) 自己的条件可能差一个负号”
-        的具体内容。后面的 contraction list 只把 \(J_1^TAJ_1=\bar A\)
-        写作共同条件；在这里的 time-reversal symmetry 中，第二个变换还要使用
-        \(J_2^TAJ_2=-\bar A\)，才能让 \(gA\) 在它下面保持不变。</p>
+        的具体内容。不过 note 的前两类只列出 \(J_i\) 与 \(g\) 的离散关系，
+        没有在这里写出每个 \(J_i\) 对 \(A\) 的完整条件；不能仅凭这五条关系就假定
+        两个 \(J_iK\) 都按同一个公式保持 Hamiltonian。后面的 contraction list
+        才明确把 \(J_1^TAJ_1=\bar A\) 写成共同条件。</p>
 
-        <h4>time-reversal symmetry 的一个完全显式例子</h4>
-        <p>取两个玻色 mode，所以 Nambu space 为四维。下面是一组满足原文第 1 类
-        全部离散关系的矩阵：</p>
+        <h4>怎样从文章的物理 time reversal 得到 note 的 \(J_1,J_2\)</h4>
+        <p><code>main.tex</code> 的 TRS theorem 先在<strong>没有 pairing、粒子数守恒</strong>
+        的单粒子空间中定义一个 Kramers antiunitary transformation。
+        对文章的两种 flavor，它的作用是</p>
+        <div class="scroll">\[
+          \Theta\hat b\,\Theta^{-1}=\hat c,\qquad
+          \Theta\hat c\,\Theta^{-1}=-\hat b,\qquad
+          \Theta i\Theta^{-1}=-i .
+        \]</div>
+        <p>因此在 \((\hat b,\hat c)^T\) 上，\(\Theta=UK\) 中的 real matrix 是</p>
+        <div class="scroll">\[
+          U=i\sigma_y=\begin{pmatrix}0&1\\-1&0\end{pmatrix},
+          \qquad U^2=-I_2 .
+        \]</div>
+        <p>把同一个变换写到
+        \(\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^T\) 上，matrix 就是</p>
         <div class="scroll">\[
           g=-i\sigma_y\otimes I_2,\qquad
           J_1=I_2\otimes i\sigma_y,\qquad
           J_2=\sigma_x\otimes i\sigma_y .
         \]</div>
-        <p>逐项检查：</p>
+        <p>这里 \(J_1K\) 就是文章真正施加的 physical time reversal。
+        \(J_2\) 可写成</p>
+        <div class="scroll">\[
+          J_2=(\sigma_x\otimes I_2)J_1 .
+        \]</div>
+        <p>前面的 \(\sigma_x\otimes I_2\) 只交换 Nambu 的 particle 与 hole
+        两半。因此 note 所说的 “two anti-linear symmetries” 不应理解成体系中
+        另有第二个彼此独立的 physical time-reversal operation；在这个 realization
+        中，第二个 \(J\) 是 physical Kramers transformation 与 Nambu
+        particle-hole doubling 的组合。逐项检查可得</p>
         <div class="scroll">\[
           \begin{aligned}
           J_1^2&=-I_4,&
@@ -514,59 +541,93 @@ class="math inline">\(\left\{ J_{1},J_{2}\right\}
           J_1J_2&=J_2J_1.&&
           \end{aligned}
         \]</div>
-        <p>最后一行成立是因为两个矩阵在第二个 tensor factor 上都有
-        \(i\sigma_y\)，第一个 factor 上的 \(I_2\) 与 \(\sigma_x\) 对易。
-        为了再看见它怎样约束 \(A\)，取一个最简单但非零的 generator</p>
+        <p>这五个等式只核对 note 本段实际写出的 \(J,g\) relations。
+        要判断它们如何作用于文章的 Hamiltonian，还要先写出 physical slice。</p>
+        <p>文章的单时间片写成
+        \(\hat h=\hat{\boldsymbol a}^+B\hat{\boldsymbol a}\)，其中
+        \(\hat{\boldsymbol a}=(\hat{\boldsymbol b},\hat{\boldsymbol c})^T\)。
+        Kramers condition \(U^\dagger\bar B U=B\) 等价于文章给出的 block form</p>
         <div class="scroll">\[
-          A=m\,\sigma_z\otimes I_2,\qquad m<0 .
+          B=\begin{pmatrix}
+          D&F\\-\bar F&\bar D
+          \end{pmatrix}.
         \]</div>
-        <p>它满足玻色条件 \(gA+A^Tg=0\)。此外</p>
+        <p>忽略由 normal ordering 单独处理的 scalar，同一个 number-conserving
+        slice 的 Nambu exponent generator 是</p>
         <div class="scroll">\[
-          J_1^TAJ_1=A=\bar A,\qquad
-          J_2^TAJ_2=-A=-\bar A .
+          A=\begin{pmatrix}B&0\\0&-B^T\end{pmatrix}.
         \]</div>
-        <p>把这两行分别与 \(J_1^TgJ_1=g\) 和
-        \(J_2^TgJ_2=-g\) 相乘，就得到两个变换都保持 \(gA\)。
-        对这一个具体 \(A\)，二次算符与 trace 可以直接算到</p>
+        <p>现在才把上面的 \(J_1,J_2\) 代入，可以直接算到</p>
         <div class="scroll">\[
-          h=m\sum_{\alpha=1}^{2}\left(a_\alpha^+a_\alpha+\frac12\right),
-          \qquad
-          \Tr e^h
-          =\left(\frac{e^{m/2}}{1-e^m}\right)^2>0 .
+          J_1^TAJ_1=\bar A,\qquad
+          J_2^TAJ_2=-\bar A^T .
         \]</div>
-        <p>这只是用来说明 \(J_1,J_2\) 如何工作的最小例子，不代替整个
-        time-reversal positivity theorem。不同 basis 下 \(J_1,J_2\)
-        的矩阵外观会改变，但上述五条关系保持不变。</p>
+        <p>第二式多出的 transpose 来自 Nambu particle/hole exchange。
+        它再次说明 \(J_2K\) 包含 Nambu doubling relation，不能当成文章额外施加的
+        第二个 physical time reversal。</p>
+        <p>在 Nambu 空间中，相同条件由 \(J_1K\) 作用到 exponent generator
+        \(A\) 上。令
+        \(\mathcal B=e^{B_1}\cdots e^{B_L}\)。physical Kramers symmetry
+        使 \(\mathcal B\) 的非实 eigenvalues 以
+        \(\lambda,\bar\lambda\) 配对，实 eigenvalues 则有偶数重数，所以</p>
+        <div class="scroll">\[
+          \det(I-\mathcal B)
+          =\prod_{\lambda\notin\mathbb R}|1-\lambda|^2
+           \prod_{r\in\mathbb R}(1-r)^{\text{even}}\ge0 .
+        \]</div>
+        <p>这才是 <code>main.tex</code> 中 TRS 消除符号问题的物理机制：
+        Kramers partners 让 determinant 的所有潜在负因子成对出现。
+        该 theorem 当前只覆盖 number-conserving slices；文章在
+        \(\Delta\ne0\) 时没有用它来证明 paired Nambu weight，而是使用下面的 RP theorem。</p>
 
-        <h4>reflection positivity 的矩阵骨架与额外要求</h4>
-        <p>同样在四维 Nambu space 中，可以取</p>
+        <h4>怎样从文章的 physical reflection 得到 note 的 \(J_1\)</h4>
+        <p><code>main.tex</code> 把两种 flavor 当作 reflection 的两侧，定义</p>
+        <div class="scroll">\[
+          \theta(i)=-i,\qquad
+          \theta(\hat b_i)=\eta_i\hat c_i,\qquad
+          \theta(\hat b_i^+)=\bar\eta_i\hat c_i^+ .
+        \]</div>
+        <p>先取最简单的 \(\eta_i=1\)。在
+        \((\hat b,\hat c,\hat b^+,\hat c^+)^T\) 中，交换两侧并复共轭正是</p>
         <div class="scroll">\[
           g=-i\sigma_y\otimes I_2,\qquad
           J_1=I_2\otimes\sigma_x,\qquad
           J_2=I_2\otimes i\sigma_y .
         \]</div>
-        <p>于是</p>
+        <p>其中 \(J_1K\) 对应文章的 physical reflection；\(J_2\) 是在同一个
+        两侧空间中选取的另一个 real matrix，用来把这一 reflection structure
+        补成 note 所列的五条离散关系。它不是 <code>main.tex</code> 的 RP theorem
+        额外要求的一项物理对称性。矩阵上确有</p>
         <div class="scroll">\[
           J_1^2=I_4,\quad J_1^TgJ_1=g,\qquad
           J_2^2=-I_4,\quad J_2^TgJ_2=g,\qquad
           J_1J_2=-J_2J_1 .
         \]</div>
-        <p>若第二个 tensor factor 表示 reflection plane 两侧，
-        \(J_1\) 的 \(\sigma_x\) 正好交换两侧。可是这些矩阵关系本身只给出
-        reflection 的 algebraic skeleton；它们还不是 reflection positivity。
-        后者还要求跨反射面的耦合能够写成正系数的反射配对。示意地说，需要能整理成</p>
+        <p>但是 reflection symmetry 与 reflection positivity 仍是两件不同的事。
+        前者只说 \(b\) sector 与 \(c\) sector 互为复共轭；后者还要求每个
+        HS-decoupled slice 能整理成</p>
         <div class="scroll">\[
-          h=h_{\rm L}+\Theta(h_{\rm L})
-          +\sum_\mu \lambda_\mu\,O_{\mu,{\rm L}}\Theta(O_{\mu,{\rm L}}),
-          \qquad \lambda_\mu\ge0 ,
+          \hat h=\hat q+\theta(\hat q)
+          +\sum_{\mu,\nu}C_{\mu\nu}
+          \hat X_\mu\theta(\hat X_\nu),
+          \qquad C=C^\dagger\ge0 .
         \]</div>
-        <p>其中 \(\Theta\) 是包含复共轭的 reflection，
-        \(O_{\mu,{\rm L}}\) 只作用在一侧。若采用
-        \(e^{-\Delta\tau H}\) 而不是 note 的 \(e^h\) convention，
-        最后一项的显式正负号会随定义调整，实质要求仍是跨平面的 coefficient matrix
-        具有所需 positivity。因此 reflection positivity 不能缩成
-        “只要有 reflection symmetry 就够了”。它也不是下一段的 contraction
-        inequality，所以原文特别写了 “non-contraction semigroup”。</p>
+        <p>正半定 matrix \(C\) 可以分解成平方和，因而每个传播因子最终是
+        \(\sum_r\hat R_r\theta(\hat R_r)\) 的极限。左右 Fock spaces 的 trace
+        随即成对为</p>
+        <div class="scroll">\[
+          \Tr[\hat R\,\theta(\hat R)]
+          =\left|\Tr_{\hat b}\hat R\right|^2\ge0 .
+        \]</div>
+        <p>这就是文章 RP criterion 的物理内容。对 paired benchmark，
+        \(\theta(\hat b_i)=e^{-i\arg\Delta}\hat c_i\)，相位可吸收到 flavor basis 中；
+        跨两侧的 pairing coefficient 变成
+        \(F=(\Delta\tau|\Delta|/2)I\ge0\)。因此 paired model 的非负权重来自
+        operator-level reflection positivity，而不是仅由
+        \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
+        这也解释了 note 为什么把 RP 标成 “non-contraction semigroup”：
+        它通过 reflected squares 证明 trace 非负，不通过下一段的
+        \(J_2g\)-contraction inequality。</p>
 
               </div>
             </article>
@@ -1005,16 +1066,37 @@ contraction means “physical”.</p>
               <div class="explanation">
                 <div class="annotation-label">讲解与补全</div>
 
-        <p>这一段给了两种 \(J_1\)，但共用同一个</p>
+        <h4>先把张量积放回文章的 \(b,c\) 模型</h4>
+        <p>文章有 \(N_s\) 个格点和两种 flavor，因此 note 这里的
+        \(N=2N_s\)。采用与前面相同的 Nambu 顺序</p>
         <div class="scroll">\[
-          J_2=\sigma_x\otimes I_N
-          =\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}.
+          \chi=(\hat{\boldsymbol b},\hat{\boldsymbol c},
+          \hat{\boldsymbol b}^+,\hat{\boldsymbol c}^+)^T .
         \]</div>
-        <p>第一种 \(J_1=I_2\otimes\sigma_x\otimes I_{N/2}\)
-        要求 \(N\) 为偶数；它在每个 particle/hole sector 内交换两个
-        \(N/2\)-dimensional subspaces。第二种 \(J_1=I_{2N}\) 不做交换，
-        是同一 relations class 中更简单的 representative。用第二种时，
-        \(J_1^TAJ_1=\bar A\) 直接变成 \(A=\bar A\)，也就是 \(A\) 为实矩阵。</p>
+        <p>Case 7 的第一种选择完整写开就是</p>
+        <div class="scroll">\[
+          J_1=
+          \begin{pmatrix}
+          0&I_{N_s}&0&0\\
+          I_{N_s}&0&0&0\\
+          0&0&0&I_{N_s}\\
+          0&0&I_{N_s}&0
+          \end{pmatrix},
+          \qquad
+          J_2=
+          \begin{pmatrix}
+          0&0&I_{N_s}&0\\
+          0&0&0&I_{N_s}\\
+          I_{N_s}&0&0&0\\
+          0&I_{N_s}&0&0
+          \end{pmatrix}.
+        \]</div>
+        <p>\(J_1K\) 先复共轭，再在 particle 和 hole 两部分中分别交换
+        \(b,c\)。这正是文章 reflection
+        \(\theta(\hat b_i)=\hat c_i,\ \theta(i)=-i\) 在 Nambu coefficients
+        上的表示；若 \(\Delta\) 有相位，只需把相应 phase 放入这个 flavor exchange。
+        \(J_2\) 则交换 Nambu 的 annihilation 与 creation 两半。它不是新的
+        physical operation，而是用来构造 particle/hole signature matrix。</p>
         <p>对上面的 \(J_2\) 和玻色</p>
         <div class="scroll">\[
           g=\begin{pmatrix}0&-I_N\\I_N&0\end{pmatrix},
@@ -1024,12 +1106,70 @@ contraction means “physical”.</p>
           J_2g=\begin{pmatrix}I&0\\0&-I\end{pmatrix},
           \qquad (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I .
         \]</div>
-        <p>左上 \(+I_N\) 与右下 \(-I_N\) 表示这个 metric 不是 ordinary
-        positive-definite norm；它分别测量两个 Nambu sectors。
-        contraction inequality 要求 \(e^A\) 不增加这个 indefinite quadratic form。
-        1.4 已在 \(N=1\) 时给出 \(A=-\gamma\sigma_z\) 的 strict example。
-        原文的 “physical” 没有给出额外定义；可核查的陈述就是
-        \((e^A)^\dagger(J_2g)e^A\le J_2g\)。</p>
+        <p>也就是说，Case 7 的 \(\eta=J_2g\) 恰好是
+        \(\operatorname{diag}(I_{2N_s},-I_{2N_s})\)：particle components
+        取正号，hole components 取负号。它不是 ordinary positive-definite
+        norm，也不是一个新的 observable；它记录 bosonic Bogoliubov dynamics
+        中 particle/hole 两半的相反符号。</p>
+
+        <h4>为什么这正是 7 月 19 日 pole-free 报告中的结构</h4>
+        <p>旧报告使用 \(g=-\Omega\)，并把同一个 signature matrix 写成
+        \(\eta=J_2^{\rm old}\Omega\)，其中
+        \(J_2^{\rm old}=-\sigma_x\otimes I_N\)。新版 note 改用
+        \(J_2=\sigma_x\otimes I_N\) 并写 \(\eta=J_2g\)。两种写法完全相同：</p>
+        <div class="scroll">\[
+          J_2^{\rm old}\Omega
+          =(-\sigma_x\otimes I_N)\Omega
+          =(\sigma_x\otimes I_N)(-\Omega)
+          =J_2g .
+        \]</div>
+        <p>因此 “Yinkai's case” 不是后来硬贴到旧报告上的名称；它就是旧报告
+        \(\eta\)-contraction proof 所使用的离散 matrix structure。
+        对文章的 \(U_1=0\) paired benchmark，每个时间片有两类传播因子：</p>
+        <ol>
+          <li>严格稳定的自由配对 Hamiltonian 产生虚时间衰减。若
+          \(\epsilon_{\min}-\mu>|\Delta|\)，其 exponent generator \(A\) 满足
+          \[
+            (J_2g)A+A^\dagger(J_2g)<0,
+          \]
+          所以 \(e^A\) 是 strict contraction。</li>
+          <li>\(U_2(\hat n_b-\hat n_c)^2\) 的 real HS field 产生
+          \(\exp[i\sum_i\theta_i(\hat n_{b,i}-\hat n_{c,i})]\)。
+          它只改变 phase，对相应 \(A\) 满足同一个式子的等号，因此是
+          \(J_2g\)-isometry，位于 contraction domain 的边界。</li>
+        </ol>
+        <p>两类因子都满足 \(J_1^TAJ_1=\bar A\)：交换 \(b,c\) 的同时复共轭，
+        会把 \(+i\theta_i\) 与 \(-i\theta_i\) 互换回来；real hopping 和
+        reflected pairing 也保持不变。由于 contraction condition 对有序矩阵乘法封闭，
+        任意 auxiliary-field history 的完整 Nambu propagation 都严格满足</p>
+        <div class="scroll">\[
+          \mathcal M^\dagger(J_2g)\mathcal M-(J_2g)<0 .
+        \]</div>
+        <p>若 \(\mathcal Mv=\lambda v\) 且 \(|\lambda|=1\)，把 \(v\) 代入上式，
+        左边会等于零，与严格小于零矛盾。因此完整 propagation 没有单位圆
+        eigenvalue，特别没有 \(\lambda=1\)，于是
+        \(\det(I-\mathcal M)\ne0\)。这就是旧报告的逐构型 pole-free result。</p>
+
+        <h4>它与文章 RP criterion 分别证明什么</h4>
+        <p>在这个 benchmark 中，两套结构同时成立，但分工不同：</p>
+        <ul>
+          <li><strong>main.tex 的 RP theorem：</strong>利用
+          \(b\leftrightarrow c\) 的 reflected-square decomposition 和正半定
+          pairing coefficient，证明固定构型的 operator trace 在存在时非负。</li>
+          <li><strong>Yinkai's-case contraction：</strong>利用稳定自由衰减与
+          \(U_2\) 纯相位，证明固定构型的 trace denominator 不会出现 pole。</li>
+        </ul>
+        <p>所以它目前不应被宣传为替代 RP 的第三种 sign-positivity mechanism。
+        对本文配对模型，它补上的是 RP theorem 中 “whenever the trace is finite”
+        这项条件的一个具体、严格保证。若以后找到一个不满足现有 TRS/RP、
+        却能从 Case 7 semigroup 单独推出 real positive weight 的 physical
+        HS model，那才会形成文章分类之外的新 sign-free territory。</p>
+
+        <p>原文还给出 \(J_1=I_{2N}\) 的简单 representative。
+        它只要求 \(A=\bar A\)，适合检查这一抽象 relations class；
+        但它不再表示文章中实际的 \(b\leftrightarrow c\) reflection。
+        因而解释 benchmark 时应使用第一种 \(J_1\)，不能为了矩阵简单而丢掉
+        flavor 的物理含义。</p>
 
               </div>
             </article>
@@ -2587,7 +2727,7 @@ class="math inline">\(B_{11}\neq0\)</span>, it passed the test.</p>
         本段仍保留旧文字 “I don't know how to prove it”，但新版第一节已经改称
         \(1'\) 是 \(9'\) 的 special case。两处只有在作者补出 basis change 或
         subspace inclusion 后才构成完整论证；本段的 block calculation 自身没有展示该包含关系。
-        更重要的是，本报告第 7 节已经给出 \(9'\) 离散关系下的负权重反例，
+        更重要的是，本报告第 8 节已经给出 \(9'\) 离散关系下的负权重反例，
         所以“属于 \(9'\)”不能自动成为完整 Fock-weight positivity 的证明。</p>
 
               </div>
@@ -3558,8 +3698,173 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
   </section>
 
+  <section id="physical-map">
+    <h2>2. \(J_1,J_2\) 与文章物理判据的对应</h2>
+
+    <h3>2.1 先分清文章中三个不同的问题</h3>
+    <p>
+      对一个固定的 Hubbard--Stratonovich auxiliary-field configuration，
+      BAFQMC 要把所有原始玻色自由度取 trace，得到
+    </p>
+    <div class="scroll">\[
+      W(\phi)=
+      \Tr\!\left[\prod_\ell e^{\hat h_\ell(\phi_\ell)}\right].
+    \]</div>
+    <p>这个单一公式包含三个必须分开回答的问题：</p>
+    <ol>
+      <li><strong>sign/phase：</strong>\(W(\phi)\) 是否为 real nonnegative number，因而可以作为 Monte Carlo weight；</li>
+      <li><strong>trace convergence/pole：</strong>这个 Fock-space trace 是否有限，等价地，Nambu determinant denominator 是否避开零；</li>
+      <li><strong>numerical tails：</strong>即使没有精确 pole，整个 auxiliary-field space 是否还能无限逼近 pole，产生 ill-conditioned Green function 或 infinite variance。</li>
+    </ol>
+    <p>
+      <code>main.tex</code> 的 TRS 与 RP theorems 主要回答第一个问题，并在 theorem
+      结尾明确保留 “whenever the trace is finite”。7 月 19 日报告的
+      \(\eta\)-contraction proof 主要回答第二个问题，并在有限格点、有限时间片的
+      pure-phase auxiliary-field space 上进一步回答第三个问题。合作者 note 把这些
+      结构放在同一张 \(J_1,J_2\) 分类表中，所以若不先区分问题，很容易误以为它们是
+      三种完全等价的 sign-free proof。
+    </p>
+
+    <h3>2.2 三套结构的物理词典</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>结构</th>
+            <th>文章中的 physical operation</th>
+            <th>note 中首先出现的 matrix</th>
+            <th>当前直接证明</th>
+            <th>当前没有单独证明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>number-conserving TRS</strong></td>
+            <td>
+              Kramers antiunitary：
+              \(\Theta\hat b\Theta^{-1}=\hat c\)，
+              \(\Theta\hat c\Theta^{-1}=-\hat b\)，
+              \(\Theta^2=-1\)
+            </td>
+            <td>
+              \(J_1=I_{\rm Nambu}\otimes i\sigma_y\)。
+              在上面的显式 realization 中，note 的第二个 \(J\) 是它与
+              Nambu particle/hole exchange 的组合
+            </td>
+            <td>
+              nonreal eigenvalues complex-conjugate paired，real eigenvalues
+              even-degenerate，因此有限的 bosonic determinant weight 为正
+            </td>
+            <td>
+              不排除 \(\lambda=1\) pole；文章当前 theorem 不覆盖
+              \(\Delta\ne0\) 的 paired propagation
+            </td>
+          </tr>
+          <tr>
+            <td><strong>reflection positivity</strong></td>
+            <td>
+              antilinear flavor reflection：
+              \(\theta(\hat b_i)=\eta_i\hat c_i\)，
+              \(\theta(i)=-i\)，并要求跨 reflection 的 coefficient matrix
+              positive semidefinite
+            </td>
+            <td>
+              phase gauge 后
+              \(J_1=I_{\rm Nambu}\otimes\sigma_x\)；
+              在上面的显式 realization 中，note 其余离散 relations
+              是这一 reflection 的 matrix completion
+            </td>
+            <td>
+              propagation operator 可写成 reflected squares，
+              \(\Tr[\hat R\theta(\hat R)]=|\Tr\hat R|^2\ge0\)；
+              pairing 允许存在
+            </td>
+            <td>
+              reflection symmetry 本身不等于 positivity；
+              RP theorem 单独不排除 bosonic pole
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Yinkai's Case 7 semigroup</strong></td>
+            <td>
+              同一个 \(b\leftrightarrow c\) antilinear reflection 加上
+              particle/hole signature；
+              stable free propagation 负责衰减，\(U_2\) field 只转 phase
+            </td>
+            <td>
+              \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，
+              \(J_2=\sigma_x^{\rm Nambu}\otimes I\)，
+              \(J_2g=\operatorname{diag}(I,-I)\)
+            </td>
+            <td>
+              对 \(U_1=0\)、strictly stable free pairing 和 real \(U_2\)
+              fields，完整 propagation 没有 unit-circle eigenvalue，
+              因而逐构型无 pole
+            </td>
+            <td>
+              对任意抽象 Case 7 generator，contraction alone 尚未给出
+              operator trace nonnegative；也不覆盖会产生 real amplification
+              的 \(U_1\) field
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>2.3 同一个 benchmark 为什么会同时落入 RP 与 Yinkai's case</h3>
+    <p>
+      文章 paired benchmark 的 Hamiltonian 含有相同的 real hopping、
+      \(U_2(\hat n_b-\hat n_c)^2\) 和
+      \(-\Delta\hat b^+\hat c^+-\Delta^*\hat b\hat c\)。
+      对固定 real \(U_2\) auxiliary field，\(b,c\) 得到互为复共轭的
+      imaginary potentials。交换 \(b,c\) 并复共轭后，整个时间片不变，
+      所以同一个 \(J_1K\) 同时出现在两种论证中。
+    </p>
+    <p>两种论证接下来沿不同方向使用这个 reflection：</p>
+    <div class="scroll">\[
+      \begin{array}{rcl}
+      \text{RP route}
+      &:&
+      \text{positive reflected pairing}
+      \Longrightarrow W(\phi)\ge0
+      \quad\text{when the trace exists},\\[3pt]
+      \text{Case 7 route}
+      &:&
+      \text{stable free decay}+\text{pure }U_2\text{ phases}
+      \Longrightarrow \det[I-\mathcal M(\phi)]\ne0 .
+      \end{array}
+    \]</div>
+    <p>
+      两条结果合在一起，才得到本文 Fig. 3 参数下最完整的逐构型陈述：
+      weight 的 operator representative 是正的，而且 determinant denominator
+      不会发散。详细的 stability condition、
+      \(\eta\)-contraction multiplication proof、pole exclusion 和 finite phase
+      space 的 uniform bound 已在
+      <a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 pole-free pairing 报告</a>
+      中逐步证明。
+    </p>
+
+    <h3>2.4 “Yinkai's case” 在 note 中不是严格统一的物理名称</h3>
+    <p>
+      Case 7 与当前 benchmark 的五条 relations 完全对应，所以这里的名称有明确物理来源。
+      但 note 后面还把 Cases 3、4、9 的若干 explicit representatives 称为
+      “also a Yin-Kai's case”。这些条目与 Case 7 改变了
+      \(J_1^2\)、\(J_1\) 对 \(g\) 的作用或 commutator/anti-commutator，
+      有的甚至没有 strict contraction interior。因此这些 “also” 最合理的理解是：
+      它们沿用了相近的 Pauli-product construction 或同一个 particle/hole
+      \(J_2\)，而不是都在描述 7 月 19 日报告中的 physical benchmark。
+    </p>
+    <div class="warning">
+      <strong>写文章时需要避免的混淆。</strong>
+      当前证据支持“Case 7 semigroup 为 paired RP benchmark 补充 pole-free
+      guarantee”。它尚不支持“Yinkai's case 已经给出独立于 TRS/RP 的第三类
+      physical sign-free Hamiltonians”。后一主张需要新的 HS realization，
+      还要单独证明 real nonnegative full Fock weight。
+    </div>
+  </section>
+
   <section id="message">
-    <h2>2. 合作者消息的完整引文与逐句解释</h2>
+    <h2>3. 合作者消息的完整引文与逐句解释</h2>
     <div class="source-quote">
       “这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。
       总共玻色费米各有32种，所以手动穷举和数值穷举比其实很低效。这个过程中，我发现很多时候玻色子和费米子并不对等。
@@ -3653,9 +3958,9 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="question">
-    <h2>3. 从 note 的候选条件到可检验问题</h2>
+    <h2>4. 从 note 的候选条件到可检验问题</h2>
 
-    <h3>3.1 真正传播的是 \(e^A\)</h3>
+    <h3>4.1 真正传播的是 \(e^A\)</h3>
     <p>
       note 已定义 \(h=\frac12\chi^TgA\chi\)，并把一个辅助场构型的矩阵写成
       \(M=e^{A_1}\cdots e^{A_k}\)。因此 semigroup 若要约束这个构型，
@@ -3686,7 +3991,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       这就是所需的 semigroup closure。
     </p>
 
-    <h3>3.2 每一类必须回答四个问题</h3>
+    <h3>4.2 每一类必须回答四个问题</h3>
     <ol>
       <li>\(J_2g\) 或 \(iJ_2g\) 是否 Hermitian 且平方为 \(I\)？</li>
       <li>允许的 \(A\) 中是否存在 strict inequality，而不只是等号边界？</li>
@@ -3700,9 +4005,9 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="derivation">
-    <h2>4. 不另造符号的解析推导</h2>
+    <h2>5. 不另造符号的解析推导</h2>
 
-    <h3>4.1 \(J_2g\) 何时要乘 \(i\)</h3>
+    <h3>5.1 \(J_2g\) 何时要乘 \(i\)</h3>
     <p>
       note 使用的 \(J_2\) 都是实正交矩阵。若 \(J_2^2=I\)，则
       \(J_2^T=J_2\)；若 \(J_2^2=-I\)，则 \(J_2^T=-J_2\)。
@@ -3736,7 +4041,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       \(J_2^TgJ_2=g\) 且 \(J_2^2=I\)，此时必须使用 \(iJ_2g\)。
     </p>
 
-    <h3>4.2 strict interior 对 \(J_2^2\) 的要求</h3>
+    <h3>5.2 strict interior 对 \(J_2^2\) 的要求</h3>
     <p>玻色先算。由 \(g^T=-g\) 和 \(gA+A^Tg=0\)，</p>
     <div class="scroll">\[
       (gA)^T=A^Tg^T=-A^Tg=gA .
@@ -3784,7 +4089,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       差别来自 \((gA)^T\) 在两种统计下一个对称、一个反对称。
     </p>
 
-    <h3>4.3 commutator/anti-commutator 为什么不能忽略</h3>
+    <h3>5.3 commutator/anti-commutator 为什么不能忽略</h3>
     <p>
       现在只考虑上一小节允许 strict interior 的情形：
       玻色 \(J_2^2=I\)，费米 \(J_2^2=-I\)。
@@ -3843,7 +4148,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       seminegative 和 strict semipositive，所以只能等于零。
     </p>
 
-    <h3>4.4 两条要求不仅必要，而且给出显式 strict point</h3>
+    <h3>5.4 两条要求不仅必要，而且给出显式 strict point</h3>
     <p>
       按上一节选择 \(J_2^2\)，再按表中规则选择 commutator 或 anti-commutator。
       令 \(\eta\) 为对应的 \(J_2g\) 或 \(iJ_2g\)，并直接取
@@ -3876,7 +4181,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="enumeration">
-    <h2>5. Octave 完整穷举</h2>
+    <h2>6. Octave 完整穷举</h2>
     <p>
       Octave 对五项二选一关系逐项生成 real Pauli-product representatives，
       并验证 \(g\)、\(J_1\)、\(J_2\) 的全部矩阵关系。
@@ -3896,7 +4201,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </figcaption>
     </figure>
 
-    <h3>5.1 计数与残差</h3>
+    <h3>6.1 计数与残差</h3>
     <div class="scroll">
       <table>
         <thead>
@@ -3920,7 +4225,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       \(\|\eta A_0+A_0^\dagger\eta+2I\|=0\)。
     </p>
 
-    <h3>5.2 完整 64 行</h3>
+    <h3>6.2 完整 64 行</h3>
     <p>
       表格不使用额外的正负号简称。每一列直接写出 note 中的矩阵关系。
       Pauli words 使用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的首字母；
@@ -4006,9 +4311,9 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="audit-note">
-    <h2>6. 回到 note：逐项核对</h2>
+    <h2>7. 回到 note：逐项核对</h2>
 
-    <h3>6.1 玻色手算</h3>
+    <h3>7.1 玻色手算</h3>
     <p>
       note 的 Cases 7 与 8 满足：\(J_2^2=I\)，且 \(J_1\) 保持 \(g\)、
       \(J_2\) 翻转 \(g\)、二者对易。因此两者都有 strict contraction；
@@ -4030,7 +4335,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       strict cone，commuting Case 10 只能停在等号边界。
     </p>
 
-    <h3>6.2 第一节 Comment 的答案</h3>
+    <h3>7.2 第一节 Comment 的答案</h3>
     <div class="scroll">
       <table>
         <thead>
@@ -4060,7 +4365,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       \(3'\) 实为 \(3'''\) 的合理猜测下给出的受控比较。
     </p>
 
-    <h3>6.3 新版已经修正的内容与仍需核对的问题</h3>
+    <h3>7.3 新版已经修正的内容与仍需核对的问题</h3>
     <ul>
       <li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
       <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
@@ -4074,9 +4379,9 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="fermion-weight">
-    <h2>7. 费米候选与完整权重</h2>
+    <h2>8. 费米候选与完整权重</h2>
 
-    <h3>7.1 note 的费米不等式不是标准 \(e^A\) contraction</h3>
+    <h3>8.1 note 的费米不等式不是标准 \(e^A\) contraction</h3>
     <p>
       note 的权重公式依赖 \(M=\prod_\ell e^{A_\ell}\)，但第一节写的是
     </p>
@@ -4095,7 +4400,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       必须一起变换。只搬运一个 inequality 不能保证等价。
     </p>
 
-    <h3>7.2 一模精确反例</h3>
+    <h3>8.2 一模精确反例</h3>
     <p>取 note 使用的费米 Nambu convention，并令</p>
     <div class="scroll">\[
       g=\sigma_x,\qquad J_1=\sigma_x,\qquad
@@ -4118,7 +4423,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       所以 note 的 inequality 即使 strict，也没有阻止 Fock weight 过零并变负。
     </p>
 
-    <h3>7.3 无 pairing 的多时间片反例</h3>
+    <h3>8.3 无 pairing 的多时间片反例</h3>
     <p>
       对与 note \(9'\) 相同的离散矩阵关系，可以完全去掉 pairing blocks，
       取三个 number-conserving slices：
@@ -4149,7 +4454,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="paper">
-    <h2>8. 对文章的影响</h2>
+    <h2>9. 对文章的影响</h2>
     <p>
       当前文章的主线是 bosonic AFQMC：time-reversal symmetry 通过
       anti-linear pairing 控制权重，reflection positivity 通过反射关系和正锥控制权重；
@@ -4158,15 +4463,23 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       full-weight theorem 和 physical HS realization。
     </p>
 
-    <h3>8.1 可以吸收进 Supplemental Material 的内容</h3>
+    <h3>9.1 可以吸收进 Supplemental Material 的内容</h3>
     <ul>
-      <li>用本报告第 4 节的直接玻色推导说明：strict contraction 要求 \(J_2^2=I\)。</li>
+      <li>用本报告第 5 节的直接玻色推导说明：strict contraction 要求 \(J_2^2=I\)。</li>
       <li>明确 \(J_2^TgJ_2=-g\) 时使用 metric \(J_2g\)，\(J_2^TgJ_2=g\) 时使用 metric \(iJ_2g\)。</li>
       <li>把 commutation rule 写成与 note 对齐的语言：\(J_1,J_2\) 对 \(g\) 同号作用时反对易，异号作用时对易。</li>
       <li>给出 \(A_0=-\eta\) 的 strict witness，并把生成元条件推到 \((e^A)^\dagger\eta e^A\le\eta\)。</li>
     </ul>
 
-    <h3>8.2 在写入主文前仍需完成的工作</h3>
+    <h3>9.2 对现有文章最直接的修改方向</h3>
+    <ul>
+      <li>在 SM 的 “Infinite variance and determinant poles” 中，把 7 月 19 日报告的 paired \(\eta\)-contraction proposition 放在现有 number-conserving pole-free condition 之后。</li>
+      <li>在 proposition 前先说明 \(J_1K\) 是文章的 \(b\leftrightarrow c\) reflection，\(J_2g=\operatorname{diag}(I,-I)\) 是 particle/hole signature，避免只给抽象 matrices。</li>
+      <li>明确分工：RP fixes the nonnegative operator weight；paired semigroup excludes poles for the strictly stable \(U_1=0\), pure-\(U_2\)-phase ensemble。</li>
+      <li>若主文需要提及，只宜在 paired benchmark 段末增加一句 pole-free consequence；完整证明和适用范围留在 SM。</li>
+    </ul>
+
+    <h3>9.3 若要声称发现新的 sign-free class，仍需完成什么</h3>
     <ul>
       <li>为新增的 \(iJ_2g\) 玻色类证明完整 bosonic Fock trace 无 pole、branch 连续且非负。</li>
       <li>构造一个标准 HS decoupling 后自然落入新类的 physical Hamiltonian，而不是只给抽象 Pauli representatives。</li>
@@ -4174,7 +4487,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       <li>完成 numerical benchmark 后，再判断是否需要改变 Fig. 1 或主文 novelty framing。</li>
     </ul>
 
-    <h3>8.3 现在不应写入文章的表述</h3>
+    <h3>9.4 现在不应写入文章的表述</h3>
     <ul>
       <li>不应把新版“玻色 6 个、费米 7 个独立 cases”的计数直接写成完整无符号分类；这些数字仍混合不同 positivity mechanisms，而且不是全部 32 类的穷举计数。</li>
       <li>不应写 commutator/anti-commutator 无关；它决定 strict cone 是否存在。</li>
@@ -4184,12 +4497,24 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   </section>
 
   <section id="conclusion">
-    <h2>9. 最终结论</h2>
+    <h2>10. 最终结论</h2>
     <div class="summary-grid">
       <div class="summary-item established">
         <strong>完整覆盖 note</strong>
         更新 note 第 22--1824 行已经按原顺序分成 42 个单元。
         每段原文均在本报告内渲染，并紧跟公式讲解与必要的推导补全。
+      </div>
+      <div class="summary-item established">
+        <strong>与文章物理判据的对应</strong>
+        physical Kramers TRS 由 \(J_1K\) 表示；RP 的 \(J_1K\) 交换
+        \(b,c\) reflected sectors，真正的 positivity 还来自正半定跨区耦合。
+        两者都不能被缩写成一组未解释的 \(J\)-matrix relations。
+      </div>
+      <div class="summary-item established">
+        <strong>Yinkai's Case 7 的当前作用</strong>
+        对 strictly stable \(U_1=0\) paired benchmark，它与 7 月 19 日
+        \(\eta\)-contraction proof 完全对应，负责逐构型排除 pole；
+        RP 另行负责 nonnegative operator weight。
       </div>
       <div class="summary-item established">
         <strong>完整穷举</strong>
@@ -4212,15 +4537,17 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <p>
       合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它补上了每种统计 8 个
       strict propagation classes 中的一半。对文章最有价值的下一步不是继续手写更多
-      block matrices，而是把其中一个新玻色类实现为 physical HS problem，
-      并完成从 propagation contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark。
+      block matrices。现有 Case 7 应先作为 paired RP benchmark 的 pole-free
+      strengthening 写入 SM；其他新玻色类则需要实现为 physical HS problem，
+      并完成从 propagation contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark，
+      才能改变文章的 sign-free classification。
     </p>
   </section>
 
   <section id="reproduce">
-    <h2>10. 可复现性与文件</h2>
+    <h2>11. 可复现性与文件</h2>
 
-    <h3>10.1 生成报告与重跑计算</h3>
+    <h3>11.1 生成报告与重跑计算</h3>
     <pre>python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/build_reader_report.py
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
@@ -4232,11 +4559,14 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); test_fermion_cases"</pre>
 
-    <h3>10.2 文件索引</h3>
+    <h3>11.2 文件索引</h3>
     <div class="scroll">
       <table>
         <thead><tr><th>文件</th><th>内容</th></tr></thead>
         <tbody>
+          <tr><td><a href="../../../main.tex">main.tex</a></td><td>本文 TRS/RP criteria、两 flavor benchmark Hamiltonian 与 paired RP realization</td></tr>
+          <tr><td><a href="../../../SM.tex">SM.tex</a></td><td>Kramers eigenvalue pairing、operator-level RP proof、bosonic pole 与现有 pole-free discussion</td></tr>
+          <tr><td><a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 pole-free pairing 报告</a></td><td>Yinkai's Case 7 在 \(U_1=0\) paired benchmark 中的 stability、\(\eta\)-contraction、pole exclusion 与 uniform bound</td></tr>
           <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1824 行连续覆盖、渲染公式并生成本 HTML</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、strict witness 与 residual checks</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
