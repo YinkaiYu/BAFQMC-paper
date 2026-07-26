@@ -365,7 +365,7 @@ SEGMENTS = [
           of the metric of the contraction semigroup and the expansion semigroup.”
         </div>
         <p>所以在合作者原本的 construction 中，\(J_1\) 明确负责 physical
-        reflection symmetry；\(J_2\) 的证明任务是与 bosonic symplectic
+        reflection symmetry；作者试图让 \(J_2\) 与 bosonic symplectic
         matrix \(\Omega\) 相乘，构造 \(J_2\Omega\) metric。
         该文件随后用</p>
         <div class="scroll">\[
@@ -373,13 +373,74 @@ SEGMENTS = [
           \quad\text{与}\quad
           J_2^TAJ_2=-\bar A
         \]</div>
-        <p>分别挑出 maximal-subgroup generators 与 cone generators，
-        并把 reflection-positive coefficient block 的正半定条件改写成
-        contraction part 与 expansion part 的 direct-sum condition。
-        因此，\(-J_1J_2=I_2\otimes\sigma_z\) 仍准确揭示了 \(J_2\)
-        相对 \(J_1\) 多出的 \(b/c\) 分区符号；但 \(J_2\) 在原证明中的用途
-        不止“标记两侧”，还负责把 RP coefficient positivity 接到
-        regularized Gaussian weight 的 semigroup argument。</p>
+        <p>分别挑出作者称为 maximal-subgroup generators 与 cone generators，
+        然后声称 reflection-positive coefficient block 的正半定条件可改写成
+        contraction part 与 expansion part 的 direct sum。</p>
+
+        <h4>为什么 <code>RPBAFQMC.tex</code> 的 direct-sum 论证不成立</h4>
+        <p>用户指出了这一旧论证中的关键错误：contraction 与 expansion blocks
+        会混合。把 Hermitian matrix \(J_2\Omega\) 选到正、负本征子空间分开的
+        basis 后，一般传播矩阵只能写成</p>
+        <div class="scroll">\[
+          M_\ell=
+          \begin{pmatrix}
+            M_{\ell,++}&M_{\ell,+-}\\
+            M_{\ell,-+}&M_{\ell,--}
+          \end{pmatrix}.
+        \]</div>
+        <p>若它真是 contraction block 与 expansion block 的 direct sum，
+        就必须对每个时间片都有
+        \(M_{\ell,+-}=M_{\ell,-+}=0\)，也就是正、负两个子空间分别保持不变。
+        reflection positivity 的 coefficient condition 并没有给出这两个
+        等式。相邻时间片相乘时，diagonal block 已经含有 cross terms：</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          (M_2M_1)_{++}
+          &=M_{2,++}M_{1,++}\\
+          &\quad+M_{2,+-}M_{1,-+},\\[2pt]
+          (M_2M_1)_{--}
+          &=M_{2,-+}M_{1,+-}\\
+          &\quad+M_{2,--}M_{1,--}.
+          \end{aligned}
+        \]</div>
+        <p>两个 off-diagonal blocks 也由四类 blocks 共同生成。因此不能把完整
+        propagation 分成彼此独立的 contraction semigroup 与 expansion
+        semigroup，再分别应用半群闭合性。关系
+        \(J_2^TAJ_2=\pm\bar A\) 给出的是 generator 的 linear restrictions，
+        并不自动说明 \(J_2\Omega\) 的正、负本征子空间对 \(e^A\) 不变。</p>
+        <p>合作者的论文
+        <a href="https://arxiv.org/abs/1712.09412">arXiv:1712.09412</a>
+        中正确的 contraction-semigroup 语言也支持这一判断。该论文的
+        sign-free application 是 fermionic Majorana AFQMC；下面使用的
+        matrix definition 与 multiplication identity 本身不依赖 particle
+        statistics。固定
+        Hermitian metric \(J_2\Omega\) 后，contraction condition
+        是对<strong>完整矩阵</strong>施加</p>
+        <div class="scroll">\[
+          M^\dagger(J_2\Omega)M\le J_2\Omega .
+        \]</div>
+        <p>其乘法闭合来自完整矩阵恒等式</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          &(M_1M_2)^\dagger(J_2\Omega)(M_1M_2)-J_2\Omega\\
+          &\quad=M_2^\dagger
+          \left[M_1^\dagger(J_2\Omega)M_1-J_2\Omega\right]M_2\\
+          &\qquad+\left[M_2^\dagger(J_2\Omega)M_2-J_2\Omega\right].
+          \end{aligned}
+        \]</div>
+        <p>这里从未要求把 \(M\) 拆成两个不混合的 blocks。
+        论文所说 maximal subgroup，是上式取等号的完整 matrices；
+        invariant cone 是一组 generators，在 maximal subgroup 的
+        conjugation 下仍留在同一个 cone。这个 “invariant” 修饰的是
+        generator cone，不是说 \(J_2\Omega\) 的正、负本征子空间分别被
+        propagation 保持。论文提到的 polar decomposition 同样是
+        “cone part 乘 group part”，不是 “contraction block 直和 expansion
+        block”。</p>
+        <p>所以 <code>RPBAFQMC.tex</code> 只能帮助我们确认作者当时赋予
+        \(J_1,J_2\) 的<strong>预期分工</strong>，不能提供有效的 regularized-weight
+        semigroup proof。独立于这一错误，恒等式
+        \(-J_1J_2=I_2\otimes\sigma_z\) 仍准确说明 \(J_2\) 相对
+        \(J_1\) 多出的 \(b/c\) 分区符号。</p>
 
         <div class="warning">
           <strong>两个同名的 \(\eta\) 必须分开。</strong>
@@ -414,12 +475,12 @@ SEGMENTS = [
         operator-level reflection positivity，而不是仅由
         \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
         对 finite bare trace，证明直接来自 reflected squares。
-        <code>experts/RPBAFQMC.tex</code> 还尝试把 regularized weight
-        表成 contraction part 与 expansion part 的 direct sum。
-        因此 note 把 RP 标成 “non-contraction semigroup” 最稳妥的理解是：
-        它不是 Cases 3--16 那种由单一
-        \(J_2gA+A^\dagger J_2g\le0\) 定义的 contraction semigroup，
-        而不是说 RP 与任何 semigroup representation 都毫无关系。</p>
+        <code>experts/RPBAFQMC.tex</code> 曾尝试把 regularized weight
+        表成 contraction part 与 expansion part 的 direct sum，但上面的
+        block-mixing calculation 否定了这一步。当前得到验证的 RP 结论仍是：
+        finite bare trace 由 reflected squares 保证 nonnegative。
+        是否存在另一套正确的 semigroup proof，需要重新建立，不能沿用该文件
+        的 direct-sum assertion。</p>
         """,
     ),
     Segment(
@@ -1034,7 +1095,9 @@ SEGMENTS = [
         <p>用户补充说明 “ToLeiWang4.pdf” 大概是
         <code>experts/RPBAFQMC.tex</code> 的编译稿。这个判断与文件主题吻合：
         该文件确实讨论 BAFQMC reflection positivity、regularized weights，
-        以及 contraction/expansion semigroup decomposition。不过它在
+        并声称存在 contraction/expansion semigroup decomposition。
+        这项 decomposition 本身不成立，因为两类 blocks 在一般传播层中混合。
+        此外，该文件在
         Supplemental Material 中显式使用的 RP matrices 满足</p>
         <div class="scroll">\[
           J_1^TgJ_1=g,\quad J_1^2=I,\qquad
@@ -1042,9 +1105,9 @@ SEGMENTS = [
           \{J_1,J_2\}=0 ,
         \]</div>
         <p>也就是 note 的 RP Case 2，而不是本段 Case 10 的五条 relations。
-        因而该文件可以解释作者为什么在 RP 讨论中引入第二个 \(J_2\)，
-        却不能直接充当 Case 10 的 strict-contraction proof。上面的
-        Case 10 边界证明仍然需要保留。</p>
+        因而该文件只能解释作者为什么在 RP 讨论中引入第二个 \(J_2\)；
+        既不能证明其声称的 RP regularization，也不能充当 Case 10 的
+        strict-contraction proof。上面的 Case 10 边界证明仍然需要保留。</p>
         """,
     ),
     Segment(

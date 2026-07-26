@@ -482,13 +482,29 @@
       仍不能省略对 \(C\) 的检查。
     </p>
     <p>
-      <code>experts/RPBAFQMC.tex</code> 进一步确认了分工：它明确写
+      <code>experts/RPBAFQMC.tex</code> 可以确认作者当时设想的分工：它明确写
       “Reflection symmetry requires \(J_1^TAJ_1=\bar A\)”，随后令
       \(J_2\Omega\) 作为 contraction semigroup 与 expansion semigroup
-      的 metric。也就是说，\(J_2\) 在合作者原证明中还承担一个技术作用：
-      把 reflection-positive block 的正半定条件改写为 regularized
-      Gaussian propagation 的 contraction/expansion decomposition。
-      这个作用仍与 scalar phase \(\eta_i\) 无关。
+      的 metric。这说明引入 \(J_2\) 的意图仍与 scalar phase \(\eta_i\)
+      无关。
+    </p>
+    <div class="warning">
+      <strong>旧 note 的后续半群结论是错误的。</strong>
+      它声称完整传播可以拆成互不混合的 contraction block 与 expansion
+      block。实际上，RP 条件并不保证 \(J_2\Omega\) 的正、负本征子空间各自
+      不变；一般时间片含有连接两个子空间的 off-diagonal blocks，矩阵乘法又会
+      把这些 blocks 混入 diagonal blocks。因此
+      <code>experts/RPBAFQMC.tex</code> 只能说明 \(J_2\) 的原定用途，
+      不能作为 regularized RP weight 的有效证明。
+    </div>
+    <p>
+      这也与合作者在
+      <a href="https://arxiv.org/abs/1712.09412">arXiv:1712.09412</a>
+      中使用的标准语言一致。正确的 contraction semigroup 直接由完整矩阵
+      \(M^\dagger(J_2\Omega)M\le J_2\Omega\) 定义；maximal subgroup
+      是取等号的完整 matrices，invariant cone 是在该 subgroup 的
+      conjugation 下保持的 generator cone。“invariant” 不表示 metric
+      的正、负本征子空间是两个互不混合的 propagation blocks。
     </p>
 
     <h3>2.4 同一个 benchmark 为什么会同时落入 RP 与 Yinkai's case</h3>
@@ -986,7 +1002,7 @@
     <ul>
       <li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
       <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
-      <li>用户补充说明 `ToLeiWang4.pdf` 大概对应 <code>experts/RPBAFQMC.tex</code>。该文件解释了 RP Case 2 的 \(J_1,J_2\) 与 contraction/expansion decomposition，但没有使用 Case 10 的五条离散 relations，不能直接作为 Case 10 strict-contraction proof。</li>
+      <li>用户补充说明 `ToLeiWang4.pdf` 大概对应 <code>experts/RPBAFQMC.tex</code>。该文件可以说明 RP Case 2 中引入 \(J_1,J_2\) 的原意；其 contraction/expansion direct-sum assertion 因 block mixing 而不成立，并且它也没有使用 Case 10 的五条离散 relations。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
@@ -1183,7 +1199,7 @@
         <tbody>
           <tr><td><a href="../../../main.tex">main.tex</a></td><td>本文 TRS/RP criteria、两 flavor benchmark Hamiltonian 与 paired RP realization</td></tr>
           <tr><td><a href="../../../SM.tex">SM.tex</a></td><td>Kramers eigenvalue pairing、operator-level RP proof、bosonic pole 与现有 pole-free discussion</td></tr>
-          <tr><td><a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a></td><td>合作者较早的 BAFQMC RP note；明确 \(J_1\) 负责 reflection symmetry，\(J_2\Omega\) 负责 regularized-weight contraction/expansion decomposition</td></tr>
+          <tr><td><a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a></td><td>合作者较早的 BAFQMC RP note；说明 \(J_1\) 与 \(J_2\Omega\) 的原定分工，但其 regularized-weight contraction/expansion direct-sum 论证因 block mixing 而不成立</td></tr>
           <tr><td><a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></td><td>“non-hermitian cases”的来源；定义 anti-Hermitian single-body term、Hermitian interaction，并给出两类候选 physical models</td></tr>
           <tr><td><a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 pole-free pairing 报告</a></td><td>Yinkai's Case 7 在 \(U_1=0\) paired benchmark 中的 stability、\(\eta\)-contraction、pole exclusion 与 uniform bound</td></tr>
           <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1824 行连续覆盖、渲染公式并生成本 HTML</td></tr>
@@ -1204,8 +1220,9 @@
       Semigroup 背景可参见
       <a href="https://arxiv.org/abs/1712.09412">Z.-C. Wei,
       “Semigroup approach to the sign problem in quantum Monte Carlo simulations”</a>。
-      本报告引用该文只用于说明 Majorana-basis theorem 必须连同 basis convention
-      一起变换，不以文献引用替代本报告中的直接矩阵检查。
+      本报告用该文核对 contraction semigroup、maximal subgroup 与 invariant
+      cone 的标准含义，并用本报告中的完整矩阵乘法直接检查具体 bosonic claims；
+      不以文献引用替代这些检查。
     </p>
   </section>
 </main>
