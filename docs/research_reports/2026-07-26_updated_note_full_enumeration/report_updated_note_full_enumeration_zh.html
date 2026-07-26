@@ -4263,7 +4263,53 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
   <section id="question">
     <h2>4. 从 note 的候选条件到可检验问题</h2>
 
-    <h3>4.1 真正传播的是 \(e^A\)</h3>
+    <h3>4.1 合作者为什么要做这次 \(2^5=32\) 类穷举</h3>
+    <p>
+      合作者不是单纯在问“能否写出某个 \(A\)”，也不是只想找
+      maximal subgroup。他希望把两个 anti-linear structures 与
+      contraction semigroup 组合起来，并系统判断五个二选一关系中哪些组合
+      真正允许一个有内部的收缩区域：
+    </p>
+    <ol>
+      <li>先找 real orthogonal \(J_1,J_2\)，实现所选的五条离散 relations；</li>
+      <li>用 \(J_1^TAJ_1=\bar A\) 限制 \(A\)，使 determinant 或 trace weight 至少具有所需的 complex-conjugation pairing；</li>
+      <li>由 \(J_2g\) 或 \(iJ_2g\) 构造 Hermitian metric，并检查允许的 \(A\) 是否包含严格收缩方向；</li>
+      <li>最后才把抽象矩阵条件落实为 HS-decoupled physical Hamiltonian，并证明完整 Fock weight nonnegative。</li>
+    </ol>
+    <p>
+      第一项只回答 \(J_1,J_2\) 的 algebraic realization 是否存在。我们的
+      Pauli-product 搜索发现 32 类全部有 realization，所以这一步并不是分类的
+      真正瓶颈。第二项通常也会给出非空的 linear space。真正区分 Passed 与
+      Failed 的是第三项：这个 space 中能否找到 strict contraction，而不只是
+      equality boundary。
+    </p>
+
+    <h4>maximal subgroup 与真正要找的 strict cone 不同</h4>
+    <p>
+      下式中的 \(J_2g\) 在相应分支可替换为 \(iJ_2g\)。若
+    </p>
+    <div class="scroll">\[
+      (J_2g)A+A^\dagger(J_2g)=0 ,
+    \]</div>
+    <p>
+      \(e^A\) 保持该 metric，属于 contraction semigroup 的 maximal
+      subgroup。它位于收缩区域的边界，描述可逆的 metric-preserving
+      propagation。只找到这种 \(A\) 不能说明存在新的 strict contraction。
+      合作者在“硬算”中令 \(J_2^TAJ_2=\bar A\) 时，主要是在求这部分。
+    </p>
+    <p>要让 semigroup 具有非空内部，还必须找到</p>
+    <div class="scroll">\[
+      (J_2g)A+A^\dagger(J_2g)<0 .
+    \]</div>
+    <p>
+      合作者把 \(J_2^TAJ_2=-\bar A\) 所选出的 generators 称为 invariant
+      cone candidates，目的正是检查其中能否满足这个严格不等式。
+      因此更准确的概括是：<strong>穷举在检查每组离散 relations 是否允许
+      “real-weight condition + nonempty strict contraction cone” 同时成立。</strong>
+      maximal subgroup 是计算的一部分，不是终点。
+    </p>
+
+    <h3>4.2 真正传播的是 \(e^A\)</h3>
     <p>
       note 已定义 \(h=\frac12\chi^TgA\chi\)，并把一个辅助场构型的矩阵写成
       \(M=e^{A_1}\cdots e^{A_k}\)。因此 semigroup 若要约束这个构型，
@@ -4294,7 +4340,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       这就是所需的 semigroup closure。
     </p>
 
-    <h3>4.2 每一类必须回答四个问题</h3>
+    <h3>4.3 每一类必须回答四个问题</h3>
     <ol>
       <li>\(J_2g\) 或 \(iJ_2g\) 是否 Hermitian 且平方为 \(I\)？</li>
       <li>允许的 \(A\) 中是否存在 strict inequality，而不只是等号边界？</li>
@@ -4845,6 +4891,97 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       并完成从 propagation contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark，
       才能改变文章的 sign-free classification。
     </p>
+
+    <h3>这次穷举究竟发现了什么</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>对象</th><th>穷举结论</th><th>可以怎样表述</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(J_1,J_2\) realization</td>
+            <td>玻色、费米各 32 类全部找到 real Pauli-product matrices</td>
+            <td>五条离散 relations 本身都可实现；它们不负责区分 strict 与 boundary</td>
+          </tr>
+          <tr>
+            <td>玻色 strict contraction</td>
+            <td>恰有 8 类；\(J_2^2=I\)，同号作用于 \(g\) 时反对易，异号时对易</td>
+            <td>这是完整的 propagation-level 必要且充分分类</td>
+          </tr>
+          <tr>
+            <td>合作者已手算的部分</td>
+            <td>Cases 5--8 的 4 个 \(J_2g\) classes 全部确认；Cases 3、4、9--16 的 Failed 判断确认</td>
+            <td>手算结论在标准 contraction predicate 下得到系统验证</td>
+          </tr>
+          <tr>
+            <td>相对手算新增的玻色部分</td>
+            <td>
+              补齐 4 个 metric 为 \(iJ_2g\) 的 strict partner classes：
+              都满足 \(J_2^TgJ_2=g,\ J_2^2=I\)；
+              \(J_1\) 保持 \(g\) 时与 \(J_2\) 反对易，
+              \(J_1\) 翻转 \(g\) 时与 \(J_2\) 对易，
+              两种情况下 \(J_1^2=\pm I\) 均可
+            </td>
+            <td>四类新的抽象 strict-propagation candidates；尚不是四类已完成的 physical sign-free models</td>
+          </tr>
+          <tr>
+            <td>其余 24 个玻色 classes</td>
+            <td>16 类因 trace obstruction 只能取等号，8 类因 \(J_1\) 把半负定方向翻成半正定方向而只能取等号</td>
+            <td>不存在 strict contraction interior</td>
+          </tr>
+          <tr>
+            <td>费米标准 contraction</td>
+            <td>同样恰有 8 类，要求 \(J_2^2=-I\)，其中 4 个使用 \(J_2g\)、4 个使用 \(iJ_2g\)</td>
+            <td>只完成 propagation classification；note 的费米 inequality 与 full-weight positivity 仍有未解决问题</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      TRS 与 operator-level reflection positivity 不应塞进上述“8 个 strict
+      classes”的计数。它们使用不同的 positivity mechanism；尤其 bosonic RP
+      即使没有这个 strict contraction interior，仍能在 bare trace 有限时由
+      reflected squares 保证 nonnegative。反过来，抽象 strict contraction
+      主要控制 propagation 与 pole，不能自动替代完整 bosonic weight proof。
+    </p>
+
+    <h3>建议给合作者的回复</h3>
+    <div class="source-quote">
+      我把你说的五个二选一关系在玻色、费米两边各 32 类都穷举完了。
+      我的理解是，这个穷举的目标不只是找 \(J_1,J_2\) 或 maximal subgroup，
+      而是检查 \(J_1^TAJ_1=\bar A\) 的 real-weight condition
+      能否与由 \(J_2g\) 或 \(iJ_2g\) 定义的 strict contraction cone
+      同时成立。maximal subgroup 对应 contraction inequality 取等号，
+      只是边界；真正通过还需要允许 contraction inequality 严格小于零的 \(A\)。
+      <br><br>
+      穷举中玻色、费米各 32 类都能找到 real Pauli-product
+      \(J_1,J_2\) representatives，但每边都只有 8 类存在 strict
+      contraction interior。玻色严格要求 \(J_2^2=I\)，费米严格要求
+      \(J_2^2=-I\)。\(J_1,J_2\) 对 \(g\) 同号作用时必须反对易，
+      异号作用时必须对易；\(J_1^2=\pm I\) 都可以。
+      <br><br>
+      玻色方面，你手算的 Cases 5--8，也就是 metric 为 \(J_2g\) 的四类，
+      全部通过；你标为 Failed 的其他 contraction cases 也与穷举一致。
+      另外确实还有你消息里提到但 note 未列出的四个
+      \(iJ_2g\) partner classes。它们共同满足
+      \(J_2^TgJ_2=g,\ J_2^2=I\)：若 \(J_1\) 保持 \(g\)，
+      \(J_1,J_2\) 必须反对易；若 \(J_1\) 翻转 \(g\)，二者必须对易；
+      \(J_1^2=I\) 与 \(-I\) 都允许。这四类都有显式 strict witness。
+      所以相对现有手算，新增结果是把这四类系统补齐。
+      <br><br>
+      我目前会把这八类称为 strict propagation classes，而不会直接称为八类
+      新的 physical sign-problem-free models。对新出现的四个
+      \(iJ_2g\) 类，还需要构造自然的 HS Hamiltonian，并证明完整 bosonic
+      Fock trace 的 pole、square-root branch 和 nonnegative weight。
+      现有文章的 paired \(U_1=0\) model 则明确落在 Case 7；
+      这里 semigroup 可以补充 pole-free 证明，RP 负责 weight nonnegative。
+      <br><br>
+      另外，<code>RPBAFQMC.tex</code> 中把 regularized RP propagation
+      拆成 contraction/expansion direct-sum blocks 的步骤不能使用，
+      因为一般时间片和它们的乘积会混合这两类 blocks。正确的 contraction
+      semigroup 应当直接用完整矩阵不等式定义。
+    </div>
   </section>
 
   <section id="reproduce">
