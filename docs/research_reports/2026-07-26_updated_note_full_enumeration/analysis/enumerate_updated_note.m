@@ -300,7 +300,8 @@ function write_hand_comparison(output_file)
     if strict == strcmp(note_label, "Passed")
       comment = "agrees";
     else
-      comment = "disagrees_case10_reality_flips_cone";
+      comment = ["heading_case10_commuting_is_boundary_but_displayed_" ...
+                 "matrices_anticommute_and_belong_to_case6"];
     endif
     fprintf(fid, "boson,%s,%d,%d,%d,%d,%d,%s,%d,%s\n", ...
             boson_rows{index, 1}, signs, note_label, strict, comment);

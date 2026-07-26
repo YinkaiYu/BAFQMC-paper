@@ -89,11 +89,150 @@ SEGMENTS = [
         第 2 类是 reflection positivity，并特别注明它不是 contraction semigroup。</p>
         """,
         r"""
-        <p>这里的 anti-linear transformation 不是单独的 \(J\)，而是 \(J\mathcal K\)，
-        其中 \(\mathcal K\) 做复共轭。若 \(J^2=-I\)，它具有 Kramers 型结构。
-        reflection positivity 也不等于普通 reflection symmetry：除了反射变换，还要有
-        跨反射面的正性条件。原文把这两类与后面的 contraction semigroup 并列，
-        所以“7 个 passed”并不是“同一个半群判据产生 7 类”的意思。</p>
+        <h4>先说明 \(J_1\) 和 \(J_2\) 是什么</h4>
+        <p>note 到这里第一次写 \(J_1,J_2\)，却没有先定义，确实会让人无法继续读。
+        它们都是作用在 \(2N\) 维 Nambu 列向量上的<strong>实正交矩阵</strong>：
+        \(J_i^TJ_i=I_{2N}\)。下标 1、2 只表示“第一个”和“第二个”变换；
+        它们不是两个新粒子，也不是 Hamiltonian 的两个部分。给定一个复向量 \(v\)，
+        相应的 anti-linear transformation 实际作用为</p>
+        <div class="scroll">\[
+          v\longmapsto J_i\bar v .
+        \]</div>
+        <p>也就是说，先把向量逐分量复共轭，再左乘 \(J_i\)。
+        若用 \(\mathcal K\) 表示逐分量复共轭，这个完整变换才是
+        \(J_i\mathcal K\)，而不是 \(J_i\) 单独一个矩阵。因为这里的
+        \(J_i\) 都是实矩阵，连续做两次得到</p>
+        <div class="scroll">\[
+          (J_i\mathcal K)^2v
+          =J_i\overline{J_i\bar v}
+          =J_i^2v .
+        \]</div>
+        <p>因此 \(J_i^2=I\) 时变换严格平方为恒等；\(J_i^2=-I\) 时，
+        平方后得到一个负号，这是 Kramers-type anti-linear structure。
+        note 把两者都放在 “anti-linear \(Z_2\)” 的宽泛说法下，读者真正需要检查的
+        是紧邻公式明确写出的 \(J_i^2=I\) 还是 \(-I\)。</p>
+
+        <h4>三个会反复使用的 \(2\times2\) 实矩阵</h4>
+        <p>为看清后面的张量积，把 note 使用的 Pauli matrices 直接写开：</p>
+        <div class="scroll">\[
+          I_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          \sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          i\sigma_y=\begin{pmatrix}0&1\\-1&0\end{pmatrix},\qquad
+          \sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+        \]</div>
+        <p>其中 \(\sigma_x^2=\sigma_z^2=I_2\)，而
+        \((i\sigma_y)^2=-I_2\)。不同 Pauli matrices 彼此反对易，例如
+        \(\sigma_x(i\sigma_y)=-(i\sigma_y)\sigma_x\)。
+        当 note 写 \(I_2\otimes i\sigma_y\) 时，它是一个 \(4\times4\) matrix；
+        张量积的第一个因子与 Nambu 的 particle/hole 排列有关，第二个因子可表示
+        两个 flavor、site 或 reflection partners。具体物理含义取决于应用，
+        但矩阵关系不依赖这种命名。</p>
+
+        <h4>\(J_i^TgJ_i=\pm g\) 在说什么</h4>
+        <p>玻色 \(g\) 已在 1.1 定义。最小的 \(N=1\) 情形是</p>
+        <div class="scroll">\[
+          g=\begin{pmatrix}0&-1\\1&0\end{pmatrix}=-\,i\sigma_y .
+        \]</div>
+        <p>\(J_i^TgJ_i=g\) 表示这个基变换保持玻色 canonical commutation
+        structure；\(J_i^TgJ_i=-g\) 表示它把该 structure 的符号翻转。
+        这条关系只说明 \(J_i\) 如何作用于 \(g\)，还没有说明 \(A\) 是否具有该 symmetry。</p>
+
+        <h4>为什么二次算符的 symmetry 要看 \(gA\)</h4>
+        <p>note 的二次算符是 \(h=\frac12\chi^TgA\chi\)，所以系数矩阵是
+        \(gA\)，不是 \(A\) 单独。anti-linear transformation 保持这个二次型时，
+        要求</p>
+        <div class="scroll">\[
+          J_i^T(gA)J_i=\overline{gA}=g\bar A .
+        \]</div>
+        <p>由于 \(J_iJ_i^T=I\)，左边可以不跳步地拆成</p>
+        <div class="scroll">\[
+          J_i^TgAJ_i
+          =J_i^Tg(J_iJ_i^T)AJ_i
+          =(J_i^TgJ_i)(J_i^TAJ_i).
+        \]</div>
+        <p>于是有两种不同情况：</p>
+        <div class="scroll">\[
+          \begin{array}{c|c}
+          J_i^TgJ_i=g & J_i^TAJ_i=\bar A\\[2pt]
+          J_i^TgJ_i=-g & J_i^TAJ_i=-\bar A
+          \end{array}
+        \]</div>
+        <p>这正是“\(h\) 的 symmetry 由 \(gA\) 决定，而 \(A\) 自己的条件可能差一个负号”
+        的具体内容。后面的 contraction list 只把 \(J_1^TAJ_1=\bar A\)
+        写作共同条件；在这里的 time-reversal symmetry 中，第二个变换还要使用
+        \(J_2^TAJ_2=-\bar A\)，才能让 \(gA\) 在它下面保持不变。</p>
+
+        <h4>time-reversal symmetry 的一个完全显式例子</h4>
+        <p>取两个玻色 mode，所以 Nambu space 为四维。下面是一组满足原文第 1 类
+        全部离散关系的矩阵：</p>
+        <div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=I_2\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes i\sigma_y .
+        \]</div>
+        <p>逐项检查：</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          J_1^2&=-I_4,&
+          J_1^TgJ_1&=g,\\
+          J_2^2&=-I_4,&
+          J_2^TgJ_2&=-g,\\
+          J_1J_2&=J_2J_1.&&
+          \end{aligned}
+        \]</div>
+        <p>最后一行成立是因为两个矩阵在第二个 tensor factor 上都有
+        \(i\sigma_y\)，第一个 factor 上的 \(I_2\) 与 \(\sigma_x\) 对易。
+        为了再看见它怎样约束 \(A\)，取一个最简单但非零的 generator</p>
+        <div class="scroll">\[
+          A=m\,\sigma_z\otimes I_2,\qquad m<0 .
+        \]</div>
+        <p>它满足玻色条件 \(gA+A^Tg=0\)。此外</p>
+        <div class="scroll">\[
+          J_1^TAJ_1=A=\bar A,\qquad
+          J_2^TAJ_2=-A=-\bar A .
+        \]</div>
+        <p>把这两行分别与 \(J_1^TgJ_1=g\) 和
+        \(J_2^TgJ_2=-g\) 相乘，就得到两个变换都保持 \(gA\)。
+        对这一个具体 \(A\)，二次算符与 trace 可以直接算到</p>
+        <div class="scroll">\[
+          h=m\sum_{\alpha=1}^{2}\left(a_\alpha^+a_\alpha+\frac12\right),
+          \qquad
+          \Tr e^h
+          =\left(\frac{e^{m/2}}{1-e^m}\right)^2>0 .
+        \]</div>
+        <p>这只是用来说明 \(J_1,J_2\) 如何工作的最小例子，不代替整个
+        time-reversal positivity theorem。不同 basis 下 \(J_1,J_2\)
+        的矩阵外观会改变，但上述五条关系保持不变。</p>
+
+        <h4>reflection positivity 的矩阵骨架与额外要求</h4>
+        <p>同样在四维 Nambu space 中，可以取</p>
+        <div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=I_2\otimes\sigma_x,\qquad
+          J_2=I_2\otimes i\sigma_y .
+        \]</div>
+        <p>于是</p>
+        <div class="scroll">\[
+          J_1^2=I_4,\quad J_1^TgJ_1=g,\qquad
+          J_2^2=-I_4,\quad J_2^TgJ_2=g,\qquad
+          J_1J_2=-J_2J_1 .
+        \]</div>
+        <p>若第二个 tensor factor 表示 reflection plane 两侧，
+        \(J_1\) 的 \(\sigma_x\) 正好交换两侧。可是这些矩阵关系本身只给出
+        reflection 的 algebraic skeleton；它们还不是 reflection positivity。
+        后者还要求跨反射面的耦合能够写成正系数的反射配对。示意地说，需要能整理成</p>
+        <div class="scroll">\[
+          h=h_{\rm L}+\Theta(h_{\rm L})
+          +\sum_\mu \lambda_\mu\,O_{\mu,{\rm L}}\Theta(O_{\mu,{\rm L}}),
+          \qquad \lambda_\mu\ge0 ,
+        \]</div>
+        <p>其中 \(\Theta\) 是包含复共轭的 reflection，
+        \(O_{\mu,{\rm L}}\) 只作用在一侧。若采用
+        \(e^{-\Delta\tau H}\) 而不是 note 的 \(e^h\) convention，
+        最后一项的显式正负号会随定义调整，实质要求仍是跨平面的 coefficient matrix
+        具有所需 positivity。因此 reflection positivity 不能缩成
+        “只要有 reflection symmetry 就够了”。它也不是下一段的 contraction
+        inequality，所以原文特别写了 “non-contraction semigroup”。</p>
         """,
     ),
     Segment(
@@ -114,19 +253,97 @@ SEGMENTS = [
         Cases 11--16 全部 Failed。</p>
         """,
         r"""
-        <p>这段的核心不等式应先写成标准 contraction form。因为此处
-        \(J_2g\) 是 Hermitian，令 metric \(\eta=J_2g\)，则</p>
+        <h4>这一列表里 \(J_1\) 与 \(J_2\) 各做什么</h4>
+        <p>从这里开始，note 不再要求 \(J_1,J_2\) 都是上一段那种
+        “保持 \(gA\) 的 symmetry”。它固定两条共同条件：</p>
         <div class="scroll">\[
-          \eta A+A^\dagger\eta\le0
-          \quad\Longrightarrow\quad
-          (e^A)^\dagger\eta e^A\le\eta .
+          J_1^TAJ_1=\bar A,\qquad
+          J_2gA+A^\dagger J_2g\le0 .
         \]</div>
-        <p>后一式由
-        \(\frac{d}{dt}\bigl[e^{tA^\dagger}\eta e^{tA}\bigr]
-        =e^{tA^\dagger}(\eta A+A^\dagger\eta)e^{tA}\le0\)
-        对 \(t\in[0,1]\) 积分得到。这才是“contraction”的具体含义。
-        本段的 Passed/Failed 是作者的手算标签；原文本身尚未为每一项写出
-        strict interior、完整 Fock trace 和 square-root branch 的证明。</p>
+        <p>第一条由 \(J_1\) 负责。因为 \(J_1\) 正交，
+        \(J_1^TAJ_1=\bar A\) 等价于 \(AJ_1=J_1\bar A\)。
+        若 \(Av=\lambda v\)，先复共轭再使用这个等式：</p>
+        <div class="scroll">\[
+          \bar A\bar v=\bar\lambda\bar v
+          \quad\Longrightarrow\quad
+          A(J_1\bar v)=J_1\bar A\bar v
+          =\bar\lambda(J_1\bar v).
+        \]</div>
+        <p>所以 \(J_1\) 把 eigenvalue \(\lambda\) 的 eigenvector
+        配到 eigenvalue \(\bar\lambda\) 的 eigenvector。它控制的是复共轭配对。</p>
+
+        <p>第二条由 \(J_2\) 负责。在 note 这 14 个 bosonic candidates 中，
+        \(J_2g\) 是 Hermitian matrix，可以作为 note 所说的 metric。
+        不等式表示沿 \(A\) 生成的 propagation 不会把这个 metric 增大：</p>
+        <div class="scroll">\[
+          J_2gA+A^\dagger J_2g\le0
+          \quad\Longrightarrow\quad
+          (e^A)^\dagger J_2g\,e^A\le J_2g .
+        \]</div>
+        <p>这一步不是定义后直接跳出的结论。令 \(t\) 从 0 增加到 1，逐项求导：</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          \frac{d}{dt}
+          \left(e^{tA^\dagger}J_2g\,e^{tA}\right)
+          &=A^\dagger e^{tA^\dagger}J_2g\,e^{tA}
+            +e^{tA^\dagger}J_2g\,e^{tA}A\\
+          &=e^{tA^\dagger}
+            \left(A^\dagger J_2g+J_2gA\right)e^{tA}\le0 .
+          \end{aligned}
+        \]</div>
+        <p>从 \(t=0\) 积到 \(1\) 就得到上一式。这才是
+        “contraction”的具体含义。这里 \(J_2\) 的首要作用是构造
+        \(J_2g\)，不应与 \(J_1\) 的复共轭配对作用混在一起。</p>
+
+        <h4>Case 7 的一模例子：每一步都可以手算</h4>
+        <p>取一个玻色 mode，即 Nambu dimension 为 2，并采用 note 在第二节给出的
+        简化选择</p>
+        <div class="scroll">\[
+          g=-i\sigma_y
+          =\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=I_2,\qquad J_2=\sigma_x .
+        \]</div>
+        <p>这里 \(J_1^TgJ_1=g\)、\(J_1^2=I_2\)；
+        \(J_2^TgJ_2=-g\)、\(J_2^2=I_2\)，且 \(J_1,J_2\) 对易。
+        \(J_1^TAJ_1=\bar A\) 直接要求 \(A\) 是实矩阵。
+        任何实的 \(2\times2\) bosonic generator 都可以写成</p>
+        <div class="scroll">\[
+          A=\begin{pmatrix}a&b\\c&-a\end{pmatrix},
+        \]</div>
+        <p>因为代入 \(gA+A^Tg=0\) 后，唯一独立条件就是
+        两个 diagonal entries 互为相反数。此时</p>
+        <div class="scroll">\[
+          J_2g=\sigma_z,\qquad
+          J_2gA+A^TJ_2g
+          =\begin{pmatrix}
+          2a&b-c\\
+          b-c&2a
+          \end{pmatrix}.
+        \]</div>
+        <p>例如取 \(a=-\gamma\)、\(b=c=0\)，其中 \(\gamma>0\)，也就是</p>
+        <div class="scroll">\[
+          A=-\gamma\sigma_z .
+        \]</div>
+        <p>那么 contraction matrix 恰好是</p>
+        <div class="scroll">\[
+          J_2gA+A^TJ_2g=-2\gamma I_2<0 .
+        \]</div>
+        <p>这个例子不是只停留在 matrix inequality。相应二次算符和 bosonic trace 为</p>
+        <div class="scroll">\[
+          h=-\gamma\left(a^+a+\frac12\right),\qquad
+          \Tr e^h=\frac{e^{-\gamma/2}}{1-e^{-\gamma}}>0 .
+        \]</div>
+        <p>因此读到 Case 7 时，可以把 \(J_1=I_2\) 理解为“要求 \(A\) real”，
+        把 \(J_2=\sigma_x\) 理解为“使 \(J_2g=\sigma_z\)，并用它区分
+        contracting 与 expanding directions”。高维 Cases 只是把这套计算放进
+        更大的 block matrices，并允许 \(J_1^2=-I\) 或不同的 commutation relation。</p>
+
+        <h4>列表里的 Passed/Failed 还缺什么</h4>
+        <p>本段的 Passed/Failed 是作者的手算标签；仅找到满足离散关系的
+        \(J_1,J_2\)，或仅解出 \(J_1^TAJ_1=\bar A\) 的 linear subspace，
+        都还不能证明存在 strict contraction。必须继续检查上述 Hermitian matrix
+        是否能严格小于零，再检查多个 \(e^A\) 相乘后的完整 Fock trace 与
+        square-root branch。</p>
         """,
     ),
     Segment(
@@ -218,16 +435,31 @@ SEGMENTS = [
         最后一句说 metric 是 \(\eta=J_2g\)，并把 contraction 称为“physical”。</p>
         """,
         r"""
-        <p>取 \(J_1=I_{2N}\) 后，\(J_1^TAJ_1=\bar A\) 直接要求 \(A=\bar A\)，
-        即 \(A\) 为实矩阵。对 \(J_2=\sigma_x\otimes I_N\) 和玻色
-        \(g=\begin{pmatrix}0&-I\\I&0\end{pmatrix}\)，</p>
+        <p>这一段给了两种 \(J_1\)，但共用同一个</p>
+        <div class="scroll">\[
+          J_2=\sigma_x\otimes I_N
+          =\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}.
+        \]</div>
+        <p>第一种 \(J_1=I_2\otimes\sigma_x\otimes I_{N/2}\)
+        要求 \(N\) 为偶数；它在每个 particle/hole sector 内交换两个
+        \(N/2\)-dimensional subspaces。第二种 \(J_1=I_{2N}\) 不做交换，
+        是同一 relations class 中更简单的 representative。用第二种时，
+        \(J_1^TAJ_1=\bar A\) 直接变成 \(A=\bar A\)，也就是 \(A\) 为实矩阵。</p>
+        <p>对上面的 \(J_2\) 和玻色</p>
+        <div class="scroll">\[
+          g=\begin{pmatrix}0&-I_N\\I_N&0\end{pmatrix},
+        \]</div>
+        <p>直接做 block multiplication 得到</p>
         <div class="scroll">\[
           J_2g=\begin{pmatrix}I&0\\0&-I\end{pmatrix},
           \qquad (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I .
         \]</div>
-        <p>因此它确实可以作为 indefinite metric。原文的 “physical” 没有给出定义；
-        可核查的数学内容是 \((e^A)^\dagger(J_2g)e^A\le J_2g\)，
-        不能把引号中的形容词当作额外结论。</p>
+        <p>左上 \(+I_N\) 与右下 \(-I_N\) 表示这个 metric 不是 ordinary
+        positive-definite norm；它分别测量两个 Nambu sectors。
+        contraction inequality 要求 \(e^A\) 不增加这个 indefinite quadratic form。
+        1.4 已在 \(N=1\) 时给出 \(A=-\gamma\sigma_z\) 的 strict example。
+        原文的 “physical” 没有给出额外定义；可核查的陈述就是
+        \((e^A)^\dagger(J_2g)e^A\le J_2g\)。</p>
         """,
     ),
     Segment(
@@ -255,6 +487,19 @@ SEGMENTS = [
         得到原文列出的 \(B_{22},B_{12},C_{11},C_{22},C_{12}\) 关系。
         因此最后显示的 \(A\) 不是新的假设，而是已经解完第一条 anti-linear condition
         后的一般形式。</p>
+        <p>先用最小 \(N=2\) 看清这一组 \(J_1,J_2\)。此时
+        \(I_{N/2}=1\)，原文的 tensor products 就是普通 \(4\times4\) matrices：</p>
+        <div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=(-i\sigma_y)\otimes\sigma_z,\qquad
+          J_2=\sigma_x\otimes\sigma_x .
+        \]</div>
+        <p>\((-i\sigma_y)^2=-I_2\)，故 \(J_1^2=-I_4\)；
+        \(J_2^2=I_4\)。\(J_1\) 在两个 tensor factors 上分别与
+        \(J_2\) 反对易，两次负号相消，所以 \(J_1J_2=J_2J_1\)。
+        同样直接相乘可得 \(J_1^TgJ_1=g\)、
+        \(J_2^TgJ_2=-g\)。这说明原文 Case 8 的显式 matrices
+        的确实现了标题的五条离散关系。</p>
         """,
         True,
     ),
@@ -278,6 +523,24 @@ SEGMENTS = [
         directions。两部分相加才形成完整 semigroup generator。
         这里 \(J_1^2=-I\) 没有妨碍 inequality，Case 8 因而给出了一个真正的候选
         strict contraction family。</p>
+        <p>还可以不用一般 blocks，直接给出 cone 内一点。对刚才的 \(N=2\)
+        matrices，</p>
+        <div class="scroll">\[
+          J_2g=\sigma_z\otimes\sigma_x .
+        \]</div>
+        <p>取任意 \(\gamma>0\)，令</p>
+        <div class="scroll">\[
+          A=-\gamma\,\sigma_z\otimes\sigma_x .
+        \]</div>
+        <p>逐项代入可得</p>
+        <div class="scroll">\[
+          gA+A^Tg=0,\qquad
+          J_1^TAJ_1=\bar A,\qquad
+          J_2gA+A^\dagger J_2g=-2\gamma I_4<0 .
+        \]</div>
+        <p>所以 Case 8 不只是 “cone equations 有非零解”，而是确实有
+        strict contraction point。原文后面的大 block inequality 是这一简单
+        representative 向一般 \(N\) 与一般 blocks 的展开。</p>
         """,
         True,
     ),
@@ -298,6 +561,21 @@ SEGMENTS = [
         \(B_{12}^T=\bar B_{12}\) 给出 \(B_{12}=B_{12}^\dagger\)。
         原文写出的其余四条关系也分别来自相应 block。到这里仅确定了允许的线性子空间，
         尚未施加半负定性。</p>
+        <p>为什么它最终与 Case 7 不同，可以先试最自然的 strict direction。
+        在最小 \(N=2\) realization 中，原文使用</p>
+        <div class="scroll">\[
+          J_1=(-i\sigma_y)\otimes(-i\sigma_y),\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
+          J_2g=\sigma_z\otimes I_2 .
+        \]</div>
+        <p>若暂时不管 \(J_1\)，取
+        \(A=-\gamma\,\sigma_z\otimes I_2\) 会使 contraction matrix
+        等于 \(-2\gamma I_4\)。但是这一 \(A\) 是实矩阵，而直接相乘给出</p>
+        <div class="scroll">\[
+          J_1^TAJ_1=-A\ne A=\bar A .
+        \]</div>
+        <p>也就是说，\(J_2\) 单独允许的最直接 contracting direction 被
+        \(J_1\) 条件排除了。这已经预示后面为什么只剩等号边界。</p>
         """,
         True,
     ),
@@ -319,6 +597,17 @@ SEGMENTS = [
         对称变换后的同一 \(A\) 又要求它半正定，因此只能等于零。
         原文的 Failed 判断与这一局部现象一致；显示的 block calculation 给出了
         “只剩边界”的坐标形式。</p>
+        <p>把上一段的观察推广到任意允许 \(A\)。用本 Case 的
+        \(\{J_1,J_2\}=0\)、
+        \(J_1^TgJ_1=g\) 和 \(J_1^TAJ_1=\bar A\) 逐项移动 matrices，
+        得到</p>
+        <div class="scroll">\[
+          J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1
+          =-\left(J_2gA+A^\dagger J_2g\right).
+        \]</div>
+        <p>左边与 \(J_2gA+A^\dagger J_2g\) 的 eigenvalues 相同，
+        右边却把 eigenvalues 全部变号。若这个 matrix 半负定，它便同时半正定，
+        故只能等于零。这才是 Case 3 对所有 blocks 的失败证明。</p>
         """,
         True,
     ),
@@ -339,6 +628,12 @@ SEGMENTS = [
         \(-B^T=\bar B\) 等价于 \(B=-B^\dagger\)；
         \(-D=\bar C\) 等价于 \(D=-\bar C\)。
         右下与左下 block 不再提供独立条件。由此得到原文最后一行的 \(A\)。</p>
+        <p>最小 \(N=1\) 时可直接取
+        \(J_1=-i\sigma_y\)、\(J_2=\sigma_x\)，仍有
+        \(J_2g=\sigma_z\)。看似最好的 choice
+        \(A=-\gamma\sigma_z\) 产生 \(-2\gamma I_2\)，
+        但 \(J_1^TAJ_1=-A\ne\bar A\)。因此把 \(J_1^2\) 从
+        \(+I\) 改成 \(-I\) 并没有救回这个 anti-commuting branch。</p>
         """,
         True,
     ),
@@ -410,10 +705,35 @@ SEGMENTS = [
         并给出 \(C,D\) 的相应关系。</p>
         """,
         r"""
-        <p>这里的 \(B_{11}=\bar B_{22}\) 只把两个 diagonal blocks 配对，
-        并不要求 \(B_{11}\) 本身 Hermitian；\(B_{12}=-\bar B_{21}\)
-        也只是复共轭关系。原文显示的 \(A\) 完整记录了第一条约束，
-        但还没有任何 eigenvalue inequality。</p>
+        <p>先检查标题和随后选择的 matrices 是否一致。为避免 \(i\) 的符号混淆，
+        直接记住 \(\sigma_z\sigma_x=-\sigma_x\sigma_z\)。原文选的是</p>
+        <div class="scroll">\[
+          J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2},
+          \qquad
+          J_2=\sigma_x\otimes I_2\otimes I_{N/2}.
+        \]</div>
+        <p>于是</p>
+        <div class="scroll">\[
+          \begin{aligned}
+          J_1J_2
+          &=(\sigma_z\sigma_x)\otimes(-i\sigma_y)\otimes I_{N/2},\\
+          J_2J_1
+          &=(\sigma_x\sigma_z)\otimes(-i\sigma_y)\otimes I_{N/2}
+          =-J_1J_2 .
+          \end{aligned}
+        \]</div>
+        <div class="correction">
+          <strong>这里是 note 的实质性不一致。</strong>
+          Case 10 标题写 \([J_1,J_2]=0\)，但随后用于全部 block calculation
+          的 matrices 满足 \(\{J_1,J_2\}=0\)。它们实现的是 Case 6：
+          \(J_1^TgJ_1=-g\)、\(J_1^2=-I\)、
+          \(J_2^TgJ_2=-g\)、\(J_2^2=I\)，并且二者反对易。
+        </div>
+        <p>因此下面求出的 \(B_{11}=\bar B_{22}\)、
+        \(B_{12}=-\bar B_{21}\) 等关系，是 Case 6 representative
+        的第一条约束，不是标题所列 abstract Case 10 的计算。
+        这些 relations 只把 blocks 作复共轭配对，并不单独要求
+        \(B_{11}\) Hermitian；到本段末尾也还没有施加 eigenvalue inequality。</p>
         """,
         True,
     ),
@@ -429,17 +749,32 @@ SEGMENTS = [
         （原文 <em>contration</em> 是拼写错误）。</p>
         """,
         r"""
-        <p>这一段少了决定性的 matrix inequality。原文只证明
-        \(J_2^TAJ_2=-\bar A\) 的线性解空间非空，却没有证明
-        \(J_2gA+A^\dagger J_2g\le0\) 在该空间中有 strict solution。
-        对本 Case 的关系直接施加 \(J_1^TAJ_1=\bar A\)，可得</p>
+        <p>由于这一整段沿用上一段的显式 matrices，它继续算的仍是
+        anti-commuting Case 6。对这些 matrices，原文找到的 cone
+        不是虚假的；还可以给出一个最简单的 strict point：</p>
+        <div class="scroll">\[
+          J_2g=\sigma_z\otimes I_N,\qquad
+          A=-\gamma\,\sigma_z\otimes I_N,\qquad \gamma>0 .
+        \]</div>
+        <p>直接验算得到</p>
+        <div class="scroll">\[
+          gA+A^Tg=0,\qquad
+          J_1^TAJ_1=\bar A,\qquad
+          J_2gA+A^\dagger J_2g=-2\gamma I_{2N}<0 .
+        \]</div>
+        <p>所以原文最后的 “There's a contraction semigroup” 可以支持
+        Case 6；问题在于它被放在了 Case 10 的标题下面。</p>
+        <p>如果真正按 Case 10 标题另找一组<strong>对易</strong>的
+        \(J_1,J_2\)，则结论相反。设</p>
         <div class="scroll">\[
           J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
           =-(J_2gA+A^\dagger J_2g).
         \]</div>
         <p>左边与原矩阵有相同的 eigenvalue signs；若右边多出负号，
         半负定和半正定必须同时成立。因此这里只允许等号边界，
-        原文最后一句不能由前面的 block calculation 推出。</p>
+        abstract Case 10 没有 strict contraction。简言之：这份手算没有证明
+        “Case 10 passed”；它用一组实际属于 Case 6 的 matrices，
+        再次算出了 Case 6 passed。</p>
         """,
         True,
     ),
@@ -950,10 +1285,6 @@ def build_walkthrough(note_lines: list[str]) -> str:
                 {"（完整矩阵推导，点击展开）" if segment.collapse_source else "（完整显示）"}</summary>
                 <div class="note-source">{rendered}</div>
               </details>
-              <div class="translation">
-                <div class="annotation-label">中文释义</div>
-                {segment.translation}
-              </div>
               <div class="explanation">
                 <div class="annotation-label">讲解与补全</div>
                 {segment.explanation}

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
   <title>ToYinkaiYu-20260726 note 逐段解读与玻色、费米完整穷举</title>
   <style>
     :root {
@@ -160,13 +161,9 @@
       margin: 0 0 10px;
       font-size: 16px;
     }
-    .translation, .explanation {
+    .explanation {
       margin: 12px 0;
       padding: 12px 15px;
-    }
-    .translation {
-      border-left: 4px solid var(--blue);
-      background: var(--blue-bg);
     }
     .explanation {
       border-left: 4px solid var(--green);
@@ -226,8 +223,18 @@
     .summary-item.corrected { border-left-color: var(--violet); }
     .summary-item.refuted { border-left-color: var(--red); }
     .summary-item.open { border-left-color: var(--gold); }
-    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
-    mjx-container:not([display="true"]) { display: inline-block; vertical-align: middle; }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
     mjx-container[display="true"] > mjx-math {
       display: block;
       max-width: 100%;
@@ -241,7 +248,7 @@
       .summary-grid { grid-template-columns: 1fr; }
       .toc { columns: 1; }
       table { font-size: 13px; }
-      .note-source, .translation, .explanation { padding: 11px 12px; }
+      .note-source, .explanation { padding: 11px 12px; }
     }
   </style>
   <script>
@@ -272,12 +279,12 @@
 
   <p class="lead">
     本报告按照实际阅读顺序展开。第一部分先把更新 note 的原文逐段渲染，
-    每段后紧跟中文释义和公式讲解；只有在 note 全部读完之后，第二部分才解释合作者发来的消息。
+    每段后紧跟耐心展开的公式讲解；只有在 note 全部读完之后，第二部分才解释合作者发来的消息。
     随后的解析推导和 Octave 穷举使用 note 自己的矩阵关系，不要求读者先学习另一套正负号缩写。
   </p>
 
   <nav class="toc" aria-label="目录">
-    <a href="#note-walkthrough">1. note 原文、释义与逐段讲解</a>
+    <a href="#note-walkthrough">1. note 原文与逐段讲解</a>
     <a href="#message">2. 合作者消息的完整引文与逐句解释</a>
     <a href="#question">3. 从 note 的候选条件到可检验问题</a>
     <a href="#derivation">4. 不另造符号的解析推导</a>
@@ -290,12 +297,12 @@
   </nav>
 
   <section id="note-walkthrough">
-    <h2>1. note 原文、释义与逐段讲解</h2>
+    <h2>1. note 原文与逐段讲解</h2>
     <p>
       每个灰色框都是从更新 note 对应行直接转换得到的原文。短段落默认展开；
       很长的 block-matrix multiplication 默认折叠，以免遮断阅读节奏，点击标题即可查看完整公式。
-      “中文释义”忠实说明作者写了什么；“讲解与补全”解释公式之间省略的逻辑，
-      并在出现位置指出局部笔误或尚未证明的跳步。
+      紧随其后的“讲解与补全”从本段首次出现的对象讲起，解释公式之间省略的逻辑，
+      并在相应位置指出局部笔误或尚未证明的跳步。
     </p>
     {{NOTE_WALKTHROUGH}}
   </section>
@@ -693,10 +700,14 @@
       被迫为零，同样没有 strict interior。
     </p>
     <p>
-      Case 10 是 note 中需要修正的具体条目。它的 block cone 非空，
-      但 \(J_1,J_2\) 的对易关系使 contraction matrix 变号，
-      所以原文 “There's a contration semigroup” 不能成立为 strict statement。
-      与它只差 commutation relation 的 Case 6 才是允许 strict interior 的分支。
+      Case 10 是 note 中需要修正的具体条目，但错误发生得比 cone inequality 更早：
+      标题声明 \([J_1,J_2]=0\)，随后实际使用的
+      \(J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2}\) 与
+      \(J_2=\sigma_x\otimes I_N\) 却满足
+      \(\{J_1,J_2\}=0\)。因此第 685--799 行的全部 block calculation
+      实际计算的是 Case 6。它找到的 strict cone 对 Case 6 是正确的，
+      但不能用来支持 abstract Case 10；真正的 commuting Case 10
+      会把 contraction matrix 变号，只能停在等号边界。
     </p>
 
     <h3>6.2 第一节 Comment 的答案</h3>
@@ -728,6 +739,7 @@
 
     <h3>6.3 更新 note 中可直接看出的文字与公式问题</h3>
     <ul>
+      <li>玻色 Case 10 标题要求 \([J_1,J_2]=0\)，但随后选取的显式 matrices 实际满足 \(\{J_1,J_2\}=0\)，所以该段手算属于 Case 6。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
@@ -852,7 +864,7 @@
       <div class="summary-item established">
         <strong>完整覆盖 note</strong>
         更新 note 第 22--1939 行已经按原顺序分成 43 个单元。
-        每段原文均在本报告内渲染，并紧跟中文释义与公式讲解。
+        每段原文均在本报告内渲染，并紧跟公式讲解与必要的推导补全。
       </div>
       <div class="summary-item established">
         <strong>完整穷举</strong>
@@ -867,7 +879,7 @@
       </div>
       <div class="summary-item refuted">
         <strong>需要修正的主张</strong>
-        玻色 Case 10 没有 strict interior。
+        玻色 Case 10 标题下的 matrices 实际属于 Case 6；abstract Case 10 没有 strict interior。
         note 的费米 inequality 在当前 Nambu convention 下不能保证完整 Fock weight 非负。
       </div>
     </div>
