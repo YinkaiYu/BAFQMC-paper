@@ -1,0 +1,177 @@
+%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[letterpaper,english,reprint, aps]{revtex4-1}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{3}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\title{Auxiliary Field Quantum Monte Carlo Simulations of Non-hermitian Bosonic
+Systems Without the Sign Problem}
+\author{Yin-Kai Yu}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\author{Zhong-Chao Wei}
+\email{zcwei@thp.uni-koeln.de}
+
+\affiliation{Qingdao Binhai Univeristy, Qingdao 266555, China}
+\author{Lei Wang}
+\email{wanglei@iphy.ac.cn}
+
+\affiliation{Beijing National Laboratory for Condensed Matter Physics and Institute
+of Physics,~\\
+Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{Songshan Lake Materials Laboratory, Dongguan, Guangdong 523808, China}
+\author{Zi-Xiang Li}
+\email{zixiangli@iphy.ac.cn}
+
+\affiliation{Beijing National Laboratory for Condensed Matter Physics and Institute
+of Physics,~\\
+Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\date{\today}
+\begin{abstract}
+This is a note on sign-problem-free non-Hermitian models in bosonic
+auxiliary field quantum Monte Carlo.
+\end{abstract}
+\keywords{sign problem, non-hermitian system, quantum Monte Carlo}
+\maketitle
+
+\section{Introduction}
+
+The concept of contraction semigroup was used to study the sign problem
+of quantum lattice fermion models\citep{wei_semigroup_2024}. Now
+we extend this method to bosonic auxiliary field quantum Monte Carlo
+(BAFQMC). Instead of hermitian systems, this method is more closely
+related to non-hermitian bosonic Hamiltonians.
+
+\section{The trace formula in AFQMC}
+
+In BAFQMC algorithms, interaction terms are decoupled into bosonic
+quadratic forms by introducing auxiliary fields. The action in terms
+of auxiliary fields can be treated with random sampling numerically.
+For the bosonic case, the sampling weight can be expressed by\citep{thomas_character_2008}
+\begin{align}
+p & =\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)\nonumber \\
+ & =\det\left(I-e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{-1/2}.\label{eq:TraceFormulaBoson}
+\end{align}
+Here $h_{i}=-\frac{1}{2}\chi^{T}\Omega A_{i}\chi$ ($i=1,2,\dots k$)
+are a set of bosonic quadratic forms. We have used the basis $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)$, where the bosonic creation and annihilation operators satisfy the
+canonical commutation relations $\left[a_{i},\ a_{j}\right]=0$, $\left[a^{+}_{i},\ a^{+}_{j}\right]=0$,
+$\left[a_{i},\ a^{+}_{j}\right]=\delta_{ij}$($i,j=1,2,\dots N$),
+and $\Omega=\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)$. In principle the coefficient matrices $A_{i}$ could be arbitrary
+complex square matrices $A$ that satisfies $\Omega A+A^{T}\Omega=0$.
+
+If we do not put any restriction on $h_{i}$, the sampling weight
+$p$ could be non-positive, for one thing the coefficients are complex,
+and for another the spin or the metapletic representation is two-valued.
+Statistical sampling methods usually cannot obtain desired physical
+quantities with useful accuracy at reasonable cost under those circumstances.
+This is the notorious sign problem in AFQMC methods.
+
+We want to emphasize that the second equal sign in Eq.~(\ref{eq:TraceFormulaBoson})
+should be interpreted as the regularized sampling weight instead of
+the bare sampling weight{[}cite our work{]}.
+
+\section{Semigroups and sign-problem-free AFQMC simulations }
+
+For the semigroup defined by
+\begin{align}
+J^{T}_{1}AJ_{1} & =\bar{A},\\
+J_{2}\Omega A+A^{\dagger}J_{2}\Omega & \leq0,
+\end{align}
+where (i)$J^{T}_{1}\Omega J_{1}=-\Omega$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},\ J_{2}\right\} =0$; or (ii)$J^{T}_{1}\Omega J_{1}=-\Omega$,
+$J^{2}_{1}=-I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$, $J^{2}_{2}=I_{2N}$,$\left\{ J_{1},\ J_{2}\right\} =0$;
+we have $p>0$.
+
+The proof follows the scheme in Ref.~\citep{wei_semigroup_2024}.
+Firstly we restrict the range of parameters by a $Z_{2}$ anti-linear
+symmetry represented by $J_{1}$ to make the sampling weight $p$
+real. Then we observe that $p$ never goes to $\pm\infty$ for strict
+contraction elements inside some contraction semigroups, where the
+metric of the contraction semigroups is given by $J_{2}\Omega$, $J_{2}$
+represents another $Z_{2}$ anti-linear symmetry. The non-strict contraction
+elements can be viewed as some limits of strict contraction elements.
+These two conditions together ensure that $p^{-1}$ is non-negative
+as a continuous function of the coefficients. The consistency of the
+two conditions requires $\left\{ J_{1},J_{2}\right\} =0$.
+
+\section{Sign-problem-free non-hermitian models}
+
+For the bosonic case, we study the non-hermitian models with anti-hermitian
+single-body terms $H_{K}=-H^{\dagger}_{K}$ and hermitian interaction
+terms $H_{U}=H^{\dagger}_{U}$.
+
+For case (i), we could choose $J_{1}=\left(\begin{array}{cc}
+I_{N} & 0\\
+0 & -I_{N}
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$. We have
+\begin{equation}
+H_{K}=a^{+T}Ba,
+\end{equation}
+\begin{equation}
+H_{U}=U\sum_{\left\langle i,j\right\rangle }\left(a^{+}_{i}a_{j}-a^{+}_{j}a_{i}\right)^{2},
+\end{equation}
+where $B=\bar{B}=-B^{T}$, $U\leq0$.
+
+For case (ii), we could choose $J_{1}=\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$. Let $b_{i}$, $b^{+}_{i}$($i=1,2,\dots N/2$) and $c_{i}$, $c^{+}_{i}$($i=1,2,\dots N/2$)
+be two sets of bosonic annihilation/creation operators. We have
+
+\begin{equation}
+H_{K}=b^{+T}B_{11}b+c^{+T}\bar{B}_{11}c+b^{+T}B_{12}c-c^{+T}\bar{B}_{12}b,
+\end{equation}
+\begin{equation}
+H_{U}=U\sum_{i}\left(b^{+}_{i}b_{i}-c^{+}_{i}c_{i}\right)^{2},
+\end{equation}
+where $B_{11}=-B^{\dagger}_{11}$, $B_{12}=B^{T}_{12}$, $U\geq0$.
+When $B_{12}\neq0$, this model does not have reflection positivity,
+but it is still sign-problem-free.
+\begin{acknowledgments}
+We would like to thank...
+\end{acknowledgments}
+
+\bibliographystyle{apsrev4-1}
+\bibliography{SGNH}
+\newpage{}
+
+\appendix
+
+\section*{Supplemental Material}
+
+\section{appendix}
+\end{document}

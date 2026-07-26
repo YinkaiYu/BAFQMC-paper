@@ -1,0 +1,350 @@
+%% LyX 2.4.3 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[letterpaper,english,reprint, aps]{revtex4-1}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{3}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\title{Sign-problem-free Bosonic Auxiliary Field Quantum Monte Carlo}
+\author{Yin-Kai Yu}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\author{Zhong-Chao Wei}
+\email{zcwei@thp.uni-koeln.de}
+
+\affiliation{Qingdao Binhai Univeristy, Qingdao 266555, China}
+\author{Lei Wang}
+\email{wanglei@iphy.ac.cn}
+
+\affiliation{Beijing National Laboratory for Condensed Matter Physics and Institute
+of Physics,~\\
+Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{Songshan Lake Materials Laboratory, Dongguan, Guangdong 523808, China}
+\author{Zi-Xiang Li}
+\email{zixiangli@iphy.ac.cn}
+
+\affiliation{Beijing National Laboratory for Condensed Matter Physics and Institute
+of Physics,~\\
+Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\date{\today}
+\begin{abstract}
+This is a note on reflection positivity, time-reversal symmetry and
+related sign-problem-free models in bosonic auxiliary field quantum
+Monte Carlo(BAFQMC).
+\end{abstract}
+\keywords{sign problem, bosonic system, quantum Monte Carlo}
+\maketitle
+
+\section{Introduction}
+
+The concept of reflection positivity was originally introduced in
+the context of axiomatic quantum field theory\citep{osterwalder_axioms_1973}.
+It has then become a standard mathematical tool in statistical physics\citep{kondratiev_reflection_2006,biskup_reflection_2009}.
+Its main application in strongly correlated systems started from Lieb\textquoteright s
+work on the spin reflection positivity in the Hubbard model\citep{lieb_two_1989}.
+Majorana reflection positivity was proposed\citep{jaffe_reflection_2015,jaffe_characterization_2016}
+and then applied to interacting spinless fermion models\citep{wei_ground_2015}.
+The connection between Majorana reflection positivity and sign-problem-free
+quantum lattice fermion models was then discovered in Ref.~\citep{wei_majorana_2016}.
+
+In addition to this, the time-reversal symmetry of fermion models
+also implies the absence of the sign problem.
+
+In this paper, we explore the sign problem of quantum lattice boson
+models from the perspective of reflection positivity and time-reversal
+invariance. 
+
+\section{The trace formula in BAFQMC}
+
+In BAFQMC algorithms for interacting quantum lattice boson models,
+interaction terms are decoupled by auxiliary fields into bosonic quadratic
+forms. After integrating out the bosonic degrees of freedom, an action
+in terms of auxiliary fields can be obtained. This action can be treated
+with random sampling numerically. The sampling weight for each configuration
+of auxiliary fields has the form\citep{thomas_character_2008}
+\begin{align}
+p & =\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)\nonumber \\
+ & =\det\left(I-e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{-1/2}.\label{eq:TraceFormula}
+\end{align}
+
+The sampling weight expressed in Eq.~(\ref{eq:TraceFormula}) is
+the main object of study in this work. Here $h_{i}=-\frac{1}{2}\chi^{T}\Omega A_{i}\chi$
+($i=1,2,\dots k$) denote a set of bosonic quadratic forms. They come
+from both single-body terms and decoupling of interaction terms using
+auxiliary fields, and vary as the configuration of auxiliary fields
+changes. We have employed the basis $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a_{1}^{+}\\
+a_{2}^{+}\\
+\vdots\\
+a_{N}^{+}
+\end{array}\right)$, with canonical commutation relations of bosonic creation and annihilation
+operators $\left[a_{i},\ a_{j}\right]=0$, $\left[a_{i}^{+},\ a_{j}^{+}\right]=0$,
+$\left[a_{i},\ a_{j}^{+}\right]=\delta_{ij}$($i,j=1,2,\dots N$),
+and $\Omega=\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)$. In principle $h_{i}$ might contain an arbitrary particle number
+conserving part and an arbitrary pairing part unless we specify a
+particular example. That is to say the coefficients $A_{i}$ could
+be arbitrary complex square matrices that satisfies $\Omega A+A^{T}\Omega=0$.
+
+If there is no paring part in the expression of each $h_{i}$, let
+$\chi_{0}=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}
+\end{array}\right)$, $h_{i}=\chi_{0}^{\dagger}B_{i}\chi_{0}$, then Eq.~(\ref{eq:TraceFormula})
+degenerates to
+\begin{align}
+p & =\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)\nonumber \\
+ & =\det\left(I-e^{B_{1}}e^{B_{2}}\cdots e^{B_{k}}\right)^{-1}.\label{eq:TraceFormula2}
+\end{align}
+
+Eq.~(\ref{eq:TraceFormula2}) does not only holds for ``physical''
+circumstances when the moduli of the eigenvalues of $e^{B_{1}}e^{B_{2}}\cdots e^{B_{k}}$
+are less than one, but also holds in the sense of regularization for
+``unphysical'' circumstances. See the Supplemental Material for
+Gaussian cut-off renormalization of the sampling weights. In the same
+vein, Eq.~(\ref{eq:TraceFormula}) should also be interpreted as
+the regularized sampling weight. In BAFQMC simulations, when the chemical
+potential takes unphysical values, the partition function is usually
+a regularized finite number instead of infinity, and the expectation
+values of observables also take regularized values.
+
+If no restriction is put on $h_{i}$, the bosonic Gaussian integral
+$p$ could be non-positive, due to both the complex nature of the
+coefficients and the two-valuedness of the metapletic representation.
+Statistical sampling methods may fail to obtain desired physical quantities
+with useful accuracy at reasonable cost under those circumstances.
+This is the so-called sign problem in BAFQMC methods.
+
+\section{Calculation of expectation values of observables}
+
+Let $\left\{ X_{s}\right\} $($s=1,2,\dots,2n$) be a set of bosonic
+creation or annihilation operators, and $Z=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)$.
+Without losing generality, we may assume $Z\neq\pm\infty$. Define
+the Green function as
+\begin{equation}
+G_{ij}=\frac{1}{Z}\mathrm{tr}\left\{ \left[\theta\left(i-j\right)X_{i}X_{j}+\theta\left(j-i\right)X_{j}X_{i}\right]e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right\} ,
+\end{equation}
+where $\theta$ is the step function. And define a symmetric matrix(with
+zero diagonal elements) $\tilde{G}$ by $\tilde{G}_{ij}=G_{ij}$ when
+$i>j$. Then by Wick's theorem we have
+\begin{equation}
+\frac{1}{Z}\mathrm{tr}\left\{ X_{2n}\cdots X_{2}X_{1}e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right\} =\frac{\text{1}}{n!2^{n}}\sum_{\sigma\in S_{2n}}\prod_{i=1}^{n}\tilde{G}_{\sigma\left(2i-1\right)\sigma\left(2i\right)},
+\end{equation}
+where $S_{2n}$ is the symmetric group.
+
+For the calculation of the Green function, we have 
+\begin{equation}
+\textrm{tr}\left(\chi_{\alpha}\chi_{\beta}e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)/Z=\left(\frac{1}{I-e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}}\Omega\right)_{\alpha\beta}.
+\end{equation}
+
+If there is no paring part, these calculations can be further simplified
+and have already been discussed by S.W. Zhang.
+
+\section{Reflection positivity and sign-problem-free BAFQMC simulations }
+
+Let $b_{i}$, $b_{i}^{+}$($i=1,2,\dots N$) and $c_{i}$, $c_{i}^{+}$($i=1,2,\dots N$)
+be two sets of bosonic annihilation/creation operators. Then any operator
+$O$ can be expressed by
+\begin{equation}
+O=\sum_{\alpha,\beta}W_{\alpha\beta}\Gamma_{\alpha}^{\left(1\right)}\Gamma_{\beta}^{\left(2\right)},
+\end{equation}
+where $\Gamma_{\alpha}^{\left(1\right)}=b_{i_{1}}^{+}b_{i_{2}}^{+}\cdots b_{i_{m}}^{+}b_{j_{1}}b_{j_{2}}\cdots b_{j_{n}}$,
+$\text{\ensuremath{\alpha=\left\{ \left\{ i_{1},i_{2},\dots,i_{m}\right\} \left\{ j_{1},j_{2},\dots,j_{n}\right\} \right\} }}$,
+$\Gamma_{\beta}^{\left(2\right)}=c_{i_{1}}^{+}c_{i_{2}}^{+}\cdots c_{i_{s}}^{+}c_{j_{1}}c_{j_{2}}\cdots c_{j_{t}}$,
+$\text{\ensuremath{\beta=\left\{ \left\{ i_{1},i_{2},\dots,i_{s}\right\} \left\{ j_{1},j_{2},\dots,j_{t}\right\} \right\} }}$.
+Each index $i_{k}$ or $j_{l}$ can repeat zero or several times in
+this definition of $\alpha$ and $\beta$.
+
+Consider the reflection operation $R$, which is an anti-linear transformation
+that sends $c\mapsto d$, $d\mapsto c$ and $i\mapsto-i$. We say
+an operator $O$ is reflection symmetric if and only if it does not
+change under $R$, namely $W=W^{\dagger}$. We say a reflection symmetric
+operator $O$ is reflection positive if and only if $W\geq0$. Clearly
+the set of reflection positive operators is closed under operator
+summation and multiplication, and any reflection positive operator
+has non-negative trace.
+
+To relate reflection positivity to sign-problem-free models, consider
+the following type of bosonic quadratic forms:
+\begin{align}
+h & =\left(\begin{array}{cccc}
+b^{T} & b^{+T} & c^{T} & c^{+T}\end{array}\right)\left(\begin{array}{cc}
+D & F\\
+F^{T} & \bar{D}
+\end{array}\right)\left(\begin{array}{c}
+b\\
+b^{+}\\
+c\\
+c^{+}
+\end{array}\right),
+\end{align}
+where $F\geq0$ is a positive hermitian matrix. Then $e^{h}$ is reflection
+positive. If all the $e^{h_{i}}$ in Eq.~(\ref{eq:TraceFormula})
+take this form, then we will have $p\geq0$ and thus there is no sign
+problem in this BAFQMC simulation.
+
+However, this argument holds only for bare sampling weights. For regularized
+sampling weights, $e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}$ in Eq.~(\ref{eq:TraceFormula})
+can be decomposed into a direct sum of an element in a contraction
+semigroup and an element in an expansion semigroup. Therefore we still
+have $p\geq0$\citep{wei_semigroup_2024}. See the Supplemental Material
+for details.
+
+\section{Time-reversal invariance and sign-problem-free BAFQMC simulations}
+
+Similar to the reflection operation, the time-reversal operation $T$
+for bosons is an anti-linear transformation that sends $c\mapsto id$,
+$d\mapsto-ic$ and $i\mapsto-i$. We consider the time-reversal symmetric
+bosonic quadratic forms without pairing terms:
+\begin{equation}
+h=\left(\begin{array}{cc}
+b^{+T} & c^{+T}\end{array}\right)\left(\begin{array}{cc}
+D & F\\
+-\bar{F} & \bar{D}
+\end{array}\right)\left(\begin{array}{c}
+b\\
+c
+\end{array}\right),
+\end{equation}
+where $D$ and $F$ are arbitrary complex square matrices. If all
+the $h_{i}$ in Eq.~(\ref{eq:TraceFormula2}) take this form, then
+all the eigenvalues of $e^{B_{1}}e^{B_{2}}\cdots e^{B_{k}}$ will
+appear in complex conjugate pairs due to Kramers degeneracy, so we
+will have $p\geq0$ and thus there is no sign problem in this BAFQMC
+simulation.
+
+\section{Simulation of sign-problem-free models}
+
+Consider a quantum lattice boson model with single body term 
+
+\begin{equation}
+H_{K}=b^{+T}Bb+c^{+T}\bar{B}c,
+\end{equation}
+and interaction term
+\begin{equation}
+H_{U}=U_{1}\sum_{i}\left(b_{i}^{+}b_{i}+c_{i}^{+}c_{i}\right)^{2}+U_{2}\sum_{i}\left(b_{i}^{+}b_{i}-c_{i}^{+}c_{i}\right)^{2},
+\end{equation}
+where $B=B^{\dagger}$, $U_{1}\leq0$, $U_{2}\geq0$. This model can
+be seen as an example of both reflection positivity and time-reversal
+invariance.
+\begin{acknowledgments}
+We would like to thank...
+\end{acknowledgments}
+
+\bibliographystyle{apsrev4-1}
+\bibliography{RPBAFQMC}
+\newpage{}
+
+\appendix
+
+\section*{Supplemental Material}
+
+\section{Gaussian cut-off renormalization of the sampling weights}
+
+The series to regularize is $p=\sum_{n_{1}=0}^{\infty}\sum_{n_{2}=0}^{\infty}\dots\sum_{n_{N}=0}^{\infty}r_{1}^{n_{1}}r_{2}^{n_{2}}\dots r_{N}^{n_{N}}=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)$,
+where $h_{i}=\chi_{0}^{\dagger}B_{i}\chi_{0}$, $\chi_{0}=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}
+\end{array}\right)$, $r_{1},r_{2},\dots,r_{N}$ are the $N$ eigenvalues of $e^{B_{1}}e^{B_{2}}\cdots e^{B_{k}}$,
+and $n_{1},n_{2},\dots,n_{N}$ are boson particle numbers. Let $a_{n_{1}n_{2}\dots n_{N}}=r_{1}^{n_{1}}r_{2}^{n_{2}}\dots r_{N}^{n_{N}}$,
+$g\left(a_{n_{1}n_{2}\dots n_{N}}\right)=\exp\left(-\left|a_{n_{1}n_{2}\dots n_{N}}\right|^{2}/\Lambda^{2}\right)$.
+Using Laurent\textquoteright s expansion with respect to $\Lambda$,
+we have
+\begin{align*}
+ & p_{\Lambda}\left(\Lambda,r_{1},r_{2},\dots,r_{N}\right)\\
+ & =\sum_{n_{1}=0}^{\infty}\sum_{n_{2}=0}^{\infty}\dots\sum_{n_{N}=0}^{\infty}a_{n_{1}n_{2}\dots n_{N}}g\left(a_{n_{1}n_{2}\dots n_{N}}\right)\\
+ & =P\left(\Lambda,r_{1},r_{2},\dots,r_{N}\right)+\prod_{i=1}^{N}\frac{1}{1-r_{i}}+O\left(\frac{1}{\Lambda}\right).
+\end{align*}
+As $\Lambda\rightarrow\infty$, the terms in $P\left(\Lambda,r_{1},r_{2},\dots,r_{N}\right)$
+either vanish or diverge no slower than $O\left(\Lambda\right)$.
+Define
+
+\begin{align*}
+ & p_{reg}\left(r_{1},r_{2},\dots,r_{N}\right)\\
+ & =\prod_{i=1}^{N}\frac{1}{1-r_{i}}\\
+ & =\det\left(I-e^{B_{1}}e^{B_{2}}\cdots e^{B_{k}}\right)^{-1}.
+\end{align*}
+
+In the calculation of partition function, $Z=\sum_{\left\{ \phi_{i}\right\} }p_{\left\{ \phi_{i}\right\} }$,
+where $\left\{ \phi_{i}\right\} $ stands for configurations of auxiliary
+fields. Let's calculate $Z_{\Lambda}=\sum_{\left\{ \phi_{i}\right\} }p_{\Lambda\left\{ \phi_{i}\right\} }$
+instead and then let $\Lambda\rightarrow\infty$, $Z=\lim_{\Lambda\rightarrow\infty}Z_{\Lambda}$.
+For physical(low enough) choice of the chemical potential, the summation
+of $P\left(\Lambda,r_{1},r_{2},\dots,r_{N}\right)$ must lead to a
+exact cancellation, otherwise $Z_{\Lambda}$ will diverge as $\Lambda\rightarrow\infty$.
+So we have $Z=\sum_{\left\{ \phi_{i}\right\} }p_{reg\left\{ \phi_{i}\right\} }$.
+For unphysical choice of the chemical potential, $Z$ is infinite
+but $\sum_{\left\{ \phi_{i}\right\} }p_{reg\left\{ \phi_{i}\right\} }$is
+still finite(unless the chemical potential takes some critical value).
+
+\section{Positivity of regularized sampling weights}
+
+For any bosonic quadratic form $h=-\frac{1}{2}\chi^{T}\Omega A\chi$,
+assume $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C_{12}^{T} & C_{22}\\
+D_{11} & D_{12} & -B_{11}^{T} & -B_{21}^{T}\\
+D_{12}^{T} & D_{22} & -B_{12}^{T} & -B_{22}^{T}
+\end{array}\right),$ where $C_{11}=C_{11}^{T}$, $C_{22}=C_{22}^{T}$, $D_{11}=D_{11}^{T}$,
+$D_{22}=D_{22}^{T}$. Let us introduce two $Z_{2}$ anti-linear symmetric
+transformations, expressed in terms of $J_{1}=\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)$. Reflection symmetry requires $J_{1}^{T}AJ_{1}=\bar{A}$. Assume
+that $J_{2}\Omega$ plays the role of the metric of the contraction
+semigroup and the expansion semigroup. For the generators of the maximal
+subgroups of the semigroups, we have $J_{2}^{T}AJ_{2}=\bar{A}$, so
+$A=\left(\begin{array}{cccc}
+B_{11} & 0 & C_{11} & 0\\
+0 & \bar{B_{11}} & 0 & \bar{C}_{11}\\
+D_{11} & 0 & -\bar{B}_{11} & 0\\
+0 & \bar{D}_{11} & 0 & -B_{11}
+\end{array}\right)$, where $C_{11}=C_{11}^{T}$, $D_{11}=D_{11}^{T}$. For the generators
+in the invariant cones of the semigroups, we have we have $J_{2}^{T}AJ_{2}=-\bar{A}$,
+so $A=\left(\begin{array}{cccc}
+0 & B_{12} & 0 & C_{12}\\
+\bar{B}_{12} & 0 & \bar{C}_{12} & 0\\
+0 & D_{12} & 0 & -B_{12}^{\dagger}\\
+\bar{D}_{12} & 0 & -B_{12}^{T} & 0
+\end{array}\right),$where $C_{12}=C_{12}^{\dagger}$, $D_{12}=D_{12}^{\dagger}$, and
+$J_{2}\Omega A=\left(\begin{array}{cccc}
+\bar{D}_{12} & 0 & -B_{12}^{T} & 0\\
+0 & -D_{12} & 0 & B_{12}^{\dagger}\\
+-\bar{B}_{12} & 0 & -\bar{C}_{12} & 0\\
+0 & B_{12} & 0 & C_{12}
+\end{array}\right)$. The reflection positivity condition is equivalent to $\left(\begin{array}{cc}
+C_{12} & B_{12}\\
+B_{12}^{\dagger} & -D_{12}
+\end{array}\right)\geq0$, which means $e^{A}$ can be decomposed into a direct sum of an element
+in the contraction semigroup and an element in the expansion semigroup.
+\end{document}
