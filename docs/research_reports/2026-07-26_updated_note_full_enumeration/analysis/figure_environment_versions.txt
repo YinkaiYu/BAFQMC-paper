@@ -1,0 +1,4 @@
+Python 3.12.11
+Matplotlib 3.10.7
+NumPy 2.3.4
+SciPy 1.16.2

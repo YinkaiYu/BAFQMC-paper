@@ -1,0 +1,3019 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>更新 note 的逐项解读与玻色、费米 64 类完整穷举</title>
+  <style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.72 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1000px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 42px 0 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 27px 0 9px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 20px 0 7px;
+      font-size: 16px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 6px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .plain-language {
+      margin-top: 9px;
+      padding-left: 15px;
+      border-left: 3px solid var(--blue);
+    }
+    details.source-archive {
+      margin: 18px 0 25px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    details.source-archive summary {
+      padding: 12px 15px;
+      cursor: pointer;
+      color: var(--blue);
+      font-weight: 650;
+    }
+    details.source-archive pre {
+      margin: 0;
+      border-width: 1px 0 0;
+      white-space: pre;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.58;
+    }
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    mjx-container:not([display="true"]) { display: inline-block; vertical-align: middle; }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 27px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>更新 note 的逐项解读与玻色、费米各 32 类完整穷举</h1>
+    <div class="meta">
+      <div>报告日期：2026-07-26</div>
+      <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+      <div>计算环境：GNU Octave 10.3.0；实 Pauli 直积穷举至三个张量因子</div>
+      <div>计算范围：玻色 32 类 + 费米 32 类；\(J_2g\) 与 \(iJ_2g\) 两种 Hermitian 度规均纳入</div>
+      <div>证据层次：完整离散穷举、解析充要条件、严格锥显式见证、既有精确负权重反例</div>
+    </div>
+  </header>
+
+  <p class="lead">
+    这份报告从 AFQMC 中实际传播的矩阵开始，依次解释合作者的新消息、更新 note 第一节的分类意图、
+    后续分块计算的作用、统一解析判据和完整数值穷举。所有评价都放在相应定义和推导之后。
+    读者可以从前往后阅读；理解正文不需要任何预先材料，也不需要同时翻阅原始 note。
+  </p>
+
+  <nav class="toc" aria-label="目录">
+    <a href="#objects">0. 阅读前先认识物理对象</a>
+    <a href="#message">1. 新消息的完整引文与逐句解释</a>
+    <a href="#first-section">2. note 第一节在提出什么分类</a>
+    <a href="#derivation">3. 如何判断一个类别是否真有收缩内部</a>
+    <a href="#enumeration">4. Octave 完整穷举</a>
+    <a href="#hard-algebra">5. 用统一结果审读后续硬算</a>
+    <a href="#comment">6. 回答第一节末尾的 Comment</a>
+    <a href="#fermion">7. 费米 Passed 与完整权重</a>
+    <a href="#paper">8. 对文章的影响</a>
+    <a href="#conclusion">9. 最终结论</a>
+    <a href="#reproduce">10. 可复现性与文件</a>
+    <a href="#archive">附录：更新 note 全文</a>
+  </nav>
+
+  <section id="objects">
+    <h2>0. 阅读前先认识物理对象</h2>
+
+    <h3>0.1 辅助场构型为什么会变成矩阵乘积</h3>
+    <p>
+      辅助场量子蒙特卡洛（auxiliary-field quantum Monte Carlo，AFQMC）先用
+      Hubbard--Stratonovich（HS）变换把二体相互作用改写成对辅助场的积分。
+      对每一个固定的辅助场构型，粒子只经历一系列二次算符，因此可以用有限维矩阵计算。
+      每个虚时间片都只含一个二次算符。
+      note 把第 \(\ell\) 个时间片写成
+    </p>
+    <div class="scroll">\[
+      h_\ell=\frac12\chi^TgA_\ell\chi.
+    \]</div>
+    <p>
+      \(\chi\) 把所有湮灭算符和产生算符排成同一列。这种把粒子与空穴分量放在一起的写法称为
+      Nambu 表示。矩阵 \(g\) 记录这些算符的对易关系；
+      \(gA_\ell\) 是直接出现在二次算符中的系数。真正作用在单粒子或 Nambu 空间上的传播则是
+      \(e^{A_\ell}\)。一个完整辅助场构型对应
+    </p>
+    <div class="scroll">\[
+      M=e^{A_1}e^{A_2}\cdots e^{A_k}.
+    \]</div>
+    <p>
+      所以讨论极点、零点或传播收缩时必须控制 \(A_\ell\) 和 \(M\)，不能把 \(A_\ell\)
+      与二次型系数 \(gA_\ell\) 当成同一个矩阵。
+    </p>
+    <p>
+      一个构型的 Monte Carlo 权重是这些二次算符在完整多体 Hilbert 空间中的迹
+      \(\Tr(e^{h_1}\cdots e^{h_k})\)。这里“Fock 迹”就是对所有允许占据数态求迹：
+      费米单轨道只有空、占据两态；玻色单轨道还包含任意非负占据数，因此额外涉及迹是否收敛。
+    </p>
+
+    <h3>0.2 玻色与费米只在 \(g\) 的转置性质上先分开</h3>
+    <p>为了暂时用同一套公式，记</p>
+    <div class="scroll">\[
+      g^T=\tau g,\qquad g^2=\tau I,
+      \qquad \tau=-1\ {\rm (boson)},\quad \tau=+1\ {\rm (fermion)}.
+    \]</div>
+    <p>
+      玻色 \(g\) 是反对称矩阵，费米 \(g\) 是对称矩阵。
+      允许的传播生成元满足 \(gA+A^Tg=0\)，这样二次算符的对易子仍对应同类矩阵。
+    </p>
+
+    <h3>0.3 两个 \(J\) 分别承担什么任务</h3>
+    <p>
+      第一个实正交矩阵 \(J_1\) 与复共轭一起作用。条件
+      \(J_1^TAJ_1=\bar A\) 让传播矩阵中的复数成共轭配对，因此它负责“现实性”。
+    </p>
+    <p>
+      第二个实正交矩阵 \(J_2\) 用来构造一个 Hermitian 矩阵 \(\eta\)。
+      如果每个时间片满足
+    </p>
+    <div class="scroll">\[
+      H_\eta(A)\equiv\eta A+A^\dagger\eta\leq0,
+    \]</div>
+    <p>
+      那么 \(e^A\) 在 \(\eta\) 所定义的二次型下不会增长。这种生成元集合在指数化后对乘法封闭，
+      因而称为收缩半群。若不等式严格为负定，就称该时间片位于收缩区域的严格内部；
+      若只能等于零，则只位于边界。
+    </p>
+
+    <h3>0.4 五个正负号只是关系记录</h3>
+    <p>note 反复改变的五个正负号定义为</p>
+    <div class="scroll">\[
+      J_a^TgJ_a=s_ag,\qquad J_a^2=q_aI,\qquad
+      J_1J_2=rJ_2J_1,\qquad s_a,q_a,r=\pm1.
+    \]</div>
+    <p>
+      \(s_a\) 表示 \(J_a\) 保持还是翻转 \(g\)，\(q_a\) 表示 \(J_a\) 的平方，
+      \(r=+1\) 表示对易，\(r=-1\) 表示反对易。五个二值选择共有 \(2^5=32\) 种。
+      这些符号只是分类标签，不是新的物理场或算符。
+    </p>
+
+    <h3>0.5 “矩阵代表存在”和“无符号”之间还有距离</h3>
+    <p>
+      为某组正负号写出 \(J_1,J_2\)，只说明这一代数关系可以实现。
+      接下来还要检查 \(\eta\) 是否 Hermitian、允许的 \(A\) 中是否有严格收缩方向、
+      收缩是否控制实际传播 \(e^A\)，最后还要把传播结论与完整 Fock 迹的现实性和连续分支结合。
+      以下各节就按这个顺序逐层检查。
+    </p>
+
+    <h3>0.6 note 提到的三种既有语言</h3>
+    <p>
+      时间反演对称性（time-reversal symmetry，TRS）在这里指包含复共轭的反线性变换；
+      在 Kramers 型情形中，它把单粒子态配成简并伙伴。反射正性（reflection positivity，RP）
+      比单纯的反射对称更强：除了反射关系，还要求跨反射面的耦合属于一个正锥。
+      因此“权重为实”和“权重非负”是不同层次。
+    </p>
+    <p>
+      Majorana 表示则把一个复费米子拆成两个 Hermitian Majorana 算符。
+      同一个二次费米算符可以在 Nambu 基或 Majorana 基中表示，但矩阵、复共轭规则和传播生成元
+      必须一起变换。只搬运某个不等式而不搬运整个基变换，通常不会得到等价条件。
+    </p>
+  </section>
+
+  <section id="message">
+    <h2>1. 新消息的完整引文与逐句解释</h2>
+    <div class="source-quote">
+      “这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。
+      总共玻色费米各有32种，所以手动穷举和数值穷举比其实很低效。这个过程中，我发现很多时候玻色子和费米子并不对等。
+      重点看第一节，其他部分都是硬算。我在第一节结尾的时候有个Comment，穷举的时候最好考虑到。
+      玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。
+      费米子我只列举了一类J2。”
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。”</div>
+      <div class="plain-language">
+        note 第一节的玻色列表实际混合了两条已知路线和 14 个标作 Case 3--16 的半群候选；
+        费米列表则重点手算了固定 \(J_2^TgJ_2=-g,\ J_2^2=-I\) 后的八种
+        \((s_1,q_1,r)\) 组合。这里的“16”和“8”描述已经手算的切片；
+        要完成整个任务，仍需遍历上一节定义的五个正负号。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“总共玻色费米各有32种，所以手动穷举和数值穷举比其实很低效。”</div>
+      <div class="plain-language">
+        这里应理解为“手动穷举比数值穷举低效”。五个独立正负号给出 \(2^5=32\) 类；
+        每类再手写几十行分块矩阵，既慢又容易漏项或丢负号。数值穷举适合防漏，解析公式适合解释原因，
+        两者结合比手算 64 份矩阵更可靠。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“这个过程中，我发现很多时候玻色子和费米子并不对等。”</div>
+      <div class="plain-language">
+        观察正确，但应说清“不对等”在哪里：玻色 \(g^T=-g\)，费米 \(g^T=+g\)，
+        因而同一个转置计算会多出一个负号。至于这个负号怎样限制 \(J_2^2\)，
+        需要等收缩度规写清楚后才能判断，本节暂不预设答案。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“重点看第一节，其他部分都是硬算。”</div>
+      <div class="plain-language">
+        第一节确实承载了分类主张。其余部分主要是在具体基底中重复解线性约束；
+        它能提供矩阵代表，却不能自动证明完整 Fock 权重的正性。本报告因此详细解释第一节，
+        对重复计算说明统一方法，对会改变结论的步骤逐项展开。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“我在第一节结尾的时候有个Comment，穷举的时候最好考虑到。”</div>
+      <div class="plain-language">
+        Comment 怀疑对易与反对易是否真的重要。用上一节的记号说，它是在问分类标签 \(r\)
+        是否可以忽略。这个问题必须通过检查 \(J_1\) 现实性条件 如何作用在
+        \(H_\eta(A)\) 上来回答，不能仅凭两个 Case 的分块形式相似就合并。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。”</div>
+      <div class="plain-language">
+        完全正确。决定是否需要因子 \(i\) 的两个关系是
+        \(J_2^TgJ_2=s_2g\) 与 \(J_2^2=q_2I\)。
+        把 \(J_2g\) 转置共轭后，会由这两个关系决定它是 Hermitian 还是 anti-Hermitian。
+        第 3 节会把这个一步计算完整写出。
+      </div>
+    </div>
+    <div class="quote-explain">
+      <div class="source-quote">“费米子我只列举了一类J2。”</div>
+      <div class="plain-language">
+        note 主要固定 \(s_2=-1,q_2=-1\)。完整穷举还要加入其他三种
+        \((s_2,q_2)\) 组合。穷举不能只复制 note 的八行，还要对每种新增组合重新检查
+        度规是否 Hermitian、是否有严格内部以及与 \(J_1\) 是否兼容。
+      </div>
+    </div>
+  </section>
+
+  <section id="first-section">
+    <h2>2. note 第一节在提出什么分类</h2>
+
+    <h3>2.1 统一写法：\(gA\) 写进算符，\(A\) 生成传播</h3>
+    <div class="source-quote">
+      <p>“Let \(g=\left(\begin{smallmatrix}0&amp;-I\\I&amp;0\end{smallmatrix}\right)=-\Omega\)
+      for bosons and \(g=\left(\begin{smallmatrix}0&amp;I\\I&amp;0\end{smallmatrix}\right)\)
+      for fermions.”</p>
+      <p>\(h_i=\frac12\chi^TgA_i\chi,\qquad gA+A^Tg=0.\)</p>
+      <p>\[
+      p=\mathrm{tr}(e^{h_1}\cdots e^{h_k})
+      =\det(I\mp e^{A_1}\cdots e^{A_k})^{\mp1/2}.
+      \]</p>
+    </div>
+    <p>
+      这三行定义了整份 note 的对象。\(g\) 编码玻色对易关系或费米反对易关系；
+      \(gA\) 是二次算符 \(h\) 的系数；\(A\) 才是单体传播 \(e^A\) 的生成元。
+      条件 \(gA+A^Tg=0\) 保证二次算符对易后仍留在同一类中。
+    </p>
+    <p>
+      迹公式的符号约定是：玻色取 \(\det(I-M)^{-1/2}\)，费米取
+      \(\det(I+M)^{1/2}\)，其中 \(M=e^{A_1}\cdots e^{A_k}\)。
+      作为无符号定理时，还必须指定玻色迹的收敛域、正规序标量和从正参考点连续固定的平方根分支。
+    </p>
+
+    <h3>2.2 玻色列表怎样组成</h3>
+    <div class="source-quote">
+      <p>“For bosons, we have 7 passed cases:”</p>
+      <p>1) Time reversal symmetry；2) reflection positivity；随后对 contraction semigroup cases
+      施加 \(J_1^TAJ_1=\bar A\) 与 \(J_2gA+A^\dagger J_2g\leq0\)，
+      并列出 Cases 3--16。</p>
+    </div>
+    <p>
+      前两项是 note 单独列出的已有路线；Cases 3--16 才是在测试 \(J_2g\) 型收缩。
+      为先准确理解原文，下表只整理 note 自己写下的判断，不在这里提前评价。
+    </p>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>note 玻色条目</th><th>\((s_1,q_1,s_2,q_2,r)\)</th><th>note 原文判断</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>3</td><td>\((+,+,-,+,-)\)</td><td>Failed</td></tr>
+          <tr><td>4</td><td>\((+,-,-,+,-)\)</td><td>Failed</td></tr>
+          <tr><td>5</td><td>\((-,+,-,+,-)\)</td><td>Passed</td></tr>
+          <tr><td>6</td><td>\((-,-,-,+,-)\)</td><td>Passed</td></tr>
+          <tr><td>7</td><td>\((+,+,-,+,+)\)</td><td>Passed</td></tr>
+          <tr><td>8</td><td>\((+,-,-,+,+)\)</td><td>Passed</td></tr>
+          <tr><td>9</td><td>\((-,+,-,+,+)\)</td><td>Failed</td></tr>
+          <tr><td>10</td><td>\((-,-,-,+,+)\)</td><td>Passed</td></tr>
+          <tr><td>11--16</td><td>\(s_2=+,q_2=-\) 的部分组合</td><td>全部标为 Failed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      接着，note 把自己标为 Passed 的条目重新抄成 \(1''\)--\(7''\)。
+      这里的编号已经混入 TRS 和 RP。为了避免同号异义，后续对照都回到五个正负号，
+      不直接拿 Case 编号相减或配对。
+    </p>
+
+    <h3>2.3 费米列表换了不等式，不能直接与玻色 Passed 对照</h3>
+    <div class="source-quote">
+      <p>“For fermions, we have 8 examined cases:”</p>
+      \[
+      J_1^TAJ_1=\bar A,\qquad
+      iJ_2gA-iA^\dagger J_2g\leq0.
+      \]
+    </div>
+    <p>
+      从第 0 节的定义看，玻色式是 Hermitian 度规下的普通耗散部分
+      \(\eta A+A^\dagger\eta\)。费米式却是
+      \(i(J_2gA-A^\dagger J_2g)\)，即相对于 \(J_2g\) 的“反 Hermitian 部分”乘 \(i\)。
+      两式不是把玻色符号换成费米符号后的同一对象。
+    </p>
+    <p>
+      在这条不等式之前，note 还列了两项：\(1'\) 是两个反线性结构，原文明确写
+      “Possible but not proved yet”；\(2'\) 是与玻色 RP 对应的结构，原文只说它存在但不实用。
+      随后的八个固定-\(J_2\) 条目整理如下，仍只复述原文。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>note 费米条目</th><th>\((s_1,q_1,s_2,q_2,r)\)</th><th>note 原文说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>\(3'\)</td><td>\((+,+,-,-,-)\)</td><td>Majorana reflection positivity</td></tr>
+          <tr><td>\(4'\)</td><td>\((+,-,-,-,-)\)</td><td>Time-reversal positivity</td></tr>
+          <tr><td>\(5'\)</td><td>\((-,+,-,-,-)\)</td><td>Passed</td></tr>
+          <tr><td>\(6'\)</td><td>\((-,-,-,-,-)\)</td><td>Passed</td></tr>
+          <tr><td>\(7'\)</td><td>\((+,+,-,-,+)\)</td><td>Passed</td></tr>
+          <tr><td>\(8'\)</td><td>\((+,-,-,-,+)\)</td><td>Passed</td></tr>
+          <tr><td>\(9'\)</td><td>\((-,+,-,-,+)\)</td><td>Passed</td></tr>
+          <tr><td>\(10'\)</td><td>\((-,-,-,-,+)\)</td><td>Failed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Wei 的半群定理在 Majorana 系数矩阵 \(A\) 上写成
+      \(i(J_2A-\bar A J_2)\leq0\)，并同时要求 \(J_1,J_2\) 的兼容关系。
+      若改用 note 的 Nambu 约定 \(h=\frac12\chi^TgA\chi\)，必须把基变换和实际传播一起变换；
+      因此费米列表需要在后面单独检验，不能依据与玻色列表外观相似就先宣布等价。
+    </p>
+
+    <h3>2.4 “Passed”在具体计算中代表三种不同强度</h3>
+    <ul>
+      <li>有时只表示成功写出了 \(J_1,J_2\) 和受限的 \(A\)。</li>
+      <li>有时表示某个块矩阵可以要求半正定，但没有证明该集合含严格内部或乘法封闭。</li>
+      <li>有时进一步猜测 “possibly has positivity”，但没有计算完整 Fock 迹。</li>
+    </ul>
+    <div class="note">
+      读到这里，我们只知道 note 如何使用 Passed，还不知道哪些条目真正通过。
+      下一步先建立统一的判断标准，再把标准应用到全部 64 类和这些手算条目。
+    </div>
+  </section>
+
+  <section id="derivation">
+    <h2>3. 如何判断一个类别是否真有收缩内部</h2>
+
+    <h3>3.1 回到五个正负号</h3>
+    <p>令</p>
+    <div class="scroll">\[
+      g^T=\tau g,\qquad g^2=\tau I,\qquad
+      \tau=-1\ {\rm (boson)},\quad \tau=+1\ {\rm (fermion)}.
+    \]</div>
+    <p>对两个实正交矩阵只记录</p>
+    <div class="scroll">\[
+      J_a^TgJ_a=s_ag,\qquad J_a^2=q_aI,\qquad
+      J_1J_2=rJ_2J_1,
+      \qquad s_a,q_a,r=\pm1.
+    \]</div>
+    <p>
+      五个正负号给出 32 类。\(s_1,q_1\) 描述 现实性结构，
+      \(s_2,q_2\) 决定 \(J_2\) 如何与 \(g\) 组合，\(r\) 记录两个结构对易还是反对易。
+    </p>
+
+    <h3>3.2 什么时候用 \(J_2g\)，什么时候必须乘 \(i\)</h3>
+    <p>由正交性和上述两个 \(J_2\) 关系直接得到</p>
+    <div class="scroll">\[
+      (J_2g)^\dagger=\tau q_2s_2\,J_2g,\qquad
+      (J_2g)^2=\tau q_2s_2\,I.
+    \]</div>
+    <p>
+      若 \(\tau q_2s_2=+1\)，则 \(J_2g\) 已是 Hermitian 且平方为 \(I\)；
+      若 \(\tau q_2s_2=-1\)，则 \(J_2g\) 是 anti-Hermitian 且平方为 \(-I\)，
+      所以 \(iJ_2g\) 是 Hermitian 且平方为 \(I\)。整体负号只交换锥的方向，不改变分类。
+    </p>
+
+    <h3>3.3 第一条必要条件：\(q_2=-\tau\)</h3>
+    <p>
+      李代数条件给出 \((gA)^T=-\tau gA\)。再用 \(J_2^T=q_2J_2\)，
+    </p>
+    <div class="scroll">\[
+      \Tr(J_2gA)
+      =\Tr[(J_2gA)^T]
+      =-\tau q_2\Tr(J_2gA).
+    \]</div>
+    <p>
+      若 \(q_2=\tau\)，右边等于 \(-\Tr(J_2S)\)，故该迹只能为零。
+      相应 \(H_\eta(A)=\eta A+A^\dagger\eta\) 也有零迹。
+      若要求它半负定，就只能 \(H_\eta(A)=0\)，不存在严格内部。因此
+    </p>
+    <div class="scroll">\[
+      \boxed{q_2=-\tau.}
+    \]</div>
+    <p>
+      这正是玻色与费米最清楚的不对等：玻色要求 \(J_2^2=+I\)，费米要求 \(J_2^2=-I\)。
+    </p>
+
+    <h3>3.4 第二条必要条件：对易号不能省略</h3>
+    <p>
+      取上一小节得到的 Hermitian \(\eta\)，并施加 \(J_1^TAJ_1=\bar A\)。
+      逐项移动 \(J_1,J_2,g\) 可得
+    </p>
+    <div class="scroll">\[
+      J_1^T\bar\eta J_1=(\tau q_2s_1s_2r)\eta.
+    \]</div>
+    <p>在已经满足 \(q_2=-\tau\) 时，这变为</p>
+    <div class="scroll">\[
+      J_1^T\bar\eta J_1=(-s_1s_2r)\eta,
+      \qquad
+      J_1^T\overline{H_\eta(A)}J_1=(-s_1s_2r)H_\eta(A).
+    \]</div>
+    <p>
+      左边是对 \(H_\eta(A)\) 的复共轭和正交合同，因此保持半负定性。
+      若右边多出负号，它又要求 \(-H_\eta(A)\) 半负定，于是只能 \(H_\eta(A)=0\)。
+      严格内部因此要求
+    </p>
+    <div class="scroll">\[
+      \boxed{r=-s_1s_2.}
+    \]</div>
+    <p>
+      这就是 Comment 的答案。\(r\) 决定锥是否被保持；\(q_1\) 在推导中消失，
+      所以 \(J_1^2=\pm I\) 两个伙伴通常同时出现。
+    </p>
+
+    <h3>3.5 两条条件也是充分的：直接写出严格见证</h3>
+    <p>
+      当 \(q_2=-\tau\) 且 \(r=-s_1s_2\) 时，取
+      \(A_0=-\eta\)。利用前面的关系可以逐项验证
+    </p>
+    <div class="scroll">\[
+      gA_0+A_0^Tg=0,\qquad
+      J_1^TA_0J_1=\bar A_0,
+    \]</div>
+    <div class="scroll">\[
+      H_\eta(A_0)
+      =\eta(-\eta)+(-\eta)^\dagger\eta
+      =-2\eta^2=-2I.
+    \]</div>
+    <p>
+      因此它不是靠随机搜索猜到的“可能通过”，而是显式严格内部点。
+      两条必要条件合起来也是充分条件。
+    </p>
+    <div class="result">
+      <strong>完整分类定理。</strong>
+      对由 \(J_2\) 直接诱导的 Hermitian 度规，且以
+      \(H_\eta(A)=\eta A+A^\dagger\eta\leq0\) 控制实际传播 \(e^A\) 时，
+      与 \(J_1\) 现实性条件 兼容的严格内部存在，当且仅当
+      \(q_2=-\tau\) 且 \(r=-s_1s_2\)。\(s_1,q_1,s_2\) 可独立取正负，
+      所以玻色、费米各有 \(2^3=8\) 类。
+    </div>
+  </section>
+
+  <section id="enumeration">
+    <h2>4. Octave 完整穷举</h2>
+    <figure>
+      <img src="figures/full_64_class_enumeration.png"
+           alt="玻色和费米各32类的完整分类，颜色区分J2g严格类、iJ2g严格类、现实性条件翻锥与迹阻挡">
+      <figcaption>
+        <strong>图 1｜玻色与费米各 32 类的完整结果。</strong>
+        每行固定 \((s_1,q_1)\)，每列固定 \((s_2,q_2,r)\)。
+        绿色和蓝色分别表示存在 \(\eta=J_2g\) 与 \(\eta=iJ_2g\) 的严格内部；
+        红色表示度规和迹条件允许，但 现实性条件 把负锥翻成正锥；灰色表示 \(q_2\) 错误导致
+        \(H_\eta(A)\) 迹恒为零。玻色严格格位于 \(q_2=+1\)，费米严格格位于 \(q_2=-1\)。
+      </figcaption>
+    </figure>
+
+    <h3>4.1 计数和数值残差</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>统计</th><th class="num">Pauli 代表</th><th class="num">严格类</th><th class="num">\(J_2g\)</th><th class="num">\(iJ_2g\)</th><th class="num">迹阻挡</th><th class="num">现实性条件 翻锥</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>玻色</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+          <tr><td>费米</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      所有 16 个严格类都用 \(A_0=-\eta\) 作数值见证。程序检查
+      \(gA_0+A_0^Tg\)、\(J_1^TA_0J_1-\bar A_0\) 和
+      \(H_\eta(A_0)+2I\)；本次实 Pauli 计算中最大残差均为精确的 0。
+    </p>
+
+    <h3>4.2 完整 64 行</h3>
+    <p>
+      下表不是只列“通过项”，而是保留全部组合和失败原因。
+      <code>J2g</code>/<code>iJ2g</code> 表示使度规 Hermitian 所需的形式；
+      “迹阻挡”和“翻锥”都表示最多只能留在收缩边界。
+    </p>
+    <p>
+      表中的 Pauli 词采用四个实 \(2\times2\) 矩阵：
+      <code>I</code> 是单位阵，<code>X</code> 是 \(\sigma_x\)，
+      <code>Y</code> 是实矩阵 \(i\sigma_y\)，<code>Z</code> 是 \(\sigma_z\)。
+      例如 <code>IX</code> 表示 \(I\otimes\sigma_x\)；字母只编码张量积，不引入新的物理量。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>统计</th><th>\(s_1\)</th><th>\(q_1\)</th><th>\(s_2\)</th><th>\(q_2\)</th><th>\(r\)</th>
+            <th>度规</th><th>结论</th><th>最短 \(J_1,J_2\) Pauli 词</th>
+          </tr>
+        </thead>
+        <tbody>
+                    <tr><td>玻色</td><td>+</td><td>+</td><td>+</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>IIX</code>, <code>IXI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>+</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>IX</code>, <code>IZ</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>+</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>YI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>+</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>IY</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>-</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>IX</code>, <code>XI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>-</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>IX</code>, <code>XZ</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>-</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IIX</code>, <code>XYI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>+</td><td>-</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>XY</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>+</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>IY</code>, <code>YY</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>+</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>IY</code>, <code>IX</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>+</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>YI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>+</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>YX</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>-</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>IY</code>, <code>XI</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>-</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>Y</code>, <code>X</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>-</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>XY</code></td></tr>
+          <tr><td>玻色</td><td>+</td><td>-</td><td>-</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>YI</code>, <code>XY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>+</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>XI</code>, <code>IX</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>+</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>XI</code>, <code>YY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>+</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>XI</code>, <code>IY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>+</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>X</code>, <code>Y</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>-</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>XI</code>, <code>XX</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>-</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>X</code>, <code>Z</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>-</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>XI</code>, <code>XY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>+</td><td>-</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>XI</code>, <code>ZY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>+</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>XIY</code>, <code>IXI</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>+</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>XY</code>, <code>IX</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>+</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>XY</code>, <code>IY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>+</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>XY</code>, <code>YI</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>-</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>XY</code>, <code>XI</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>-</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>XY</code>, <code>XX</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>-</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>XIY</code>, <code>XXY</code></td></tr>
+          <tr><td>玻色</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>XY</code>, <code>ZY</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>+</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>XI</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>+</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>IZ</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>+</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>XI</code>, <code>IY</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>+</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>IX</code>, <code>IY</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>-</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IX</code>, <code>ZI</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>-</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>X</code>, <code>Z</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>-</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>IX</code>, <code>YI</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>+</td><td>-</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>X</code>, <code>Y</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>+</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>XI</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>+</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>IX</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>+</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>IY</code>, <code>XY</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>+</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>IIY</code>, <code>IYX</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>-</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>YY</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>-</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>IY</code>, <code>ZX</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>-</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>IY</code>, <code>YI</code></td></tr>
+          <tr><td>费米</td><td>+</td><td>-</td><td>-</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>IY</code>, <code>YX</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>+</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>YY</code>, <code>XX</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>+</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>Z</code>, <code>X</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>+</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>YY</code>, <code>IY</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>+</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>YY</code>, <code>XY</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>-</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>YY</code>, <code>ZX</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>-</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>YY</code>, <code>ZI</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>-</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>YY</code>, <code>YI</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>+</td><td>-</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>Z</code>, <code>Y</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>+</td><td>+</td><td>+</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>YI</code>, <code>IX</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>+</td><td>+</td><td>-</td><td><code>J2g</code></td><td class="no">迹阻挡</td><td><code>Y</code>, <code>X</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>+</td><td>-</td><td>+</td><td><code>iJ2g</code></td><td class="yes">严格</td><td><code>YI</code>, <code>IY</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>+</td><td>-</td><td>-</td><td><code>iJ2g</code></td><td class="no">现实性条件 翻锥</td><td><code>YI</code>, <code>XY</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>-</td><td>+</td><td>+</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>YI</code>, <code>YY</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>-</td><td>+</td><td>-</td><td><code>iJ2g</code></td><td class="no">迹阻挡</td><td><code>Y</code>, <code>Z</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>-</td><td>-</td><td>+</td><td><code>J2g</code></td><td class="no">现实性条件 翻锥</td><td><code>YI</code>, <code>YX</code></td></tr>
+          <tr><td>费米</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td><code>J2g</code></td><td class="yes">严格</td><td><code>YI</code>, <code>ZY</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="hard-algebra">
+    <h2>5. 用统一结果审读后续硬算</h2>
+
+    <h3>5.1 每个 Case 都在重复同一套五步</h3>
+    <ol>
+      <li>用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的直积写出 \(J_1,J_2\)。</li>
+      <li>写出满足 \(gA+A^Tg=0\) 的一般玻色辛生成元或费米正交生成元。</li>
+      <li>解 \(J_1^TAJ_1=\bar A\)，把 现实性条件 变成各矩阵块之间的关系。</li>
+      <li>
+        再按 \(J_2^TAJ_2=\pm\bar A\) 分成两部分。note 把等式边界上可逆的对称变换称为
+        maximal subgroup，把可能产生耗散的半正定方向称为 cone 方向。
+      </li>
+      <li>检查由 \(J_2\) 写出的矩阵是否 Hermitian 半负定，并据此写 Passed 或 Failed。</li>
+    </ol>
+    <p>
+      前四步都是线性代数。真正困难的是第五步：矩阵必须先是 Hermitian，半负定要求必须与
+      \(J_1\) 现实性条件 相容，严格内部必须非空，而且该不等式要控制实际传播 \(e^A\)。
+      note 的主要误差都发生在这一步，而不是前面的分块乘法。
+    </p>
+
+    <h3>5.2 玻色 Case 7 与 Case 8：手算的可靠部分</h3>
+    <p>
+      Case 7 是 \(s_1=+,q_1=+,s_2=-,q_2=+,r=+\)；
+      Case 8 只把 \(q_1\) 改成 \(-\)。二者都满足完整条件
+      \(q_2=+1,\ r=-s_1s_2=+1\)。note 展开的块关系与这个判断一致。
+      \(q_1\) 的改变会改变反线性结构是普通型还是 Kramers 型，却不破坏锥兼容性。
+    </p>
+
+    <h3>5.3 玻色 Cases 3、4、9：为什么手算得到 Failed</h3>
+    <p>
+      这些类都有正确的 \(q_2=+1\)，所以度规本身没有迹阻挡；失败来自对易号。
+      现实性条件 把任何候选半负定矩阵变成它的相反数。一个矩阵不可能既严格半负又严格半正，
+      因而只剩等式边界。note 的逐块计算看见的是这一统一事实的三个坐标版本。
+    </p>
+
+    <h3>5.4 玻色 Case 10：分块子空间存在，不等于收缩锥存在</h3>
+    <div class="source-quote">
+      <p>note 在 Case 10 中列出 cone 方向的 \(A\) 后直接写：</p>
+      <p>“There's a contration semigroup.”</p>
+    </div>
+    <p>
+      该类为 \((-,-,-,+,+)\)。它与正确的 Case 6 \((-,-,-,+,-)\)
+      只差 \(J_1,J_2\) 的对易号。对 Case 10，现实性条件 将
+      \(H_\eta(A)=\eta A+A^\dagger\eta\) 送到 \(-H_\eta(A)\)。
+      因此只要同时要求 \(H_\eta(A)\leq0\)，便必有 \(H_\eta(A)=0\)。
+      note 确实找到了一个线性子空间，但没有写出或验证半负定不等式；“有 cone 方向”被误当成了“有收缩锥”。
+    </p>
+
+    <h3>5.5 玻色 Cases 11--16：为什么都只能在边界</h3>
+    <p>
+      这些手算例子取 \(q_2=-1\)，而玻色严格收缩要求 \(q_2=+1\)。
+      对任意允许的 \(A\)，\(H_\eta(A)\) 的迹恒为零。Hermitian 半负定矩阵若迹为零，
+      所有本征值只能全为零。因此这些类的失败不是某个 Pauli 代表选得不好，而是与表示无关的阻挡。
+    </p>
+
+    <h3>5.6 费米硬算中的两个具体阅读提醒</h3>
+    <ul>
+      <li>
+        Case \(5'\) 写 \(J_1=\sigma_z\otimes I\)，但紧随其后的显示矩阵误写成
+        \(\operatorname{diag}(I,I)\)；后续代数实际按 \(\operatorname{diag}(I,-I)\) 在算。
+        这是排版笔误，也说明长手算很难审计。
+      </li>
+      <li>
+        多处结尾从 “某块矩阵可以取半正定”直接跳到 “With positivity”。
+        这只证明一个生成元级候选条件，不等于由 \(e^A\) 计算的完整 Fock 权重已经非负。
+      </li>
+    </ul>
+  </section>
+
+  <section id="comment">
+    <h2>6. 第一节 Comment 的严格答案</h2>
+    <div class="source-quote">
+      “For bosonic case 4'' &amp; 7'', is the commutator/anti-commutator there really matters?
+      I don't think so. This observation may also apply to fermionic case 2''' &amp; 6''',
+      3''' &amp; 7''', and 4' &amp; 8'''.”
+    </div>
+    <p>
+      这些配对都固定了 \(s_1,q_1,s_2,q_2\)，只改变 \(r\)。正因如此，它们是检验
+      对易号是否重要的最干净例子。结果如下。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Comment 中的配对</th><th>\(r=-1\)</th><th>\(r=+1\)</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>玻色 \(4''\) 与 \(7''\)：\(s_1=-,q_1=-,s_2=-,q_2=+\)</td>
+            <td class="yes">严格</td><td class="no">翻锥，只剩边界</td><td>必须反对易</td>
+          </tr>
+          <tr>
+            <td>费米 \(2'''\) 与 \(6'''\)：\(s_1=+,q_1=+,s_2=-,q_2=-\)</td>
+            <td class="no">翻锥，只剩边界</td><td class="yes">严格</td><td>必须对易</td>
+          </tr>
+          <tr>
+            <td>费米 \(3'''\) 与 \(7'''\)：\(s_1=+,q_1=-,s_2=-,q_2=-\)</td>
+            <td class="no">翻锥，只剩边界</td><td class="yes">严格</td><td>必须对易</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      “必须对易”还是“必须反对易”不是固定答案；它由 \(r=-s_1s_2\) 决定。
+      物理原因很简单：现实性条件 必须把允许的耗散方向送回同一个耗散方向，而不能把衰减变成增长。
+    </p>
+  </section>
+
+  <section id="fermion">
+    <h2>7. 费米 Passed 为什么仍需谨慎</h2>
+
+    <h3>7.1 note 的不等式没有直接控制 \(e^A\)</h3>
+    <p>
+      note 的权重公式使用 \(M=\prod e^{A_\ell}\)，但它施加的不等式含 \(J_2gA\)。
+      映射 \(A\mapsto gA\) 一般不是相似变换，所以控制 \(gA\) 的某个 Hermitian 部分，
+      不能自动控制 \(e^A\) 的本征值或 \(\det(I+M)\)。
+    </p>
+    <p>
+      Wei 的原始半群结果确实允许用反对称 \(J_2\) 写
+      \(i(J_2A-\bar A J_2)\leq0\)，但那里的 \(A\) 是 Majorana 表示中直接进入二次型并生成相应传播的矩阵。
+      将其搬到 Nambu 表示时必须整体变换，而不是只把 \(A\) 替换成 \(gA\)。
+    </p>
+
+    <h3>7.2 二维精确反例：满足 note 不等式，权重仍过零变负</h3>
+    <p>取</p>
+    <div class="scroll">\[
+      g=\sigma_x,\qquad J_1=\sigma_x,\qquad
+      J_2=i\sigma_y,\qquad A=iy\sigma_z.
+    \]</div>
+    <p>
+      它属于 note 的费米 \(3'\) 离散关系，并满足
+    </p>
+    <div class="scroll">\[
+      J_1^TAJ_1=\bar A,\qquad
+      iJ_2gA-iA^\dagger J_2g=-2yI<0\quad(y>0).
+    \]</div>
+    <p>但二次算符和完整一模 Fock 迹是</p>
+    <div class="scroll">\[
+      h=iy\left(n-\frac12\right),\qquad
+      W(y)=\Tr e^h=2\cos\frac y2.
+    \]</div>
+    <p>
+      \(W(\pi)=0\)，\(W(2\pi)=-2\)。所以这条不等式即使严格成立，也没有排除费米权重零点。
+      note 把 \(3'\) 称为 Majorana reflection positivity 时，缺少了把真正的 Majorana
+      正性结构正确拉回当前 Nambu 约定的步骤。
+    </p>
+
+    <h3>7.3 note 的 \(9'\) 也有无 pairing 的显式负权重</h3>
+    <p>
+      对与 \(9'\) 相同的五符号类，可以取三个粒子数守恒时间片，也就是不含同时产生或湮灭
+      两个粒子的 pairing 项：
+    </p>
+    <div class="scroll">\[
+      B_1=-2\sigma_x-2\sigma_z,\qquad
+      B_2=-2\sigma_x,\qquad
+      B_3=2\sigma_x+\sigma_z.
+    \]</div>
+    <p>逐时间片的 note 边界等式和现实性条件残差为零，但</p>
+    <div class="scroll">\[
+      W=\det(I+e^{B_1}e^{B_2}e^{B_3})
+      =-24.1885664.
+    \]</div>
+    <p>
+      从零整体缩放三个 \(B_\ell\) 时，权重在
+      \(t=0.8096748539\) 经过零。这直接否定 \(9'\) 的 “Passed”
+      可以被理解为无符号结论。
+    </p>
+
+    <div class="correction">
+      <strong>正确处理方式。</strong>
+      要么回到 Majorana 基，严格采用 Wei 定理的 \(A,J_1,J_2\) 和反对易条件；
+      要么留在当前 Nambu 基，直接对传播生成元写 Hermitian
+      \(H_\eta(A)=\eta A+A^\dagger\eta\leq0\)，并要求
+      \(q_2=-\tau,\ r=-s_1s_2\)。
+      两种表示都可以使用，但不能混合半个公式。
+    </div>
+  </section>
+
+  <section id="paper">
+    <h2>8. 对文章的影响</h2>
+    <p>
+      当前仓库中的论文研究玻色辅助场量子蒙特卡洛。主线使用两类已经建立的充分条件：
+      TRS 通过反线性配对控制权重，RP 通过反射关系和正锥控制权重。
+      主文的第一幅示意图再用“是否有 TRS/RP”和“晶格是否受挫”组织不同可计算区域；
+      数值基准比较（benchmark）用具体玻色模型检验算法。下面的修改建议都以保留这条已证明主线为前提。
+    </p>
+    <h3>8.1 现在可以安全吸收的结果</h3>
+    <ul>
+      <li>
+        在补充材料中加入由 \(J_2\) 直接诱导的传播收缩命题：
+        \(q_2=-\tau,\ r=-s_1s_2\)，并展示 \(A_0=-\eta\) 的严格见证。
+      </li>
+      <li>
+        明确玻色 \(s_2=-1\) 的四类使用 \(J_2g\)，\(s_2=+1\) 的四个伙伴类使用 \(iJ_2g\)。
+      </li>
+      <li>
+        在讨论中把“\(h\) 的二次型对称性”和“\(e^A\) 的传播正性结构”分开，避免再次混用 \(gA\) 与 \(A\)。
+      </li>
+    </ul>
+
+    <h3>8.2 暂时不能写进文章的主张</h3>
+    <ul>
+      <li>不能写“玻色有 7 个 passed cases、费米有 8 个 passed cases”，因为这些数字混合了不同判据。</li>
+      <li>不能写对易/反对易无关；它决定严格锥是否存在。</li>
+      <li>不能把 note 当前费米不等式当成 Nambu 权重的充分条件，已有精确负权重反例。</li>
+      <li>不能仅凭八类代数分类就重画主文图 1；尚缺一个不被现有 TRS/RP 覆盖的物理 HS 模型和数值基准比较。</li>
+    </ul>
+
+    <h3>8.3 这次更新真正增加了什么</h3>
+    <p>
+      新 note 最有价值的贡献不是长分块计算，而是明确指出 \(iJ_2g\) 族不能漏掉。
+      完整穷举证明这一提醒是实质性的：玻色、费米各有一半严格类来自 \(iJ_2g\)。
+      这强化了继续寻找玻色新伙伴类物理实现的理由，同时也更清楚地划定了费米公式不能直接照搬的边界。
+    </p>
+  </section>
+
+  <section id="conclusion">
+    <h2>9. 最终结论</h2>
+    <p>
+      到这里，报告已经依次完成了对象定义、note 复述、解析推导、64 类穷举、手算核对和费米权重检验。
+      现在可以把结果汇总如下。
+    </p>
+    <div class="summary-grid">
+      <div class="summary-item established">
+        <strong>完整穷举</strong>
+        玻色、费米的 32 个五符号组合全部存在实 Pauli 代表。对由 \(J_2\) 直接诱导的传播收缩度规，
+        每种统计各有 8 个严格类，其中 4 个使用 \(J_2g\)，4 个使用 \(iJ_2g\)。
+      </div>
+      <div class="summary-item corrected">
+        <strong>Comment</strong>
+        对易或反对易确实重要，因为它决定 \(J_1\) 现实性条件 是否保持收缩方向。
+        \(J_1^2=\pm I\) 不进入最终兼容性条件，所以这个正负号才是成对出现的自由选择。
+      </div>
+      <div class="summary-item refuted">
+        <strong>note 中的误判</strong>
+        玻色 Case 10 只有边界，没有严格收缩内部。费米
+        \(iJ_2gA-iA^\dagger J_2g\leq0\) 在当前 Nambu 记号下不足以保证
+        \(\Tr\prod e^{h_\ell}\geq0\)，二维和无 pairing 反例均给出负权重。
+      </div>
+      <div class="summary-item open">
+        <strong>研究机会</strong>
+        更新 note 指出的 \(iJ_2g\) 族确实不可遗漏。对本文章最有价值的下一步是为玻色新严格类构造
+        标准 HS 分解、确认它不被现有 TRS/RP 覆盖，并完成物理数值基准比较。
+      </div>
+    </div>
+    <div class="result">
+      <strong>一句可供后续讨论使用的准确表述。</strong>
+      对满足 \(g^T=\tau g\) 的玻色或费米 Nambu 传播，若 \(\eta\) 由 \(J_2\) 直接构造，
+      则与 \(J_1^TAJ_1=\bar A\) 相容的严格 \(\eta\)-收缩内部存在，当且仅当
+      \(J_2^2=-\tau I\) 且 \(J_1J_2=(-s_1s_2)J_2J_1\)。
+      这是一条传播结构定理；要称为完整无符号定理，还需附加 Fock 迹现实性、正参考点、
+      收敛域和连续分支条件。
+    </div>
+  </section>
+
+  <section id="reproduce">
+    <h2>10. 可复现性与文件</h2>
+    <h3>10.1 重跑命令</h3>
+    <pre>/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); enumerate_updated_note"
+
+/home/yyk/conda/envs/notebook/bin/python \
+  docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/plot_full_enumeration.py
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); test_fermion_cases"</pre>
+
+    <h3>10.2 文件索引</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>文件</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>64 类 Pauli 代表、解析筛选、严格见证与 note 对照</td></tr>
+          <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
+          <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>玻色、费米全部 64 行及每类失败原因</td></tr>
+          <tr><td><a href="tables/updated_note_hand_comparison.csv">updated_note_hand_comparison.csv</a></td><td>新 note 手算标签与传播收缩分类逐项对照</td></tr>
+          <tr><td><a href="tables/comment_pair_checks.csv">comment_pair_checks.csv</a></td><td>第一节 Comment 所列配对的 \(r\) 与锥兼容性</td></tr>
+          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>从完整 CSV 生成图 1</td></tr>
+          <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>分类图的矢量版本</td></tr>
+          <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米二维、无 pairing 和完整 pairing 反例</td></tr>
+          <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>费米反例与随机诊断的完整运行日志</td></tr>
+          <tr><td><a href="analysis/octave_environment_explicit.txt">octave_environment_explicit.txt</a></td><td>Octave conda 环境逐包记录</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">
+      费米反例的脚本、日志和 CSV 已一并收录在本报告目录：
+      <a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a>、
+      <a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a>、
+      <a href="tables/fermion_case_1_counterexample.csv">二维反例数据</a>和
+      <a href="tables/fermion_cases_3_4_6_tests.csv">多类测试数据</a>。
+      半群原始条件参见
+      <a href="https://arxiv.org/abs/1712.09412">Z.-C. Wei, “Semigroup approach to the sign problem in quantum Monte Carlo simulations”</a>。
+    </p>
+  </section>
+
+  <section id="archive">
+    <h2>附录：更新 note 全文</h2>
+    <p>
+      下方完整保存 <code>experts/ToYinkaiYu-20260726.tex</code> 的 1943 行原文，
+      没有删节或改写。正文按照第一节的顺序解释主要判断；需要核对某个具体 \(4\times4\)
+      分块乘法时，可展开全文搜索 Case 编号。
+    </p>
+    <details class="source-archive">
+      <summary>展开 ToYinkaiYu-20260726.tex 全文（1943 行）</summary>
+      <pre>%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[landscape]{article}
+\usepackage{CJKutf8}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+\makeatother
+
+\begin{document}
+\begin{CJK}{UTF8}{}%
+
+\section{A short summary for bosonic and fermionic AFQMC:}
+
+Let $g=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)=-\Omega$ for bosons and $g=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$ for fermions. $h_{i}=\frac{1}{2}\chi^{T}gA_{i}\chi$, $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)$ for bosons and $\chi=\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+c_{N}\\
+c^{+}_{1}\\
+c^{+}_{2}\\
+\vdots\\
+c^{+}_{N}
+\end{array}\right)$ for fermions. $gA+A^{T}g=0$($sp\left(2N,\mathbb{C}\right)$ for
+bosons, $so\left(2N,\mathbb{C}\right)$ for fermions).&#32;
+
+We have the Lie algebra isomorphism described by $\left[\frac{1}{2}\chi^{T}gA_{1}\chi,\frac{1}{2}\chi^{T}gA_{2}\chi\right]=\frac{1}{2}\chi^{T}g\left[A_{1},A_{2}\right]\chi$.
+We have
+\[
+p=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)=\det\left(I\mp e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{\mp1/2}.
+\]
+
+For bosons, we have 7 passed cases:
+
+1)Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries) $J^{T}_{1}gJ_{1}=g$,
+$J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=-I_{2N}$,
+$\left[J_{1},J_{2}\right]=0$.
+
+2)reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$,
+$J^{T}_{2}gJ_{2}=g$, $J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-contraction
+semigroup)
+
+Contraction semigroup cases:
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+J_{2}gA+A^{\dagger}J_{2}g &amp; \leq0.
+\end{align*}
+
+3)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+4)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+$5)J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+6)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+7)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+8)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (mainly non-hermitian)
+
+9)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+10)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed.
+
+11)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+12)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+13)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+14)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+15)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+16)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+List passed ones only:
+
+1'')Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries)
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+2'')reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$,
+$J^{T}_{2}gJ_{2}=g$, $J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-contraction
+semigroup)
+
+3'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+4'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+5'')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+6'')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (mainly non-hermitian)
+
+7'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.(also non-hermitian)
+
+For fermions, we have 8 examined cases:
+
+1')(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+Possible but not proved yet.
+
+2')The case corresponding to bosonic reflection positivity---exists
+but not useful.
+
+Contraction semigroup cases:
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+iJ_{2}gA-iA^{\dagger}J_{2}g &amp; \leq0,
+\end{align*}
+
+3')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Majorana
+reflection positivity)
+
+4')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+5')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+6')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+7')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+$8')J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+9')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+10') $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$. Failed
+
+List passed ones only:
+
+1''')(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+Possible but not proved yet.
+
+2''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Majorana
+reflection positivity)
+
+3''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+4''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+5''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+6''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+$7''')J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+8''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+\emph{Comments}: For bosonic case 4'' \&amp; 7'', is the commutator/anti-commutator
+there really matters? I don't think so. This observation may also
+apply to fermionic case 2''' \&amp; 6''', 3''' \&amp; 7''', and 4' \&amp; 8'''.
+
+\section{Tests for new bosonic cases}
+
+Case 7:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+Yinkai Yu's case $J_{1}=I_{2}\otimes\sigma_{x}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$.
+Or easier: $J_{1}=I_{2N}$, $J_{2}=\sigma_{x}\otimes I_{N}$.
+
+metric is $\eta=J_{2}g$, contraction means ``physical''.
+
+Case 8:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+Assume $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$, where $C_{11}=C^{T}_{11}$, $C_{22}=C^{T}_{22}$, $D_{11}=D^{T}_{11}$,
+$D_{22}=D^{T}_{22}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; -D_{11} &amp; D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; -\bar{C}_{22} &amp; C^{\dagger}_{12}\\
+-\bar{B}_{12} &amp; -B^{T}_{11} &amp; \bar{C}_{12} &amp; -\bar{C}_{11}\\
+C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; B^{\dagger}_{12}\\
+C_{12} &amp; C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the invariant cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$,
+
+so $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$,
+
+\begin{align*}
+J_{2}\Omega A &amp; =\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+&lt;=&gt;$\left(\begin{array}{cccc}
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; B^{T}_{12} &amp; -B^{T}_{11}\\
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{12}
+\end{array}\right)\geq0$. Good.
+
+Case 3: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-D_{11} &amp; -D_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; -D_{22} &amp; D^{T}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; D_{12} &amp; -D_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+C_{12} &amp; -C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{22}$, $C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; \bar{B}_{11}
+\end{array}\right).$
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; \bar{B}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-\bar{C}_{22} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; \bar{B}_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; -B^{T}_{21} &amp; -\bar{C}_{22} &amp; C^{\dagger}_{12}\\
+-B^{T}_{12} &amp; \bar{B}_{11} &amp; \bar{C}_{12} &amp; -\bar{C}_{11}\\
+C_{11} &amp; C_{12} &amp; B_{11} &amp; B_{12}\\
+C^{T}_{12} &amp; C_{22} &amp; B_{21} &amp; -B^{\dagger}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{11}$,
+$B_{12}=-B^{\dagger}_{21}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right).$
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{11}$,
+$B_{12}=B^{\dagger}_{21}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$.
+\[
+J_{2}gA=\left(\sigma_{z}\otimes I_{N}\right)A\leq0
+\]
+
+Not a contraction semigroup.
+
+Case 4: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes I_{N}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$, $J_{2}=\sigma_{x}\otimes I_{N}=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$.
+
+$A=\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)$, $C=C^{T}$, $D=D^{T}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B=-B^{\dag}$, $C=-\bar{D}$. $A=\left(\begin{array}{cc}
+B &amp; C\\
+-\bar{C} &amp; -B^{T}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+-\bar{C} &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -\bar{C}\\
+C &amp; B
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the elements in the maximal subgroup, $C=0$.
+
+For the elements in the convex cone, $B=0$. $A=\left(\begin{array}{cc}
+0 &amp; -\bar{C}\\
+C &amp; 0
+\end{array}\right)$.&#32;
+
+$J_{2}g=\left(\begin{array}{cc}
+I_{N} &amp; 0\\
+0 &amp; -I_{N}
+\end{array}\right)$, there's no contraction semigroup.
+
+Case 9: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+(1)$J_{1}=J_{2}=\sigma_{x}\otimes I_{N}$, there is sign problem.
+
+(2)$J_{1}=\sigma_{x}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{21} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; D_{11} &amp; -D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; -D^{T}_{12} &amp; D_{22}\\
+C_{11} &amp; -C_{12} &amp; B_{11} &amp; -B_{12}\\
+-C^{T}_{12} &amp; C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+We have $B_{11}=-B^{\dag}_{11}$, $B_{22}=-B^{\dag}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=\bar{D}_{11}$, $C_{22}=\bar{D}_{22}$, $C_{12}=-\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+-C^{\dag}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+-C^{\dag}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+-C^{\dag}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; -B^{T}_{21} &amp; \bar{C}_{11} &amp; -\bar{C}_{12}\\
+B^{T}_{12} &amp; B^{T}_{22} &amp; -C^{\dag}_{12} &amp; \bar{C}_{22}\\
+C_{11} &amp; C_{12} &amp; B_{11} &amp; B_{12}\\
+-C^{T}_{12} &amp; -C_{22} &amp; B_{21} &amp; B_{22}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of the maximal subgroup, $B_{12}=0$, $C_{12}=0$.
+
+For the generators in the convex cone, $B_{11}=B_{22}=0$, $C_{11}=C_{22}=0$.
+$A=\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; 0 &amp; C_{12}\\
+B^{\dag}_{12} &amp; 0 &amp; C^{T}_{12} &amp; 0\\
+0 &amp; -\bar{C}_{12} &amp; 0 &amp; -\bar{B}_{12}\\
+-C^{\dag}_{12} &amp; 0 &amp; -B^{T}_{12} &amp; 0
+\end{array}\right)$.
+
+There's no contraction semigroup.
+
+Case 10: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{z}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+B_{22} &amp; -B_{21} &amp; -C_{22} &amp; C^{T}_{12}\\
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-D_{22} &amp; D^{T}_{12} &amp; -B^{T}_{22} &amp; B^{T}_{12}\\
+D_{12} &amp; -D_{11} &amp; B^{T}_{21} &amp; -B^{T}_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=\bar{B}_{22}$, $B_{12}=-\bar{B}_{21}$, $C_{11}=-\bar{C}_{22}$,
+$C_{12}=C^{\dag}_{12}$, $D_{11}=-\bar{D}_{22}$, $D_{12}=D^{\dag}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
+D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
+D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
+D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{\dagger}_{12} &amp; D_{11} &amp; D_{12}\\
+-B^{T}_{12} &amp; -B^{\dag}_{11} &amp; D^{T}_{12} &amp; -\bar{D}_{11}\\
+C_{11} &amp; C_{12} &amp; B_{11} &amp; B_{12}\\
+C^{T}_{12} &amp; -\bar{C}_{11} &amp; -\bar{B}_{12} &amp; \bar{B}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{11}$,
+$B_{12}=B^{T}_{12}$, $D_{11}=\bar{C}_{11},$$D_{12}=\bar{C}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
+C^{\dag}_{12} &amp; -C_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{11}$,
+$B_{12}=-B^{T}_{12}$, $D_{11}=\bar{-C_{11}},$$D_{12}=\bar{-C_{12}}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
+-C^{\dag}_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
+\end{array}\right)$. There's a contration semigroup.
+
+Case 11: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-D_{11} &amp; -D_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; -D_{22} &amp; D^{T}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; D_{12} &amp; -D_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+C_{12} &amp; -C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=-B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$, $B_{21}=B^{\dag}_{21}$,
+$C_{11}=-\bar{D}_{22}$, $C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{\dag}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{\dag}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+\bar{C}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{22} &amp; C^{\dag}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; -\bar{C}_{22} &amp; \bar{C}_{12}\\
+-B^{T}_{21} &amp; -B^{T}_{11} &amp; C^{\dag}_{12} &amp; -\bar{C}_{22}\\
+-C_{22} &amp; -C^{T}_{12} &amp; -B_{22} &amp; -B_{21}\\
+-C_{12} &amp; -C_{11} &amp; -B_{12} &amp; -B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, $B_{11}=B_{22}=0$, $C_{11}=C_{22}$, $C_{12}=0$.
+$A=\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; C_{11} &amp; 0\\
+B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
+-\bar{C}_{11} &amp; 0 &amp; 0 &amp; -B^{T}_{21}\\
+0 &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; 0
+\end{array}\right)$.
+
+$J_{2}gA=\left(-I_{2}\otimes\sigma_{x}\otimes I_{N/2}\right)A$
+
+There is no contraction semigroup.
+
+Case 12: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; -D_{11} &amp; D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+We jave $B_{11}=-B^{\dag}_{11}$, $B_{22}=-B^{\dag}_{22}$, $B_{12}=B^{\dag}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+-B^{\dag}_{12} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; \bar{C}_{22} &amp; -C^{\dag}_{12}\\
+-\bar{B}_{12} &amp; -B^{T}_{11} &amp; -\bar{C}_{12} &amp; \bar{C}_{11}\\
+-C_{22} &amp; -C^{T}_{12} &amp; B_{22} &amp; B^{\dag}_{12}\\
+-C_{12} &amp; -C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, $B_{11}=B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$,
+$C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$.
+
+$J_{2}gA=\left(-I_{2}\otimes\sigma_{x}\otimes I_{N/2}\right)A$
+
+There is no contraction semigroup.
+
+Case 13: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{x}\otimes I_{N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$J_{1}=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$.
+
+metrix is $-I_{N}$, no contraction semigroup.
+
+Case 14: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{x}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$.
+
+metrix is $-I_{N}$, no contraction semigroup.
+
+Case 15: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=I_{N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$A$ is real.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the convex cone $B=B^{\dagger}$, $C=\bar{D}$.
+
+$J_{2}g=-I_{N}$, so there is no contraction semigroup.
+
+Case 16: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{x}\otimes I_{N}$, $J_{2}=I_{2}\otimes-i\sigma_{y}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)$.&#32;
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; D\\
+C &amp; B
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B=-B^{\dagger}$, $C=\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C^{\dagger}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+C^{\dagger}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; B^{T}_{11} &amp; -\bar{B}_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+B_{22} &amp; B^{\dagger}_{12} &amp; C_{22} &amp; -C^{T}_{12}\\
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+\bar{C}_{22} &amp; -C^{\dagger}_{12} &amp; -B^{T}_{22} &amp; B^{T}_{12}\\
+-\bar{C}_{12} &amp; \bar{C}_{11} &amp; -\bar{B}_{12} &amp; -B^{T}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, we have $B_{11}=-\bar{B}_{22}$, $B_{12}=-B^{T}_{12}$,
+$C_{11}=\bar{C}_{22}$, $C_{12}=C^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; -\bar{B}_{11} &amp; C^{T}_{12} &amp; \bar{C}_{11}\\
+\bar{C}_{11} &amp; C^{T}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J_{2}gA &amp; =\left(-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}\right)A\\
+ &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; -\bar{B}_{11} &amp; C^{T}_{12} &amp; \bar{C}_{11}\\
+\bar{C}_{11} &amp; C^{T}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}\\
+-\bar{C}_{11} &amp; -C^{T}_{12} &amp; B^{T}_{11} &amp; -\bar{B}_{12}\\
+B^{\dagger}_{12} &amp; \bar{B}_{11} &amp; -C^{T}_{12} &amp; -\bar{C}_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+There's no contraction semigroup.
+
+\section{Tests for new fermionic cases}
+
+For fermions, $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$, $C_{11}=-C^{T}_{11}$, $C_{22}=-C^{T}_{22}$, $D_{11}=-D^{T}_{11}$,
+$D_{22}=-D^{T}_{22}$.
+
+Case 1' $J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; -B^{T}_{21} &amp; -D_{11} &amp; -D_{12}\\
+-B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; -C_{12} &amp; B_{11} &amp; B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=-B^{\dagger}_{21}$,
+$C=-\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; \bar{C}_{22} &amp; C^{\dagger}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; -\bar{C}_{12} &amp; \bar{C}_{11}\\
+-C_{22} &amp; -C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+C_{12} &amp; -C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$,
+$C_{12}=C^{T}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right)$, $B_{11}=-B^{\dagger}_{11}$, $B_{12}=B^{\dagger}_{12}$, $C_{11}=-C^{T}_{11}$.
+This is a non-hermitian case. I don't know how to prove it for this
+case yet. I have tried the case with only $B_{11}\neq0$, it passed
+the test.&#32;
+
+Case 5' $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{z}\otimes I_{N}=\left(\begin{array}{cc}
+I_{N} &amp; 0\\
+0 &amp; I_{N}
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$. $A=\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)$, $C=-C^{T}$, $D=-D^{T}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cc}
+B &amp; -C\\
+-D &amp; -B^{T}
+\end{array}\right)\\
+ &amp; =\bar{A}
+\end{align*}
+
+So $B=\bar{B}$, $C=-\bar{C}$, $D=-\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+D &amp; -B^{T}\\
+-B &amp; -C
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)\\
+ &amp; =\pm\bar{A}
+\end{align*}
+
+So for the generators of the maximal subgroup $B=-B^{\dagger}$, $C=-\bar{D}$.
+
+So $A=\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; B
+\end{array}\right)$, $B=\bar{B}=-B^{T}=-B^{\dagger}$, $C=-C^{T}=-\bar{C}=C^{\dagger}.$
+$B$ is non-hermitian, $C$ is hermitian.
+
+For the generators in the convex cone, $B=B^{\dagger}$, $C=\bar{D}$.
+
+So $A=\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; -B
+\end{array}\right)$, $B=\bar{B}=B^{T}=B^{\dagger}$, $C=-C^{T}=-\bar{C}=C^{\dagger}$.
+
+$J_{2}gA=\left(\begin{array}{cc}
+-I_{N} &amp; 0\\
+0 &amp; I_{N}
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; -B
+\end{array}\right)=\left(\begin{array}{cc}
+-B &amp; -C\\
+-C &amp; -B
+\end{array}\right)\leq0$,
+
+which is equivalent to $\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; B
+\end{array}\right)\geq0$. So case 5' gives a semigroup! It might be a new kind of positivity.
+
+Case 9': $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{z}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+B_{11} &amp; -B_{12} &amp; -C_{11} &amp; C_{12}\\
+-B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B_{11}=\bar{B}_{11}$, $B_{22}=\bar{B}_{22}$, $B_{12}=-\bar{B}_{12}$,
+$B_{21}=-\bar{B}_{21}$, $C_{11}=-\bar{C}_{11}$, $C_{22}=-\bar{C}_{22}$,
+$C_{12}=\bar{C}_{12}$, $D_{11}=-\bar{D}_{11}$, $D_{22}=-\bar{D}_{22}$,
+$D_{12}=\bar{D}_{12}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; -D_{22} &amp; D^{T}_{12}\\
+-B^{T}_{21} &amp; -B^{T}_{11} &amp; -D_{12} &amp; -D_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; B_{21}\\
+-C_{12} &amp; -C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+So for the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $B_{21}=-B^{\dagger}_{21}$, $C_{11}=-\bar{D}_{22}$,
+$C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{T}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{T}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-C_{12} &amp; -C_{11} &amp; -B^{T}_{12} &amp; B_{11}
+\end{array}\right)$. This is a hermitian case.
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$, $C_{11}=\bar{D}_{22}$,
+$C_{22}=\bar{D}_{11}$, $C_{12}=-D^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B^{T}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{22} &amp; -C^{T}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B_{11}
+\end{array}\right)$.
+
+\begin{align*}
+iJ_{2}gA &amp; =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ &amp; =\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B^{T}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{22} &amp; -C^{T}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B_{11}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B_{21} &amp; -B^{T}_{11} &amp; C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B_{11}\\
+\bar{C}_{22} &amp; -C^{T}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}
+\end{array}\right)\leq0
+\end{align*}
+
+Case 10': $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+(1)$J_{1}=J_{2}=-i\sigma_{y}\otimes I_{N}$.=&gt; There is sign problem.
+
+(2) $J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; -B^{T}_{21} &amp; -D_{11} &amp; -D_{12}\\
+-B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; -C_{12} &amp; B_{11} &amp; B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=-B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=-\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right).$
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-C^{\dagger}_{12} &amp; \bar{C}_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; \bar{C}_{11} &amp; -\bar{C}_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; C^{\dagger}_{12} &amp; \bar{C}_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+-C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators in the convex cone, $B_{11}=0$, $B_{22}=0$, $B_{12}=-B^{\dagger}_{21}$,
+$C_{11}=0$, $C_{22}=0$. $A=\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; 0 &amp; C_{12}\\
+B^{\dagger}_{12} &amp; 0 &amp; -C^{T}_{12} &amp; 0\\
+0 &amp; -\bar{C}_{12} &amp; 0 &amp; -\bar{B}_{21}\\
+C^{\dagger}_{12} &amp; 0 &amp; -B^{T}_{12} &amp; 0
+\end{array}\right).$
+
+\begin{align*}
+iJ_{2}gA &amp; =-\sigma_{z}\otimes\sigma_{z}\otimes I_{N/2}A\\
+ &amp; =\left(\begin{array}{cccc}
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; 0 &amp; C_{12}\\
+B^{\dagger}_{12} &amp; 0 &amp; -C^{T}_{12} &amp; 0\\
+0 &amp; -\bar{C}_{12} &amp; 0 &amp; -\bar{B}_{21}\\
+C^{\dagger}_{12} &amp; 0 &amp; -B^{T}_{12} &amp; 0
+\end{array}\right)\leq0
+\end{align*}
+
+So there is sign problem for case ``wrong''.
+
+Case 6' $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; -D_{11} &amp; D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; -D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+-C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; \bar{C}_{22} &amp; C^{\dag}_{12}\\
+-B^{T}_{21} &amp; -B^{T}_{11} &amp; -\bar{C}_{12} &amp; \bar{C}_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; B_{21}\\
+-C_{12} &amp; -C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}.
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dag}_{22}$,
+$B_{12}=-B^{\dag}_{12}$, $C_{11}=C_{22}$, $C_{12}=C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$,
+$C_{11}=-C_{22}$, $C_{12}=-C^{T}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+iJ_{2}gA &amp; =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ &amp; =\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+Good, a new non-hermitian case. Possibly has positivity.
+
+Case 7': $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=I_{2N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)$.
+
+$J^{T}_{1}AJ_{1}=\bar{A}$, $A$ is real.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+D &amp; -B^{T}\\
+-B &amp; -C
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)\\
+ &amp; =\pm\bar{A}
+\end{align*}
+
+For the generators of the maximal subgroup, $B=-B^{\dagger}$, $C=-\bar{D}$.
+$A=\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; B
+\end{array}\right)$.
+
+For the generators in the convex cone, $B=B^{\dagger}$, $C=\bar{D}$.
+$A=\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; -B^{T}
+\end{array}\right)$.
+\begin{align*}
+iJ_{2}gA &amp; =-\sigma_{z}\otimes I_{N}A\\
+ &amp; =\left(\begin{array}{cc}
+-I_{N} &amp; 0\\
+0 &amp; I_{N}
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; -B^{T}
+\end{array}\right)\\
+ &amp; =-\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; B^{T}
+\end{array}\right)\leq0
+\end{align*}
+
+With positivity.
+
+Case 8': $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{x}\otimes-i\sigma_{y}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-D_{11} &amp; -D_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; D_{22} &amp; D^{T}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; -D_{12} &amp; D_{11}\\
+C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+-C_{12} &amp; C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+We have $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$,
+$C_{11}=\bar{D}_{22}$, $C_{22}=\bar{D}_{11}$, $C_{12}=D^{\dag}_{12}$.
+So $A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-\bar{C}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; \bar{B}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-\bar{C}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; \bar{B}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+-\bar{C}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; \bar{B}_{11}\\
+\bar{C}_{11} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-B_{21} &amp; B^{\dagger}_{11} &amp; C^{T}_{12} &amp; -C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+ &amp; =\left(\begin{array}{cccc}
+\bar{B}_{11} &amp; -B^{T}_{12} &amp; -\bar{C}_{22} &amp; \bar{C}_{12}\\
+-B^{T}_{21} &amp; -B^{T}_{11} &amp; -C^{\dagger}_{12} &amp; -\bar{C}_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; -B^{\dagger}_{11} &amp; B_{21}\\
+-C_{12} &amp; -C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{12}=B_{21}=0$. $C_{11}=-C_{22}$.
+$A=\left(\begin{array}{cccc}
+B_{11} &amp; 0 &amp; C_{11} &amp; C_{12}\\
+0 &amp; -B^{\dagger}_{11} &amp; -C^{T}_{12} &amp; -C_{11}\\
+\bar{C}_{11} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp; 0\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; 0 &amp; \bar{B}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=0$, $C_{11}=C_{22}$,
+$C_{12}=0$. $A=\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; C_{11} &amp; 0\\
+B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
+\bar{C}_{11} &amp; 0 &amp; 0 &amp; -B^{T}_{21}\\
+0 &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; 0
+\end{array}\right)$.
+\begin{align*}
+iJ_{2}gA &amp; =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ &amp; =-\left(\begin{array}{cccc}
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; B_{12} &amp; C_{11} &amp; 0\\
+B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
+\bar{C}_{11} &amp; 0 &amp; 0 &amp; -B^{T}_{21}\\
+0 &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; 0
+\end{array}\right)\\
+ &amp; =-\left(\begin{array}{cccc}
+B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
+0 &amp; B_{12} &amp; C_{11} &amp; 0\\
+0 &amp; -\bar{C}_{11} &amp; B^{T}_{12} &amp; 0\\
+-\bar{C}_{11} &amp; 0 &amp; 0 &amp; B^{T}_{21}
+\end{array}\right)\leq0
+\end{align*}
+With positivity.
+
+\section{Proofs}
+
+.
+\clearpage
+\end{CJK}
+
+\end{document}</pre>
+    </details>
+  </section>
+</main>
+</body>
+</html>
