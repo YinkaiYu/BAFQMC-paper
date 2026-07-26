@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ToYinkaiYu-20260726 note 逐段解读与玻色、费米完整穷举</title>
+  <style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .translation, .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .translation {
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+    mjx-container:not([display="true"]) { display: inline-block; vertical-align: middle; }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .translation, .explanation { padding: 11px 12px; }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>
+      <code class="report-file">ToYinkaiYu-20260726.tex</code>
+      <span class="report-title">逐段解读与玻色、费米完整穷举</span>
+    </h1>
+    <div class="meta">
+      <div>报告日期：2026-07-26</div>
+      <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+      <div>note 覆盖：正文第 22--1939 行，连续 43 个阅读单元，原文无删节</div>
+      <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
+    </div>
+  </header>
+
+  <p class="lead">
+    本报告按照实际阅读顺序展开。第一部分先把更新 note 的原文逐段渲染，
+    每段后紧跟中文释义和公式讲解；只有在 note 全部读完之后，第二部分才解释合作者发来的消息。
+    随后的解析推导和 Octave 穷举使用 note 自己的矩阵关系，不要求读者先学习另一套正负号缩写。
+  </p>
+
+  <nav class="toc" aria-label="目录">
+    <a href="#note-walkthrough">1. note 原文、释义与逐段讲解</a>
+    <a href="#message">2. 合作者消息的完整引文与逐句解释</a>
+    <a href="#question">3. 从 note 的候选条件到可检验问题</a>
+    <a href="#derivation">4. 不另造符号的解析推导</a>
+    <a href="#enumeration">5. Octave 完整穷举</a>
+    <a href="#audit-note">6. 回到 note：逐项核对</a>
+    <a href="#fermion-weight">7. 费米候选与完整权重</a>
+    <a href="#paper">8. 对文章的影响</a>
+    <a href="#conclusion">9. 最终结论</a>
+    <a href="#reproduce">10. 可复现性与文件</a>
+  </nav>
+
+  <section id="note-walkthrough">
+    <h2>1. note 原文、释义与逐段讲解</h2>
+    <p>
+      每个灰色框都是从更新 note 对应行直接转换得到的原文。短段落默认展开；
+      很长的 block-matrix multiplication 默认折叠，以免遮断阅读节奏，点击标题即可查看完整公式。
+      “中文释义”忠实说明作者写了什么；“讲解与补全”解释公式之间省略的逻辑，
+      并在出现位置指出局部笔误或尚未证明的跳步。
+    </p>
+    {{NOTE_WALKTHROUGH}}
+  </section>
+
+  <section id="message">
+    <h2>2. 合作者消息的完整引文与逐句解释</h2>
+    <div class="source-quote">
+      “这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。
+      总共玻色费米各有32种，所以手动穷举和数值穷举比其实很低效。这个过程中，我发现很多时候玻色子和费米子并不对等。
+      重点看第一节，其他部分都是硬算。我在第一节结尾的时候有个Comment，穷举的时候最好考虑到。
+      玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。
+      费米子我只列举了一类J2。”
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。”</div>
+      <p>
+        现在可以直接对照已经读完的 note：第一节玻色列表编号到 Case 16，
+        第二节实际展开 Cases 7、8、3、4、9--16；第一节费米列表在固定一类 \(J_2\)
+        后改变 \(J_1\) 和 commutation relation，第三节展开了
+        \(1',5',9',10',6',7',8'\)。这里的“手推”就是报告第一部分看到的大量
+        \(J_1^TAJ_1\) 与 \(J_2^TAJ_2\) block multiplication。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“总共玻色费米各有32种，所以手动穷举和数值穷举比其实很低效。”</div>
+      <p>
+        这句话应按语意读作“手动穷举比数值穷举低效”。每一类需要决定五件事：
+        \(J_1\) 保持还是翻转 \(g\)、\(J_1^2=I\) 还是 \(-I\)、
+        \(J_2\) 保持还是翻转 \(g\)、\(J_2^2=I\) 还是 \(-I\)，以及
+        \(J_1,J_2\) 对易还是反对易。五个二选一给出 \(2^5=32\) 类。
+        玻色和费米各做一遍，共 64 类。Octave 适合防止漏项，解析推导负责解释为什么通过或失败。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“这个过程中，我发现很多时候玻色子和费米子并不对等。”</div>
+      <p>
+        note 已经展示了最直接的差别：玻色 \(g^T=-g\)，费米 \(g^T=g\)；
+        因此玻色 pairing blocks 对称，费米 pairing blocks 反对称。
+        note 自己也已经在玻色 contraction cases 中使用 \(J_2^2=I\)，
+        在费米候选中使用 \(J_2^2=-I\)。所以不能只把玻色公式中的某个负号
+        机械替换后称为费米对应式。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“重点看第一节，其他部分都是硬算。”</div>
+      <p>
+        第一节提出分类、Passed/Failed 标签和待检验的 Comment。
+        第二、三节则为若干代表矩阵求解 block constraints。
+        “硬算”不是无用：它给出了明确的 \(J_1,J_2,A\) realization；
+        但它主要证明线性子空间存在，若要得到 sign-problem-free theorem，
+        还必须证明 matrix inequality 控制实际 propagation，并处理完整 Fock trace。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“我在第一节结尾的时候有个Comment，穷举的时候最好考虑到。”</div>
+      <p>
+        Comment 专门询问 commutator 与 anti-commutator 是否真的重要。
+        完整穷举必须把 \([J_1,J_2]=0\) 与 \(\{J_1,J_2\}=0\)
+        作为两个不同输入，而不能预先把它们合并。解析检查也必须追踪这条关系如何作用到
+        \(J_2gA+A^\dagger J_2g\) 或 \(iJ_2gA+A^\dagger iJ_2g\)。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。”</div>
+      <p>
+        这里的“两个关系式”是 \(J_2^TgJ_2=\pm g\) 与 \(J_2^2=\pm I\)。
+        这两条关系共同决定 \(J_2g\) 是 Hermitian 还是 anti-Hermitian。
+        若 \(J_2g\) 已是 Hermitian，就直接使用 \(J_2g\)；
+        若 \(J_2g\) 是 anti-Hermitian，就乘 \(i\) 变成 Hermitian matrix \(iJ_2g\)。
+        只有 Hermitian matrix 才能用 \(\le0\) 表示本征值半负定。
+      </p>
+    </div>
+
+    <div class="quote-explain">
+      <div class="source-quote">“费米子我只列举了一类J2。”</div>
+      <p>
+        第一节费米 Cases \(3'\)--\(10'\) 都固定
+        \(J_2^TgJ_2=-g\) 与 \(J_2^2=-I\)，只改变 \(J_1\) 的两条关系和
+        \(J_1,J_2\) 的 commutation relation。完整的 32 类还要加入
+        \(J_2^TgJ_2=g\) 或 \(J_2^2=I\) 的组合，并逐项判断使用
+        \(J_2g\) 还是 \(iJ_2g\)。
+      </p>
+    </div>
+  </section>
+
+  <section id="question">
+    <h2>3. 从 note 的候选条件到可检验问题</h2>
+
+    <h3>3.1 真正传播的是 \(e^A\)</h3>
+    <p>
+      note 已定义 \(h=\frac12\chi^TgA\chi\)，并把一个辅助场构型的矩阵写成
+      \(M=e^{A_1}\cdots e^{A_k}\)。因此 semigroup 若要约束这个构型，
+      必须对每个 \(e^{A_\ell}\) 给出在矩阵乘法下保持的条件。
+      设 \(\eta\) 是 Hermitian 且 \(\eta^2=I\)。标准 infinitesimal
+      contraction condition 是
+    </p>
+    <div class="scroll">\[
+      \eta A+A^\dagger\eta\le0 .
+    \]</div>
+    <p>对 \(e^{tA^\dagger}\eta e^{tA}\) 逐步求导：</p>
+    <div class="scroll">\[
+      \begin{aligned}
+      \frac{d}{dt}\left(e^{tA^\dagger}\eta e^{tA}\right)
+      &=A^\dagger e^{tA^\dagger}\eta e^{tA}
+        +e^{tA^\dagger}\eta e^{tA}A\\
+      &=e^{tA^\dagger}(A^\dagger\eta+\eta A)e^{tA}\le0 .
+      \end{aligned}
+    \]</div>
+    <p>从 \(t=0\) 积分到 \(1\) 得到</p>
+    <div class="scroll">\[
+      (e^A)^\dagger\eta e^A\le\eta .
+    \]</div>
+    <p>
+      若两个矩阵都满足后一式，它们的乘积也满足，因为
+      \((M_1M_2)^\dagger\eta(M_1M_2)
+      \le M_2^\dagger\eta M_2\le\eta\)。
+      这就是所需的 semigroup closure。
+    </p>
+
+    <h3>3.2 每一类必须回答四个问题</h3>
+    <ol>
+      <li>\(J_2g\) 或 \(iJ_2g\) 是否 Hermitian 且平方为 \(I\)？</li>
+      <li>允许的 \(A\) 中是否存在 strict inequality，而不只是等号边界？</li>
+      <li>\(J_1^TAJ_1=\bar A\) 是否把半负定方向保持为半负定方向？</li>
+      <li>生成元级条件是否进一步保证完整 bosonic/fermionic Fock trace 的正确符号与 branch？</li>
+    </ol>
+    <p>
+      前三个问题决定 propagation contraction；第四个问题才把 propagation result
+      升级成 sign-problem-free statement。以下先完整解决前三个问题，再单独审查第四个。
+    </p>
+  </section>
+
+  <section id="derivation">
+    <h2>4. 不另造符号的解析推导</h2>
+
+    <h3>4.1 \(J_2g\) 何时要乘 \(i\)</h3>
+    <p>
+      note 使用的 \(J_2\) 都是实正交矩阵。若 \(J_2^2=I\)，则
+      \(J_2^T=J_2\)；若 \(J_2^2=-I\)，则 \(J_2^T=-J_2\)。
+      把这条关系与 \(J_2^TgJ_2=\pm g\) 直接代入
+      \((J_2g)^\dagger=g^\dagger J_2^T\)，得到下表。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>统计</th><th>\(J_2^TgJ_2\)</th><th>\(J_2^2\)</th>
+            <th>\(J_2g\) 的性质</th><th>可用的 Hermitian metric</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>玻色</td><td>\(-g\)</td><td>\(I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+          <tr><td>玻色</td><td>\(g\)</td><td>\(I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>玻色</td><td>\(-g\)</td><td>\(-I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>玻色</td><td>\(g\)</td><td>\(-I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+          <tr><td>费米</td><td>\(-g\)</td><td>\(-I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+          <tr><td>费米</td><td>\(g\)</td><td>\(-I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>费米</td><td>\(-g\)</td><td>\(I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>费米</td><td>\(g\)</td><td>\(I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      例如在 note 的玻色 Case 7 中，
+      \(J_2^TgJ_2=-g\) 且 \(J_2^2=I\)，所以直接使用 \(J_2g\)。
+      合作者消息提醒的新增玻色伙伴类满足
+      \(J_2^TgJ_2=g\) 且 \(J_2^2=I\)，此时必须使用 \(iJ_2g\)。
+    </p>
+
+    <h3>4.2 strict interior 对 \(J_2^2\) 的要求</h3>
+    <p>玻色先算。由 \(g^T=-g\) 和 \(gA+A^Tg=0\)，</p>
+    <div class="scroll">\[
+      (gA)^T=A^Tg^T=-A^Tg=gA .
+    \]</div>
+    <p>若 \(J_2^2=-I\)，则 \(J_2^T=-J_2\)，于是</p>
+    <div class="scroll">\[
+      \begin{aligned}
+      \Tr(J_2gA)
+      &=\Tr[(J_2gA)^T]\\
+      &=\Tr[(gA)^T J_2^T]\\
+      &=-\Tr(gAJ_2)
+       =-\Tr(J_2gA).
+      \end{aligned}
+    \]</div>
+    <p>
+      所以 \(\Tr(J_2gA)=0\)。乘整体 \(i\) 也仍为零。
+      相应 contraction matrix 的 trace 是
+      \(2\operatorname{Re}\Tr(\eta A)=0\)。
+      Hermitian matrix 若半负定且 trace 为零，只能是零矩阵。
+      因而玻色要有 strict interior，必须取
+    </p>
+    <div class="scroll">\[
+      \boxed{J_2^2=I\qquad\text{(boson)}} .
+    \]</div>
+
+    <p>费米则由 \(g^T=g\) 得到</p>
+    <div class="scroll">\[
+      (gA)^T=A^Tg=-gA .
+    \]</div>
+    <p>若 \(J_2^2=I\)，即 \(J_2^T=J_2\)，则</p>
+    <div class="scroll">\[
+      \begin{aligned}
+      \Tr(J_2gA)
+      &=\Tr[(J_2gA)^T]\\
+      &=\Tr[-gAJ_2]
+       =-\Tr(J_2gA)=0 .
+      \end{aligned}
+    \]</div>
+    <p>因此费米要有 strict interior，必须取相反的平方：</p>
+    <div class="scroll">\[
+      \boxed{J_2^2=-I\qquad\text{(fermion)}} .
+    \]</div>
+    <p>
+      这一步直接解释了合作者所说的“玻色子和费米子并不对等”。
+      差别来自 \((gA)^T\) 在两种统计下一个对称、一个反对称。
+    </p>
+
+    <h3>4.3 commutator/anti-commutator 为什么不能忽略</h3>
+    <p>
+      现在只考虑上一小节允许 strict interior 的情形：
+      玻色 \(J_2^2=I\)，费米 \(J_2^2=-I\)。
+      对 \(J_2^TgJ_2=\pm g\) 的两种分支，分别使用上一表给出的
+      \(J_2g\) 或 \(iJ_2g\)。把 \(J_1^TAJ_1=\bar A\) 代入
+      contraction matrix，并逐项移动 \(J_1,J_2,g\)，得到四种直接结果：
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>\(J_1\) 对 \(g\) 的作用</th>
+            <th>\(J_2\) 对 \(g\) 的作用</th>
+            <th>保持半负定方向所需关系</th>
+            <th>另一种关系的结果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=g\)</td>
+            <td>\(\{J_1,J_2\}=0\)</td><td>\([J_1,J_2]=0\) 只剩等号边界</td>
+          </tr>
+          <tr>
+            <td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=-g\)</td>
+            <td>\(\{J_1,J_2\}=0\)</td><td>\([J_1,J_2]=0\) 只剩等号边界</td>
+          </tr>
+          <tr>
+            <td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=-g\)</td>
+            <td>\([J_1,J_2]=0\)</td><td>\(\{J_1,J_2\}=0\) 只剩等号边界</td>
+          </tr>
+          <tr>
+            <td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=g\)</td>
+            <td>\([J_1,J_2]=0\)</td><td>\(\{J_1,J_2\}=0\) 只剩等号边界</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      规律可以用一句与 note 完全对齐的话表达：
+      \(J_1\) 与 \(J_2\) 若同为保持 \(g\) 或同为翻转 \(g\)，二者必须反对易；
+      若一个保持 \(g\)、另一个翻转 \(g\)，二者必须对易。
+      \(J_1^2=I\) 或 \(-I\) 不影响这一步，所以这两个选择会成对出现。
+    </p>
+    <p>
+      为什么选错 commutation relation 会只剩边界？设正确的 Hermitian metric
+      为 \(\eta\)，并记 contraction matrix 本身为
+      \(\eta A+A^\dagger\eta\)。对于表中“另一种关系”，直接代入得到
+    </p>
+    <div class="scroll">\[
+      J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1
+      =-\left(\eta A+A^\dagger\eta\right).
+    \]</div>
+    <p>
+      左边只是复共轭加正交基变换，保持 eigenvalue signs；
+      右边却把所有 eigenvalues 变号。一个 matrix 不可能同时 strict
+      seminegative 和 strict semipositive，所以只能等于零。
+    </p>
+
+    <h3>4.4 两条要求不仅必要，而且给出显式 strict point</h3>
+    <p>
+      按上一节选择 \(J_2^2\)，再按表中规则选择 commutator 或 anti-commutator。
+      令 \(\eta\) 为对应的 \(J_2g\) 或 \(iJ_2g\)，并直接取
+    </p>
+    <div class="scroll">\[
+      A_0=-\eta .
+    \]</div>
+    <p>
+      由 \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)，contraction inequality
+      不是边界而是严格成立：
+    </p>
+    <div class="scroll">\[
+      \eta A_0+A_0^\dagger\eta
+      =-\eta^2-\eta^2=-2I<0 .
+    \]</div>
+    <p>
+      再把 \(A_0=-\eta\) 代回，所选 \(J_2\) 关系保证
+      \(gA_0+A_0^Tg=0\)；上一小节的 commutation rule 保证
+      \(J_1^TA_0J_1=\bar A_0\)。因此这不是随机扫描中的“似乎通过”，
+      而是每一个允许类别都有明确 strict witness。
+    </p>
+    <div class="result">
+      <strong>传播层面的完整判据。</strong>
+      玻色 strict contraction 要求 \(J_2^2=I\)，费米要求 \(J_2^2=-I\)。
+      在此基础上，\(J_1\) 与 \(J_2\) 若对 \(g\) 同号作用就必须反对易，
+      异号作用就必须对易。\(J_1^2=\pm I\) 均可。
+      \(J_2\) 翻转 \(g\) 时使用 metric \(J_2g\)；
+      \(J_2\) 保持 \(g\) 时使用 metric \(iJ_2g\)。
+    </div>
+  </section>
+
+  <section id="enumeration">
+    <h2>5. Octave 完整穷举</h2>
+    <p>
+      Octave 对五项二选一关系逐项生成 real Pauli-product representatives，
+      并验证 \(g\)、\(J_1\)、\(J_2\) 的全部矩阵关系。
+      对解析判据允许的类别，程序使用 \(A_0=-\eta\) 检查 Lie-algebra condition、
+      \(J_1^TA_0J_1=\bar A_0\) 与 strict contraction。
+    </p>
+
+    <figure>
+      <img src="figures/full_64_class_enumeration.png"
+           alt="玻色和费米各32类的完整分类，坐标轴直接写出J1、J2对g的作用、平方以及对易关系">
+      <figcaption>
+        <strong>图 1｜玻色与费米各 32 类的完整结果。</strong>
+        行、列直接标出 note 使用的矩阵关系。绿色表示 metric \(J_2g\)
+        存在 strict contraction，蓝色表示 metric \(iJ_2g\) 存在 strict contraction；
+        灰色表示 contraction matrix 的 trace 被迫为零，红色表示
+        \(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向。
+      </figcaption>
+    </figure>
+
+    <h3>5.1 计数与残差</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>统计</th><th class="num">找到 Pauli representatives</th>
+            <th class="num">strict classes</th><th class="num">metric \(J_2g\)</th>
+            <th class="num">metric \(iJ_2g\)</th><th class="num">trace 为零</th>
+            <th class="num">半负定方向被翻转</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>玻色</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+          <tr><td>费米</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      所有 16 个 strict classes 的 witness residuals 都为机器输出中的精确 0：
+      \(\|gA_0+A_0^Tg\|=0\)、
+      \(\|J_1^TA_0J_1-\bar A_0\|=0\)，以及
+      \(\|\eta A_0+A_0^\dagger\eta+2I\|=0\)。
+    </p>
+
+    <h3>5.2 完整 64 行</h3>
+    <p>
+      表格不使用额外的正负号简称。每一列直接写出 note 中的矩阵关系。
+      Pauli words 使用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的首字母；
+      例如 <code>IX</code> 表示 \(I\otimes\sigma_x\)。
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>统计</th><th>\(J_1\) 对 \(g\)</th><th>\(J_1^2\)</th>
+            <th>\(J_2\) 对 \(g\)</th><th>\(J_2^2\)</th><th>\(J_1,J_2\)</th>
+            <th>metric</th><th>传播层面结论</th><th>最短 \(J_1,J_2\) Pauli words</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{FULL_ENUMERATION_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="audit-note">
+    <h2>6. 回到 note：逐项核对</h2>
+
+    <h3>6.1 玻色手算</h3>
+    <p>
+      note 的 Cases 7 与 8 满足：\(J_2^2=I\)，且 \(J_1\) 保持 \(g\)、
+      \(J_2\) 翻转 \(g\)、二者对易。因此两者都有 strict contraction；
+      \(J_1^2\) 从 \(I\) 攓成 \(-I\) 不影响结论。
+    </p>
+    <p>
+      Cases 3、4、9 的 \(J_2^2=I\) 虽然正确，但 commutation relation
+      选成了把半负定方向翻成半正定方向的分支，所以只能停在等号边界。
+      Cases 11--16 取 \(J_2^2=-I\)，玻色 contraction matrix 的 trace
+      被迫为零，同样没有 strict interior。
+    </p>
+    <p>
+      Case 10 是 note 中需要修正的具体条目。它的 block cone 非空，
+      但 \(J_1,J_2\) 的对易关系使 contraction matrix 变号，
+      所以原文 “There's a contration semigroup” 不能成立为 strict statement。
+      与它只差 commutation relation 的 Case 6 才是允许 strict interior 的分支。
+    </p>
+
+    <h3>6.2 第一节 Comment 的答案</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Comment 中的配对</th><th>反对易</th><th>对易</th><th>需要哪一个</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>玻色 \(4''\) 与 \(7''\)：\(J_1,J_2\) 都翻转 \(g\)</td>
+            <td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
+          </tr>
+          <tr>
+            <td>费米 \(2'''\) 与 \(6'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+          </tr>
+          <tr>
+            <td>费米 \(3'''\) 与 \(7'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      因此 commutator/anti-commutator 确实重要。它不是统一地“总要对易”或“总要反对易”；
+      要看 \(J_1\) 与 \(J_2\) 对 \(g\) 的作用是同号还是异号。
+    </p>
+
+    <h3>6.3 更新 note 中可直接看出的文字与公式问题</h3>
+    <ul>
+      <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
+      <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
+      <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
+      <li>`contration`、`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
+      <li>最后的 `Proofs` 节为空，所以总分类和完整 weight positivity 尚未在 note 内得到解析证明。</li>
+    </ul>
+  </section>
+
+  <section id="fermion-weight">
+    <h2>7. 费米候选与完整权重</h2>
+
+    <h3>7.1 note 的费米不等式不是标准 \(e^A\) contraction</h3>
+    <p>
+      note 的权重公式依赖 \(M=\prod_\ell e^{A_\ell}\)，但第一节写的是
+    </p>
+    <div class="scroll">\[
+      iJ_2gA-iA^\dagger J_2g\le0 .
+    \]</div>
+    <p>若 metric 是 \(\eta=iJ_2g\)，对 \(e^A\) 求导真正出现的是</p>
+    <div class="scroll">\[
+      \eta A+A^\dagger\eta
+      =iJ_2gA+iA^\dagger J_2g .
+    \]</div>
+    <p>
+      两式第二项符号相反。Wei 的 Majorana semigroup theorem 可以使用另一种
+      matrix convention，但从 Majorana basis 变到当前 Nambu basis 时，
+      quadratic form、complex conjugation rule 与 propagation generator
+      必须一起变换。只搬运一个 inequality 不能保证等价。
+    </p>
+
+    <h3>7.2 一模精确反例</h3>
+    <p>取 note 使用的费米 Nambu convention，并令</p>
+    <div class="scroll">\[
+      g=\sigma_x,\qquad J_1=\sigma_x,\qquad
+      J_2=i\sigma_y,\qquad A=iy\sigma_z .
+    \]</div>
+    <p>逐项计算：</p>
+    <div class="scroll">\[
+      J_1^TAJ_1=\bar A,\qquad
+      iJ_2gA-iA^\dagger J_2g=-2yI<0\quad(y>0).
+    \]</div>
+    <p>然而 many-body quadratic operator 与完整 Fock trace 是</p>
+    <div class="scroll">\[
+      h=iy\left(n-\frac12\right),\qquad
+      W(y)=\Tr e^h
+      =e^{-iy/2}+e^{iy/2}
+      =2\cos\frac y2 .
+    \]</div>
+    <p>
+      当 \(y=\pi\) 时 \(W=0\)，当 \(y=2\pi\) 时 \(W=-2\)。
+      所以 note 的 inequality 即使 strict，也没有阻止 Fock weight 过零并变负。
+    </p>
+
+    <h3>7.3 无 pairing 的多时间片反例</h3>
+    <p>
+      对与 note \(9'\) 相同的离散矩阵关系，可以完全去掉 pairing blocks，
+      取三个 number-conserving slices：
+    </p>
+    <div class="scroll">\[
+      B_1=-2\sigma_x-2\sigma_z,\qquad
+      B_2=-2\sigma_x,\qquad
+      B_3=2\sigma_x+\sigma_z .
+    \]</div>
+    <p>程序逐 slice 验证相应等式 residuals 为零，但完整 determinant 为</p>
+    <div class="scroll">\[
+      W=\det(I+e^{B_1}e^{B_2}e^{B_3})
+      =-24.1885664042699 .
+    \]</div>
+    <p>
+      把三个 \(B_\ell\) 同时乘连续参数 \(t\)，从 \(t=0\) 的正权重出发，
+      在 \(t=0.80967485393694\) 穿过零。因此这个负号不是 square-root
+      选择造成的孤立数值异常，而是与正参考点连续相连的实际 zero crossing。
+    </p>
+
+    <div class="correction">
+      <strong>证据边界。</strong>
+      本报告的解析判据严格证明 propagation contraction 的分类。
+      对玻色文章要进一步使用它，还需证明 bosonic Fock trace 收敛、无 pole，
+      并固定连续 square-root branch。对费米，note 当前写出的 inequality
+      已被上面的精确反例排除为 Nambu weight 的充分条件。
+    </div>
+  </section>
+
+  <section id="paper">
+    <h2>8. 对文章的影响</h2>
+    <p>
+      当前文章的主线是 bosonic AFQMC：time-reversal symmetry 通过
+      anti-linear pairing 控制权重，reflection positivity 通过反射关系和正锥控制权重；
+      Fig. 1 再按是否存在 TRS/RP 与 lattice frustration 组织可计算区域。
+      因此更新 note 不能以“新列表”直接替换现有主线，必须先分清 propagation theorem、
+      full-weight theorem 和 physical HS realization。
+    </p>
+
+    <h3>8.1 可以吸收进 Supplemental Material 的内容</h3>
+    <ul>
+      <li>用本报告第 4 节的直接玻色推导说明：strict contraction 要求 \(J_2^2=I\)。</li>
+      <li>明确 \(J_2^TgJ_2=-g\) 时使用 metric \(J_2g\)，\(J_2^TgJ_2=g\) 时使用 metric \(iJ_2g\)。</li>
+      <li>把 commutation rule 写成与 note 对齐的语言：\(J_1,J_2\) 对 \(g\) 同号作用时反对易，异号作用时对易。</li>
+      <li>给出 \(A_0=-\eta\) 的 strict witness，并把生成元条件推到 \((e^A)^\dagger\eta e^A\le\eta\)。</li>
+    </ul>
+
+    <h3>8.2 在写入主文前仍需完成的工作</h3>
+    <ul>
+      <li>为新增的 \(iJ_2g\) 玻色类证明完整 bosonic Fock trace 无 pole、branch 连续且非负。</li>
+      <li>构造一个标准 HS decoupling 后自然落入新类的 physical Hamiltonian，而不是只给抽象 Pauli representatives。</li>
+      <li>确认该 physical example 不已经被现有 TRS 或 reflection positivity criterion 覆盖。</li>
+      <li>完成 numerical benchmark 后，再判断是否需要改变 Fig. 1 或主文 novelty framing。</li>
+    </ul>
+
+    <h3>8.3 现在不应写入文章的表述</h3>
+    <ul>
+      <li>不应写“玻色有 7 个 passed cases、费米有 8 个 passed cases”，因为这些数字混合了不同判据与未证明候选。</li>
+      <li>不应写 commutator/anti-commutator 无关；它决定 strict cone 是否存在。</li>
+      <li>不应把 note 的费米 inequality 称为当前 Nambu weight 的充分条件。</li>
+      <li>不应仅凭 64 类抽象矩阵穷举就重画文章的物理分类图。</li>
+    </ul>
+  </section>
+
+  <section id="conclusion">
+    <h2>9. 最终结论</h2>
+    <div class="summary-grid">
+      <div class="summary-item established">
+        <strong>完整覆盖 note</strong>
+        更新 note 第 22--1939 行已经按原顺序分成 43 个单元。
+        每段原文均在本报告内渲染，并紧跟中文释义与公式讲解。
+      </div>
+      <div class="summary-item established">
+        <strong>完整穷举</strong>
+        玻色、费米各 32 类都找到 real Pauli-product representatives。
+        每种统计各有 8 个 strict propagation classes，其中 4 个使用
+        \(J_2g\)，4 个使用 \(iJ_2g\)。
+      </div>
+      <div class="summary-item corrected">
+        <strong>Comment</strong>
+        commutator/anti-commutator 确实重要。
+        两个 \(J\) 对 \(g\) 同号作用时必须反对易，异号作用时必须对易。
+      </div>
+      <div class="summary-item refuted">
+        <strong>需要修正的主张</strong>
+        玻色 Case 10 没有 strict interior。
+        note 的费米 inequality 在当前 Nambu convention 下不能保证完整 Fock weight 非负。
+      </div>
+    </div>
+    <p>
+      合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它补上了每种统计 8 个
+      strict propagation classes 中的一半。对文章最有价值的下一步不是继续手写更多
+      block matrices，而是把其中一个新玻色类实现为 physical HS problem，
+      并完成从 propagation contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark。
+    </p>
+  </section>
+
+  <section id="reproduce">
+    <h2>10. 可复现性与文件</h2>
+
+    <h3>10.1 生成报告与重跑计算</h3>
+    <pre>python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/build_reader_report.py
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); enumerate_updated_note"
+
+/home/yyk/conda/envs/notebook/bin/python \
+  docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/plot_full_enumeration.py
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); test_fermion_cases"</pre>
+
+    <h3>10.2 文件索引</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>文件</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1939 行连续覆盖、渲染公式并生成本 HTML</td></tr>
+          <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、strict witness 与 residual checks</td></tr>
+          <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
+          <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>完整 64 行原始计算结果</td></tr>
+          <tr><td><a href="tables/updated_note_hand_comparison.csv">updated_note_hand_comparison.csv</a></td><td>note 手算标签与 propagation contraction 分类对照</td></tr>
+          <tr><td><a href="tables/comment_pair_checks.csv">comment_pair_checks.csv</a></td><td>第一节 Comment 所列配对的数值检查</td></tr>
+          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>分类图生成程序</td></tr>
+          <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 矢量版本</td></tr>
+          <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米一模、无 pairing 与 pairing diagnostics</td></tr>
+          <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>费米反例的运行日志</td></tr>
+          <tr><td><a href="analysis/octave_environment_explicit.txt">octave_environment_explicit.txt</a></td><td>Octave environment package record</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">
+      Semigroup 背景可参见
+      <a href="https://arxiv.org/abs/1712.09412">Z.-C. Wei,
+      “Semigroup approach to the sign problem in quantum Monte Carlo simulations”</a>。
+      本报告引用该文只用于说明 Majorana-basis theorem 必须连同 basis convention
+      一起变换，不以文献引用替代本报告中的直接矩阵检查。
+    </p>
+  </section>
+</main>
+</body>
+</html>

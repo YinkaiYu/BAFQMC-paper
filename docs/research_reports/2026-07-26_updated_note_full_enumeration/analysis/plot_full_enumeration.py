@@ -15,8 +15,20 @@ TABLE = ROOT / "tables" / "full_64_class_enumeration.csv"
 FIGURE_DIR = ROOT / "figures"
 
 
-def sign_label(value):
-    return "+" if int(value) == 1 else "-"
+def g_relation(index, value):
+    right_hand_side = "g" if int(value) == 1 else "-g"
+    return rf"$J_{index}^TgJ_{index}={right_hand_side}$"
+
+
+def square_relation(index, value):
+    right_hand_side = "I" if int(value) == 1 else "-I"
+    return rf"$J_{index}^2={right_hand_side}$"
+
+
+def mutual_relation(value):
+    if int(value) == 1:
+        return r"$[J_1,J_2]=0$"
+    return r"$\{J_1,J_2\}=0$"
 
 
 def load_rows():
@@ -68,7 +80,7 @@ def main():
 
     colors = ["#d9dde0", "#d78672", "#4c9b69", "#3b78a6"]
     cmap = ListedColormap(colors)
-    figure, axes = plt.subplots(2, 1, figsize=(6.8, 4.7))
+    figure, axes = plt.subplots(2, 1, figsize=(10.4, 7.1))
 
     for panel, statistics in enumerate(("boson", "fermion")):
         selected = [row for row in rows if row["statistics"] == statistics]
@@ -78,15 +90,18 @@ def main():
 
         ax.set_xticks(range(len(col_keys)))
         ax.set_xticklabels([
-            f"{sign_label(s2)} {sign_label(q2)} {sign_label(r)}"
+            "\n".join([
+                g_relation(2, s2),
+                square_relation(2, q2),
+                mutual_relation(r),
+            ])
             for s2, q2, r in col_keys
-        ])
+        ], rotation=28, ha="right", rotation_mode="anchor")
         ax.set_yticks(range(len(row_keys)))
         ax.set_yticklabels([
-            f"{sign_label(s1)} {sign_label(q1)}" for s1, q1 in row_keys
+            "\n".join([g_relation(1, s1), square_relation(1, q1)])
+            for s1, q1 in row_keys
         ])
-        ax.set_ylabel(r"$(s_1,\ q_1)$")
-        ax.set_xlabel(r"$(s_2,\ q_2,\ r)$")
         ax.tick_params(direction="in", top=False, right=False, length=3)
         ax.set_xticks(np.arange(-0.5, len(col_keys), 1), minor=True)
         ax.set_yticks(np.arange(-0.5, len(row_keys), 1), minor=True)
@@ -104,15 +119,15 @@ def main():
     legend = [
         Patch(facecolor=colors[2], label=r"strict, $\eta=J_2g$"),
         Patch(facecolor=colors[3], label=r"strict, $\eta=iJ_2g$"),
-        Patch(facecolor=colors[1], label="reality flips cone"),
+        Patch(facecolor=colors[1], label=r"$J_1^TAJ_1=\bar A$ flips the cone"),
         Patch(facecolor=colors[0], label="trace obstruction"),
     ]
     figure.legend(
         handles=legend, loc="lower center", ncol=4, frameon=False,
-        bbox_to_anchor=(0.5, -0.005), fontsize=8
+        bbox_to_anchor=(0.5, -0.005), fontsize=9
     )
     figure.subplots_adjust(
-        left=0.105, right=0.99, top=0.965, bottom=0.17, hspace=0.58
+        left=0.19, right=0.99, top=0.97, bottom=0.25, hspace=1.03
     )
 
     for suffix in ("pdf", "png"):
