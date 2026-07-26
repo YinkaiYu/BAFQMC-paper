@@ -1123,6 +1123,67 @@
       选择造成的孤立数值异常，而是与正参考点连续相连的实际 zero crossing。
     </p>
 
+    <h3>8.4 完整穷举相对 note 补出了哪些费米类</h3>
+    <p>
+      合作者在 note 中手算的费米 Cases \(3'\)--\(10'\) 全都固定
+      \(J_2^TgJ_2=-g\) 与 \(J_2^2=-I\)。若采用由传播矩阵
+      \(e^A\) 直接导出的标准 contraction condition
+      \(\eta A+A^\dagger\eta\leq0\)，这一分支中恰有四类允许严格小于零：
+      Cases \(5'\)、\(6'\)、\(7'\)、\(8'\)。Cases \(3'\)、\(4'\)、
+      \(9'\)、\(10'\) 只能停在等号边界。这里不能直接沿用 note 写下的
+      Passed/Failed 标签，因为 note 检查的是上一节指出的另一个不等式。
+    </p>
+    <p>
+      完整的 \(2^5=32\) 类穷举还检查了 note 没有展开的另一种
+      \(J_2\)：它满足
+    </p>
+    <div class="scroll">\[
+      J_2^TgJ_2=g,\qquad J_2^2=-I .
+    \]</div>
+    <p>
+      这时 \(J_2g\) 是 anti-Hermitian matrix，乘上 \(i\) 后
+      \(\eta=iJ_2g\) 才是用于定义 contraction 的 Hermitian metric。
+      这一分支同样有四类 strict solutions：
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>\(J_1\) 对 \(g\) 的作用</th>
+            <th>\(J_1^2\)</th>
+            <th>\(J_1,J_2\) 的关系</th>
+            <th>metric</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>\(J_1^TgJ_1=g\)</td><td>\(I\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>\(J_1^TgJ_1=g\)</td><td>\(-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>\(J_1^TgJ_1=-g\)</td><td>\(I\)</td><td>\([J_1,J_2]=0\)</td><td>\(iJ_2g\)</td></tr>
+          <tr><td>\(J_1^TgJ_1=-g\)</td><td>\(-I\)</td><td>\([J_1,J_2]=0\)</td><td>\(iJ_2g\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      这四类不是仅由计数猜出的。对每一类取
+      \(\eta=iJ_2g\) 和 \(A=-\eta\)，五条离散关系逐项保证
+    </p>
+    <div class="scroll">\[
+      gA+A^Tg=0,\qquad
+      J_1^TAJ_1=\bar A,\qquad
+      \eta A+A^\dagger\eta=-2I<0 .
+    \]</div>
+    <p>
+      因而它们都是程序和解析证明共同确认的 strict-propagation classes。
+      所以，若“新增”是指相对于合作者只展开一种 \(J_2\) 的手算，费米侧确实新增了
+      四个 \(iJ_2g\) partner classes。若“新增”是指已经建立四类新的
+      sign-problem-free fermion models，则证据还不够：下一步需要把正确的
+      Majorana semigroup theorem 完整地变换到这里的 Nambu convention，
+      再证明 many-body Fock weight 的非负性，并给出可由 HS decoupling
+      自然产生的物理 Hamiltonian。上面的反例排除的是 note 当前使用的
+      minus-sign inequality；它并不否定这四个按标准 contraction condition
+      找到的候选类。
+    </p>
+
     <div class="correction">
       <strong>证据边界。</strong>
       本报告的解析判据严格证明 propagation contraction 的分类。
@@ -1199,7 +1260,8 @@
         <strong>完整穷举</strong>
         玻色、费米各 32 类都找到 real Pauli-product representatives。
         每种统计各有 8 个 strict propagation classes，其中 4 个使用
-        \(J_2g\)，4 个使用 \(iJ_2g\)。
+        \(J_2g\)，4 个使用 \(iJ_2g\)。相对于 note 固定一种
+        \(J_2\) 的手算，玻色和费米两侧都各补出 4 个 \(iJ_2g\) classes。
       </div>
       <div class="summary-item corrected">
         <strong>Comment</strong>
@@ -1214,12 +1276,14 @@
       </div>
     </div>
     <p>
-      合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它补上了每种统计 8 个
-      strict propagation classes 中的一半。对文章最有价值的下一步不是继续手写更多
-      block matrices。现有 Case 7 应先作为 paired RP benchmark 的 pole-free
-      strengthening 写入 SM；其他新玻色类则需要实现为 physical HS problem，
-      并完成从 propagation contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark，
-      才能改变文章的 sign-free classification。
+      合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它在玻色和费米两侧
+      都补上了 8 个 strict propagation classes 中尚未手算的 4 个。
+      对文章最有价值的下一步不是继续手写更多 block matrices。现有 Case 7
+      应先作为 paired RP benchmark 的 pole-free strengthening 写入 SM；
+      其他新玻色类需要实现为 physical HS problem，并完成从 propagation
+      contraction 到 pole-free、nonnegative Fock weight 的证明与 benchmark。
+      费米类则应先把 Majorana theorem 与当前 Nambu convention 的变换写全，
+      再判断这四个 \(iJ_2g\) classes 中哪些真能给出新的无符号物理模型。
     </p>
 
     <h3>这次穷举究竟发现了什么</h3>
@@ -1262,8 +1326,13 @@
           </tr>
           <tr>
             <td>费米标准 contraction</td>
-            <td>同样恰有 8 类，要求 \(J_2^2=-I\)，其中 4 个使用 \(J_2g\)、4 个使用 \(iJ_2g\)</td>
-            <td>只完成 propagation classification；note 的费米 inequality 与 full-weight positivity 仍有未解决问题</td>
+            <td>
+              同样恰有 8 类，要求 \(J_2^2=-I\)。note 已展开的
+              \(J_2^TgJ_2=-g\) 分支包含 4 个标准 \(J_2g\) strict classes；
+              完整穷举另补出 4 个满足 \(J_2^TgJ_2=g\) 的
+              \(iJ_2g\) strict classes
+            </td>
+            <td>四类新的 propagation-level candidates；note 的费米 inequality 与 full-weight positivity 仍需重新建立</td>
           </tr>
         </tbody>
       </table>
@@ -1300,8 +1369,22 @@
       \(J_1^2=I\) 与 \(-I\) 都允许。这四类都有显式 strict witness。
       所以相对现有手算，新增结果是把这四类系统补齐。
       <br><br>
-      我目前会把这八类称为 strict propagation classes，而不会直接称为八类
-      新的 physical sign-problem-free models。对新出现的四个
+      费米方面，在由 \(e^A\) 直接导出的标准 contraction condition
+      \(\eta A+A^\dagger\eta\leq0\) 下，你已经展开的
+      \(J_2^TgJ_2=-g,\ J_2^2=-I\) 分支中，Cases \(5'\)--\(8'\)
+      是四个 strict \(J_2g\) classes。完整穷举还补出了四个
+      \(J_2^TgJ_2=g,\ J_2^2=-I\)、metric 为 \(iJ_2g\) 的
+      strict partner classes：\(J_1\) 保持 \(g\) 时二者反对易，
+      \(J_1\) 翻转 \(g\) 时二者对易，且 \(J_1^2=\pm I\) 都允许。
+      不过你 note 中费米 cone 的第二项写成
+      \(-iA^\dagger J_2g\)，与标准传播矩阵 contraction 的
+      \(+iA^\dagger J_2g\) 不同，所以原有 Passed 标签不能和这八类直接
+      合并计数。我目前把新增四类表述为标准 strict-propagation candidates；
+      是否给出新的无符号费米模型，需要先把 Majorana theorem 到当前
+      Nambu basis 的变换及完整 Fock weight positivity 写清楚。
+      <br><br>
+      玻色侧的八类我目前会称为 strict propagation classes，而不会直接称为八类
+      新的 physical sign-problem-free models。对玻色侧新出现的四个
       \(iJ_2g\) 类，还需要构造自然的 HS Hamiltonian，并证明完整 bosonic
       Fock trace 的 pole、square-root branch 和 nonnegative weight。
       现有文章的 paired \(U_1=0\) model 则明确落在 Case 7；
