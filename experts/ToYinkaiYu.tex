@@ -1,0 +1,285 @@
+%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\begin{CJK}{UTF8}{}%
+
+\section{Discovery based on Yinkai's observation}
+
+Case I:Yinkai Yu's case
+
+$J_{1}=I_{2}\otimes\sigma_{x}\otimes I_{N/2}$, $J_{2}=-\sigma_{x}\otimes I_{N}$.
+
+<=> $J^{T}_{1}\Omega J_{1}=\Omega$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+metric is $\eta=J_{2}\Omega$, contraction means ``physical''.
+
+Case II:$J^{T}_{1}\Omega J_{1}=\Omega$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}\Omega J_{2}=-\Omega$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+<=>$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+Assume $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$, where $C_{11}=C^{T}_{11}$, $C_{22}=C^{T}_{22}$, $D_{11}=D^{T}_{11}$,
+$D_{22}=D^{T}_{22}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & -D_{11} & D_{12}\\
+B^{T}_{12} & -B^{T}_{22} & D^{T}_{12} & -D_{22}\\
+-C_{11} & C_{12} & B_{11} & -B_{12}\\
+C^{T}_{12} & -C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & -\bar{C}_{22} & C^{\dagger}_{12}\\
+-\bar{B}_{12} & -B^{T}_{11} & \bar{C}_{12} & -\bar{C}_{11}\\
+C_{22} & C^{T}_{12} & B_{22} & B^{\dagger}_{12}\\
+C_{12} & C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & B^{T}_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & -B^{T}_{12} & -B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the invariant cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$,
+
+so $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$,
+
+\begin{align*}
+J_{2}\Omega A & =\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+<=>$\left(\begin{array}{cccc}
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & B^{T}_{12} & -B^{T}_{11}\\
+\bar{C}_{11} & -\bar{C}_{12} & B^{T}_{11} & B^{T}_{12}
+\end{array}\right)\geq0$. Good.
+
+\section{A short summary for bosons and fermions:}
+
+Let $g=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)=-\Omega$ for bosons and $g=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$ for fermions. $h_{i}=\frac{1}{2}\chi^{T}gA_{i}\chi$, $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)$ for bosons and $\chi=\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+c_{N}\\
+c^{+}_{1}\\
+c^{+}_{2}\\
+\vdots\\
+c^{+}_{N}
+\end{array}\right)$ for fermions. $gA+A^{T}g=0$($sp\left(2N,\mathbb{C}\right)$ for
+bosons, $so\left(2N,\mathbb{C}\right)$ for fermions). 
+
+$\left[\frac{1}{2}\chi^{T}gA_{1}\chi,\frac{1}{2}\chi^{T}gA_{2}\chi\right]=\frac{1}{2}\chi^{T}g\left[A_{1},A_{2}\right]\chi$.
+So we have
+\[
+p=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)=\det\left(I\mp e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{\mp1/2}.
+\]
+
+For bosons, we have 6 cases:
+
+1)Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries) $J^{T}_{1}gJ_{1}=g$,
+$J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=-I_{2N}$,
+$\left[J_{1},J_{2}\right]=0$.
+
+2)reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$.
+
+3-6):
+
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (new case, also
+non-hermitian)
+
+$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\bar{A},\\
+J_{2}gA+A^{\dagger}J_{2}g & \leq0.
+\end{align*}
+
+For fermions, only two cases have been discovered:
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\bar{A},\\
+iJ_{2}gA-iA^{\dagger}J_{2}g & \leq0,
+\end{align*}
+
+1)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Reflection
+positivity)
+
+2)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+Now let's guess based on the similarity between bosonic and fermionic
+cases:
+
+3)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+4)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+5)(?? positivity)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$.
+
+6)(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+\section{Tests for new fermion cases}
+
+For fermions, $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$, $C_{11}=-C^{T}_{11}$, $C_{22}=-C^{T}_{22}$, $D_{11}=-D^{T}_{11}$,
+$D_{22}=-D^{T}_{22}$.
+
+Case 6
+\clearpage
+\end{CJK}
+
+\end{document}

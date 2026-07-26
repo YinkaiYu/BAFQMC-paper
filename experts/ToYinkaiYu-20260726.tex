@@ -1,0 +1,1943 @@
+%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[landscape]{article}
+\usepackage{CJKutf8}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+\makeatother
+
+\begin{document}
+\begin{CJK}{UTF8}{}%
+
+\section{A short summary for bosonic and fermionic AFQMC:}
+
+Let $g=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)=-\Omega$ for bosons and $g=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$ for fermions. $h_{i}=\frac{1}{2}\chi^{T}gA_{i}\chi$, $\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)$ for bosons and $\chi=\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+c_{N}\\
+c^{+}_{1}\\
+c^{+}_{2}\\
+\vdots\\
+c^{+}_{N}
+\end{array}\right)$ for fermions. $gA+A^{T}g=0$($sp\left(2N,\mathbb{C}\right)$ for
+bosons, $so\left(2N,\mathbb{C}\right)$ for fermions). 
+
+We have the Lie algebra isomorphism described by $\left[\frac{1}{2}\chi^{T}gA_{1}\chi,\frac{1}{2}\chi^{T}gA_{2}\chi\right]=\frac{1}{2}\chi^{T}g\left[A_{1},A_{2}\right]\chi$.
+We have
+\[
+p=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots e^{h_{k}}\right)=\det\left(I\mp e^{A_{1}}e^{A_{2}}\cdots e^{A_{k}}\right)^{\mp1/2}.
+\]
+
+For bosons, we have 7 passed cases:
+
+1)Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries) $J^{T}_{1}gJ_{1}=g$,
+$J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=-I_{2N}$,
+$\left[J_{1},J_{2}\right]=0$.
+
+2)reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$,
+$J^{T}_{2}gJ_{2}=g$, $J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-contraction
+semigroup)
+
+Contraction semigroup cases:
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\bar{A},\\
+J_{2}gA+A^{\dagger}J_{2}g & \leq0.
+\end{align*}
+
+3)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+4)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+$5)J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+6)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+7)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+8)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (mainly non-hermitian)
+
+9)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+10)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed.
+
+11)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+12)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+13)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+14)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.Failed.
+
+15)$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+16)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Failed.
+
+List passed ones only:
+
+1'')Time reversal symmetry:(two $Z_{2}$ anti-linear symmetries)
+$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+2'')reflection positivity:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$,
+$J^{T}_{2}gJ_{2}=g$, $J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-contraction
+semigroup)
+
+3'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case I)
+
+4'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(non-hermitian
+case II)
+
+5'')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (Yinkai's case)
+
+6'')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$. (mainly non-hermitian)
+
+7'')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.(also non-hermitian)
+
+For fermions, we have 8 examined cases:
+
+1')(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+Possible but not proved yet.
+
+2')The case corresponding to bosonic reflection positivity---exists
+but not useful.
+
+Contraction semigroup cases:
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\bar{A},\\
+iJ_{2}gA-iA^{\dagger}J_{2}g & \leq0,
+\end{align*}
+
+3')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Majorana
+reflection positivity)
+
+4')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+5')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+6')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+7')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+$8')J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+9')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+10') $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$. Failed
+
+List passed ones only:
+
+1''')(two $Z_{2}$ anti-linear symmetries)$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$,
+$J^{T}_{2}gJ_{2}=-g$, $J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+Possible but not proved yet.
+
+2''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Majorana
+reflection positivity)
+
+3''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.(Time-reversal
+positivity)
+
+4''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+5''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$. Passed
+
+6''')$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+$7''')J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+8''')$J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.Passed
+
+\emph{Comments}: For bosonic case 4'' \& 7'', is the commutator/anti-commutator
+there really matters? I don't think so. This observation may also
+apply to fermionic case 2''' \& 6''', 3''' \& 7''', and 4' \& 8'''.
+
+\section{Tests for new bosonic cases}
+
+Case 7:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+Yinkai Yu's case $J_{1}=I_{2}\otimes\sigma_{x}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$.
+Or easier: $J_{1}=I_{2N}$, $J_{2}=\sigma_{x}\otimes I_{N}$.
+
+metric is $\eta=J_{2}g$, contraction means ``physical''.
+
+Case 8:$J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+Assume $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$, where $C_{11}=C^{T}_{11}$, $C_{22}=C^{T}_{22}$, $D_{11}=D^{T}_{11}$,
+$D_{22}=D^{T}_{22}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & -D_{11} & D_{12}\\
+B^{T}_{12} & -B^{T}_{22} & D^{T}_{12} & -D_{22}\\
+-C_{11} & C_{12} & B_{11} & -B_{12}\\
+C^{T}_{12} & -C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & -\bar{C}_{22} & C^{\dagger}_{12}\\
+-\bar{B}_{12} & -B^{T}_{11} & \bar{C}_{12} & -\bar{C}_{11}\\
+C_{22} & C^{T}_{12} & B_{22} & B^{\dagger}_{12}\\
+C_{12} & C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & B^{T}_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & -B^{T}_{12} & -B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the invariant cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$,
+
+so $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$,
+
+\begin{align*}
+J_{2}\Omega A & =\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+<=>$\left(\begin{array}{cccc}
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & B^{T}_{12} & -B^{T}_{11}\\
+\bar{C}_{11} & -\bar{C}_{12} & B^{T}_{11} & B^{T}_{12}
+\end{array}\right)\geq0$. Good.
+
+Case 3: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-D_{11} & -D_{12} & B^{T}_{11} & B^{T}_{21}\\
+-B_{21} & -B_{22} & -C^{T}_{12} & -C_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & B^{T}_{12} & -D_{22} & D^{T}_{12}\\
+B^{T}_{21} & -B^{T}_{11} & D_{12} & -D_{11}\\
+-C_{22} & C^{T}_{12} & B_{22} & -B_{21}\\
+C_{12} & -C_{11} & -B_{12} & B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{22}$, $C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{\dagger}_{11} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{22} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & \bar{B}_{11}
+\end{array}\right).$
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{\dagger}_{11} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{22} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & \bar{B}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-\bar{C}_{22} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & \bar{B}_{11}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{\dagger}_{11} & C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & -B^{T}_{21} & -\bar{C}_{22} & C^{\dagger}_{12}\\
+-B^{T}_{12} & \bar{B}_{11} & \bar{C}_{12} & -\bar{C}_{11}\\
+C_{11} & C_{12} & B_{11} & B_{12}\\
+C^{T}_{12} & C_{22} & B_{21} & -B^{\dagger}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{11}$,
+$B_{12}=-B^{\dagger}_{21}$, $C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & B^{T}_{12}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & -B^{T}_{11}
+\end{array}\right).$
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{11}$,
+$B_{12}=B^{\dagger}_{21}$, $C_{11}=C_{22}$, $C_{12}=-C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$.
+\[
+J_{2}gA=\left(\sigma_{z}\otimes I_{N}\right)A\leq0
+\]
+
+Not a contraction semigroup.
+
+Case 4: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes I_{N}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)$, $J_{2}=\sigma_{x}\otimes I_{N}=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$.
+
+$A=\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)$, $C=C^{T}$, $D=D^{T}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & -D\\
+-C & B
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B=-B^{\dag}$, $C=-\bar{D}$. $A=\left(\begin{array}{cc}
+B & C\\
+-\bar{C} & -B^{T}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+-\bar{C} & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & -\bar{C}\\
+C & B
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the elements in the maximal subgroup, $C=0$.
+
+For the elements in the convex cone, $B=0$. $A=\left(\begin{array}{cc}
+0 & -\bar{C}\\
+C & 0
+\end{array}\right)$. 
+
+$J_{2}g=\left(\begin{array}{cc}
+I_{N} & 0\\
+0 & -I_{N}
+\end{array}\right)$, there's no contraction semigroup.
+
+Case 9: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+(1)$J_{1}=J_{2}=\sigma_{x}\otimes I_{N}$, there is sign problem.
+
+(2)$J_{1}=\sigma_{x}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{21} & -B_{22} & -C^{T}_{12} & -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & D_{11} & -D_{12}\\
+B^{T}_{12} & -B^{T}_{22} & -D^{T}_{12} & D_{22}\\
+C_{11} & -C_{12} & B_{11} & -B_{12}\\
+-C^{T}_{12} & C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+We have $B_{11}=-B^{\dag}_{11}$, $B_{22}=-B^{\dag}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=\bar{D}_{11}$, $C_{22}=\bar{D}_{22}$, $C_{12}=-\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dag}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+-C^{\dag}_{12} & \bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dag}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+-C^{\dag}_{12} & \bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+-C^{\dag}_{12} & \bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & -B^{T}_{21} & \bar{C}_{11} & -\bar{C}_{12}\\
+B^{T}_{12} & B^{T}_{22} & -C^{\dag}_{12} & \bar{C}_{22}\\
+C_{11} & C_{12} & B_{11} & B_{12}\\
+-C^{T}_{12} & -C_{22} & B_{21} & B_{22}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators of the maximal subgroup, $B_{12}=0$, $C_{12}=0$.
+
+For the generators in the convex cone, $B_{11}=B_{22}=0$, $C_{11}=C_{22}=0$.
+$A=\left(\begin{array}{cccc}
+0 & B_{12} & 0 & C_{12}\\
+B^{\dag}_{12} & 0 & C^{T}_{12} & 0\\
+0 & -\bar{C}_{12} & 0 & -\bar{B}_{12}\\
+-C^{\dag}_{12} & 0 & -B^{T}_{12} & 0
+\end{array}\right)$.
+
+There's no contraction semigroup.
+
+Case 10: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{z}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=\sigma_{x}\otimes I_{N}$
+Also a Yin-Kai's case.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+B_{22} & -B_{21} & -C_{22} & C^{T}_{12}\\
+-B_{12} & B_{11} & C_{12} & -C_{11}\\
+-D_{22} & D^{T}_{12} & -B^{T}_{22} & B^{T}_{12}\\
+D_{12} & -D_{11} & B^{T}_{21} & -B^{T}_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=\bar{B}_{22}$, $B_{12}=-\bar{B}_{21}$, $C_{11}=-\bar{C}_{22}$,
+$C_{12}=C^{\dag}_{12}$, $D_{11}=-\bar{D}_{22}$, $D_{12}=D^{\dag}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-\bar{B}_{12} & \bar{B}_{11} & C^{T}_{12} & -\bar{C}_{11}\\
+D_{11} & D_{12} & -B^{T}_{11} & B^{\dagger}_{12}\\
+D^{T}_{12} & -\bar{D}_{11} & -B^{T}_{12} & -B^{\dag}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-\bar{B}_{12} & \bar{B}_{11} & C^{T}_{12} & -\bar{C}_{11}\\
+D_{11} & D_{12} & -B^{T}_{11} & B^{\dagger}_{12}\\
+D^{T}_{12} & -\bar{D}_{11} & -B^{T}_{12} & -B^{\dag}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & B^{\dagger}_{12}\\
+D^{T}_{12} & -\bar{D}_{11} & -B^{T}_{12} & -B^{\dag}_{11}\\
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-\bar{B}_{12} & \bar{B}_{11} & C^{T}_{12} & -\bar{C}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{\dagger}_{12} & D_{11} & D_{12}\\
+-B^{T}_{12} & -B^{\dag}_{11} & D^{T}_{12} & -\bar{D}_{11}\\
+C_{11} & C_{12} & B_{11} & B_{12}\\
+C^{T}_{12} & -\bar{C}_{11} & -\bar{B}_{12} & \bar{B}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{11}$,
+$B_{12}=B^{T}_{12}$, $D_{11}=\bar{C}_{11},$$D_{12}=\bar{C}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-\bar{B}_{12} & \bar{B}_{11} & C^{T}_{12} & -\bar{C}_{11}\\
+\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & B^{\dagger}_{12}\\
+C^{\dag}_{12} & -C_{11} & -B^{T}_{12} & -B^{\dag}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{11}$,
+$B_{12}=-B^{T}_{12}$, $D_{11}=\bar{-C_{11}},$$D_{12}=\bar{-C_{12}}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-\bar{B}_{12} & \bar{B}_{11} & C^{T}_{12} & -\bar{C}_{11}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & B^{\dagger}_{12}\\
+-C^{\dag}_{12} & C_{11} & -B^{T}_{12} & -B^{\dag}_{11}
+\end{array}\right)$. There's a contration semigroup.
+
+Case 11: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-D_{11} & -D_{12} & B^{T}_{11} & B^{T}_{21}\\
+-B_{21} & -B_{22} & -C^{T}_{12} & -C_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & B^{T}_{12} & -D_{22} & D^{T}_{12}\\
+B^{T}_{21} & -B^{T}_{11} & D_{12} & -D_{11}\\
+-C_{22} & C^{T}_{12} & B_{22} & -B_{21}\\
+C_{12} & -C_{11} & -B_{12} & B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+We have $B_{11}=-B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$, $B_{21}=B^{\dag}_{21}$,
+$C_{11}=-\bar{D}_{22}$, $C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{22} & C^{\dag}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+\bar{C}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{22} & C^{\dag}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+\bar{C}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+\bar{C}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{22} & C^{\dag}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-B_{21} & -B_{22} & -C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & -\bar{C}_{22} & \bar{C}_{12}\\
+-B^{T}_{21} & -B^{T}_{11} & C^{\dag}_{12} & -\bar{C}_{22}\\
+-C_{22} & -C^{T}_{12} & -B_{22} & -B_{21}\\
+-C_{12} & -C_{11} & -B_{12} & -B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, $B_{11}=B_{22}=0$, $C_{11}=C_{22}$, $C_{12}=0$.
+$A=\left(\begin{array}{cccc}
+0 & B_{12} & C_{11} & 0\\
+B_{21} & 0 & 0 & C_{11}\\
+-\bar{C}_{11} & 0 & 0 & -B^{T}_{21}\\
+0 & -\bar{C}_{11} & -B^{T}_{12} & 0
+\end{array}\right)$.
+
+$J_{2}gA=\left(-I_{2}\otimes\sigma_{x}\otimes I_{N/2}\right)A$
+
+There is no contraction semigroup.
+
+Case 12: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+B_{21} & B_{22} & C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & -D_{11} & D_{12}\\
+B^{T}_{12} & -B^{T}_{22} & D^{T}_{12} & -D_{22}\\
+-C_{11} & C_{12} & B_{11} & -B_{12}\\
+C^{T}_{12} & -C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+We jave $B_{11}=-B^{\dag}_{11}$, $B_{22}=-B^{\dag}_{22}$, $B_{12}=B^{\dag}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dag}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B^{\dag}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -\bar{B}_{12}\\
+-B^{\dag}_{12} & -B_{22} & -C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & \bar{C}_{22} & -C^{\dag}_{12}\\
+-\bar{B}_{12} & -B^{T}_{11} & -\bar{C}_{12} & \bar{C}_{11}\\
+-C_{22} & -C^{T}_{12} & B_{22} & B^{\dag}_{12}\\
+-C_{12} & -C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, $B_{11}=B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$,
+$C_{11}=-C_{22}$, $C_{12}=C^{T}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & C_{12} & -C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$.
+
+$J_{2}gA=\left(-I_{2}\otimes\sigma_{x}\otimes I_{N/2}\right)A$
+
+There is no contraction semigroup.
+
+Case 13: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{x}\otimes I_{N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$J_{1}=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)$.
+
+metrix is $-I_{N}$, no contraction semigroup.
+
+Case 14: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{x}\otimes-i\sigma_{y}\otimes I_{N/2}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$J_{1}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$.
+
+metrix is $-I_{N}$, no contraction semigroup.
+
+Case 15: $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=I_{N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}$.
+
+$A$ is real.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & -D\\
+-C & B
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the convex cone $B=B^{\dagger}$, $C=\bar{D}$.
+
+$J_{2}g=-I_{N}$, so there is no contraction semigroup.
+
+Case 16: $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{x}\otimes I_{N}$, $J_{2}=I_{2}\otimes-i\sigma_{y}\otimes I_{N/2}$.
+
+$J_{1}=\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)$, $J_{2}=\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)$. 
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & D\\
+C & B
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B=-B^{\dagger}$, $C=\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & \bar{B}_{12}\\
+C^{\dagger}_{12} & \bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{\dagger}_{12} & B_{22} & C^{T}_{12} & C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+C^{\dagger}_{12} & \bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{11} & -\bar{C}_{12} & B^{T}_{11} & -\bar{B}_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+B_{22} & B^{\dagger}_{12} & C_{22} & -C^{T}_{12}\\
+-B_{12} & B_{11} & -C_{12} & C_{11}\\
+\bar{C}_{22} & -C^{\dagger}_{12} & -B^{T}_{22} & B^{T}_{12}\\
+-\bar{C}_{12} & \bar{C}_{11} & -\bar{B}_{12} & -B^{T}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the convex cone, we have $B_{11}=-\bar{B}_{22}$, $B_{12}=-B^{T}_{12}$,
+$C_{11}=\bar{C}_{22}$, $C_{12}=C^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B^{\dagger}_{12} & -\bar{B}_{11} & C^{T}_{12} & \bar{C}_{11}\\
+\bar{C}_{11} & C^{T}_{12} & -B^{T}_{11} & \bar{B}_{12}\\
+C_{12} & C_{11} & -B^{T}_{12} & B^{\dag}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J_{2}gA & =\left(-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}\right)A\\
+ & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B^{\dagger}_{12} & -\bar{B}_{11} & C^{T}_{12} & \bar{C}_{11}\\
+\bar{C}_{11} & C^{T}_{12} & -B^{T}_{11} & \bar{B}_{12}\\
+C_{12} & C_{11} & -B^{T}_{12} & B^{\dag}_{11}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+C_{12} & C_{11} & -B^{T}_{12} & B^{\dag}_{11}\\
+-\bar{C}_{11} & -C^{T}_{12} & B^{T}_{11} & -\bar{B}_{12}\\
+B^{\dagger}_{12} & \bar{B}_{11} & -C^{T}_{12} & -\bar{C}_{11}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\leq0
+\end{align*}
+
+There's no contraction semigroup.
+
+\section{Tests for new fermionic cases}
+
+For fermions, $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$, $C_{11}=-C^{T}_{11}$, $C_{22}=-C^{T}_{22}$, $D_{11}=-D^{T}_{11}$,
+$D_{22}=-D^{T}_{22}$.
+
+Case 1' $J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+-B_{21} & -B_{22} & C^{T}_{12} & -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & -B^{T}_{21} & -D_{11} & -D_{12}\\
+-B^{T}_{12} & -B^{T}_{22} & D^{T}_{12} & -D_{22}\\
+-C_{11} & -C_{12} & B_{11} & B_{12}\\
+C^{T}_{12} & -C_{22} & B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=-B^{\dagger}_{21}$,
+$C=-\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+\bar{C}_{11} & \bar{C}_{12} & B^{T}_{11} & B^{T}_{21}\\
+-B_{21} & -B_{22} & C^{T}_{12} & -C_{22}\\
+B_{11} & B_{12} & C_{11} & C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & B^{T}_{12} & \bar{C}_{22} & C^{\dagger}_{12}\\
+B^{T}_{21} & -B^{T}_{11} & -\bar{C}_{12} & \bar{C}_{11}\\
+-C_{22} & -C^{T}_{12} & B_{22} & -B_{21}\\
+C_{12} & -C_{11} & -B_{12} & B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $C_{11}=C_{22}$,
+$C_{12}=C^{T}_{12}$.
+
+So $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{12} & B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & B^{T}_{12}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & -B^{T}_{11}
+\end{array}\right)$, $B_{11}=-B^{\dagger}_{11}$, $B_{12}=B^{\dagger}_{12}$, $C_{11}=-C^{T}_{11}$.
+This is a non-hermitian case. I don't know how to prove it for this
+case yet. I have tried the case with only $B_{11}\neq0$, it passed
+the test. 
+
+Case 5' $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=\sigma_{z}\otimes I_{N}=\left(\begin{array}{cc}
+I_{N} & 0\\
+0 & I_{N}
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)$. $A=\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)$, $C=-C^{T}$, $D=-D^{T}$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cc}
+B & -C\\
+-D & -B^{T}
+\end{array}\right)\\
+ & =\bar{A}
+\end{align*}
+
+So $B=\bar{B}$, $C=-\bar{C}$, $D=-\bar{D}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+D & -B^{T}\\
+-B & -C
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & -D\\
+-C & B
+\end{array}\right)\\
+ & =\pm\bar{A}
+\end{align*}
+
+So for the generators of the maximal subgroup $B=-B^{\dagger}$, $C=-\bar{D}$.
+
+So $A=\left(\begin{array}{cc}
+B & C\\
+C & B
+\end{array}\right)$, $B=\bar{B}=-B^{T}=-B^{\dagger}$, $C=-C^{T}=-\bar{C}=C^{\dagger}.$
+$B$ is non-hermitian, $C$ is hermitian.
+
+For the generators in the convex cone, $B=B^{\dagger}$, $C=\bar{D}$.
+
+So $A=\left(\begin{array}{cc}
+B & C\\
+-C & -B
+\end{array}\right)$, $B=\bar{B}=B^{T}=B^{\dagger}$, $C=-C^{T}=-\bar{C}=C^{\dagger}$.
+
+$J_{2}gA=\left(\begin{array}{cc}
+-I_{N} & 0\\
+0 & I_{N}
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+-C & -B
+\end{array}\right)=\left(\begin{array}{cc}
+-B & -C\\
+-C & -B
+\end{array}\right)\leq0$,
+
+which is equivalent to $\left(\begin{array}{cc}
+B & C\\
+C & B
+\end{array}\right)\geq0$. So case 5' gives a semigroup! It might be a new kind of positivity.
+
+Case 9': $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{z}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0\\
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0\\
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0\\
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+B_{11} & -B_{12} & -C_{11} & C_{12}\\
+-B_{21} & B_{22} & -C^{T}_{12} & -C_{22}\\
+-D_{11} & D_{12} & -B^{T}_{11} & B^{T}_{21}\\
+-D^{T}_{12} & -D_{22} & B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B_{11}=\bar{B}_{11}$, $B_{22}=\bar{B}_{22}$, $B_{12}=-\bar{B}_{12}$,
+$B_{21}=-\bar{B}_{21}$, $C_{11}=-\bar{C}_{11}$, $C_{22}=-\bar{C}_{22}$,
+$C_{12}=\bar{C}_{12}$, $D_{11}=-\bar{D}_{11}$, $D_{22}=-\bar{D}_{22}$,
+$D_{12}=\bar{D}_{12}$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-B_{21} & -B_{22} & C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & -D_{22} & D^{T}_{12}\\
+-B^{T}_{21} & -B^{T}_{11} & -D_{12} & -D_{11}\\
+-C_{22} & C^{T}_{12} & B_{22} & B_{21}\\
+-C_{12} & -C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+So for the generators of the maximal subgroup, $B_{11}=-B^{\dagger}_{22}$,
+$B_{12}=-B^{\dagger}_{12}$, $B_{21}=-B^{\dagger}_{21}$, $C_{11}=-\bar{D}_{22}$,
+$C_{22}=-\bar{D}_{11}$, $C_{12}=D^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{T}_{11} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{22} & C^{T}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-C_{12} & -C_{11} & -B^{T}_{12} & B_{11}
+\end{array}\right)$. This is a hermitian case.
+
+For the generators in the convex cone, $B_{11}=B^{\dagger}_{22}$,
+$B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$, $C_{11}=\bar{D}_{22}$,
+$C_{22}=\bar{D}_{11}$, $C_{12}=-D^{\dagger}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B^{T}_{11} & -C^{T}_{12} & C_{22}\\
+\bar{C}_{22} & -C^{T}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+C_{12} & C_{11} & -B^{T}_{12} & -B_{11}
+\end{array}\right)$.
+
+\begin{align*}
+iJ_{2}gA & =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ & =\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B^{T}_{11} & -C^{T}_{12} & C_{22}\\
+\bar{C}_{22} & -C^{T}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+C_{12} & C_{11} & -B^{T}_{12} & -B_{11}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B_{21} & -B^{T}_{11} & C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+C_{12} & C_{11} & -B^{T}_{12} & -B_{11}\\
+\bar{C}_{22} & -C^{T}_{12} & -B^{T}_{11} & -B^{T}_{21}
+\end{array}\right)\leq0
+\end{align*}
+
+Case 10': $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+(1)$J_{1}=J_{2}=-i\sigma_{y}\otimes I_{N}$.=> There is sign problem.
+
+(2) $J_{1}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+-B_{21} & -B_{22} & C^{T}_{12} & -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & -B^{T}_{21} & -D_{11} & -D_{12}\\
+-B^{T}_{12} & -B^{T}_{22} & D^{T}_{12} & -D_{22}\\
+-C_{11} & -C_{12} & B_{11} & B_{12}\\
+C^{T}_{12} & -C_{22} & B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=-B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=-\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right).$
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+C^{\dagger}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-\bar{C}_{11} & -\bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-C^{\dagger}_{12} & \bar{C}_{22} & B^{T}_{12} & B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & \bar{C}_{11} & -\bar{C}_{12}\\
+B^{T}_{12} & -B^{T}_{22} & C^{\dagger}_{12} & \bar{C}_{22}\\
+-C_{11} & C_{12} & B_{11} & -B_{12}\\
+-C^{T}_{12} & -C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+
+For the generators in the convex cone, $B_{11}=0$, $B_{22}=0$, $B_{12}=-B^{\dagger}_{21}$,
+$C_{11}=0$, $C_{22}=0$. $A=\left(\begin{array}{cccc}
+0 & B_{12} & 0 & C_{12}\\
+B^{\dagger}_{12} & 0 & -C^{T}_{12} & 0\\
+0 & -\bar{C}_{12} & 0 & -\bar{B}_{21}\\
+C^{\dagger}_{12} & 0 & -B^{T}_{12} & 0
+\end{array}\right).$
+
+\begin{align*}
+iJ_{2}gA & =-\sigma_{z}\otimes\sigma_{z}\otimes I_{N/2}A\\
+ & =\left(\begin{array}{cccc}
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0\\
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & B_{12} & 0 & C_{12}\\
+B^{\dagger}_{12} & 0 & -C^{T}_{12} & 0\\
+0 & -\bar{C}_{12} & 0 & -\bar{B}_{21}\\
+C^{\dagger}_{12} & 0 & -B^{T}_{12} & 0
+\end{array}\right)\leq0
+\end{align*}
+
+So there is sign problem for case ``wrong''.
+
+Case 6' $J^{T}_{1}gJ_{1}=-g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left\{ J_{1},J_{2}\right\} =0$.
+
+$J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & I_{N/2} & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & I_{N/2} & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+D^{T}_{12} & -D_{22} & B^{T}_{12} & B^{T}_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -I_{N/2} & 0\\
+0 & 0 & 0 & I_{N/2}\\
+I_{N/2} & 0 & 0 & 0\\
+0 & -I_{N/2} & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{11} & B^{T}_{21} & -D_{11} & D_{12}\\
+B^{T}_{12} & -B^{T}_{22} & -D^{T}_{12} & -D_{22}\\
+-C_{11} & C_{12} & B_{11} & -B_{12}\\
+-C^{T}_{12} & -C_{22} & -B_{21} & B_{22}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+So $B_{11}=-B^{\dagger}_{11}$, $B_{22}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{21}$,
+$C_{11}=-\bar{D}_{11}$, $C_{22}=-\bar{D}_{22}$, $C_{12}=\bar{D}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-C^{\dag}_{12} & -\bar{C}_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-B_{21} & -B_{22} & C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & -B^{T}_{12} & \bar{C}_{22} & C^{\dag}_{12}\\
+-B^{T}_{21} & -B^{T}_{11} & -\bar{C}_{12} & \bar{C}_{11}\\
+-C_{22} & C^{T}_{12} & B_{22} & B_{21}\\
+-C_{12} & -C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}.
+\end{align*}
+For the generators of the maximal subgroup, $B_{11}=-B^{\dag}_{22}$,
+$B_{12}=-B^{\dag}_{12}$, $C_{11}=C_{22}$, $C_{12}=C^{T}_{12}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+-B_{12} & B_{11} & -C_{12} & C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & B^{T}_{11} & B^{T}_{12}\\
+-\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=B^{\dag}_{22}$, $B_{12}=B^{\dag}_{12}$,
+$C_{11}=-C_{22}$, $C_{12}=-C^{T}_{12}$. $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & C_{12} & -C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+\bar{C}_{12} & \bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+iJ_{2}gA & =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ & =\left(\begin{array}{cccc}
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{12} & -B_{11} & C_{12} & -C_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B_{12} & B_{11} & -C_{12} & C_{11}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}\\
+\bar{C}_{12} & -\bar{C}_{11} & -B^{T}_{12} & B^{T}_{11}\\
+-\bar{C}_{11} & \bar{C}_{12} & -B^{T}_{11} & -B^{T}_{12}
+\end{array}\right)\leq0
+\end{align*}
+Good, a new non-hermitian case. Possibly has positivity.
+
+Case 7': $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=I_{2N}$, $J_{2}=-i\sigma_{y}\otimes I_{N}=\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)$.
+
+$J^{T}_{1}AJ_{1}=\bar{A}$, $A$ is real.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cc}
+0 & I_{N}\\
+-I_{N} & 0
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+D & -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+D & -B^{T}\\
+-B & -C
+\end{array}\right)\left(\begin{array}{cc}
+0 & -I_{N}\\
+I_{N} & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cc}
+-B^{T} & -D\\
+-C & B
+\end{array}\right)\\
+ & =\pm\bar{A}
+\end{align*}
+
+For the generators of the maximal subgroup, $B=-B^{\dagger}$, $C=-\bar{D}$.
+$A=\left(\begin{array}{cc}
+B & C\\
+-C & B
+\end{array}\right)$.
+
+For the generators in the convex cone, $B=B^{\dagger}$, $C=\bar{D}$.
+$A=\left(\begin{array}{cc}
+B & C\\
+C & -B^{T}
+\end{array}\right)$.
+\begin{align*}
+iJ_{2}gA & =-\sigma_{z}\otimes I_{N}A\\
+ & =\left(\begin{array}{cc}
+-I_{N} & 0\\
+0 & I_{N}
+\end{array}\right)\left(\begin{array}{cc}
+B & C\\
+C & -B^{T}
+\end{array}\right)\\
+ & =-\left(\begin{array}{cc}
+B & C\\
+-C & B^{T}
+\end{array}\right)\leq0
+\end{align*}
+
+With positivity.
+
+Case 8': $J^{T}_{1}gJ_{1}=g$, $J^{2}_{1}=-I_{2N}$, $J^{T}_{2}gJ_{2}=-g$,
+$J^{2}_{2}=-I_{2N}$, $\left[J_{1},J_{2}\right]=0$.
+
+$J_{1}=\sigma_{x}\otimes-i\sigma_{y}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$, $J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes I_{N/2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{1}AJ_{1} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+D_{11} & D_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-D^{T}_{12} & D_{22} & -B^{T}_{12} & -B^{T}_{22}\\
+-D_{11} & -D_{12} & B^{T}_{11} & B^{T}_{21}\\
+B_{21} & B_{22} & -C^{T}_{12} & C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-B^{T}_{22} & B^{T}_{12} & D_{22} & D^{T}_{12}\\
+B^{T}_{21} & -B^{T}_{11} & -D_{12} & D_{11}\\
+C_{22} & C^{T}_{12} & B_{22} & -B_{21}\\
+-C_{12} & C_{11} & -B_{12} & B_{11}
+\end{array}\right)=\bar{A}
+\end{align*}
+
+We have $B_{11}=-B^{\dagger}_{22}$, $B_{12}=B^{\dagger}_{12}$, $B_{21}=B^{\dagger}_{21}$,
+$C_{11}=\bar{D}_{22}$, $C_{22}=\bar{D}_{11}$, $C_{12}=D^{\dag}_{12}$.
+So $A=\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{\dagger}_{11} & -C^{T}_{12} & C_{22}\\
+\bar{C}_{11} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-\bar{C}_{12} & \bar{C}_{22} & -B^{T}_{12} & \bar{B}_{11}
+\end{array}\right)$.
+
+\begin{align*}
+J^{T}_{2}AJ_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & I_{N/2}\\
+0 & 0 & I_{N/2} & 0\\
+0 & -I_{N/2} & 0 & 0\\
+-I_{N/2} & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} & B_{12} & C_{11} & C_{12}\\
+B_{21} & -B^{\dagger}_{11} & -C^{T}_{12} & C_{22}\\
+\bar{C}_{11} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-\bar{C}_{12} & \bar{C}_{22} & -B^{T}_{12} & \bar{B}_{11}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+-\bar{C}_{12} & \bar{C}_{22} & -B^{T}_{12} & \bar{B}_{11}\\
+\bar{C}_{11} & C^{\dagger}_{12} & -B^{T}_{11} & -B^{T}_{21}\\
+-B_{21} & B^{\dagger}_{11} & C^{T}_{12} & -C_{22}\\
+-B_{11} & -B_{12} & -C_{11} & -C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0\\
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0
+\end{array}\right)\\
+ & =\left(\begin{array}{cccc}
+\bar{B}_{11} & -B^{T}_{12} & -\bar{C}_{22} & \bar{C}_{12}\\
+-B^{T}_{21} & -B^{T}_{11} & -C^{\dagger}_{12} & -\bar{C}_{11}\\
+-C_{22} & C^{T}_{12} & -B^{\dagger}_{11} & B_{21}\\
+-C_{12} & -C_{11} & B_{12} & B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{align*}
+For the generators of the maximal subgroup, $B_{12}=B_{21}=0$. $C_{11}=-C_{22}$.
+$A=\left(\begin{array}{cccc}
+B_{11} & 0 & C_{11} & C_{12}\\
+0 & -B^{\dagger}_{11} & -C^{T}_{12} & -C_{11}\\
+\bar{C}_{11} & C^{\dagger}_{12} & -B^{T}_{11} & 0\\
+-\bar{C}_{12} & -\bar{C}_{11} & 0 & \bar{B}_{11}
+\end{array}\right)$.
+
+For the generators in the convex cone, $B_{11}=0$, $C_{11}=C_{22}$,
+$C_{12}=0$. $A=\left(\begin{array}{cccc}
+0 & B_{12} & C_{11} & 0\\
+B_{21} & 0 & 0 & C_{11}\\
+\bar{C}_{11} & 0 & 0 & -B^{T}_{21}\\
+0 & \bar{C}_{11} & -B^{T}_{12} & 0
+\end{array}\right)$.
+\begin{align*}
+iJ_{2}gA & =-\sigma_{z}\otimes\sigma_{x}\otimes I_{N/2}A\\
+ & =-\left(\begin{array}{cccc}
+0 & I_{N/2} & 0 & 0\\
+I_{N/2} & 0 & 0 & 0\\
+0 & 0 & 0 & -I_{N/2}\\
+0 & 0 & -I_{N/2} & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & B_{12} & C_{11} & 0\\
+B_{21} & 0 & 0 & C_{11}\\
+\bar{C}_{11} & 0 & 0 & -B^{T}_{21}\\
+0 & \bar{C}_{11} & -B^{T}_{12} & 0
+\end{array}\right)\\
+ & =-\left(\begin{array}{cccc}
+B_{21} & 0 & 0 & C_{11}\\
+0 & B_{12} & C_{11} & 0\\
+0 & -\bar{C}_{11} & B^{T}_{12} & 0\\
+-\bar{C}_{11} & 0 & 0 & B^{T}_{21}
+\end{array}\right)\leq0
+\end{align*}
+With positivity.
+
+\section{Proofs}
+
+.
+\clearpage
+\end{CJK}
+
+\end{document}
