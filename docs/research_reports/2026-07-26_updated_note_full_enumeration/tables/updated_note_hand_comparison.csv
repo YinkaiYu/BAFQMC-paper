@@ -6,7 +6,7 @@ boson,6,-1,-1,-1,1,-1,Passed,1,agrees
 boson,7,1,1,-1,1,1,Passed,1,agrees
 boson,8,1,-1,-1,1,1,Passed,1,agrees
 boson,9,-1,1,-1,1,1,Failed,0,agrees
-boson,10,-1,-1,-1,1,1,Passed,0,heading_case10_commuting_is_boundary_but_displayed_matrices_anticommute_and_belong_to_case6
+boson,10,-1,-1,-1,1,1,Failed,0,agrees
 boson,11,1,1,1,-1,-1,Failed,0,agrees
 boson,12,1,-1,1,-1,-1,Failed,0,agrees
 boson,13,-1,1,1,-1,-1,Failed,0,agrees

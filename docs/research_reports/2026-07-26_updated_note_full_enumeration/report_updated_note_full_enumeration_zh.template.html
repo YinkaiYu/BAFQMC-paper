@@ -272,7 +272,7 @@
     <div class="meta">
       <div>报告日期：2026-07-26</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
-      <div>note 覆盖：正文第 22--1939 行，连续 43 个阅读单元，原文无删节</div>
+      <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
       <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
     </div>
   </header>
@@ -316,15 +316,22 @@
       玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。
       费米子我只列举了一类J2。”
     </div>
+    <div class="correction">
+      <strong>消息与新版 note 的时间关系。</strong>
+      上面保留的是合作者当时发送的原话。此后更新的 note 已把玻色独立 passed
+      cases 从 7 改为 6，把费米独立 examined cases 从 8 改为 7；
+      以下解释以当前 note 为准，并在涉及旧计数时说明它属于消息发送时的版本。
+    </div>
 
     <div class="quote-explain">
       <div class="source-quote">“这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。”</div>
       <p>
-        现在可以直接对照已经读完的 note：第一节玻色列表编号到 Case 16，
+        这句话描述的是更新前的手算进度。当前 note 第一节玻色列表仍编号到 Case 16，
         第二节实际展开 Cases 7、8、3、4、9--16；第一节费米列表在固定一类 \(J_2\)
         后改变 \(J_1\) 和 commutation relation，第三节展开了
         \(1',5',9',10',6',7',8'\)。这里的“手推”就是报告第一部分看到的大量
-        \(J_1^TAJ_1\) 与 \(J_2^TAJ_2\) block multiplication。
+        \(J_1^TAJ_1\) 与 \(J_2^TAJ_2\) block multiplication。新版把
+        \(1'\) 归入 \(9'\) 的 special case，因此称 7 个独立费米情形。
       </p>
     </div>
 
@@ -691,7 +698,7 @@
     <p>
       note 的 Cases 7 与 8 满足：\(J_2^2=I\)，且 \(J_1\) 保持 \(g\)、
       \(J_2\) 翻转 \(g\)、二者对易。因此两者都有 strict contraction；
-      \(J_1^2\) 从 \(I\) 攓成 \(-I\) 不影响结论。
+      \(J_1^2\) 从 \(I\) 改成 \(-I\) 不影响结论。
     </p>
     <p>
       Cases 3、4、9 的 \(J_2^2=I\) 虽然正确，但 commutation relation
@@ -700,14 +707,13 @@
       被迫为零，同样没有 strict interior。
     </p>
     <p>
-      Case 10 是 note 中需要修正的具体条目，但错误发生得比 cone inequality 更早：
-      标题声明 \([J_1,J_2]=0\)，随后实际使用的
+      新版已经修正 Case 10。现在取
       \(J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2}\) 与
-      \(J_2=\sigma_x\otimes I_N\) 却满足
-      \(\{J_1,J_2\}=0\)。因此第 685--799 行的全部 block calculation
-      实际计算的是 Case 6。它找到的 strict cone 对 Case 6 是正确的，
-      但不能用来支持 abstract Case 10；真正的 commuting Case 10
-      会把 contraction matrix 变号，只能停在等号边界。
+      \(J_2=\sigma_z\otimes I_N\)，二者确实对易；作者也把 Case 10
+      从 Passed 改为 Failed，并删除旧版误用
+      \(J_2=\sigma_x\otimes I_N\) 后得到的长 block calculation。
+      新版判断与解析结果一致：两个 \(J\) 都翻转 \(g\) 时需要反对易才能保留
+      strict cone，commuting Case 10 只能停在等号边界。
     </p>
 
     <h3>6.2 第一节 Comment 的答案</h3>
@@ -718,16 +724,16 @@
         </thead>
         <tbody>
           <tr>
-            <td>玻色 \(4''\) 与 \(7''\)：\(J_1,J_2\) 都翻转 \(g\)</td>
-            <td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
+            <td>费米 \(1'''\) 与 \(5'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
           </tr>
           <tr>
             <td>费米 \(2'''\) 与 \(6'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
             <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
           </tr>
           <tr>
-            <td>费米 \(3'''\) 与 \(7'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
-            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+            <td>若原文 \(3'\) 是 \(3'''\) 的笔误：\(3'''\) 与 \(7'''\) 都翻转 \(g\)</td>
+            <td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
           </tr>
         </tbody>
       </table>
@@ -735,15 +741,20 @@
     <p>
       因此 commutator/anti-commutator 确实重要。它不是统一地“总要对易”或“总要反对易”；
       要看 \(J_1\) 与 \(J_2\) 对 \(g\) 的作用是同号还是异号。
+      按原文逐字读取，\(3'\) 与 \(7'''\) 还改变了 \(J_1^TgJ_1\) 的正负号，
+      不能单独检验 commutator 的作用；上表第三行只是在
+      \(3'\) 实为 \(3'''\) 的合理猜测下给出的受控比较。
     </p>
 
-    <h3>6.3 更新 note 中可直接看出的文字与公式问题</h3>
+    <h3>6.3 新版已经修正的内容与仍需核对的问题</h3>
     <ul>
-      <li>玻色 Case 10 标题要求 \([J_1,J_2]=0\)，但随后选取的显式 matrices 实际满足 \(\{J_1,J_2\}=0\)，所以该段手算属于 Case 6。</li>
+      <li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
+      <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
+      <li>Case 10 引用 `ToLeiWang4.pdf`，但仓库内没有该文件，本报告无法核对其内容。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
-      <li>`contration`、`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
+      <li>`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
       <li>最后的 `Proofs` 节为空，所以总分类和完整 weight positivity 尚未在 note 内得到解析证明。</li>
     </ul>
   </section>
@@ -851,7 +862,7 @@
 
     <h3>8.3 现在不应写入文章的表述</h3>
     <ul>
-      <li>不应写“玻色有 7 个 passed cases、费米有 8 个 passed cases”，因为这些数字混合了不同判据与未证明候选。</li>
+      <li>不应把新版“玻色 6 个、费米 7 个独立 cases”的计数直接写成完整无符号分类；这些数字仍混合不同 positivity mechanisms，而且不是全部 32 类的穷举计数。</li>
       <li>不应写 commutator/anti-commutator 无关；它决定 strict cone 是否存在。</li>
       <li>不应把 note 的费米 inequality 称为当前 Nambu weight 的充分条件。</li>
       <li>不应仅凭 64 类抽象矩阵穷举就重画文章的物理分类图。</li>
@@ -863,7 +874,7 @@
     <div class="summary-grid">
       <div class="summary-item established">
         <strong>完整覆盖 note</strong>
-        更新 note 第 22--1939 行已经按原顺序分成 43 个单元。
+        更新 note 第 22--1824 行已经按原顺序分成 42 个单元。
         每段原文均在本报告内渲染，并紧跟公式讲解与必要的推导补全。
       </div>
       <div class="summary-item established">
@@ -877,10 +888,11 @@
         commutator/anti-commutator 确实重要。
         两个 \(J\) 对 \(g\) 同号作用时必须反对易，异号作用时必须对易。
       </div>
-      <div class="summary-item refuted">
-        <strong>需要修正的主张</strong>
-        玻色 Case 10 标题下的 matrices 实际属于 Case 6；abstract Case 10 没有 strict interior。
-        note 的费米 inequality 在当前 Nambu convention 下不能保证完整 Fock weight 非负。
+      <div class="summary-item corrected">
+        <strong>新版修正与剩余问题</strong>
+        Case 10 的 representative 和 Failed 标签现已与解析分类一致。
+        但 note 的费米 inequality 在当前 Nambu convention 下仍不能保证完整 Fock weight 非负，
+        新增的 “\(1'\) 是 \(9'\) special case” 也不消除这一反例。
       </div>
     </div>
     <p>
@@ -911,7 +923,7 @@
       <table>
         <thead><tr><th>文件</th><th>内容</th></tr></thead>
         <tbody>
-          <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1939 行连续覆盖、渲染公式并生成本 HTML</td></tr>
+          <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1824 行连续覆盖、渲染公式并生成本 HTML</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、strict witness 与 residual checks</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
           <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>完整 64 行原始计算结果</td></tr>

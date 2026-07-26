@@ -285,7 +285,7 @@ function write_hand_comparison(output_file)
     "7",   1,  1, -1,  1,  1, "Passed";
     "8",   1, -1, -1,  1,  1, "Passed";
     "9",  -1,  1, -1,  1,  1, "Failed";
-    "10", -1, -1, -1,  1,  1, "Passed";
+    "10", -1, -1, -1,  1,  1, "Failed";
     "11",  1,  1,  1, -1, -1, "Failed";
     "12",  1, -1,  1, -1, -1, "Failed";
     "13", -1,  1,  1, -1, -1, "Failed";
@@ -300,8 +300,7 @@ function write_hand_comparison(output_file)
     if strict == strcmp(note_label, "Passed")
       comment = "agrees";
     else
-      comment = ["heading_case10_commuting_is_boundary_but_displayed_" ...
-                 "matrices_anticommute_and_belong_to_case6"];
+      comment = "disagrees";
     endif
     fprintf(fid, "boson,%s,%d,%d,%d,%d,%d,%s,%d,%s\n", ...
             boson_rows{index, 1}, signs, note_label, strict, comment);
@@ -349,12 +348,12 @@ function write_comment_pair_checks(output_file)
                 "canonical_strict,kappa,meaning\n"]);
 
   rows_to_check = {
-    "boson", "4doubleprime", -1, -1, -1,  1, -1;
-    "boson", "7doubleprime", -1, -1, -1,  1,  1;
-    "fermion", "2tripleprime", 1, 1, -1, -1, -1;
-    "fermion", "6tripleprime", 1, 1, -1, -1,  1;
-    "fermion", "3tripleprime", 1, -1, -1, -1, -1;
-    "fermion", "7tripleprime", 1, -1, -1, -1,  1
+    "fermion", "1tripleprime",  1,  1, -1, -1, -1;
+    "fermion", "5tripleprime",  1,  1, -1, -1,  1;
+    "fermion", "2tripleprime",  1, -1, -1, -1, -1;
+    "fermion", "6tripleprime",  1, -1, -1, -1,  1;
+    "fermion", "3tripleprime", -1,  1, -1, -1, -1;
+    "fermion", "7tripleprime", -1,  1, -1, -1,  1
   };
   for index = 1:rows(rows_to_check)
     statistics = rows_to_check{index, 1};

@@ -84,7 +84,7 @@ SEGMENTS = [
         57,
         66,
         r"""
-        <p>原文说“玻色有 7 个 passed cases”，随后先列两类已有结构。
+        <p>原文说“玻色有 6 个 passed cases”，随后先列两类已有结构。
         第 1 类是由两个 anti-linear \(Z_2\) symmetries 组成的 time-reversal symmetry；
         第 2 类是 reflection positivity，并特别注明它不是 contraction semigroup。</p>
         """,
@@ -249,7 +249,7 @@ SEGMENTS = [
         \(J_1,J_2\) 对易或反对易。原文各项的文字判断依次是：
         Case 3 Failed；Case 4 Failed；Case 5 “non-Hermitian case I”；
         Case 6 “non-Hermitian case II”；Case 7 “Yinkai's case”；
-        Case 8 “mainly non-Hermitian”；Case 9 Failed；Case 10 Passed；
+        Case 8 “mainly non-Hermitian”；Case 9 与 Case 10 Failed；
         Cases 11--16 全部 Failed。</p>
         """,
         r"""
@@ -350,19 +350,19 @@ SEGMENTS = [
         "boson-passed-list",
         "玻色作者版 passed-only 清单",
         118,
-        144,
+        141,
         r"""
         <p>“List passed ones only”译为“只列出通过的情形”。\(1''\) 是
         time-reversal symmetry；\(2''\) 是 reflection positivity，并保留
         “non-contraction semigroup”的说明；\(3''\) 与 \(4''\) 分别是
         “non-Hermitian case I/II”；\(5''\) 是 “Yinkai's case”；
-        \(6''\) 是 “mainly non-Hermitian”；\(7''\) 是
-        “also non-Hermitian”。它们分别对应前面的两类已有结构、
-        Cases 5--8 与 Case 10。</p>
+        \(6''\) 是 “mainly non-Hermitian”。它们分别对应前面的两类已有结构
+        与 Cases 5--8；新版已经删除原先对应 Case 10 的 \(7''\)。</p>
         """,
         r"""
         <p>这次重新编号很容易造成误读：\(1''\) 和 \(2''\) 不是前面 contraction
-        inequality 的通过项；\(3''\)--\(7''\) 才来自该列表。
+        inequality 的通过项；\(3''\)--\(6''\) 才来自该列表。
+        与上一版相比，作者已接受 commuting Case 10 为 Failed，所以总数从 7 降为 6。
         此外，原文没有定义“non-hermitian case”究竟指 \(A\)、\(gA\)、哪一个 block，
         还是对应的 many-body Hamiltonian。因此读到这个标签时，应以紧邻的矩阵关系为准，
         不能把标签本身当作证明。</p>
@@ -371,11 +371,12 @@ SEGMENTS = [
     Segment(
         "fermion-list",
         r"费米候选条件与 Cases \(1'\)--\(10'\)",
-        145,
-        185,
+        142,
+        182,
         r"""
-        <p>原文说已经检查了 8 类费米情形。\(1'\) 是两个 anti-linear \(Z_2\)
-        symmetries，作者写“可能成立，但尚未证明”；\(2'\) 是玻色
+        <p>原文说已经检查了 7 个独立费米情形。\(1'\) 是两个 anti-linear \(Z_2\)
+        symmetries；新版不再把它算作独立类，而说明它只是 semigroup Case \(9'\)
+        的 special case。\(2'\) 是玻色
         reflection positivity 的费米对应物，作者写“存在但没有用”。
         接着原文提出另一条 contraction inequality，并列出 \(3'\)--\(10'\)：
         \(3'\) 和 \(4'\) 分别被命名为 Majorana reflection positivity 与
@@ -401,32 +402,37 @@ SEGMENTS = [
     Segment(
         "fermion-passed-comment",
         "费米 passed-only 清单与第一节 Comment",
-        186,
-        218,
+        183,
+        211,
         r"""
-        <p>作者把费米候选重新编号为 \(1'''\)--\(8'''\)：
-        \(1'''\) 保留“可能但未证明”的两个 anti-linear symmetries；
-        \(2'''\) 是 Majorana reflection positivity；\(3'''\) 是
-        time-reversal positivity；\(4'''\)--\(8'''\) 是原先标为 Passed
-        的 \(5'\)--\(9'\)。随后作者提出 Comment：
-        他怀疑玻色 \(4''\) 与 \(7''\) 之间的 commutator/anti-commutator 差别并不重要，
-        并猜测同样的观察也适用于费米 \(2'''\) 与 \(6'''\)、
-        \(3'''\) 与 \(7'''\)，以及 \(4'\) 与 \(8'''\)。</p>
+        <p>新版明确写 “List independent, passed ones only”，并把独立费米候选
+        编为 \(1'''\)--\(7'''\)：\(1'''\) 是 Majorana reflection positivity；
+        \(2'''\) 是 time-reversal positivity；\(3'''\)--\(7'''\) 对应原先
+        \(5'\)--\(9'\)。原先单列的两个 anti-linear symmetries 被并入 \(9'\)，
+        因此后面所有 triple-prime 编号都前移一位。新版 Comment 只保留三组费米配对：
+        \(1'''\) 与 \(5'''\)、\(2'''\) 与 \(6'''\)，以及 \(3'\) 与 \(7'''\)。</p>
         """,
         r"""
         <p>方括号 \([J_1,J_2]=0\) 表示对易，花括号
-        \(\{J_1,J_2\}=0\) 表示反对易。Comment 选出的每一对，其他四条关系相同，
-        只改变这一条，因此它正好提出一个可独立检验的问题：
+        \(\{J_1,J_2\}=0\) 表示反对易。前两组
+        \(1'''\) 与 \(5'''\)、\(2'''\) 与 \(6'''\) 的其他四条关系相同，
+        只改变这一条，因此确实能独立检验：
         anti-linear condition \(J_1^TAJ_1=\bar A\) 作用到
         contraction inequality 后，究竟把同一个半负定方向保留下来，还是把它变成相反方向。
-        这里先把问题按原文保留；答案应在完成后续计算并明确 contraction matrix 后再给出。</p>
+        但原文第三组逐字写成 \(3'\) 与 \(7'''\)；前者保持 \(g\)，后者翻转 \(g\)，
+        所以它们不只差 commutation relation。若作者本意是
+        \(3'''\) 与 \(7'''\)，则只需在 \(3'\) 后补两个 prime，才形成同样的受控配对。</p>
+        <p>
+        作者也把旧版的 “I don't think so” 改成更谨慎的
+        “It has to be checked”。这里先按新版保留问题；答案应在完成后续计算并明确
+        contraction matrix 后再给出。</p>
         """,
     ),
     Segment(
         "boson-case7",
         "第二节开头与玻色 Case 7",
-        219,
-        228,
+        212,
+        221,
         r"""
         <p>第二节标题译为“新玻色情形的检验”。Case 7 取
         \(J_1^TgJ_1=g\)、\(J_1^2=I\)、
@@ -465,8 +471,8 @@ SEGMENTS = [
     Segment(
         "boson-case8-j1",
         r"玻色 Case 8：矩阵选择与 \(J_1^TAJ_1=\bar A\)",
-        229,
-        299,
+        222,
+        292,
         r"""
         <p>Case 8 与 Case 7 的差别是 \(J_1^2=-I\)。
         原文给出 \(J_1,J_2\) 的 Pauli 张量积和 \(4\times4\) block form，
@@ -506,8 +512,8 @@ SEGMENTS = [
     Segment(
         "boson-case8-j2",
         r"玻色 Case 8：\(J_2\) 分解、maximal subgroup 与 invariant cone",
-        300,
-        382,
+        293,
+        375,
         r"""
         <p>原文接着计算 \(J_2^TAJ_2=\pm\bar A\)。
         加号对应作者所称的 maximal subgroup generators，减号对应 invariant cone
@@ -547,8 +553,8 @@ SEGMENTS = [
     Segment(
         "boson-case3-j1",
         "玻色 Case 3：矩阵选择与第一条约束",
-        383,
-        444,
+        376,
+        437,
         r"""
         <p>Case 3 取 \(J_1^2=I\)，\(J_2^2=I\)，二者反对易。
         作者称它也是 “Yin-Kai's case”，随后像 Case 8 一样计算
@@ -582,8 +588,8 @@ SEGMENTS = [
     Segment(
         "boson-case3-j2",
         "玻色 Case 3：subgroup、cone 与 “Not a contraction semigroup”",
-        445,
-        502,
+        438,
+        495,
         r"""
         <p>作者把 \(J_2^TAJ_2=+\bar A\) 解成 maximal subgroup，
         把负号分支解成 convex cone，最后写
@@ -614,8 +620,8 @@ SEGMENTS = [
     Segment(
         "boson-case4-j1",
         "玻色 Case 4：二维 block form",
-        503,
-        542,
+        496,
+        535,
         r"""
         <p>Case 4 仍令 \(J_1,J_2\) 反对易，但改成 \(J_1^2=-I\)。
         原文使用 \(2\times2\) block form，计算后得到
@@ -640,8 +646,8 @@ SEGMENTS = [
     Segment(
         "boson-case4-j2",
         "玻色 Case 4：maximal subgroup、cone 与失败判断",
-        543,
-        571,
+        536,
+        564,
         r"""
         <p>原文计算 \(J_2^TAJ_2=\pm\bar A\)，得到 maximal subgroup 中 \(C=0\)，
         convex cone 中 \(B=0\)。随后写出 \(J_2g=\operatorname{diag}(I,-I)\)，
@@ -659,8 +665,8 @@ SEGMENTS = [
     Segment(
         "boson-case9-j1",
         "玻色 Case 9：两个矩阵实现与第一条约束",
-        572,
-        636,
+        565,
+        629,
         r"""
         <p>Case 9 令 \(J_1^TgJ_1=-g\)、\(J_1^2=I\)，并让 \(J_1,J_2\) 对易。
         作者先指出最简单的 \(J_1=J_2\) 有 sign problem，再给出另一个
@@ -677,8 +683,8 @@ SEGMENTS = [
     Segment(
         "boson-case9-j2",
         "玻色 Case 9：只剩 off-diagonal cone",
-        637,
-        684,
+        630,
+        677,
         r"""
         <p>作者解第二条 \(J_2\) 约束后说：maximal subgroup 令
         \(B_{12}=C_{12}=0\)，convex cone 反而令
@@ -694,95 +700,65 @@ SEGMENTS = [
         True,
     ),
     Segment(
-        "boson-case10-j1",
-        "玻色 Case 10：第一条约束",
-        685,
-        745,
+        "boson-case10",
+        "玻色 Case 10：新版矩阵与失败判断",
+        678,
+        684,
         r"""
-        <p>Case 10 与 Case 9 相同地取 \(J_1^TgJ_1=-g\)，但令
-        \(J_1^2=-I\)。作者选取一个与 \(J_2\) 对易的 realization，
-        计算得到 \(B_{22}=\bar B_{11}\)、\(B_{21}=-\bar B_{12}\)，
-        并给出 \(C,D\) 的相应关系。</p>
+        <p>新版保留 Case 10 的五条离散关系，但把 \(J_2\) 从旧版的
+        \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)。
+        作者不再展开旧版的 block calculation，并明确改判为
+        “There's no contraction semigroup”。</p>
         """,
         r"""
-        <p>先检查标题和随后选择的 matrices 是否一致。为避免 \(i\) 的符号混淆，
-        直接记住 \(\sigma_z\sigma_x=-\sigma_x\sigma_z\)。原文选的是</p>
+        <h4>新版 matrices 现在确实满足标题</h4>
+        <p>新版选择</p>
         <div class="scroll">\[
           J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2},
           \qquad
-          J_2=\sigma_x\otimes I_2\otimes I_{N/2}.
+          J_2=\sigma_z\otimes I_N .
         \]</div>
-        <p>于是</p>
+        <p>两个 matrices 的第一个 tensor factor 都是 \(\sigma_z\)，
+        而 \(J_2\) 在其余空间上是 identity，因此</p>
         <div class="scroll">\[
-          \begin{aligned}
-          J_1J_2
-          &=(\sigma_z\sigma_x)\otimes(-i\sigma_y)\otimes I_{N/2},\\
-          J_2J_1
-          &=(\sigma_x\sigma_z)\otimes(-i\sigma_y)\otimes I_{N/2}
-          =-J_1J_2 .
-          \end{aligned}
+          J_1J_2=J_2J_1 .
         \]</div>
-        <div class="correction">
-          <strong>这里是 note 的实质性不一致。</strong>
-          Case 10 标题写 \([J_1,J_2]=0\)，但随后用于全部 block calculation
-          的 matrices 满足 \(\{J_1,J_2\}=0\)。它们实现的是 Case 6：
-          \(J_1^TgJ_1=-g\)、\(J_1^2=-I\)、
-          \(J_2^TgJ_2=-g\)、\(J_2^2=I\)，并且二者反对易。
-        </div>
-        <p>因此下面求出的 \(B_{11}=\bar B_{22}\)、
-        \(B_{12}=-\bar B_{21}\) 等关系，是 Case 6 representative
-        的第一条约束，不是标题所列 abstract Case 10 的计算。
-        这些 relations 只把 blocks 作复共轭配对，并不单独要求
-        \(B_{11}\) Hermitian；到本段末尾也还没有施加 eigenvalue inequality。</p>
+        <p>同时可逐项验算</p>
+        <div class="scroll">\[
+          J_1^TgJ_1=-g,\qquad J_1^2=-I_{2N},\qquad
+          J_2^TgJ_2=-g,\qquad J_2^2=I_{2N}.
+        \]</div>
+        <p>所以新版 representative 与 Case 10 标题一致。旧版
+        \(J_2=\sigma_x\otimes I_N\) 会与 \(J_1\) 反对易，实际落入 Case 6；
+        新版已经修复上一版报告指出的错配。</p>
+
+        <h4>为什么 commuting Case 10 只能停在边界</h4>
+        <p>对任何同时满足 \(J_1^TAJ_1=\bar A\) 的 \(A\)，直接使用
+        \(J_1,J_2\) 都翻转 \(g\) 且彼此对易，可得</p>
+        <div class="scroll">\[
+          J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1
+          =-\left(J_2gA+A^\dagger J_2g\right).
+        \]</div>
+        <p>左边由复共轭和正交 basis change 得到，保留 Hermitian matrix 的
+        eigenvalue signs；右边却把所有 signs 翻转。如果
+        \(J_2gA+A^\dagger J_2g\le0\)，同一个 matrix 也必须半正定，
+        因而只能</p>
+        <div class="scroll">\[
+          J_2gA+A^\dagger J_2g=0 .
+        \]</div>
+        <p>这说明 Case 10 只有 maximal-subgroup boundary，没有 strict
+        contraction interior。新版的 Failed 判断与本报告的解析分类、Octave
+        穷举完全一致。</p>
+
+        <p>原文最后引用 “ToLeiWang4.pdf”，但当前仓库中没有该文件。
+        因此本报告不能核对其中的具体推导；上面的直接矩阵证明不依赖该外部文件。</p>
         """,
-        True,
-    ),
-    Segment(
-        "boson-case10-j2",
-        "玻色 Case 10：作者声称存在 contraction semigroup",
-        746,
-        799,
-        r"""
-        <p>原文先给出 maximal subgroup 的 block relations，再给出 convex cone
-        的 relations 和相应 \(A\)，最后一句直接写
-        “There's a contration semigroup.”，即“存在一个 contraction semigroup”
-        （原文 <em>contration</em> 是拼写错误）。</p>
-        """,
-        r"""
-        <p>由于这一整段沿用上一段的显式 matrices，它继续算的仍是
-        anti-commuting Case 6。对这些 matrices，原文找到的 cone
-        不是虚假的；还可以给出一个最简单的 strict point：</p>
-        <div class="scroll">\[
-          J_2g=\sigma_z\otimes I_N,\qquad
-          A=-\gamma\,\sigma_z\otimes I_N,\qquad \gamma>0 .
-        \]</div>
-        <p>直接验算得到</p>
-        <div class="scroll">\[
-          gA+A^Tg=0,\qquad
-          J_1^TAJ_1=\bar A,\qquad
-          J_2gA+A^\dagger J_2g=-2\gamma I_{2N}<0 .
-        \]</div>
-        <p>所以原文最后的 “There's a contraction semigroup” 可以支持
-        Case 6；问题在于它被放在了 Case 10 的标题下面。</p>
-        <p>如果真正按 Case 10 标题另找一组<strong>对易</strong>的
-        \(J_1,J_2\)，则结论相反。设</p>
-        <div class="scroll">\[
-          J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
-          =-(J_2gA+A^\dagger J_2g).
-        \]</div>
-        <p>左边与原矩阵有相同的 eigenvalue signs；若右边多出负号，
-        半负定和半正定必须同时成立。因此这里只允许等号边界，
-        abstract Case 10 没有 strict contraction。简言之：这份手算没有证明
-        “Case 10 passed”；它用一组实际属于 Case 6 的 matrices，
-        再次算出了 Case 6 passed。</p>
-        """,
-        True,
     ),
     Segment(
         "boson-case11-j1",
         "玻色 Case 11：第一条约束",
-        800,
-        860,
+        685,
+        745,
         r"""
         <p>Case 11 改成 \(J_2^TgJ_2=g\)、\(J_2^2=-I\)，并令
         \(J_1,J_2\) 反对易。作者给出两矩阵，重复 Case 3 型的
@@ -800,8 +776,8 @@ SEGMENTS = [
     Segment(
         "boson-case11-j2",
         "玻色 Case 11：convex cone 与失败判断",
-        861,
-        908,
+        746,
+        793,
         r"""
         <p>作者计算第二条约束，只写出 convex cone：
         \(B_{11}=B_{22}=0\)、\(C_{11}=C_{22}\)、\(C_{12}=0\)。
@@ -819,8 +795,8 @@ SEGMENTS = [
     Segment(
         "boson-case12-j1",
         "玻色 Case 12：第一条约束",
-        909,
-        969,
+        794,
+        854,
         r"""
         <p>Case 12 保持 \(J_2^TgJ_2=g\)、\(J_2^2=-I\) 与反对易关系，
         只把 \(J_1^2\) 改成 \(-I\)。作者给出矩阵并解
@@ -837,8 +813,8 @@ SEGMENTS = [
     Segment(
         "boson-case12-j2",
         "玻色 Case 12：convex cone 与失败判断",
-        970,
-        1017,
+        855,
+        902,
         r"""
         <p>作者给出 convex cone 的四条 block relations，写出相应 \(A\) 与
         \(J_2gA\)，然后判断不存在 contraction semigroup。</p>
@@ -854,8 +830,8 @@ SEGMENTS = [
     Segment(
         "boson-case13",
         "玻色 Case 13",
-        1018,
-        1032,
+        903,
+        917,
         r"""
         <p>作者取 \(J_1=\sigma_x\otimes I_N\)、
         \(J_2=-i\sigma_y\otimes I_N\)，给出二者的 block matrices，
@@ -873,8 +849,8 @@ SEGMENTS = [
     Segment(
         "boson-case14",
         "玻色 Case 14",
-        1033,
-        1051,
+        918,
+        936,
         r"""
         <p>Case 14 与 Case 13 的 \(J_2\) 相同，改用平方为 \(-I\) 的 \(J_1\)。
         作者写出 \(4\times4\) block realization，并作出同样的 metric 与失败判断。</p>
@@ -888,8 +864,8 @@ SEGMENTS = [
     Segment(
         "boson-case15",
         "玻色 Case 15",
-        1052,
-        1078,
+        937,
+        963,
         r"""
         <p>Case 15 取 \(J_1=I\)，所以 \(A\) 为实矩阵。
         作者计算 \(J_2^TAJ_2=\pm\bar A\)，写出 convex cone 的
@@ -906,8 +882,8 @@ SEGMENTS = [
     Segment(
         "boson-case16-j1",
         "玻色 Case 16：第一条约束",
-        1079,
-        1111,
+        964,
+        996,
         r"""
         <p>Case 16 取 \(J_1^TgJ_1=-g\)、\(J_1^2=I\)，
         \(J_2^TgJ_2=g\)、\(J_2^2=-I\)，并让二者对易。
@@ -924,8 +900,8 @@ SEGMENTS = [
     Segment(
         "boson-case16-j2",
         "玻色 Case 16：convex cone 与失败判断",
-        1112,
-        1178,
+        997,
+        1063,
         r"""
         <p>作者继续计算 \(J_2^TAJ_2=\pm\bar A\)，列出 convex cone 的
         block relations，写出 \(J_2gA\le0\)，最后判断不存在 contraction semigroup。</p>
@@ -941,8 +917,8 @@ SEGMENTS = [
     Segment(
         "fermion-general",
         "第三节标题与一般费米生成元",
-        1179,
-        1188,
+        1064,
+        1073,
         r"""
         <p>第三节标题译为“新费米情形的检验”。作者先写出一般费米生成元的
         \(4\times4\) block form，并注明 \(C_{11},C_{22},D_{11},D_{22}\)
@@ -962,8 +938,8 @@ SEGMENTS = [
     Segment(
         "fermion-case1-j1",
         r"费米 Case \(1'\)：第一条 anti-linear symmetry",
-        1189,
-        1239,
+        1074,
+        1124,
         r"""
         <p>作者给出 \(J_1=-i\sigma_y\otimes I_N\) 与
         \(J_2=-i\sigma_y\otimes(-i\sigma_y)\otimes I_{N/2}\)，
@@ -982,9 +958,9 @@ SEGMENTS = [
     ),
     Segment(
         "fermion-case1-j2",
-        r"费米 Case \(1'\)：第二个 anti-linear symmetry 与未完成证明",
-        1240,
-        1288,
+        r"费米 Case \(1'\)：第二个 anti-linear symmetry 与其证据范围",
+        1125,
+        1173,
         r"""
         <p>作者此处取 \(J_2^TAJ_2=\bar A\)，再解出
         \(B_{11}=-B_{22}^\dagger\)、\(B_{12}=B_{12}^\dagger\)、
@@ -995,16 +971,19 @@ SEGMENTS = [
         r"""
         <p>“测试一个只有 \(B_{11}\) 的子空间”只能证明这个子空间没有发现负例，
         不能覆盖一般 \(B_{12},C_{11},C_{12}\)。
-        原文在这里明确承认证明未完成，因此 \(1'\) 应保持为 open candidate，
-        而不是无符号定理。</p>
+        本段仍保留旧文字 “I don't know how to prove it”，但新版第一节已经改称
+        \(1'\) 是 \(9'\) 的 special case。两处只有在作者补出 basis change 或
+        subspace inclusion 后才构成完整论证；本段的 block calculation 自身没有展示该包含关系。
+        更重要的是，本报告第 7 节已经给出 \(9'\) 离散关系下的负权重反例，
+        所以“属于 \(9'\)”不能自动成为完整 Fock-weight positivity 的证明。</p>
         """,
         True,
     ),
     Segment(
         "fermion-case5-j1",
         r"费米 Case \(5'\)：\(J_1\) 条件与原文矩阵笔误",
-        1289,
-        1312,
+        1174,
+        1197,
         r"""
         <p>Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，
         \(J_2=-i\sigma_y\otimes I_N\)。作者随后从
@@ -1023,8 +1002,8 @@ SEGMENTS = [
     Segment(
         "fermion-case5-j2",
         r"费米 Case \(5'\)：subgroup、cone 与 “new kind of positivity”",
-        1313,
-        1368,
+        1198,
+        1253,
         r"""
         <p>作者计算 \(J_2^TAJ_2=\pm\bar A\)，分别写出 maximal subgroup
         与 convex cone。最后把 \(J_2gA\le0\) 化成
@@ -1043,8 +1022,8 @@ SEGMENTS = [
     Segment(
         "fermion-case9-j1",
         r"费米 Case \(9'\)：第一条约束",
-        1369,
-        1412,
+        1254,
+        1297,
         r"""
         <p>Case \(9'\) 令 \(J_1,J_2\) 对易。作者给出 diagonal \(J_1\)
         与 off-diagonal \(J_2\)，随后从 \(J_1^TAJ_1=\bar A\)
@@ -1061,8 +1040,8 @@ SEGMENTS = [
     Segment(
         "fermion-case9-j2",
         r"费米 Case \(9'\)：作者的 Hermitian/cone 分解",
-        1413,
-        1486,
+        1298,
+        1371,
         r"""
         <p>作者把 \(J_2\) 的加号分支称为 maximal subgroup，并说得到的是
         Hermitian case；负号分支称为 convex cone。最后写出
@@ -1080,8 +1059,8 @@ SEGMENTS = [
     Segment(
         "fermion-case10-j1",
         r"费米 Case \(10'\)：两个 realization 与第一条约束",
-        1487,
-        1546,
+        1372,
+        1431,
         r"""
         <p>作者先说最简单的 \(J_1=J_2=-i\sigma_y\otimes I_N\)
         有 sign problem；再选择另一个 \(J_2\) 做 block calculation。
@@ -1098,8 +1077,8 @@ SEGMENTS = [
     Segment(
         "fermion-case10-j2",
         r"费米 Case \(10'\)：convex cone 与失败判断",
-        1547,
-        1607,
+        1432,
+        1492,
         r"""
         <p>作者解出 convex cone 中 diagonal \(B,C\) blocks 为零，
         写出 \(iJ_2gA\le0\)，最后说“所以这个 ‘wrong’ case 有 sign problem”。</p>
@@ -1115,8 +1094,8 @@ SEGMENTS = [
     Segment(
         "fermion-case6-j1",
         r"费米 Case \(6'\)：第一条约束",
-        1608,
-        1667,
+        1493,
+        1552,
         r"""
         <p>Case \(6'\) 保持 \(J_1^TgJ_1=-g\) 与 \(J_2^TgJ_2=-g\)，
         令二者都平方为 \(-I\) 且反对易。作者计算第一条约束并写出一般 \(A\)。</p>
@@ -1131,8 +1110,8 @@ SEGMENTS = [
     Segment(
         "fermion-case6-j2",
         r"费米 Case \(6'\)：subgroup、cone 与候选 positivity",
-        1668,
-        1741,
+        1553,
+        1626,
         r"""
         <p>作者解出 maximal subgroup 和 convex cone，写出
         \(iJ_2gA\le0\)，最后说“Good, a new non-hermitian case.
@@ -1149,8 +1128,8 @@ SEGMENTS = [
     Segment(
         "fermion-case7-input",
         r"费米 Case \(7'\)：实矩阵条件",
-        1742,
-        1751,
+        1627,
+        1636,
         r"""
         <p>Case \(7'\) 取 \(J_1=I_{2N}\)，
         \(J_2=-i\sigma_y\otimes I_N\)。原文因此写
@@ -1165,8 +1144,8 @@ SEGMENTS = [
     Segment(
         "fermion-case7-j2",
         r"费米 Case \(7'\)：subgroup、cone 与 “With positivity”",
-        1752,
-        1804,
+        1637,
+        1689,
         r"""
         <p>作者计算 \(J_2^TAJ_2=\pm\bar A\)，写出 maximal subgroup 与
         convex cone，随后给出 \(iJ_2gA\le0\)，以 “With positivity” 结束。</p>
@@ -1185,8 +1164,8 @@ SEGMENTS = [
     Segment(
         "fermion-case8-j1",
         r"费米 Case \(8'\)：第一条约束",
-        1805,
-        1864,
+        1690,
+        1749,
         r"""
         <p>Case \(8'\) 与 Case \(7'\) 有相同的 \(J_2\) 关系和对易关系，
         但令 \(J_1^2=-I\)。作者给出 \(4\times4\) realization，
@@ -1205,8 +1184,8 @@ SEGMENTS = [
     Segment(
         "fermion-case8-j2",
         r"费米 Case \(8'\)：subgroup、cone 与 “With positivity”",
-        1865,
-        1936,
+        1750,
+        1821,
         r"""
         <p>作者给出 maximal subgroup 和 convex cone 的 block forms，
         最后写出 \(iJ_2gA\le0\)，并以 “With positivity” 结束。</p>
@@ -1223,8 +1202,8 @@ SEGMENTS = [
     Segment(
         "proofs-empty",
         "第四节 `Proofs`",
-        1937,
-        1939,
+        1822,
+        1824,
         r"""
         <p>原文最后建立标题 “Proofs”，正文只有一个句点。</p>
         """,
@@ -1264,9 +1243,9 @@ def validate_coverage(note_lines: list[str]) -> None:
         if segment.end < segment.start:
             raise RuntimeError(f"Invalid range for {segment.key}")
         expected = segment.end + 1
-    if expected != 1940:
-        raise RuntimeError(f"Note coverage ends at {expected - 1}, expected 1939")
-    if len(note_lines) < 1939:
+    if expected != 1825:
+        raise RuntimeError(f"Note coverage ends at {expected - 1}, expected 1824")
+    if len(note_lines) < 1824:
         raise RuntimeError("Updated note is shorter than the audited source")
 
 
@@ -1365,7 +1344,7 @@ def main() -> None:
     OUTPUT_PATH.write_text(output, encoding="utf-8")
     print(
         f"Wrote {OUTPUT_PATH.name}: {len(SEGMENTS)} note segments, "
-        "continuous source coverage lines 22-1939, 64 enumeration rows."
+        "continuous source coverage lines 22-1824, 64 enumeration rows."
     )
 
 

@@ -272,7 +272,7 @@
     <div class="meta">
       <div>报告日期：2026-07-26</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
-      <div>note 覆盖：正文第 22--1939 行，连续 43 个阅读单元，原文无删节</div>
+      <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
       <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
     </div>
   </header>
@@ -403,7 +403,7 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
               <details class="note-original" open>
                 <summary>note 原文，第 57--66 行
                 （完整显示）</summary>
-                <div class="note-source"><p>For bosons, we have 7 passed cases:</p>
+                <div class="note-source"><p>For bosons, we have 6 passed cases:</p>
 <p>1)Time reversal symmetry:(two <span
 class="math inline">\(Z_{2}\)</span> anti-linear symmetries) <span
 class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
@@ -627,7 +627,7 @@ class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
-class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed.</p>
+class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
 <p>11)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span
@@ -766,7 +766,7 @@ class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
             <article class="walkthrough-block" id="note-boson-passed-list">
               <h3>1.5 玻色作者版 passed-only 清单</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 118--144 行
+                <summary>note 原文，第 118--141 行
                 （完整显示）</summary>
                 <div class="note-source"><p>List passed ones only:</p>
 <p>1”)Time reversal symmetry:(two <span
@@ -807,19 +807,14 @@ class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
 class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. (mainly
 non-hermitian)</p>
-<p>7”)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
-class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
-class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
-class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
-class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.(also
-non-hermitian)</p>
 </div>
               </details>
               <div class="explanation">
                 <div class="annotation-label">讲解与补全</div>
 
         <p>这次重新编号很容易造成误读：\(1''\) 和 \(2''\) 不是前面 contraction
-        inequality 的通过项；\(3''\)--\(7''\) 才来自该列表。
+        inequality 的通过项；\(3''\)--\(6''\) 才来自该列表。
+        与上一版相比，作者已接受 commuting Case 10 为 Failed，所以总数从 7 降为 6。
         此外，原文没有定义“non-hermitian case”究竟指 \(A\)、\(gA\)、哪一个 block，
         还是对应的 many-body Hamiltonian。因此读到这个标签时，应以紧邻的矩阵关系为准，
         不能把标签本身当作证明。</p>
@@ -831,16 +826,16 @@ non-hermitian)</p>
             <article class="walkthrough-block" id="note-fermion-list">
               <h3>1.6 费米候选条件与 Cases \(1&#x27;\)--\(10&#x27;\)</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 145--185 行
+                <summary>note 原文，第 142--182 行
                 （完整显示）</summary>
-                <div class="note-source"><p>For fermions, we have 8 examined cases:</p>
+                <div class="note-source"><p>For fermions, we have 7 examined cases:</p>
 <p>1’)(two <span class="math inline">\(Z_{2}\)</span> anti-linear
 symmetries)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
-class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. Possible but
-not proved yet.</p>
+class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. It’s just a
+special case of the semigroup case 9’.</p>
 <p>2’)The case corresponding to bosonic reflection positivity—exists but
 not useful.</p>
 <p>Contraction semigroup cases: <span
@@ -918,71 +913,69 @@ class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. Failed</p>
             <article class="walkthrough-block" id="note-fermion-passed-comment">
               <h3>1.7 费米 passed-only 清单与第一节 Comment</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 186--218 行
+                <summary>note 原文，第 183--211 行
                 （完整显示）</summary>
-                <div class="note-source"><p>List passed ones only:</p>
-<p>1”’)(two <span class="math inline">\(Z_{2}\)</span> anti-linear
-symmetries)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
-<span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
-class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
-class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
-class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. Possible but
-not proved yet.</p>
-<p>2”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
+                <div class="note-source"><p>List independent, passed ones only:</p>
+<p>1”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
 class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.(Majorana
 reflection positivity)</p>
-<p>3”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
+<p>2”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
 class="math inline">\(\left\{ J_{1},J_{2}\right\}
 =0\)</span>.(Time-reversal positivity)</p>
+<p>3”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
+class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
+class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
+class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
+class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
+Passed</p>
 <p>4”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
-class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
-class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
-class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
-class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
-Passed</p>
-<p>5”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
 class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
 Passed</p>
+<p>5”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
+class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
+class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
+class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
+class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
 <p>6”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
-class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
-class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
-class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
-class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
-<p><span
-class="math inline">\(7&#39;&#39;&#39;)J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
 class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
-<p>8”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
+<p>7”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span
 class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
 class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span
 class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
-<p><em>Comments</em>: For bosonic case 4” &amp; 7”, is the
-commutator/anti-commutator there really matters? I don’t think so. This
-observation may also apply to fermionic case 2”’ &amp; 6”’, 3”’ &amp;
-7”’, and 4’ &amp; 8”’.</p>
+<p><em>Comments</em>: For fermionic case 1”’ &amp; 5”’, 2”’ &amp; 6”’,
+and 3’ &amp; 7”’, is the commutator/anti-commutator there really
+matters? It has to be checked.</p>
 </div>
               </details>
               <div class="explanation">
                 <div class="annotation-label">讲解与补全</div>
 
         <p>方括号 \([J_1,J_2]=0\) 表示对易，花括号
-        \(\{J_1,J_2\}=0\) 表示反对易。Comment 选出的每一对，其他四条关系相同，
-        只改变这一条，因此它正好提出一个可独立检验的问题：
+        \(\{J_1,J_2\}=0\) 表示反对易。前两组
+        \(1'''\) 与 \(5'''\)、\(2'''\) 与 \(6'''\) 的其他四条关系相同，
+        只改变这一条，因此确实能独立检验：
         anti-linear condition \(J_1^TAJ_1=\bar A\) 作用到
         contraction inequality 后，究竟把同一个半负定方向保留下来，还是把它变成相反方向。
-        这里先把问题按原文保留；答案应在完成后续计算并明确 contraction matrix 后再给出。</p>
+        但原文第三组逐字写成 \(3'\) 与 \(7'''\)；前者保持 \(g\)，后者翻转 \(g\)，
+        所以它们不只差 commutation relation。若作者本意是
+        \(3'''\) 与 \(7'''\)，则只需在 \(3'\) 后补两个 prime，才形成同样的受控配对。</p>
+        <p>
+        作者也把旧版的 “I don't think so” 改成更谨慎的
+        “It has to be checked”。这里先按新版保留问题；答案应在完成后续计算并明确
+        contraction matrix 后再给出。</p>
 
               </div>
             </article>
@@ -991,7 +984,7 @@ observation may also apply to fermionic case 2”’ &amp; 6”’, 3”’ &amp
             <article class="walkthrough-block" id="note-boson-case7">
               <h3>1.8 第二节开头与玻色 Case 7</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 219--228 行
+                <summary>note 原文，第 212--221 行
                 （完整显示）</summary>
                 <div class="note-source"><h4 id="tests-for-new-bosonic-cases">Tests for new bosonic cases</h4>
 <p>Case 7:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
@@ -1045,7 +1038,7 @@ contraction means “physical”.</p>
             <article class="walkthrough-block" id="note-boson-case8-j1">
               <h3>1.9 玻色 Case 8：矩阵选择与 \(J_1^TAJ_1=\bar A\)</h3>
               <details class="note-original">
-                <summary>note 原文，第 229--299 行
+                <summary>note 原文，第 222--292 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 8:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -1165,7 +1158,7 @@ C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
             <article class="walkthrough-block" id="note-boson-case8-j2">
               <h3>1.10 玻色 Case 8：\(J_2\) 分解、maximal subgroup 与 invariant cone</h3>
               <details class="note-original">
-                <summary>note 原文，第 300--382 行
+                <summary>note 原文，第 293--375 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -1290,7 +1283,7 @@ B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
             <article class="walkthrough-block" id="note-boson-case3-j1">
               <h3>1.11 玻色 Case 3：矩阵选择与第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 383--444 行
+                <summary>note 原文，第 376--437 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 3: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -1395,7 +1388,7 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
             <article class="walkthrough-block" id="note-boson-case3-j2">
               <h3>1.12 玻色 Case 3：subgroup、cone 与 “Not a contraction semigroup”</h3>
               <details class="note-original">
-                <summary>note 原文，第 445--502 行
+                <summary>note 原文，第 438--495 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -1489,7 +1482,7 @@ I_{N}\right)A\leq0\]</span></p>
             <article class="walkthrough-block" id="note-boson-case4-j1">
               <h3>1.13 玻色 Case 4：二维 block form</h3>
               <details class="note-original">
-                <summary>note 原文，第 503--542 行
+                <summary>note 原文，第 496--535 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 4: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span
 class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -1562,7 +1555,7 @@ B &amp; C\\
             <article class="walkthrough-block" id="note-boson-case4-j2">
               <h3>1.14 玻色 Case 4：maximal subgroup、cone 与失败判断</h3>
               <details class="note-original">
-                <summary>note 原文，第 543--571 行
+                <summary>note 原文，第 536--564 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
@@ -1610,7 +1603,7 @@ I_{N} &amp; 0\\
             <article class="walkthrough-block" id="note-boson-case9-j1">
               <h3>1.15 玻色 Case 9：两个矩阵实现与第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 572--636 行
+                <summary>note 原文，第 565--629 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 9: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -1699,7 +1692,7 @@ B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
             <article class="walkthrough-block" id="note-boson-case9-j2">
               <h3>1.16 玻色 Case 9：只剩 off-diagonal cone</h3>
               <details class="note-original">
-                <summary>note 原文，第 637--684 行
+                <summary>note 原文，第 630--677 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -1763,11 +1756,11 @@ B^{\dag}_{12} &amp; 0 &amp; C^{T}_{12} &amp; 0\\
             </article>
 
 
-            <article class="walkthrough-block" id="note-boson-case10-j1">
-              <h3>1.17 玻色 Case 10：第一条约束</h3>
-              <details class="note-original">
-                <summary>note 原文，第 685--745 行
-                （完整矩阵推导，点击展开）</summary>
+            <article class="walkthrough-block" id="note-boson-case10">
+              <h3>1.17 玻色 Case 10：新版矩阵与失败判断</h3>
+              <details class="note-original" open>
+                <summary>note 原文，第 678--684 行
+                （完整显示）</summary>
                 <div class="note-source"><p>Case 10: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
 class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span
@@ -1775,209 +1768,64 @@ class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span
 class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
 <p><span
 class="math inline">\(J_{1}=\sigma_{z}\otimes-i\sigma_{y}\otimes
-I_{N/2}\)</span>, <span class="math inline">\(J_{2}=\sigma_{x}\otimes
-I_{N}\)</span> Also a Yin-Kai’s case.</p>
-<p><span class="math inline">\(J_{1}=\left(\begin{array}{cccc}
-0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-0 &amp; 0 &amp; -I_{N/2} &amp; 0
-\end{array}\right)\)</span>, <span
-class="math inline">\(J_{2}=\left(\begin{array}{cccc}
-0 &amp; 0 &amp; I_{N/2} &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; I_{N/2} &amp; 0 &amp; 0
-\end{array}\right)\)</span>.</p>
-<p><span class="math display">\[\begin{aligned}
-J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
-0 &amp; I_{N/2} &amp; 0 &amp; 0\\
--I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
-0 &amp; 0 &amp; I_{N/2} &amp; 0
-\end{array}\right)\left(\begin{array}{cccc}
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
-B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
-\end{array}\right)\left(\begin{array}{cccc}
-0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-0 &amp; 0 &amp; -I_{N/2} &amp; 0
-\end{array}\right)\\
-&amp; =\left(\begin{array}{cccc}
-B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
--B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
--D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}
-\end{array}\right)\left(\begin{array}{cccc}
-0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-0 &amp; 0 &amp; -I_{N/2} &amp; 0
-\end{array}\right)\\
-&amp; =\left(\begin{array}{cccc}
-B_{22} &amp; -B_{21} &amp; -C_{22} &amp; C^{T}_{12}\\
--B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
--D_{22} &amp; D^{T}_{12} &amp; -B^{T}_{22} &amp; B^{T}_{12}\\
-D_{12} &amp; -D_{11} &amp; B^{T}_{21} &amp; -B^{T}_{11}
-\end{array}\right)=\bar{A}
-\end{aligned}\]</span> We have <span
-class="math inline">\(B_{11}=\bar{B}_{22}\)</span>, <span
-class="math inline">\(B_{12}=-\bar{B}_{21}\)</span>, <span
-class="math inline">\(C_{11}=-\bar{C}_{22}\)</span>, <span
-class="math inline">\(C_{12}=C^{\dag}_{12}\)</span>, <span
-class="math inline">\(D_{11}=-\bar{D}_{22}\)</span>, <span
-class="math inline">\(D_{12}=D^{\dag}_{12}\)</span>. <span
-class="math inline">\(A=\left(\begin{array}{cccc}
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
--\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
-D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
-\end{array}\right)\)</span>.</p>
+I_{N/2}\)</span>, <span class="math inline">\(J_{2}=\sigma_{z}\otimes
+I_{N}\)</span> Also a Yin-Kai’s case. There’s no contraction semigroup.
+See ToLeiWang4.pdf for details.</p>
 </div>
               </details>
               <div class="explanation">
                 <div class="annotation-label">讲解与补全</div>
 
-        <p>先检查标题和随后选择的 matrices 是否一致。为避免 \(i\) 的符号混淆，
-        直接记住 \(\sigma_z\sigma_x=-\sigma_x\sigma_z\)。原文选的是</p>
+        <h4>新版 matrices 现在确实满足标题</h4>
+        <p>新版选择</p>
         <div class="scroll">\[
           J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2},
           \qquad
-          J_2=\sigma_x\otimes I_2\otimes I_{N/2}.
+          J_2=\sigma_z\otimes I_N .
         \]</div>
-        <p>于是</p>
+        <p>两个 matrices 的第一个 tensor factor 都是 \(\sigma_z\)，
+        而 \(J_2\) 在其余空间上是 identity，因此</p>
         <div class="scroll">\[
-          \begin{aligned}
-          J_1J_2
-          &=(\sigma_z\sigma_x)\otimes(-i\sigma_y)\otimes I_{N/2},\\
-          J_2J_1
-          &=(\sigma_x\sigma_z)\otimes(-i\sigma_y)\otimes I_{N/2}
-          =-J_1J_2 .
-          \end{aligned}
+          J_1J_2=J_2J_1 .
         \]</div>
-        <div class="correction">
-          <strong>这里是 note 的实质性不一致。</strong>
-          Case 10 标题写 \([J_1,J_2]=0\)，但随后用于全部 block calculation
-          的 matrices 满足 \(\{J_1,J_2\}=0\)。它们实现的是 Case 6：
-          \(J_1^TgJ_1=-g\)、\(J_1^2=-I\)、
-          \(J_2^TgJ_2=-g\)、\(J_2^2=I\)，并且二者反对易。
-        </div>
-        <p>因此下面求出的 \(B_{11}=\bar B_{22}\)、
-        \(B_{12}=-\bar B_{21}\) 等关系，是 Case 6 representative
-        的第一条约束，不是标题所列 abstract Case 10 的计算。
-        这些 relations 只把 blocks 作复共轭配对，并不单独要求
-        \(B_{11}\) Hermitian；到本段末尾也还没有施加 eigenvalue inequality。</p>
-
-              </div>
-            </article>
-
-
-            <article class="walkthrough-block" id="note-boson-case10-j2">
-              <h3>1.18 玻色 Case 10：作者声称存在 contraction semigroup</h3>
-              <details class="note-original">
-                <summary>note 原文，第 746--799 行
-                （完整矩阵推导，点击展开）</summary>
-                <div class="note-source"><p><span class="math display">\[\begin{aligned}
-J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
-0 &amp; 0 &amp; I_{N/2} &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; I_{N/2} &amp; 0 &amp; 0
-\end{array}\right)\left(\begin{array}{cccc}
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
--\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
-D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
-\end{array}\right)\left(\begin{array}{cccc}
-0 &amp; 0 &amp; I_{N/2} &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; I_{N/2} &amp; 0 &amp; 0
-\end{array}\right)\\
-&amp; =\left(\begin{array}{cccc}
-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{\dagger}_{12}\\
-D^{T}_{12} &amp; -\bar{D}_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}\\
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
--\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}
-\end{array}\right)\left(\begin{array}{cccc}
-0 &amp; 0 &amp; I_{N/2} &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
-0 &amp; I_{N/2} &amp; 0 &amp; 0
-\end{array}\right)\\
-&amp; =\left(\begin{array}{cccc}
--B^{T}_{11} &amp; B^{\dagger}_{12} &amp; D_{11} &amp; D_{12}\\
--B^{T}_{12} &amp; -B^{\dag}_{11} &amp; D^{T}_{12} &amp; -\bar{D}_{11}\\
-C_{11} &amp; C_{12} &amp; B_{11} &amp; B_{12}\\
-C^{T}_{12} &amp; -\bar{C}_{11} &amp; -\bar{B}_{12} &amp; \bar{B}_{11}
-\end{array}\right)=\pm\bar{A}
-\end{aligned}\]</span> For the generators of the maximal subgroup, <span
-class="math inline">\(B_{11}=-B^{\dagger}_{11}\)</span>, <span
-class="math inline">\(B_{12}=B^{T}_{12}\)</span>, <span
-class="math inline">\(D_{11}=\bar{C}_{11},\)</span><span
-class="math inline">\(D_{12}=\bar{C}_{12}\)</span>. <span
-class="math inline">\(A=\left(\begin{array}{cccc}
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
--\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp;
-B^{\dagger}_{12}\\
-C^{\dag}_{12} &amp; -C_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
-\end{array}\right)\)</span>.</p>
-<p>For the generators in the convex cone, <span
-class="math inline">\(B_{11}=B^{\dagger}_{11}\)</span>, <span
-class="math inline">\(B_{12}=-B^{T}_{12}\)</span>, <span
-class="math inline">\(D_{11}=\bar{-C_{11}},\)</span><span
-class="math inline">\(D_{12}=\bar{-C_{12}}\)</span>. <span
-class="math inline">\(A=\left(\begin{array}{cccc}
-B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
--\bar{B}_{12} &amp; \bar{B}_{11} &amp; C^{T}_{12} &amp; -\bar{C}_{11}\\
--\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp;
-B^{\dagger}_{12}\\
--C^{\dag}_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B^{\dag}_{11}
-\end{array}\right)\)</span>. There’s a contration semigroup.</p>
-</div>
-              </details>
-              <div class="explanation">
-                <div class="annotation-label">讲解与补全</div>
-
-        <p>由于这一整段沿用上一段的显式 matrices，它继续算的仍是
-        anti-commuting Case 6。对这些 matrices，原文找到的 cone
-        不是虚假的；还可以给出一个最简单的 strict point：</p>
+        <p>同时可逐项验算</p>
         <div class="scroll">\[
-          J_2g=\sigma_z\otimes I_N,\qquad
-          A=-\gamma\,\sigma_z\otimes I_N,\qquad \gamma>0 .
+          J_1^TgJ_1=-g,\qquad J_1^2=-I_{2N},\qquad
+          J_2^TgJ_2=-g,\qquad J_2^2=I_{2N}.
         \]</div>
-        <p>直接验算得到</p>
+        <p>所以新版 representative 与 Case 10 标题一致。旧版
+        \(J_2=\sigma_x\otimes I_N\) 会与 \(J_1\) 反对易，实际落入 Case 6；
+        新版已经修复上一版报告指出的错配。</p>
+
+        <h4>为什么 commuting Case 10 只能停在边界</h4>
+        <p>对任何同时满足 \(J_1^TAJ_1=\bar A\) 的 \(A\)，直接使用
+        \(J_1,J_2\) 都翻转 \(g\) 且彼此对易，可得</p>
         <div class="scroll">\[
-          gA+A^Tg=0,\qquad
-          J_1^TAJ_1=\bar A,\qquad
-          J_2gA+A^\dagger J_2g=-2\gamma I_{2N}<0 .
+          J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1
+          =-\left(J_2gA+A^\dagger J_2g\right).
         \]</div>
-        <p>所以原文最后的 “There's a contraction semigroup” 可以支持
-        Case 6；问题在于它被放在了 Case 10 的标题下面。</p>
-        <p>如果真正按 Case 10 标题另找一组<strong>对易</strong>的
-        \(J_1,J_2\)，则结论相反。设</p>
+        <p>左边由复共轭和正交 basis change 得到，保留 Hermitian matrix 的
+        eigenvalue signs；右边却把所有 signs 翻转。如果
+        \(J_2gA+A^\dagger J_2g\le0\)，同一个 matrix 也必须半正定，
+        因而只能</p>
         <div class="scroll">\[
-          J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
-          =-(J_2gA+A^\dagger J_2g).
+          J_2gA+A^\dagger J_2g=0 .
         \]</div>
-        <p>左边与原矩阵有相同的 eigenvalue signs；若右边多出负号，
-        半负定和半正定必须同时成立。因此这里只允许等号边界，
-        abstract Case 10 没有 strict contraction。简言之：这份手算没有证明
-        “Case 10 passed”；它用一组实际属于 Case 6 的 matrices，
-        再次算出了 Case 6 passed。</p>
+        <p>这说明 Case 10 只有 maximal-subgroup boundary，没有 strict
+        contraction interior。新版的 Failed 判断与本报告的解析分类、Octave
+        穷举完全一致。</p>
+
+        <p>原文最后引用 “ToLeiWang4.pdf”，但当前仓库中没有该文件。
+        因此本报告不能核对其中的具体推导；上面的直接矩阵证明不依赖该外部文件。</p>
 
               </div>
             </article>
 
 
             <article class="walkthrough-block" id="note-boson-case11-j1">
-              <h3>1.19 玻色 Case 11：第一条约束</h3>
+              <h3>1.18 玻色 Case 11：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 800--860 行
+                <summary>note 原文，第 685--745 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 11: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2064,9 +1912,9 @@ B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
 
 
             <article class="walkthrough-block" id="note-boson-case11-j2">
-              <h3>1.20 玻色 Case 11：convex cone 与失败判断</h3>
+              <h3>1.19 玻色 Case 11：convex cone 与失败判断</h3>
               <details class="note-original">
-                <summary>note 原文，第 861--908 行
+                <summary>note 原文，第 746--793 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -2133,9 +1981,9 @@ I_{N/2}\right)A\)</span></p>
 
 
             <article class="walkthrough-block" id="note-boson-case12-j1">
-              <h3>1.21 玻色 Case 12：第一条约束</h3>
+              <h3>1.20 玻色 Case 12：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 909--969 行
+                <summary>note 原文，第 794--854 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 12: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -2221,9 +2069,9 @@ C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
 
 
             <article class="walkthrough-block" id="note-boson-case12-j2">
-              <h3>1.22 玻色 Case 12：convex cone 与失败判断</h3>
+              <h3>1.21 玻色 Case 12：convex cone 与失败判断</h3>
               <details class="note-original">
-                <summary>note 原文，第 970--1017 行
+                <summary>note 原文，第 855--902 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -2290,9 +2138,9 @@ I_{N/2}\right)A\)</span></p>
 
 
             <article class="walkthrough-block" id="note-boson-case13">
-              <h3>1.23 玻色 Case 13</h3>
+              <h3>1.22 玻色 Case 13</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 1018--1032 行
+                <summary>note 原文，第 903--917 行
                 （完整显示）</summary>
                 <div class="note-source"><p>Case 13: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2329,9 +2177,9 @@ semigroup.</p>
 
 
             <article class="walkthrough-block" id="note-boson-case14">
-              <h3>1.24 玻色 Case 14</h3>
+              <h3>1.23 玻色 Case 14</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 1033--1051 行
+                <summary>note 原文，第 918--936 行
                 （完整显示）</summary>
                 <div class="note-source"><p>Case 14: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -2370,9 +2218,9 @@ semigroup.</p>
 
 
             <article class="walkthrough-block" id="note-boson-case15">
-              <h3>1.25 玻色 Case 15</h3>
+              <h3>1.24 玻色 Case 15</h3>
               <details class="note-original">
-                <summary>note 原文，第 1052--1078 行
+                <summary>note 原文，第 937--963 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 15: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2417,9 +2265,9 @@ contraction semigroup.</p>
 
 
             <article class="walkthrough-block" id="note-boson-case16-j1">
-              <h3>1.26 玻色 Case 16：第一条约束</h3>
+              <h3>1.25 玻色 Case 16：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 1079--1111 行
+                <summary>note 原文，第 964--996 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 16: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2472,9 +2320,9 @@ class="math inline">\(C=\bar{D}\)</span>.</p>
 
 
             <article class="walkthrough-block" id="note-boson-case16-j2">
-              <h3>1.27 玻色 Case 16：convex cone 与失败判断</h3>
+              <h3>1.26 玻色 Case 16：convex cone 与失败判断</h3>
               <details class="note-original">
-                <summary>note 原文，第 1112--1178 行
+                <summary>note 原文，第 997--1063 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -2564,9 +2412,9 @@ B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
 
 
             <article class="walkthrough-block" id="note-fermion-general">
-              <h3>1.28 第三节标题与一般费米生成元</h3>
+              <h3>1.27 第三节标题与一般费米生成元</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 1179--1188 行
+                <summary>note 原文，第 1064--1073 行
                 （完整显示）</summary>
                 <div class="note-source"><h4 id="tests-for-new-fermionic-cases">Tests for new fermionic
 cases</h4>
@@ -2599,9 +2447,9 @@ class="math inline">\(D_{22}=-D^{T}_{22}\)</span>.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case1-j1">
-              <h3>1.29 费米 Case \(1&#x27;\)：第一条 anti-linear symmetry</h3>
+              <h3>1.28 费米 Case \(1&#x27;\)：第一条 anti-linear symmetry</h3>
               <details class="note-original">
-                <summary>note 原文，第 1189--1239 行
+                <summary>note 原文，第 1074--1124 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 1’ <span class="math inline">\(J_{1}=-i\sigma_{y}\otimes
 I_{N}=\left(\begin{array}{cccc}
@@ -2673,9 +2521,9 @@ class="math inline">\(C=-\bar{D}\)</span>.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case1-j2">
-              <h3>1.30 费米 Case \(1&#x27;\)：第二个 anti-linear symmetry 与未完成证明</h3>
+              <h3>1.29 费米 Case \(1&#x27;\)：第二个 anti-linear symmetry 与其证据范围</h3>
               <details class="note-original">
-                <summary>note 原文，第 1240--1288 行
+                <summary>note 原文，第 1125--1173 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -2736,17 +2584,20 @@ class="math inline">\(B_{11}\neq0\)</span>, it passed the test.</p>
 
         <p>“测试一个只有 \(B_{11}\) 的子空间”只能证明这个子空间没有发现负例，
         不能覆盖一般 \(B_{12},C_{11},C_{12}\)。
-        原文在这里明确承认证明未完成，因此 \(1'\) 应保持为 open candidate，
-        而不是无符号定理。</p>
+        本段仍保留旧文字 “I don't know how to prove it”，但新版第一节已经改称
+        \(1'\) 是 \(9'\) 的 special case。两处只有在作者补出 basis change 或
+        subspace inclusion 后才构成完整论证；本段的 block calculation 自身没有展示该包含关系。
+        更重要的是，本报告第 7 节已经给出 \(9'\) 离散关系下的负权重反例，
+        所以“属于 \(9'\)”不能自动成为完整 Fock-weight positivity 的证明。</p>
 
               </div>
             </article>
 
 
             <article class="walkthrough-block" id="note-fermion-case5-j1">
-              <h3>1.31 费米 Case \(5&#x27;\)：\(J_1\) 条件与原文矩阵笔误</h3>
+              <h3>1.30 费米 Case \(5&#x27;\)：\(J_1\) 条件与原文矩阵笔误</h3>
               <details class="note-original">
-                <summary>note 原文，第 1289--1312 行
+                <summary>note 原文，第 1174--1197 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 5’ <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2795,9 +2646,9 @@ class="math inline">\(D=-\bar{D}\)</span>.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case5-j2">
-              <h3>1.32 费米 Case \(5&#x27;\)：subgroup、cone 与 “new kind of positivity”</h3>
+              <h3>1.31 费米 Case \(5&#x27;\)：subgroup、cone 与 “new kind of positivity”</h3>
               <details class="note-original">
-                <summary>note 原文，第 1313--1368 行
+                <summary>note 原文，第 1198--1253 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
@@ -2875,9 +2726,9 @@ be a new kind of positivity.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case9-j1">
-              <h3>1.33 费米 Case \(9&#x27;\)：第一条约束</h3>
+              <h3>1.32 费米 Case \(9&#x27;\)：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 1369--1412 行
+                <summary>note 原文，第 1254--1297 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 9’: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -2947,9 +2798,9 @@ class="math inline">\(D_{12}=\bar{D}_{12}\)</span>.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case9-j2">
-              <h3>1.34 费米 Case \(9&#x27;\)：作者的 Hermitian/cone 分解</h3>
+              <h3>1.33 费米 Case \(9&#x27;\)：作者的 Hermitian/cone 分解</h3>
               <details class="note-original">
-                <summary>note 原文，第 1413--1486 行
+                <summary>note 原文，第 1298--1371 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -3047,9 +2898,9 @@ C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B_{11}\\
 
 
             <article class="walkthrough-block" id="note-fermion-case10-j1">
-              <h3>1.35 费米 Case \(10&#x27;\)：两个 realization 与第一条约束</h3>
+              <h3>1.34 费米 Case \(10&#x27;\)：两个 realization 与第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 1487--1546 行
+                <summary>note 原文，第 1372--1431 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 10’: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -3133,9 +2984,9 @@ C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
 
 
             <article class="walkthrough-block" id="note-fermion-case10-j2">
-              <h3>1.36 费米 Case \(10&#x27;\)：convex cone 与失败判断</h3>
+              <h3>1.35 费米 Case \(10&#x27;\)：convex cone 与失败判断</h3>
               <details class="note-original">
-                <summary>note 原文，第 1547--1607 行
+                <summary>note 原文，第 1432--1492 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -3214,9 +3065,9 @@ C^{\dagger}_{12} &amp; 0 &amp; -B^{T}_{12} &amp; 0
 
 
             <article class="walkthrough-block" id="note-fermion-case6-j1">
-              <h3>1.37 费米 Case \(6&#x27;\)：第一条约束</h3>
+              <h3>1.36 费米 Case \(6&#x27;\)：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 1608--1667 行
+                <summary>note 原文，第 1493--1552 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 6’ <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -3299,9 +3150,9 @@ B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
 
 
             <article class="walkthrough-block" id="note-fermion-case6-j2">
-              <h3>1.38 费米 Case \(6&#x27;\)：subgroup、cone 与候选 positivity</h3>
+              <h3>1.37 费米 Case \(6&#x27;\)：subgroup、cone 与候选 positivity</h3>
               <details class="note-original">
-                <summary>note 原文，第 1668--1741 行
+                <summary>note 原文，第 1553--1626 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -3394,9 +3245,9 @@ positivity.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case7-input">
-              <h3>1.39 费米 Case \(7&#x27;\)：实矩阵条件</h3>
+              <h3>1.38 费米 Case \(7&#x27;\)：实矩阵条件</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 1742--1751 行
+                <summary>note 原文，第 1627--1636 行
                 （完整显示）</summary>
                 <div class="note-source"><p>Case 7’: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
 <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span
@@ -3425,9 +3276,9 @@ class="math inline">\(A\)</span> is real.</p>
 
 
             <article class="walkthrough-block" id="note-fermion-case7-j2">
-              <h3>1.40 费米 Case \(7&#x27;\)：subgroup、cone 与 “With positivity”</h3>
+              <h3>1.39 费米 Case \(7&#x27;\)：subgroup、cone 与 “With positivity”</h3>
               <details class="note-original">
-                <summary>note 原文，第 1752--1804 行
+                <summary>note 原文，第 1637--1689 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
@@ -3500,9 +3351,9 @@ B &amp; C\\
 
 
             <article class="walkthrough-block" id="note-fermion-case8-j1">
-              <h3>1.41 费米 Case \(8&#x27;\)：第一条约束</h3>
+              <h3>1.40 费米 Case \(8&#x27;\)：第一条约束</h3>
               <details class="note-original">
-                <summary>note 原文，第 1805--1864 行
+                <summary>note 原文，第 1690--1749 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p>Case 8’: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
 <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span
@@ -3590,9 +3441,9 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
 
 
             <article class="walkthrough-block" id="note-fermion-case8-j2">
-              <h3>1.42 费米 Case \(8&#x27;\)：subgroup、cone 与 “With positivity”</h3>
+              <h3>1.41 费米 Case \(8&#x27;\)：subgroup、cone 与 “With positivity”</h3>
               <details class="note-original">
-                <summary>note 原文，第 1865--1936 行
+                <summary>note 原文，第 1750--1821 行
                 （完整矩阵推导，点击展开）</summary>
                 <div class="note-source"><p><span class="math display">\[\begin{aligned}
 J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
@@ -3686,9 +3537,9 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
             <article class="walkthrough-block" id="note-proofs-empty">
-              <h3>1.43 第四节 `Proofs`</h3>
+              <h3>1.42 第四节 `Proofs`</h3>
               <details class="note-original" open>
-                <summary>note 原文，第 1937--1939 行
+                <summary>note 原文，第 1822--1824 行
                 （完整显示）</summary>
                 <div class="note-source"><h4 id="proofs">Proofs</h4>
 <p>.</p>
@@ -3716,15 +3567,22 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       玻色子我只列举了度规是J2*g的情形，其实还有度规是i*J2*g的情形，取决于J2满足的两个关系式。
       费米子我只列举了一类J2。”
     </div>
+    <div class="correction">
+      <strong>消息与新版 note 的时间关系。</strong>
+      上面保留的是合作者当时发送的原话。此后更新的 note 已把玻色独立 passed
+      cases 从 7 改为 6，把费米独立 examined cases 从 8 改为 7；
+      以下解释以当前 note 为准，并在涉及旧计数时说明它属于消息发送时的版本。
+    </div>
 
     <div class="quote-explain">
       <div class="source-quote">“这是我手推的结果，这是玻色子穷举了16种情形，费米子穷举了8种情形之后的结果。”</div>
       <p>
-        现在可以直接对照已经读完的 note：第一节玻色列表编号到 Case 16，
+        这句话描述的是更新前的手算进度。当前 note 第一节玻色列表仍编号到 Case 16，
         第二节实际展开 Cases 7、8、3、4、9--16；第一节费米列表在固定一类 \(J_2\)
         后改变 \(J_1\) 和 commutation relation，第三节展开了
         \(1',5',9',10',6',7',8'\)。这里的“手推”就是报告第一部分看到的大量
-        \(J_1^TAJ_1\) 与 \(J_2^TAJ_2\) block multiplication。
+        \(J_1^TAJ_1\) 与 \(J_2^TAJ_2\) block multiplication。新版把
+        \(1'\) 归入 \(9'\) 的 special case，因此称 7 个独立费米情形。
       </p>
     </div>
 
@@ -4154,7 +4012,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <p>
       note 的 Cases 7 与 8 满足：\(J_2^2=I\)，且 \(J_1\) 保持 \(g\)、
       \(J_2\) 翻转 \(g\)、二者对易。因此两者都有 strict contraction；
-      \(J_1^2\) 从 \(I\) 攓成 \(-I\) 不影响结论。
+      \(J_1^2\) 从 \(I\) 改成 \(-I\) 不影响结论。
     </p>
     <p>
       Cases 3、4、9 的 \(J_2^2=I\) 虽然正确，但 commutation relation
@@ -4163,14 +4021,13 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       被迫为零，同样没有 strict interior。
     </p>
     <p>
-      Case 10 是 note 中需要修正的具体条目，但错误发生得比 cone inequality 更早：
-      标题声明 \([J_1,J_2]=0\)，随后实际使用的
+      新版已经修正 Case 10。现在取
       \(J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2}\) 与
-      \(J_2=\sigma_x\otimes I_N\) 却满足
-      \(\{J_1,J_2\}=0\)。因此第 685--799 行的全部 block calculation
-      实际计算的是 Case 6。它找到的 strict cone 对 Case 6 是正确的，
-      但不能用来支持 abstract Case 10；真正的 commuting Case 10
-      会把 contraction matrix 变号，只能停在等号边界。
+      \(J_2=\sigma_z\otimes I_N\)，二者确实对易；作者也把 Case 10
+      从 Passed 改为 Failed，并删除旧版误用
+      \(J_2=\sigma_x\otimes I_N\) 后得到的长 block calculation。
+      新版判断与解析结果一致：两个 \(J\) 都翻转 \(g\) 时需要反对易才能保留
+      strict cone，commuting Case 10 只能停在等号边界。
     </p>
 
     <h3>6.2 第一节 Comment 的答案</h3>
@@ -4181,16 +4038,16 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         </thead>
         <tbody>
           <tr>
-            <td>玻色 \(4''\) 与 \(7''\)：\(J_1,J_2\) 都翻转 \(g\)</td>
-            <td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
+            <td>费米 \(1'''\) 与 \(5'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
           </tr>
           <tr>
             <td>费米 \(2'''\) 与 \(6'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
             <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
           </tr>
           <tr>
-            <td>费米 \(3'''\) 与 \(7'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
-            <td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+            <td>若原文 \(3'\) 是 \(3'''\) 的笔误：\(3'''\) 与 \(7'''\) 都翻转 \(g\)</td>
+            <td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
           </tr>
         </tbody>
       </table>
@@ -4198,15 +4055,20 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <p>
       因此 commutator/anti-commutator 确实重要。它不是统一地“总要对易”或“总要反对易”；
       要看 \(J_1\) 与 \(J_2\) 对 \(g\) 的作用是同号还是异号。
+      按原文逐字读取，\(3'\) 与 \(7'''\) 还改变了 \(J_1^TgJ_1\) 的正负号，
+      不能单独检验 commutator 的作用；上表第三行只是在
+      \(3'\) 实为 \(3'''\) 的合理猜测下给出的受控比较。
     </p>
 
-    <h3>6.3 更新 note 中可直接看出的文字与公式问题</h3>
+    <h3>6.3 新版已经修正的内容与仍需核对的问题</h3>
     <ul>
-      <li>玻色 Case 10 标题要求 \([J_1,J_2]=0\)，但随后选取的显式 matrices 实际满足 \(\{J_1,J_2\}=0\)，所以该段手算属于 Case 6。</li>
+      <li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
+      <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
+      <li>Case 10 引用 `ToLeiWang4.pdf`，但仓库内没有该文件，本报告无法核对其内容。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
-      <li>`contration`、`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
+      <li>`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
       <li>最后的 `Proofs` 节为空，所以总分类和完整 weight positivity 尚未在 note 内得到解析证明。</li>
     </ul>
   </section>
@@ -4314,7 +4176,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
     <h3>8.3 现在不应写入文章的表述</h3>
     <ul>
-      <li>不应写“玻色有 7 个 passed cases、费米有 8 个 passed cases”，因为这些数字混合了不同判据与未证明候选。</li>
+      <li>不应把新版“玻色 6 个、费米 7 个独立 cases”的计数直接写成完整无符号分类；这些数字仍混合不同 positivity mechanisms，而且不是全部 32 类的穷举计数。</li>
       <li>不应写 commutator/anti-commutator 无关；它决定 strict cone 是否存在。</li>
       <li>不应把 note 的费米 inequality 称为当前 Nambu weight 的充分条件。</li>
       <li>不应仅凭 64 类抽象矩阵穷举就重画文章的物理分类图。</li>
@@ -4326,7 +4188,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <div class="summary-grid">
       <div class="summary-item established">
         <strong>完整覆盖 note</strong>
-        更新 note 第 22--1939 行已经按原顺序分成 43 个单元。
+        更新 note 第 22--1824 行已经按原顺序分成 42 个单元。
         每段原文均在本报告内渲染，并紧跟公式讲解与必要的推导补全。
       </div>
       <div class="summary-item established">
@@ -4340,10 +4202,11 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         commutator/anti-commutator 确实重要。
         两个 \(J\) 对 \(g\) 同号作用时必须反对易，异号作用时必须对易。
       </div>
-      <div class="summary-item refuted">
-        <strong>需要修正的主张</strong>
-        玻色 Case 10 标题下的 matrices 实际属于 Case 6；abstract Case 10 没有 strict interior。
-        note 的费米 inequality 在当前 Nambu convention 下不能保证完整 Fock weight 非负。
+      <div class="summary-item corrected">
+        <strong>新版修正与剩余问题</strong>
+        Case 10 的 representative 和 Failed 标签现已与解析分类一致。
+        但 note 的费米 inequality 在当前 Nambu convention 下仍不能保证完整 Fock weight 非负，
+        新增的 “\(1'\) 是 \(9'\) special case” 也不消除这一反例。
       </div>
     </div>
     <p>
@@ -4374,7 +4237,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       <table>
         <thead><tr><th>文件</th><th>内容</th></tr></thead>
         <tbody>
-          <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1939 行连续覆盖、渲染公式并生成本 HTML</td></tr>
+          <tr><td><a href="analysis/build_reader_report.py">build_reader_report.py</a></td><td>逐段抽取 note、检查第 22--1824 行连续覆盖、渲染公式并生成本 HTML</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、strict witness 与 residual checks</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
           <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>完整 64 行原始计算结果</td></tr>

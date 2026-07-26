@@ -1,7 +1,7 @@
 statistics,note_pair,s1,q1,s2,q2,r,canonical_strict,kappa,meaning
-boson,4doubleprime,-1,-1,-1,1,-1,1,1,compatible_strict_interior
-boson,7doubleprime,-1,-1,-1,1,1,0,-1,reality_maps_negative_cone_to_positive_cone
-fermion,2tripleprime,1,1,-1,-1,-1,0,-1,reality_maps_negative_cone_to_positive_cone
-fermion,6tripleprime,1,1,-1,-1,1,1,1,compatible_strict_interior
-fermion,3tripleprime,1,-1,-1,-1,-1,0,-1,reality_maps_negative_cone_to_positive_cone
-fermion,7tripleprime,1,-1,-1,-1,1,1,1,compatible_strict_interior
+fermion,1tripleprime,1,1,-1,-1,-1,0,-1,reality_maps_negative_cone_to_positive_cone
+fermion,5tripleprime,1,1,-1,-1,1,1,1,compatible_strict_interior
+fermion,2tripleprime,1,-1,-1,-1,-1,0,-1,reality_maps_negative_cone_to_positive_cone
+fermion,6tripleprime,1,-1,-1,-1,1,1,1,compatible_strict_interior
+fermion,3tripleprime,-1,1,-1,-1,-1,1,1,compatible_strict_interior
+fermion,7tripleprime,-1,1,-1,-1,1,0,-1,reality_maps_negative_cone_to_positive_cone
