@@ -1,0 +1,17 @@
+statistics,class_name,n,J1_word,J2_word,metric,s1,q1,s2,q2,r,eta,A0,maximal_subgroup_dimension,invariant_cone_dimension,maximal_subgroup_basis,invariant_cone_basis,A0_physical_adjoint,A0_number_conserving,A0_boson_stability,relation_residual,lie_residual,reality_residual,cone_residual
+boson,B-J2g-s1+q1+,2,IX,XI,J2g,1,1,-1,1,1,ZI,-ZI,4,6,"XI;XX;iYZ;iZZ","iIY;iXZ;YI;YX;ZI;ZX",Hermitian,1,grand_canonical_stable,0,0,0,0
+boson,B-J2g-s1+q1-,2,IY,XI,J2g,1,-1,-1,1,1,ZI,-ZI,6,4,"IY;XI;iYX;iYZ;iZX;iZZ","iXX;iXZ;YI;ZI",Hermitian,1,grand_canonical_stable,0,0,0,0
+boson,B-J2g-s1-q1+,1,Z,X,J2g,-1,1,-1,1,-1,Z,-Z,1,2,"iY","iX;Z",Hermitian,1,grand_canonical_stable,0,0,0,0
+boson,B-J2g-s1-q1-,2,ZY,XI,J2g,-1,-1,-1,1,-1,ZI,-ZI,6,4,"IY;XX;XZ;iYI;iZX;iZZ","iXI;YX;YZ;ZI",Hermitian,1,grand_canonical_stable,0,0,0,0
+boson,B-iJ2g-s1+q1+,2,IX,YY,iJ2g,1,1,1,1,-1,iIY,-iIY,4,6,"XX;YI;iYZ;ZX","iIY;XI;iXZ;YX;ZI;iZZ",Hermitian,1,mixed_sign_one_body_spectrum,0,0,0,0
+boson,B-iJ2g-s1+q1-,2,YX,YY,iJ2g,1,-1,1,1,-1,iIY,-iIY,6,4,"iXI;XZ;YI;iYZ;iZI;ZZ","iIY;iXX;YX;iZX",Hermitian,1,mixed_sign_one_body_spectrum,0,0,0,0
+boson,B-iJ2g-s1-q1+,2,ZX,YY,iJ2g,-1,1,1,1,1,iIY,-iIY,4,6,"iXI;XZ;iYX;ZX","iIY;iXX;iYI;YZ;ZI;iZZ",Hermitian,1,mixed_sign_one_body_spectrum,0,0,0,0
+boson,B-iJ2g-s1-q1-,3,XIY,YYX,iJ2g,-1,-1,1,1,1,iIYX,-iIYX,20,16,"IXY;IYI;iIYZ;IZY;iXIX;XXI;iXXZ;XYY;XZI;iXZZ;YIX;iYXI;YXZ;iYYY;iYZI;YZZ;iZII;ZIZ;ZXX;ZZX","IIY;iIYX;XII;iXIZ;iXXX;iXZX;iYII;YIZ;YXX;YZX;ZIX;iZXI;ZXZ;iZYY;iZZI;ZZZ",Hermitian,1,mixed_sign_one_body_spectrum,0,0,0,0
+fermion,F-J2g-s1+q1+,2,IX,YI,J2g,1,1,-1,-1,1,ZI,-ZI,2,4,"iXY;iZZ","iIY;iYY;ZI;ZX",Hermitian,1,not_applicable,0,0,0,0
+fermion,F-J2g-s1+q1-,2,IY,YI,J2g,1,-1,-1,-1,1,ZI,-ZI,4,2,"IY;YY;iZX;iZZ","XY;ZI",Hermitian,1,not_applicable,0,0,0,0
+fermion,F-J2g-s1-q1+,1,Z,Y,J2g,-1,1,-1,-1,-1,Z,-Z,0,1,"","Z",Hermitian,1,not_applicable,0,0,0,0
+fermion,F-J2g-s1-q1-,2,ZY,YI,J2g,-1,-1,-1,-1,-1,ZI,-ZI,4,2,"IY;iXY;iZX;iZZ","iYY;ZI",Hermitian,1,not_applicable,0,0,0,0
+fermion,F-iJ2g-s1+q1+,2,IX,IY,iJ2g,1,1,1,-1,-1,iXY,-iXY,2,4,"ZI;iZZ","iIY;iXY;iYY;ZX",Hermitian,0,not_applicable,0,0,0,0
+fermion,F-iJ2g-s1+q1-,3,IXY,IYI,iJ2g,1,-1,1,-1,-1,iXYI,-iXYI,16,12,"IIY;IYX;IYZ;iIZY;XIY;XYX;XYZ;iXZY;YIY;YYX;YYZ;iYZY;ZII;iZXX;iZXZ;iZZI","IXY;iIYI;XXY;iXYI;YXY;iYYI;iZIX;iZIZ;ZXI;iZYY;ZZX;ZZZ",Hermitian,0,not_applicable,0,0,0,0
+fermion,F-iJ2g-s1-q1+,2,ZI,IY,iJ2g,-1,1,1,-1,1,iXY,-iXY,2,4,"IY;ZI","iXY;iYY;ZX;ZZ",Hermitian,0,not_applicable,0,0,0,0
+fermion,F-iJ2g-s1-q1-,2,YI,IY,iJ2g,-1,-1,1,-1,1,iXY,-iXY,4,2,"IY;YY;iZX;iZZ","iXY;iZI",Hermitian,0,not_applicable,0,0,0,0

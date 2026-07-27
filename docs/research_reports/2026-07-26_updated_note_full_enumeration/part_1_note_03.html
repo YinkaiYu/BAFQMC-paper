@@ -1,0 +1,874 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>ToYinkaiYu-20260726 note 逐段讲解 3/4</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>
+<code class="report-file">ToYinkaiYu-20260726.tex</code>
+<span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
+</h1>
+<div class="meta">
+<div>报告日期：2026-07-28</div>
+<div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+<div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
+        <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
+<div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
+<div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
+</div>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">上一卷 note</a><a href="part_1_note_04.html">下一卷 note</a></nav><section id="note-walkthrough-3"><h2>1. note 原文与逐段讲解，第 3/4 卷</h2><p>
+      每个灰色框都是从更新 note 对应行直接转换得到的原文。短段落默认展开；
+      很长的 block-matrix multiplication 默认折叠，以免遮断阅读节奏，点击标题即可查看完整公式。
+      紧随其后的“讲解与补全”从本段首次出现的对象讲起，解释公式之间省略的逻辑，
+      并在相应位置指出局部笔误或尚未证明的跳步。
+    </p><article class="walkthrough-block" id="note-boson-case13">
+<h3>1.22 玻色 Case 13</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 903--917 行
+                （完整显示）</summary>
+<div class="note-source"><p>Case 13: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\sigma_{x}\otimes I_{N}\)</span>,
+<span class="math inline">\(J_{2}=-i\sigma_{y}\otimes
+I_{N}\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\)</span>.</p>
+<p>metrix is <span class="math inline">\(-I_{N}\)</span>, no contraction
+semigroup.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>直接相乘得到 \(J_2g=-I_{2N}\)，所以原文的 \(-I_N\)
+        是维数上的简写或笔误。若 metric 为负单位阵，标准条件变成
+        \(A+A^\dagger\ge0\)，它本身可以定义 ordinary expansion/contraction
+        direction；但在玻色 Lie-algebra 与本 Case 的 symmetry constraints 下，
+        trace argument 仍排除 strict seminegative interior。
+        因此“没有 semigroup”的可靠依据不是 metric 等于常数本身，而是约束后的 trace。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case14">
+<h3>1.23 玻色 Case 14</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 918--936 行
+                （完整显示）</summary>
+<div class="note-source"><p>Case 14: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\sigma_{x}\otimes-i\sigma_{y}\otimes
+I_{N/2}\)</span>, <span class="math inline">\(J_{2}=-i\sigma_{y}\otimes
+I_{N}\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\)</span>.</p>
+<p>metrix is <span class="math inline">\(-I_{N}\)</span>, no contraction
+semigroup.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>这里同样有 \(J_2g=-I_{2N}\)，原文写成 \(-I_N\)。
+        改变 \(J_1^2\) 不会解除由 \(J_2^2=-I\) 导致的玻色 trace obstruction，
+        所以两项成对失败。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case15">
+<h3>1.24 玻色 Case 15</h3>
+<details class="note-original">
+<summary>note 原文，第 937--963 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 15: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>,
+<span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=I_{N}\)</span>, <span class="math inline">\(J_{2}=-i\sigma_{y}\otimes I_{N}\)</span>.</p>
+<p><span class="math inline">\(A\)</span> is real.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)=\pm\bar{A}
+\end{aligned}\]</span> For the convex cone <span class="math inline">\(B=B^{\dagger}\)</span>, <span class="math inline">\(C=\bar{D}\)</span>.</p>
+<p><span class="math inline">\(J_{2}g=-I_{N}\)</span>, so there is no
+contraction semigroup.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>原文的 \(J_1=I_N\) 应按上下文读作 \(I_{2N}\)。
+        \(A=\bar A\) 是 anti-linear condition 的完整内容。
+        但 \(J_2^2=-I\) 仍使 contraction matrix trace 为零，
+        所以即使 convex-cone linear equations 有解，也没有 strict interior。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case16-j1">
+<h3>1.25 玻色 Case 16：第一条约束</h3>
+<details class="note-original">
+<summary>note 原文，第 964--996 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 16: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\sigma_{x}\otimes I_{N}\)</span>,
+<span class="math inline">\(J_{2}=I_{2}\otimes-i\sigma_{y}\otimes
+I_{N/2}\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cc}
+-B^{T} &amp; D\\
+C &amp; B
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span> So <span class="math inline">\(B=-B^{\dagger}\)</span>, <span class="math inline">\(C=\bar{D}\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>从
+        \(\begin{pmatrix}-B^T&amp;D\\C&amp;B\end{pmatrix}=\bar A\)
+        逐块比较，左上给出 \(B=-B^\dagger\)，右上给出
+        \(D=\bar C\)。这是第一条约束的完整解，尚未涉及 inequality。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case16-j2">
+<h3>1.26 玻色 Case 16：convex cone 与失败判断</h3>
+<details class="note-original">
+<summary>note 原文，第 997--1063 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p><span class="math display">\[\begin{aligned}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C^{\dagger}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+C^{\dagger}_{12} &amp; \bar{C}_{22} &amp; -B^{T}_{12} &amp;
+-B^{T}_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; B^{T}_{11} &amp; -\bar{B}_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+B_{22} &amp; B^{\dagger}_{12} &amp; C_{22} &amp; -C^{T}_{12}\\
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+\bar{C}_{22} &amp; -C^{\dagger}_{12} &amp; -B^{T}_{22} &amp;
+B^{T}_{12}\\
+-\bar{C}_{12} &amp; \bar{C}_{11} &amp; -\bar{B}_{12} &amp; -B^{T}_{11}
+\end{array}\right)=\pm\bar{A}
+\end{aligned}\]</span></p>
+<p>For the convex cone, we have <span class="math inline">\(B_{11}=-\bar{B}_{22}\)</span>, <span class="math inline">\(B_{12}=-B^{T}_{12}\)</span>, <span class="math inline">\(C_{11}=\bar{C}_{22}\)</span>, <span class="math inline">\(C_{12}=C^{\dagger}_{12}\)</span>. <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; -\bar{B}_{11} &amp; C^{T}_{12} &amp;
+\bar{C}_{11}\\
+\bar{C}_{11} &amp; C^{T}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}
+\end{array}\right)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J_{2}gA &amp; =\left(-i\sigma_{y}\otimes-i\sigma_{y}\otimes
+I_{N/2}\right)A\\
+&amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B^{\dagger}_{12} &amp; -\bar{B}_{11} &amp; C^{T}_{12} &amp;
+\bar{C}_{11}\\
+\bar{C}_{11} &amp; C^{T}_{12} &amp; -B^{T}_{11} &amp; \bar{B}_{12}\\
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; B^{\dag}_{11}\\
+-\bar{C}_{11} &amp; -C^{T}_{12} &amp; B^{T}_{11} &amp; -\bar{B}_{12}\\
+B^{\dagger}_{12} &amp; \bar{B}_{11} &amp; -C^{T}_{12} &amp;
+-\bar{C}_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\leq0
+\end{aligned}\]</span></p>
+<p>There’s no contraction semigroup.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>最后显示的 matrix inequality 是必要检查，但原文没有给出一个满足严格
+        半负定的 block choice。实际上 \(J_2^2=-I\) 再次令其 trace 为零，
+        所以半负定只能退化为零。至此第二节手算的所有原文都已覆盖；
+        其共同的高成本来自每个 Case 都重复展开 \(4\times4\) block products。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-general">
+<h3>1.27 第三节标题与一般费米生成元</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 1064--1073 行
+                （完整显示）</summary>
+<div class="note-source"><h4 id="tests-for-new-fermionic-cases">Tests for new fermionic
+cases</h4>
+<p>For fermions, <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\)</span>, <span class="math inline">\(C_{11}=-C^{T}_{11}\)</span>, <span class="math inline">\(C_{22}=-C^{T}_{22}\)</span>, <span class="math inline">\(D_{11}=-D^{T}_{11}\)</span>, <span class="math inline">\(D_{22}=-D^{T}_{22}\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>费米条件 \((gA)^T=-gA\) 给出</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\quad D=-D^T.
+        \]</div>
+<p>再把 \(N\times N\) blocks 拆成 \(N/2\) 子块时，
+        off-diagonal positions 必须带原文显示的负号，例如
+        \(C_{21}=-C_{12}^T\)。这正是它与玻色 block form 的直接差别。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-case1-j1">
+<h3>1.28 费米 Case \(1'\)：第一条 anti-linear symmetry</h3>
+<details class="note-original">
+<summary>note 原文，第 1074--1124 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 1’ <span class="math inline">\(J_{1}=-i\sigma_{y}\otimes
+I_{N}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes
+I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; -B^{T}_{21} &amp; -D_{11} &amp; -D_{12}\\
+-B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; -C_{12} &amp; B_{11} &amp; B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span></p>
+<p>So <span class="math inline">\(B_{11}=-B^{\dagger}_{11}\)</span>,
+<span class="math inline">\(B_{22}=-B^{\dagger}_{22}\)</span>, <span class="math inline">\(B_{12}=-B^{\dagger}_{21}\)</span>, <span class="math inline">\(C=-\bar{D}\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>例如 \(-B_{11}^T=\bar B_{11}\) 给出
+        \(B_{11}=-B_{11}^\dagger\)，
+        \(-B_{21}^T=\bar B_{12}\) 给出
+        \(B_{12}=-B_{21}^\dagger\)。
+        \(C=-\bar D\) 是对四个 pairing subblocks 的合并写法。
+        这些条件说明 \(J_1\mathcal K\) 如何把 particle-hole blocks 配对。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-case1-j2">
+<h3>1.29 费米 Case \(1'\)：第二个 anti-linear symmetry 与其证据范围</h3>
+<details class="note-original">
+<summary>note 原文，第 1125--1173 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p><span class="math display">\[\begin{aligned}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp;
+-B^{T}_{22}\\
+\bar{C}_{11} &amp; \bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; C^{T}_{12} &amp; -C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; \bar{C}_{22} &amp; C^{\dagger}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; -\bar{C}_{12} &amp; \bar{C}_{11}\\
+-C_{22} &amp; -C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+C_{12} &amp; -C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span></p>
+<p>So <span class="math inline">\(B_{11}=-B^{\dagger}_{22}\)</span>,
+<span class="math inline">\(B_{12}=B^{\dagger}_{12}\)</span>, <span class="math inline">\(C_{11}=C_{22}\)</span>, <span class="math inline">\(C_{12}=C^{T}_{12}\)</span>.</p>
+<p>So <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; -\bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right)\)</span>, <span class="math inline">\(B_{11}=-B^{\dagger}_{11}\)</span>, <span class="math inline">\(B_{12}=B^{\dagger}_{12}\)</span>, <span class="math inline">\(C_{11}=-C^{T}_{11}\)</span>. This is a
+non-hermitian case. I don’t know how to prove it for this case yet. I
+have tried the case with only <span class="math inline">\(B_{11}\neq0\)</span>, it passed the test.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>“测试一个只有 \(B_{11}\) 的子空间”只能证明这个子空间没有发现负例，
+        不能覆盖一般 \(B_{12},C_{11},C_{12}\)。
+        本段仍保留旧文字 “I don't know how to prove it”，但新版第一节已经改称
+        \(1'\) 是 \(9'\) 的 special case。两处只有在作者补出 basis change 或
+        subspace inclusion 后，才能构成完整论证；本段的 block calculation 自身没有展示该包含关系。
+        更重要的是，本报告第 8 节已经给出 \(9'\) 离散关系下的负权重反例，
+        所以“属于 \(9'\)”不能自动成为完整 Fock-weight positivity 的证明。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-case5-j1">
+<h3>1.30 费米 Case \(5'\)：\(J_1\) 条件与原文矩阵笔误</h3>
+<details class="note-original">
+<summary>note 原文，第 1174--1197 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 5’ <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\sigma_{z}\otimes
+I_{N}=\left(\begin{array}{cc}
+I_{N} &amp; 0\\
+0 &amp; I_{N}
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=-i\sigma_{y}\otimes
+I_{N}=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\)</span>. <span class="math inline">\(A=\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\)</span>, <span class="math inline">\(C=-C^{T}\)</span>, <span class="math inline">\(D=-D^{T}\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cc}
+B &amp; -C\\
+-D &amp; -B^{T}
+\end{array}\right)\\
+&amp; =\bar{A}
+\end{aligned}\]</span></p>
+<p>So <span class="math inline">\(B=\bar{B}\)</span>, <span class="math inline">\(C=-\bar{C}\)</span>, <span class="math inline">\(D=-\bar{D}\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>原文显示的 \(J_1\) matrix 写成
+        \(\operatorname{diag}(I_N,I_N)\)，但紧接着的乘法使用的是
+        \(\operatorname{diag}(I_N,-I_N)=\sigma_z\otimes I_N\)。
+        因此显示矩阵是笔误，后续三条 relations 对应声称的 \(\sigma_z\)。
+        它们分别说明 \(B\) 为实矩阵，而两个 pairing blocks 为纯虚矩阵。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-case5-j2">
+<h3>1.31 费米 Case \(5'\)：subgroup、cone 与 “new kind of positivity”</h3>
+<details class="note-original">
+<summary>note 原文，第 1198--1253 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p><span class="math display">\[\begin{aligned}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+-I_{N} &amp; 0
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+D &amp; -B^{T}
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cc}
+D &amp; -B^{T}\\
+-B &amp; -C
+\end{array}\right)\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cc}
+-B^{T} &amp; -D\\
+-C &amp; B
+\end{array}\right)\\
+&amp; =\pm\bar{A}
+\end{aligned}\]</span></p>
+<p>So for the generators of the maximal subgroup <span class="math inline">\(B=-B^{\dagger}\)</span>, <span class="math inline">\(C=-\bar{D}\)</span>.</p>
+<p>So <span class="math inline">\(A=\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; B
+\end{array}\right)\)</span>, <span class="math inline">\(B=\bar{B}=-B^{T}=-B^{\dagger}\)</span>, <span class="math inline">\(C=-C^{T}=-\bar{C}=C^{\dagger}.\)</span> <span class="math inline">\(B\)</span> is non-hermitian, <span class="math inline">\(C\)</span> is hermitian.</p>
+<p>For the generators in the convex cone, <span class="math inline">\(B=B^{\dagger}\)</span>, <span class="math inline">\(C=\bar{D}\)</span>.</p>
+<p>So <span class="math inline">\(A=\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; -B
+\end{array}\right)\)</span>, <span class="math inline">\(B=\bar{B}=B^{T}=B^{\dagger}\)</span>, <span class="math inline">\(C=-C^{T}=-\bar{C}=C^{\dagger}\)</span>.</p>
+<p><span class="math inline">\(J_{2}gA=\left(\begin{array}{cc}
+-I_{N} &amp; 0\\
+0 &amp; I_{N}
+\end{array}\right)\left(\begin{array}{cc}
+B &amp; C\\
+-C &amp; -B
+\end{array}\right)=\left(\begin{array}{cc}
+-B &amp; -C\\
+-C &amp; -B
+\end{array}\right)\leq0\)</span>,</p>
+<p>which is equivalent to <span class="math inline">\(\left(\begin{array}{cc}
+B &amp; C\\
+C &amp; B
+\end{array}\right)\geq0\)</span>. So case 5’ gives a semigroup! It might
+be a new kind of positivity.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>这里的 block inequality 确实是一个明确的 Hermitian semidefinite
+        condition；但它还没有证明当前 Nambu propagation 的 Fock trace 非负。
+        特别是第一节为费米写的不等式含
+        \(iJ_2gA-iA^\dagger J_2g\)，而本段实际检查的是 \(J_2gA\)。
+        两者不是同一条件，所以“new positivity”在原 note 中仍是研究猜想。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-case9-j1">
+<h3>1.32 费米 Case \(9'\)：第一条约束</h3>
+<details class="note-original">
+<summary>note 原文，第 1254--1297 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 9’: <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\sigma_{z}\otimes\sigma_{z}\otimes
+I_{N/2}=\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=-i\sigma_{y}\otimes\sigma_{x}\otimes
+I_{N/2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+B_{11} &amp; -B_{12} &amp; -C_{11} &amp; C_{12}\\
+-B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+-D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span> So <span class="math inline">\(B_{11}=\bar{B}_{11}\)</span>, <span class="math inline">\(B_{22}=\bar{B}_{22}\)</span>, <span class="math inline">\(B_{12}=-\bar{B}_{12}\)</span>, <span class="math inline">\(B_{21}=-\bar{B}_{21}\)</span>, <span class="math inline">\(C_{11}=-\bar{C}_{11}\)</span>, <span class="math inline">\(C_{22}=-\bar{C}_{22}\)</span>, <span class="math inline">\(C_{12}=\bar{C}_{12}\)</span>, <span class="math inline">\(D_{11}=-\bar{D}_{11}\)</span>, <span class="math inline">\(D_{22}=-\bar{D}_{22}\)</span>, <span class="math inline">\(D_{12}=\bar{D}_{12}\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>因为 \(J_1\) 的 diagonal entries 是 \(+1,-1,-1,+1\)，
+        conjugation by \(J_1\) 会按行列符号乘积给每个 block 加正负号。
+        正号位置要求 block 等于其复共轭，负号位置要求 block 等于其复共轭的相反数。
+        原文列出的十条 relations 正是这一逐块规则。</p>
+</div>
+</article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">上一卷 note</a><a href="part_1_note_04.html">下一卷 note</a></nav></main></body></html>

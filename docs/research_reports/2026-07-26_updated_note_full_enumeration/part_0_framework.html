@@ -1,0 +1,542 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>ToYinkaiYu-20260726 note：阅读框架</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>
+<code class="report-file">ToYinkaiYu-20260726.tex</code>
+<span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
+</h1>
+<div class="meta">
+<div>报告日期：2026-07-28</div>
+<div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+<div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
+        <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
+<div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
+<div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
+</div>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_1_note_01.html">下一卷：note 逐段讲解</a></nav><section id="reading-framework">
+<h2>0. 阅读 note 前的物理框架</h2>
+<h3>0.1 note 实际在解决哪一个物理问题</h3>
+<p>
+      AFQMC 对相互作用做 Hubbard--Stratonovich 分解后，在每个辅助场构型下
+      得到一串 quadratic imaginary-time slices。note 用统一的 Nambu
+      写法表示每个时间片：
+    </p>
+<div class="scroll">\[
+      \hat h_\ell=\frac12\hat\chi^TgA_\ell\hat\chi,\qquad
+      gA_\ell+A_\ell^Tg=0,\qquad
+      M=e^{A_1}e^{A_2}\cdots e^{A_L}.
+    \]</div>
+<p>
+      \(\hat\chi\) 依次收集 annihilation 与 creation operators；
+      \(g\) 记录 canonical commutation 或 anticommutation relations。
+      第二个等式只保证 \(A_\ell\) 是合法的 bosonic symplectic 或
+      fermionic orthogonal generator。真正进入固定场权重的是全部时间片的
+      乘积 \(M\)：玻色公式含 \(\det(I-M)^{-1/2}\)，费米公式含
+      \(\det(I+M)^{1/2}\)。
+    </p>
+<p>
+      因而 note 的核心问题不是“写出两个抽象矩阵”本身，而是：
+      怎样限制每个 \(A_\ell\)，使这些限制经任意多次矩阵乘法仍成立，
+      并使最终 many-body trace 不出现复相位或负号。对玻色还要另问
+      Fock trace 是否有限、\(\det(I-M)\) 是否有 pole，以及 square-root
+      representative 是否由 operator trace 连续固定。
+    </p>
+<h3>0.2 \(J_1\) 与 \(J_2\) 的分工：先控制实轴，再控制可乘区域</h3>
+<p>
+      note 假定 \(J_1,J_2\) 是 real orthogonal matrices。完整的
+      anti-linear operation 是“先 complex conjugation，再乘 \(J_i\)”。
+      对 contraction cases，第一条真正施加到 slice 上的条件是
+    </p>
+<div class="scroll">\[
+      J_1^TA_\ell J_1=\overline{A_\ell}.
+    \]</div>
+<p>
+      这条关系由每个 \(A_\ell\) 传给 \(M\)，从而使
+      \(\det(I\mp M)\) 等于自己的 complex conjugate。它首先保证
+      determinant expression 是实数；除 Kramers 等更强情形外，
+      “实”本身还不等于“非负”。paired Nambu weight 还含
+      正规序标量因子 \(\exp(\sum_\ell\xi_\ell)\)；单独检查
+      \(J_1^TA_\ell J_1=\bar A_\ell\) 并不约束这个 scalar，所以实际
+      sign-free proof 还必须确认 \(\xi_\ell\) 也满足同一个 anti-linear
+      symmetry。本文 \(U_1=0\) benchmark 中它是固定的 real positive
+      factor。
+    </p>
+<p>
+      \(J_2\) 的用途不同。它与 \(g\) 组合成一个 Hermitian involution
+      \(\eta\)：
+    </p>
+<div class="scroll">\[
+      \eta=J_2g\quad\hbox{或}\quad \eta=iJ_2g,\qquad
+      \eta^\dagger=\eta,\quad\eta^2=I.
+    \]</div>
+<p>
+      然后要求
+    </p>
+<div class="scroll">\[
+      \eta A_\ell+A_\ell^\dagger\eta\le0.
+    \]</div>
+<p>
+      对 \(e^{tA_\ell^\dagger}\eta e^{tA_\ell}\) 求导可得
+      \((e^{A_\ell})^\dagger\eta e^{A_\ell}\le\eta\)，而两个满足该式的
+      propagators 相乘后仍满足它。因此 \(J_2\) 不是简单地“再给一个
+      symmetry”；它首先用来指定一个对时间片乘法封闭的 contraction
+      semigroup。
+    </p>
+<div class="warning">
+<strong>把两者合在一起时仍不能省略中间步骤。</strong>
+      更准确的逻辑是：\(J_1\) 把 determinant expression 限制在实轴；
+      strict contraction 排除改变符号所必经的 zero 或 pole；再从一个
+      已知为正的参考点连续连接，才固定符号。若辅助场域是通常的
+      \(\mathbb R^{N_\phi}\)，它是连通且单连通的；只要所有构型都留在
+      同一个 strict semigroup，连续的 real determinant representative
+      就不能换号。对实际的玻色 bare grand-canonical path integral，
+      零场通常还提供一个 trace 收敛的稳定参考点。若固定的 contraction
+      metric 与这个参考点的 particle/hole 方向一致，且整条辅助场轨迹
+      始终严格收缩，那么 trace 收敛性也会沿同一连通分支受到保护。
+      第 6.4 节会分别证明 number-conserving 与 paired 两种情形，并说明
+      为什么“任取一个 metric 的严格不等式”还不足以替代这个物理锚点。
+    </div>
+<h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
+<p>
+      真正限制 \(A\) 的是上一小节的等式与不等式。note 反复列出的下面五条
+      不含 \(A\)，其用途是给候选 \(J_1,J_2\) 配对做离散分类：
+    </p>
+<div class="scroll">\[
+      J_1^TgJ_1=\pm g,\qquad J_1^2=\pm I,\qquad
+      J_2^TgJ_2=\pm g,\qquad J_2^2=\pm I,\qquad
+      J_1J_2=\pm J_2J_1.
+    \]</div>
+<p>
+      每个 \(J\) 各有两个需要记录的性质：它保持还是翻转 \(g\)，以及它的
+      平方是 \(+I\) 还是 \(-I\)；两者之间再有对易或反对易这一项。
+      所以在这个 ansatz 内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
+      类。real orthogonality 是所有类别的共同前提，没有重复计入。
+      这五条只说明“哪一种 \(J_1,J_2\) geometry”；每一类是否真的存在
+      strict generator \(A\)，仍要另外解
+      \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 与 contraction inequality。
+    </p>
+<h3>0.4 maximal subgroup 与 invariant cone 在 \(A\) 上具体指什么</h3>
+<p>
+      给定 \(\eta\) 后，任何允许的 \(A\) 都可按下面两式拆分；这里没有引入
+      新的物理自由度，只是把同一个 \(A\) 的等号部分和收缩部分分开：
+    </p>
+<div class="scroll">\[
+      A_{\rm subgroup}
+      =\frac12\left(A-\eta A^\dagger\eta\right),\qquad
+      A_{\rm cone}
+      =\frac12\left(A+\eta A^\dagger\eta\right).
+    \]</div>
+<p>第一部分满足</p>
+<div class="scroll">\[
+      \eta A_{\rm subgroup}+A_{\rm subgroup}^\dagger\eta=0,
+    \]</div>
+<p>
+      它的 exponential 保持 \(\eta\)，生成 contraction semigroup 的
+      maximal subgroup。第二部分满足
+    </p>
+<div class="scroll">\[
+      \eta A_{\rm cone}=A_{\rm cone}^\dagger\eta,\qquad
+      \eta A_{\rm cone}\le0,
+    \]</div>
+<p>
+      它属于 invariant cone。一般生成元是两者之和，并不等于二者在
+      \(\eta\) 正、负本征子空间上的 direct-sum propagation；后者正是
+      <code>RPBAFQMC.tex</code> 中因 off-diagonal blocks 混合而失效的说法。
+    </p>
+<p>
+      这个错误<strong>不影响</strong>本报告讨论的完整 strict
+      contraction semigroup。若两个完整传播矩阵满足
+      \(M_i^\dagger\eta M_i-\eta\le0\)，那么不管它们在 \(\eta\) 正、负
+      subspaces 之间含有多大的 off-diagonal mixing，
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      &amp;(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+      &amp;\quad=M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+      +(M_2^\dagger\eta M_2-\eta)\le0 .
+      \end{aligned}
+    \]</div>
+<p>
+      若其中提供衰减的因子严格小于零，矩阵 congruence
+      \(X\mapsto M_2^\dagger X M_2\) 仍保持严格负定，所以完整乘积也严格。
+      因而旧文件的问题只是否定“分别传播 contraction block 与 expansion
+      block”的拆分；它不否定直接对完整矩阵验证的 strict inequality。
+      反过来，RP 条件本身也不会自动产生这条完整 strict inequality，
+      每个具体 HS decomposition 仍要像 Case 7 那样检查。
+    </p>
+<p>
+      若把 \(\eta\) 对角化为
+      \(\operatorname{diag}(I,-I)\)，再把任意矩阵按同一分区写成
+      \(\left(\begin{smallmatrix}P&amp;Q\\R&amp;S\end{smallmatrix}\right)\)，
+      maximal-subgroup 生成元与 cone 生成元分别具有
+    </p>
+<div class="scroll">\[
+      A_{\rm subgroup}=
+      \begin{pmatrix}P&amp;Q\\Q^\dagger&amp;S\end{pmatrix},
+      \quad P^\dagger=-P,\ S^\dagger=-S,
+    \]</div>
+<div class="scroll">\[
+      A_{\rm cone}=
+      \begin{pmatrix}P&amp;Q\\-Q^\dagger&amp;S\end{pmatrix},
+      \quad P^\dagger=P,\ S^\dagger=S,\qquad
+      \begin{pmatrix}P&amp;Q\\Q^\dagger&amp;-S\end{pmatrix}\le0.
+    \]</div>
+<p>
+      这只是 \(\eta\)-condition 的通用 block form；还必须继续施加
+      \(gA+A^Tg=0\) 与 \(J_1^TAJ_1=\bar A\)。第 6 节会对 16 个 strict
+      classes 逐类给出这些额外限制后的完整 Pauli basis 和物理 block form。
+    </p>
+<h3>0.5 note 的 1)、2) 与后面的 contraction cases 不是同一列表</h3>
+<div class="scroll">
+<table>
+<thead>
+<tr><th>note 中的条目</th><th>名称从哪里来</th><th>非负性的实际来源</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>1) time-reversal symmetry</td>
+<td>一个平方为 \(-1\) 的 physical Kramers antiunitary</td>
+<td>complex-conjugate pairing 加 real eigenvalue 的偶数重数；不需要先证明 strict contraction</td>
+</tr>
+<tr>
+<td>2) reflection positivity</td>
+<td>anti-linear reflection 交换两个 sectors</td>
+<td>除 reflection symmetry 外，还要求跨区 coefficient matrix positive semidefinite，使 operator 写成 reflected squares；note 明说它是 non-contraction semigroup</td>
+</tr>
+<tr>
+<td>3)--16) contraction cases</td>
+<td>\(J_1\) 实性条件与 \(J_2\) 诱导度规的组合</td>
+<td>权重为实、无零点或极点，并与正参考点连续连接；这些才是 \(2^5\) 穷举要筛选的候选</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+      因此读到 note 的 1)、2) 时，不应把后文的 contraction inequality
+      倒灌进去。它们被列在一起，是因为合作者想用半群语言把已知
+      symmetry mechanisms 与更大的 semigroup 放在同一框架中；证明路线本身
+      仍然不同。第一节逐段讲解会在它们首次出现处给出具体 \(J_1,J_2\)
+      matrices、物理作用和 Hamiltonian examples。
+    </p>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_1_note_01.html">下一卷：note 逐段讲解</a></nav></main></body></html>

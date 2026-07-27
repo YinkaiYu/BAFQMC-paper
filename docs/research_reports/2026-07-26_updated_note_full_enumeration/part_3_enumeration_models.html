@@ -1,0 +1,3601 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>ToYinkaiYu-20260726 note：分类、生成元与物理模型讲义</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>
+<code class="report-file">ToYinkaiYu-20260726.tex</code>
+<span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
+</h1>
+<div class="meta">
+<div>报告日期：2026-07-28</div>
+<div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+<div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
+        <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
+<div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
+<div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
+</div>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a></nav><section id="question">
+<h2>4. 分类对象与判定层级</h2>
+<h3>4.1 从五条离散关系到 \(2^5=32\) 个候选类</h3>
+<p>
+      这项分类并不止于“能否写出某个 \(A\)”，也不止于寻找
+      maximal subgroup。它把两个 anti-linear structures 与
+      contraction semigroup 组合起来，系统判断五个二选一关系中的哪些组合
+      真正允许一个有内部的收缩区域：
+    </p>
+<ol>
+<li>先找 real orthogonal \(J_1,J_2\)，实现所选的五条离散 relations；</li>
+<li>用 \(J_1^TAJ_1=\bar A\) 限制 \(A\)，使 determinant 或 trace weight 至少具有所需的 complex-conjugation pairing；</li>
+<li>由 \(J_2g\) 或 \(iJ_2g\) 构造 Hermitian metric，并检查允许的 \(A\) 是否包含严格收缩方向；</li>
+<li>最后才把抽象矩阵条件落实为 HS-decoupled physical Hamiltonian，并证明完整 Fock weight nonnegative。</li>
+</ol>
+<p>
+      第一项只回答 \(J_1,J_2\) 的 algebraic realization 是否存在。本次
+      Pauli-product 搜索发现 32 类全部有 realization，所以这一步并不是分类的
+      真正瓶颈。第二项通常也会给出非空的 linear space。真正区分 Passed 与
+      Failed 的是第三项：这个 space 中能否找到 strict contraction，而不只是
+      equality boundary。
+    </p>
+<h4>maximal subgroup 与真正要找的 strict cone 不同</h4>
+<p>
+      下式中的 \(J_2g\) 在相应分支可替换为 \(iJ_2g\)。若
+    </p>
+<div class="scroll">\[
+      (J_2g)A+A^\dagger(J_2g)=0 ,
+    \]</div>
+<p>
+      \(e^A\) 保持该 metric，属于 contraction semigroup 的 maximal
+      subgroup。它位于收缩区域的边界，描述可逆的 metric-preserving
+      propagation。只找到这种 \(A\) 不能说明存在新的 strict contraction。
+      合作者在“硬算”中令 \(J_2^TAJ_2=\bar A\) 时，主要是在求这部分。
+    </p>
+<p>要让 semigroup 具有非空内部，还必须找到</p>
+<div class="scroll">\[
+      (J_2g)A+A^\dagger(J_2g)&lt;0 .
+    \]</div>
+<p>
+      合作者把 \(J_2^TAJ_2=-\bar A\) 所选出的 generators 称为 invariant
+      cone candidates，目的正是检查其中能否满足这个严格不等式。
+      因此更准确的概括是：<strong>穷举在检查每组离散 relations 是否允许
+      “real-weight condition + nonempty strict contraction cone” 同时成立。</strong>
+      maximal subgroup 是计算的一部分，不是终点。
+    </p>
+<h3>4.2 真正传播的是 \(e^A\)</h3>
+<p>
+      note 已定义 \(h=\frac12\chi^TgA\chi\)，并把一个辅助场构型的矩阵写成
+      \(M=e^{A_1}\cdots e^{A_k}\)。因此 semigroup 若要约束这个构型，
+      必须对每个 \(e^{A_\ell}\) 给出在矩阵乘法下保持的条件。
+      设 \(\eta\) 是 Hermitian 且 \(\eta^2=I\)。标准 infinitesimal
+      contraction condition 是
+    </p>
+<div class="scroll">\[
+      \eta A+A^\dagger\eta\le0 .
+    \]</div>
+<p>对 \(e^{tA^\dagger}\eta e^{tA}\) 逐步求导：</p>
+<div class="scroll">\[
+      \begin{aligned}
+      \frac{d}{dt}\left(e^{tA^\dagger}\eta e^{tA}\right)
+      &amp;=A^\dagger e^{tA^\dagger}\eta e^{tA}
+        +e^{tA^\dagger}\eta e^{tA}A\\
+      &amp;=e^{tA^\dagger}(A^\dagger\eta+\eta A)e^{tA}\le0 .
+      \end{aligned}
+    \]</div>
+<p>从 \(t=0\) 积分到 \(1\) 得到</p>
+<div class="scroll">\[
+      (e^A)^\dagger\eta e^A\le\eta .
+    \]</div>
+<p>
+      若两个矩阵都满足后一式，它们的乘积也满足，因为
+      \((M_1M_2)^\dagger\eta(M_1M_2)
+      \le M_2^\dagger\eta M_2\le\eta\)。
+      这就是所需的 semigroup closure。
+    </p>
+<h3>4.3 从矩阵候选到物理模型的四级检验</h3>
+<ol>
+<li>\(J_2g\) 或 \(iJ_2g\) 是否 Hermitian 且平方为 \(I\)？</li>
+<li>允许的 \(A\) 中是否存在 strict inequality，而不只是等号边界？</li>
+<li>\(J_1^TAJ_1=\bar A\) 是否把半负定方向保持为半负定方向？</li>
+<li>生成元级条件是否进一步保证完整 bosonic/fermionic Fock trace 的正确符号与 branch？</li>
+</ol>
+<p>
+      前三级决定 propagation contraction；第四级才把 propagation result
+      升级成 sign-problem-free statement。后续各节依次完成这些检验。
+    </p>
+</section><section id="derivation">
+<h2>5. 严格收缩类的解析分类</h2>
+<h3>5.1 \(J_2g\) 何时要乘 \(i\)</h3>
+<p>
+      note 使用的 \(J_2\) 都是实正交矩阵。若 \(J_2^2=I\)，则
+      \(J_2^T=J_2\)；若 \(J_2^2=-I\)，则 \(J_2^T=-J_2\)。
+      把这条关系与 \(J_2^TgJ_2=\pm g\) 直接代入
+      \((J_2g)^\dagger=g^\dagger J_2^T\)，得到下表。
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>统计</th><th>\(J_2^TgJ_2\)</th><th>\(J_2^2\)</th>
+<th>\(J_2g\) 的性质</th><th>可用的 Hermitian metric</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>玻色</td><td>\(-g\)</td><td>\(I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+<tr><td>玻色</td><td>\(g\)</td><td>\(I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>玻色</td><td>\(-g\)</td><td>\(-I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>玻色</td><td>\(g\)</td><td>\(-I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+<tr><td>费米</td><td>\(-g\)</td><td>\(-I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+<tr><td>费米</td><td>\(g\)</td><td>\(-I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>费米</td><td>\(-g\)</td><td>\(I\)</td><td>anti-Hermitian，平方为 \(-I\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>费米</td><td>\(g\)</td><td>\(I\)</td><td>Hermitian，平方为 \(I\)</td><td>\(J_2g\)</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+      例如在 note 的玻色 Case 7 中，
+      \(J_2^TgJ_2=-g\) 且 \(J_2^2=I\)，所以直接使用 \(J_2g\)。
+      合作者消息提醒的新增玻色伙伴类满足
+      \(J_2^TgJ_2=g\) 且 \(J_2^2=I\)，此时必须使用 \(iJ_2g\)。
+    </p>
+<h3>5.2 strict interior 对 \(J_2^2\) 的要求</h3>
+<p>玻色先算。由 \(g^T=-g\) 和 \(gA+A^Tg=0\)，</p>
+<div class="scroll">\[
+      (gA)^T=A^Tg^T=-A^Tg=gA .
+    \]</div>
+<p>若 \(J_2^2=-I\)，则 \(J_2^T=-J_2\)，于是</p>
+<div class="scroll">\[
+      \begin{aligned}
+      \Tr(J_2gA)
+      &amp;=\Tr[(J_2gA)^T]\\
+      &amp;=\Tr[(gA)^T J_2^T]\\
+      &amp;=-\Tr(gAJ_2)
+       =-\Tr(J_2gA).
+      \end{aligned}
+    \]</div>
+<p>
+      所以 \(\Tr(J_2gA)=0\)。乘整体 \(i\) 也仍为零。
+      相应 contraction matrix 的 trace 是
+      \(2\operatorname{Re}\Tr(\eta A)=0\)。
+      Hermitian matrix 若半负定且 trace 为零，只能是零矩阵。
+      因而玻色要有 strict interior，必须取
+    </p>
+<div class="scroll">\[
+      \boxed{J_2^2=I\qquad\text{(boson)}} .
+    \]</div>
+<p>费米则由 \(g^T=g\) 得到</p>
+<div class="scroll">\[
+      (gA)^T=A^Tg=-gA .
+    \]</div>
+<p>若 \(J_2^2=I\)，即 \(J_2^T=J_2\)，则</p>
+<div class="scroll">\[
+      \begin{aligned}
+      \Tr(J_2gA)
+      &amp;=\Tr[(J_2gA)^T]\\
+      &amp;=\Tr[-gAJ_2]
+       =-\Tr(J_2gA)=0 .
+      \end{aligned}
+    \]</div>
+<p>因此费米要有 strict interior，必须取相反的平方：</p>
+<div class="scroll">\[
+      \boxed{J_2^2=-I\qquad\text{(fermion)}} .
+    \]</div>
+<p>
+      这一步直接解释了合作者所说的“玻色子和费米子并不对等”。
+      差别来自 \((gA)^T\) 在两种统计下一个对称、一个反对称。
+    </p>
+<h3>5.3 commutator/anti-commutator 为什么不能忽略</h3>
+<p>
+      现在只考虑上一小节允许 strict interior 的情形：
+      玻色 \(J_2^2=I\)，费米 \(J_2^2=-I\)。
+      对 \(J_2^TgJ_2=\pm g\) 的两种分支，分别使用上一表给出的
+      \(J_2g\) 或 \(iJ_2g\)。把 \(J_1^TAJ_1=\bar A\) 代入
+      contraction matrix，并逐项移动 \(J_1,J_2,g\)，得到四种直接结果：
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>\(J_1\) 对 \(g\) 的作用</th>
+<th>\(J_2\) 对 \(g\) 的作用</th>
+<th>保持半负定方向所需关系</th>
+<th>另一种关系的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=g\)</td>
+<td>\(\{J_1,J_2\}=0\)</td><td>\([J_1,J_2]=0\) 只剩等号边界</td>
+</tr>
+<tr>
+<td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=-g\)</td>
+<td>\(\{J_1,J_2\}=0\)</td><td>\([J_1,J_2]=0\) 只剩等号边界</td>
+</tr>
+<tr>
+<td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=-g\)</td>
+<td>\([J_1,J_2]=0\)</td><td>\(\{J_1,J_2\}=0\) 只剩等号边界</td>
+</tr>
+<tr>
+<td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=g\)</td>
+<td>\([J_1,J_2]=0\)</td><td>\(\{J_1,J_2\}=0\) 只剩等号边界</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+      规律可以用一句与 note 完全对齐的话表达：
+      \(J_1\) 与 \(J_2\) 若同为保持 \(g\) 或同为翻转 \(g\)，二者必须反对易；
+      若一个保持 \(g\)、另一个翻转 \(g\)，二者必须对易。
+      \(J_1^2=I\) 或 \(-I\) 不影响这一步，所以这两个选择会成对出现。
+    </p>
+<p>
+      为什么选错 commutation relation 会只剩边界？设正确的 Hermitian metric
+      为 \(\eta\)，并记 contraction matrix 本身为
+      \(\eta A+A^\dagger\eta\)。对于表中“另一种关系”，直接代入得到
+    </p>
+<div class="scroll">\[
+      J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1
+      =-\left(\eta A+A^\dagger\eta\right).
+    \]</div>
+<p>
+      左边只是复共轭加正交基变换，保持 eigenvalue signs；
+      右边却把所有 eigenvalues 变号。一个 matrix 不可能同时 strict
+      seminegative 和 strict semipositive，所以只能等于零。
+    </p>
+<h3>5.4 两条要求不仅必要，而且给出显式 strict point</h3>
+<p>
+      按上一节选择 \(J_2^2\)，再按表中规则选择 commutator 或 anti-commutator。
+      令 \(\eta\) 为对应的 \(J_2g\) 或 \(iJ_2g\)，并直接取
+    </p>
+<div class="scroll">\[
+      A_0=-\eta .
+    \]</div>
+<p>
+      由 \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)，contraction inequality
+      不是边界而是严格成立：
+    </p>
+<div class="scroll">\[
+      \eta A_0+A_0^\dagger\eta
+      =-\eta^2-\eta^2=-2I&lt;0 .
+    \]</div>
+<p>
+      再把 \(A_0=-\eta\) 代回，所选 \(J_2\) 关系保证
+      \(gA_0+A_0^Tg=0\)；上一小节的 commutation rule 保证
+      \(J_1^TA_0J_1=\bar A_0\)。因此这不是随机扫描中的“似乎通过”，
+      而是每一个允许类别都有明确 strict witness。
+    </p>
+<div class="result">
+<strong>note 所选 ansatz 内的完整传播判据。</strong>
+      这里把 metric 限定为由 real orthogonal \(J_2\) 构造的
+      \(J_2g\) 或 \(iJ_2g\)，并将实性变换限定为 note 的
+      \(J_1^TAJ_1=\bar A\)。在这个范围内，
+      玻色 strict contraction 要求 \(J_2^2=I\)，费米要求 \(J_2^2=-I\)。
+      在此基础上，\(J_1\) 与 \(J_2\) 若对 \(g\) 同号作用就必须反对易，
+      异号作用就必须对易。\(J_1^2=\pm I\) 均可。
+      \(J_2\) 翻转 \(g\) 时使用 metric \(J_2g\)；
+      \(J_2\) 保持 \(g\) 时使用 metric \(iJ_2g\)。
+    </div>
+</section><section id="enumeration">
+<h2>6. Octave 穷举、生成元与物理实现</h2>
+<p>
+      本节把“穷举”分成三层：先完整枚举五条离散 relations，再判断
+      strict contraction interior 是否存在，最后求出每个通过类的全部
+      maximal-subgroup 与 invariant-cone generator directions。这样可以看清
+      程序究竟检验了什么，也不会把一个 Pauli representative 误当成已经完成的
+      physical sign-free model。
+    </p>
+<figure>
+<img alt="玻色和费米各32类的完整分类，坐标轴直接写出J1、J2对g的作用、平方以及对易关系" src="figures/full_64_class_enumeration.png"/>
+<figcaption>
+<strong>图 1｜玻色与费米各 32 类的完整结果。</strong>
+        行、列直接标出 note 使用的矩阵关系。绿色表示 metric \(J_2g\)
+        存在 strict contraction，蓝色表示 metric \(iJ_2g\) 存在 strict contraction；
+        灰色表示 contraction matrix 的 trace 被迫为零，红色表示
+        \(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向。
+      </figcaption>
+</figure>
+<h3>6.1 程序怎样逐项生成全部 32 类</h3>
+<p>
+      程序不是随机抽样。它先固定与 note 相同的 canonical matrices：
+    </p>
+<div class="scroll">\[
+      g_{\rm boson}=-(i\sigma_y)\otimes I,\qquad
+      g_{\rm fermion}=\sigma_x\otimes I.
+    \]</div>
+<p>
+      代码中的字母 <code>Y</code> 始终表示实矩阵
+      \(i\sigma_y=\left(\begin{smallmatrix}0&amp;1\\-1&amp;0\end{smallmatrix}\right)\)，
+      不是通常含复数元素的 \(\sigma_y\)。对一个、两个、三个
+      \(2\times2\) factors，程序依次生成所有
+    </p>
+<div class="scroll">\[
+      P_1\otimes P_2\otimes\cdots,\qquad
+      P_j\in\{I,\sigma_x,i\sigma_y,\sigma_z\}.
+    \]</div>
+<p>
+      对每一对非平凡 Pauli words，代码直接相乘并读取下面五个正负号：
+    </p>
+<div class="scroll">\[
+      J_1^TgJ_1=\pm g,\quad J_1^2=\pm I,\quad
+      J_2^TgJ_2=\pm g,\quad J_2^2=\pm I,\quad
+      J_1J_2=\pm J_2J_1.
+    \]</div>
+<p>
+      五个正负号按固定顺序映射到一个五位 binary index。某一 index
+      第一次出现时保存当前 \(J_1,J_2\)；随后继续搜索，直到检查完三个
+      factors。玻色与费米各 32 个 index 都至少找到一对 representatives。
+      “三个 factors 足够”是本次 Pauli-product search 的计算结果，而不是
+      预先假定所有抽象表示都必须只有八维。
+    </p>
+<h3>6.2 每一行具体做了哪些检查</h3>
+<ol>
+<li>
+        重新计算五条关系的 Frobenius-norm residual，防止 class index
+        与保存的 matrices 不一致。
+      </li>
+<li>
+        根据 \(J_2\) 对 \(g\) 的作用和 \(J_2^2\)，构造
+        \(\eta=J_2g\) 或 \(iJ_2g\)，再验证
+        \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)。
+      </li>
+<li>
+        用第 5 节的解析判据判断 strict interior：玻色必须
+        \(J_2^2=I\)，费米必须 \(J_2^2=-I\)；两个 \(J\) 对 \(g\)
+        同号作用时必须反对易，异号作用时必须对易。
+      </li>
+<li>
+        对每个允许类取 \(A_0=-\eta\)，逐项验证
+        \(gA_0+A_0^Tg=0\)、
+        \(J_1^TA_0J_1=\bar A_0\)，以及
+        \(\eta A_0+A_0^\dagger\eta=-2I&lt;0\)。
+      </li>
+<li>
+        对不允许类不伪造一个数值 “Failed”。程序记录解析 obstruction：
+        要么 contraction matrix 的 trace 被迫为零，要么 \(J_1\)
+        把半负定方向映成半正定方向，因而只剩等号边界。
+      </li>
+</ol>
+<p>
+      另一个脚本对 16 个 strict classes 选择便于物理解读的
+      \(J_1,J_2\)，再扫描矩阵空间的完整实 basis
+      \(\{P,iP\}\)。一个 basis element 只有同时满足
+    </p>
+<div class="scroll">\[
+      gA+A^Tg=0,\qquad J_1^TAJ_1=\bar A
+    \]</div>
+<p>
+      才继续分类。若
+      \(\eta A+A^\dagger\eta=0\)，它进入 maximal-subgroup basis；
+      若 \(\eta A-A^\dagger\eta=0\)，它进入 invariant-cone 的线性
+      span，最后再对线性组合施加 \(\eta A\le0\)。因此第 6.6 节所列的
+      不是一个见证，而是选定 representative 下的全部生成元结构。
+    </p>
+<h3>6.3 矩阵分类、算符收敛与物理模型的证据层级</h3>
+<p>
+      表中的“存在 strict contraction”只陈述以下矩阵事实：
+      允许的 \(A\) 构成一个对 commutator 封闭的 generator region；
+      每个 \(e^A\) 满足
+      \((e^A)^\dagger\eta e^A\le\eta\)；任意数量的这类 propagators
+      相乘后仍满足同一不等式；strict element 没有 unit-circle
+      eigenvalue。它<strong>没有自动包含</strong>下面这些物理要求：
+    </p>
+<ul>
+<li>该 \(A\) 是否来自一个 Hermitian microscopic Hamiltonian 的合法 HS decomposition；</li>
+<li>玻色固定场 Fock trace 是否有限，正规序标量因子是否正确；</li>
+<li>玻色 metaplectic square-root representative 是否沿物理 operator branch 连续；</li>
+<li>费米 Nambu 写法是否已与 Majorana Spin representation 的符号约定完整对应；</li>
+<li>辅助场 measure 是否可归一化，以及 estimator 是否有可控方差。</li>
+</ul>
+<p>
+      所以“传播层面”不是弱化语气的内部简称，而是明确的证据边界：
+      它回答 \(A\) 和 \(M\) 的 matrix-semigroup question；只有再完成上述
+      operator 与 HS checks，才能升级为 physical sign-problem-free model。
+    </p>
+<div class="result">
+<strong>何时可以立即升级为整个辅助场域恒正。</strong>
+      设辅助场构型空间连通；每个构型的完整 \(M(\phi)\) 都在同一个
+      strict contraction semigroup；\(J_1\) 条件连同
+      正规序标量因子的反线性条件使完整 operator weight
+      \(W(\phi)\) 为实；\(W(\phi)\) 是连续、单值函数；并且至少有一个
+      参考构型 \(\phi_0\) 满足 \(W(\phi_0)&gt;0\)。若另一个构型权重为负，
+      沿连接两点的连续路径，介值定理要求中间某点 \(W=0\)；玻色若通过
+      inverse determinant 换 branch，则必须经过 pole 或失去单值连续性。
+      strict contraction 已排除相应的 \(-1\) 或 \(+1\) eigenvalue，
+      因而这种改变不可能发生。所以整个连通辅助场域都在同一个正分支。
+      通常的连续 Gaussian field space \(\mathbb R^{N_\phi}\) 满足这里的
+      连通和单连通要求；零场 free configuration 常可作为正参考点。
+    </div>
+<p>
+      因此一旦上述五项都验证完，不需要逐个辅助场再算符号。
+      本报告仍保留“传播层面”一词，是因为抽象 \(J_1,J_2,A_0\) 穷举本身
+      尚未替每个 candidate 指定连续的 HS map、positive reference 与
+      玻色 bare-trace/regularization 定义；不是因为 strict semigroup 内部
+      还可能无缘无故变号。
+    </p>
+<h3>6.4 严格收缩与玻色 bare trace 收敛</h3>
+<p>
+      下面把连通辅助场路径上的收敛论证写成一个可以逐项检查的命题。
+      设辅助场构型记为
+      \(\phi\)，完整虚时间传播矩阵为 \(\mathcal M(\phi)\)。需要同时满足：
+    </p>
+<ol>
+<li>辅助场空间是路径连通的，且 \(\mathcal M(\phi)\) 随 \(\phi\) 连续；</li>
+<li>存在一个参考构型 \(\phi_0\)，通常取零场，使对应 bare Fock trace 有限；</li>
+<li>存在同一个固定 Hermitian metric \(\eta\)，其 particle/hole 方向与参考构型的物理 Fock representation 一致，并且对每个构型都有
+        \(\mathcal M(\phi)^\dagger\eta\mathcal M(\phi)-\eta&lt;0\)；</li>
+<li>二次算符、正规序常数与 Nambu 平方根表示都由实际时间片乘积连续确定；正规序标量因子也满足使完整权重为实的反线性条件，而不是在每个构型上重新任选代数分支。</li>
+</ol>
+<p>
+      在通常的 real Gaussian HS transformation 中，构型空间就是
+      \(\mathbb R^{N_\phi}\)，第一项自动成立。第二项是物理稳定性：
+      自由 Hamiltonian 的化学势和 pairing gap 必须使
+      \(\operatorname{Tr}e^{-\beta H_0}\) 有限。第三项中的“同一个固定
+      metric”与“方向一致”不能删除，因为一个不定度规有 contracting
+      与 expanding 两种取向；只有包含稳定零场的那一种才是物理 Fock trace
+      所需的取向。
+    </p>
+<h4>无配对时：收敛性不能在严格区域内丢失</h4>
+<p>
+      number-conserving propagation 的 particle block 记为
+      \(\mathcal B(\phi)\)。先定义它的 singular values
+      \(s_j\)：它们是正矩阵
+      \(\sqrt{\mathcal B^\dagger\mathcal B}\) 的 eigenvalues，衡量
+      \(\mathcal B\) 对各正交方向能放大多少。对应 Fock operator
+      的绝对 trace 为
+    </p>
+<div class="scroll">\[
+      \operatorname{Tr}\sqrt{\hat U(\phi)^\dagger\hat U(\phi)}
+      =\prod_{j=1}^{N}\frac{1}{1-s_j},
+      \qquad \max_j s_j&lt;1.
+    \]</div>
+<p>
+      这个公式可以直接从 polar decomposition 看出：
+      \(\mathcal B=V\sqrt{\mathcal B^\dagger\mathcal B}\)，其中 \(V\)
+      的 Fock-space 作用是 unitary，不改变绝对值；再把正矩阵
+      \(\sqrt{\mathcal B^\dagger\mathcal B}\) 对角化，每个模的所有
+      占据数给出几何级数
+      \(1+s_j+s_j^2+\cdots=(1-s_j)^{-1}\)。所以
+      \(\max_j s_j&lt;1\) 保证的是绝对收敛，而不只是有限维 determinant
+      的代数值。对一般 nonnormal \(\mathcal B\)，只知道所有
+      eigenvalues 位于单位圆内还不够；singular-value 条件才是这里需要的
+      operator statement。
+    </p>
+<p>
+      标准物理取向的 strict contraction 正好直接给出这个条件。在
+      \((a,a^+)^T\) 顺序下，
+    </p>
+<div class="scroll">\[
+      \mathcal M=
+      \begin{pmatrix}
+      \mathcal B&amp;0\\0&amp;(\mathcal B^{-1})^T
+      \end{pmatrix},
+      \qquad
+      \eta=\begin{pmatrix}I&amp;0\\0&amp;-I\end{pmatrix}.
+    \]</div>
+<p>
+      把它代入
+      \(\mathcal M^\dagger\eta\mathcal M-\eta&lt;0\)，左上 block 就是
+    </p>
+<div class="scroll">\[
+      \mathcal B^\dagger\mathcal B-I&lt;0.
+    \]</div>
+<p>
+      因而所有 \(s_j&lt;1\)，每个 fixed-field Fock operator 都是 trace
+      class，并且普通 trace 等于
+      \(\det[I-\mathcal B]^{-1}\)。strict 还同时排除 unit-circle
+      eigenvalues。若
+      \(\mathcal Mv=\lambda v\) 且 \(|\lambda|=1\)，则
+    </p>
+<div class="scroll">\[
+      v^\dagger\!\left(
+      \mathcal M^\dagger\eta\mathcal M-\eta\right)v
+      =(|\lambda|^2-1)v^\dagger\eta v=0,
+    \]</div>
+<p>
+      与左边对每个非零 \(v\) 都严格小于零矛盾。这给出清楚的路径图像：
+      轨迹不仅不能经过 \(\lambda=1\) pole，也不能从单位圆其他位置离开
+      收敛区域。更根本的 absolute-convergence 证明则是上面的
+      \(\mathcal B^\dagger\mathcal B&lt;I\)，它对 nonnormal products
+      也成立。
+    </p>
+<h4>有配对时：不能要求全部 Nambu eigenvalues 都在单位圆内</h4>
+<p>
+      paired Nambu propagation 的 eigenvalues 以
+      \(\lambda,\lambda^{-1}\) 成对出现，所以完整 \(\mathcal M\) 不可能
+      具有 \(\rho(\mathcal M)&lt;1\)。这里需要一个描述无限维 Fock
+      operator 收敛性的标准术语。称 \(\hat U\) 为 <em>trace class</em>，
+      是指
+    </p>
+<div class="scroll">\[
+      \operatorname{Tr}\sqrt{\hat U^\dagger\hat U}&lt;\infty .
+    \]</div>
+<p>
+      对正的热演化算符 \(\hat U=e^{-\beta\hat H}\)，这就是
+      \(\sum_n e^{-\beta E_n}&lt;\infty\)：所有能量本征态，包括任意高的
+      玻色占据数，取绝对值后求和仍然有限。它保证普通 Fock trace
+      绝对收敛，并且比“算符有界”或“determinant denominator 非零”更强。
+      正确的 paired 陈述使用同一个
+      \(\eta=\operatorname{diag}(I,-I)\)，这里的上下块按
+      \((a,a^+)^T\) 排列。满足
+      \(\mathcal M^\dagger\eta\mathcal M-\eta&lt;0\) 的 complex symplectic
+      matrices 构成 bosonic Olshanski semigroup 的内部；其
+      metaplectic representation，也就是 bosonic Fock-space representation，在内部给出
+      trace-class operators。因此，从稳定零场出发并沿这个内部连续传播，
+      每个 paired fixed-field operator 都有有限 bare trace，路径同时固定
+      metaplectic double cover 与 determinant square root 的 operator branch。
+    </p>
+<p class="small">
+      这一 operator-level 结论不是由有限维 determinant 公式反向猜测。
+      Hilgert 给出 Howe oscillator semigroup 与 Bargmann--Fock
+      realization 的对应；Neeb 的 holomorphic-representation theorem
+      明确说明 Olshanski semigroup 内部的 representation operators 是
+      trace class。可参见
+      <a href="https://www.numdam.org/articles/10.5802/aif.1182/">J. Hilgert,
+      A note on Howe's oscillator semigroup</a> 和
+      <a href="https://www.heldermann-verlag.de/jlt/jlt03/NEEBPL_vol1.PDF">K.-H. Neeb,
+      Holomorphic representation theory and Olshanski semigroups</a>。
+      Yamashita 的现代综述还提醒，闭半群边界可以只对应 bounded 而非
+      Hilbert--Schmidt operators；因此这里必须保留“内部/严格”二字：
+      <a href="https://arxiv.org/abs/2209.04139">arXiv:2209.04139</a>。
+    </p>
+<div class="result">
+<strong>对实际连续 HS 路径的结论。</strong>
+      只要零场是 trace-convergent 的稳定构型，整个连续辅助场域始终留在
+      与它同向的 strict bosonic oscillator semigroup 内，那么所有 fixed-field
+      bare traces 都收敛。再加上 \(J_1\) 与正规序标量因子
+      共同使完整 operator weight 为实、operator lift 连续且一个参考权重为正，
+      就得到整个辅助场域
+      恒正。此时既无需逐构型重新检查收敛，也无需逐构型重新决定符号。
+    </div>
+<h4>为什么先前的 \(A_0=-\eta\) 例子不反驳这个结论</h4>
+<p>
+      对新增 bosonic \(iJ_2g\) 类，可以取
+      \(A_0=-\eta\) 作为纯代数 strict witness。它确实满足
+      \(\eta A_0+A_0^\dagger\eta=-2I\)，但在最直接的
+      number-conserving physical basis 中，particle block 有一正一负两个
+      eigenvalues，因而 bare trace 发散。这个例子没有一个收敛的零场锚点，
+      它所用的 \(\eta\) 方向也不是标准 Fock convention 中“虚时间传播压低
+      高占据态”的 oscillator-semigroup 方向。辅助场空间即使只取这个常数矩阵仍然是
+      连通的，所以“连通”单独并不能排除它；它缺少的是上面第二、第三项。
+    </p>
+<p>
+      因此它的正确用途只是说明：五条 \(J_1,J_2\) 离散关系加一个任意
+      \(\eta\)-strict witness，还不能自动产生可采样的玻色模型。它不在
+      由稳定自由 Hamiltonian 锚定的实际 HS 连通分支上，因此不构成对该
+      稳定物理分支论证的反例。若未来某个 \(iJ_2g\) candidate 找到稳定零场，
+      还应显式证明它同时位于标准 Fock oscillator-semigroup 的正确取向；
+      做到这一点后，收敛性便由上面的论证沿整个场域保持。
+    </p>
+<h3>6.5 计数与残差</h3>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>统计</th><th class="num">找到 Pauli representatives</th>
+<th class="num">strict classes</th><th class="num">metric \(J_2g\)</th>
+<th class="num">metric \(iJ_2g\)</th><th class="num">trace 为零</th>
+<th class="num">半负定方向被翻转</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>玻色</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+<tr><td>费米</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+      所有 16 个 strict classes 的 witness residuals 都为机器输出中的精确 0：
+      \(\|gA_0+A_0^Tg\|=0\)、
+      \(\|J_1^TA_0J_1-\bar A_0\|=0\)，以及
+      \(\|\eta A_0+A_0^\dagger\eta+2I\|=0\)。
+    </p>
+<h3>6.6 十六个通过类的 \(A\) 分块讲义</h3>
+<p>
+      本节不再用一张压缩总表代表全部结构。合作者在 note 中对手算成功的
+      情形逐类写出了 \(A\) 的 block constraints；为了让完整穷举达到同样的
+      可读层级，下面对玻色、费米各八类逐项展开。每类都区分
+      maximal-subgroup 等号部分与 invariant-cone 收缩部分，并把
+      半负定条件写到 block matrix 上。
+    </p>
+<div class="note">
+<strong>本节怎样读。</strong>
+          以下 16 项不是把程序输出换一种排版，而是逐类写出
+          \(A=\left(\begin{smallmatrix}B&amp;C\\D&amp;-B^T\end{smallmatrix}\right)\)
+          的全部条件。每一项都按同一顺序给出：五条离散关系、具体
+          \(J_1,J_2,\eta\)、合法二次生成元、\(J_1\) 实性约束、
+          maximal subgroup、invariant cone、严格点与物理稳定性。
+          读完任意一项，不需要再到总表中反查符号。
+        </div>
+<p>
+          程序的 Pauli word 中，
+          \(I,X,Y,Z\) 分别表示
+          \(I_2,\sigma_x,i\sigma_y,\sigma_z\)，其中
+          \(i\sigma_y=\left(\begin{smallmatrix}0&amp;1\\-1&amp;0\end{smallmatrix}\right)\)
+          是实矩阵。每项末尾保留完整 Pauli 基底作为复现资料；
+          物理阅读只需看正文中已经展开的 block 条件。
+        </p>
+<div class="scope">
+<strong>物理模型中的时间片约定。</strong>
+          以下每个模型分别列出固定生成元 \(A_0\) 和辅助场生成元
+          \(A_{\rm HS}(\phi)\)。对称 Trotter 分解中的单粒子传播矩阵是
+          \[
+            e^{A_0/2}e^{A_{\rm HS}(\phi)}e^{A_0/2},
+          \]
+          一般不等于 \(e^{A_0+A_{\rm HS}(\phi)}\)。数值脚本分别验证
+          \(A_0\) 位于严格收缩锥、\(A_{\rm HS}(\phi)\) 位于
+          maximal-subgroup Lie algebra；因此三个传播因子的有序乘积仍在
+          同一严格半群内。只有在两个生成元确实对易时，才可把它们合成
+          一个指数。
+        </div>
+<nav aria-label="十六个通过类的卷内目录" class="case-index"><div><strong>玻色：合作者 note 已手算的四个 \(J_2g\) 类</strong><a href="#strict-case-1">note Case 5，non-Hermitian case I</a><a href="#strict-case-2">note Case 6，non-Hermitian case II</a><a href="#strict-case-3">note Case 7，Yinkai's case</a><a href="#strict-case-4">note Case 8，mainly non-Hermitian</a></div><div><strong>玻色：完整穷举补出的四个 \(iJ_2g\) 伙伴类</strong><a href="#strict-case-5">与 note Case 5 具有相同的 \(J_1\) 平方</a><a href="#strict-case-6">与 note Case 6 具有相同的 \(J_1\) 平方</a><a href="#strict-case-7">与 note Case 7 具有相同的 \(J_1\) 平方</a><a href="#strict-case-8">与 note Case 8 具有相同的 \(J_1\) 平方</a></div><div><strong>费米：与 note Cases \(5'\)--\(8'\) 对应的四个 \(J_2g\) 类</strong><a href="#strict-case-9">五条离散关系对应 note Case \(5'\)</a><a href="#strict-case-10">五条离散关系对应 note Case \(6'\)</a><a href="#strict-case-11">五条离散关系对应 note Case \(7'\)</a><a href="#strict-case-12">五条离散关系对应 note Case \(8'\)</a></div><div><strong>费米：完整穷举补出的四个 \(iJ_2g\) 伙伴类</strong><a href="#strict-case-13">与 note Case \(5'\) 具有相同的 \(J_1\) 平方</a><a href="#strict-case-14">与 note Case \(6'\) 具有相同的 \(J_1\) 平方</a><a href="#strict-case-15">与 note Case \(7'\) 具有相同的 \(J_1\) 平方</a><a href="#strict-case-16">与 note Case \(8'\) 具有相同的 \(J_1\) 平方</a></div></nav>
+<div class="case-group"><strong>玻色：合作者 note 已手算的四个 \(J_2g\) 类</strong></div>
+<article class="case-sheet" id="strict-case-1">
+<h4>6.6.1 玻色第 1 类：note Case 5，non-Hermitian case I</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z,\qquad
+          J_2=\sigma_x,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=I_{2},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=I_{2},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 1\times 1\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        B=\overline B,\qquad -C=\overline C,\qquad -D=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-1&amp;0\\0&amp;1\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{2}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 是 Hermitian、粒子数守恒的稳定 number damping；它可作为玻色 grand-canonical 路径的收敛零场锚点。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：单模 pair-quadrature 相互作用振子</strong></p><p class="model-scope"><strong>证据范围：</strong>稳定的 grand-canonical 玻色 HS 构造</p>
+<p>
+        取一个普通玻色模 \(a\)，并定义 Hermitian pair quadrature
+        \[
+          \hat O=\frac12\left(a^{+2}+a^2\right).
+        \]
+        一个非平凡且有界下的模型是
+        \[
+          \hat H=\kappa\,a^+a+\frac U2\hat O^2,
+          \qquad \kappa&gt;0,\quad U&gt;0.
+        \]
+        它是带 quartic pair-quadrature stiffness 的 parametric oscillator，
+        可用于研究 squeezing、双光子涨落与 parity-resolved transitions。
+        </p>
+<p>
+        Repulsive-square Gaussian HS 分解给出
+        \[
+          e^{-\Delta\tau U\hat O^2/2}
+          \propto\int d\phi\,e^{-\phi^2/2}
+          e^{\,i\sqrt{\Delta\tau U}\phi\hat O}.
+        \]
+        在本节的 Nambu convention 中
+        \[
+          \hat h(-\sigma_z)=-a^+a-\frac12,\qquad
+          \hat h(i\,i\sigma_y)=i\hat O.
+        \]
+        因而时间片中的两个生成元是
+        \[
+          A_0=-\kappa\Delta\tau\,\sigma_z,\qquad
+          A_{\rm HS}(\phi)=
+          \sqrt{\Delta\tau U}\phi\,i(i\sigma_y).
+        \]
+        第一项正是 strict witness \(-\eta\)，第二项正是本类
+        maximal subgroup 的 \(iY\) direction，所以
+        \[
+          \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I&lt;0,\qquad
+          \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0
+        \]
+        对所有实 \(\phi\) 同时成立。这里不是只找到一个抽象 matrix：
+        HS field、quartic interaction 与物理玻色算符已经逐项对应。
+        </p>
+<p class="small">
+<strong>正常序标量因子。</strong>
+        这里有 \(m=1\) 个玻色模，且
+        \[
+          \hat h(A_0)=-\kappa\Delta\tau(\hat N+m/2).
+        \]
+        因此物理因子 \(e^{-\kappa\Delta\tau\hat N}\) 等于
+        \(e^{+\kappa\Delta\tau m/2}e^{\hat h(A_0)}\)。
+        前面的标量严格为正，必须计入完整权重，但不改变符号和收缩判据。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>1</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>2</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>iY</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iX</code>, <code>Z</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-2">
+<h4>6.6.2 玻色第 2 类：note Case 6，non-Hermitian case II</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes I_2,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=I_{4},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(i\sigma_y\right)B\left(i\sigma_y\right)=\overline B,\qquad \left(i\sigma_y\right)C\left(i\sigma_y\right)=\overline C,\qquad \left(i\sigma_y\right)D\left(i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 是 Hermitian、粒子数守恒的稳定 number damping；它可作为玻色 grand-canonical 路径的收敛零场锚点。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：双模 bond-current 相互作用振子</strong></p><p class="model-scope"><strong>证据范围：</strong>稳定的 grand-canonical 玻色 HS 构造</p>
+<p>
+        取两个玻色模 \(a_1,a_2\)，定义 Hermitian bond current
+        \[
+          \hat j=-i(a_1^+a_2-a_2^+a_1),
+          \qquad
+          \hat H=\kappa(\hat n_1+\hat n_2)+\frac U2\hat j^2 ,
+          \qquad \kappa&gt;0,\quad U&gt;0 .
+        \]
+        这是带 current-current interaction 的 bosonic dimer。推广到
+        plaquette 或 frustrated lattice 后，可研究 orbital-current
+        correlations 与 chiral ordering。
+        </p>
+<p>
+        这里
+        \[
+          \hat h(I_2\otimes i\sigma_y)
+          =a_1^+a_2-a_2^+a_1=i\hat j .
+        \]
+        所以同一个 repulsive-square HS identity 产生两个生成元
+        \[
+          A_0=-\kappa\Delta\tau\,\sigma_z\otimes I_2,\qquad
+          A_{\rm HS}(\phi)=
+          \sqrt{\Delta\tau U}\phi\,I_2\otimes(i\sigma_y) .
+        \]
+        \(IY\) 在本类的 maximal-subgroup basis 中，而
+        \(-ZI=-\eta\) 在 strict cone 内。\(J_1=ZY\) 对两个生成元
+        分别满足复共轭约束，且
+        \[
+          \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I_4,\qquad
+          \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0 .
+        \]
+        </p>
+<p class="small">
+<strong>正常序标量因子。</strong>
+        这里有 \(m=2\) 个玻色模，且
+        \[
+          \hat h(A_0)=-\kappa\Delta\tau(\hat N+m/2).
+        \]
+        因此物理因子 \(e^{-\kappa\Delta\tau\hat N}\) 等于
+        \(e^{+\kappa\Delta\tau m/2}e^{\hat h(A_0)}\)。
+        前面的标量严格为正，必须计入完整权重，但不改变符号和收缩判据。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>6</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>XX</code>, <code>XZ</code>, <code>iYI</code>, <code>iZX</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iXI</code>, <code>YX</code>, <code>YZ</code>, <code>ZI</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-3">
+<h4>6.6.3 玻色第 3 类：note Case 7，Yinkai's case</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes I_2,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(\sigma_x\right)B\left(\sigma_x\right)=\overline B,\qquad \left(\sigma_x\right)C\left(\sigma_x\right)=\overline C,\qquad \left(\sigma_x\right)D\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 是 Hermitian、粒子数守恒的稳定 number damping；它可作为玻色 grand-canonical 路径的收敛零场锚点。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：反射配对的双组分 Bose-Hubbard 局域模型</strong></p><p class="model-scope"><strong>证据范围：</strong>稳定的 grand-canonical 玻色 HS 构造</p>
+<p>
+        取文章中的两种 boson flavors \(b,c\)，考虑
+        \[
+          \hat H=\kappa(\hat n_b+\hat n_c)
+          +\frac U2(\hat n_b-\hat n_c)^2,
+          \qquad \kappa&gt;0,\quad U&gt;0 .
+        \]
+        在格点上可加入位于同一 maximal subgroup 或正确取向 invariant
+        cone 的 hopping 与 pairing，前提是总固定生成元仍严格收缩，且
+        玻色 Hamiltonian 保持稳定。这样才得到文章 paired benchmark 的
+        局域 building block；仅有 flavor reflection 本身不够保证收缩。
+        </p>
+<p>
+        Repulsive HS field 耦合到
+        \(\hat O=\hat n_b-\hat n_c\)：
+        \[
+          e^{-\Delta\tau U\hat O^2/2}
+          \propto\int d\phi\,e^{-\phi^2/2}
+          e^{\,i\sqrt{\Delta\tau U}\phi\hat O}.
+        \]
+        由于
+        \[
+          \hat h(i\sigma_z\otimes\sigma_z)=i(\hat n_b-\hat n_c),
+        \]
+        两个时间片生成元为
+        \[
+          A_0=-\kappa\Delta\tau\,ZI,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
+        \]
+        \(J_1=IX\) 正是交换 \(b,c\) 后复共轭的 reflection；
+        \(iZZ\) 属于 maximal subgroup，\(-ZI=-\eta\) 是 stable strict
+        direction。因此该模型不仅“满足 Case 7 的五条式子”，而且逐个
+        HS configuration 都满足严格 \(J_2g\)-contraction。这就是
+        Yinkai's case 与 7 月 19 日 pole-free paired model 的直接连接。
+        </p>
+<p class="small">
+<strong>正常序标量因子。</strong>
+        这里有 \(m=2\) 个玻色模，且
+        \[
+          \hat h(A_0)=-\kappa\Delta\tau(\hat N+m/2).
+        \]
+        因此物理因子 \(e^{-\kappa\Delta\tau\hat N}\) 等于
+        \(e^{+\kappa\Delta\tau m/2}e^{\hat h(A_0)}\)。
+        前面的标量严格为正，必须计入完整权重，但不改变符号和收缩判据。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>6</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>XI</code>, <code>XX</code>, <code>iYZ</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>iXZ</code>, <code>YI</code>, <code>YX</code>, <code>ZI</code>, <code>ZX</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-4">
+<h4>6.6.4 玻色第 4 类：note Case 8，mainly non-Hermitian</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes I_2,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(i\sigma_y\right)B\left(i\sigma_y\right)=\overline B,\qquad -\left(i\sigma_y\right)C\left(i\sigma_y\right)=\overline C,\qquad -\left(i\sigma_y\right)D\left(i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 是 Hermitian、粒子数守恒的稳定 number damping；它可作为玻色 grand-canonical 路径的收敛零场锚点。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：Kramers-like 双组分 relative-density 模型</strong></p><p class="model-scope"><strong>证据范围：</strong>稳定的 grand-canonical 玻色 HS 构造</p>
+<p>
+        取两个 boson components，并定义
+        \[
+          \hat O=\hat n_1-\hat n_2 .
+        \]
+        考虑稳定的 Hermitian model
+        \[
+          \hat H=\kappa(\hat n_1+\hat n_2)+\frac U2\hat O^2,
+          \qquad \kappa,U&gt;0 .
+        \]
+        它与 Case 7 使用同一个物理 Hamiltonian，但现在选择
+        \(J_1=I_{\rm Nambu}\otimes(i\sigma_y)\)，所以
+        \(J_1^2=-I\)。同一个 HS family 同时属于不同五位标签，说明这些
+        标签记录的是可用的 symmetry structures，而不是互斥的物理相。
+        </p>
+<p>
+        直接展开得到
+        \[
+          \hat h(i\sigma_z\otimes\sigma_z)=i\hat O .
+        \]
+        因此 repulsive-square HS 分解使用
+        \[
+          A_0=-\kappa\Delta\tau\,ZI,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
+        \]
+        \(iZZ\) 是本类的 maximal-subgroup direction；
+        \(J_1=IY\) 满足 \(J_1^2=-I\)，
+        并分别把两个生成元送到其复共轭。固定的 \(-ZI\) 给出
+        \(-2\kappa\Delta\tau I_4\)，而场生成元的 contraction
+        expression 为零。
+        </p>
+<p class="small">
+<strong>正常序标量因子。</strong>
+        这里有 \(m=2\) 个玻色模，且
+        \[
+          \hat h(A_0)=-\kappa\Delta\tau(\hat N+m/2).
+        \]
+        因此物理因子 \(e^{-\kappa\Delta\tau\hat N}\) 等于
+        \(e^{+\kappa\Delta\tau m/2}e^{\hat h(A_0)}\)。
+        前面的标量严格为正，必须计入完整权重，但不改变符号和收缩判据。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>6</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>XI</code>, <code>iYX</code>, <code>iYZ</code>, <code>iZX</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iXX</code>, <code>iXZ</code>, <code>YI</code>, <code>ZI</code></p>
+</details>
+</article>
+<div class="case-group"><strong>玻色：完整穷举补出的四个 \(iJ_2g\) 伙伴类</strong></div>
+<article class="case-sheet" id="strict-case-5">
+<h4>6.6.5 玻色第 5 类：与 note Case 5 具有相同的 \(J_1\) 平方</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=iJ_2g=
+          \begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+          \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(\sigma_x\right)B\left(\sigma_x\right)=\overline B,\qquad -\left(\sigma_x\right)C\left(\sigma_x\right)=\overline C,\qquad -\left(\sigma_x\right)D\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分为</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}
+            B&amp;C\\-\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B+B^\dagger\eta_{\rm in}=0,\qquad
+            \eta_{\rm in}B^T+\overline B\,\eta_{\rm in}=0 .
+          \]</div>
+<p>
+          此外 \(C\) 与
+          \(D=-\eta_{\rm in}C^\dagger\eta_{\rm in}\)
+          都必须对称，并满足本类上方的 \(J_1\) 实性条件。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分为</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}
+            B&amp;C\\\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B=B^\dagger\eta_{\rm in},\qquad
+            \eta_{\rm in}B^T=\overline B\,\eta_{\rm in},\qquad
+            \begin{pmatrix}
+            \eta_{\rm in}B&amp;\eta_{\rm in}C\\
+            C^\dagger\eta_{\rm in}&amp;-\eta_{\rm in}B^T
+            \end{pmatrix}\le0 .
+          \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+            A_0=-\eta=
+            -\begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 虽是 Hermitian、粒子数守恒的严格见证，但其单粒子谱同时含正、负支；它只证明抽象 cone 有内部，本身不能作为收敛的玻色 grand-canonical 零场。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数的 bosonic Lipkin-Meshkov-Glick dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>逐时间片矩阵实现；尚不是 grand-canonical 无符号模型</p>
+<p>
+        对两个 boson modes 定义 collective spin
+        \[
+          S_x=\frac12(a_1^+a_2+a_2^+a_1),\qquad
+          S_y=\frac{1}{2i}(a_1^+a_2-a_2^+a_1).
+        \]
+        在固定总粒子数 sector 中考虑
+        \[
+          \hat H=-2\Omega S_y-2U S_x^2,\qquad \Omega&gt;0,\quad U&gt;0 .
+        \]
+        这是可在双阱凝聚体或双内部态冷原子中实现的
+        Lipkin-Meshkov-Glick/Josephson model，可研究 collective-spin
+        symmetry breaking、macroscopic tunnelling 与 squeezing。
+        </p>
+<p>
+        本类的 strict witness 与 subgroup direction 分别满足
+        \[
+          \hat h(-iIY)=2S_y,\qquad
+          \hat h(ZX)=2S_x .
+        \]
+        Attractive-square HS identity 因而给出
+        \[
+          A_0=-\Omega\Delta\tau\,iIY,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZX .
+        \]
+        \(ZX\) 位于 maximal subgroup，所以任意正负实场都不改变
+        固定因子的
+        \(\eta A_0+A_0^\dagger\eta=-2\Omega\Delta\tau I_4\)；
+        场因子的 contraction expression 为零。
+        该模型保持总粒子数，固定-\(N\) Hilbert space 有限，因而是这一
+        \(iJ_2g\) 类最直接的物理用途。
+        </p>
+<p class="scope">
+<strong>范围。</strong>
+        这里已经验证的是每个 HS slice 都满足本类的矩阵等式与严格
+        contraction inequality。固定-\(N\) Hilbert space 虽然有限，
+        但还必须另证相应 fixed-\(N\) character 沿全部场构型不为零，
+        才能宣布无符号；本报告尚未给出这一步。若改做
+        grand-canonical bare boson trace，\(-iIY\) 的两个
+        single-particle branches 符号相反，因而不能把这个例子当作本文
+        BAFQMC 的 grand-canonical sign-free model。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>6</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>iXI</code>, <code>XZ</code>, <code>iYX</code>, <code>ZX</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>iXX</code>, <code>iYI</code>, <code>YZ</code>, <code>ZI</code>, <code>iZZ</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-6">
+<h4>6.6.6 玻色第 6 类：与 note Case 6 具有相同的 \(J_1\) 平方</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_x\otimes I_2\otimes i\sigma_y,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y\otimes \sigma_x,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=-I_{8},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=I_{8},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=iJ_2g=
+          \begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+          \qquad \eta_{\rm in}=-\sigma_y\otimes \sigma_x.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 4\times 4\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(I_2\otimes i\sigma_y\right)B^T\left(I_2\otimes i\sigma_y\right)=\overline B,\qquad -\left(I_2\otimes i\sigma_y\right)D\left(I_2\otimes i\sigma_y\right)=\overline C,\qquad -\left(I_2\otimes i\sigma_y\right)C\left(I_2\otimes i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分为</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}
+            B&amp;C\\-\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B+B^\dagger\eta_{\rm in}=0,\qquad
+            \eta_{\rm in}B^T+\overline B\,\eta_{\rm in}=0 .
+          \]</div>
+<p>
+          此外 \(C\) 与
+          \(D=-\eta_{\rm in}C^\dagger\eta_{\rm in}\)
+          都必须对称，并满足本类上方的 \(J_1\) 实性条件。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分为</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}
+            B&amp;C\\\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B=B^\dagger\eta_{\rm in},\qquad
+            \eta_{\rm in}B^T=\overline B\,\eta_{\rm in},\qquad
+            \begin{pmatrix}
+            \eta_{\rm in}B&amp;\eta_{\rm in}C\\
+            C^\dagger\eta_{\rm in}&amp;-\eta_{\rm in}B^T
+            \end{pmatrix}\le0 .
+          \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+            A_0=-\eta=
+            -\begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{8}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 虽是 Hermitian、粒子数守恒的严格见证，但其单粒子谱同时含正、负支；它只证明抽象 cone 有内部，本身不能作为收敛的玻色 grand-canonical 零场。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：四组分 synthetic-spin-orbit collective bosons</strong></p><p class="model-scope"><strong>证据范围：</strong>逐时间片矩阵实现；尚不是 grand-canonical 无符号模型</p>
+<p>
+        令四个 boson components 组成
+        \(\boldsymbol a=(a_{\uparrow 1},a_{\uparrow 2},
+        a_{\downarrow 1},a_{\downarrow 2})^T\)，两个内部 Pauli spaces
+        分别表示 pseudo-spin 与 orbital。固定总粒子数时考虑
+        \[
+          \hat H=
+          -\Omega\,\boldsymbol a^+
+          (\sigma_y\otimes\sigma_x)\boldsymbol a
+          -\frac U2
+          \left[
+          \boldsymbol a^+(I_2\otimes\sigma_z)\boldsymbol a
+          \right]^2 ,
+          \qquad \Omega&gt;0,\quad U&gt;0 .
+        \]
+        第一项是 synthetic spin-orbit/Raman conversion，第二项是
+        orbital-polarization attraction。它适合研究四组分 spinor
+        condensates 中的 collective ordering 与 entanglement。
+        </p>
+<p>
+        这里
+        \[
+          \hat h(-iIYX)=
+          \boldsymbol a^+(\sigma_y\otimes\sigma_x)\boldsymbol a,\qquad
+          \hat h(ZIZ)=
+          \boldsymbol a^+(I_2\otimes\sigma_z)\boldsymbol a .
+        \]
+        因而 attractive HS 分解使用
+        \[
+          A_0=-\Omega\Delta\tau\,iIYX,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZIZ .
+        \]
+        \(ZIZ\) 明确列在本类 maximal-subgroup basis 中；
+        \(A_0/(\Omega\Delta\tau)=-iIYX=-\eta\) 是 strict direction。
+        所有实场值的场因子都是 metric isometry，固定因子则严格收缩。
+        四维内部空间不是为了凑 Pauli
+        words，而是 \(J_1^2=-I\) 与本类其余关系同时实现所需的最小
+        physical component structure。
+        </p>
+<p class="scope">
+        与上一类相同，当前结论只完成逐时间片的矩阵结构检验。
+        固定总粒子数计算没有玻色 grand-canonical trace divergence，
+        但仍需独立证明 fixed-\(N\) 权重不经过零点；grand-canonical
+        bare trace 则明确缺少稳定锚点。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>20</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>16</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IXY</code>, <code>IYI</code>, <code>iIYZ</code>, <code>IZY</code>, <code>iXIX</code>, <code>XXI</code>, <code>iXXZ</code>, <code>XYY</code>, <code>XZI</code>, <code>iXZZ</code>, <code>YIX</code>, <code>iYXI</code>, <code>YXZ</code>, <code>iYYY</code>, <code>iYZI</code>, <code>YZZ</code>, <code>iZII</code>, <code>ZIZ</code>, <code>ZXX</code>, <code>ZZX</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>IIY</code>, <code>iIYX</code>, <code>XII</code>, <code>iXIZ</code>, <code>iXXX</code>, <code>iXZX</code>, <code>iYII</code>, <code>YIZ</code>, <code>YXX</code>, <code>YZX</code>, <code>ZIX</code>, <code>iZXI</code>, <code>ZXZ</code>, <code>iZYY</code>, <code>iZZI</code>, <code>ZZZ</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-7">
+<h4>6.6.7 玻色第 7 类：与 note Case 7 具有相同的 \(J_1\) 平方</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=I_{4},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=iJ_2g=
+          \begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+          \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(\sigma_x\right)B\left(\sigma_x\right)=\overline B,\qquad \left(\sigma_x\right)C\left(\sigma_x\right)=\overline C,\qquad \left(\sigma_x\right)D\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分为</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}
+            B&amp;C\\-\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B+B^\dagger\eta_{\rm in}=0,\qquad
+            \eta_{\rm in}B^T+\overline B\,\eta_{\rm in}=0 .
+          \]</div>
+<p>
+          此外 \(C\) 与
+          \(D=-\eta_{\rm in}C^\dagger\eta_{\rm in}\)
+          都必须对称，并满足本类上方的 \(J_1\) 实性条件。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分为</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}
+            B&amp;C\\\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B=B^\dagger\eta_{\rm in},\qquad
+            \eta_{\rm in}B^T=\overline B\,\eta_{\rm in},\qquad
+            \begin{pmatrix}
+            \eta_{\rm in}B&amp;\eta_{\rm in}C\\
+            C^\dagger\eta_{\rm in}&amp;-\eta_{\rm in}B^T
+            \end{pmatrix}\le0 .
+          \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+            A_0=-\eta=
+            -\begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 虽是 Hermitian、粒子数守恒的严格见证，但其单粒子谱同时含正、负支；它只证明抽象 cone 有内部，本身不能作为收敛的玻色 grand-canonical 零场。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：带 quartic pair-phase stiffness 的 bosonic parametric dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>逐时间片矩阵实现；尚不是 grand-canonical 无符号模型</p>
+<p>
+        仍取两个 boson modes，并令
+        \[
+          \hat O=-i(a_1^+a_2^+-a_1a_2).
+        \]
+        \(\hat O\) 是 Hermitian two-mode pair-phase quadrature。模型
+        \[
+          \hat H=-2\Omega S_y+\frac U2\hat O^2,
+          \qquad \Omega&gt;0,\quad U&gt;0
+        \]
+        描述 coherent flavor conversion 与 two-mode parametric
+        fluctuations 的竞争，可用于 driven cavity pairs、molecular
+        conversion 或受限占据的 bosonic simulators。
+        </p>
+<p>
+        直接计算
+        \[
+          \hat h(-iIY)=2S_y,\qquad
+          \hat h(XX)=a_1^+a_2^+-a_1a_2=i\hat O .
+        \]
+        Repulsive-square HS 分解给出
+        \[
+          A_0=-\Omega\Delta\tau\,iIY,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,XX .
+        \]
+        \(XX\) 是本类 maximal-subgroup direction；因此 continuous
+        Gaussian field 不论正负都给出 metric-isometric factor，
+        strict part 始终由 \(-iIY\) 提供。\(J_1=IX\) 又把两个
+        flavors 交换并复共轭，所以两个生成元分别满足本类的实性约束。
+        </p>
+<p class="scope">
+        该 Hamiltonian 具有清楚的 parametric-boson 物理意义，但
+        \(XX\) 改变总粒子数，而现有 strict witness 不是
+        grand-canonical trace-convergent anchor。有限占据截断或
+        open-system effective dynamics 可以给这个 slice family 一个定义，
+        但那是不同的计算问题；不能据此声称已经得到本文所需的 bare
+        thermal BAFQMC。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>6</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>XX</code>, <code>YI</code>, <code>iYZ</code>, <code>ZX</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>XI</code>, <code>iXZ</code>, <code>YX</code>, <code>ZI</code>, <code>iZZ</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-8">
+<h4>6.6.8 玻色第 8 类：与 note Case 8 具有相同的 \(J_1\) 平方</h4>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=i\sigma_y\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=I_{4},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=iJ_2g=
+          \begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+          \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\qquad D=D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(\sigma_x\right)B^T\left(\sigma_x\right)=\overline B,\qquad -\left(\sigma_x\right)D\left(\sigma_x\right)=\overline C,\qquad -\left(\sigma_x\right)C\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分为</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}
+            B&amp;C\\-\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B+B^\dagger\eta_{\rm in}=0,\qquad
+            \eta_{\rm in}B^T+\overline B\,\eta_{\rm in}=0 .
+          \]</div>
+<p>
+          此外 \(C\) 与
+          \(D=-\eta_{\rm in}C^\dagger\eta_{\rm in}\)
+          都必须对称，并满足本类上方的 \(J_1\) 实性条件。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分为</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}
+            B&amp;C\\\eta_{\rm in}C^\dagger\eta_{\rm in}&amp;-B^T
+            \end{pmatrix},
+          \]</div>
+<div class="scroll">\[
+            \eta_{\rm in}B=B^\dagger\eta_{\rm in},\qquad
+            \eta_{\rm in}B^T=\overline B\,\eta_{\rm in},\qquad
+            \begin{pmatrix}
+            \eta_{\rm in}B&amp;\eta_{\rm in}C\\
+            C^\dagger\eta_{\rm in}&amp;-\eta_{\rm in}B^T
+            \end{pmatrix}\le0 .
+          \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+            A_0=-\eta=
+            -\begin{pmatrix}\eta_{\rm in}&amp;0\\0&amp;\eta_{\rm in}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>这里的 \(A_0\) 虽是 Hermitian、粒子数守恒的严格见证，但其单粒子谱同时含正、负支；它只证明抽象 cone 有内部，本身不能作为收敛的玻色 grand-canonical 零场。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数的 one-axis-twisting Josephson dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>逐时间片矩阵实现；尚不是 grand-canonical 无符号模型</p>
+<p>
+        对两个 boson modes 定义
+        \(S_z=(\hat n_1-\hat n_2)/2\)。考虑固定总粒子数下的
+        \[
+          \hat H=-2\Omega S_y-2U S_z^2,\qquad \Omega&gt;0,\quad U&gt;0 .
+        \]
+        这是带 one-axis twisting 的 bosonic Josephson/collective-spin
+        model，可研究 self trapping、spin squeezing、cat states 与
+        quantum metrology。
+        </p>
+<p>
+        因为
+        \[
+          \hat h(-iIY)=2S_y,\qquad \hat h(ZZ)=2S_z ,
+        \]
+        attractive-square HS 分解使用
+        \[
+          A_0=-\Omega\Delta\tau\,iIY,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZZ .
+        \]
+        \(ZZ\) 位于本类 maximal subgroup，故
+        \(\eta A_0+A_0^\dagger\eta=-2\Omega\Delta\tau I_4\)，而
+        \(\eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0\)。
+        \(J_1=YX\) 的 square 为 \(-I\)，并逐项保持这个 slice family
+        的 anti-linear condition。
+        </p>
+<p class="scope">
+        固定-\(N\) sector 给出有限的 many-body problem，却不会自动给出
+        fixed-\(N\) trace 的恒正性；这一点仍需另证。grand-canonical
+        bare trace 的限制与前两个 bosonic \(iJ_2g\) models 相同。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>6</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>iXI</code>, <code>XZ</code>, <code>YI</code>, <code>iYZ</code>, <code>iZI</code>, <code>ZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>iXX</code>, <code>YX</code>, <code>iZX</code></p>
+</details>
+</article>
+<div class="case-group"><strong>费米：与 note Cases \(5'\)--\(8'\) 对应的四个 \(J_2g\) 类</strong></div>
+<article class="case-sheet" id="strict-case-9">
+<h4>6.6.9 费米第 1 类：五条离散关系对应 note Case \(5'\)</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z,\qquad
+          J_2=i\sigma_y,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=I_{2},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=-I_{2},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 1\times 1\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        B=\overline B,\qquad -C=\overline C,\qquad -D=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-1&amp;0\\0&amp;1\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{2}&lt;0 .
+          \]</div>
+<p>费米 Fock space 有限，因此没有玻色高占据态导致的 trace 发散；这个 \(A_0\) 同时是粒子数守恒的严格见证。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：spinless-fermion bond-current interaction dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        最小 Pauli representative 只有一个 fermion mode，maximal subgroup
+        因而退化。把同一 \(J_1=\sigma_z\otimes I\)、
+        \(J_2=i\sigma_y\otimes I\) tensor-extend 到两个 sites 后，定义
+        \[
+          \hat j=-i(c_1^+c_2-c_2^+c_1)
+        \]
+        并考虑
+        \[
+          \hat H=\kappa(\hat n_1+\hat n_2-1)
+          -t(c_1^+c_2+c_2^+c_1)+\frac U2\hat j^2,
+          \qquad \kappa&gt;|t|,\quad U&gt;0 .
+        \]
+        在单条 bond 上，
+        \(\hat j^2=\hat n_1+\hat n_2-2\hat n_1\hat n_2\)，
+        所以这个 dimer 等价于 density interaction，并没有形成几何 loop。
+        推广到含多条独立 bond currents 的 plaquette 后，才可研究
+        loop-current correlations 与 time-reversal breaking。
+        </p>
+<p>
+        Nambu generators 满足
+        \[
+          \hat h(IY)=c_1^+c_2-c_2^+c_1=i\hat j ,
+        \]
+        所以 repulsive HS 分解使用
+        \[
+          A_0=\Delta\tau(-\kappa ZI+tZX),\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,IY .
+        \]
+        \(IY\) 是 tensor-extended maximal-subgroup direction；
+        real symmetric hopping \(ZX\) 位于 cone。条件
+        \(\kappa&gt;|t|\) 使 number-conserving \(B=-\kappa I+t\sigma_x\)
+        negative definite，因此固定因子严格 contraction，场因子是
+        metric isometry；其有序乘积对任意实场仍严格 contraction。
+        这也说明最小 representative 的零维 subgroup 不是该 class
+        在物理 lattice extension 中没有相互作用模型。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>0</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>1</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+        仅含零生成元</p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>Z</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-10">
+<h4>6.6.10 费米第 2 类：五条离散关系对应 note Case \(6'\)</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z\otimes i\sigma_y,\qquad
+          J_2=i\sigma_y\otimes I_2,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=-I_{4},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(i\sigma_y\right)B\left(i\sigma_y\right)=\overline B,\qquad \left(i\sigma_y\right)C\left(i\sigma_y\right)=\overline C,\qquad \left(i\sigma_y\right)D\left(i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>费米 Fock space 有限，因此没有玻色高占据态导致的 trace 发散；这个 \(A_0\) 同时是粒子数守恒的严格见证。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：particle-hole anti-linear symmetry 下的配对通道 attractive dot</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        对两个 fermion modes \(c,d\) 定义 Hermitian pair quadrature
+        \[
+          \hat P_y=i(c^+d^+ + cd).
+        \]
+        考虑
+        \[
+          \hat H=\kappa(\hat n_c+\hat n_d-1)-\frac U2\hat P_y^2,
+          \qquad \kappa&gt;0,\quad U&gt;0 .
+        \]
+        这个两模问题中有恒等式
+        \[
+          \hat P_y^2=(\hat n_c+\hat n_d-1)^2.
+        \]
+        因此它不是一个独立的 local charge-\(4e\) interaction，而是把
+        attractive density interaction 选在 pairing quadrature 通道做
+        HS 分解。加入显式 proximity pairing 或扩展到格点后，可用于研究
+        superconducting parity crossing 与 interacting Andreev levels。
+        </p>
+<p>
+        在当前 ordering convention 中
+        \[
+          \hat h(iXY)=\hat P_y .
+        \]
+        Attractive-square HS transformation 因而产生
+        \[
+          A_0=-\kappa\Delta\tau\,ZI,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iXY .
+        \]
+        \(iXY\) 位于本类 maximal subgroup，\(-ZI=-\eta\) 是 strict
+        number-damping direction。因此固定因子的 contraction
+        expression 是 \(-2\kappa\Delta\tau I_4\)，场因子的
+        contraction expression 为零。
+        \(J_1=ZY\) 同时给出本类 \(J_1^2=-I\) 与
+        \(J_1^TAJ_1=\bar A\)。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>2</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>iXY</code>, <code>iZX</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iYY</code>, <code>ZI</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-11">
+<h4>6.6.11 费米第 3 类：五条离散关系对应 note Case \(7'\)</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes I_2,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=-I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(\sigma_x\right)B\left(\sigma_x\right)=\overline B,\qquad \left(\sigma_x\right)C\left(\sigma_x\right)=\overline C,\qquad \left(\sigma_x\right)D\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>费米 Fock space 有限，因此没有玻色高占据态导致的 trace 发散；这个 \(A_0\) 同时是粒子数守恒的严格见证。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：Majorana-reflection 两轨道 attractive dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        仍定义 \(\hat P_y=i(c^+d^+ + cd)\)，但现在加入 reflection-even
+        orbital hybridization：
+        \[
+          \hat H=\kappa(\hat n_c+\hat n_d-1)
+          -t(c^+d+d^+c)-\frac U2\hat P_y^2,
+          \qquad \kappa&gt;|t|,\quad U&gt;0 .
+        \]
+        由于 \(\hat P_y^2=(\hat n_c+\hat n_d-1)^2\)，这是在 pairing
+        通道分解的 attractive two-orbital dimer。它同时含 normal
+        hybridization 与 pairing-channel fluctuations，是研究
+        Majorana-reflection cone 与 Andreev spectra 的最小非平凡模型。
+        </p>
+<p>
+        其两个生成元是
+        \[
+          A_0=\Delta\tau(-\kappa ZI+tZX),\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iXY .
+        \]
+        \(iXY\) 属于 maximal subgroup；\(ZX\) 是本类允许的
+        reflection-even cone direction。由于
+        \(B=-\kappa I+t\sigma_x\) 的两个 eigenvalues 都为负，
+        \(\kappa&gt;|t|\) 保证固定因子 strict contraction，而 HS
+        因子位于 maximal subgroup。\(J_1=IX\)
+        交换两个 reflected orbitals 并复共轭，逐场值保持整个
+        有序时间片。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>2</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>iXY</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>iYY</code>, <code>ZI</code>, <code>ZX</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-12">
+<h4>6.6.12 费米第 4 类：五条离散关系对应 note Case \(8'\)</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes i\sigma_y,\qquad
+          J_2=i\sigma_y\otimes I_2,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=-g,\qquad
+          J_2^2=-I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+          \eta=J_2g=
+          \begin{pmatrix}I_{2}&amp;0\\0&amp;-I_{2}\end{pmatrix}.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(i\sigma_y\right)B\left(i\sigma_y\right)=\overline B,\qquad -\left(i\sigma_y\right)C\left(i\sigma_y\right)=\overline C,\qquad -\left(i\sigma_y\right)D\left(i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+          等号部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm subgroup}=
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=-B .
+          \]</div>
+<p>
+          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
+          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
+          \(J_1^TAJ_1=\overline A\) 约束。
+          </p>
+<p><strong>Invariant cone。</strong>
+          收缩部分可以且只能写成</p>
+<div class="scroll">\[
+            A_{\rm cone}=
+            \begin{pmatrix}B&amp;C\\-C^\dagger&amp;-B^T\end{pmatrix},
+            \qquad B^\dagger=B,\qquad
+            \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
+          \]</div>
+<p>
+          最后一个半负定不等式才从线性 span 中选出真正的 cone；
+          只满足前面的等式仍不等于严格收缩。
+          </p>
+<p><strong>一个严格点。</strong>
+          取</p>
+<div class="scroll">\[
+            A_0=-\eta=
+            \begin{pmatrix}-I_{2}&amp;0\\0&amp;I_{2}\end{pmatrix},
+            \qquad
+            \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+          \]</div>
+<p>费米 Fock space 有限，因此没有玻色高占据态导致的 trace 发散；这个 \(A_0\) 同时是粒子数守恒的严格见证。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：Kramers pair-quadrature attractive model</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        把 \(c,d\) 看作一对 Kramers partners，并定义
+        \[
+          \hat P_x=c^+d^+-cd .
+        \]
+        由于 fermion ordering，\(\hat P_x^\dagger=\hat P_x\)。
+        取
+        \[
+          \hat H=\kappa(\hat n_c+\hat n_d-1)-\frac U2\hat P_x^2 ,
+          \qquad \kappa&gt;0,\quad U&gt;0 .
+        \]
+        同样有
+        \(\hat P_x^2=(\hat n_c+\hat n_d-1)^2\)，所以这是保持
+        Kramers anti-linear structure 的 pairing-channel
+        attractive model；在 lattice extension 中可研究
+        time-reversal-invariant superconducting collective modes。
+        </p>
+<p>
+        直接展开可得
+        \[
+          \hat h(YY)=c^+d^+-cd=\hat P_x .
+        \]
+        所以 attractive HS 分解使用
+        \[
+          A_0=-\kappa\Delta\tau\,ZI,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,YY .
+        \]
+        \(YY\) 是本类 maximal-subgroup direction，而
+        \(J_1=IY\) 正是 \(T(c)=d,\ T(d)=-c\) 的 real matrix part。
+        每个 slice 因而既满足 Kramers reality condition，又保持由
+        \(-ZI\) 给出的 strict \(J_2g\)-contraction。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>2</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>YY</code>, <code>iZX</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>XY</code>, <code>ZI</code></p>
+</details>
+</article>
+<div class="case-group"><strong>费米：完整穷举补出的四个 \(iJ_2g\) 伙伴类</strong></div>
+<article class="case-sheet" id="strict-case-13">
+<h4>6.6.13 费米第 5 类：与 note Case \(5'\) 具有相同的 \(J_1\) 平方</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=\sigma_z\otimes I_2,\qquad
+          J_2=I_2\otimes i\sigma_y,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=-I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+      \eta=iJ_2g=
+      \begin{pmatrix}0&amp;\eta_{\rm in}\\
+      \eta_{\rm in}&amp;0\end{pmatrix},
+      \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        B=\overline B,\qquad -C=\overline C,\qquad -D=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+      令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分仍写成
+      \(A=\left(\begin{smallmatrix}B&amp;C\\D&amp;-B^T\end{smallmatrix}\right)\)，
+      其中</p>
+<div class="scroll">\[
+        \eta_{\rm in}D+D^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}C+C^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}B=\overline B\,\eta_{\rm in} .
+      \]</div>
+<p>
+      \(C^T=-C,\ D^T=-D\) 与本类的 \(J_1\) 实性条件仍须同时成立。
+      </p>
+<p><strong>Invariant cone。</strong>
+      cone 的线性部分满足</p>
+<div class="scroll">\[
+        \eta_{\rm in}D=D^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}C=C^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}B=-\overline B\,\eta_{\rm in},
+      \]</div>
+<p>并进一步施加完整的半负定条件</p>
+<div class="scroll">\[
+        \eta A=
+        \begin{pmatrix}
+        \eta_{\rm in}D&amp;-\eta_{\rm in}B^T\\
+        \eta_{\rm in}B&amp;\eta_{\rm in}C
+        \end{pmatrix}\le0 .
+      \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+        A_0=-\eta=
+        -\begin{pmatrix}0&amp;\eta_{\rm in}\\
+        \eta_{\rm in}&amp;0\end{pmatrix},
+        \qquad
+        \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+      \]</div>
+<p>费米 Fock space 有限；这个 \(A_0\) 位于有配对的严格 cone，其物理含义要在 Majorana/Nambu 约定一致后再判断。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：带 attractive charging energy 的 proximitized fermion dot</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        定义 Hermitian pairing quadrature
+        \[
+          \hat\Delta_y=-i(c^+d^+ + cd),\qquad
+          \hat Q=\hat n_c+\hat n_d-1 .
+        \]
+        考虑 superconducting quantum dot
+        \[
+          \hat H=-\Delta\,\hat\Delta_y-\frac U2\hat Q^2,
+          \qquad \Delta,U&gt;0 .
+        \]
+        对 \(d\) 做一个固定 phase rotation 后，第一项就是通常的
+        real \(s\)-wave proximity pairing；第二项是 attractive charging
+        interaction。该模型可研究 even/odd parity crossings 与 Andreev states。
+        </p>
+<p>
+        本类满足
+        \[
+          \hat h(-iXY)=\hat\Delta_y,\qquad
+          \hat h(ZI)=\hat Q .
+        \]
+        因而 attractive HS 分解使用
+        \[
+          A_0=-\Delta\Delta\tau\,iXY,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZI .
+        \]
+        \(-iXY=-\eta\) 是 physical pairing strict direction，
+        \(ZI\) 属于 maximal subgroup。费米 Fock space 有限，所以
+        不存在玻色 bare-trace divergence；固定因子严格收缩，所有实场的
+        density factors 都位于同一个 maximal subgroup。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>2</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>ZI</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iXY</code>, <code>iYY</code>, <code>ZX</code>, <code>ZZ</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-14">
+<h4>6.6.14 费米第 6 类：与 note Case \(6'\) 具有相同的 \(J_1\) 平方</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=i\sigma_y\otimes I_2,\qquad
+          J_2=I_2\otimes i\sigma_y,\\
+          J_1^TgJ_1=-g,\qquad
+          J_1^2=-I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=-I_{4},\qquad
+          [J_1,J_2]=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+      \eta=iJ_2g=
+      \begin{pmatrix}0&amp;\eta_{\rm in}\\
+      \eta_{\rm in}&amp;0\end{pmatrix},
+      \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -B^T=\overline B,\qquad -D=\overline C,\qquad -C=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+      令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分仍写成
+      \(A=\left(\begin{smallmatrix}B&amp;C\\D&amp;-B^T\end{smallmatrix}\right)\)，
+      其中</p>
+<div class="scroll">\[
+        \eta_{\rm in}D+D^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}C+C^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}B=\overline B\,\eta_{\rm in} .
+      \]</div>
+<p>
+      \(C^T=-C,\ D^T=-D\) 与本类的 \(J_1\) 实性条件仍须同时成立。
+      </p>
+<p><strong>Invariant cone。</strong>
+      cone 的线性部分满足</p>
+<div class="scroll">\[
+        \eta_{\rm in}D=D^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}C=C^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}B=-\overline B\,\eta_{\rm in},
+      \]</div>
+<p>并进一步施加完整的半负定条件</p>
+<div class="scroll">\[
+        \eta A=
+        \begin{pmatrix}
+        \eta_{\rm in}D&amp;-\eta_{\rm in}B^T\\
+        \eta_{\rm in}B&amp;\eta_{\rm in}C
+        \end{pmatrix}\le0 .
+      \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+        A_0=-\eta=
+        -\begin{pmatrix}0&amp;\eta_{\rm in}\\
+        \eta_{\rm in}&amp;0\end{pmatrix},
+        \qquad
+        \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+      \]</div>
+<p>费米 Fock space 有限；这个 \(A_0\) 位于有配对的严格 cone，其物理含义要在 Majorana/Nambu 约定一致后再判断。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：带 spin-polarization interaction 的 superconducting dot</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        继续使用 \(\hat\Delta_y=-i(c^+d^+ + cd)\)，并定义
+        \(\hat S_z=\hat n_c-\hat n_d\)。模型
+        \[
+          \hat H=-\Delta\hat\Delta_y+\frac U2\hat S_z^2,
+          \qquad \Delta,U&gt;0
+        \]
+        是有 proximity pairing 与 repulsive polarization channel 的
+        superconducting Anderson atom，可研究 pairing 与 magnetic
+        polarization 的竞争。
+        </p>
+<p>
+        因为
+        \[
+          \hat h(-iXY)=\hat\Delta_y,\qquad
+          \hat h(iZZ)=i\hat S_z ,
+        \]
+        repulsive-square HS decomposition 给出
+        \[
+          A_0=-\Delta\Delta\tau\,iXY,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
+        \]
+        \(iZZ\) 是本类 maximal-subgroup direction，故 field sign
+        不影响 strictness；\(J_1=YI\) 与 \(J_2=IY\) 对易并分别满足
+        本类所需的 \(g\)-sign 与 square relations。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>4</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>2</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IY</code>, <code>YY</code>, <code>iZX</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iXY</code>, <code>iZI</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-15">
+<h4>6.6.15 费米第 7 类：与 note Case \(7'\) 具有相同的 \(J_1\) 平方</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=I_2\otimes i\sigma_y,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=I_{4},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=-I_{4},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+      \eta=iJ_2g=
+      \begin{pmatrix}0&amp;\eta_{\rm in}\\
+      \eta_{\rm in}&amp;0\end{pmatrix},
+      \qquad \eta_{\rm in}=-\sigma_y.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 2\times 2\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        \left(\sigma_x\right)B\left(\sigma_x\right)=\overline B,\qquad \left(\sigma_x\right)C\left(\sigma_x\right)=\overline C,\qquad \left(\sigma_x\right)D\left(\sigma_x\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+      令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分仍写成
+      \(A=\left(\begin{smallmatrix}B&amp;C\\D&amp;-B^T\end{smallmatrix}\right)\)，
+      其中</p>
+<div class="scroll">\[
+        \eta_{\rm in}D+D^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}C+C^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}B=\overline B\,\eta_{\rm in} .
+      \]</div>
+<p>
+      \(C^T=-C,\ D^T=-D\) 与本类的 \(J_1\) 实性条件仍须同时成立。
+      </p>
+<p><strong>Invariant cone。</strong>
+      cone 的线性部分满足</p>
+<div class="scroll">\[
+        \eta_{\rm in}D=D^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}C=C^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}B=-\overline B\,\eta_{\rm in},
+      \]</div>
+<p>并进一步施加完整的半负定条件</p>
+<div class="scroll">\[
+        \eta A=
+        \begin{pmatrix}
+        \eta_{\rm in}D&amp;-\eta_{\rm in}B^T\\
+        \eta_{\rm in}B&amp;\eta_{\rm in}C
+        \end{pmatrix}\le0 .
+      \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+        A_0=-\eta=
+        -\begin{pmatrix}0&amp;\eta_{\rm in}\\
+        \eta_{\rm in}&amp;0\end{pmatrix},
+        \qquad
+        \eta A_0+A_0^\dagger\eta=-2I_{4}&lt;0 .
+      \]</div>
+<p>费米 Fock space 有限；这个 \(A_0\) 位于有配对的严格 cone，其物理含义要在 Majorana/Nambu 约定一致后再判断。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：reflection-paired proximitized fermion dimer</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        令 \(c,d\) 为 reflection partners，取
+        \[
+          \hat H=-\Delta\hat\Delta_y
+          -t(c^+d+d^+c)+\frac U2(\hat n_c-\hat n_d)^2 ,
+          \qquad \Delta&gt;|t|,\quad U&gt;0 .
+        \]
+        这是同时含 proximity pairing、orbital hybridization 与
+        polarization interaction 的 two-level superconducting dot，
+        可研究 Majorana-reflection constraints 下的 interacting
+        Andreev spectrum。
+        </p>
+<p>
+        相应的固定与辅助场生成元分别为
+        \[
+          A_0=\Delta\tau(-\Delta\,iXY+tZX),\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
+        \]
+        \(iZZ\) 在 maximal subgroup；\(ZX\) 是允许的 cone direction。
+        直接对角化 contraction matrix 得到最大 eigenvalue
+        \(2\Delta\tau(-\Delta+|t|)\)，所以显示的
+        \(\Delta&gt;|t|\) 正好保证固定生成元严格小于零；场因子位于
+        maximal subgroup。
+        \(J_1=IX\) 交换两个
+        reflected modes，逐场值保持 reality condition。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>2</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>4</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>ZI</code>, <code>iZZ</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>iIY</code>, <code>iXY</code>, <code>iYY</code>, <code>ZX</code></p>
+</details>
+</article>
+<article class="case-sheet" id="strict-case-16">
+<h4>6.6.16 费米第 8 类：与 note Case \(8'\) 具有相同的 \(J_1\) 平方</h4>
+<p class="scope"><strong>号约定。</strong>本类按传播矩阵直接要求 \(\eta A+A^\dagger\eta\le0\)。它不是把 note 第 154 行第二项带减号的不等式直接改名；两者的区别在第 8 节独立处理。</p>
+<p><strong>五条关系与一个具体矩阵实现。</strong>
+        张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
+        内部组分空间：</p>
+<div class="scroll">\[
+          \begin{gathered}
+          J_1=I_2\otimes \sigma_x\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes i\sigma_y\otimes I_2,\\
+          J_1^TgJ_1=g,\qquad
+          J_1^2=-I_{8},\\
+          J_2^TgJ_2=g,\qquad
+          J_2^2=-I_{8},\qquad
+          \{J_1,J_2\}=0.
+          \end{gathered}
+        \]</div>
+<p>由 \(J_2\) 构造出的 Hermitian 度规为</p>
+<div class="scroll">\[
+
+      \eta=iJ_2g=
+      \begin{pmatrix}0&amp;\eta_{\rm in}\\
+      \eta_{\rm in}&amp;0\end{pmatrix},
+      \qquad \eta_{\rm in}=-\sigma_y\otimes I_2.
+
+        \]</div>
+<p><strong>一般合法的 \(A\)。</strong>
+        本实现中的 \(B,C,D\) 都是
+        \( 4\times 4\) 矩阵，先满足</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=-C^T,\qquad D=-D^T.
+        \]</div>
+<p><strong>\(J_1\) 施加的实性条件。</strong>
+        把上面显示的 \(J_1\) 直接代入
+        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
+<div class="scroll">\[
+        -\left(\sigma_x\otimes i\sigma_y\right)B\left(\sigma_x\otimes i\sigma_y\right)=\overline B,\qquad -\left(\sigma_x\otimes i\sigma_y\right)C\left(\sigma_x\otimes i\sigma_y\right)=\overline C,\qquad -\left(\sigma_x\otimes i\sigma_y\right)D\left(\sigma_x\otimes i\sigma_y\right)=\overline D.
+      \]</div>
+<p><strong>Maximal subgroup。</strong>
+      令 \(\eta_{\rm in}\) 取上一式已经写明的内部块。等号部分仍写成
+      \(A=\left(\begin{smallmatrix}B&amp;C\\D&amp;-B^T\end{smallmatrix}\right)\)，
+      其中</p>
+<div class="scroll">\[
+        \eta_{\rm in}D+D^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}C+C^\dagger\eta_{\rm in}=0,\qquad
+        \eta_{\rm in}B=\overline B\,\eta_{\rm in} .
+      \]</div>
+<p>
+      \(C^T=-C,\ D^T=-D\) 与本类的 \(J_1\) 实性条件仍须同时成立。
+      </p>
+<p><strong>Invariant cone。</strong>
+      cone 的线性部分满足</p>
+<div class="scroll">\[
+        \eta_{\rm in}D=D^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}C=C^\dagger\eta_{\rm in},\qquad
+        \eta_{\rm in}B=-\overline B\,\eta_{\rm in},
+      \]</div>
+<p>并进一步施加完整的半负定条件</p>
+<div class="scroll">\[
+        \eta A=
+        \begin{pmatrix}
+        \eta_{\rm in}D&amp;-\eta_{\rm in}B^T\\
+        \eta_{\rm in}B&amp;\eta_{\rm in}C
+        \end{pmatrix}\le0 .
+      \]</div>
+<p><strong>一个严格点。</strong></p>
+<div class="scroll">\[
+        A_0=-\eta=
+        -\begin{pmatrix}0&amp;\eta_{\rm in}\\
+        \eta_{\rm in}&amp;0\end{pmatrix},
+        \qquad
+        \eta A_0+A_0^\dagger\eta=-2I_{8}&lt;0 .
+      \]</div>
+<p>费米 Fock space 有限；这个 \(A_0\) 位于有配对的严格 cone，其物理含义要在 Majorana/Nambu 约定一致后再判断。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：Kramers 两轨道 superconducting island</strong></p><p class="model-scope"><strong>证据范围：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p>
+<p>
+        取两条 orbitals，每条含一对 fermion components，并按
+        \[
+          \boldsymbol c=(c_{\uparrow1},c_{\uparrow2},
+          c_{\downarrow1},c_{\downarrow2})^T
+        \]
+        排列，使第一个内部 Pauli factor 作用在
+        \(\uparrow,\downarrow\)，第二个作用在 orbital \(1,2\)。令
+        \[
+          \hat\Delta_y=-i\sum_{\ell=1}^2
+          (c_{\uparrow\ell}^+c_{\downarrow\ell}^+
+           +c_{\uparrow\ell}c_{\downarrow\ell}),\qquad
+          \hat Q=\sum_{\ell,s}\hat n_{\ell s}-2 .
+        \]
+        考虑
+        \[
+          \hat H=-\Delta\hat\Delta_y-\frac U2\hat Q^2 ,
+          \qquad \Delta&gt;0,\quad U&gt;0 .
+        \]
+        这是带 Kramers structure、两条 orbitals 和 attractive charging
+        energy 的 superconducting island，可研究 parity transitions、
+        pair transfer 与多轨道 Andreev multiplets。
+        </p>
+<p>
+        在本类最小 Pauli realization 中
+        \[
+          \hat h(-iXYI)=\hat\Delta_y,\qquad
+          \hat h(ZII)=\hat Q ,
+        \]
+        因而两个生成元为
+        \[
+          A_0=-\Delta\Delta\tau\,iXYI,\qquad
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZII .
+        \]
+        \(ZII\) 明确属于 maximal subgroup，\(-iXYI=-\eta\)
+        是 strict pairing direction。\(J_1=IXY\) 平方为 \(-I\)，
+        因而 \(J_1K\) 是一个 Kramers-type anti-linear operation；
+        它同时交换 spin 与 orbital labels，而不是默认等同于电子的标准
+        time reversal。\(J_2=IYI\) 则选择 contraction cone。
+        </p>
+<p>
+        在 lattice 上可以加入同一 maximal subgroup 中的 hopping，
+        并把 onsite pairing 换成保持相同 matrix conditions 的 bond pairing。
+        这给出与 Wei semigroup paper 的 Kramers-plus-pairing
+        constructions 相近的 correlated extension；要声称与该文某个
+        class 完全等价，仍需把这里的 Nambu basis transformation 明写出来。
+        </p>
+</section>
+<p class="small">
+        Octave 对完整实矩阵空间的核对结果：maximal-subgroup 线性空间维数
+        <strong>16</strong>；
+        invariant-cone 的线性 span 维数
+        <strong>12</strong>。
+      </p>
+<details class="basis-audit">
+<summary>展开程序使用的完整 Pauli 基底</summary>
+<p class="small"><strong>Maximal subgroup：</strong>
+<code>IIY</code>, <code>IYX</code>, <code>IYZ</code>, <code>iIZY</code>, <code>XIY</code>, <code>XYX</code>, <code>XYZ</code>, <code>iXZY</code>, <code>YIY</code>, <code>YYX</code>, <code>YYZ</code>, <code>iYZY</code>, <code>ZII</code>, <code>iZXX</code>, <code>iZXZ</code>, <code>iZZI</code></p>
+<p class="small"><strong>Invariant-cone span：</strong>
+<code>IXY</code>, <code>iIYI</code>, <code>XXY</code>, <code>iXYI</code>, <code>YXY</code>, <code>iYYI</code>, <code>iZIX</code>, <code>iZIZ</code>, <code>ZXI</code>, <code>iZYY</code>, <code>ZZX</code>, <code>ZZZ</code></p>
+</details>
+</article>
+<h3>6.7 HS 场的正负、场的取值范围与规范变换</h3>
+<p>
+      需要先限定命题。若采用同一个固定 metric \(\eta\)，一个连续 Gaussian
+      HS field 线性进入<strong>同一个时间片生成元</strong>
+</p>
+<div class="scroll">\[
+      A(\phi)=A_0+\phi A_1,\qquad -\infty&lt;\phi&lt;\infty,
+    \]</div>
+<p>并要求每个实 \(\phi\) 都满足 generator inequality，则</p>
+<div class="scroll">\[
+      \eta A(\phi)+A(\phi)^\dagger\eta
+      =
+      \left(\eta A_0+A_0^\dagger\eta\right)
+      +\phi\left(\eta A_1+A_1^\dagger\eta\right)\le0.
+    \]</div>
+<p>
+      对任意向量取 expectation value，右边是关于 \(\phi\) 的一次函数。
+      它若在整条实轴都不为正，一次项只能为零。因此在这个特定 setting 中
+    </p>
+<div class="scroll">\[
+      \eta A_1+A_1^\dagger\eta=0.
+    \]</div>
+<p>
+      也就是说，连续无界且线性出现的场方向位于 maximal-subgroup
+      Lie algebra；固定项可以提供 strict contraction。这是一个充分清楚的
+      构造原则，但不是所有 HS transformations 的一般前提。
+    </p>
+<p>至少有四种需要另算的情况：</p>
+<ol>
+<li>
+<strong>离散或有界场。</strong>
+        若 \(\phi=\pm1\)，完全可以有
+        \(H_0+H_1\le0\) 与 \(H_0-H_1\le0\)，但 \(H_1\ne0\)。
+        本节的费米例子取 \(H_0=-2I,\ H_1=\operatorname{diag}(1,-1)\)，
+        两个场值的最大 eigenvalue 都是 \(-1\)。
+      </li>
+<li>
+<strong>非线性参数化。</strong>
+        若 \(A(\phi)\) 还含 \(-\phi^2\) 型 contraction contribution，
+        正负场可以给出同一半负定项；必须检查实际 HS identity，不能套用
+        一次函数论证。
+      </li>
+<li>
+<strong>因子化时间片。</strong>
+        AFQMC 常使用 \(e^{A_0}e^{\phi A_1}\)，而不是
+        \(e^{A_0+\phi A_1}\)。若要求 field factor
+        \(e^{\phi A_1}\) 本身对所有正负 \(\phi\) 都属于同一 semigroup，
+        它与逆元同时出现，因而落在 maximal subgroup；但只要求完整乘积
+        \(e^{A_0}e^{\phi A_1}\) contraction 时，应直接检查 product
+        inequality，固定 strict margin 有时可以容纳一个 uniformly bounded
+        field orbit。
+      </li>
+<li>
+<strong>不同的 HS contours。</strong>
+        compact、complex 或 truncated contours 改变 field support；
+        结论必须随 contour 重新证明。
+      </li>
+</ol>
+<p>
+      规范变换也要分两类。若固定 \(G\) 同时保持 canonical form 与 metric，
+    </p>
+<div class="scroll">\[
+      G^TgG=g,\qquad G^\dagger\eta G=\eta,
+    \]</div>
+<p>
+      则 \(A\mapsto G^{-1}AG\) 只是在同一 semigroup 内换 basis。
+      它可以把 \(\phi\) 与 \(-\phi\) 显式联系起来，也可以吸收 reflection
+      phase，但不会改变 Hermitian matrix 的正负惯性。若使用
+      field-dependent \(G(\phi)\) 并让 metric 也变成
+      \(\eta(\phi)\)，不同时间片一般不再共享同一个 contraction inequality；
+      只有当中间 gauges 在相邻时间片间准确消去，或能重新证明一个固定
+      common metric 时，乘法封闭性才保留。因此规范变换可能有帮助，但不能只凭
+      “两种场值 gauge equivalent” 就跳过完整 product check。
+    </p>
+<h3>6.8 从生成元结构到具体物理 Hamiltonian</h3>
+<h4>玻色 \(J_2g\) 四类：可构造稳定的 Hermitian 相互作用模型</h4>
+<p>
+      合作者 note 的 Cases 5--8 都可选
+      \(J_2=\sigma_x^{\rm Nambu}\otimes I\)，从而
+      \(\eta=\sigma_z^{\rm Nambu}\otimes I\)。Case 5 的一个直观粒子数守恒实现
+      使用两个玻色模，并定义
+    </p>
+<div class="scroll">\[
+      \hat O=i(\hat a_1^+\hat a_2-\hat a_2^+\hat a_1),\qquad
+      \hat H=\kappa(\hat n_1+\hat n_2)+\frac U2\hat O^2,
+      \qquad \kappa&gt;0,\ U&gt;0.
+    \]</div>
+<p>
+      repulsive-square HS identity 给出
+    </p>
+<div class="scroll">\[
+      e^{-\Delta\tau U\hat O^2/2}
+      =\int\frac{d\phi}{\sqrt{2\pi}}e^{-\phi^2/2}
+       e^{i\sqrt{\Delta\tau U}\phi\hat O}.
+    \]</div>
+<p>
+      在 \((a_1,a_2,a_1^+,a_2^+)^T\) 中，两个生成元分别是
+    </p>
+<div class="scroll">\[
+      A_0=-\kappa\Delta\tau\,\sigma_z^{\rm Nambu}\otimes I,\qquad
+      A_{\rm HS}(\phi)=
+      -\sqrt{\Delta\tau U}\phi\,I_{\rm Nambu}\otimes(i\sigma_y).
+    \]</div>
+<p>
+      对称 Trotter 时间片是
+      \(e^{A_0/2}e^{A_{\rm HS}(\phi)}e^{A_0/2}\)，不是默认把两个
+      不对易生成元相加后指数化。取
+      \(J_1=\sigma_z^{\rm Nambu}\otimes I\) 后，这是 Case 5：
+      field generator 位于 maximal subgroup，而固定生成元严格收缩：
+    </p>
+<div class="scroll">\[
+      \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I&lt;0,\qquad
+      \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0 .
+    \]</div>
+<p>
+      与 \(\phi\) 无关。原 Hamiltonian Hermitian 且由
+      \(\kappa N\) 与正算符 \(\frac U2O^2\) 从下方稳定。
+    </p>
+<p>
+      Cases 6、7、8 可由同一个双组分模型同时实现：
+    </p>
+<div class="scroll">\[
+      \hat H=\kappa(\hat n_b+\hat n_c)
+      +\frac U2(\hat n_b-\hat n_c)^2,\qquad \kappa&gt;0,\ U&gt;0.
+    \]</div>
+<p>连续 HS 后的两个 Nambu generators 为</p>
+<div class="scroll">\[
+      \begin{aligned}
+      A_0&amp;=-\kappa\Delta\tau\,
+      \sigma_z^{\rm Nambu}\otimes I_{\rm flavor},\\
+      A_{\rm HS}(\phi)&amp;=i\sqrt{\Delta\tau U}\phi\,
+      \sigma_z^{\rm Nambu}\otimes\sigma_z^{\rm flavor}.
+      \end{aligned}
+    \]</div>
+<p>
+      它分别与 Case 6 的
+      \(J_1=\operatorname{diag}(i\sigma_y,-i\sigma_y)\)、
+      Case 7 的 \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，以及
+      Case 8 的 \(J_1=I_{\rm Nambu}\otimes i\sigma_y\) 相容；
+      三种选择的 \(J_2\) 和 \(\eta\) 相同；\(A_0\) 的 contraction
+      matrix 是 \(-2\kappa\Delta\tau I\)，而 \(A_{\rm HS}\) 的是零。
+      这说明五条关系给出的 algebraic classes
+      不是互斥的 physical phases；同一个 HS slice family 可以同时承认多组
+      \(J_1,J_2\)。
+    </p>
+<p>
+      这两个例子还是 number conserving。单粒子 \(b\)-matrix 的 Hermitian
+      part 始终严格为负，所以每个 factor 是普通 Euclidean contraction，
+      完整乘积的 spectral radius 小于 1。\(J_1\) 又使 eigenvalues
+      complex-conjugate paired；real eigenvalues 也都小于 1。因此
+      \(\det(I-\mathcal B)&gt;0\)，这里可以把 propagation result 完整升级为
+      finite positive bosonic determinant weight。文章的 \(U_2\) benchmark
+      是第二个构造加 hopping、sites 与可选 pairing 的推广。有 pairing 时，
+      同一个 \(\eta=\operatorname{diag}(I,-I)\) 是物理
+      oscillator-semigroup metric；稳定零场与 strict contraction 使整个
+      连通 field domain 的 fixed-field operators 都是 trace class，
+      \(J_1\) 实性条件、正实的正规序标量因子和零场正权重
+      再固定全域正号。RP 同时给出一条独立的
+      reflected-square positivity proof，而不再是唯一决定正分支的论证。
+      对固定 number term，正常序还产生正标量
+      \(e^{+\kappa\Delta\tau m/2}\)；它须计入完整 operator weight，
+      但不会改变上述正号。
+    </p>
+<h4>新增玻色 \(iJ_2g\) 四类：有物理二次算符，但 grand-canonical 稳定性尚未解决</h4>
+<p>
+      对新增 branch 可选
+      \(J_2=(i\sigma_y)^{\rm Nambu}\otimes(i\sigma_y)^{\rm flavor}\)，
+      因而
+    </p>
+<div class="scroll">\[
+      \eta=iI_{\rm Nambu}\otimes(i\sigma_y)^{\rm flavor},\qquad
+      A_0=-\eta.
+    \]</div>
+<p>
+      \(A_0\) 对应 Hermitian、number-conserving flavor-current
+      quadratic operator，而不是必然 non-Hermitian。以
+      \(J_1=I_{\rm Nambu}\otimes\sigma_x\) 的一类为例，还可取
+      maximal-subgroup field
+      \(A_1=i(i\sigma_y)^{\rm Nambu}\otimes\sigma_z^{\rm flavor}\)。
+      辅助场生成元取 \(A_{\rm HS}(\phi)=\phi A_1\)，它对应
+      \(i\phi\hat O\)，其中
+    </p>
+<div class="scroll">\[
+      \hat O=\frac12\left[
+      \hat{\bb a}^T\sigma_z\hat{\bb a}
+      +\hat{\bb a}^{+T}\sigma_z\hat{\bb a}^+\right]
+    \]</div>
+<p>
+      是 Hermitian pairing quadrature；所以
+      \(H_{\rm int}=U\hat O^2/2\) 的 Gaussian HS field 的确能产生满足
+      该 class 的有序时间片。Octave 分别得到
+      \[
+        \eta A_0+A_0^\dagger\eta=-2I,\qquad
+        \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0 .
+      \]
+    </p>
+<p>
+      但是这个构造还不是可采样的 grand-canonical boson model。
+      在 \(\eta\) 的 flavor 部分
+      \(i(i\sigma_y)\) 的 \(+1,-1\) eigenbasis 中，任意
+      number-conserving Hermitian generator 的 particle block 记为 \(B\)。
+      contraction inequality 的 diagonal expectations 分别要求
+    </p>
+<div class="scroll">\[
+      B\big|_{\eta=+1}\le0,\qquad
+      B\big|_{\eta=-1}\ge0.
+    \]</div>
+<p>
+      所以 \(B\) 不可能 negative definite；显式 \(A_0\) 的单粒子 spectrum
+      正好是一正一负。普通 grand-canonical bosonic Gaussian trace 因负能
+      occupation 无上限而发散。保持同一 \(\eta\) 的固定 gauge transformation
+      不能改变这两个 subspaces 的惯性，因此不能把这一正一负变成全负。
+    </p>
+<div class="warning">
+<strong>当前结论的范围。</strong>
+      这排除了上述 fixed-metric、number-conserving、Hermitian
+      grand-canonical realization；没有排除含 pairing 的稳定 cone、
+      canonical fixed-number formulation、有效 local Hilbert-space cutoff、
+      非 Hermitian/regularized trace，或能够重新建立 common metric 的
+      telescoping gauge construction。四个 \(iJ_2g\) 类目前是严格的
+      algebraic propagation discoveries，并有 Hermitian HS slice candidates，
+      但尚未得到一类完整可采样的新玻色平衡模型。这里的 mixed-sign
+      \(A_0=-\eta\) 不在由稳定自由 Hamiltonian 锚定的物理 HS 连通分支上；
+      它只检验抽象 cone 非空，不能用来反驳第 6.4 节对实际连续场路径的
+      trace-convergence 结论。
+    </div>
+<p>
+      \(J_1^2=-I\) 或 \(J_1\) 翻转 \(g\) 的另外三类可通过 flavor doubling
+      选择表 6.6 中的 representatives；它们共享同一个 mixed-sign
+      \(A_0\) obstruction。因此目前不能把四行计成四种新 physical
+      sign-free Hamiltonians。
+    </p>
+<h4>费米 \(J_2g\) branch：离散场可以直接在 cone 内</h4>
+<p>
+      费米 Fock space 有限，没有上面的玻色收敛障碍。取
+      \(\eta=\sigma_z^{\rm Nambu}\otimes I\) 和 bounded Ising field
+      \(s=\pm1\)：
+    </p>
+<div class="scroll">\[
+      A_s=-\kappa\,\sigma_z^{\rm Nambu}\otimes I
+          +s\lambda\,\sigma_z^{\rm Nambu}\otimes\sigma_z,\qquad
+      \kappa&gt;|\lambda|.
+    \]</div>
+<p>则</p>
+<div class="scroll">\[
+      \eta A_s+A_s^\dagger\eta
+      =-2\kappa I+2s\lambda(I\otimes\sigma_z)&lt;0
+    \]</div>
+<p>
+      对两个场值都成立，但 field direction 本身不在 maximal subgroup。
+      这可由标准离散 Hubbard--Stratonovich identity 产生：
+    </p>
+<div class="scroll">\[
+      e^{-\Delta\tau U(n_\uparrow-\frac12)(n_\downarrow-\frac12)}
+      =
+      \frac{e^{-\Delta\tau U/4}}2
+      \sum_{s=\pm1}e^{\lambda s(n_\uparrow-n_\downarrow)},\qquad
+      \cosh\lambda=e^{\Delta\tau U/2}.
+    \]</div>
+<p>
+      再由 chemical-potential/free contribution 提供
+      \(\kappa&gt;|\lambda|\)，就得到一族 Hermitian Hubbard-type
+      effective slices。这个例子直接说明：对 bounded discrete HS，
+      “field 必须位于 maximal subgroup”并不成立。
+    </p>
+<h4>费米 \(iJ_2g\) branch：pairing cone 有已知物理 realization</h4>
+<p>
+      新穷举补出的四个 \(iJ_2g\) classes 可选
+      \(\eta=i\sigma_x^{\rm Nambu}\otimes(i\sigma_y)^{\rm flavor}\)。
+      这时 invariant-cone witness \(A_0=-\eta\) 是 Hermitian pairing
+      term，而 number-conserving density/hopping directions 可以进入
+      maximal subgroup。对 symmetric \(J_1\)，它是 Majorana reflection
+      positivity 的 Nambu 表示；对 skew-symmetric \(J_1\)，它对应 Wei
+      semigroup paper 的 Kramers-plus-pairing class。该文给出的具体模型为
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      H_0={}&amp;-t\sum_{\langle i,j\rangle}
+      (c_i^+c_j+d_i^+d_j+\mathrm{h.c.}),\\
+      H_\perp={}&amp;-t_\perp\sum_i(-1)^{x_i+y_i}
+      (c_i^+d_i+\mathrm{h.c.}),\\
+      H_p={}&amp;\sum_i\{\Delta c_i^+
+      (d_{i+\hat x}^+-d_{i+\hat y}^+
+       d_{i-\hat x}^+-d_{i-\hat y}^+)+\mathrm{h.c.}\},\\
+      H_U={}&amp;U\sum_i(n_{c,i}-\tfrac12)(n_{d,i}-\tfrac12),
+      \qquad U\ge0 .
+      \end{aligned}
+    \]</div>
+<p>
+      hopping 与 HS-decoupled interaction terms 属于 maximal-subgroup
+      directions，positive pairing matrices 属于 invariant cone。
+      对 \(J_1\) 翻转 \(g\) 的 partner classes，可对一个 flavor 做
+      particle--hole transformation；这会把一部分 pairing 与 hopping
+      互换，并改变五条表中 \(J_1\) 对 \(g\) 的符号。因而费米新增四行有
+      concrete physical realizations，但它们与已知 Majorana RP/Kramers
+      semigroups 之间存在 basis/particle--hole equivalence，不能仅凭本次
+      Nambu 五位标签声称发现四种文献中从未出现的新机制。
+    </p>
+<p>
+      还要保留第 8 节的 caveat：合作者 note 写的是
+      \(iJ_2gA-iA^\dagger J_2g\le0\)，而标准 propagation derivative
+      要求第二项为加号。本节的 physical constructions 与 16 类表使用后者；
+      它们不能替 note 中符号不同的不等式作证明。
+    </p>
+<h3>6.9 手算 note 与完整穷举的覆盖范围</h3>
+<div class="scroll">
+<table>
+<thead><tr><th>对象</th><th>note 已覆盖</th><th>本次新增</th><th>当前物理地位</th></tr></thead>
+<tbody>
+<tr>
+<td>玻色</td>
+<td>\(J_2^TgJ_2=-g,\ J_2^2=I\) 的 Cases 5--8</td>
+<td>\(J_2^TgJ_2=g,\ J_2^2=I\) 的四个 \(iJ_2g\) partners；并补齐 8 类的完整 subgroup/cone bases</td>
+<td>note 四类已有稳定 Hermitian HS examples；新增四类有严格代数 cone 和 Hermitian slice candidates，但 grand-canonical 稳定模型未完成</td>
+</tr>
+<tr>
+<td>费米</td>
+<td>只展开 \(J_2^TgJ_2=-g,\ J_2^2=-I\) 的一种 \(J_2\)</td>
+<td>\(J_2^TgJ_2=g,\ J_2^2=-I\) 的四个 \(iJ_2g\) partners；并按标准加号 contraction 重新分类</td>
+<td>pairing-cone physical models 存在，但与已知 Majorana RP/Kramers semigroups 有等价关系；novelty 需逐模型判断</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>6.10 完整 64 行</h3>
+<p>
+      表格不使用额外的正负号简称。每一列直接写出 note 中的矩阵关系。
+      Pauli words 使用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的首字母；
+      例如 <code>IX</code> 表示 \(I\otimes\sigma_x\)。
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>统计</th><th>\(J_1\) 对 \(g\)</th><th>\(J_1^2\)</th>
+<th>\(J_2\) 对 \(g\)</th><th>\(J_2^2\)</th><th>\(J_1,J_2\)</th>
+<th>metric</th><th>传播层面结论</th><th>最短 \(J_1,J_2\) Pauli words</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>IIX</code>, <code>IXI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>IX</code>, <code>IZ</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>YI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>IY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>IX</code>, <code>XI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>IX</code>, <code>XZ</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IIX</code>, <code>XYI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>XY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>IY</code>, <code>YY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>IY</code>, <code>IX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>YI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>YX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>IY</code>, <code>XI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>Y</code>, <code>X</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>XY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YI</code>, <code>XY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>XI</code>, <code>IX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>XI</code>, <code>YY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XI</code>, <code>IY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>X</code>, <code>Y</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>XI</code>, <code>XX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>X</code>, <code>Z</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XI</code>, <code>XY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XI</code>, <code>ZY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>XIY</code>, <code>IXI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>XY</code>, <code>IX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XY</code>, <code>IY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XY</code>, <code>YI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>XY</code>, <code>XI</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>XY</code>, <code>XX</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XIY</code>, <code>XXY</code></td></tr>
+<tr><td>玻色</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>XY</code>, <code>ZY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>XI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>IZ</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>XI</code>, <code>IY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>IX</code>, <code>IY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IX</code>, <code>ZI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>X</code>, <code>Z</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>IX</code>, <code>YI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>X</code>, <code>Y</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>XI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>IX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>IY</code>, <code>XY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>IIY</code>, <code>IYX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>YY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>IY</code>, <code>ZX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>IY</code>, <code>YI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>IY</code>, <code>YX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YY</code>, <code>XX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>Z</code>, <code>X</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>YY</code>, <code>IY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>YY</code>, <code>XY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YY</code>, <code>ZX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YY</code>, <code>ZI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>YY</code>, <code>YI</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>Z</code>, <code>Y</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YI</code>, <code>IX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>Y</code>, <code>X</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="yes">存在 strict contraction</td><td><code>YI</code>, <code>IY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>YI</code>, <code>XY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\([J_1,J_2]=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>YI</code>, <code>YY</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>iJ2g</code></td><td class="no">只能在边界：contraction matrix 的 trace 被迫为零</td><td><code>Y</code>, <code>Z</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\([J_1,J_2]=0\)</td><td><code>J2g</code></td><td class="no">只能在边界：\(J_1^TAJ_1=\bar A\) 把半负定方向变成半正定方向</td><td><code>YI</code>, <code>YX</code></td></tr>
+<tr><td>费米</td><td>\(J_1^TgJ_1=-g\)</td><td>\(J_1^2=-I\)</td><td>\(J_2^TgJ_2=-g\)</td><td>\(J_2^2=-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td><code>J2g</code></td><td class="yes">存在 strict contraction</td><td><code>YI</code>, <code>ZY</code></td></tr>
+</tbody>
+</table>
+</div>
+</section><section id="audit-note">
+<h2>7. 手算 note 与完整穷举的逐类对照</h2>
+<h3>7.1 玻色手算的覆盖范围</h3>
+<p>
+      note 的 Cases 7 与 8 满足：\(J_2^2=I\)，且 \(J_1\) 保持 \(g\)、
+      \(J_2\) 翻转 \(g\)、二者对易。因此两者都有 strict contraction；
+      \(J_1^2\) 从 \(I\) 改成 \(-I\) 不影响结论。
+    </p>
+<p>
+      Cases 3、4、9 的 \(J_2^2=I\) 虽然正确，但 commutation relation
+      选成了把半负定方向翻成半正定方向的分支，所以只能停在等号边界。
+      Cases 11--16 取 \(J_2^2=-I\)，玻色 contraction matrix 的 trace
+      被迫为零，同样没有 strict interior。
+    </p>
+<p>
+      新版已经修正 Case 10。现在取
+      \(J_1=\sigma_z\otimes(-i\sigma_y)\otimes I_{N/2}\) 与
+      \(J_2=\sigma_z\otimes I_N\)，二者确实对易；作者也把 Case 10
+      从 Passed 改为 Failed，并删除旧版误用
+      \(J_2=\sigma_x\otimes I_N\) 后得到的长 block calculation。
+      新版判断与解析结果一致：两个 \(J\) 都翻转 \(g\) 时需要反对易才能保留
+      strict cone，commuting Case 10 只能停在等号边界。
+    </p>
+<h3>7.2 对易与反对易分支的成对比较</h3>
+<p>
+      本小节只比较由 note 顶部 canonical propagation \(e^A\) 直接定义的
+      标准 contraction，即使用 Hermitian metric \(J_2g\) 或
+      \(iJ_2g\) 检查 \(\eta A+A^\dagger\eta\le0\)。
+      它不把 note 的 Majorana-coefficient minus-sign inequality
+      与 \(e^A\) criterion 混在一起。
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr><th>Comment 中的配对</th><th>反对易</th><th>对易</th><th>需要哪一个</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>费米 \(1'''\) 与 \(5'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+<td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+</tr>
+<tr>
+<td>费米 \(2'''\) 与 \(6'''\)：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)</td>
+<td class="no">只剩边界</td><td class="yes">strict</td><td>对易</td>
+</tr>
+<tr>
+<td>若原文 \(3'\) 是 \(3'''\) 的笔误：\(3'''\) 与 \(7'''\) 都翻转 \(g\)</td>
+<td class="yes">strict</td><td class="no">只剩边界</td><td>反对易</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>
+      因此 commutator/anti-commutator 确实重要。它不是统一地“总要对易”或“总要反对易”；
+      要看 \(J_1\) 与 \(J_2\) 对 \(g\) 的作用是同号还是异号。
+      按原文逐字读取，\(3'\) 与 \(7'''\) 还改变了 \(J_1^TgJ_1\) 的正负号，
+      不能单独检验 commutator 的作用；上表第三行只是在
+      \(3'\) 实为 \(3'''\) 的合理猜测下给出的受控比较。
+    </p>
+<h3>7.3 Note 的版本修正与剩余一致性检查</h3>
+<ul>
+<li>Case 10 的 \(J_2\) 已由 \(\sigma_x\otimes I_N\) 改为 \(\sigma_z\otimes I_N\)，现在与标题的 \([J_1,J_2]=0\) 一致；Passed 也已改为 Failed。</li>
+<li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
+<li>消息中的 `ToLeiWang4.pdf` 对应仓库里的 <code>experts/RPBAFQMC.tex</code>。该文件可以说明 RP Case 2 中引入 \(J_1,J_2\) 的原意；其 contraction/expansion direct-sum assertion 因 block mixing 而不成立，并且它也没有使用 Case 10 的五条离散 relations。</li>
+<li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
+<li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
+<li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
+<li>`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
+<li>最后的 `Proofs` 节为空，所以总分类和完整 weight positivity 尚未在 note 内得到解析证明。</li>
+</ul>
+</section><section id="fermion-weight">
+<h2>8. 费米标准收缩与 note 号约定的区别</h2>
+<h3>8.1 note 的费米不等式不是标准 \(e^A\) contraction</h3>
+<p>
+      note 的权重公式依赖 \(M=\prod_\ell e^{A_\ell}\)，但第一节写的是
+    </p>
+<div class="scroll">\[
+      iJ_2gA-iA^\dagger J_2g\le0 .
+    \]</div>
+<p>
+      在这一分支中 \(J_2^2=-I\)、\(J_2^TgJ_2=-g\)，所以
+      \(J_2g\) 是 Hermitian involution，而 \(iJ_2g\) 反而是
+      anti-Hermitian，不能作为 Hermitian contraction metric。
+      若直接控制 \(e^A\)，令 \(\eta_A=J_2g\)，求导真正出现的是
+    </p>
+<div class="scroll">\[
+      \eta_A A+A^\dagger\eta_A
+      =J_2gA+A^\dagger J_2g .
+    \]</div>
+<p>
+      这与 note 的式子不是同一个 inequality。note 式子的准确来源可这样看：
+      暂记 \(X=gA\)，则 \(X^T=-X\)；再令
+      \(\eta_X=iJ_2\)，有
+      \(\eta_X^\dagger=\eta_X\)、\(\eta_X^2=I\)，并且
+    </p>
+<div class="scroll">\[
+      iJ_2gA-iA^\dagger J_2g
+      =\eta_X X+X^\dagger\eta_X .
+    \]</div>
+<p>
+      所以原式确实是 skew-symmetric Majorana coefficient \(X\)
+      上的标准 contraction condition，直接控制的是 \(e^X=e^{gA}\)。
+      但 note 顶部的 Nambu canonical propagation 使用 \(e^A\)。
+      从 real Majorana basis 变到 complex Nambu basis 时，
+      quadratic coefficient、canonical generator、complex conjugation rule
+      与 metric 必须一起变换；\(X=gA\) 并不一般与 \(A\) 相似。
+      只搬运 Majorana inequality 而不写这一步，不能保证 Nambu weight 非负。
+    </p>
+<h3>8.2 单模精确反例</h3>
+<p>取 note 使用的费米 Nambu convention，并令</p>
+<div class="scroll">\[
+      g=\sigma_x,\qquad J_1=\sigma_x,\qquad
+      J_2=i\sigma_y,\qquad A=iy\sigma_z .
+    \]</div>
+<p>逐项计算：</p>
+<div class="scroll">\[
+      J_1^TAJ_1=\bar A,\qquad
+      iJ_2gA-iA^\dagger J_2g=-2yI&lt;0\quad(y&gt;0).
+    \]</div>
+<p>然而 many-body quadratic operator 与完整 Fock trace 是</p>
+<div class="scroll">\[
+      h=iy\left(n-\frac12\right),\qquad
+      W(y)=\Tr e^h
+      =e^{-iy/2}+e^{iy/2}
+      =2\cos\frac y2 .
+    \]</div>
+<p>
+      当 \(y=\pi\) 时 \(W=0\)，当 \(y=2\pi\) 时 \(W=-2\)。
+      所以 note 的 inequality 即使 strict，也没有阻止 Fock weight 过零并变负。
+    </p>
+<h3>8.3 无配对的多时间片反例</h3>
+<p>
+      对与 note \(9'\) 相同的离散矩阵关系，可以完全去掉 pairing blocks，
+      取三个 number-conserving slices：
+    </p>
+<div class="scroll">\[
+      B_1=-2\sigma_x-2\sigma_z,\qquad
+      B_2=-2\sigma_x,\qquad
+      B_3=2\sigma_x+\sigma_z .
+    \]</div>
+<p>程序逐 slice 验证相应等式 residuals 为零，但完整 determinant 为</p>
+<div class="scroll">\[
+      W=\det(I+e^{B_1}e^{B_2}e^{B_3})
+      =-24.1885664042699 .
+    \]</div>
+<p>
+      把三个 \(B_\ell\) 同时乘连续参数 \(t\)，从 \(t=0\) 的正权重出发，
+      在 \(t=0.80967485393694\) 穿过零。因此这个负号不是 square-root
+      选择造成的孤立数值异常，而是与正参考点连续相连的实际 zero crossing。
+    </p>
+<h3>8.4 完整穷举相对 note 补出了哪些费米类</h3>
+<p>
+      合作者在 note 中手算的费米 Cases \(3'\)--\(10'\) 全都固定
+      \(J_2^TgJ_2=-g\) 与 \(J_2^2=-I\)。若采用由传播矩阵
+      \(e^A\) 直接导出的标准 contraction condition
+      \(\eta A+A^\dagger\eta\leq0\)，这一分支中恰有四类允许严格小于零：
+      Cases \(5'\)、\(6'\)、\(7'\)、\(8'\)。Cases \(3'\)、\(4'\)、
+      \(9'\)、\(10'\) 只能停在等号边界。这里不能直接沿用 note 写下的
+      Passed/Failed 标签，因为 note 检查的是上一节指出的另一个不等式。
+    </p>
+<p>
+      完整的 \(2^5=32\) 类穷举还检查了 note 没有展开的另一种
+      \(J_2\)：它满足
+    </p>
+<div class="scroll">\[
+      J_2^TgJ_2=g,\qquad J_2^2=-I .
+    \]</div>
+<p>
+      这时 \(J_2g\) 是 anti-Hermitian matrix，乘上 \(i\) 后
+      \(\eta=iJ_2g\) 才是用于定义 contraction 的 Hermitian metric。
+      这一分支同样有四类 strict solutions：
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>\(J_1\) 对 \(g\) 的作用</th>
+<th>\(J_1^2\)</th>
+<th>\(J_1,J_2\) 的关系</th>
+<th>metric</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>\(J_1^TgJ_1=g\)</td><td>\(I\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>\(J_1^TgJ_1=g\)</td><td>\(-I\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>\(J_1^TgJ_1=-g\)</td><td>\(I\)</td><td>\([J_1,J_2]=0\)</td><td>\(iJ_2g\)</td></tr>
+<tr><td>\(J_1^TgJ_1=-g\)</td><td>\(-I\)</td><td>\([J_1,J_2]=0\)</td><td>\(iJ_2g\)</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+      这四类不是仅由计数猜出的。对每一类取
+      \(\eta=iJ_2g\) 和 \(A=-\eta\)，五条离散关系逐项保证
+    </p>
+<div class="scroll">\[
+      gA+A^Tg=0,\qquad
+      J_1^TAJ_1=\bar A,\qquad
+      \eta A+A^\dagger\eta=-2I&lt;0 .
+    \]</div>
+<p>
+      因而它们都是程序和解析证明共同确认的 strict-propagation classes。
+      所以，若“新增”是指相对于合作者只展开一种 \(J_2\) 的手算，费米侧确实新增了
+      四个 \(iJ_2g\) partner classes。若“新增”是指四种文献中从未出现的
+      sign-problem-free mechanism，则不能这样计数：第 6.8 节已经把
+      symmetric-\(J_1\) branch 对应到 Majorana reflection positivity，
+      把 skew-\(J_1\) branch 对应到已知 Kramers-plus-pairing semigroup，
+      而 \(J_1\) 翻转 \(g\) 的 partners 可由 particle--hole transformation
+      联系。下一步需要把正确的 Majorana theorem 完整变换到当前 Nambu
+      convention，才能判断哪些只是 basis labels，哪些提供真正不同的
+      Hamiltonian family。上面的反例只排除 note 当前使用的 minus-sign
+      inequality；它不否定按标准加号 contraction 找到的四类。
+    </p>
+<div class="correction">
+<strong>证据边界。</strong>
+      本报告的解析判据严格证明 propagation contraction 的分类。
+      在连通 auxiliary-field domain 上，若 weight real、continuous、
+      single-valued，strict contraction 和一个 positive reference 已足以
+      固定全域正号。对玻色文章进一步要确认的是 bare Fock trace convergence
+      或所用 regularization 的定义。对费米，note 当前写出的 minus-sign
+      inequality 已被上面的精确反例排除为 Nambu weight 的充分条件。
+    </div>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a></nav></main></body></html>

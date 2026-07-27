@@ -1,0 +1,2206 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>ToYinkaiYu-20260726 note 逐段讲解 1/4</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>
+<code class="report-file">ToYinkaiYu-20260726.tex</code>
+<span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
+</h1>
+<div class="meta">
+<div>报告日期：2026-07-28</div>
+<div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
+<div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
+        <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
+<div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
+<div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
+</div>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">下一卷 note</a></nav><section id="note-walkthrough-1"><h2>1. note 原文与逐段讲解，第 1/4 卷</h2><p>
+      每个灰色框都是从更新 note 对应行直接转换得到的原文。短段落默认展开；
+      很长的 block-matrix multiplication 默认折叠，以免遮断阅读节奏，点击标题即可查看完整公式。
+      紧随其后的“讲解与补全”从本段首次出现的对象讲起，解释公式之间省略的逻辑，
+      并在相应位置指出局部笔误或尚未证明的跳步。
+    </p><article class="walkthrough-block" id="note-summary-objects">
+<h3>1.1 第一节标题、玻色与费米的统一二次型</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 22--50 行
+                （完整显示）</summary>
+<div class="note-source"><h4 id="a-short-summary-for-bosonic-and-fermionic-afqmc">A short summary
+for bosonic and fermionic AFQMC:</h4>
+<p>Let <span class="math inline">\(g=\left(\begin{array}{cc}
+0 &amp; -I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)=-\Omega\)</span> for bosons and <span class="math inline">\(g=\left(\begin{array}{cc}
+0 &amp; I_{N}\\
+I_{N} &amp; 0
+\end{array}\right)\)</span> for fermions. <span class="math inline">\(h_{i}=\frac{1}{2}\chi^{T}gA_{i}\chi\)</span>,
+<span class="math inline">\(\chi=\left(\begin{array}{c}
+a_{1}\\
+a_{2}\\
+\vdots\\
+a_{N}\\
+a^{+}_{1}\\
+a^{+}_{2}\\
+\vdots\\
+a^{+}_{N}
+\end{array}\right)\)</span> for bosons and <span class="math inline">\(\chi=\left(\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+c_{N}\\
+c^{+}_{1}\\
+c^{+}_{2}\\
+\vdots\\
+c^{+}_{N}
+\end{array}\right)\)</span> for fermions. <span class="math inline">\(gA+A^{T}g=0\)</span>(<span class="math inline">\(sp\left(2N,\mathbb{C}\right)\)</span> for bosons,
+<span class="math inline">\(so\left(2N,\mathbb{C}\right)\)</span> for
+fermions).</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>\(\chi\) 是 Nambu 列向量：前 \(N\) 个分量是湮灭算符，后 \(N\) 个分量是产生算符。
+        玻色矩阵 \(g=-\Omega\) 满足 \(g^T=-g\) 与 \(g^2=-I\)；费米矩阵
+        \(g=\sigma_x\otimes I_N\) 满足 \(g^T=g\) 与 \(g^2=I\)。
+        条件 \(gA+A^Tg=0\) 保证 \(gA\) 具有二次算符所需的交换对称性：</p>
+<div class="scroll">\[
+          \begin{array}{ll}
+          \text{玻色：}&amp;(gA)^T=gA,\\[2pt]
+          \text{费米：}&amp;(gA)^T=-gA.
+          \end{array}
+        \]</div>
+<p>因此玻色 pairing 系数是对称矩阵，费米 pairing 系数是反对称矩阵。
+        原文中的 \(sp(2N,\mathbb C)\) 和 \(so(2N,\mathbb C)\) 只是这两条矩阵约束的标准名称；
+        读者不需要先掌握李代数术语才能继续阅读。</p>
+</div>
+</article><article class="walkthrough-block" id="note-summary-weight">
+<h3>1.2 对易子与辅助场构型权重</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 51--56 行
+                （完整显示）</summary>
+<div class="note-source"><p>We have the Lie algebra isomorphism described by <span class="math inline">\(\left[\frac{1}{2}\chi^{T}gA_{1}\chi,\frac{1}{2}\chi^{T}gA_{2}\chi\right]=\frac{1}{2}\chi^{T}g\left[A_{1},A_{2}\right]\chi\)</span>.
+We have <span class="math display">\[p=\mathrm{tr}\left(e^{h_{1}}e^{h_{2}}\cdots
+e^{h_{k}}\right)=\det\left(I\mp e^{A_{1}}e^{A_{2}}\cdots
+e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>矩阵恒等式的物理作用是把 many-body operator calculation 化成有限维矩阵计算。
+        若 \(M=e^{A_1}\cdots e^{A_k}\)，原式的上下号应分开读：</p>
+<div class="scroll">\[
+          p_{\rm boson}=\det(I-M)^{-1/2},\qquad
+          p_{\rm fermion}=\det(I+M)^{1/2}.
+        \]</div>
+<p>平方根还需要指定连续分支；玻色式还要求 Fock trace 收敛，即不能碰到
+        \(\det(I-M)=0\) 的 pole。这个公式也说明后面所有 semigroup 条件最终必须控制
+        \(e^A\) 及其乘积，而不只是二次型系数 \(gA\)。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-known">
+<h3>1.3 玻色列表的前两类：time-reversal symmetry 与 reflection positivity</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 57--66 行
+                （完整显示）</summary>
+<div class="note-source"><p>For bosons, we have 6 passed cases:</p>
+<p>1)Time reversal symmetry:(two <span class="math inline">\(Z_{2}\)</span> anti-linear symmetries) <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p>2)reflection positivity:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-contraction semigroup)</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<div class="warning">
+<strong>先按三种不同证明路线读这两项。</strong>
+          这里的 1) 与 2) 不是后面 Cases 3--16 的前两个
+          contraction candidates。1) 调用 Kramers eigenvalue pairing；
+          2) 调用 operator-level reflected squares，并额外需要 positive
+          cross-reflection coefficient。只有后面的 “Contraction semigroup
+          cases” 才固定 \(J_1^TAJ_1=\bar A\) 与
+          \(\eta A+A^\dagger\eta\le0\)，再穷举五条离散关系。
+          note 把三者连续编号，是为了尝试统一整理已知和候选的无符号机制，
+          不是说它们已经由同一个不等式证明。
+        </div>
+<h4>先说明 \(J_1\) 和 \(J_2\) 是什么</h4>
+<p>note 到这里第一次写 \(J_1,J_2\)，却没有先定义，确实会让人无法继续读。
+        它们都是作用在 \(2N\) 维 Nambu 列向量上的<strong>实正交矩阵</strong>：
+        \(J_i^TJ_i=I_{2N}\)。下标 1、2 只表示“第一个”和“第二个”变换；
+        它们不是两个新粒子，也不是 Hamiltonian 的两个部分。给定一个复向量 \(v\)，
+        相应的 anti-linear transformation 实际作用为</p>
+<div class="scroll">\[
+          v\longmapsto J_i\bar v .
+        \]</div>
+<p>也就是说，先把向量逐分量复共轭，再左乘 \(J_i\)。
+        若用 \(\mathcal K\) 表示逐分量复共轭，这个完整变换才是
+        \(J_i\mathcal K\)，而不是 \(J_i\) 单独一个矩阵。因为这里的
+        \(J_i\) 都是实矩阵，连续做两次得到</p>
+<div class="scroll">\[
+          (J_i\mathcal K)^2v
+          =J_i\overline{J_i\bar v}
+          =J_i^2v .
+        \]</div>
+<p>因此 \(J_i^2=I\) 时，\(J_i\mathcal K\) 在向量上严格平方为恒等；
+        \(J_i^2=-I\) 时，平方后得到一个负号，这是 Kramers-type
+        anti-linear structure。这里随即出现一个表面矛盾：既然本条的
+        \(J_1^2=J_2^2=-I\)，为什么原文仍称它们为两个 \(Z_2\)？</p>
+<h4>“two \(Z_2\) anti-linear symmetries”逐字指什么</h4>
+<p>
+        “two” 最直接的意思是：这里提出了两个候选的反线性变换，
+        </p>
+<div class="scroll">\[
+          \Theta_1=J_1\mathcal K,\qquad
+          \Theta_2=J_2\mathcal K .
+        \]</div>
+<p>
+        它不是说存在一个取两个值的辅助场，也不是说 \(J_1,J_2\)
+        是度规中的两个相因子。每个 \(\Theta_i\) 都先复共轭，再做一次
+        \(J_i\) 给出的实线性变换。
+        </p>
+<p>
+        “\(Z_2\)”需要稍加解释。这里
+        \(\Theta_i^2=-I\)，所以若把 \(\Theta_i\) 当作作用在单粒子列向量
+        上的普通线性算符，它并不是严格平方为 \(+I\) 的二阶算符。
+        物理上仍把它称作 \(Z_2\) anti-linear symmetry，是因为这个负号
+        对单粒子态的射线只是整体相位；对含有两个场算符的 quadratic
+        Hamiltonian，两个场各得到一个负号，乘起来也是 \(+1\)。
+        换成更精确的数学说法，\(\Theta_i\) 在单粒子向量上给出
+        \(Z_2\) 的 projective representation，而它在 quadratic
+        coefficient 上诱导的变换才严格平方为恒等。
+        </p>
+<p>
+        为了直接看见后一句，暂时把 quadratic form 的完整系数记作
+        \(M=gA\)。\(\Theta_i\) 在 \(M\) 上诱导的操作是
+        </p>
+<div class="scroll">\[
+          M\longmapsto J_i^T\overline M\,J_i .
+        \]</div>
+<p>
+        “anti-linear”来自 \(M\) 被复共轭。对于本条的实正交 \(J_i\)
+        与 \(J_i^2=-I\)，有 \(J_i^T=J_i^{-1}=-J_i\)。因此同一个操作
+        连续做两次，结果为
+        </p>
+<div class="scroll">\[
+          \begin{aligned}
+          M
+          &amp;\longmapsto J_i^T\overline M J_i\\
+          &amp;\longmapsto
+          J_i^T\overline{\,J_i^T\overline M J_i\,}J_i\\
+          &amp;=(J_i^T)^2M J_i^2
+          =(-I)M(-I)=M .
+          \end{aligned}
+        \]</div>
+<p>
+        左右两边的两个负号恰好相消。这就是这里的每一个
+        “\(Z_2\)”：它在 quadratic coefficient 上做两次便回到原处。
+        因而 \(\Theta_i^2=-I\) 与 “\(Z_2\)”并不矛盾，二者说的是
+        同一变换作用在不同对象上的结果。
+        </p>
+<p>
+        本条还要求 \([J_1,J_2]=0\)。因为 \(J_1,J_2\) 都是实矩阵，
+        两个反线性变换在 quadratic coefficient 上诱导的操作也彼此对易。
+        若这两个诱导操作确实不同，并且一个允许的 Hamiltonian 同时在二者
+        之下不变，那么恒等操作、第一种操作、第二种操作及二者的乘积
+        形成 \(Z_2\times Z_2\)。这就是 “two \(Z_2\) anti-linear
+        symmetries” 在 quadratic Hamiltonian 层面的准确含义。
+        </p>
+<p class="small">
+        这一读法与合作者所用半群来源的定义一致：
+        <a href="https://arxiv.org/html/1712.09412v3#S4">Wei,
+        Semigroup approach to the sign problem in quantum Monte Carlo
+        simulations，Sec. IV</a> 先把两种操作明确写成实正交 \(J_1,J_2\)
+        与复共轭共同作用在 coefficient matrix \(A\) 上，再分别用于限制
+        weight 的实性和构造 contraction metric。
+        </p>
+<div class="warning">
+<strong>但原文的五条式子还没有证明某个具体 Hamiltonian
+          同时具有这两个 symmetry。</strong>
+          它只列了 \(J_i\) 对 \(g\) 的作用以及 \(J_i^2\)，尚未写
+          \(A\) 必须满足什么。真正的 invariance condition 是
+          \[
+          J_i^T\overline{(gA)}J_i=gA .
+          \]
+          本条中 \(J_1^TgJ_1=g\)，所以第一种 symmetry 要求
+          \[
+          J_1^T\overline A J_1=A
+          \quad\Longleftrightarrow\quad
+          J_1^TAJ_1=\overline A .
+          \]
+          但 \(J_2^TgJ_2=-g\)，所以第二种 symmetry 要求的是
+          \[
+          J_2^T\overline A J_2=-A
+          \quad\Longleftrightarrow\quad
+          J_2^TAJ_2=-\overline A .
+          \]
+          后一个负号不是 sign problem；它恰好补偿 \(g\) 在 \(J_2\)
+          下得到的负号，使完整系数 \(gA\) 保持不变。因此五条
+          \(J,g\) 关系只给出两个候选反线性结构；只有再补上这两条
+          \(A\) 的条件，才能严格地说一个具体时间片同时具有这两个 symmetry。
+        </div>
+<p>
+        在本文两组分、无配对的物理实现中，还要再区分“两个矩阵操作”
+        与“两个独立的物理 time reversal”。后文会具体得到
+        \(J_2=(\sigma_x^{\rm Nambu}\otimes I)J_1\)：第二个变换等于
+        同一个 physical Kramers transformation 再乘 Nambu
+        particle/hole exchange。因此该实现只有一个独立的 physical
+        time-reversal symmetry；第二个 \(Z_2\) 来自把它放进
+        Nambu doubled coefficient space 后得到的伴随操作。
+        </p>
+<h4>三个会反复使用的 \(2\times2\) 实矩阵</h4>
+<p>为看清后面的张量积，把 note 使用的 Pauli matrices 直接写开：</p>
+<div class="scroll">\[
+          I_2=\begin{pmatrix}1&amp;0\\0&amp;1\end{pmatrix},\qquad
+          \sigma_x=\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix},\qquad
+          i\sigma_y=\begin{pmatrix}0&amp;1\\-1&amp;0\end{pmatrix},\qquad
+          \sigma_z=\begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}.
+        \]</div>
+<p>其中 \(\sigma_x^2=\sigma_z^2=I_2\)，而
+        \((i\sigma_y)^2=-I_2\)。不同 Pauli matrices 彼此反对易，例如
+        \(\sigma_x(i\sigma_y)=-(i\sigma_y)\sigma_x\)。
+        为了与文章的两种玻色子直接对齐，下面固定 Nambu 顺序为
+        \(\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^T\)。于是张量积的第一个
+        \(2\times2\) 因子作用在 particle/hole 空间，第二个因子作用在
+        \(b/c\) flavor 空间；若每种 flavor 含多个格点，最后再张量乘 site identity。
+        这样每个 Pauli factor 都有明确的物理位置。</p>
+<h4>\(J_i^TgJ_i=\pm g\) 在说什么</h4>
+<p>玻色 \(g\) 已在 1.1 定义。最小的 \(N=1\) 情形是</p>
+<div class="scroll">\[
+          g=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}=-\,i\sigma_y .
+        \]</div>
+<p>\(J_i^TgJ_i=g\) 表示这个基变换保持玻色 canonical commutation
+        structure；\(J_i^TgJ_i=-g\) 表示它把该 structure 的符号翻转。
+        这条关系只说明 \(J_i\) 如何作用于 \(g\)，还没有说明 \(A\) 是否具有该 symmetry。</p>
+<h4>为什么二次算符的 symmetry 要看 \(gA\)</h4>
+<p>note 的二次算符是 \(h=\frac12\chi^TgA\chi\)，所以系数矩阵是
+        \(gA\)，不是 \(A\) 单独。anti-linear transformation 保持这个二次型时，
+        要求</p>
+<div class="scroll">\[
+          J_i^T(gA)J_i=\overline{gA}=g\bar A .
+        \]</div>
+<p>由于 \(J_iJ_i^T=I\)，左边可以不跳步地拆成</p>
+<div class="scroll">\[
+          J_i^TgAJ_i
+          =J_i^Tg(J_iJ_i^T)AJ_i
+          =(J_i^TgJ_i)(J_i^TAJ_i).
+        \]</div>
+<p>于是有两种不同情况：</p>
+<div class="scroll">\[
+          \begin{array}{c|c}
+          J_i^TgJ_i=g &amp; J_i^TAJ_i=\bar A\\[2pt]
+          J_i^TgJ_i=-g &amp; J_i^TAJ_i=-\bar A
+          \end{array}
+        \]</div>
+<p>这正是“\(h\) 的 symmetry 由 \(gA\) 决定，而 \(A\) 自己的条件可能差一个负号”
+        的具体内容。不过 note 的前两类只列出 \(J_i\) 与 \(g\) 的离散关系，
+        没有在这里写出每个 \(J_i\) 对 \(A\) 的完整条件；不能仅凭这五条关系就假定
+        两个 \(J_iK\) 都按同一个公式保持 Hamiltonian。后面的 contraction list
+        才明确把 \(J_1^TAJ_1=\bar A\) 写成共同条件。</p>
+<h4>怎样从文章的物理 time reversal 得到 note 的 \(J_1,J_2\)</h4>
+<p><code>main.tex</code> 的 TRS theorem 先在<strong>没有 pairing、粒子数守恒</strong>
+        的单粒子空间中定义一个 Kramers antiunitary transformation。
+        对文章的两种 flavor，它的作用是</p>
+<div class="scroll">\[
+          \Theta\hat b\,\Theta^{-1}=\hat c,\qquad
+          \Theta\hat c\,\Theta^{-1}=-\hat b,\qquad
+          \Theta i\Theta^{-1}=-i .
+        \]</div>
+<p>因此在 \((\hat b,\hat c)^T\) 上，\(\Theta=UK\) 中的 real matrix 是</p>
+<div class="scroll">\[
+          U=i\sigma_y=\begin{pmatrix}0&amp;1\\-1&amp;0\end{pmatrix},
+          \qquad U^2=-I_2 .
+        \]</div>
+<p>把同一个变换写到
+        \(\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^T\) 上，matrix 就是</p>
+<div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=I_2\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes i\sigma_y .
+        \]</div>
+<p>这里 \(J_1K\) 就是文章真正施加的 physical time reversal。
+        \(J_2\) 可写成</p>
+<div class="scroll">\[
+          J_2=(\sigma_x\otimes I_2)J_1 .
+        \]</div>
+<p>前面的 \(\sigma_x\otimes I_2\) 只交换 Nambu 的 particle 与 hole
+        两半。因此 note 所说的 “two anti-linear symmetries” 不应理解成体系中
+        另有第二个彼此独立的 physical time-reversal operation；在这个 realization
+        中，第二个 \(J\) 是 physical Kramers transformation 与 Nambu
+        particle-hole doubling 的组合。逐项检查可得</p>
+<div class="scroll">\[
+          \begin{aligned}
+          J_1^2&amp;=-I_4,&amp;
+          J_1^TgJ_1&amp;=g,\\
+          J_2^2&amp;=-I_4,&amp;
+          J_2^TgJ_2&amp;=-g,\\
+          J_1J_2&amp;=J_2J_1.&amp;&amp;
+          \end{aligned}
+        \]</div>
+<p>这五个等式只核对 note 本段实际写出的 \(J,g\) relations。
+        要判断它们如何作用于文章的 Hamiltonian，还要先写出 physical slice。</p>
+<p>文章的单时间片写成
+        \(\hat h=\hat{\boldsymbol a}^+B\hat{\boldsymbol a}\)，其中
+        \(\hat{\boldsymbol a}=(\hat{\boldsymbol b},\hat{\boldsymbol c})^T\)。
+        Kramers condition \(U^\dagger\bar B U=B\) 等价于文章给出的 block form</p>
+<div class="scroll">\[
+          B=\begin{pmatrix}
+          D&amp;F\\-\bar F&amp;\bar D
+          \end{pmatrix}.
+        \]</div>
+<p>忽略由正规序单独处理的标量因子，同一个 number-conserving
+        slice 的 Nambu exponent generator 是</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;0\\0&amp;-B^T\end{pmatrix}.
+        \]</div>
+<p>现在才把上面的 \(J_1,J_2\) 代入，可以直接算到</p>
+<div class="scroll">\[
+          J_1^TAJ_1=\bar A,\qquad
+          J_2^TAJ_2=-\bar A^T .
+        \]</div>
+<p>第二式多出的 transpose 来自 Nambu particle/hole exchange。
+        它再次说明 \(J_2K\) 包含 Nambu doubling relation，不能当成文章额外施加的
+        第二个 physical time reversal。</p>
+<p>在 Nambu 空间中，相同条件由 \(J_1K\) 作用到 exponent generator
+        \(A\) 上。令
+        \(\mathcal B=e^{B_1}\cdots e^{B_L}\)。physical Kramers symmetry
+        使 \(\mathcal B\) 的非实 eigenvalues 以
+        \(\lambda,\bar\lambda\) 配对，实 eigenvalues 则有偶数重数，所以</p>
+<div class="scroll">\[
+          \det(I-\mathcal B)
+          =\prod_{\lambda\notin\mathbb R}|1-\lambda|^2
+           \prod_{r\in\mathbb R}(1-r)^{\text{even}}\ge0 .
+        \]</div>
+<p>这才是 <code>main.tex</code> 中 TRS 消除符号问题的物理机制：
+        Kramers partners 让 determinant 的所有潜在负因子成对出现。
+        该 theorem 当前只覆盖 number-conserving slices；文章在
+        \(\Delta\ne0\) 时没有用它来证明 paired Nambu weight，而是使用下面的 RP theorem。</p>
+<h4>怎样从文章的 physical reflection 得到 note 的 \(J_1\)</h4>
+<p><code>main.tex</code> 把 \(b\) flavor 与 \(c\) flavor 当作 reflection
+        的两侧，定义</p>
+<div class="scroll">\[
+          \theta(i)=-i,\qquad
+          \theta(\hat b_i)=\eta_i\hat c_i,\qquad
+          \theta(\hat b_i^+)=\bar\eta_i\hat c_i^+ .
+        \]</div>
+<p>这里 \(\theta\) 是 anti-linear operation，所以
+        \(\theta(z\hat O)=\bar z\,\theta(\hat O)\)。reflection 还应满足
+        \(\theta^2=1\)。把 \(\theta\) 连续作用两次到 \(\hat b_i\) 上，得到</p>
+<div class="scroll">\[
+          \theta^2(\hat b_i)
+          =\theta(\eta_i\hat c_i)
+          =\bar\eta_i\,\theta(\hat c_i)
+          =\hat b_i .
+        \]</div>
+<p>由于 \(|\eta_i|=1\)，上式要求
+        \(\theta(\hat c_i)=\eta_i\hat b_i\)。同理，creation operators 满足
+        \(\theta(\hat c_i^+)=\bar\eta_i\hat b_i^+\)。因此在单格点 Nambu
+        顺序
+        \(\chi_i=(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^T\) 中，
+        physical reflection 的完整 matrix form 是</p>
+<div class="scroll">\[
+          \theta:\ \chi_i\longmapsto J_1(\eta_i)\,\bar\chi_i,\qquad
+          J_1(\eta_i)=
+          \begin{pmatrix}
+            0&amp;\eta_i&amp;0&amp;0\\
+            \eta_i&amp;0&amp;0&amp;0\\
+            0&amp;0&amp;0&amp;\bar\eta_i\\
+            0&amp;0&amp;\bar\eta_i&amp;0
+          \end{pmatrix}.
+        \]</div>
+<p>任意 reflection phase 已经完整地包含在这个 \(J_1(\eta_i)\) 中。
+        当 \(\eta_i\) 不是 real number 时，\(J_1(\eta_i)\) 也不是 real
+        matrix；anti-linear operation 平方为一的正确检查是</p>
+<div class="scroll">\[
+          J_1(\eta_i)\,\overline{J_1(\eta_i)}=I_4 ,
+        \]</div>
+<p>而不是把 complex matrix 误写成 \(J_1(\eta_i)^2=I_4\)。
+        note 从一开始把 \(J_1,J_2\) 限定为 real orthogonal matrices，
+        因而它实际上已经选取了 \(\eta_i=1\) 的 phase convention。</p>
+<h4>为什么 \(\eta_i\) 可以规范固定为 1</h4>
+<p>这一点可以直接在 operators 上验证，不需要抽象的群论语言。
+        对每个格点同时重新定义两种 flavor 的 phase：</p>
+<div class="scroll">\[
+          \hat b_i'
+          =e^{\,i\arg(\eta_i)/2}\hat b_i,\qquad
+          \hat c_i'
+          =e^{\,i\arg(\eta_i)/2}\hat c_i .
+        \]</div>
+<p>利用 \(\theta\) 的 anti-linearity，有</p>
+<div class="scroll">\[
+          \begin{aligned}
+          \theta(\hat b_i')
+          &amp;=e^{-i\arg(\eta_i)/2}\eta_i\hat c_i
+            =\hat c_i',\\
+          \theta(\hat c_i')
+          &amp;=e^{-i\arg(\eta_i)/2}\eta_i\hat b_i
+            =\hat b_i'.
+          \end{aligned}
+        \]</div>
+<p>所以 \(\eta_i\) 确实是 flavor basis 的 phase convention。
+        改变这一 convention 时，Hamiltonian 中 hopping 或 pairing
+        coefficients 的 matrix representation 也要一起变换；物理内容不变。
+        文章的 paired example 取
+        \(\eta_i=e^{-i\arg\Delta}\)，正是在选择 reflection phase 来抵消 pairing
+        amplitude \(\Delta\) 的 phase。换到上面的 primed basis 后，
+        reflection phase 为 1，而 pairing coefficient 相应变成 real
+        nonnegative number。</p>
+<h4>note 中的 \(J_2\) 不是第二个连续 phase 自由度</h4>
+<p>现在才采用 note 的 real convention \(\eta_i=1\)。在
+        \((\hat b,\hat c,\hat b^+,\hat c^+)^T\) 中，两个 matrices 是</p>
+<div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=I_2\otimes\sigma_x,\qquad
+          J_2=I_2\otimes i\sigma_y .
+        \]</div>
+<p>\(J_1K\) 先 complex conjugate，再交换 \(b,c\)，所以它就是
+        physical reflection。要看清 \(J_2\) 多做了什么，只需把两个 matrices
+        相乘：</p>
+<div class="scroll">\[
+          -J_1J_2
+          =I_2\otimes\sigma_z
+          =\operatorname{diag}(1,-1,1,-1).
+        \]</div>
+<p>右边在 \(b,b^+\) entries 上取 \(+1\)，在 \(c,c^+\) entries
+        上取 \(-1\)。它没有交换两侧，只标记哪个 Nambu component 属于
+        \(b\) side、哪个属于 \(c\) side。反过来写就是</p>
+<div class="scroll">\[
+          J_2=-J_1\bigl(I_2\otimes\sigma_z\bigr).
+        \]</div>
+<p>因此 \(J_2K\) 可以理解成 physical reflection \(J_1K\)
+        再复合一个 \(c\)-side minus sign。这个 minus sign 是一个离散的
+        relative flavor gauge transformation；它不是任意
+        \(\eta_i=e^{i\varphi_i}\) 所包含的连续 \(U(1)\) phase。
+        任意 \(\eta_i\) 已经由上面的 complex matrix \(J_1(\eta_i)\)
+        单独表示，不能把 note 的 \(J_1,J_2\) 当作两个分量，再靠二者组合来生成
+        \(\eta_i\)。</p>
+<p>从 reflection geometry 看，\(J_1\) 给出“交换两侧并 complex
+        conjugate”，而 \(-J_1J_2\) 给出“哪一侧是 \(b\)，哪一侧是 \(c\)”。
+        二者合起来确实把交换操作与左右分区同时编码进 matrices。
+        但 <code>main.tex</code> 的 operator formulation 一开始已经写成
+        \(\mathcal F_b\otimes\mathcal F_c\)，左右分区是已知的；因此 theorem
+        只需要显式写 \(\theta\)，不需要再把 \(J_2\) 当作第二个 physical
+        reflection assumption。</p>
+<p>note 把 \(J_2\) 加进来后，得到下面五条离散 relations：</p>
+<div class="scroll">\[
+          J_1^2=I_4,\quad J_1^TgJ_1=g,\qquad
+          J_2^2=-I_4,\quad J_2^TgJ_2=g,\qquad
+          J_1J_2=-J_2J_1 .
+        \]</div>
+<p>新增的 <code>experts/RPBAFQMC.tex</code> 给出了这两个 matrices
+        的直接来源。它先逐字规定</p>
+<div class="source-quote">
+          “Reflection symmetry requires
+          \(J_1^TAJ_1=\bar A\). Assume that \(J_2\Omega\) plays the role
+          of the metric of the contraction semigroup and the expansion semigroup.”
+        </div>
+<p>所以在合作者原本的 construction 中，\(J_1\) 明确负责 physical
+        reflection symmetry；作者试图让 \(J_2\) 与 bosonic symplectic
+        matrix \(\Omega\) 相乘，构造 \(J_2\Omega\) metric。
+        该文件随后用</p>
+<div class="scroll">\[
+          J_2^TAJ_2=\bar A
+          \quad\text{与}\quad
+          J_2^TAJ_2=-\bar A
+        \]</div>
+<p>分别挑出作者称为 maximal-subgroup generators 与 cone generators，
+        然后声称 reflection-positive coefficient block 的正半定条件可改写成
+        contraction part 与 expansion part 的 direct sum。</p>
+<h4>为什么 <code>RPBAFQMC.tex</code> 的 direct-sum 论证不成立</h4>
+<p>用户指出了这一旧论证中的关键错误：contraction 与 expansion blocks
+        会混合。把 Hermitian matrix \(J_2\Omega\) 选到正、负本征子空间分开的
+        basis 后，一般传播矩阵只能写成</p>
+<div class="scroll">\[
+          M_\ell=
+          \begin{pmatrix}
+            M_{\ell,++}&amp;M_{\ell,+-}\\
+            M_{\ell,-+}&amp;M_{\ell,--}
+          \end{pmatrix}.
+        \]</div>
+<p>若它真是 contraction block 与 expansion block 的 direct sum，
+        就必须对每个时间片都有
+        \(M_{\ell,+-}=M_{\ell,-+}=0\)，也就是正、负两个子空间分别保持不变。
+        reflection positivity 的 coefficient condition 并没有给出这两个
+        等式。相邻时间片相乘时，diagonal block 已经含有 cross terms：</p>
+<div class="scroll">\[
+          \begin{aligned}
+          (M_2M_1)_{++}
+          &amp;=M_{2,++}M_{1,++}\\
+          &amp;\quad+M_{2,+-}M_{1,-+},\\[2pt]
+          (M_2M_1)_{--}
+          &amp;=M_{2,-+}M_{1,+-}\\
+          &amp;\quad+M_{2,--}M_{1,--}.
+          \end{aligned}
+        \]</div>
+<p>两个 off-diagonal blocks 也由四类 blocks 共同生成。因此不能把完整
+        propagation 分成彼此独立的 contraction semigroup 与 expansion
+        semigroup，再分别应用半群闭合性。关系
+        \(J_2^TAJ_2=\pm\bar A\) 给出的是 generator 的 linear restrictions，
+        并不自动说明 \(J_2\Omega\) 的正、负本征子空间对 \(e^A\) 不变。</p>
+<p>合作者的论文
+        <a href="https://arxiv.org/abs/1712.09412">arXiv:1712.09412</a>
+        中正确的 contraction-semigroup 语言也支持这一判断。该论文的
+        sign-free application 是 fermionic Majorana AFQMC；下面使用的
+        matrix definition 与 multiplication identity 本身不依赖 particle
+        statistics。固定
+        Hermitian metric \(J_2\Omega\) 后，contraction condition
+        是对<strong>完整矩阵</strong>施加</p>
+<div class="scroll">\[
+          M^\dagger(J_2\Omega)M\le J_2\Omega .
+        \]</div>
+<p>其乘法闭合来自完整矩阵恒等式</p>
+<div class="scroll">\[
+          \begin{aligned}
+          &amp;(M_1M_2)^\dagger(J_2\Omega)(M_1M_2)-J_2\Omega\\
+          &amp;\quad=M_2^\dagger
+          \left[M_1^\dagger(J_2\Omega)M_1-J_2\Omega\right]M_2\\
+          &amp;\qquad+\left[M_2^\dagger(J_2\Omega)M_2-J_2\Omega\right].
+          \end{aligned}
+        \]</div>
+<p>这里从未要求把 \(M\) 拆成两个不混合的 blocks。
+        论文所说 maximal subgroup，是上式取等号的完整 matrices；
+        invariant cone 是一组 generators，在 maximal subgroup 的
+        conjugation 下仍留在同一个 cone。这个 “invariant” 修饰的是
+        generator cone，不是说 \(J_2\Omega\) 的正、负本征子空间分别被
+        propagation 保持。论文提到的 polar decomposition 同样是
+        “cone part 乘 group part”，不是 “contraction block 直和 expansion
+        block”。</p>
+<p>所以 <code>RPBAFQMC.tex</code> 只能帮助我们确认作者当时赋予
+        \(J_1,J_2\) 的<strong>预期分工</strong>，不能提供有效的 regularized-weight
+        semigroup proof。独立于这一错误，恒等式
+        \(-J_1J_2=I_2\otimes\sigma_z\) 仍准确说明 \(J_2\) 相对
+        \(J_1\) 多出的 \(b/c\) 分区符号。</p>
+<div class="warning">
+<strong>两个同名的 \(\eta\) 必须分开。</strong>
+<code>main.tex</code> 的 \(\eta_i\) 是
+          \(\theta(\hat b_i)=\eta_i\hat c_i\) 中的 scalar phase，
+          \(|\eta_i|=1\)。note 后面有时把
+          \(\eta=J_2g\) 称为 metric；那个 \(\eta\) 是一个
+          \(2N\times2N\) Hermitian matrix。二者没有“一个由另一个生成”的关系。
+        </div>
+<h4>为什么这些 matrices 仍不足以给出 reflection positivity</h4>
+<p>reflection symmetry 与 reflection positivity 是两件不同的事。
+        前者只说 \(b\) sector 与 \(c\) sector 互为复共轭；后者还要求每个
+        HS-decoupled slice 能整理成</p>
+<div class="scroll">\[
+          \hat h=\hat q+\theta(\hat q)
+          +\sum_{\mu,\nu}C_{\mu\nu}
+          \hat X_\mu\theta(\hat X_\nu),
+          \qquad C=C^\dagger\ge0 .
+        \]</div>
+<p>正半定 matrix \(C\) 可以分解成平方和，因而每个传播因子最终是
+        \(\sum_r\hat R_r\theta(\hat R_r)\) 的极限。左右 Fock spaces 的 trace
+        因而给出</p>
+<div class="scroll">\[
+          \Tr[\hat R\,\theta(\hat R)]
+          =\left|\Tr_{\hat b}\hat R\right|^2\ge0 .
+        \]</div>
+<p>这就是文章 RP criterion 的物理内容。对 paired benchmark，
+        \(\theta(\hat b_i)=e^{-i\arg\Delta}\hat c_i\)，相位可吸收到 flavor basis 中；
+        跨两侧的 pairing coefficient 变成
+        \(F=(\Delta\tau|\Delta|/2)I\ge0\)。因此 paired model 的非负权重来自
+        operator-level reflection positivity，而不是仅由
+        \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
+        对 finite bare trace，证明直接来自 reflected squares。
+        <code>experts/RPBAFQMC.tex</code> 曾尝试把 regularized weight
+        表成 contraction part 与 expansion part 的 direct sum，但上面的
+        block-mixing calculation 否定了这一步。当前得到验证的 RP 结论仍是：
+        finite bare trace 由 reflected squares 保证 nonnegative。
+        是否存在另一套正确的 semigroup proof，需要重新建立，不能沿用该文件
+        的 direct-sum assertion。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-contraction-list">
+<h3>1.4 玻色 contraction semigroup 的条件与 Cases 3--16</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 67--117 行
+                （完整显示）</summary>
+<div class="note-source"><p>Contraction semigroup cases:</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+J_{2}gA+A^{\dagger}J_{2}g &amp; \leq0.
+\end{aligned}\]</span></p>
+<p>3)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p>4)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p><span class="math inline">\(5)J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-hermitian case I)</p>
+<p>6)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-hermitian case II)</p>
+<p>7)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. (Yinkai’s
+case)</p>
+<p>8)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. (mainly
+non-hermitian)</p>
+<p>9)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
+<p>10)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
+<p>11)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p>12)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p>13)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p>14)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.Failed.</p>
+<p>15)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
+<p>16)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Failed.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>
+        读到这一标题时，问题才正式切换为本次 \(2^5\) 穷举。
+        五个二选一关系只给 \(J_1,J_2\) 分类；本段显示的两条关于 \(A\)
+        的公式才决定一个具体时间片是否进入候选 semigroup。程序必须依次做三件事：
+        先找满足五条关系的 \(J_1,J_2\)，再解合法 quadratic generator
+        \(gA+A^Tg=0\) 与 \(J_1^TAJ_1=\bar A\)，最后检查 contraction
+        inequality 是否允许严格小于零。仅完成第一步不等于找到了无符号情形。
+        </p>
+<h4>这一列表里 \(J_1\) 与 \(J_2\) 各做什么</h4>
+<p>从这里开始，note 不再要求 \(J_1,J_2\) 都是上一段那种
+        “保持 \(gA\) 的 symmetry”。它固定两条共同条件：</p>
+<div class="scroll">\[
+          J_1^TAJ_1=\bar A,\qquad
+          J_2gA+A^\dagger J_2g\le0 .
+        \]</div>
+<p>第一条由 \(J_1\) 负责。因为 \(J_1\) 正交，
+        \(J_1^TAJ_1=\bar A\) 等价于 \(AJ_1=J_1\bar A\)。
+        若 \(Av=\lambda v\)，先复共轭再使用这个等式：</p>
+<div class="scroll">\[
+          \bar A\bar v=\bar\lambda\bar v
+          \quad\Longrightarrow\quad
+          A(J_1\bar v)=J_1\bar A\bar v
+          =\bar\lambda(J_1\bar v).
+        \]</div>
+<p>所以 \(J_1\) 把 eigenvalue \(\lambda\) 的 eigenvector
+        配到 eigenvalue \(\bar\lambda\) 的 eigenvector。它控制的是复共轭配对。</p>
+<p>第二条由 \(J_2\) 负责。在 note 这 14 个 bosonic candidates 中，
+        \(J_2g\) 是 Hermitian matrix，可以作为 note 所说的 metric。
+        不等式表示沿 \(A\) 生成的 propagation 不会把这个 metric 增大：</p>
+<div class="scroll">\[
+          J_2gA+A^\dagger J_2g\le0
+          \quad\Longrightarrow\quad
+          (e^A)^\dagger J_2g\,e^A\le J_2g .
+        \]</div>
+<p>这一步不是定义后直接跳出的结论。令 \(t\) 从 0 增加到 1，逐项求导：</p>
+<div class="scroll">\[
+          \begin{aligned}
+          \frac{d}{dt}
+          \left(e^{tA^\dagger}J_2g\,e^{tA}\right)
+          &amp;=A^\dagger e^{tA^\dagger}J_2g\,e^{tA}
+            +e^{tA^\dagger}J_2g\,e^{tA}A\\
+          &amp;=e^{tA^\dagger}
+            \left(A^\dagger J_2g+J_2gA\right)e^{tA}\le0 .
+          \end{aligned}
+        \]</div>
+<p>从 \(t=0\) 积到 \(1\) 就得到上一式。这才是
+        “contraction”的具体含义。这里 \(J_2\) 的首要作用是构造
+        \(J_2g\)，不应与 \(J_1\) 的复共轭配对作用混在一起。</p>
+<h4>本段所说 maximal subgroup 与 invariant cone</h4>
+<p>
+        先令 \(\eta=J_2g\)。在本段可能通过的玻色类中，
+        \(\eta^\dagger=\eta\) 且 \(\eta^2=I\)。若
+        \[
+          \eta A+A^\dagger\eta=0,
+        \]
+        则 \(e^A\) 严格保持 \(\eta\)，这些 \(A\) 生成 maximal subgroup。
+        允许小于零的方向来自 invariant cone。对任意一个已经满足共同线性条件的
+        \(A\)，定义
+        </p>
+<div class="scroll">\[
+          \begin{aligned}
+          A_{\rm subgroup}
+          &amp;=\frac12\left(A-\eta A^\dagger\eta\right),\\
+          A_{\rm cone}
+          &amp;=\frac12\left(A+\eta A^\dagger\eta\right),\\
+          A&amp;=A_{\rm subgroup}+A_{\rm cone}.
+          \end{aligned}
+        \]</div>
+<p>
+        现在不凭名称判断，而是逐项代回。利用
+        \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)，第一项给出
+        </p>
+<div class="scroll">\[
+          \begin{aligned}
+          \eta A_{\rm subgroup}
+          +A_{\rm subgroup}^\dagger\eta
+          &amp;=
+          \frac12(\eta A-A^\dagger\eta)
+          +\frac12(A^\dagger\eta-\eta A)\\
+          &amp;=0 .
+          \end{aligned}
+        \]</div>
+<p>
+        所以第一项确实是 maximal-subgroup generator。第二项则满足
+        </p>
+<div class="scroll">\[
+          \eta A_{\rm cone}=A_{\rm cone}^\dagger\eta,
+          \qquad
+          \eta A_{\rm cone}+A_{\rm cone}^\dagger\eta
+          =2\eta A_{\rm cone}.
+        \]</div>
+<p>
+        因而第二项只有在再施加
+        \(\eta A_{\rm cone}\le0\) 时才属于 invariant cone；严格小于零
+        才是 strict-cone direction。换言之，原先“第一项给零，第二项给
+        半负定”的次序没有写反，原报告的问题是省略了这段使次序可核验的计算。
+        </p>
+<p>
+        它看起来容易与 note 后面
+        \(J_2^TAJ_2=\pm\bar A\) 的正负分支混淆，是因为二者之间还隔着
+        \(gA+A^Tg=0\)。在本段的玻色情形，
+        \[
+          \eta A^\dagger\eta=-J_2^T\bar A J_2 .
+        \]
+        因而 \(J_2^TAJ_2=+\bar A\) 对应
+        \(\eta A^\dagger\eta=-A\)，恰好落入上面的减号
+        \(A_{\rm subgroup}\)；而
+        \(J_2^TAJ_2=-\bar A\) 对应
+        \(\eta A^\dagger\eta=+A\)，落入加号
+        \(A_{\rm cone}\)。额外的这个负号正是表面上“像是写反了”的来源。
+        </p>
+<p>
+        这里分解的是同一个完整矩阵的两种 generator
+        components，不是把 particle/hole 或 reflection sectors 拆成互不混合的
+        propagation blocks。note 第二、三节的长 block calculations 正是在尝试
+        分别写出这两种结构；第 6 节会用完整 Pauli basis 把它们逐类补齐。
+        </p>
+<h4>Case 7 的单模例子：每一步都可以手算</h4>
+<p>取单个玻色模，即 Nambu 维数为 2，并采用 note 在第二节给出的
+        简化选择</p>
+<div class="scroll">\[
+          g=-i\sigma_y
+          =\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix},\qquad
+          J_1=I_2,\qquad J_2=\sigma_x .
+        \]</div>
+<p>这里 \(J_1^TgJ_1=g\)、\(J_1^2=I_2\)；
+        \(J_2^TgJ_2=-g\)、\(J_2^2=I_2\)，且 \(J_1,J_2\) 对易。
+        \(J_1^TAJ_1=\bar A\) 直接要求 \(A\) 是实矩阵。
+        任何实的 \(2\times2\) bosonic generator 都可以写成</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}a&amp;b\\c&amp;-a\end{pmatrix},
+        \]</div>
+<p>因为代入 \(gA+A^Tg=0\) 后，唯一独立条件就是
+        两个 diagonal entries 互为相反数。此时</p>
+<div class="scroll">\[
+          J_2g=\sigma_z,\qquad
+          J_2gA+A^TJ_2g
+          =\begin{pmatrix}
+          2a&amp;b-c\\
+          b-c&amp;2a
+          \end{pmatrix}.
+        \]</div>
+<p>例如取 \(a=-\gamma\)、\(b=c=0\)，其中 \(\gamma&gt;0\)，也就是</p>
+<div class="scroll">\[
+          A=-\gamma\sigma_z .
+        \]</div>
+<p>那么 contraction matrix 恰好是</p>
+<div class="scroll">\[
+          J_2gA+A^TJ_2g=-2\gamma I_2&lt;0 .
+        \]</div>
+<p>这个例子不是只停留在 matrix inequality。相应二次算符和 bosonic trace 为</p>
+<div class="scroll">\[
+          h=-\gamma\left(a^+a+\frac12\right),\qquad
+          \Tr e^h=\frac{e^{-\gamma/2}}{1-e^{-\gamma}}&gt;0 .
+        \]</div>
+<p>因此读到 Case 7 时，可以把 \(J_1=I_2\) 理解为“要求 \(A\) real”，
+        把 \(J_2=\sigma_x\) 理解为“使 \(J_2g=\sigma_z\)，并用它区分
+        contracting 与 expanding directions”。高维 Cases 只是把这套计算放进
+        更大的 block matrices，并允许 \(J_1^2=-I\) 或不同的 commutation relation。</p>
+<h4>列表里的 Passed/Failed 还缺什么</h4>
+<p>本段的 Passed/Failed 是作者的手算标签；仅找到满足离散关系的
+        \(J_1,J_2\)，或仅解出 \(J_1^TAJ_1=\bar A\) 的 linear subspace，
+        都还不能证明存在 strict contraction。必须继续检查上述 Hermitian matrix
+        是否能严格小于零，再检查多个 \(e^A\) 相乘后的完整 Fock trace 与
+        square-root branch。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-passed-list">
+<h3>1.5 玻色作者版 passed-only 清单</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 118--141 行
+                （完整显示）</summary>
+<div class="note-source"><p>List passed ones only:</p>
+<p>1”)Time reversal symmetry:(two <span class="math inline">\(Z_{2}\)</span> anti-linear symmetries) <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p>2”)reflection positivity:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-contraction semigroup)</p>
+<p>3”)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-hermitian case I)</p>
+<p>4”)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(non-hermitian case II)</p>
+<p>5”)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. (Yinkai’s
+case)</p>
+<p>6”)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. (mainly
+non-hermitian)</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>这次重新编号很容易造成误读：\(1''\) 和 \(2''\) 不是前面 contraction
+        inequality 的通过项；\(3''\)--\(6''\) 才来自该列表。
+        与上一版相比，作者已接受 commuting Case 10 为 Failed，所以总数从 7 降为 6。
+        本 note 此处没有就地定义 “non-hermitian case”，但新增的
+        <code>experts/SGNH.tex</code> 补出了它的物理含义：作者研究的是</p>
+<div class="scroll">\[
+          H_K=-H_K^\dagger,\qquad H_U=H_U^\dagger ,
+        \]</div>
+<p>也就是 single-body term 为 anti-Hermitian，而 interaction term
+        仍为 Hermitian 的 bosonic models。该文件的两组 semigroup conditions
+        正好对应这里的 Cases 3 与 4，并给出具体 Hamiltonians：
+        第一组取 real antisymmetric hopping matrix；
+        第二组使用 \(b,c\) flavors，允许 anti-Hermitian \(B_{11}\) 与
+        symmetric \(B_{12}\)，同时取
+        \(U(\hat n_b-\hat n_c)^2\)。所以这里的 “non-hermitian”
+        主要指 physical single-body Hamiltonian，不是笼统地指任意一个
+        displayed block 不等于自己的 Hermitian conjugate。</p>
+<p><code>experts/SGNH.tex</code> 声称这些 models sign-problem-free，
+        但当前文件只给出 proof scheme，没有把 metaplectic square-root branch
+        与 regularization 的所有步骤写完。因此这个来源澄清了标签，不能单独替代
+        本报告对 complete bosonic weight 的检查。</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-list">
+<h3>1.6 费米候选条件与 Cases \(1'\)--\(10'\)</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 142--182 行
+                （完整显示）</summary>
+<div class="note-source"><p>For fermions, we have 7 examined cases:</p>
+<p>1’)(two <span class="math inline">\(Z_{2}\)</span> anti-linear
+symmetries)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>,
+<span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. It’s just a
+special case of the semigroup case 9’.</p>
+<p>2’)The case corresponding to bosonic reflection positivity—exists but
+not useful.</p>
+<p>Contraction semigroup cases: <span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\bar{A},\\
+iJ_{2}gA-iA^{\dagger}J_{2}g &amp; \leq0,
+\end{aligned}\]</span></p>
+<p>3’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.(Majorana
+reflection positivity)</p>
+<p>4’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(Time-reversal positivity)</p>
+<p>5’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
+Passed</p>
+<p>6’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
+Passed</p>
+<p>7’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p><span class="math inline">\(8')J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p>9’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p>10’) <span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>. Failed</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<h4>先回答：物理传播中究竟是 \(e^A\) 还是 \(e^{gA}\)</h4>
+<p>
+note 已经固定
+\[
+  \hat h=\frac12\chi^TgA\chi,\qquad
+  g=\begin{pmatrix}0&amp;I\\I&amp;0\end{pmatrix},\qquad
+  gA+A^Tg=0 .
+\]
+这里 \(\{\chi_i,\chi_j\}=g_{ij}\)。不要先凭矩阵外观猜测传播元；
+直接计算 \(\hat h\) 对 Nambu 算符的对易子。利用
+\[
+  [\chi_i\chi_j,\chi_k]
+  =\chi_i\{\chi_j,\chi_k\}
+   -\{\chi_i,\chi_k\}\chi_j
+  =\chi_i g_{jk}-g_{ik}\chi_j ,
+\]
+再使用 \((gA)^T=-gA\)，得到
+</p>
+<div class="scroll">\[
+  [\hat h,\chi_k]=-\sum_j A_{kj}\chi_j,\qquad
+  [\hat h,\chi]=-A\chi .
+\]</div>
+<p>
+因此 Baker--Campbell--Hausdorff 展开逐阶给出
+</p>
+<div class="scroll">\[
+  e^{\hat h}\chi e^{-\hat h}
+  =\chi+[\hat h,\chi]
+  +\frac1{2!}[\hat h,[\hat h,\chi]]+\cdots
+  =e^{-A}\chi .
+\]</div>
+<p>
+结论没有歧义：在 note 当前的 Nambu convention 中，
+<strong>单粒子传播由 \(A\) 生成</strong>，Fock trace 中出现
+\(e^{A_1}\cdots e^{A_k}\)。矩阵 \(gA\) 的作用是给
+\(\chi_i\chi_j\) 提供反对称系数；它不是单粒子传播元。
+</p>
+<h4>换成 Majorana basis 也不会把传播元变成 \(gA\)</h4>
+<p>
+对每个 complex fermion，把 annihilation/creation operators
+换成两个 normalized Majorana combinations。矩阵写法为
+</p>
+<div class="scroll">\[
+  \gamma=U\chi,\qquad
+  U=\frac1{\sqrt2}
+  \begin{pmatrix}I&amp;I\\-iI&amp;iI\end{pmatrix},
+  \qquad UgU^T=I,\qquad U^\dagger U=I .
+\]</div>
+<p>
+把 \(\chi=U^\dagger\gamma\) 代回二次算符，并使用
+\(U^{-T}g=U\)，得到
+</p>
+<div class="scroll">\[
+  \hat h
+  =\frac12\gamma^T(UAU^\dagger)\gamma,\qquad
+  e^{UAU^\dagger}=Ue^AU^\dagger .
+\]</div>
+<p>
+所以 Majorana generator 是 \(UAU^\dagger\)，它与 \(A\)
+由相似变换相连，具有相同 eigenvalues，也给出同一个 determinant。
+正确换基需要把 \(A\)、两个 anti-linear transformations 和
+contraction metric 一起变换。单独写 \(gA\) 不是换基，因为
+一般不存在 \(gA=SAS^{-1}\)。
+</p>
+<h4>note 第一节的费米不等式实际控制了错误的矩阵指数</h4>
+<p>
+Cases \(3'\)--\(10'\) 都规定
+\(J_2^2=-I\)、\(J_2^TgJ_2=-g\)。由实正交性可逐步推出
+</p>
+<div class="scroll">\[
+  J_2^T=-J_2,\qquad gJ_2=-J_2g .
+\]</div>
+<p>
+note 写下
+</p>
+<div class="scroll">\[
+  iJ_2gA-iA^\dagger J_2g\le0 .
+\]</div>
+<p>
+为看清它是什么，不必给 \(gA\) 另起名字。直接利用
+\((gA)^\dagger=A^\dagger g\) 与 \(gJ_2=-J_2g\)，可改写为
+</p>
+<div class="scroll">\[
+  iJ_2(gA)+(gA)^\dagger(iJ_2)\le0 .
+\]</div>
+<p>
+因为 \(iJ_2\) 是 Hermitian involution，这确实是一个标准
+contraction inequality；但它控制的是 \(e^{t(gA)}\)，不是 trace
+公式中的 \(e^{tA}\)。这不是“还少一句 basis transport”便能自动补好的
+小缺口，而是 note 当前两条核心公式使用了不同传播矩阵。若不修改定义，
+或不重新做完整换基，这个 inequality 不能用于证明所写 fermionic
+AFQMC weight 非负。
+</p>
+<div class="warning">
+<strong>一个 \(2\times2\) 精确检验立即暴露问题。</strong>
+  取
+  \[
+    g=\sigma_x,\qquad J_1=\sigma_x,\qquad
+    J_2=i\sigma_y,\qquad A=iy\sigma_z .
+  \]
+  它满足 Case \(3'\) 的五条关系、\((gA)^T=-gA\)、
+  \(J_1^TAJ_1=\bar A\)，而且 note 的不等式严格成立：
+  \[
+    iJ_2gA-iA^\dagger J_2g=-2yI&lt;0\qquad(y&gt;0).
+  \]
+  但是物理二次算符为
+  \[
+    \hat h=iy\left(c^+c-\frac12\right),
+  \]
+  所以
+  \[
+    \Tr e^{\hat h}
+    =e^{-iy/2}+e^{iy/2}
+    =2\cos\frac y2 .
+  \]
+  它在 \(y=\pi\) 取零，在 \(y=2\pi\) 取 \(-2\)。
+  因此“\(e^{gA}\) 严格收缩”没有阻止
+  \(\det(I+e^A)^{1/2}\) 过零并变负。
+</div>
+<h4>若坚持使用 note 顶部的 \(e^A\)，正确的收缩条件是什么</h4>
+<p>
+同一组 \(J_2\) 关系使
+\[
+  \eta=J_2g
+\]
+成为 Hermitian involution：
+</p>
+<div class="scroll">\[
+  (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I .
+\]</div>
+<p>
+因而直接作用于物理传播 \(e^A\) 的标准条件是
+</p>
+<div class="scroll">\[
+  J_2gA+A^\dagger J_2g\le0 .
+\]</div>
+<p>
+这与 note 写的式子相比，不仅少了 \(i\)，第二项的符号也不同。
+对它求导才得到
+</p>
+<div class="scroll">\[
+  \frac{d}{dt}
+  \left[e^{tA^\dagger}(J_2g)e^{tA}\right]
+  =
+  e^{tA^\dagger}
+  \left(A^\dagger J_2g+J_2gA\right)e^{tA}\le0 ,
+\]</div>
+<p>
+从而
+\[
+  (e^{tA})^\dagger(J_2g)e^{tA}\le J_2g .
+\]
+若 \(M_1,M_2\) 都满足这个有限变换不等式，则
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  &amp;(M_1M_2)^\dagger(J_2g)(M_1M_2)-J_2g\\
+  &amp;=M_2^\dagger
+    [M_1^\dagger(J_2g)M_1-J_2g]M_2\\
+  &amp;\quad+[M_2^\dagger(J_2g)M_2-J_2g]\le0 .
+  \end{aligned}
+\]</div>
+<p>
+这才是与 note 的 determinant formula 对齐的 contraction semigroup：
+每个时间片控制 \(e^{A_\ell}\)，相乘后控制
+\(e^{A_1}\cdots e^{A_k}\)。
+</p>
+<h4>对应的 maximal subgroup 与 invariant cone 也必须分解 \(A\)</h4>
+<p>
+仍写 \(\eta=J_2g\)。对一个满足费米二次型条件与
+\(J_1^TAJ_1=\bar A\) 的 \(A\)，分成
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  A_{\rm subgroup}
+  &amp;=\frac12(A-\eta A^\dagger\eta),\\
+  A_{\rm cone}
+  &amp;=\frac12(A+\eta A^\dagger\eta).
+  \end{aligned}
+\]</div>
+<p>
+第一项满足
+\[
+  \eta A_{\rm subgroup}
+  +A_{\rm subgroup}^\dagger\eta=0,
+\]
+因而 \(e^{A_{\rm subgroup}}\) 保持 \(\eta\)，属于 maximal subgroup。
+第二项满足
+\[
+  \eta A_{\rm cone}=A_{\rm cone}^\dagger\eta .
+\]
+只有再要求 \(\eta A_{\rm cone}\le0\)，它才是 contraction cone
+的方向。由费米条件 \(A^\dagger=-g\bar A g\) 可进一步验证
+</p>
+<div class="scroll">\[
+  \begin{array}{c|c}
+  J_2^TAJ_2=\bar A
+  &amp;A\ \text{属于 maximal-subgroup 线性空间}\\[2pt]
+  J_2^TAJ_2=-\bar A
+  &amp;A\ \text{属于 cone 的线性空间}
+  \end{array}
+\]</div>
+<p>
+所以后文逐例解 \(J_2^TAJ_2=\pm\bar A\) 这一步本身可以保留；
+真正需要改的是最后施加半负定性的 matrix。
+</p>
+<h4>这项修正怎样改变 Cases \(1'\)--\(10'\) 的读取</h4>
+<div class="scroll">
+<table>
+<thead><tr>
+<th>case</th><th>按 \(e^A\) 检查的结果</th><th>应怎样理解</th>
+</tr></thead>
+<tbody>
+<tr><td>\(1'\)</td><td>maximal-subgroup 边界</td>
+<td>交换 \(J_1,J_2\) 的名字后，确实是 \(9'\) 的双 symmetry
+    特例；第三节对两个 \(J\) 都取正号是相容的。</td></tr>
+<tr><td>\(3',4'\)</td><td>只有等号边界，没有 strict interior</td>
+<td>Majorana reflection positivity 与 time-reversal positivity
+    是已知定理，但 note 的 real Nambu matrices 不是把这些定理完整换基后的条件。</td></tr>
+<tr><td>\(5',6',7',8'\)</td><td>存在 strict interior</td>
+<td>这些是直接控制 \(e^A\) 的四个候选类。Case \(5'\)
+    末尾的 \(J_2gA\le0\) 方向正确；Cases \(6'\)--\(8'\)
+    末尾多写的 \(i\) 应去掉。</td></tr>
+<tr><td>\(9',10'\)</td><td>只有等号边界</td>
+<td>\(J_1\) 把候选半负定方向翻成半正定方向，故不能存在
+    nonzero strict cone。第一节把 \(9'\) 标为 Passed
+    是沿用了错误的 \(e^{gA}\) 判据。</td></tr>
+</tbody>
+</table>
+</div>
+<h4>\(1'\)：为什么 “just a special case of semigroup Case \(9'\)”</h4>
+<p>
+Case \(1'\) 有两个 anti-linear transformations。第一个
+\(J_1\mathcal K\) 满足 \(J_1^2=-I\)，第二个
+\(J_2\mathcal K\) 满足 \(J_2^2=+I\)；二者都翻转 \(g\)，并且对易。
+Case \(9'\) 的五条离散关系正好把这两个 \(J\) 的角色交换：
+semigroup 中负责第一条实性条件的 \(J_1\) 平方为 \(+I\)，
+负责 contraction metric 的 \(J_2\) 平方为 \(-I\)。
+</p>
+<p>
+Case \(9'\) 的正确 \(e^A\)-contraction metric 是
+\(\eta=J_2g\)；等号边界为
+</p>
+<div class="scroll">\[
+  J_2gA+A^\dagger J_2g=0
+  \quad\Longleftrightarrow\quad
+  J_2^TAJ_2=\bar A .
+\]</div>
+<p>
+所以交换 Case \(1'\) 的两个 \(J\) 后，Case \(1'\) 手算中
+\[
+  J_1^TAJ_1=\bar A,\qquad J_2^TAJ_2=\bar A
+\]
+正好表示：一个 \(J\) 保证 weight real，另一个 \(J\) 把
+propagation 限制在 maximal subgroup。原报告此前说这里必须
+“一正一负”是由错误地分解 \(gA\) 得出的，现已纠正。
+</p>
+<p>
+还要注意，\(9'\) 在正确判据下并没有 strict cone；因此
+“special case”只能解释双 symmetry 边界，不能替 \(9'\)
+增加一个新的无符号 interior。
+</p>
+<h4>\(2'\)：为什么说费米对应物 “exists but not useful”</h4>
+<p>
+这一句本身没有给 \(J_1,J_2\)、没有给 \(A\) 的 block form，
+也没有给 positivity inequality，所以不能从 note 原文唯一恢复一个
+可穷举的 Case。能够确定的是，作者指向 bosonic operator
+reflection positivity 的 fermionic analogue。
+</p>
+<p>
+对玻色算符，跨 reflection plane 的项可写成
+\[
+  \sum_\alpha \lambda_\alpha
+  \hat X_\alpha\theta(\hat X_\alpha),\qquad \lambda_\alpha\ge0 .
+\]
+费米算符也可构造 reflected products，但当 \(\hat X_\alpha\)
+含奇数个 fermion operators 时，交换左右两侧的算符次序会产生负号。
+因此必须把 fermion parity、固定 phase 与 ordering convention
+一起写入 reflection map，不能逐字复制玻色公式。
+</p>
+<p>
+note 没有解释 “not useful”。结合紧接着的 \(3'\)，较可信的历史解释是：
+graded fermionic reflection positivity 已经能够改写成 Majorana
+reflection positivity，所以它没有提供一个额外的 AFQMC 分类入口。
+这是根据上下文作出的解释，不是 note 已完成的证明。若要把 \(2'\)
+写进文章，仍需作者明确给出 reflection map、ordering phase 与
+“没有用”究竟是指不独立、难以 HS 实现，还是不能扩大模型集合。
+</p>
+<h4>\(3'\)：Majorana reflection positivity 原本在说什么</h4>
+<p>
+在原始 Majorana theorem 中，可选
+\[
+  J_1=\sigma_x\otimes I,\qquad
+  J_2=i\sigma_y\otimes I .
+\]
+\(J_1\mathcal K\) 交换两组 Majorana operators，
+\(iJ_2\) 选择跨 reflection plane coupling 的正方向。把 Majorana
+operators 分成 \(\gamma^{(1)},\gamma^{(2)}\)，允许的 quadratic form
+具有
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  \gamma^T A_{\rm M}\gamma
+  ={}&amp;\gamma^{(1)T}B\gamma^{(1)}
+  +\gamma^{(2)T}\bar B\gamma^{(2)}\\
+  &amp;+2i\,\gamma^{(1)T}C\gamma^{(2)},
+  \qquad C=C^\dagger,\quad C\ \text{半正定}.
+  \end{aligned}
+\]</div>
+<p>
+前两项互为 reflection partners。把 \(C\) diagonalize 后，最后一项
+成为带非负系数的 reflected Majorana pairs 之和。这个 operator cone
+对 multiplication 封闭，其 trace 非负；当 \(C=0\) 时，weight
+退化为左右两侧互为复共轭所得的 \(|W|^2\)。
+这就是 Majorana reflection positivity 的物理与代数内容。参见
+<a href="https://arxiv.org/abs/1601.01994">Wei et al.,
+Majorana Positivity and the Fermion Sign Problem</a>，以及
+<a href="https://arxiv.org/html/1712.09412v3#S5">
+semigroup formulation 的 Majorana-RP block form</a>。
+</p>
+<p>
+然而，note 当前的 \(A\) 是 Nambu propagation generator；原始
+Majorana theorem 中的 generator 应当是 \(UAU^\dagger\)，不是
+\(gA\)。前面的 \(2\times2\) 反例正说明 literal Case \(3'\)
+conditions 没有重现这个定理。标签指出了作者的动机，不能代替换基。
+</p>
+<h4>\(4'\)：time-reversal positivity 比 TR invariance 多了什么</h4>
+<p>
+Case \(4'\) 想把 \(J_1^2\) 改成 \(-I\)，对应 Kramers time reversal。
+对两种 fermion flavors，可写
+</p>
+<div class="scroll">\[
+  T(c_i)=d_i,\qquad T(d_i)=-c_i,\qquad T(i)=-i .
+\]</div>
+<p>
+\(T^2=-1\) 作用在 odd-fermion sector；对 quadratic Hamiltonian
+这样的 even operator，两个负号相乘，\(T^2=+1\)。普通
+time-reversal invariance 只要求 \(T(\hat h_0)=\hat h_0\)。
+time-reversal positivity 还从这些 even operators 中选择一个有方向的
+positive cone：annihilation/creation combinations 必须与 Kramers
+partner 成对，creation pairs 的相对负号由 fermion ordering 固定。
+这个 cone 与 TR-invariant maximal subgroup 相乘后仍封闭，并具有
+非负 trace。参见
+<a href="https://arxiv.org/html/2510.06226#S2">Wei,
+Time-reversal positivity, Sec. II</a>。
+</p>
+<p>
+与 \(3'\) 相同，已知 theorem 使用正确的 Majorana/time-reversal
+generator。note 的 Nambu 条件却控制 \(e^{gA}\)，所以 literal
+Case \(4'\) 也没有得到该 theorem。其名称说明研究目标，不是证明。
+</p>
+<h4>\(5'\)--\(10'\) 接下来究竟要检查什么</h4>
+<p>
+从这一点开始，每个 case 都应按同一顺序读取：
+</p>
+<ol>
+<li>用 \(gA+A^Tg=0\) 保证它确实表示 fermion quadratic operator；</li>
+<li>用 \(J_1^TAJ_1=\bar A\) 限制 weight 的 complex-conjugation structure；</li>
+<li>用 \(J_2^TAJ_2=+\bar A\) 找 maximal-subgroup 线性空间，
+  用负号找 cone 的线性空间；</li>
+<li>最后统一检查
+  \(J_2gA+A^\dagger J_2g\le0\)，因为只有它控制 trace 公式中的 \(e^A\)。</li>
+</ol>
+<p>
+按这套一致标准，Cases \(5'\)--\(8'\) 有 strict cone，
+Cases \(9',10'\) 只能在 maximal-subgroup boundary。后面逐段讲解会把
+note 每一例实际写出的 matrix 与这套正确判据逐项对照，不再用
+“possibly has positivity”代替缺失的推导。
+</p>
+</div>
+</article><article class="walkthrough-block" id="note-fermion-passed-comment">
+<h3>1.7 费米 passed-only 清单与第一节 Comment</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 183--211 行
+                （完整显示）</summary>
+<div class="note-source"><p>List independent, passed ones only:</p>
+<p>1”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.(Majorana
+reflection positivity)</p>
+<p>2”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\}
+=0\)</span>.(Time-reversal positivity)</p>
+<p>3”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
+Passed</p>
+<p>4”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.
+Passed</p>
+<p>5”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p>6”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p>7”’)<span class="math inline">\(J^{T}_{1}gJ_{1}=-g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=-I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.Passed</p>
+<p><em>Comments</em>: For fermionic case 1”’ &amp; 5”’, 2”’ &amp; 6”’,
+and 3’ &amp; 7”’, is the commutator/anti-commutator there really
+matters? It has to be checked.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>
+方括号 \([J_1,J_2]=0\) 表示对易，花括号
+\(\{J_1,J_2\}=0\) 表示反对易。作者的 Comment 是在问：其他四条
+\(J,g\) 关系相同时，只改变这一条，strict cone 是否仍然存在。
+这个问题必须先指定被收缩的传播矩阵。note 没有保持这一点一致，
+所以它的 passed-only 清单需要重审。
+</p>
+<p>
+以 note 顶部实际出现的 \(e^A\) 为准，metric 是
+\(\eta=J_2g\)，生成元条件是
+\[
+  \eta A+A^\dagger\eta\le0 .
+\]
+完整穷举与解析计算给出：
+</p>
+<div class="scroll">
+<table>
+<thead><tr><th>原 case</th><th>对易关系</th><th>直接 \(e^A\) 结果</th></tr></thead>
+<tbody>
+<tr><td>\(3'\)</td><td>反对易</td><td>只有等号边界</td></tr>
+<tr><td>\(4'\)</td><td>反对易</td><td>只有等号边界</td></tr>
+<tr><td>\(5'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
+<tr><td>\(6'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
+<tr><td>\(7'\)</td><td>对易</td><td>存在 strict interior</td></tr>
+<tr><td>\(8'\)</td><td>对易</td><td>存在 strict interior</td></tr>
+<tr><td>\(9'\)</td><td>对易</td><td>只有等号边界</td></tr>
+<tr><td>\(10'\)</td><td>对易</td><td>只有等号边界</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+为什么会这样，可以看 contraction matrix
+\[
+  H(A)=J_2gA+A^\dagger J_2g .
+\]
+第一条 anti-linear constraint 会把 \(H(A)\) 变成自己或自己的相反数。
+变成自己时可以存在全部本征值为负的 \(H(A)\)；变成相反数时，
+\(H(A)\) 的谱必须关于零对称。若又要求 \(H(A)\le0\)，唯一可能就是
+\(H(A)=0\)。对易/反对易并非装饰，它与
+\(J_1^TgJ_1=\pm g\) 的符号共同决定这两种结果。
+</p>
+<p>
+若改去研究 note 第一节那个控制 \(e^{gA}\) 的式子，反对易的
+Majorana classes 会重新出现；但那不是当前 Nambu trace formula
+中的传播。两张 passed 清单不能合并。报告后文所称“完整穷举”
+统一采用物理传播 \(e^A\)，并把 note 原来的 \(e^{gA}\) 结果单独列为
+公式诊断，而不再把它称作 fermionic AFQMC 无符号结论。
+</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case7">
+<h3>1.8 第二节开头与玻色 Case 7</h3>
+<details class="note-original" open="">
+<summary>note 原文，第 212--221 行
+                （完整显示）</summary>
+<div class="note-source"><h4 id="tests-for-new-bosonic-cases">Tests for new bosonic cases</h4>
+<p>Case 7:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p>Yinkai Yu’s case <span class="math inline">\(J_{1}=I_{2}\otimes\sigma_{x}\otimes
+I_{N/2}\)</span>, <span class="math inline">\(J_{2}=\sigma_{x}\otimes
+I_{N}\)</span>. Or easier: <span class="math inline">\(J_{1}=I_{2N}\)</span>, <span class="math inline">\(J_{2}=\sigma_{x}\otimes I_{N}\)</span>.</p>
+<p>metric is <span class="math inline">\(\eta=J_{2}g\)</span>,
+contraction means “physical”.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<h4>先把张量积放回文章的 \(b,c\) 模型</h4>
+<p>文章有 \(N_s\) 个格点和两种 flavor，因此 note 这里的
+        \(N=2N_s\)。采用与前面相同的 Nambu 顺序</p>
+<div class="scroll">\[
+          \chi=(\hat{\boldsymbol b},\hat{\boldsymbol c},
+          \hat{\boldsymbol b}^+,\hat{\boldsymbol c}^+)^T .
+        \]</div>
+<p>Case 7 的第一种选择完整写开就是</p>
+<div class="scroll">\[
+          J_1=
+          \begin{pmatrix}
+          0&amp;I_{N_s}&amp;0&amp;0\\
+          I_{N_s}&amp;0&amp;0&amp;0\\
+          0&amp;0&amp;0&amp;I_{N_s}\\
+          0&amp;0&amp;I_{N_s}&amp;0
+          \end{pmatrix},
+          \qquad
+          J_2=
+          \begin{pmatrix}
+          0&amp;0&amp;I_{N_s}&amp;0\\
+          0&amp;0&amp;0&amp;I_{N_s}\\
+          I_{N_s}&amp;0&amp;0&amp;0\\
+          0&amp;I_{N_s}&amp;0&amp;0
+          \end{pmatrix}.
+        \]</div>
+<p>这里的 \(J_1,J_2\) 不是 7 月 19 日报告预先使用的记号。
+        那份报告先从物理模型出发，直接发现了两件事：交换 \(b,c\)
+        并复共轭会保持每个时间片，而 particle/hole signature matrix
+        \(\operatorname{diag}(I,-I)\) 能控制严格收缩。合作者在读到该证明后，
+        才把前一操作写成 \(J_1K\)，并由
+        \(\eta=J_2g\) 反推出 \(J_2\)。所以 Case 7 是对那份具体
+        pole-free pairing 证明的抽象化，而不是先有五条矩阵式、再碰巧找到
+        文章模型。</p>
+<p>\(J_1K\) 先复共轭，再在 particle 和 hole 两部分中分别交换
+        \(b,c\)。这正是文章 reflection
+        \(\theta(\hat b_i)=\hat c_i,\ \theta(i)=-i\) 在 Nambu coefficients
+        上的表示；若 \(\Delta\) 有相位，只需把相应 phase 放入这个 flavor exchange。
+        \(J_2\) 则交换 Nambu 的 annihilation 与 creation 两半。它不是新的
+        physical operation，而是用来构造 particle/hole signature matrix。</p>
+<p>对上面的 \(J_2\) 和玻色</p>
+<div class="scroll">\[
+          g=\begin{pmatrix}0&amp;-I_N\\I_N&amp;0\end{pmatrix},
+        \]</div>
+<p>直接做 block multiplication 得到</p>
+<div class="scroll">\[
+          J_2g=\begin{pmatrix}I&amp;0\\0&amp;-I\end{pmatrix},
+          \qquad (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I .
+        \]</div>
+<p>也就是说，Case 7 的 \(\eta=J_2g\) 恰好是
+        \(\operatorname{diag}(I_{2N_s},-I_{2N_s})\)：particle components
+        取正号，hole components 取负号。它不是 ordinary positive-definite
+        norm，也不是一个新的 observable；它记录 bosonic Bogoliubov dynamics
+        中 particle/hole 两半的相反符号。</p>
+<h4>“Yinkai Yu's case” 在这里有一个严格定义</h4>
+<p>按你提供的写作背景，合作者是在阅读 7 月 19 日的
+        pole-free pairing 报告后开始写这组 note；旧 note 第一节标题
+        “Discovery based on Yinkai's observation” 又在文本内部印证了这个
+        来源。因此，原始的 “Yinkai Yu's case” 首先指那份报告中的具体
+        双组分配对构造。这个名称最早在矩阵分类中的精确定义出现在旧 note
+        <code>experts/ToYinkaiYu.tex</code> 的第一节。原文先给出上面的
+        \(J_1,J_2\)，紧接着用 “\(\Longleftrightarrow\)” 写出五条关系：</p>
+<div class="scroll">\[
+          J_1^TgJ_1=g,\qquad J_1^2=I,\qquad
+          J_2^TgJ_2=-g,\qquad J_2^2=I,\qquad
+          [J_1,J_2]=0 .
+        \]</div>
+<p>新版 note 把完全相同的五条关系编号为 Case 7，并再次写
+        “Yinkai Yu's case”。因此，在需要一个精确数学标签时，本报告把
+        <strong>“Yinkai's Case 7” 严格限定为这五条关系所定义的类别</strong>。
+        这五条式子逐项都要满足；只共用一个 \(J_2\)，或只得到同一个
+        \(J_2g\)，都还不能称为同一个 Case 7。</p>
+<p>判断一个实际辅助场模型时，还要再分两步。首先，对每个时间片的
+        传播生成元 \(A\) 检查</p>
+<div class="scroll">\[
+          J_1^TAJ_1=\bar A,\qquad
+          (J_2g)A+A^\dagger(J_2g)\le0 .
+        \]</div>
+<p>前一式使传播行列式具有复共轭成对结构；再配合实且为正的
+        正规序标量因子、正权重锚点和不中断的连续路径，完整权重才会
+        留在实数分支。后一式保证 \(e^A\) 位于以 \(J_2g\) 为 metric
+        的 contraction semigroup。
+        其次，若要排除玻色 pole 并把 bare trace 留在收敛分支，还要有
+        严格小于零的稳定方向。对本文模型，这个严格方向由稳定的自由
+        Hamiltonian 提供，而 \(U_2\) 辅助场满足等号。因而“五条
+        \(J_1,J_2\) 关系”“单个 \(A\) 的两条条件”和“整个辅助场模型
+        具有稳定锚点”是三个依次更具体的检查层次，不能彼此替代。</p>
+<h4>为什么这正是 7 月 19 日 pole-free 报告中的结构</h4>
+<p>上面的写作背景和旧 note 的标题
+        “Discovery based on Yinkai's observation” 共同确认了这个来源。
+        7 月 19 日报告使用 \(g=-\Omega\)，并把同一个 signature matrix 写成
+        \(\eta=J_2^{\rm old}\Omega\)，其中
+        \(J_2^{\rm old}=-\sigma_x\otimes I_N\)。新版 note 改用
+        \(J_2=\sigma_x\otimes I_N\) 并写 \(\eta=J_2g\)。两种写法完全相同：</p>
+<div class="scroll">\[
+          J_2^{\rm old}\Omega
+          =(-\sigma_x\otimes I_N)\Omega
+          =(\sigma_x\otimes I_N)(-\Omega)
+          =J_2g .
+        \]</div>
+<p>因此 “Yinkai's case” 不是后来硬贴到旧报告上的名称；它就是旧报告
+        \(\eta\)-contraction proof 所使用的离散 matrix structure。
+        对文章的 \(U_1=0\) paired benchmark，每个时间片有两类传播因子：</p>
+<ol>
+<li>严格稳定的自由配对 Hamiltonian 产生虚时间衰减。若
+          \(\epsilon_{\min}-\mu&gt;|\Delta|\)，其 exponent generator \(A\) 满足
+          \[
+            (J_2g)A+A^\dagger(J_2g)&lt;0,
+          \]
+          所以 \(e^A\) 是 strict contraction。</li>
+<li>\(U_2(\hat n_b-\hat n_c)^2\) 的 real HS field 产生
+          \(\exp[i\sum_i\theta_i(\hat n_{b,i}-\hat n_{c,i})]\)。
+          它只改变 phase，对相应 \(A\) 满足同一个式子的等号，因此是
+          \(J_2g\)-isometry，位于 contraction domain 的边界。</li>
+</ol>
+<p>两类因子都满足 \(J_1^TAJ_1=\bar A\)：交换 \(b,c\) 的同时复共轭，
+        会把 \(+i\theta_i\) 与 \(-i\theta_i\) 互换回来；real hopping 和
+        reflected pairing 也保持不变。由于 contraction condition 对有序矩阵乘法封闭，
+        任意 auxiliary-field history 的完整 Nambu propagation 都严格满足</p>
+<div class="scroll">\[
+          \mathcal M^\dagger(J_2g)\mathcal M-(J_2g)&lt;0 .
+        \]</div>
+<p>若 \(\mathcal Mv=\lambda v\) 且 \(|\lambda|=1\)，把 \(v\) 代入上式，
+        左边会等于零，与严格小于零矛盾。因此完整 propagation 没有单位圆
+        eigenvalue，特别没有 \(\lambda=1\)，于是
+        \(\det(I-\mathcal M)\ne0\)。这就是旧报告的逐构型 pole-free result。</p>
+<h4>先把 “trace class” 换成可直接检查的物理条件</h4>
+<p>
+        玻色 Fock space 允许每个 mode 有 \(0,1,2,\ldots\) 个粒子，
+        所以“有限维 matrix 没有 pole”与“把所有 occupation states
+        的贡献相加后得到有限结果”不是同一件事。数学上把后一要求称为
+        <em>trace class</em>：算符 \(\hat U\) 的所有 singular values
+        之和有限，
+        \[
+          \Tr\sqrt{\hat U^\dagger\hat U}&lt;\infty .
+        \]
+        这个条件保证 \(\Tr\hat U\) 绝对收敛；改变 Fock basis
+        不会改变其值。
+        </p>
+<p>
+        对本文的稳定 quadratic free Hamiltonian，不需要先学
+        oscillator-semigroup theory 才能验证这件事。稳定条件
+        \(\epsilon_{\min}-\mu&gt;|\Delta|\) 允许作 bosonic Bogoliubov
+        transformation，把自由项写成
+        </p>
+<div class="scroll">\[
+          \hat H_0=E_0+\sum_{m=1}^{2N_s}
+          \varepsilon_m\,\hat\beta_m^+\hat\beta_m,
+          \qquad \varepsilon_m&gt;0 .
+        \]</div>
+<p>
+        因而一个虚时间步的 bare trace 可以逐个 quasiparticle mode
+        求和：
+        </p>
+<div class="scroll">\[
+          \begin{aligned}
+          \Tr e^{-\Delta\tau\hat H_0}
+          &amp;=e^{-\Delta\tau E_0}
+            \prod_m\sum_{n_m=0}^{\infty}
+            e^{-\Delta\tau\varepsilon_m n_m}\\
+          &amp;=e^{-\Delta\tau E_0}
+            \prod_m\frac1{1-e^{-\Delta\tau\varepsilon_m}}&lt;\infty .
+          \end{aligned}
+        \]</div>
+<p>
+        每个 geometric series 收敛的原因很具体：
+        \(\varepsilon_m&gt;0\) 使第 \(n_m\) 个 occupation state
+        比前一个多一个因子 \(e^{-\Delta\tau\varepsilon_m}&lt;1\)。
+        这就是“高 occupation states 被压低”的完整含义。
+        </p>
+<p>
+        \(U_2\) 的 HS factor 为
+        \[
+          \hat V(\phi)=
+          \exp\!\left[
+          i\sum_i\phi_i(\hat n_{b,i}-\hat n_{c,i})
+          \right].
+        \]
+        指数中的算符是 Hermitian，所以
+        \(\hat V(\phi)^\dagger\hat V(\phi)=I\)：它只给 occupation
+        states 加 phase，operator norm 等于 1，不会放大任何态。
+        一个 trace-class 算符左右乘这种 bounded operator 后仍为
+        trace class。于是 Trotter product 中只要保留稳定的
+        \(e^{-\Delta\tau\hat H_0}\) factors，任意有限 HS history 的
+        many-body product 都有绝对收敛的 Fock trace。
+        </p>
+<h4>contraction、收敛与正号在这里各完成哪一步</h4>
+<p>现在可以把 Case 7 的完整逻辑分成四步，不再用一句术语包办：</p>
+<ol>
+<li><strong>bare trace 存在。</strong>
+          上面的 quasiparticle geometric series 与 unitary HS factor
+          证明每个 fixed-field many-body product 都是 trace class。</li>
+<li><strong>路径中没有 pole。</strong>
+          稳定自由因子严格满足
+          \((e^A)^\dagger(J_2g)e^A-J_2g&lt;0\)，HS phase 因子取等号；
+          完整有序乘积仍严格小于零，因此不可能有单位圆 eigenvalue，
+          特别不可能有 \(\lambda=1\)。</li>
+<li><strong>weight 是 real number。</strong>
+          \(J_1K\) 交换 \(b,c\) 并复共轭，逐时间片保持 generator family；
+          正实的 Gaussian HS factor 与正常序 scalar 不另添 complex phase。</li>
+<li><strong>real weight 的符号不变。</strong>
+          连续 HS configuration space 含零场点。零场 thermal trace 为正；
+          weight 又处处有限、非零且连续，所以不能在不先经过零或 pole 的情况下
+          从正值变成负值。</li>
+</ol>
+<p>
+        这四步给 \(U_1=0\) paired benchmark 一条独立于 RP 的
+        sign-free argument。<code>main.tex</code> 的 RP theorem
+        则采用另一条路线：它把每个时间片写成 reflected products，
+        直接证明 trace 在存在时非负。RP 需要 positive reflected
+        coupling；上面的 semigroup 路线需要稳定自由项、同一个
+        contraction metric、连通的 auxiliary-field domain 与全程无 pole。
+        两套证明的假设不同，不能用其中一套的名称替代另一套的推导。
+        </p>
+<p>原文还给出 \(J_1=I_{2N}\) 的简单 representative。
+        它只要求 \(A=\bar A\)，适合检查这一抽象 relations class；
+        但它不再表示文章中实际的 \(b\leftrightarrow c\) reflection。
+        因而解释 benchmark 时应使用第一种 \(J_1\)，不能为了矩阵简单而丢掉
+        flavor 的物理含义。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case8-j1">
+<h3>1.9 玻色 Case 8：矩阵选择与 \(J_1^TAJ_1=\bar A\)</h3>
+<details class="note-original">
+<summary>note 原文，第 222--292 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 8:<span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=-I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left[J_{1},J_{2}\right]=0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=-i\sigma_{y}\otimes\sigma_{z}\otimes
+I_{N/2}\)</span>, <span class="math inline">\(J_{2}=\sigma_{x}\otimes\sigma_{x}\otimes
+I_{N/2}\)</span>.</p>
+<p><span class="math inline">\(J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\)</span>.</p>
+<p>Assume <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\)</span>, where <span class="math inline">\(C_{11}=C^{T}_{11}\)</span>, <span class="math inline">\(C_{22}=C^{T}_{22}\)</span>, <span class="math inline">\(D_{11}=D^{T}_{11}\)</span>, <span class="math inline">\(D_{22}=D^{T}_{22}\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; -I_{N/2}\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+-D^{T}_{12} &amp; -D_{22} &amp; B^{T}_{12} &amp; B^{T}_{22}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{T}_{11} &amp; B^{T}_{21} &amp; -D_{11} &amp; D_{12}\\
+B^{T}_{12} &amp; -B^{T}_{22} &amp; D^{T}_{12} &amp; -D_{22}\\
+-C_{11} &amp; C_{12} &amp; B_{11} &amp; -B_{12}\\
+C^{T}_{12} &amp; -C_{22} &amp; -B_{21} &amp; B_{22}
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span></p>
+<p>So <span class="math inline">\(B_{11}=-B^{\dagger}_{11}\)</span>,
+<span class="math inline">\(B_{22}=-B^{\dagger}_{22}\)</span>, <span class="math inline">\(B_{12}=B^{\dagger}_{21}\)</span>, <span class="math inline">\(C_{11}=-\bar{D}_{11}\)</span>, <span class="math inline">\(C_{22}=-\bar{D}_{22}\)</span>, <span class="math inline">\(C_{12}=\bar{D}_{12}\)</span>.</p>
+<p>So <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\)</span>.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>一般玻色生成元先由 \(gA+A^Tg=0\) 固定成</p>
+<div class="scroll">\[
+          A=\begin{pmatrix}B&amp;C\\D&amp;-B^T\end{pmatrix},
+          \qquad C=C^T,\quad D=D^T .
+        \]</div>
+<p>原文再把每个 \(N\times N\) block 分成 \(N/2\) 大小的子块。
+        例如乘积矩阵的 \((1,1)\) block 是 \(-B_{11}^T\)，而
+        \(\bar A\) 的 \((1,1)\) block 是 \(\bar B_{11}\)，故
+        \(-B_{11}^T=\bar B_{11}\)，也就是
+        \(B_{11}=-B_{11}^\dagger\)。按同样的逐块等式读取其余位置，
+        得到原文列出的 \(B_{22},B_{12},C_{11},C_{22},C_{12}\) 关系。
+        因此最后显示的 \(A\) 不是新的假设，而是已经解完第一条 anti-linear condition
+        后的一般形式。</p>
+<p>先用最小 \(N=2\) 看清这一组 \(J_1,J_2\)。此时
+        \(I_{N/2}=1\)，原文的 tensor products 就是普通 \(4\times4\) matrices：</p>
+<div class="scroll">\[
+          g=-i\sigma_y\otimes I_2,\qquad
+          J_1=(-i\sigma_y)\otimes\sigma_z,\qquad
+          J_2=\sigma_x\otimes\sigma_x .
+        \]</div>
+<p>\((-i\sigma_y)^2=-I_2\)，故 \(J_1^2=-I_4\)；
+        \(J_2^2=I_4\)。\(J_1\) 在两个 tensor factors 上分别与
+        \(J_2\) 反对易，两次负号相消，所以 \(J_1J_2=J_2J_1\)。
+        同样直接相乘可得 \(J_1^TgJ_1=g\)、
+        \(J_2^TgJ_2=-g\)。这说明原文 Case 8 的显式 matrices
+        的确实现了标题的五条离散关系。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case8-j2">
+<h3>1.10 玻色 Case 8：\(J_2\) 分解、maximal subgroup 与 invariant cone</h3>
+<details class="note-original">
+<summary>note 原文，第 293--375 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p><span class="math display">\[\begin{aligned}
+J^{T}_{2}AJ_{2} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp;
+-B^{T}_{22}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -\bar{B}_{12}\\
+B^{\dagger}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; -B^{T}_{12} &amp; -\bar{C}_{22} &amp;
+C^{\dagger}_{12}\\
+-\bar{B}_{12} &amp; -B^{T}_{11} &amp; \bar{C}_{12} &amp; -\bar{C}_{11}\\
+C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; B^{\dagger}_{12}\\
+C_{12} &amp; C_{11} &amp; B_{12} &amp; B_{11}
+\end{array}\right)=\pm\bar{A}
+\end{aligned}\]</span></p>
+<p>For the generators of maximal subgroup, <span class="math inline">\(B_{11}=-B^{\dagger}_{22}\)</span>, <span class="math inline">\(B_{12}=-B^{\dagger}_{12}\)</span>, <span class="math inline">\(C_{11}=-C_{22}\)</span>, <span class="math inline">\(C_{12}=C^{T}_{12}\)</span>.</p>
+<p><span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; B^{T}_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; -B^{T}_{12} &amp; -B^{T}_{11}
+\end{array}\right)\)</span>.</p>
+<p>For the generators in the invariant cone, <span class="math inline">\(B_{11}=B^{\dagger}_{22}\)</span>, <span class="math inline">\(B_{12}=B^{\dagger}_{12}\)</span>, <span class="math inline">\(C_{11}=C_{22}\)</span>, <span class="math inline">\(C_{12}=-C^{T}_{12}\)</span>,</p>
+<p>so <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)\)</span>,</p>
+<p><span class="math display">\[\begin{aligned}
+J_{2}\Omega A &amp; =\left(\begin{array}{cccc}
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+-I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; I_{N/2} &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B_{12} &amp; B_{11} &amp; C_{12} &amp; -C_{11}\\
+-B_{11} &amp; -B_{12} &amp; -C_{11} &amp; -C_{12}\\
+-\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; B^{T}_{11}\\
+-\bar{C}_{11} &amp; \bar{C}_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{12}
+\end{array}\right)\leq0
+\end{aligned}\]</span></p>
+<p>&lt;=&gt;<span class="math inline">\(\left(\begin{array}{cccc}
+B_{12} &amp; -B_{11} &amp; -C_{12} &amp; C_{11}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+\bar{C}_{12} &amp; \bar{C}_{11} &amp; B^{T}_{12} &amp; -B^{T}_{11}\\
+\bar{C}_{11} &amp; -\bar{C}_{12} &amp; B^{T}_{11} &amp; B^{T}_{12}
+\end{array}\right)\geq0\)</span>. Good.</p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<p>因为玻色原文取 \(g=-\Omega\)，所以
+        \(J_2\Omega A=-J_2gA\)。在 cone 子空间上，
+        \(J_2gA\) 是 Hermitian，故原文的最后一步确实是在施加一个可比较本征值的
+        matrix inequality。maximal subgroup 对应等号边界
+        \(J_2gA+A^\dagger J_2g=0\)；cone generators 对应离开边界的 Hermitian
+        directions。两部分相加才形成完整 semigroup generator。
+        这里 \(J_1^2=-I\) 没有妨碍 inequality，Case 8 因而给出了一个真正的候选
+        strict contraction family。</p>
+<p>还可以不用一般 blocks，直接给出 cone 内一点。对刚才的 \(N=2\)
+        matrices，</p>
+<div class="scroll">\[
+          J_2g=\sigma_z\otimes\sigma_x .
+        \]</div>
+<p>取任意 \(\gamma&gt;0\)，令</p>
+<div class="scroll">\[
+          A=-\gamma\,\sigma_z\otimes\sigma_x .
+        \]</div>
+<p>逐项代入可得</p>
+<div class="scroll">\[
+          gA+A^Tg=0,\qquad
+          J_1^TAJ_1=\bar A,\qquad
+          J_2gA+A^\dagger J_2g=-2\gamma I_4&lt;0 .
+        \]</div>
+<p>所以 Case 8 不只是 “cone equations 有非零解”，而是确实有
+        strict contraction point。原文后面的大 block inequality 是这一简单
+        representative 向一般 \(N\) 与一般 blocks 的展开。</p>
+</div>
+</article><article class="walkthrough-block" id="note-boson-case3-j1">
+<h3>1.11 玻色 Case 3：矩阵选择与第一条约束</h3>
+<details class="note-original">
+<summary>note 原文，第 376--437 行
+                （完整矩阵推导，点击展开）</summary>
+<div class="note-source"><p>Case 3: <span class="math inline">\(J^{T}_{1}gJ_{1}=g\)</span>, <span class="math inline">\(J^{2}_{1}=I_{2N}\)</span>, <span class="math inline">\(J^{T}_{2}gJ_{2}=-g\)</span>, <span class="math inline">\(J^{2}_{2}=I_{2N}\)</span>, <span class="math inline">\(\left\{ J_{1},J_{2}\right\} =0\)</span>.</p>
+<p><span class="math inline">\(J_{1}=-i\sigma_{y}\otimes-i\sigma_{y}\otimes
+I_{N/2}\)</span>, <span class="math inline">\(J_{2}=\sigma_{x}\otimes
+I_{N}\)</span> Also a Yin-Kai’s case.</p>
+<p><span class="math inline">\(J_{1}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\)</span>, <span class="math inline">\(J_{2}=\left(\begin{array}{cccc}
+0 &amp; 0 &amp; I_{N/2} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; I_{N/2} &amp; 0 &amp; 0
+\end{array}\right)\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+J^{T}_{1}AJ_{1} &amp; =\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
+D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+D^{T}_{12} &amp; D_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}\\
+-D_{11} &amp; -D_{12} &amp; B^{T}_{11} &amp; B^{T}_{21}\\
+-B_{21} &amp; -B_{22} &amp; -C^{T}_{12} &amp; -C_{22}\\
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
+\end{array}\right)\left(\begin{array}{cccc}
+0 &amp; 0 &amp; 0 &amp; I_{N/2}\\
+0 &amp; 0 &amp; -I_{N/2} &amp; 0\\
+0 &amp; -I_{N/2} &amp; 0 &amp; 0\\
+I_{N/2} &amp; 0 &amp; 0 &amp; 0
+\end{array}\right)\\
+&amp; =\left(\begin{array}{cccc}
+-B^{T}_{22} &amp; B^{T}_{12} &amp; -D_{22} &amp; D^{T}_{12}\\
+B^{T}_{21} &amp; -B^{T}_{11} &amp; D_{12} &amp; -D_{11}\\
+-C_{22} &amp; C^{T}_{12} &amp; B_{22} &amp; -B_{21}\\
+C_{12} &amp; -C_{11} &amp; -B_{12} &amp; B_{11}
+\end{array}\right)=\bar{A}
+\end{aligned}\]</span> We have <span class="math inline">\(B_{11}=-B^{\dagger}_{22}\)</span>, <span class="math inline">\(B_{12}=B^{\dagger}_{12}\)</span>, <span class="math inline">\(B_{21}=B^{\dagger}_{21}\)</span>, <span class="math inline">\(C_{11}=-\bar{D}_{22}\)</span>, <span class="math inline">\(C_{22}=-\bar{D}_{11}\)</span>, <span class="math inline">\(C_{12}=D^{\dagger}_{12}\)</span>. <span class="math inline">\(A=\left(\begin{array}{cccc}
+B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
+B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
+-\bar{C}_{22} &amp; C^{\dagger}_{12} &amp; -B^{T}_{11} &amp;
+-B^{T}_{21}\\
+\bar{C}_{12} &amp; -\bar{C}_{11} &amp; -B^{T}_{12} &amp; \bar{B}_{11}
+\end{array}\right).\)</span></p>
+</div>
+</details>
+<div class="explanation">
+<div class="annotation-label">讲解与补全</div>
+<h4>这里的 “Also” 不能按严格的 Case 7 来读</h4>
+<p>Case 3 与 Case 7 确实使用同一个</p>
+<div class="scroll">\[
+          J_2=\sigma_x\otimes I_N,\qquad
+          J_2g=\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}.
+        \]</div>
+<p>所以二者共用同一个 particle/hole metric。但是它们对
+        \(J_1,J_2\) 的要求不同：</p>
+<div class="scroll">\[
+          \begin{array}{c|c}
+          \text{Case 7}&amp;[J_1,J_2]=0\\
+          \text{Case 3}&amp;\{J_1,J_2\}=0
+          \end{array}
+        \]</div>
+<p>在 note 固定的实 Pauli-product convention 中，同时作保持
+        \(g\) 的实换基不会把对易变成反对易。因此 Case 3 不是 Case 7
+        在这套枚举中的另一种矩阵写法。若允许给反线性变换乘任意复相位，
+        则正确的平方应写成 \(J\bar J\)，五条式子和 metric 也必须一起
+        改写；note 没有给出这样的 equivalence。结合本段后面的
+        “Not a contraction
+        semigroup”，这里最稳妥的读法是：作者把一个从 7 月 19 日原型
+        继续尝试出来、并共用同一 \(J_2g\) metric 的候选 representative
+        作了来源标记；这句话本身没有宣称它满足 Case 7 的无符号条件。</p>
+<p>这段乘法的作用仍是解线性约束。以 \((1,1)\) block 为例，
+        \(-B_{22}^T=\bar B_{11}\) 给出
+        \(B_{11}=-B_{22}^\dagger\)；\((1,2)\) block
+        \(B_{12}^T=\bar B_{12}\) 给出 \(B_{12}=B_{12}^\dagger\)。
+        原文写出的其余四条关系也分别来自相应 block。到这里仅确定了允许的线性子空间，
+        尚未施加半负定性。</p>
+<p>为什么它最终与 Case 7 不同，可以先试最自然的 strict direction。
+        在最小 \(N=2\) realization 中，原文使用</p>
+<div class="scroll">\[
+          J_1=(-i\sigma_y)\otimes(-i\sigma_y),\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
+          J_2g=\sigma_z\otimes I_2 .
+        \]</div>
+<p>若暂时不管 \(J_1\)，取
+        \(A=-\gamma\,\sigma_z\otimes I_2\) 会使 contraction matrix
+        等于 \(-2\gamma I_4\)。但是这一 \(A\) 是实矩阵，而直接相乘给出</p>
+<div class="scroll">\[
+          J_1^TAJ_1=-A\ne A=\bar A .
+        \]</div>
+<p>也就是说，\(J_2\) 单独允许的最直接 contracting direction 被
+        \(J_1\) 条件排除了。这已经预示后面为什么只剩等号边界。</p>
+</div>
+</article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">下一卷 note</a></nav></main></body></html>
