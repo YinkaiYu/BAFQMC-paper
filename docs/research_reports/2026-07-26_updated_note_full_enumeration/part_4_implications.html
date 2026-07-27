@@ -449,9 +449,12 @@
       新增玻色 \(iJ_2g\) 类的下一步不是再证一遍“strict 区域不会变号”，
       而是找到与其 candidate metric 相容且 fixed-field bare trace 有定义的
       stable Hamiltonian；否则只能保留为代数分类。费米 \(iJ_2g\)
-      类已有 Majorana RP/Kramers-pairing realizations；需要做的是写清它们与
-      当前 Nambu 五位标签的变换，并判断哪些只是已知类的换基或 particle--hole
-      partner。
+      类已有显式 pairing-cone slice realizations，但目前不能把它们直接
+      认作 Wei 的 Majorana RP/Kramers classes。Wei 的 canonical
+      Majorana metric 完整拉回 Nambu basis 后属于 \(J_2g\)
+      strict branch；具体 \(J_1\) label 依赖 basis 与额外 symmetries。
+      \(iJ_2g\) branch 是否只是进一步换基或 particle--hole partner，
+      仍需单独证明。
     </p>
 <h3>这次穷举究竟发现了什么</h3>
 <div class="scroll">
@@ -506,8 +509,10 @@
             </td>
 <td>
               四个新增 \(iJ_2g\) Nambu labels 有 pairing-cone physical
-              realizations，并与已知 Majorana RP/Kramers semigroups
-              相关；note 自己的 minus-sign inequality 仍不能沿用
+              realizations，但尚未证明与已知 Majorana semigroups
+              等价；Wei 的 canonical transport 位于 \(J_2g\)
+              strict branch，具体 \(J_1\) label 依赖 basis 与额外
+              symmetries；note 第一节的 minus-sign inequality不能沿用
             </td>
 </tr>
 </tbody>
@@ -586,15 +591,25 @@
       \(e^A\) 的 contraction。对你已展开的
       \(J_2^TgJ_2=-g,\ J_2^2=-I\) 分支，直接控制 \(e^A\)
       应使用 Hermitian metric \(J_2g\) 与
-      \(J_2gA+A^\dagger J_2g\le0\)。因此原有 Passed 标签不能和这八类
-      直接合并计数。另一支 metric 为 \(iJ_2g\) 的标准 cone 是 physical
-      pairing direction，maximal subgroup 可包含 number-conserving
-      hopping/density；它与 Wei semigroup paper 的 Majorana
-      reflection-positive/Kramers-plus-pairing models 对应。
-      \(J_1\) 翻转 \(g\) 的 partners 可由 particle--hole transformation
-      得到。因此这里有 concrete physical models，但这四个 Nambu labels
-      中哪些是文献上真正的新类、哪些只是已知类换基，需要先把
-      Majorana-to-Nambu transformation 写全。
+      \(J_2gA+A^\dagger J_2g\le0\)。Case \(5'\) 的左侧与右侧都已经
+      使用 \(J_2gA\)；Cases \(6'\)--\(10'\) 虽在左侧多写 \(i\)，
+      右侧 Pauli multiplication 实际也使用 \(J_2gA\)。统一这个笔误后，
+      Cases \(5'\)--\(8'\) 保留 strict cone，\(9',10'\) 没有
+      strict interior。
+      <br/><br/>
+      Wei semigroup paper 本身在 Majorana basis 使用
+      \(A_{\rm M}\) 与 metric \(iJ_2^{\rm M}\)，二者直接控制
+      \(e^{A_{\rm M}}\)。完整换到 Nambu basis 时
+      \(A_{\rm M}=UAU^\dagger\)，metric 同时变成 \(J_2g\)；
+      canonical Majorana-reflection-positive 与 Kramers
+      semigroups 因而落在 \(J_2g\) strict branch，不是新增的
+      \(iJ_2g\) partner branch。具体对应 Cases \(5'\)--\(8'\)
+      中哪一个或哪几个 labels，会随 complex-fermion basis 和模型的
+      额外 symmetries 改变。另一支
+      \(iJ_2g\) classes 仍有合法 algebraic strict cones 和 concrete
+      slice realizations，但它们与哪些已知 Majorana classes
+      basis-equivalent、哪些真正扩大模型集合，需要另做完整的
+      transformation analysis，不能仅凭相似的 Pauli labels 判断。
       <br/><br/>
       关于符号与收敛证明，我的理解与你的半群思路一致，但应把零场锚点
       明写出来：只要 auxiliary-field configuration space 连通，零场

@@ -812,11 +812,20 @@ be a new kind of positivity.</p>
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<p>这里的 block inequality 确实是一个明确的 Hermitian semidefinite
-        condition；但它还没有证明当前 Nambu propagation 的 Fock trace 非负。
-        特别是第一节为费米写的不等式含
-        \(iJ_2gA-iA^\dagger J_2g\)，而本段实际检查的是 \(J_2gA\)。
-        两者不是同一条件，所以“new positivity”在原 note 中仍是研究猜想。</p>
+<p>本段与第一节的显示式不同，但本段反而采用了正确的 Nambu
+        metric：\(\eta=J_2g\)。在 cone branch 中
+        \(A^\dagger\eta=\eta A\)，所以标准生成元条件
+        \(\eta A+A^\dagger\eta\le0\) 正好化为
+        \(J_2gA\le0\)。完整解析穷举也确认 Case \(5'\) 有 nonempty
+        strict interior，因此这确实定义了控制 \(e^A\) 的 contraction
+        semigroup。</p>
+<p>需要保留的 caveat 是“new”。把 Wei 论文的 canonical
+        Majorana-reflection-positive metric 完整变换到本 note 的 Nambu
+        convention 后，metric 也变成 \(J_2g\)，而不是 \(iJ_2g\)。
+        在最小 canonical block 中，同一 reality subspace 可以用
+        Case \(5'\) 的 \(J_1\) 表示；有额外 symmetries 时也可能同时满足
+        其他 strict labels。所以 Case \(5'\) 的 semigroup 是真的，
+        但不能仅凭当前 block form 宣称它是一种新的 positivity。</p>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case9-j1">
 <h3>1.32 费米 Case \(9'\)：第一条约束</h3>

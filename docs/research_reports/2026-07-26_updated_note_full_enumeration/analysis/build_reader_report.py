@@ -2169,11 +2169,20 @@ SEGMENTS = [
         “Case \(5'\) 给出一个 semigroup，可能是一种新的 positivity”。</p>
         """,
         r"""
-        <p>这里的 block inequality 确实是一个明确的 Hermitian semidefinite
-        condition；但它还没有证明当前 Nambu propagation 的 Fock trace 非负。
-        特别是第一节为费米写的不等式含
-        \(iJ_2gA-iA^\dagger J_2g\)，而本段实际检查的是 \(J_2gA\)。
-        两者不是同一条件，所以“new positivity”在原 note 中仍是研究猜想。</p>
+        <p>本段与第一节的显示式不同，但本段反而采用了正确的 Nambu
+        metric：\(\eta=J_2g\)。在 cone branch 中
+        \(A^\dagger\eta=\eta A\)，所以标准生成元条件
+        \(\eta A+A^\dagger\eta\le0\) 正好化为
+        \(J_2gA\le0\)。完整解析穷举也确认 Case \(5'\) 有 nonempty
+        strict interior，因此这确实定义了控制 \(e^A\) 的 contraction
+        semigroup。</p>
+        <p>需要保留的 caveat 是“new”。把 Wei 论文的 canonical
+        Majorana-reflection-positive metric 完整变换到本 note 的 Nambu
+        convention 后，metric 也变成 \(J_2g\)，而不是 \(iJ_2g\)。
+        在最小 canonical block 中，同一 reality subspace 可以用
+        Case \(5'\) 的 \(J_1\) 表示；有额外 symmetries 时也可能同时满足
+        其他 strict labels。所以 Case \(5'\) 的 semigroup 是真的，
+        但不能仅凭当前 block form 宣称它是一种新的 positivity。</p>
         """,
         True,
     ),
@@ -2206,11 +2215,15 @@ SEGMENTS = [
         \(iJ_2gA\le0\)，但没有另写文字结论。</p>
         """,
         r"""
-        <p>这段完成了线性分解和一个 slice-level inequality，
-        但仍需核对它是否等于第一节声称的
-        \(iJ_2gA-iA^\dagger J_2g\le0\)，以及它是否控制
-        \(e^A\)。原文没有进行这两步，因此第一节给 \(9'\) 的 Passed
-        标签并未在这里升级成完整 weight proof。</p>
+        <p>左侧虽然标成 \(iJ_2gA\)，但紧接着显示的
+        \(-\sigma_z\otimes\sigma_x\) 实际等于 \(J_2g\)；
+        真正的 \(iJ_2g\) 还应多一个整体 \(i\)。因此右侧 block
+        calculation 应按正确的 \(\eta A=J_2gA\) 读取。</p>
+        <p>问题不再是它控制了哪个指数，而是这个 sign class 没有
+        strict interior：\(J_1\) constraint 迫使 contraction spectrum
+        关于零成对。半负定时只能退化到等号边界。报告第 8 节还给出
+        满足 Case \(9'\) relations 的多时间片负权重反例，所以原文的
+        Passed 标签不能保留。</p>
         """,
         True,
     ),
@@ -2242,10 +2255,12 @@ SEGMENTS = [
         写出 \(iJ_2gA\le0\)，最后说“所以这个 ‘wrong’ case 有 sign problem”。</p>
         """,
         r"""
-        <p>所得 contraction candidate 是纯 off-diagonal block matrix，
-        非零 eigenvalues 成正负对，因此不能 strict seminegative。
-        原文用引号写 “wrong”，是在标记这一组 commutation choice；
-        它不是一个已定义的物理分类名称。</p>
+        <p>这里也有同一个标签问题：原文左侧写 \(iJ_2gA\)，右侧
+        \(-\sigma_z\otimes\sigma_z\,A\) 实际是 \(J_2gA\)。
+        按正确 metric 读取后，所得 contraction candidate 是纯
+        off-diagonal block matrix，非零 eigenvalues 成正负对，因此
+        不能 strict seminegative。原文用引号写 “wrong”，是在标记这一组
+        commutation choice；它不是一个已定义的物理分类名称。</p>
         """,
         True,
     ),
@@ -2277,9 +2292,17 @@ SEGMENTS = [
         可能具有 positivity”。</p>
         """,
         r"""
-        <p>“Possibly”准确反映了证据层次：block inequality 找到了候选 cone，
-        但还没有把它连接到完整 Fock trace。原文也没有证明不同时间片相乘后
-        square-root branch 始终保持非负，因此这仍是生成元层面的候选结果。</p>
+        <p>左侧写成 \(iJ_2gA\)，但右侧
+        \(-\sigma_z\otimes\sigma_x\,A\) 实际等于 \(J_2gA\)；
+        去掉左侧多出的 \(i\) 后，这正是标准 Nambu contraction cone。
+        完整穷举确认它有 strict interior，乘法封闭性与从正参考点连续延拓
+        随后给出完整 Fock-weight positivity。</p>
+        <p>不过 “new” 仍不能由这份手算推出。\(J_1^2=-I\) 的 Wei
+        Kramers-plus-pairing semigroup 完整换到 Nambu convention 后，
+        同样落在 \(J_2g\) strict branch；其具体 \(J_1\) label 会随
+        complex-fermion basis 和额外 symmetries 改变，不应在没有写出
+        transformation 时唯一指定为某一个 case。是否还有超出已知类的
+        physical realization，需要另做 basis-equivalence analysis。</p>
         """,
         True,
     ),
@@ -2309,13 +2332,16 @@ SEGMENTS = [
         convex cone，随后给出 \(iJ_2gA\le0\)，以 “With positivity” 结束。</p>
         """,
         r"""
-        <p>原文从第二行到第三行把
+        <p>原文左侧写 \(iJ_2gA\)，但右侧的
+        \(-\sigma_z A\) 实际等于 \(J_2gA\)，所以左侧多了一个 \(i\)。
+        去掉它以后，从第二行到第三行把
         \(-\sigma_z A\) 写成
         \(-\begin{pmatrix}B&C\\-C&B^T\end{pmatrix}\)。
         要把它称为 Hermitian seminegative matrix，还需使用此前的
         \(B=B^\dagger\)、\(C=\bar D\)、费米反对称性与 \(A=\bar A\)。
-        这些条件合在一起给出 slice-level cone；完整 weight statement
-        仍需 propagation 与 branch proof。</p>
+        这些条件合在一起给出正确的 slice-level cone；完整穷举确认该类
+        有 strict interior，报告后文再用 semigroup closure 与正参考点
+        固定 Fock-trace branch。</p>
         """,
         True,
     ),
@@ -2349,11 +2375,13 @@ SEGMENTS = [
         最后写出 \(iJ_2gA\le0\)，并以 “With positivity” 结束。</p>
         """,
         r"""
-        <p>这段是第三节最后一份完整手算。它说明某些 block choices 可以令
-        显示的 matrix seminegative，但没有证明该 inequality 与第一节公式完全一致，
-        也没有证明多时间片 Fock trace 的符号。因而 “With positivity”
-        最稳妥的直译是“具有这里所写的 matrix positivity”，不能自动扩张成
-        “AFQMC weight 已被证明无符号”。</p>
+        <p>这段是第三节最后一份完整手算。与前几例相同，左侧
+        \(iJ_2gA\) 多写了 \(i\)，右侧实际计算的是 \(J_2gA\)。
+        按 \(\eta=J_2g\) 读取后，它给出的确是标准 Nambu cone；
+        完整穷举确认该类有 strict interior。原 note 的
+        “With positivity” 仍没有写完多时间片与 spin-trace branch proof，
+        但本报告后文已经补上这两步，因此 Case \(8'\) 可以保留为
+        \(e^A\) contraction class。</p>
         """,
         True,
     ),

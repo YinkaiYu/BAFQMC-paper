@@ -1267,16 +1267,100 @@ note 已经固定
 contraction metric 一起变换。单独写 \(gA\) 不是换基，因为
 一般不存在 \(gA=SAS^{-1}\)。
 </p>
-<h4>note 第一节的费米不等式实际控制了错误的矩阵指数</h4>
+<h4>先区分 Wei 论文的 Majorana 公式与 note 的 Nambu 公式</h4>
+<p>
+Wei 的 semigroup 论文从 real Majorana basis 出发，写成
+\[
+  \hat h=\frac14\gamma^T A_{\rm M}\gamma,\qquad
+  A_{\rm M}^T=-A_{\rm M},\qquad
+  W=\det\!\left(I+\prod_\ell e^{A_{{\rm M},\ell}}\right)^{1/2}.
+\]
+论文中的 \(J_2^{\rm M}\) 是 real skew-symmetric orthogonal matrix，
+所以
+\[
+  \eta_{\rm M}=iJ_2^{\rm M}
+\]
+是 Hermitian involution。利用
+\(A_{\rm M}^\dagger=-\bar A_{\rm M}\)，论文的 Eq. (3)
+</p>
+<div class="scroll">\[
+  i\left(J_2^{\rm M}A_{\rm M}
+  -\bar A_{\rm M}J_2^{\rm M}\right)\le0
+\]</div>
+<p>
+恰好就是
+\[
+  \eta_{\rm M}A_{\rm M}
+  +A_{\rm M}^\dagger\eta_{\rm M}\le0 .
+\]
+它直接控制 determinant 中的 \(e^{A_{\rm M}}\)，所以
+<strong>arXiv:1712.09412 的这一步没有这里所担心的传播元错位</strong>。
+参见
+<a href="https://arxiv.org/html/1712.09412v3#S4">
+该论文的 Eqs. (2)--(3) 及其前面的定义</a>。
+</p>
+<p>
+note 改用
+\[
+  \hat h=\frac12\chi^TgA\chi,\qquad
+  g=\begin{pmatrix}0&amp;I\\I&amp;0\end{pmatrix},
+\]
+以后，Majorana generator 与 Nambu generator 的关系不是
+\(A_{\rm M}=gA\)，而是前面推导的
+\[
+  A_{\rm M}=UAU^\dagger .
+\]
+因此 metric 也必须随这个相似变换一起拉回：
+</p>
+<div class="scroll">\[
+  \eta_{\rm N}
+  =U^\dagger\eta_{\rm M}U .
+\]</div>
+<p>
+在最简单的 canonical block 中，
+\[
+  g=\sigma_x,\qquad
+  J_2^{\rm M}=i\sigma_y,\qquad
+  U=\frac1{\sqrt2}
+  \begin{pmatrix}1&amp;1\\-i&amp;i\end{pmatrix}.
+\]
+直接相乘得到
+\[
+  \eta_{\rm N}
+  =U^\dagger(iJ_2^{\rm M})U
+  =\sigma_z .
+\]
+若沿用 note 的 real matrix \(J_2=i\sigma_y\)，同一个 matrix 又可写成
+\[
+  \eta_{\rm N}=J_2g=(i\sigma_y)\sigma_x=\sigma_z .
+\]
+这说明 Wei 论文的 \(iJ_2^{\rm M}\) 在 note 这组 Nambu
+记号中变成了 \(J_2g\)，不能只把原来的 \(i\) 留在 \(J_2\) 前面、
+再额外插入一个 \(g\)。
+</p>
+<h4>为什么本组 fermion cases 不能取 \(\eta=iJ_2g\)</h4>
 <p>
 Cases \(3'\)--\(10'\) 都规定
 \(J_2^2=-I\)、\(J_2^TgJ_2=-g\)。由实正交性可逐步推出
 </p>
 <div class="scroll">\[
-  J_2^T=-J_2,\qquad gJ_2=-J_2g .
+  J_2^T=-J_2,\qquad gJ_2=-J_2g,\qquad
+  (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I .
 \]</div>
 <p>
-note 写下
+所以 \(J_2g\) 本身已经是 Hermitian involution；反而
+\[
+  (iJ_2g)^\dagger=-iJ_2g
+\]
+是 anti-Hermitian matrix，不能充当 contraction semigroup 所要求的
+Hermitian metric。只有在另一支
+\(J_2^TgJ_2=g,\ J_2^2=-I\) 中，\(J_2g\) 才是
+anti-Hermitian，此时 \(\eta=iJ_2g\) 才正确。note 的
+Cases \(3'\)--\(10'\) 全部不在那一支。
+</p>
+<h4>第一节显示的不等式与顶部的 Nambu trace formula 没有对齐</h4>
+<p>
+note 第一节写下
 </p>
 <div class="scroll">\[
   iJ_2gA-iA^\dagger J_2g\le0 .
@@ -1290,11 +1374,14 @@ note 写下
 \]</div>
 <p>
 因为 \(iJ_2\) 是 Hermitian involution，这确实是一个标准
-contraction inequality；但它控制的是 \(e^{t(gA)}\)，不是 trace
-公式中的 \(e^{tA}\)。这不是“还少一句 basis transport”便能自动补好的
-小缺口，而是 note 当前两条核心公式使用了不同传播矩阵。若不修改定义，
-或不重新做完整换基，这个 inequality 不能用于证明所写 fermionic
-AFQMC weight 非负。
+contraction inequality；但它把 \(gA\) 当作 generator，控制的是
+\(e^{t(gA)}\)，不是 note 顶部 trace 公式中的 \(e^{tA}\)。
+它保留了 Wei Majorana 公式的 \(iJ_2\)，同时又把 Nambu quadratic
+coefficient \(gA\) 直接放进指数；这不是上一段所示的完整
+\(A_{\rm M}=UAU^\dagger\) basis transport。因此，更准确的说法不是
+“Wei 论文用了错误的矩阵指数”，而是：
+<strong>note 第一节把两套 convention 拼在了一起，所得不等式不能直接证明
+它自己写下的 Nambu AFQMC weight 非负。</strong>
 </p>
 <div class="warning">
 <strong>一个 \(2\times2\) 精确检验立即暴露问题。</strong>
@@ -1407,7 +1494,61 @@ AFQMC weight 非负。
 \]</div>
 <p>
 所以后文逐例解 \(J_2^TAJ_2=\pm\bar A\) 这一步本身可以保留；
-真正需要改的是最后施加半负定性的 matrix。
+真正需要逐例复核的是最后施加半负定性时，左侧标签与右侧实际乘法
+是否一致。
+</p>
+<h4>具体 cases 的左侧标签与右侧矩阵并不一致</h4>
+<p>
+后文常用
+\[
+  J_2=-i\sigma_y\otimes R,\qquad
+  g=\sigma_x\otimes I .
+\]
+按标准 Pauli multiplication，
+</p>
+<div class="scroll">\[
+  J_2g=-\sigma_z\otimes R,\qquad
+  iJ_2g=-i\sigma_z\otimes R .
+\]</div>
+<p>
+note 的右侧显示矩阵都是第一种，即 \(J_2g\)，不是第二种
+\(iJ_2g\)。逐项对照如下：
+</p>
+<div class="scroll">
+<table>
+<thead><tr>
+<th>case</th><th>左侧原标签</th><th>右侧实际算出的 prefactor</th>
+<th>应怎样读取</th>
+</tr></thead>
+<tbody>
+<tr><td>\(5'\)</td><td>\(J_2gA\)</td>
+<td>\(-\sigma_z\otimes I\)</td>
+<td>左右一致，正是 \(\eta A\)；这里最清楚地写对了 metric。</td></tr>
+<tr><td>\(9'\)</td><td>\(iJ_2gA\)</td>
+<td>\(-\sigma_z\otimes\sigma_x\)</td>
+<td>右侧是 \(J_2gA\)，左侧多了 \(i\)。</td></tr>
+<tr><td>\(10'\)</td><td>\(iJ_2gA\)</td>
+<td>\(-\sigma_z\otimes\sigma_z\)</td>
+<td>右侧是 \(J_2gA\)，左侧多了 \(i\)。</td></tr>
+<tr><td>\(6'\)</td><td>\(iJ_2gA\)</td>
+<td>\(-\sigma_z\otimes\sigma_x\)</td>
+<td>右侧是 \(J_2gA\)，左侧多了 \(i\)。</td></tr>
+<tr><td>\(7'\)</td><td>\(iJ_2gA\)</td>
+<td>\(-\sigma_z\otimes I\)</td>
+<td>右侧是 \(J_2gA\)，左侧多了 \(i\)。</td></tr>
+<tr><td>\(8'\)</td><td>\(iJ_2gA\)</td>
+<td>\(-\sigma_z\otimes\sigma_x\)</td>
+<td>右侧是 \(J_2gA\)，左侧多了 \(i\)。</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+因此，后面的手算并没有一致地执行第一节那条
+\(iJ_2gA-iA^\dagger J_2g\le0\)。Case \(5'\) 明确使用正确的
+Nambu metric；其余五例虽然左侧多写了 \(i\)，右侧 block multiplication
+也仍是在算正确的 \(J_2gA\)。这意味着这些 case 的
+\(J_2^TAJ_2=\pm\bar A\) 线性分解和右侧 semidefinite test
+不应整体作废，只需按 \(\eta=J_2g\) 重新检查 strictness。
 </p>
 <h4>这项修正怎样改变 Cases \(1'\)--\(10'\) 的读取</h4>
 <div class="scroll">
@@ -1421,15 +1562,21 @@ AFQMC weight 非负。
     特例；第三节对两个 \(J\) 都取正号是相容的。</td></tr>
 <tr><td>\(3',4'\)</td><td>只有等号边界，没有 strict interior</td>
 <td>Majorana reflection positivity 与 time-reversal positivity
-    是已知定理，但 note 的 real Nambu matrices 不是把这些定理完整换基后的条件。</td></tr>
+    是已知定理，但 note 的这两组 real Nambu signs
+    不是把这些定理完整换基后的条件。</td></tr>
 <tr><td>\(5',6',7',8'\)</td><td>存在 strict interior</td>
-<td>这些是直接控制 \(e^A\) 的四个候选类。Case \(5'\)
-    末尾的 \(J_2gA\le0\) 方向正确；Cases \(6'\)--\(8'\)
-    末尾多写的 \(i\) 应去掉。</td></tr>
+<td>这些是直接控制 \(e^A\) 的四类。Case \(5'\)
+    的标签和计算都正确；Cases \(6'\)--\(8'\) 的左侧标签应去掉
+    \(i\)，其右侧实际计算已经是 \(J_2gA\)。
+    Wei 的 canonical metric 完整拉回后也属于这个 \(J_2g\)
+    strict branch；一个 physical model 还可能同时满足其中多个
+    \(J_1\) labels。因此这些类别不能仅凭 note 的称呼算作新
+    positivity，具体等价关系必须连同 basis 一起检查。</td></tr>
 <tr><td>\(9',10'\)</td><td>只有等号边界</td>
 <td>\(J_1\) 把候选半负定方向翻成半正定方向，故不能存在
-    nonzero strict cone。第一节把 \(9'\) 标为 Passed
-    是沿用了错误的 \(e^{gA}\) 判据。</td></tr>
+    nonzero strict cone。两例右侧也实际算了 \(J_2gA\)，但
+    Case \(9'\) 把存在某些 semidefinite directions 误当成足以
+    支持 Passed；它缺少 strict interior，并有负权重反例。</td></tr>
 </tbody>
 </table>
 </div>
@@ -1639,11 +1786,16 @@ matters? It has to be checked.</p>
 \(J_1^TgJ_1=\pm g\) 的符号共同决定这两种结果。
 </p>
 <p>
-若改去研究 note 第一节那个控制 \(e^{gA}\) 的式子，反对易的
-Majorana classes 会重新出现；但那不是当前 Nambu trace formula
-中的传播。两张 passed 清单不能合并。报告后文所称“完整穷举”
-统一采用物理传播 \(e^A\)，并把 note 原来的 \(e^{gA}\) 结果单独列为
-公式诊断，而不再把它称作 fermionic AFQMC 无符号结论。
+Wei 论文的 Majorana classes 控制的是
+\(e^{A_{\rm M}}\)，其中 \(A_{\rm M}=UAU^\dagger\)，不是
+\(e^{gA}\)。完成 metric 与 anti-linear operations 的同一换基后，
+canonical Majorana-RP 与 Kramers semigroups 落入上表的
+\(J_2g\) strict branch；具体是 \(5'\)--\(8'\) 中哪一个或哪几个
+labels 取决于 complex-fermion basis 和模型是否具有额外 symmetries。
+note 第一节那个单独控制 \(e^{gA}\) 的式子只能作为
+convention-mismatch diagnostic，
+不能与任何一张 physical passed 清单合并。报告后文所称“完整穷举”
+统一采用物理传播 \(e^A\)。
 </p>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case7">

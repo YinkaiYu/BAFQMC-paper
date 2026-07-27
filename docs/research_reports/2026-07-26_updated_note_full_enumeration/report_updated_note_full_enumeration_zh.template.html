@@ -2684,6 +2684,7 @@
       <li>第一节 Comment 的 “\(3'\) 与 \(7'''\)” 并非只差 commutation relation；若本意是 “\(3'''\) 与 \(7'''\)”，需要补上两个 prime。</li>
       <li>消息中的 `ToLeiWang4.pdf` 对应仓库里的 <code>experts/RPBAFQMC.tex</code>。该文件可以说明 RP Case 2 中引入 \(J_1,J_2\) 的原意；其 contraction/expansion direct-sum assertion 因 block mixing 而不成立，并且它也没有使用 Case 10 的五条离散 relations。</li>
       <li>费米 Case \(5'\) 声称 \(J_1=\sigma_z\otimes I_N\)，显示矩阵却误写成 \(\operatorname{diag}(I_N,I_N)\)；后续计算实际使用 \(\operatorname{diag}(I_N,-I_N)\)。</li>
+      <li>费米 Case \(5'\) 正确写成 \(J_2gA\le0\)。Cases \(9',10',6',7',8'\) 的左侧写 \(iJ_2gA\)，但右侧显示的 Pauli prefactor 实际等于 \(J_2g\)，缺少整体 \(i\)；这些 block calculations 应按 \(J_2gA\) 读取。</li>
       <li>玻色 Case 11 回代后的一个 \(C\) block 与上一行 relation 不一致，应在采用前由作者复核。</li>
       <li>玻色 Cases 13、14 的 \(J_2g\) 应为 \(2N\times2N\) 的 \(-I_{2N}\)，原文写作 \(-I_N\)。</li>
       <li>`metrix`、`We jave` 是不影响数学内容的拼写错误。</li>
@@ -2694,41 +2695,97 @@
   <section id="fermion-weight">
     <h2>8. 费米标准收缩与 note 号约定的区别</h2>
 
-    <h3>8.1 note 的费米不等式不是标准 \(e^A\) contraction</h3>
+    <h3>8.1 Wei 论文的 Majorana 公式正确；note 的 Nambu 搬运没有对齐</h3>
     <p>
-      note 的权重公式依赖 \(M=\prod_\ell e^{A_\ell}\)，但第一节写的是
+      Wei 的 semigroup 论文在 real Majorana basis 中使用
+      \[
+        \hat h=\frac14\gamma^T A_{\rm M}\gamma,\qquad
+        A_{\rm M}^T=-A_{\rm M},\qquad
+        W=\det\!\left(I+\prod_\ell e^{A_{{\rm M},\ell}}\right)^{1/2}.
+      \]
+      论文中的 \(J_2^{\rm M}\) 是 real skew-symmetric orthogonal
+      matrix，故 \(\eta_{\rm M}=iJ_2^{\rm M}\) 是 Hermitian
+      involution。其 Eq. (3)
     </p>
     <div class="scroll">\[
-      iJ_2gA-iA^\dagger J_2g\le0 .
+      i\left(J_2^{\rm M}A_{\rm M}
+      -\bar A_{\rm M}J_2^{\rm M}\right)
+      =\eta_{\rm M}A_{\rm M}
+      +A_{\rm M}^\dagger\eta_{\rm M}\le0
     \]</div>
     <p>
-      在这一分支中 \(J_2^2=-I\)、\(J_2^TgJ_2=-g\)，所以
-      \(J_2g\) 是 Hermitian involution，而 \(iJ_2g\) 反而是
-      anti-Hermitian，不能作为 Hermitian contraction metric。
-      若直接控制 \(e^A\)，令 \(\eta_A=J_2g\)，求导真正出现的是
+      直接控制 determinant 中的 \(e^{A_{\rm M}}\)，没有传播元错位。
+      参见
+      <a href="https://arxiv.org/html/1712.09412v3#S4">
+      arXiv:1712.09412v3, Sec. IV</a>。
+    </p>
+    <p>
+      note 改用 Nambu form
+      \[
+        \hat h=\frac12\chi^TgA\chi,\qquad
+        W=\det\!\left(I+\prod_\ell e^{A_\ell}\right)^{1/2}.
+      \]
+      完整的 basis transformation 是
+      \(A_{\rm M}=UAU^\dagger\)，metric 必须同时变成
+      \(\eta_{\rm N}=U^\dagger\eta_{\rm M}U\)。
+      在 canonical block
+      \(g=\sigma_x,\ J_2^{\rm M}=i\sigma_y\) 中直接相乘得到
+      \[
+        \eta_{\rm N}=\sigma_z
+        =(i\sigma_y)\sigma_x=J_2g .
+      \]
+      因此，Wei 论文中的 \(iJ_2^{\rm M}\) 到了 note 的 Nambu
+      convention 后成为 \(J_2g\)，不是 \(iJ_2g\)。
+    </p>
+    <p>
+      note 的 Cases \(3'\)--\(10'\) 全部满足
+      \(J_2^2=-I,\ J_2^TgJ_2=-g\)。这给出
+      \[
+        (J_2g)^\dagger=J_2g,\qquad (J_2g)^2=I ,
+      \]
+      所以正确 Nambu metric 是 \(\eta=J_2g\)；\(iJ_2g\)
+      反而 anti-Hermitian。直接控制 \(e^A\) 的条件是
     </p>
     <div class="scroll">\[
-      \eta_A A+A^\dagger\eta_A
-      =J_2gA+A^\dagger J_2g .
+      J_2gA+A^\dagger J_2g\le0 .
     \]</div>
     <p>
-      这与 note 的式子不是同一个 inequality。note 式子的准确来源可这样看：
-      暂记 \(X=gA\)，则 \(X^T=-X\)；再令
-      \(\eta_X=iJ_2\)，有
-      \(\eta_X^\dagger=\eta_X\)、\(\eta_X^2=I\)，并且
+      第一节显示的
+      \(iJ_2gA-iA^\dagger J_2g\le0\) 可以改写成
+      \[
+        iJ_2(gA)+(gA)^\dagger(iJ_2)\le0 ,
+      \]
+      因而它控制 \(e^{gA}\)，并不等于上述完整
+      Majorana-to-Nambu transport。这是 note 的 convention mismatch，
+      不是 Wei 论文 Eq. (3) 本身错误。
     </p>
-    <div class="scroll">\[
-      iJ_2gA-iA^\dagger J_2g
-      =\eta_X X+X^\dagger\eta_X .
-    \]</div>
     <p>
-      所以原式确实是 skew-symmetric Majorana coefficient \(X\)
-      上的标准 contraction condition，直接控制的是 \(e^X=e^{gA}\)。
-      但 note 顶部的 Nambu canonical propagation 使用 \(e^A\)。
-      从 real Majorana basis 变到 complex Nambu basis 时，
-      quadratic coefficient、canonical generator、complex conjugation rule
-      与 metric 必须一起变换；\(X=gA\) 并不一般与 \(A\) 相似。
-      只搬运 Majorana inequality 而不写这一步，不能保证 Nambu weight 非负。
+      更关键的是，后面的具体手算也没有统一执行第一节的式子。若
+      \(J_2=-i\sigma_y\otimes R\)、\(g=\sigma_x\otimes I\)，则
+      \[
+        J_2g=-\sigma_z\otimes R,\qquad
+        iJ_2g=-i\sigma_z\otimes R .
+      \]
+      note 的右侧显示矩阵全部是第一种：
+    </p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>case</th><th>左侧标签</th><th>右侧实际矩阵</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>\(5'\)</td><td>\(J_2gA\)</td><td>\(-\sigma_zA\)</td><td>左右一致</td></tr>
+          <tr><td>\(9'\)</td><td>\(iJ_2gA\)</td><td>\(-\sigma_z\otimes\sigma_x\,A\)</td><td>左侧多 \(i\)</td></tr>
+          <tr><td>\(10'\)</td><td>\(iJ_2gA\)</td><td>\(-\sigma_z\otimes\sigma_z\,A\)</td><td>左侧多 \(i\)</td></tr>
+          <tr><td>\(6'\)</td><td>\(iJ_2gA\)</td><td>\(-\sigma_z\otimes\sigma_x\,A\)</td><td>左侧多 \(i\)</td></tr>
+          <tr><td>\(7'\)</td><td>\(iJ_2gA\)</td><td>\(-\sigma_zA\)</td><td>左侧多 \(i\)</td></tr>
+          <tr><td>\(8'\)</td><td>\(iJ_2gA\)</td><td>\(-\sigma_z\otimes\sigma_x\,A\)</td><td>左侧多 \(i\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      因而 Case \(5'\) 最明确地写出了作者真正要用的 metric；
+      其余五例的右侧 block multiplication 也实际在算 \(J_2gA\)，
+      只是左侧标签多写了 \(i\)。后续 block structures 不必整体作废，
+      但必须统一按 \(\eta=J_2g\) 重检 strict interior。
     </p>
 
     <h3>8.2 单模精确反例</h3>
@@ -2783,7 +2840,10 @@
       \(\eta A+A^\dagger\eta\leq0\)，这一分支中恰有四类允许严格小于零：
       Cases \(5'\)、\(6'\)、\(7'\)、\(8'\)。Cases \(3'\)、\(4'\)、
       \(9'\)、\(10'\) 只能停在等号边界。这里不能直接沿用 note 写下的
-      Passed/Failed 标签，因为 note 检查的是上一节指出的另一个不等式。
+      Passed/Failed 标签：第一节总式与 Nambu propagation 没有对齐，
+      而具体 cases 又把左侧标作 \(iJ_2gA\)、右侧实际按
+      \(J_2gA\) 计算。把这两层记号统一以后，只有前四类保留
+      strict interior。
     </p>
     <p>
       完整的 \(2^5=32\) 类穷举还检查了 note 没有展开的另一种
@@ -2970,9 +3030,12 @@
       新增玻色 \(iJ_2g\) 类的下一步不是再证一遍“strict 区域不会变号”，
       而是找到与其 candidate metric 相容且 fixed-field bare trace 有定义的
       stable Hamiltonian；否则只能保留为代数分类。费米 \(iJ_2g\)
-      类已有 Majorana RP/Kramers-pairing realizations；需要做的是写清它们与
-      当前 Nambu 五位标签的变换，并判断哪些只是已知类的换基或 particle--hole
-      partner。
+      类已有显式 pairing-cone slice realizations，但目前不能把它们直接
+      认作 Wei 的 Majorana RP/Kramers classes。Wei 的 canonical
+      Majorana metric 完整拉回 Nambu basis 后属于 \(J_2g\)
+      strict branch；具体 \(J_1\) label 依赖 basis 与额外 symmetries。
+      \(iJ_2g\) branch 是否只是进一步换基或 particle--hole partner，
+      仍需单独证明。
     </p>
 
     <h3>这次穷举究竟发现了什么</h3>
@@ -3028,8 +3091,10 @@
             </td>
             <td>
               四个新增 \(iJ_2g\) Nambu labels 有 pairing-cone physical
-              realizations，并与已知 Majorana RP/Kramers semigroups
-              相关；note 自己的 minus-sign inequality 仍不能沿用
+              realizations，但尚未证明与已知 Majorana semigroups
+              等价；Wei 的 canonical transport 位于 \(J_2g\)
+              strict branch，具体 \(J_1\) label 依赖 basis 与额外
+              symmetries；note 第一节的 minus-sign inequality不能沿用
             </td>
           </tr>
         </tbody>
@@ -3109,15 +3174,25 @@
       \(e^A\) 的 contraction。对你已展开的
       \(J_2^TgJ_2=-g,\ J_2^2=-I\) 分支，直接控制 \(e^A\)
       应使用 Hermitian metric \(J_2g\) 与
-      \(J_2gA+A^\dagger J_2g\le0\)。因此原有 Passed 标签不能和这八类
-      直接合并计数。另一支 metric 为 \(iJ_2g\) 的标准 cone 是 physical
-      pairing direction，maximal subgroup 可包含 number-conserving
-      hopping/density；它与 Wei semigroup paper 的 Majorana
-      reflection-positive/Kramers-plus-pairing models 对应。
-      \(J_1\) 翻转 \(g\) 的 partners 可由 particle--hole transformation
-      得到。因此这里有 concrete physical models，但这四个 Nambu labels
-      中哪些是文献上真正的新类、哪些只是已知类换基，需要先把
-      Majorana-to-Nambu transformation 写全。
+      \(J_2gA+A^\dagger J_2g\le0\)。Case \(5'\) 的左侧与右侧都已经
+      使用 \(J_2gA\)；Cases \(6'\)--\(10'\) 虽在左侧多写 \(i\)，
+      右侧 Pauli multiplication 实际也使用 \(J_2gA\)。统一这个笔误后，
+      Cases \(5'\)--\(8'\) 保留 strict cone，\(9',10'\) 没有
+      strict interior。
+      <br><br>
+      Wei semigroup paper 本身在 Majorana basis 使用
+      \(A_{\rm M}\) 与 metric \(iJ_2^{\rm M}\)，二者直接控制
+      \(e^{A_{\rm M}}\)。完整换到 Nambu basis 时
+      \(A_{\rm M}=UAU^\dagger\)，metric 同时变成 \(J_2g\)；
+      canonical Majorana-reflection-positive 与 Kramers
+      semigroups 因而落在 \(J_2g\) strict branch，不是新增的
+      \(iJ_2g\) partner branch。具体对应 Cases \(5'\)--\(8'\)
+      中哪一个或哪几个 labels，会随 complex-fermion basis 和模型的
+      额外 symmetries 改变。另一支
+      \(iJ_2g\) classes 仍有合法 algebraic strict cones 和 concrete
+      slice realizations，但它们与哪些已知 Majorana classes
+      basis-equivalent、哪些真正扩大模型集合，需要另做完整的
+      transformation analysis，不能仅凭相似的 Pauli labels 判断。
       <br><br>
       关于符号与收敛证明，我的理解与你的半群思路一致，但应把零场锚点
       明写出来：只要 auxiliary-field configuration space 连通，零场

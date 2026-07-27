@@ -650,9 +650,12 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         <p>
         在 lattice 上可以加入同一 maximal subgroup 中的 hopping，
         并把 onsite pairing 换成保持相同 matrix conditions 的 bond pairing。
-        这给出与 Wei semigroup paper 的 Kramers-plus-pairing
-        constructions 相近的 correlated extension；要声称与该文某个
-        class 完全等价，仍需把这里的 Nambu basis transformation 明写出来。
+        这个模型与 Wei semigroup paper 一样同时含 Kramers-type structure
+        与 pairing，但不能据此把两个 matrix classes 直接等同。Wei 论文的
+        canonical Majorana metric 完整拉回 Nambu basis 后落在
+        \(J_2g\) branch；本例属于另一条 \(iJ_2g\) branch。
+        它们是否可由额外的 particle--hole or complex-orthogonal
+        transformation 联系，必须另行证明。
         </p>
         """,
     },
