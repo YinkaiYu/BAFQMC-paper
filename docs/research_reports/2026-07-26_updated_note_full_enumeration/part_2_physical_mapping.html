@@ -373,8 +373,9 @@
     </p>
 <p>
       同时还要记住，玻色问题比 determinant 的符号多两层：Fock trace
-      是否收敛，以及 Nambu square root 是否沿正确的 operator branch
-      连续。因此本报告始终把下面三个问题分开：
+      是否收敛，以及 \(\det(I-M)^{-1/2}\) 的两个平方根符号中，
+      哪一个由实际 Fock operator 的 trace 沿连续辅助场路径选定。
+      因此本报告始终把下面三个问题分开：
     </p>
 <ol>
 <li><strong>sign/phase：</strong>完整 \(W(\phi)\) 是否为 real nonnegative number；</li>
@@ -418,8 +419,9 @@
       \(J_1^2=-I\) 的 Kramers 情形还能迫使 real eigenvalues 成偶数重，
       从而在文章的 number-conserving TRS theorem 中直接得到正 determinant。
       一般的 \(J_1^2=I\) 只保证实性，并不排除负值。
-      对 paired bosonic trace，还要另外检查正规序标量因子与
-      metaplectic square-root branch，不能只看 determinant argument。
+      对 paired bosonic trace，还要另外检查正规序标量因子，并证明
+      determinant square root 的符号与实际 Fock operator trace 沿路径
+      连续一致，不能只看 determinant argument。
     </p>
 <h3>2.3 \(J_2\) 为什么用来构造 contraction metric</h3>
 <p>
@@ -458,21 +460,509 @@
       \qquad\text{或}\qquad
       \eta=iJ_2g.
     \]</div>
-<div class="warning">
-<strong>这里必须修正一句常见的简写。</strong>
-      \(J_2\) 并不是单独“把 determinant 变成非负”。半群论证的完整逻辑是：
-      \(J_1\) 把 weight 限制在实轴，strict contraction 阻止它碰到改变符号所需的
-      zero 或 pole，再用与正参考点的连续连接固定符号。对
-      <a href="https://arxiv.org/abs/1712.09412">Wei 的 fermionic
-      Majorana semigroup theorem</a>，这条逻辑在相应 Spin representation 中成立。
-      对本报告的 bosonic Nambu extension，contraction 已严格控制 propagation
-      和 pole；完整 Fock weight 的 branch 与 operator lift 仍需单独证明。
-    </div>
+<div class="result">
+<strong>把玻色情形从单粒子传播矩阵一直讲到完整 Fock trace。</strong>
+      对一个固定的辅助场构型 \(\phi\)，先把全部虚时间片的单粒子
+      Nambu 传播矩阵按实际次序相乘：
+      \[
+        M(\phi)=e^{A_1(\phi_1)}e^{A_2(\phi_2)}
+        \cdots e^{A_L(\phi_L)} .
+      \]
+      对应的 many-body operator 也按同一次序定义：
+      \[
+        \hat{\mathcal U}(\phi)
+        =e^{\hat h_1(\phi_1)}e^{\hat h_2(\phi_2)}
+        \cdots e^{\hat h_L(\phi_L)},\qquad
+        W(\phi)=\Tr_{\rm Fock}\hat{\mathcal U}(\phi).
+      \]
+      下面的每一步都针对这个实际有序乘积。
+
+      <h4>第一步：任意多时间片相乘后仍满足同一个收缩不等式</h4>
 <p>
-      当 contraction inequality 取等号时，传播只保持 \(\eta\)，位于
-      maximal subgroup。在 note 的构造中，这个边界常可重写为
+        令 \(\eta=J_2g\)。报告为 boson Cases 5--8 构造的具体
+        HS 分解具有两类因子。辅助场因子满足
+        \[
+          M_{\rm HS}^\dagger\eta M_{\rm HS}=\eta ,
+        \]
+        固定的稳定自由传播因子满足
+        \[
+          M_0^\dagger\eta M_0-\eta&lt;0 .
+        \]
+        这里 \(&lt;0\) 的意思是：对每个非零向量 \(v\)，都有
+        \(v^\dagger(M_0^\dagger\eta M_0-\eta)v&lt;0\)。
+        若 \(M_1\) 满足严格不等式，\(M_2\) 满足等号或半负定不等式，
+        则
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        &amp;(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+        &amp;\quad=M_2^\dagger
+        (M_1^\dagger\eta M_1-\eta)M_2
+        +(M_2^\dagger\eta M_2-\eta)&lt;0 .
+        \end{aligned}
+      \]</div>
+<p>
+        指数矩阵 \(M_2\) 可逆，所以第一项仍负定；第二项至多为零。
+        反复使用这条恒等式，便得到每一个完整构型都满足
+        \[
+          M(\phi)^\dagger\eta M(\phi)-\eta&lt;0 .
+        \]
+        辅助场 \(\phi\) 取正或取负不会改变这一步，因为它只改变
+        \(M_{\rm HS}\) 在保持 \(\eta\) 的矩阵集合中的位置。
+      </p>
+<h4>第二步：先用单模例子看清这条不等式为何表示玻色衰减</h4>
+<p>
+        对一个没有 pairing 的稳定玻色模，取
+        \[
+          \hat{\mathcal U}=e^{-\epsilon(\hat n+1/2)},\qquad
+          M=\begin{pmatrix}e^{-\epsilon}&amp;0\\0&amp;e^{+\epsilon}\end{pmatrix},
+          \qquad
+          \eta=\begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix},
+          \qquad \epsilon&gt;0 .
+        \]
+        直接相乘得到
+      </p>
+<div class="scroll">\[
+        M^\dagger\eta M-\eta
+        =
+        \begin{pmatrix}
+        e^{-2\epsilon}-1&amp;0\\
+        0&amp;1-e^{+2\epsilon}
+        \end{pmatrix}&lt;0 .
+      \]</div>
+<p>
+        同一个 \(\epsilon&gt;0\) 使占据数为 \(n\) 的态带有因子
+        \(e^{-\epsilon(n+1/2)}\)。因此高占据态受到指数压低，并且
+      </p>
+<div class="scroll">\[
+        \Tr_{\rm Fock}\hat{\mathcal U}
+        =\sum_{n=0}^{\infty}e^{-\epsilon(n+1/2)}
+        =\frac{e^{-\epsilon/2}}{1-e^{-\epsilon}}&lt;\infty .
+      \]</div>
+<h4>有 pairing 时：对单个稳定 Hamiltonian，确实可以直接作 Bogoliubov 对角化</h4>
+<p>
+        这里原先写“不能再逐模写成几何级数”是不准确的。若面对的是一个
+        稳定的 Hermitian 玻色二次 Hamiltonian，bosonic Bogoliubov
+        transformation 正是正确做法。它把 Hamiltonian 写成
+      </p>
+<div class="scroll">\[
+        \hat H
+        =E_0+\sum_{j=1}^{N}
+        \epsilon_j\hat\beta_j^+\hat\beta_j,
+        \qquad \epsilon_j&gt;0 ,
+      \]</div>
+<p>
+        其中 \(\hat\beta_j,\hat\beta_j^+\) 仍满足标准玻色对易关系。
+        因而
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        \Tr_{\rm Fock}e^{-\hat H}
+        &amp;=e^{-E_0}
+        \prod_{j=1}^{N}
+        \sum_{n_j=0}^{\infty}e^{-\epsilon_j n_j}\\
+        &amp;=e^{-E_0}
+        \prod_{j=1}^{N}\frac{1}{1-e^{-\epsilon_j}}&lt;\infty .
+        \end{aligned}
+      \]</div>
+<p>
+        困难不来自 pairing 本身，而来自 fixed-field 对象一般是
+        \[
+          \hat{\mathcal U}(\phi)
+          =e^{\hat h_L(\phi_L)}\cdots e^{\hat h_1(\phi_1)} .
+        \]
+        不同时间片通常不对易，含辅助场的 \(\hat h_\ell\) 也未必都是
+        Hermitian。因此这个完整有序乘积通常不是
+        \(e^{-\hat H_{\rm eff}}\) 且
+        \(\hat H_{\rm eff}\) 为稳定 Hermitian Hamiltonian。可以尝试对完整
+        Nambu 矩阵作一般的 complex symplectic similarity
+        transformation，但这个 transformation 未必由 Fock 空间中的
+        unitary Bogoliubov operator 实现，也就未必保持算符的绝对大小与
+        Fock trace 收敛性。下面的半群分解正是用来补上这一步。
+      </p>
+<h4>第三步：先定义 trace class，再完整写出 oscillator-semigroup theorem</h4>
+<p>
+        对 paired Gaussian operator，描述上述绝对收敛的标准条件是
+      </p>
+<div class="scroll">\[
+        \Tr_{\rm Fock}
+        \sqrt{\hat{\mathcal U}(\phi)^\dagger
+        \hat{\mathcal U}(\phi)}&lt;\infty .
+      \]</div>
+<p>
+        满足这条式子就称 \(\hat{\mathcal U}(\phi)\) 为
+        <em>trace class</em>。其中
+        \(\sqrt{\hat{\mathcal U}^\dagger\hat{\mathcal U}}\) 是一个正算符：
+        它去掉 \(\hat{\mathcal U}\) 的相位，只保留各个正的 singular
+        values。上式表示这些绝对大小在无限维玻色 Fock 空间中的总和仍
+        有限。于是普通的 bare trace 也绝对收敛，因为
+        \[
+          \left|\Tr_{\rm Fock}\hat{\mathcal U}(\phi)\right|
+          \le
+          \Tr_{\rm Fock}
+          \sqrt{\hat{\mathcal U}(\phi)^\dagger
+          \hat{\mathcal U}(\phi)}&lt;\infty .
+        \]
+        对上面的单模例子，这一定义就退化成已经写出的几何级数。
+      </p>
+<p>
+        现在定义这里所说的 <em>bosonic oscillator semigroup</em>。
+        先要求 \(M\) 保持玻色对易关系，也就是满足
+        \(M^TgM=g\)。再在物理 Nambu 排列
+        \((\hat a_1,\ldots,\hat a_N,
+        \hat a_1^+,\ldots,\hat a_N^+)^T\) 中取
+        \(\eta=\operatorname{diag}(I,-I)\)，并要求
+        \[
+          M^\dagger\eta M-\eta\le0 .
+        \]
+        所有同时满足这两条式子的 \(M\) 对矩阵乘法封闭；第一步已经逐项
+        写出了乘积恒等式，所以这里确实得到一个 semigroup。“oscillator”
+        这个名字来自它在玻色 Fock 空间中的作用：取等号的矩阵是 physical
+        canonical Bogoliubov transformations，其 Fock-space operators
+        是 unitary；允许小于零以后，则加入了压低高占据态的 Gaussian
+        operators。
+      </p>
+<div class="result">
+<strong>有限模 bosonic oscillator-semigroup theorem：本报告使用的精确版本。</strong>
+        设 \(M\) 同时满足
+        \[
+          M^TgM=g,\qquad
+          M^\dagger\eta M-\eta&lt;0,\qquad
+          \eta=\operatorname{diag}(I,-I).
+        \]
+        再设 \(\hat{\mathcal U}\) 是由实际有序二次算符乘积得到、并在
+        Nambu 空间诱导出 \(M\) 的 Gaussian Fock operator；正常序产生的
+        有限标量因子要一并保留。那么
+        \[
+          \Tr_{\rm Fock}
+          \sqrt{\hat{\mathcal U}^\dagger\hat{\mathcal U}}&lt;\infty .
+        \]
+        换言之，\(\hat{\mathcal U}\) 是 trace class，bare Fock trace
+        绝对收敛。
+      </div>
+<h4>这个 theorem 怎样用 Bogoliubov 对角化证明</h4>
+<p>
+        第一步是半群中的 polar decomposition。满足上述负定不等式的
+        \(M\) 可以写成
+      </p>
+<div class="scroll">\[
+        M=M_{\rm unitary}\,e^{A_{\rm damping}},
+      \]</div>
+<p>
+        其中两部分分别满足
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        M_{\rm unitary}^\dagger\eta M_{\rm unitary}&amp;=\eta,\\
+        \eta A_{\rm damping}
+        &amp;=A_{\rm damping}^\dagger\eta&lt;0 .
+        \end{aligned}
+      \]</div>
+<p>
+        第一行表示 \(M_{\rm unitary}\) 是一个 physical canonical
+        Bogoliubov transformation；它在 Fock 空间中由 unitary operator
+        \(\hat U_{\rm unitary}\) 实现。第二行等价于
+        \(-\eta A_{\rm damping}&gt;0\)。这个正定矩阵正是一个稳定玻色
+        quadratic form，所以现在可以合法地使用你说的 Bogoliubov
+        对角化。换到一组 physical quasiparticle operators 后，与
+        \(A_{\rm damping}\) 对应的 Fock-space generator 为
+      </p>
+<div class="scroll">\[
+        \hat h_{\rm damping}
+        =-\sum_{j=1}^{N}
+        \epsilon_j
+        \left(\hat\beta_j^+\hat\beta_j+\frac12\right),
+        \qquad \epsilon_j&gt;0 ,
+      \]</div>
+<p>
+        其中另行记录的正常序标量不影响下面的收敛性。完整 Gaussian
+        operator 因而具有
+        \[
+          \hat{\mathcal U}
+          =\hat U_{\rm unitary}e^{\hat h_{\rm damping}}
+        \]
+        的形式。由于左边的 \(\hat U_{\rm unitary}\) 是 unitary，
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        \sqrt{\hat{\mathcal U}^\dagger\hat{\mathcal U}}
+        &amp;=e^{\hat h_{\rm damping}},\\
+        \Tr_{\rm Fock}e^{\hat h_{\rm damping}}
+        &amp;=\prod_{j=1}^{N}
+        \frac{e^{-\epsilon_j/2}}{1-e^{-\epsilon_j}}&lt;\infty .
+        \end{aligned}
+      \]</div>
+<p>
+        这就逐步证明了 theorem。它并没有绕开 Bogoliubov
+        diagonalization；恰恰相反，它先用半群 polar decomposition
+        从一般非 Hermitian 有序乘积中抽出一个稳定 damping factor，
+        然后对这个 factor 作物理 Bogoliubov diagonalization。不能直接
+        假定可按同样方式对角化的是任意完整有序乘积。
+      </p>
+<p>
+        一个不含 pairing 的二模例子也能看出“任意 similarity
+        diagonalization”为什么不够。取 particle block
+        \[
+          B=\begin{pmatrix}0.4&amp;2\\0&amp;0.5\end{pmatrix}.
+        \]
+        它的两个 eigenvalues 是 \(0.4,0.5\)，但最大的 singular value
+        是 \(2.0978&gt;1\)。虽然 \(B\) 可由非 unitary similarity
+        transformation 对角化，玻色 Fock 空间第 \(n\) 粒子扇区上的
+        operator norm 却按 \(2.0978^n\) 增长，所以对应 Gaussian
+        operator 不是 bounded，更不是 trace class。严格
+        \(\eta\)-contraction 排除了这种情况；它控制的是物理
+        Fock norm，而不只是 eigenvalues。
+      </p>
+<p class="small">
+        上述 matrix polar decomposition 是
+        <a href="https://arxiv.org/abs/2209.04139">Yamashita,
+        arXiv:2209.04139</a> Proposition 2.2 的
+        Potapov--Olshanski decomposition。在 operator 一侧，
+        <a href="https://www.heldermann-verlag.de/jlt/jlt03/NEEBPL_vol1.PDF">
+        Neeb, Theorem II.3(ii)</a> 明确陈述：Olshanski semigroup
+        内部的 representation operator 是 trace class。对这里的
+        metaplectic/oscillator representation，偶、奇 Fock sectors
+        各自满足该定理，二者的有限直和仍是 trace class。
+        <a href="https://www.numdam.org/articles/10.5802/aif.1182/">
+        Hilgert</a> 证明了这一 operator semigroup 在
+        Bargmann--Fock 与通常 oscillator realization 中是同一个对象。
+      </p>
+<h4>第四步：排除 pole，也排除权重经过零点</h4>
+<p>
+        若 \(M v=\lambda v\) 且 \(|\lambda|=1\)，则
+        \[
+          v^\dagger(M^\dagger\eta M-\eta)v
+          =(|\lambda|^2-1)v^\dagger\eta v=0 ,
+        \]
+        与负定性矛盾。因此 \(M\) 没有单位圆本征值，特别没有
+        \(\lambda=+1\)。玻色 trace 公式中的
+        \(\det(I-M)^{-1/2}\) 没有 pole，也不等于零。
+      </p>
+<h4>第五步：沿实际辅助场路径固定 Fock trace 的分支</h4>
+<p>
+        对每一个辅助场构型，真正的物理对象是按虚时间顺序相乘的
+        Fock-space operator
+        \[
+          \hat{\mathcal U}(\phi)
+          =e^{\hat h_1(\phi_1)}\cdots e^{\hat h_L(\phi_L)} ,
+        \]
+        而不是脱离这个有序乘积后单独写下的平方根。实 Gaussian
+        辅助场空间是连续的；从零场出发，令
+        \(\phi\mapsto s\phi\)、\(0\le s\le1\)，就得到一条实际
+        operator path。前四步已经说明：沿这条路径，每个
+        \(\hat{\mathcal U}(s\phi)\) 都是 trace class，因而 Fock trace
+        绝对收敛；同时 \(\det[I-M(s\phi)]\ne0\)，所以路径不经过
+        玻色 pole。于是
+        \(W(s\phi)=\Tr_{\rm Fock}\hat{\mathcal U}(s\phi)\)
+        是一个连续、单值的函数。Nambu determinant 公式中的平方根必须
+        跟随这个实际 operator trace 连续延伸，不能在每个构型上重新任选正负号。
+      </p>
+<p>
+        只保存最终 Nambu matrix，会丢失 double cover 所携带的一个二值符号：
+        这个符号只有 \(+1\) 与 \(-1\) 两种取值，用来区分映到同一个
+        Nambu matrix 的两个 Fock-space operators。
+        这不妨碍本节的无符号证明，因为本节从未用最终矩阵重新定义
+        Fock operator，而是始终沿实际 HS operator path 追踪同一个
+        trace。怎样在不使用全域连通性定理时，逐构型显式保存并更新这个
+        符号，另见
+        <a href="part_5_branch_sampling.html">《double-cover 符号追踪与采样》</a>；
+        那是一个独立的算法问题。
+      </p>
+<h4>第六步：从零场正权重推出全部实辅助场构型权重为正</h4>
+<p>
+        \(J_1\) 的反线性条件使 \(W(\phi)\) 为实数。实 Gaussian
+        辅助场空间是 \(\mathbb R^{N_\phi}\)，任意构型都可用
+        \(s\phi\)、\(0\le s\le1\) 连到零场。零场是稳定自由玻色系统，
+        因而
+        \[
+          W(0)=\prod_j\frac{1}{1-e^{-\beta\epsilon_j}}&gt;0,
+          \qquad \epsilon_j&gt;0 .
+        \]
+        若某个构型的实权重为负，连续函数
+        \(W(s\phi)\) 必须在中间某点等于零。第四步已经说明
+        \(\det[I-M(s\phi)]^{-1/2}\) 既不发散也不为零，所以这种
+        过零不可能发生。由此得到：对报告中明确构造的 boson
+        Cases 5--8 HS 模型，每个辅助场构型的 bare trace 都收敛，
+        权重严格为正，也没有 pole。
+      </p>
+<h4>第七步：等号条件要区分“辅助场因子取等号”与“完整传播只取等号”</h4>
+<p>
+        如果取等号的是辅助场因子，而稳定自由传播因子满足严格不等式，
+        那么你的判断成立。最简单的单模矩阵可写成
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+          \eta&amp;=\sigma_z,\\
+          A_0&amp;=-\epsilon\sigma_z,\qquad \epsilon&gt;0,\\
+          A_{\rm HS}(\phi)&amp;=i\phi\sigma_z .
+        \end{aligned}
+      \]</div>
+<p>
+        逐项计算得到
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        \eta A_0+A_0^\dagger\eta&amp;=-2\epsilon I&lt;0,\\
+        \eta A_{\rm HS}(\phi)
+        +A_{\rm HS}(\phi)^\dagger\eta&amp;=0 .
+        \end{aligned}
+      \]</div>
+<p>
+        因此场因子本身只保持 \(\eta\)，但完整传播
+        \(M(\phi)=e^{A_0}e^{A_{\rm HS}(\phi)}\) 仍满足
+      </p>
+<div class="scroll">\[
+        M(\phi)^\dagger\eta M(\phi)-\eta
+        =
+        \begin{pmatrix}
+        e^{-2\epsilon}-1&amp;0\\
+        0&amp;1-e^{+2\epsilon}
+        \end{pmatrix}&lt;0 .
+      \]</div>
+<p>
+        若再取一对由 \(J_1\) 交换并复共轭的玻色模 \(b,c\)，两个模的
+        辅助场相位分别为 \(+\phi\) 与 \(-\phi\)，则 fixed-field trace
+        可以直接求和：
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        W(\phi)
+        &amp;=
+        \sum_{n_b,n_c\ge0}
+        e^{(-\epsilon+i\phi)(n_b+1/2)}
+        e^{(-\epsilon-i\phi)(n_c+1/2)}\\
+        &amp;=
+        \frac{e^{-\epsilon}}
+        {(1-e^{-\epsilon+i\phi})(1-e^{-\epsilon-i\phi})}
+        =
+        \frac{e^{-\epsilon}}
+        {|1-e^{-\epsilon+i\phi}|^2}&gt;0 .
+        \end{aligned}
+      \]</div>
+<p>
+        这个例子把物理机制完全显示出来：辅助场方向处处取等号，
+        固定自由项负责压低高占据态，\(J_1\) 把两种相位配成复共轭，
+        所以任意实 \(\phi\) 的 bare trace 都收敛且为正。报告为
+        boson Cases 5--8 构造的连续 Gaussian HS 模型正是这种结构的
+        多模、多时间片推广。
+      </p>
+<p>
+        另一种情况是连完整传播矩阵都只满足
+        \[
+          M(\phi)^\dagger\eta M(\phi)=\eta .
+        \]
+        这个等式本身没有提供高占据态衰减。仍以一个玻色模为例，若只有
+        \(A(\phi)=i\phi\sigma_z\)，则
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+          \hat{\mathcal U}(\phi)
+          &amp;=e^{i\phi(\hat n+1/2)},\\
+          \Tr_{\rm Fock}\hat{\mathcal U}(\phi)
+          &amp;=\sum_{n=0}^{\infty}e^{i\phi(n+1/2)} .
+        \end{aligned}
+      \]</div>
+<p>
+        每一项的绝对值都是 \(1\)，所以这个 bare trace 不收敛；
+        \(\phi=0\) 还正好对应 \(M=I\) 的 pole。若零辅助场确实是稳定的
+        grand-canonical 玻色系统，它必然含有类似
+        \(e^{-\epsilon\hat n}\) 的衰减；在矩阵不等式中，这个衰减会使
+        完整传播进入严格不等式，而不再是纯等号。
+      </p>
+<p>
+        还可以把“零场稳定”也放进一个显式检验。下面仍是一个玻色模，
+        但用 \(\eta=\sigma_x\) 检查等号，并取
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+          A(\phi)&amp;=(-\epsilon+\phi)\sigma_z,\qquad \epsilon&gt;0,\\
+          M(\phi)&amp;=e^{A(\phi)}
+          =
+          \operatorname{diag}
+          \left(e^{-\epsilon+\phi},e^{\epsilon-\phi}\right).
+        \end{aligned}
+      \]</div>
+<p>
+        对任意实 \(\phi\)，直接相乘都得到
+      </p>
+<div class="scroll">\[
+        M(\phi)^\dagger\sigma_xM(\phi)=\sigma_x .
+      \]</div>
+<p>
+        零场 \(\phi=0\) 的粒子传播因子是 \(e^{-\epsilon}&lt;1\)，所以它
+        确实是一个稳定的正参考点：
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+          W(\phi)
+          &amp;=\sum_{n=0}^{\infty}
+          e^{(-\epsilon+\phi)(n+1/2)}\\
+          &amp;=\frac{e^{(-\epsilon+\phi)/2}}
+          {1-e^{-\epsilon+\phi}},
+          \qquad \phi&lt;\epsilon .
+        \end{aligned}
+      \]</div>
+<p>
+        但是沿着连通的实轴增加 \(\phi\) 时，\(\phi=\epsilon\) 处有
+        \(M=I\)，上述级数发散；再往后，每一项随占据数增长，bare trace
+        仍不收敛。这个例子说明：稳定的正参考点与构型空间连通还不够，
+        还要确认等号所用的 \(\eta\) 真正按物理
+        annihilation/creation 划分控制高占据态。这里的
+        \(\sigma_x\) 只给出一个代数等号；它没有阻止粒子传播因子从
+        \(e^{-\epsilon}&lt;1\) 连续增大到 \(1\)。
+      </p>
+<p>
+        在有限维 Fock 空间中没有玻色高占据态求和发散，但连通性仍需和
+        “权重不经过零点”合用。例如对一个费米模，
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+          \hat{\mathcal U}(\theta)
+          &amp;=e^{i\theta(\hat n-1/2)},\\
+          M(\theta)
+          &amp;=\operatorname{diag}(e^{i\theta},e^{-i\theta}) .
+        \end{aligned}
+      \]</div>
+<p>
+        满足 \(M^\dagger\sigma_zM=\sigma_z\)，而
+      </p>
+<div class="scroll">\[
+          W(\theta)=\Tr\hat{\mathcal U}(\theta)
+          =2\cos(\theta/2).
+      \]</div>
+<p>
+        它在 \(\theta=0\) 为正，却在 \(\theta=\pi\) 经过零点，随后变负。
+        因此最一般的准确命题是：
+        <strong>若整个辅助场域上的权重都有限、实、连续且不为零，那么
+        连通性和一个正参考点足以推出全域为正。</strong>
+        在报告的玻色 Cases 5--8 模型中，固定自由项使完整传播满足严格
+        不等式，从而同时给出 bare-trace 收敛和不经过 zero/pole 的保证。
+      </p>
+<h4>为什么玻色 \(iJ_2g\) 四类改用固定总粒子数</h4>
+<p>
+        上述第二、三步使用了标准 Nambu
+        \(\eta=\operatorname{diag}(I,-I)\)：前 \(N\) 个 components
+        是 annihilation operators，后 \(N\) 个是 creation operators。
+        对 boson Cases 5--8 的 \(\eta=J_2g\)，报告已经给出保持这一
+        annihilation/creation 结构的物理基变换，所以可调用上述
+        Fock-space 收敛定理。新增四类的
+        \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
+        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.8 节从
+        一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
+        Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
+        迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在
+        固定总粒子数 sector 中使用这四类；该 sector
+        有限维，并且已有逐构型严格正的 character 公式。
+      </p>
+</div>
+<p>
+      在生成元层面，
+      \(\eta A+A^\dagger\eta=0\) 表示 \(e^A\) 保持 \(\eta\)，
+      这些传播矩阵组成 maximal subgroup。在 note 的构造中，这个等式常可重写为
       \(J_2^TAJ_2=\bar A\)，此时 \(J_2K\) 看起来像第二个反线性对称性。
-      一旦进入 strict cone，\(J_2\) 的主要身份就是 metric 的组成部分，
+      一旦允许的生成元进入
+      \(\eta A+A^\dagger\eta&lt;0\) 的区域，\(J_2\) 的主要身份就是
+      metric 的组成部分，
       而不是一个使每个 \(A\) 保持不变的 physical symmetry。
     </p>
 <h3>2.4 为什么恰好讨论关于 \(J_1,J_2\) 的五条式子</h3>
@@ -531,8 +1021,9 @@
       严格说平方为 \(-1\)，note 把它也简称为“反线性 \(Z_2\)”是因为它对
       matrices 的 conjugation action 做两次仍回到原矩阵：中间的
       \(-I\) 是 central matrix，会在左右共轭中抵消。
-      这个正负号决定是否有 Kramers even degeneracy；在本次 strict-cone
-      分类中，两种平方都能与相同的 contraction geometry 相容，所以结果成对出现。
+      这个正负号决定是否有 Kramers even degeneracy；在本次检查
+      “是否存在负定生成元”的分类中，两种平方都能与相同的
+      contraction geometry 相容，所以结果成对出现。
     </p>
 <h4>第三、四条：\(J_2g\) 能否成为 Hermitian metric</h4>
 <p>
@@ -544,20 +1035,21 @@
       anti-Hermitian，以及是否需要乘 \(i\)。
     </p>
 <p>
-      以 strict classes 为例，这一步可以直接算完。玻色要求
+      对允许 \(\eta A+A^\dagger\eta&lt;0\) 的类别，这一步可以直接算完。
+      玻色要求
       \(J_2^2=I\)，所以 \(J_2^T=J_2\)。若
       \(J_2^TgJ_2=-g\)，则 \(gJ_2=-J_2g\)，从而
       \((J_2g)^T=-gJ_2=J_2g\)；若
       \(J_2^TgJ_2=g\)，则 \(gJ_2=J_2g\)，从而
       \((J_2g)^T=-J_2g\)，必须乘 \(i\)。
-      费米 strict classes 中 \(J_2^2=-I\)、\(J_2^T=-J_2\)，
+      费米的相应类别中 \(J_2^2=-I\)、\(J_2^T=-J_2\)，
       同样两步计算后仍得到“翻转 \(g\) 使用 \(J_2g\)，保持 \(g\)
       使用 \(iJ_2g\)”。
     </p>
 <div class="scroll">
 <table>
 <thead>
-<tr><th>存在 strict interior 时</th><th>\(J_2^TgJ_2\)</th><th>metric</th></tr>
+<tr><th>存在使收缩矩阵负定的生成元时</th><th>\(J_2^TgJ_2\)</th><th>metric</th></tr>
 </thead>
 <tbody>
 <tr><td>玻色：\(J_2^2=I\)</td><td>\(-g\)</td><td>\(J_2g\)</td></tr>
@@ -569,17 +1061,77 @@
 </div>
 <p>
       为什么表中玻色只留下 \(J_2^2=I\)、费米只留下
-      \(J_2^2=-I\)，不是命名约定。另一种平方会迫使
-      \(\Tr(\eta A+A^\dagger\eta)=0\)；一个 trace 为零的
-      seminegative Hermitian matrix 只能等于零，所以只剩 maximal-subgroup
-      boundary，没有 strict contraction direction。
+      \(J_2^2=-I\)，不是命名约定。下面不省略中间步骤。
+      先看玻色。由
+      \(g^T=-g\) 与合法生成元条件 \(gA+A^Tg=0\)，有
+    </p>
+<div class="scroll">\[
+      (gA)^T=A^Tg^T=-A^Tg=gA .
+    \]</div>
+<p>
+      所以 \(gA\) 是 symmetric matrix。若改取
+      \(J_2^2=-I\)，实正交性给出
+      \(J_2^T=J_2^{-1}=-J_2\)。利用
+      \(\Tr X=\Tr X^T\) 和 trace 的 cyclic property，
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      \Tr(J_2gA)
+      &amp;=\Tr[(J_2gA)^T]\\
+      &amp;=\Tr[(gA)^TJ_2^T]\\
+      &amp;=-\Tr(gAJ_2)\\
+      &amp;=-\Tr(J_2gA).
+      \end{aligned}
+    \]</div>
+<p>
+      一个数等于自身的负数，只能为零，故
+      \(\Tr(J_2gA)=0\)。这一分支若需要把
+      \(J_2g\) 乘以 \(i\) 才成为 Hermitian metric，也仍有
+      \(\Tr(iJ_2gA)=0\)。令这个 Hermitian metric 为 \(\eta\)，
+      contraction matrix 的 trace 便是
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      \Tr(\eta A+A^\dagger\eta)
+      &amp;=\Tr(\eta A)+\Tr[(\eta A)^\dagger]\\
+      &amp;=2\operatorname{Re}\Tr(\eta A)=0 .
+      \end{aligned}
+    \]</div>
+<p>
+      若一个 Hermitian matrix 半负定，它的全部 eigenvalues 都满足
+      \(\lambda_j\le0\)。现在它们的和又是
+      \(\sum_j\lambda_j=\Tr(\eta A+A^\dagger\eta)=0\)，所以每个
+      \(\lambda_j\) 都只能等于零，整个 matrix 必须为零。因而玻色
+      \(J_2^2=-I\) 的分支最多给出等号方向，不可能包含负定生成元。
+    </p>
+<p>
+      费米的推导完全平行，只是 \(g^T=g\) 与
+      \(gA+A^Tg=0\) 给出 \((gA)^T=-gA\)。这次若
+      \(J_2^2=I\)，就有 \(J_2^T=J_2\)，于是
+    </p>
+<div class="scroll">\[
+      \Tr(J_2gA)
+      =\Tr[(gA)^TJ_2^T]
+      =-\Tr(gAJ_2)
+      =-\Tr(J_2gA)=0 .
+    \]</div>
+<p>
+      后面两步与玻色相同，所以费米 \(J_2^2=I\) 的分支也只能取等号。
+      这就是表中只有玻色 \(J_2^2=I\)、费米 \(J_2^2=-I\)
+      可以出现负定生成元的完整原因。
     </p>
 <h4>第五条：\(J_1\) 的实性条件是否保持 \(J_2\) 的收缩锥</h4>
 <p>
-      前四条只分别说明两个 matrices 各自是什么类型，还没有保证两种要求能同时
+      前四条只分别说明 \(J_1\) 与 \(J_2\) 各自是什么类型，还没有保证两种要求能同时
       施加到同一个 \(A\)。最后必须知道 \(J_1,J_2\) 对易还是反对易。
-      对 strict interior 允许的四种 \(g\)-relations，逐项移动
-      \(J_1,J_2,g\) 得到
+      这里需要检查的是
+      \[
+        J_1^T\bar\eta J_1=\eta.
+      \]
+      这条式子表示：先对 metric 做复共轭，再做 \(J_1\) 的正交基变换，
+      仍回到同一个 metric。下面的“对易”均指
+      \(J_1J_2=J_2J_1\)，“反对易”均指
+      \(J_1J_2=-J_2J_1\)。结果是
     </p>
 <div class="scroll">
 <table>
@@ -600,22 +1152,84 @@
 </table>
 </div>
 <p>
-      以第三行为例。\(J_1^TgJ_1=g\)、\(J_1J_2=J_2J_1\)，且
-      \(\eta=J_2g\)。不论 \(J_1^2=I\) 还是 \(-I\)，利用
-      \(J_1^T=J_1^{-1}\) 都有
+      下面逐行验证，不把任何一步简称为“移动矩阵”。首先需要两个直接推论。
+      若 \(J_1^TgJ_1=g\)，在等式左边乘 \(J_1\) 得
+      \(gJ_1=J_1g\)；若 \(J_1^TgJ_1=-g\)，同样得到
+      \(gJ_1=-J_1g\)。另一方面，由 \(J_1^TJ_1=I\)，对易给出
+      \(J_1^TJ_2J_1=J_2\)，反对易给出
+      \(J_1^TJ_2J_1=-J_2\)。
+    </p>
+<p><strong>第一行：\(J_1\) 保持 \(g\)，\(J_2\) 也保持 \(g\)。</strong>
+      此时 \(\eta=iJ_2g\)，所以复共轭先产生一个负号：
+      \(\bar\eta=-iJ_2g\)。表中要求 \(J_1,J_2\) 反对易。逐步代入，
     </p>
 <div class="scroll">\[
-      J_1^T\eta J_1
-      =J_1^TJ_2gJ_1
-      =J_2(J_1^TgJ_1)
-      =J_2g=\eta.
+      \begin{aligned}
+      J_1^T\bar\eta J_1
+      &amp;=-iJ_1^TJ_2gJ_1\\
+      &amp;=-iJ_1^TJ_2J_1g
+        &amp;&amp;\bigl(gJ_1=J_1g\bigr)\\
+      &amp;=-i(-J_2)g
+        &amp;&amp;\bigl(J_1^TJ_2J_1=-J_2\bigr)\\
+      &amp;=iJ_2g=\eta .
+      \end{aligned}
     \]</div>
 <p>
-      若把这一行改成反对易，移动 \(J_2\) 时就多出一个 minus sign。
-      前两行“两个 \(J\) 对 \(g\) 同号”时，还会从
-      \(J_1^TgJ_1=-g\) 或 \(\overline{iJ_2g}=-iJ_2g\) 得到另一个
-      minus sign，所以最终需要反对易才能使两次变号抵消。第四行则与第三行一样，
-      需要对易。
+      一个负号来自 \(\bar i=-i\)，另一个来自反对易；二者抵消。
+    </p>
+<p><strong>第二行：\(J_1\) 翻转 \(g\)，\(J_2\) 也翻转 \(g\)。</strong>
+      此时 \(\eta=J_2g\) 是实矩阵，故 \(\bar\eta=\eta\)；表中仍要求
+      反对易。现在两个负号分别来自 \(gJ_1=-J_1g\) 与反对易：
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      J_1^T\bar\eta J_1
+      &amp;=J_1^TJ_2gJ_1\\
+      &amp;=-J_1^TJ_2J_1g
+        &amp;&amp;\bigl(gJ_1=-J_1g\bigr)\\
+      &amp;=-(-J_2)g
+        &amp;&amp;\bigl(J_1^TJ_2J_1=-J_2\bigr)\\
+      &amp;=J_2g=\eta .
+      \end{aligned}
+    \]</div>
+<p><strong>第三行：\(J_1\) 保持 \(g\)，\(J_2\) 翻转 \(g\)。</strong>
+      此时 \(\eta=J_2g\) 仍为实矩阵；表中要求对易。这里没有任何负号：
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      J_1^T\bar\eta J_1
+      &amp;=J_1^TJ_2gJ_1\\
+      &amp;=J_1^TJ_2J_1g
+        &amp;&amp;\bigl(gJ_1=J_1g\bigr)\\
+      &amp;=J_2g
+        &amp;&amp;\bigl(J_1^TJ_2J_1=J_2\bigr)\\
+      &amp;=\eta .
+      \end{aligned}
+    \]</div>
+<p><strong>第四行：\(J_1\) 翻转 \(g\)，\(J_2\) 保持 \(g\)。</strong>
+      此时 \(\eta=iJ_2g\)，所以 \(\bar\eta=-iJ_2g\)；表中要求对易。
+      复共轭给出的负号与 \(gJ_1=-J_1g\) 给出的负号抵消：
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      J_1^T\bar\eta J_1
+      &amp;=-iJ_1^TJ_2gJ_1\\
+      &amp;=iJ_1^TJ_2J_1g
+        &amp;&amp;\bigl(gJ_1=-J_1g\bigr)\\
+      &amp;=iJ_2g
+        &amp;&amp;\bigl(J_1^TJ_2J_1=J_2\bigr)\\
+      &amp;=\eta .
+      \end{aligned}
+    \]</div>
+<p>
+      这四次计算也说明 \(J_2\) 对 \(g\) 的作用为什么没有直接出现在每行
+      的代数中：它已经先决定该行使用 \(\eta=J_2g\) 还是
+      \(\eta=iJ_2g\)。随后真正决定
+      \(J_1^T\bar\eta J_1\) 符号的，是 \(J_1\) 对 \(g\) 的作用、
+      \(J_1,J_2\) 的相对关系，以及 metric 中是否有 \(i\)。
+      四行中的任何一行若把对易改成反对易，或把反对易改成对易，
+      上述计算就只改变一个负号，最终得到
+      \(J_1^T\bar\eta J_1=-\eta\)。
     </p>
 <p>
       现在令 contraction matrix 保持原式，不另引入简称。由
@@ -632,12 +1246,22 @@
       \end{aligned}
     \]</div>
 <p>
-      所以 \(J_1\) 的实性变换把半负定锥映回半负定锥。若
-      commutator/anti-commutator 选反，右边会多一个
-      minus sign；同一 matrix 就被要求同时 seminegative 与 semipositive，
-      只能取零。因此两个 \(J\) 对 \(g\) 同号作用时必须反对易，异号作用时必须
-      对易。这正是合作者 Comment 询问“commutator/anti-commutator
-      是否真的重要”的答案。
+      若 commutator/anti-commutator 选反，右边会多一个 minus sign：
+      \[
+      J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1
+      =-\left(\eta A+A^\dagger\eta\right).
+      \]
+      现在假定 \(\eta A+A^\dagger\eta\le0\)。复共轭和正交基变换
+      保持半负定，所以左边也满足 \(\le0\)。由上式便有
+      \[
+      -(\eta A+A^\dagger\eta)\le0
+      \quad\Longleftrightarrow\quad
+      \eta A+A^\dagger\eta\ge0.
+      \]
+      同一个 Hermitian matrix 同时满足 \(\le0\) 与 \(\ge0\)，只能等于零。
+      因此两个 \(J\) 对 \(g\) 同号作用时必须反对易，异号作用时必须
+      对易，才可能存在负定生成元。这正是合作者 Comment 询问
+      “commutator/anti-commutator 是否真的重要”的答案。
     </p>
 <h4>为什么不是更多或更少的式子</h4>
 <p>
@@ -670,7 +1294,7 @@
 <td>1) time reversal symmetry</td>
 <td>\(J_1K\) 是平方为 \(-1\) 的 Kramers antiunitary</td>
 <td>非实 eigenvalues 共轭配对，实 eigenvalues 偶数重</td>
-<td>不需要 strict contraction；在半群语言中可落在 symmetry/maximal-subgroup 部分</td>
+<td>不需要先证明收缩矩阵负定；在半群语言中可落在 symmetry/maximal-subgroup 部分</td>
 </tr>
 <tr>
 <td>2) reflection positivity</td>
@@ -681,8 +1305,8 @@
 <tr>
 <td>3)--16) contraction cases</td>
 <td>尝试把一个实性条件与一个 \(J_2\) 诱导的收缩锥组合</td>
-<td>实权重、strict region 无奇点、与正参考点连续相连三步合用</td>
-<td>这些才是本次 \(2^5\) 穷举要筛选的 strict-contraction candidates</td>
+<td>实权重、传播矩阵无单位圆本征值、与正参考点连续相连三步合用</td>
+<td>这些才是本次 \(2^5\) 穷举要筛选的“是否允许负定生成元”候选</td>
 </tr>
 </tbody>
 </table>
@@ -700,10 +1324,10 @@
     </p>
 <p>
       后面的 contraction cases 则明确加入
-      \(\eta A+A^\dagger\eta\leq0\)，并询问是否存在严格小于零的方向。
-      它们是在尝试把已知 symmetry-only boundary 推广成更大的 semigroup
-      interior。也正因为证明机制不同，TRS、operator-level RP 与
-      strict contraction 不应被直接相加计数为同一种“无符号对称性”。
+      \(\eta A+A^\dagger\eta\leq0\)，并询问是否存在满足
+      \(\eta A+A^\dagger\eta&lt;0\) 的生成元。也正因为证明机制不同，
+      TRS、operator-level RP 与
+      “收缩矩阵存在负定点”不应被直接相加计数为同一种“无符号对称性”。
     </p>
 <h3>2.6 physical time reversal 怎样给出 note 的两个 \(J\)</h3>
 <p>
@@ -892,16 +1516,17 @@
               \(J_2g=\operatorname{diag}(I,-I)\)
             </td>
 <td>
-              对 \(U_1=0\)、strictly stable free pairing 和 real \(U_2\)
-              fields，完整 propagation 位于标准 bosonic
-              oscillator semigroup 的 strict interior；因此 fixed-field
+              对 \(U_1=0\)、具有有限稳定余量的 free pairing 和 real
+              \(U_2\) fields，完整 propagation 位于标准 bosonic
+              oscillator semigroup 的内部；因此 fixed-field
               operator 是 trace class，且没有 unit-circle eigenvalue
             </td>
 <td>
               对实际 benchmark，\(J_1\) 实性条件、正实的
-              正规序标量因子、连通场域与正零场锚点进一步固定
-              全域正号；任意抽象 Case 7 matrix 若没有稳定锚点，
-              仍不能自动升级为物理模型
+              正规序标量因子、连通场域，以及零辅助场处收敛且为正的
+              grand-canonical 玻色迹进一步固定全域正号。只满足 Case 7
+              的五条离散关系而没有上述零场条件的矩阵，不能据此代表
+              一个可采样的物理模型
             </td>
 </tr>
 </tbody>
@@ -1020,21 +1645,24 @@
 <p>
       因而两条路线在本文 Fig. 3 参数下各自形成完整证明。RP 直接从
       reflected squares 得到 nonnegative operator trace，但把 trace
-      convergence 留作前提；Case 7 从稳定零场锚点与 strict
-      oscillator-semigroup interior 得到逐构型 trace convergence，再由
+      convergence 留作前提；Case 7 从零辅助场处收敛且为正的
+      grand-canonical 玻色迹与
+      oscillator semigroup 的内部条件得到逐构型 trace convergence，再由
       \(J_1\) 实性条件、正实的正规序标量因子、连通辅助场域
       和零场正权重固定 \(W(\phi)&gt;0\)。
       后一论证同时排除 determinant pole。详细的 stability condition、
       \(\eta\)-contraction multiplication proof、pole exclusion 和 finite phase
       space 的 uniform bound 已在
       <a href="../2026-07-19_u2_pole_free_pairing/report_u2_pole_free_pairing_zh.html">2026-07-19 pole-free pairing 报告</a>
-      中逐步证明；第 6.4 节补上了从 strict interior 到 trace-class
-      Fock operator 的一般桥梁。
+      中逐步证明；第 6.4 节说明了为什么满足
+      \(M^\dagger\eta M-\eta&lt;0\) 的物理玻色传播矩阵会给出
+      trace-class Fock operator。
     </p>
 <h3 id="yinkai-case-definition">2.11 “Yinkai's case” 到底指什么，怎样判定</h3>
 <p>
-      这个名称在 note 中有一处严格用法，也有四处没有定义的宽松用法。
-      先把两者分开，便不会把一句署名式旁注误读成无符号定理。
+      旧 note 用这个名称标记一组明确的 \(J_1,J_2\) 矩阵；新版 note
+      又在 Cases 3、4、9、10 后写了四次 “Also”。下面先还原原始
+      Case 7，再逐项比较这四处实际选取的矩阵。
     </p>
 <h4>名称的物理源头：7 月 19 日的 pole-free pairing 证明</h4>
 <p>
@@ -1053,7 +1681,8 @@
 <ol>
 <li>交换 \(b,c\) 并作复共轭后，每个自由项和 \(U_2\) 辅助场时间片都保持不变；</li>
 <li>Nambu particle/hole signature matrix
-      \(\eta=\operatorname{diag}(I_N,-I_N)\) 使稳定自由传播严格收缩，
+      \(\eta=\operatorname{diag}(I_N,-I_N)\) 使稳定自由传播满足
+      \(M^\dagger\eta M-\eta&lt;0\)，
       而 \(U_2\) 相位因子保持 \(\eta\)。</li>
 </ol>
 <p>
@@ -1068,11 +1697,12 @@
       \end{aligned}
     \]</div>
 <p>
-      因而 Case 7 的五条式子是对已有 pole-free pairing 证明的抽象总结。
-      逻辑顺序是“先有具体模型和严格收缩证明，再提炼出 \(J_1,J_2\)
+      因而 Case 7 的五条式子，是把已有 pole-free pairing 证明改写成
+      关于 \(J_1,J_2\) 的五条离散关系。
+      逻辑顺序是“先有具体模型和传播矩阵负定条件的证明，再提炼出 \(J_1,J_2\)
       关系”，不是从五条离散关系直接猜出物理模型。
     </p>
-<h4>严格用法：旧 note 的 Case I，也就是新版 Case 7</h4>
+<h4>原始定义：旧 note 的 Case I，也就是新版 Case 7</h4>
 <p>
 <code>experts/ToYinkaiYu.tex</code> 第一次引入这个名称时，原文是：
     </p>
@@ -1108,14 +1738,14 @@
       [J_1,J_2]=0 .}
     \]</div>
 <p>
-      因此，若把 “Yinkai's case” 当成一个可检验的数学类别，它只能明确地
-      指这组 Case 7 关系。五条关系的工作分配如下：前四条说明两个反线性
+      新版第一节用这组 Case 7 关系来标记 “Yinkai's case”。
+      五条关系的工作分配如下：前四条说明两个反线性
       变换各自怎样作用于玻色对易形式以及各自平方为正还是为负；第五条说明
       两个反线性变换彼此对易。note 中的 \(J_1,J_2\) 都是实矩阵，所以
       反线性变换的平方可直接写成 \(J_1^2,J_2^2\)。若换到带复相位的基底，
       应判断完整的反线性算符，而不是只看变换后矩阵的普通平方。
     </p>
-<h4>判定一个具体 \(A\) 或一个具体 HS 模型，还要继续检查</h4>
+<h4>从五条关系到完整 HS 权重：Case 7 在这里逐项完成</h4>
 <p>
       上述五条式子只判定 \(J_1,J_2\) 属于哪一类；它们没有自动限制任意
       生成元 \(A\)。一个具体时间片还必须满足
@@ -1126,14 +1756,32 @@
     \]</div>
 <p>
       第一式使传播矩阵具有复共轭成对结构。它与实且为正的正规序标量因子、
-      一个正权重锚点和不中断的连续路径合在一起，才固定完整权重的实数分支。
+      一个已知为正的参考构型和不中断的连续路径合在一起，固定完整权重的符号。
       第二式直接控制 trace 公式中出现的 \(e^A\)，使它成为
-      \(J_2g\)-contraction。对于玻色 bare trace，还需要某个稳定部分给出严格
-      小于零的方向，才能排除单位圆本征值并保证占据数求和收敛。检查整个
-      HS 模型时，这两条式子必须对每个允许的辅助场时间片成立，且所有构型
-      必须与一个收敛的正权重构型处在同一无极点连通区域。
+      \(J_2g\)-contraction。对 7 月 19 日模型，
+      \[
+      A_0=-\kappa\Delta\tau\,\sigma_z\otimes I,\qquad
+      A_{\rm HS}(\phi)=
+      i\sqrt{\Delta\tau U}\phi\,\sigma_z\otimes\sigma_z ,
+      \]
+      且
+      \[
+      \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I&lt;0,\qquad
+      \eta A_{\rm HS}(\phi)+A_{\rm HS}(\phi)^\dagger\eta=0
+      \quad(\phi\in\mathbb R).
+      \]
+      因而辅助场取任意正负值都不会改变结论：每个场因子只保持
+      \(\eta\)，固定自由因子则提供严格收缩；前面的乘积恒等式保证任意
+      多时空点的完整 \(M(\phi)\) 都严格收缩。这里的
+      \(\eta=\operatorname{diag}(I,-I)\) 是物理 oscillator-semigroup
+      metric，所以 fixed-field Fock operator 是 trace class，
+      bare trace 收敛且 \(+1\) pole 不存在。零场
+      \(W(0)=(1-e^{-\beta\kappa})^{-N_{\rm mode}}&gt;0\)，而
+      \(J_1\) 使所有场构型的权重为实。连续实 HS 构型空间上若要从正变负，
+      必须先经过 zero 或 pole；两者都已排除。因此 Case 7 的 explicit
+      model 对整个时空辅助场域恒正且无极点。
     </p>
-<h4>四处 “Also a Yin-Kai's case” 为什么不是同一个严格类别</h4>
+<h4>四处 “Also a Yin-Kai's case” 分别沿用了哪些矩阵</h4>
 <p>
       新版第二节在 Cases 3、4、9、10 后都写了
       “Also a Yin-Kai's case”。把这些条目与 Case 7 逐项并排，差异是：
@@ -1148,7 +1796,7 @@
 <th>\(J_2^TgJ_2\)</th>
 <th>\(J_2^2\)</th>
 <th>二者关系</th>
-<th>严格 Case 7？</th>
+<th>五条关系是否与 Case 7 相同？</th>
 <th>note 的 contraction 结论</th>
 </tr>
 </thead>
@@ -1156,45 +1804,34 @@
 <tr>
 <td>Case 7</td><td>\(+g\)</td><td>\(+I\)</td>
 <td>\(-g\)</td><td>\(+I\)</td><td>对易</td>
-<td><strong>是</strong></td><td>存在严格方向</td>
+<td><strong>是</strong></td><td>存在负定生成元</td>
 </tr>
 <tr>
 <td>Case 3</td><td>\(+g\)</td><td>\(+I\)</td>
 <td>\(-g\)</td><td>\(+I\)</td><td>反对易</td>
-<td>否</td><td>不存在</td>
+<td>否</td><td>半负定时只能取等号</td>
 </tr>
 <tr>
 <td>Case 4</td><td>\(+g\)</td><td>\(-I\)</td>
 <td>\(-g\)</td><td>\(+I\)</td><td>反对易</td>
-<td>否</td><td>不存在</td>
+<td>否</td><td>半负定时只能取等号</td>
 </tr>
 <tr>
 <td>Case 9</td><td>\(-g\)</td><td>\(+I\)</td>
 <td>\(-g\)</td><td>\(+I\)</td><td>对易</td>
-<td>否</td><td>不存在</td>
+<td>否</td><td>半负定时只能取等号</td>
 </tr>
 <tr>
 <td>Case 10</td><td>\(-g\)</td><td>\(-I\)</td>
 <td>\(-g\)</td><td>\(+I\)</td><td>对易</td>
-<td>否</td><td>不存在</td>
+<td>否</td><td>半负定时只能取等号</td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>
       这张表采用 note 自己的规范：\(J_1,J_2\) 是实的 Pauli 直积，
-      所以反线性算符 \(J_iK\) 的平方恰好等于 \(J_i^2\)。在这套规范内，
-      同时作保持 \(g\) 的实换基会改变矩阵长相，却不会改变表中的正负号
-      和对易类型，因而不能把一个条目直接改写成 Case 7。
-    </p>
-<p>
-      若允许给反线性算符加入任意复相位，正确的平方条件应改写为
-      \(J_i\bar J_i=\pm I\)，两个反线性算符的相对关系也应保留复共轭，
-      不能继续机械使用表里的 \(J_i^2\) 和实矩阵 commutator。此时还必须
-      同时变换 \(A\)、\(g\) 和 contraction metric，重新证明物理传播条件。
-      note 没有定义这种更宽的 gauge equivalence，也没有给出把 Cases
-      3、4、9、10 送到 Case 7 的变换。因此，reflection phase 的自由度
-      不能单凭 “Also” 这句话用来宣布它们等价。
+      所以反线性算符 \(J_iK\) 的平方恰好等于 \(J_i^2\)。
     </p>
 <h4>四个 “Also” 与原型具体共用了什么</h4>
 <p>
@@ -1245,47 +1882,48 @@
 </table>
 </div>
 <p>
-      前三处 “Also” 都保留
-      \(J_2=\sigma_x\otimes I_N\)，所以也保留 Case 7 的
-      \(J_2g=\sigma_z\otimes I_N\)。Case 10 的改动看似例外，其实给出了
-      更强的线索：
+      Cases 3、4、9 中的三处 “Also” 都保留
     </p>
 <div class="scroll">\[
-      J_2^{\text{Case 10}}
-      =\sigma_z\otimes I_N
-      =J_2^{\text{Case 7}}g,\qquad
-      J_2^{\text{Case 10}}g=-\sigma_x\otimes I_N .
+        J_2=\sigma_x\otimes I_N,
+        \qquad
+        J_2g=\sigma_z\otimes I_N
+        =\operatorname{diag}(I_N,-I_N).
     \]</div>
 <p>
-      也就是说，Case 10 没有保留原始 \(J_2\)，却保留了原始 metric，
-      并把它放到了 \(J_2\) 的位置。综合这些矩阵，四处 “Also” 最可能
-      表示“由 7 月 19 日原型中已经出现的 \(g\)、\(J_2\)、\(J_2g\)
-      和双组分交换矩阵重新组合出来的候选”。这是一个可观察到的构造谱系，
-      比笼统说“矩阵长得相似”更具体。
+      \(J_2\) 本身是交换 Nambu particle/hole 两块的非对角矩阵；
+      真正作为收缩不等式中度规的是 \(J_2g\)，它才是
+      \(\operatorname{diag}(I_N,-I_N)\)。
     </p>
 <p>
-      构造谱系不等于无符号分类。Cases 3、4、9、10 的 \(J_1\) 条件都
-      把严格半负定方向排除，note 也逐项写下不存在 contraction
-      semigroup。因此 “Also” 可以说明为什么作者想到要检验这些矩阵，
-      不能说明检验已经通过。
+      Case 10 是必须单独说明的例外。该条原文仍写
+      “Also a Yin-Kai's case”，但它选取
+    </p>
+<div class="scroll">\[
+      \begin{aligned}
+      J_2^{\text{Case 10}}
+      &amp;=\sigma_z\otimes I_N
+       =J_2^{\text{Case 7}}g,\\
+      J_2^{\text{Case 10}}g
+      &amp;=-\sigma_x\otimes I_N .
+      \end{aligned}
+    \]</div>
+<p>
+      所以 Case 10 没有沿用 Case 7 的 \(J_2\)；它把 Case 7 的
+      度规矩阵 \(\sigma_z\otimes I_N\) 放到了新的 \(J_2\) 位置。
+      从 note 已写出的矩阵看，“Also” 在 Cases 3、4、9 中指向同一个
+      \(J_2=\sigma_x\otimes I_N\) 及同一个对角度规，而在 Case 10
+      中指向对 Case 7 的 \(J_2\) 与 \(J_2g\) 的再次使用。作者没有给
+      “Also” 另下统一定义。
     </p>
 <div class="correction">
-<strong>从 note 本身能得到的最精确结论。</strong>
-      “Yinkai's Case 7” 可以按上面的五条关系、两条 \(A\) 条件和稳定
-      HS 分支逐项判定。四处 “Also a Yin-Kai's case” 具有共同的物理来源
-      和上述矩阵重组规律，却没有共同的 semigroup 定义，不能用来判定
-      无符号、无极点或属于同一半群。若合作者希望 “Also” 表示比
-      “从同一原型衍生”更强的等价关系，他还需要给出所采用的等价定义及
-      相应换基；现有文本没有提供这些内容。
-    </div>
-<div class="warning">
-<strong>写文章时需要避免的混淆。</strong>
-      当前 \(U_1=0\) paired benchmark 已同时拥有 RP 与 Case 7
-      semigroup 两条完整证明；不能再把后者只写成 pole-free guarantee。
-      但也不能把 note 中所有被称作 “Yinkai's case” 的抽象矩阵都计成新
-      Hamiltonian。对每个新 candidate 仍须给出稳定零场、连续合法 HS
-      decomposition、正确 metric 取向和 \(J_1\) 实性条件，随后才能使用
-      第 6.4 节的连通分支论证。
+<strong>直接对应。</strong>
+      在 Cases 3、4、7、9 中，
+      \(J_2=\sigma_x\otimes I_N\)，度规
+      \(J_2g=\operatorname{diag}(I_N,-I_N)\)。
+      Case 10 的 \(J_2=\sigma_z\otimes I_N\)，其
+      \(J_2g=-\sigma_x\otimes I_N\)；它复用了 Case 7 的度规矩阵，
+      但把该矩阵放在了 \(J_2\) 的位置。
     </div>
 </section><section id="message">
 <h2>3. 合作者消息的完整引文与逐句解释</h2>

@@ -1,4 +1,4 @@
-"""Reader-facing physical models for the sixteen strict matrix classes."""
+"""Reader-facing physical models for the sixteen classes with negative-definite points."""
 
 from __future__ import annotations
 
@@ -39,13 +39,13 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_{\rm HS}(\phi)=
           \sqrt{\Delta\tau U}\phi\,i(i\sigma_y).
         \]
-        第一项正是 strict witness \(-\eta\)，第二项正是本类
+        第一项正是使收缩矩阵负定的例子 \(-\eta\)，第二项正是本类
         maximal subgroup 的 \(iY\) direction，所以
         \[
           \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I<0,\qquad
           \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0
         \]
-        对所有实 \(\phi\) 同时成立。这里不是只找到一个抽象 matrix：
+        对所有实 \(\phi\) 同时成立。这里不只列出满足矩阵关系的 \(A\)：
         HS field、quartic interaction 与物理玻色算符已经逐项对应。
         </p>
         """,
@@ -79,7 +79,7 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           \sqrt{\Delta\tau U}\phi\,I_2\otimes(i\sigma_y) .
         \]
         \(IY\) 在本类的 maximal-subgroup basis 中，而
-        \(-ZI=-\eta\) 在 strict cone 内。\(J_1=ZY\) 对两个生成元
+        \(-ZI=-\eta\) 使收缩矩阵负定。\(J_1=ZY\) 对两个生成元
         分别满足复共轭约束，且
         \[
           \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I_4,\qquad
@@ -100,7 +100,8 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           \qquad \kappa>0,\quad U>0 .
         \]
         在格点上可加入位于同一 maximal subgroup 或正确取向 invariant
-        cone 的 hopping 与 pairing，前提是总固定生成元仍严格收缩，且
+        cone 的 hopping 与 pairing，前提是总固定生成元仍使
+        \(\eta A_0+A_0^\dagger\eta<0\)，且
         玻色 Hamiltonian 保持稳定。这样才得到文章 paired benchmark 的
         局域 building block；仅有 flavor reflection 本身不够保证收缩。
         </p>
@@ -122,9 +123,10 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
         \]
         \(J_1=IX\) 正是交换 \(b,c\) 后复共轭的 reflection；
-        \(iZZ\) 属于 maximal subgroup，\(-ZI=-\eta\) 是 stable strict
-        direction。因此该模型不仅“满足 Case 7 的五条式子”，而且逐个
-        HS configuration 都满足严格 \(J_2g\)-contraction。这就是
+        \(iZZ\) 属于 maximal subgroup，\(-ZI=-\eta\) 是稳定的负定方向。
+        因此该模型不仅“满足 Case 7 的五条式子”，而且逐个
+        HS configuration 的完整传播都位于 \(J_2g\)-contraction
+        semigroup 内部。这就是
         Yinkai's case 与 7 月 19 日 pole-free paired model 的直接连接。
         </p>
         """,
@@ -185,7 +187,7 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         symmetry breaking、macroscopic tunnelling 与 squeezing。
         </p>
         <p>
-        本类的 strict witness 与 subgroup direction 分别满足
+        本类的负定例子与 subgroup direction 分别满足
         \[
           \hat h(-iIY)=2S_y,\qquad
           \hat h(ZX)=2S_x .
@@ -202,15 +204,24 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         该模型保持总粒子数，固定-\(N\) Hilbert space 有限，因而是这一
         \(iJ_2g\) 类最直接的物理用途。
         </p>
-        <p class="scope">
-        <strong>范围。</strong>
-        这里已经验证的是每个 HS slice 都满足本类的矩阵等式与严格
-        contraction inequality。固定-\(N\) Hilbert space 虽然有限，
-        但还必须另证相应 fixed-\(N\) character 沿全部场构型不为零，
-        才能宣布无符号；本报告尚未给出这一步。若改做
-        grand-canonical bare boson trace，\(-iIY\) 的两个
-        single-particle branches 符号相反，因而不能把这个例子当作本文
-        BAFQMC 的 grand-canonical sign-free model。
+        <p class="result">
+        <strong>固定-\(N\) 权重严格为正。</strong>
+        令 \(m(\phi)\) 为任意数量时间片相乘后的 \(2\times2\)
+        one-particle matrix。每个生成元 traceless，所以
+        \(\det m=1\)；本类的 anti-linear condition 使
+        \(\operatorname{tr}m\) 为实数。固定因子严格收缩、场因子取等号，
+        因而完整 Nambu product 仍严格收缩，\(m\) 不可能有单位圆
+        eigenvalue。零场时两个 eigenvalues 是正数；实 Gaussian field
+        space 连通，故它们不能经过 \(+1\)、\(-1\) 或复共轭单位圆而变成
+        负数，始终可写为 \(\lambda,\lambda^{-1}\)，其中 \(\lambda>0\)。
+        固定总粒子数 \(N\) 的权重于是为
+        \[
+          W_N(\phi)=\sum_{n=0}^{N}\lambda^{N-n}\lambda^{-n}
+          =\sum_{n=0}^{N}\lambda^{N-2n}>0 .
+        \]
+        这给出完整的 canonical sign-free proof。相反，其中一个
+        eigenvalue 大于 1，所以 \(\sum_{N=0}^\infty W_N\) 发散；
+        同一模型不能改称 grand-canonical sign-free BAFQMC。
         </p>
         """,
     },
@@ -251,61 +262,84 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZIZ .
         \]
         \(ZIZ\) 明确列在本类 maximal-subgroup basis 中；
-        \(A_0/(\Omega\Delta\tau)=-iIYX=-\eta\) 是 strict direction。
-        所有实场值的场因子都是 metric isometry，固定因子则严格收缩。
+        \(A_0/(\Omega\Delta\tau)=-iIYX=-\eta\) 使收缩矩阵负定。
+        所有实场值的场因子都满足
+        \(M_{\rm HS}^\dagger\eta M_{\rm HS}=\eta\)，固定因子则满足
+        \(M_0^\dagger\eta M_0-\eta<0\)。
         四维内部空间不是为了凑 Pauli
         words，而是 \(J_1^2=-I\) 与本类其余关系同时实现所需的最小
         physical component structure。
         </p>
-        <p class="scope">
-        与上一类相同，当前结论只完成逐时间片的矩阵结构检验。
-        固定总粒子数计算没有玻色 grand-canonical trace divergence，
-        但仍需独立证明 fixed-\(N\) 权重不经过零点；grand-canonical
-        bare trace 则明确缺少稳定锚点。
+        <p class="result">
+        <strong>这个四组分模型的 fixed-\(N\) weight 也严格为正。</strong>
+        先把第一个内部 Pauli space 的 \(\sigma_y\) diagonalize。
+        one-particle product 分成两个 \(2\times2\) blocks：
+        一个由 \(e^{+\Omega\Delta\tau\sigma_x}\) 与
+        \(e^{\phi\sigma_z}\) 相乘，另一个把
+        \(\Omega\) 换成 \(-\Omega\)。由于
+        \(\sigma_z e^{+\Omega\sigma_x}\sigma_z
+        =e^{-\Omega\sigma_x}\)，两个 blocks 彼此相似，具有同一组
+        正 eigenvalues \(\lambda,\lambda^{-1}\)。因此完整 spectrum 是
+        \(\lambda,\lambda^{-1},\lambda,\lambda^{-1}\)，而
+        \[
+          \sum_{N=0}^{\infty}W_Nz^N
+          =\frac{1}{[(1-z\lambda)(1-z/\lambda)]^2}.
+        \]
+        右边每个 \(z^N\) coefficient 都是正数，所以所有 fixed-\(N\)
+        auxiliary-field weights 严格为正。grand-canonical sum 仍因
+        \(\lambda>1\) 发散。
         </p>
         """,
     },
     "B-iJ2g-s1+q1+": {
-        "field_word": "XX",
-        "title": "带 quartic pair-phase stiffness 的 bosonic parametric dimer",
+        "field_word": "ZX",
+        "title": r"具有 reflection-type \(J_1\) 的 canonical LMG dimer",
         "body": r"""
         <p>
-        仍取两个 boson modes，并令
+        仍取两个 boson modes，并定义
         \[
-          \hat O=-i(a_1^+a_2^+-a_1a_2).
+          S_x=\frac12(a_1^+a_2+a_2^+a_1),\qquad
+          S_y=\frac{1}{2i}(a_1^+a_2-a_2^+a_1).
         \]
-        \(\hat O\) 是 Hermitian two-mode pair-phase quadrature。模型
+        在固定总粒子数 sector 中考虑
         \[
-          \hat H=-2\Omega S_y+\frac U2\hat O^2,
+          \hat H=-2\Omega S_y-2U S_x^2,
           \qquad \Omega>0,\quad U>0
         \]
-        描述 coherent flavor conversion 与 two-mode parametric
-        fluctuations 的竞争，可用于 driven cavity pairs、molecular
-        conversion 或受限占据的 bosonic simulators。
+        这是 collective-spin LMG/Josephson model。它与
+        \(B\)-\(iJ_2g\)-\(s_1-\)-\(q_1+\) 使用同一个物理
+        Hamiltonian，但本类选择
+        \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，所以
+        \(J_1^TgJ_1=g\)。同一模型同时具有两组允许的
+        \(J_1\) structures，说明四类标签不是互斥的物理相。
         </p>
         <p>
         直接计算
         \[
           \hat h(-iIY)=2S_y,\qquad
-          \hat h(XX)=a_1^+a_2^+-a_1a_2=i\hat O .
+          \hat h(ZX)=2S_x .
         \]
-        Repulsive-square HS 分解给出
+        Attractive-square HS 分解给出
         \[
           A_0=-\Omega\Delta\tau\,iIY,\qquad
-          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,XX .
+          A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZX .
         \]
-        \(XX\) 是本类 maximal-subgroup direction；因此 continuous
-        Gaussian field 不论正负都给出 metric-isometric factor，
-        strict part 始终由 \(-iIY\) 提供。\(J_1=IX\) 又把两个
+        \(ZX\) 是本类 maximal-subgroup direction；因此 continuous
+        Gaussian field 不论正负都给出满足
+        \(M_{\rm HS}^\dagger\eta M_{\rm HS}=\eta\) 的传播因子，
+        收缩矩阵的负定部分始终由 \(-iIY\) 提供。\(J_1=IX\) 又把两个
         flavors 交换并复共轭，所以两个生成元分别满足本类的实性约束。
         </p>
-        <p class="scope">
-        该 Hamiltonian 具有清楚的 parametric-boson 物理意义，但
-        \(XX\) 改变总粒子数，而现有 strict witness 不是
-        grand-canonical trace-convergent anchor。有限占据截断或
-        open-system effective dynamics 可以给这个 slice family 一个定义，
-        但那是不同的计算问题；不能据此声称已经得到本文所需的 bare
-        thermal BAFQMC。
+        <p class="result">
+        这个 number-conserving choice 避开了原先 pairing-field 例子的
+        中间态收敛问题。与另一 LMG realization 相同，完整 one-particle
+        product 的 eigenvalues 始终为正的
+        \(\lambda,\lambda^{-1}\)，所以
+        \[
+          W_N=\sum_{n=0}^{N}\lambda^{N-2n}>0 .
+        \]
+        因而它是完整的 canonical fixed-\(N\) sign-free model；
+        grand-canonical trace 仍发散。
         </p>
         """,
     },
@@ -336,13 +370,19 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \(ZZ\) 位于本类 maximal subgroup，故
         \(\eta A_0+A_0^\dagger\eta=-2\Omega\Delta\tau I_4\)，而
         \(\eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0\)。
-        \(J_1=YX\) 的 square 为 \(-I\)，并逐项保持这个 slice family
-        的 anti-linear condition。
+        \(J_1=YX\) 的 square 为 \(-I\)，并且 \(A_0\) 与
+        \(A_{\rm HS}(\phi)\) 分别满足
+        \(J_1^TAJ_1=\bar A\)。
         </p>
-        <p class="scope">
-        固定-\(N\) sector 给出有限的 many-body problem，却不会自动给出
-        fixed-\(N\) trace 的恒正性；这一点仍需另证。grand-canonical
-        bare trace 的限制与前两个 bosonic \(iJ_2g\) models 相同。
+        <p class="result">
+        把 one-particle matrices 用一个固定 unitary rotation 变换后，
+        \(\sigma_y\) 与 \(\sigma_z\) 同时成为 real matrices。
+        因而完整 product 的 characteristic polynomial 为实；
+        严格 \(iJ_2g\) contraction 排除单位圆 eigenvalues，连通性又把
+        它们固定为正的 \(\lambda,\lambda^{-1}\)。所以每个 fixed-\(N\)
+        weight 都等于
+        \(\sum_{n=0}^{N}\lambda^{N-2n}>0\)。
+        这是完整的 canonical sign-free proof；grand-canonical sum 发散。
         </p>
         """,
     },
@@ -382,8 +422,9 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \(IY\) 是 tensor-extended maximal-subgroup direction；
         real symmetric hopping \(ZX\) 位于 cone。条件
         \(\kappa>|t|\) 使 number-conserving \(B=-\kappa I+t\sigma_x\)
-        negative definite，因此固定因子严格 contraction，场因子是
-        metric isometry；其有序乘积对任意实场仍严格 contraction。
+        negative definite，因此固定因子满足
+        \(M^\dagger\eta M-\eta<0\)，场因子是 metric isometry；
+        其有序乘积对任意实场仍位于半群内部。
         这也说明最小 representative 的零维 subgroup 不是该 class
         在物理 lattice extension 中没有相互作用模型。
         </p>
@@ -422,8 +463,8 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_0=-\kappa\Delta\tau\,ZI,\qquad
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iXY .
         \]
-        \(iXY\) 位于本类 maximal subgroup，\(-ZI=-\eta\) 是 strict
-        number-damping direction。因此固定因子的 contraction
+        \(iXY\) 位于本类 maximal subgroup，\(-ZI=-\eta\) 是使收缩矩阵
+        负定的 number-damping direction。因此固定因子的 contraction
         expression 是 \(-2\kappa\Delta\tau I_4\)，场因子的
         contraction expression 为零。
         \(J_1=ZY\) 同时给出本类 \(J_1^2=-I\) 与
@@ -454,10 +495,12 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_0=\Delta\tau(-\kappa ZI+tZX),\qquad
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iXY .
         \]
-        \(iXY\) 属于 maximal subgroup；\(ZX\) 是本类允许的
-        reflection-even cone direction。由于
+        \(iXY\) 满足
+        \(\eta iXY+(iXY)^\dagger\eta=0\)；\(ZX\) 满足
+        \(\eta ZX=(ZX)^\dagger\eta\)。由于
         \(B=-\kappa I+t\sigma_x\) 的两个 eigenvalues 都为负，
-        \(\kappa>|t|\) 保证固定因子 strict contraction，而 HS
+        \(\kappa>|t|\) 保证固定因子满足
+        \(M^\dagger\eta M-\eta<0\)，而 HS
         因子位于 maximal subgroup。\(J_1=IX\)
         交换两个 reflected orbitals 并复共轭，逐场值保持整个
         有序时间片。
@@ -498,7 +541,7 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \(YY\) 是本类 maximal-subgroup direction，而
         \(J_1=IY\) 正是 \(T(c)=d,\ T(d)=-c\) 的 real matrix part。
         每个 slice 因而既满足 Kramers reality condition，又保持由
-        \(-ZI\) 给出的 strict \(J_2g\)-contraction。
+        \(-ZI\) 给出的负定 \(J_2g\)-contraction condition。
         </p>
         """,
     },
@@ -532,10 +575,10 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_0=-\Delta\Delta\tau\,iXY,\qquad
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZI .
         \]
-        \(-iXY=-\eta\) 是 physical pairing strict direction，
+        \(-iXY=-\eta\) 是使收缩矩阵负定的 physical pairing direction，
         \(ZI\) 属于 maximal subgroup。费米 Fock space 有限，所以
-        不存在玻色 bare-trace divergence；固定因子严格收缩，所有实场的
-        density factors 都位于同一个 maximal subgroup。
+        不存在玻色 bare-trace divergence；固定因子的收缩矩阵负定，
+        所有实场的 density factors 都位于同一个 maximal subgroup。
         </p>
         """,
     },
@@ -566,7 +609,7 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
         \]
         \(iZZ\) 是本类 maximal-subgroup direction，故 field sign
-        不影响 strictness；\(J_1=YI\) 与 \(J_2=IY\) 对易并分别满足
+        不影响固定项提供的负定余量；\(J_1=YI\) 与 \(J_2=IY\) 对易并分别满足
         本类所需的 \(g\)-sign 与 square relations。
         </p>
         """,
@@ -593,10 +636,12 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_0=\Delta\tau(-\Delta\,iXY+tZX),\qquad
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,iZZ .
         \]
-        \(iZZ\) 在 maximal subgroup；\(ZX\) 是允许的 cone direction。
+        \(iZZ\) 满足
+        \(\eta iZZ+(iZZ)^\dagger\eta=0\)，而 \(ZX\) 满足
+        \(\eta ZX=(ZX)^\dagger\eta\)。
         直接对角化 contraction matrix 得到最大 eigenvalue
         \(2\Delta\tau(-\Delta+|t|)\)，所以显示的
-        \(\Delta>|t|\) 正好保证固定生成元严格小于零；场因子位于
+        \(\Delta>|t|\) 正好保证固定生成元的收缩矩阵负定；场因子位于
         maximal subgroup。
         \(J_1=IX\) 交换两个
         reflected modes，逐场值保持 reality condition。
@@ -642,7 +687,7 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           A_{\rm HS}(\phi)=\sqrt{\Delta\tau U}\phi\,ZII .
         \]
         \(ZII\) 明确属于 maximal subgroup，\(-iXYI=-\eta\)
-        是 strict pairing direction。\(J_1=IXY\) 平方为 \(-I\)，
+        是使收缩矩阵负定的 pairing direction。\(J_1=IXY\) 平方为 \(-I\)，
         因而 \(J_1K\) 是一个 Kramers-type anti-linear operation；
         它同时交换 spin 与 orbital labels，而不是默认等同于电子的标准
         time reversal。\(J_2=IYI\) 则选择 contraction cone。
@@ -652,8 +697,8 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         并把 onsite pairing 换成保持相同 matrix conditions 的 bond pairing。
         这个模型与 Wei semigroup paper 一样同时含 Kramers-type structure
         与 pairing，但不能据此把两个 matrix classes 直接等同。Wei 论文的
-        canonical Majorana metric 完整拉回 Nambu basis 后落在
-        \(J_2g\) branch；本例属于另一条 \(iJ_2g\) branch。
+        canonical Majorana metric 完整拉回 Nambu basis 后具有
+        \(\eta=J_2g\) 的形式；本例使用的则是 \(\eta=iJ_2g\)。
         它们是否可由额外的 particle--hole or complex-orthogonal
         transformation 联系，必须另行证明。
         </p>
@@ -681,13 +726,20 @@ def render_physical_model(class_name: str) -> str:
         </p>
         """
     elif class_name.startswith("B-iJ2g"):
-        scope = "逐时间片矩阵实现；尚不是 grand-canonical 无符号模型"
+        scope = (
+            "完整 canonical fixed-"
+            r"\(N\) sign-free 构造；固定粒子数权重是有限阶 character，"
+            "不使用 grand-canonical determinant 公式；不存在一个来自稳定 "
+            "Hermitian 二次玻色 Hamiltonian 的零场生成元，使 "
+            "grand-canonical 迹收敛并同时满足同一个 "
+            r"\(\eta=iJ_2g\) 的收缩不等式"
+        )
     else:
         scope = r"费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验"
     return (
         '<section class="model-example">'
         f'<p class="model-title"><strong>物理模型：{model["title"]}</strong></p>'
-        f'<p class="model-scope"><strong>证据范围：</strong>{scope}</p>'
+        f'<p class="model-scope"><strong>已经证明的结论：</strong>{scope}</p>'
         f'{model["body"]}'
         f"{scalar_note}"
         "</section>"

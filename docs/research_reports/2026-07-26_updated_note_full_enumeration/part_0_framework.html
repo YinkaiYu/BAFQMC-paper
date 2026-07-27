@@ -356,7 +356,7 @@
       \(\det(I+M)^{1/2}\)。
     </p>
 <p>
-      因而 note 的核心问题不是“写出两个抽象矩阵”本身，而是：
+      因而 note 的核心问题不是“写出两个满足五条离散关系的矩阵”本身，而是：
       怎样限制每个 \(A_\ell\)，使这些限制经任意多次矩阵乘法仍成立，
       并使最终 many-body trace 不出现复相位或负号。对玻色还要另问
       Fock trace 是否有限、\(\det(I-M)\) 是否有 pole，以及 square-root
@@ -403,20 +403,132 @@
       symmetry”；它首先用来指定一个对时间片乘法封闭的 contraction
       semigroup。
     </p>
-<div class="warning">
-<strong>把两者合在一起时仍不能省略中间步骤。</strong>
-      更准确的逻辑是：\(J_1\) 把 determinant expression 限制在实轴；
-      strict contraction 排除改变符号所必经的 zero 或 pole；再从一个
-      已知为正的参考点连续连接，才固定符号。若辅助场域是通常的
-      \(\mathbb R^{N_\phi}\)，它是连通且单连通的；只要所有构型都留在
-      同一个 strict semigroup，连续的 real determinant representative
-      就不能换号。对实际的玻色 bare grand-canonical path integral，
-      零场通常还提供一个 trace 收敛的稳定参考点。若固定的 contraction
-      metric 与这个参考点的 particle/hole 方向一致，且整条辅助场轨迹
-      始终严格收缩，那么 trace 收敛性也会沿同一连通分支受到保护。
-      第 6.4 节会分别证明 number-conserving 与 paired 两种情形，并说明
-      为什么“任取一个 metric 的严格不等式”还不足以替代这个物理锚点。
+<h4>为什么还要区分 \(\leq0\)、\(=0\) 与 \(&lt;0\)</h4>
+<p>
+      这里的矩阵不等式按 Hermitian matrices 的通常次序理解。具体地，
+      \[
+        \eta A+A^\dagger\eta\leq0
+      \]
+      表示任意向量 \(v\) 都满足
+      \[
+        v^\dagger(\eta A+A^\dagger\eta)v\leq0.
+      \]
+      这条半负定条件已经足以定义 contraction semigroup，并保证传播矩阵
+      相乘后仍留在同一个半群中。
+    </p>
+<p>
+      等号
+      \[
+        \eta A+A^\dagger\eta=0
+      \]
+      表示 \(e^A\) 完全保持 \(\eta\)。这些生成元构成 maximal subgroup
+      的 Lie algebra。若在给定的 \(J_1,J_2\) 约束下，
+      半负定条件只能这样取等号，其含义是：
+      <strong>在给定的 \(J_1,J_2\) 约束下，任何满足半负定条件的生成元
+      都被迫满足等号，找不到使这个 Hermitian matrix 负定的生成元。</strong>
+</p>
+<p>
+      严格不等式
+      \[
+        \eta A+A^\dagger\eta&lt;0
+      \]
+      表示对每个非零 \(v\)，二次型都严格小于零。在有限维矩阵空间中，
+      这等价于存在某个 \(\epsilon&gt;0\)，使
+      \[
+        \eta A+A^\dagger\eta\leq-\epsilon I.
+      \]
+      后文直接说
+      <strong>允许的生成元中至少存在一个满足上述负定条件的 \(A\)</strong>，
+      并不表示该类别中的每个 \(A\) 都满足严格不等式。
+    </p>
+<p>
+      负定条件比定义半群所需的半负定条件更强。它的用途可以直接从
+      \[
+        (e^A)^\dagger\eta e^A-\eta
+        =\int_0^1 e^{tA^\dagger}
+        (\eta A+A^\dagger\eta)e^{tA}\,dt
+      \]
+      看出：若生成元一侧的矩阵负定，右边也负定，因此 \(e^A\)
+      位于收缩半群内部。若 \(e^A v=\lambda v\) 且
+      \(|\lambda|=1\)，同一个非零 \(v\) 又会给出
+      \[
+        v^\dagger\!\left[(e^A)^\dagger\eta e^A-\eta\right]v
+        =(|\lambda|^2-1)v^\dagger\eta v=0,
+      \]
+      与负定性矛盾。所以内部传播矩阵没有单位圆本征值，特别不会出现
+      玻色权重的 \(\lambda=+1\) 极点或费米权重的
+      \(\lambda=-1\) 零点。
+    </p>
+<div class="note">
+<strong>负定不是所有无符号证明的必要条件。</strong>
+      半负定条件 \(\eta A+A^\dagger\eta\leq0\) 才是收缩半群的定义。
+      负定条件只是本次穷举用来判断“受约束的生成元集合是否真正进入
+      半群内部”的强而方便的充分条件。位于等号部分的传播也可能由于
+      time-reversal symmetry、reflection positivity 或其他谱约束而没有
+      符号问题，不能因为它不满足 \(&lt;0\) 就判定有符号问题。
     </div>
+<div class="result">
+<strong>当完整传播矩阵满足
+      \(M^\dagger\eta M-\eta&lt;0\) 时，可以完成无符号、无极点证明。</strong>
+      先设每个时间片 factor 都满足半收缩条件，而且每个完整时空构型的
+      乘积中至少有一个 factor 满足严格不等式。若 \(M_1\) 严格收缩、
+      \(M_2\) 半收缩，则
+      \[
+      (M_1M_2)^\dagger\eta(M_1M_2)-\eta
+      =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+      +(M_2^\dagger\eta M_2-\eta)&lt;0 .
+      \]
+      因为所有指数矩阵都可逆，对负定矩阵作
+      \(X^\dagger(\cdots)X\) 形式的可逆基变换后仍然负定；反复使用
+      此式便知任意多时间片的完整 \(M(\phi)\) 都严格收缩。
+      严格不等式排除全部 unit-circle eigenvalues，特别排除玻色
+      \(+1\) pole 和费米 \(-1\) zero。
+    </div>
+<p>
+      对 boson Cases 5--8，\(\eta=J_2g\) 可由一个物理 mode-basis
+      transformation 化成标准 particle/hole metric；严格部分正是
+      bosonic oscillator semigroup 的内部。其 Fock representation
+      因而是 trace class，也就是
+      \(\operatorname{Tr}\sqrt{\hat U^\dagger\hat U}&lt;\infty\)：
+      对所有玻色高占据态取绝对值后求和仍收敛。这不是由
+      \(\det(I-M)\ne0\) 猜出的较弱结论，而是该物理半群在 Fock space
+      上的 operator property。于是 bare trace 对每个构型都存在。
+    </p>
+<p>
+      \(J_1\) 再使完整权重为实。通常的 Gaussian HS field space
+      \(\mathbb R^{N_\phi}\) 连通；报告构造的 Cases 5--8 models 在零场有
+      \[
+        W(0)=\prod_j\frac{1}{1-e^{-\beta\epsilon_j}}&gt;0,
+        \qquad \epsilon_j&gt;0 .
+      \]
+      若别处出现负权重，连接它与零场的路径上必有 \(W=0\)。
+      玻色权重中的 inverse square root 若要从正号连续变成负号，
+      也必须经过 determinant 为零的 pole；前一步已经排除
+      这两种可能。因此，对报告明确构造的这些 HS 分解，只要每个时间片
+      都满足半负定条件，而且每个完整构型至少含一个满足严格不等式的
+      时间片，全部时空构型的 bare trace 都收敛、权重恒正且没有 pole。
+    </p>
+<div class="warning">
+<strong>玻色 \(J_2g\) 四类与玻色 \(iJ_2g\) 四类必须使用不同的
+      ensemble。</strong>
+      对 \(\eta=J_2g=\operatorname{diag}(I,-I)\) 的四类，负定收缩
+      与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
+      trace-class、无 pole、正权重结论。对新增的四个
+      \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
+      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.8 节证明：
+      任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
+      \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
+      principal-block obstruction。因此这四类不是新的普通
+      grand-canonical BAFQMC classes。
+    </div>
+<p>
+      这不使四类成为空的代数标签。第 6.6、6.8 节为四类都构造了
+      number-conserving collective-boson Hamiltonian。在固定总粒子数
+      sector 中，Hilbert space 有限；完整 one-particle product 的
+      eigenvalues 沿全部实辅助场构型保持为正的 reciprocal pairs，
+      fixed-\(N\) character 因而逐构型严格为正。四类由此给出完整的
+      canonical sign-free models，只是不能对总粒子数求到无穷。
+    </p>
 <h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
 <p>
       真正限制 \(A\) 的是上一小节的等式与不等式。note 反复列出的下面五条
@@ -433,7 +545,7 @@
       所以在这个 ansatz 内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
       类。real orthogonality 是所有类别的共同前提，没有重复计入。
       这五条只说明“哪一种 \(J_1,J_2\) geometry”；每一类是否真的存在
-      strict generator \(A\)，仍要另外解
+      使 \(\eta A+A^\dagger\eta&lt;0\) 的生成元 \(A\)，仍要另外解
       \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 与 contraction inequality。
     </p>
 <h3>0.4 maximal subgroup 与 invariant cone 在 \(A\) 上具体指什么</h3>
@@ -465,8 +577,8 @@
       <code>RPBAFQMC.tex</code> 中因 off-diagonal blocks 混合而失效的说法。
     </p>
 <p>
-      这个错误<strong>不影响</strong>本报告讨论的完整 strict
-      contraction semigroup。若两个完整传播矩阵满足
+      这个错误<strong>不影响</strong>本报告直接对完整传播矩阵检查
+      contraction condition。若两个完整传播矩阵满足
       \(M_i^\dagger\eta M_i-\eta\le0\)，那么不管它们在 \(\eta\) 正、负
       subspaces 之间含有多大的 off-diagonal mixing，
     </p>
@@ -481,8 +593,8 @@
       若其中提供衰减的因子严格小于零，矩阵 congruence
       \(X\mapsto M_2^\dagger X M_2\) 仍保持严格负定，所以完整乘积也严格。
       因而旧文件的问题只是否定“分别传播 contraction block 与 expansion
-      block”的拆分；它不否定直接对完整矩阵验证的 strict inequality。
-      反过来，RP 条件本身也不会自动产生这条完整 strict inequality，
+      block”的拆分；它不否定直接对完整矩阵验证负定不等式。
+      反过来，RP 条件本身也不会自动产生这条完整的负定不等式，
       每个具体 HS decomposition 仍要像 Case 7 那样检查。
     </p>
 <p>
@@ -504,8 +616,9 @@
     \]</div>
 <p>
       这只是 \(\eta\)-condition 的通用 block form；还必须继续施加
-      \(gA+A^Tg=0\) 与 \(J_1^TAJ_1=\bar A\)。第 6 节会对 16 个 strict
-      classes 逐类给出这些额外限制后的完整 Pauli basis 和物理 block form。
+      \(gA+A^Tg=0\) 与 \(J_1^TAJ_1=\bar A\)。第 6 节会对 16 个允许
+      \(\eta A+A^\dagger\eta&lt;0\) 的类别逐类给出这些额外限制后的完整
+      Pauli basis 和物理 block form。
     </p>
 <h3>0.5 note 的 1)、2) 与后面的 contraction cases 不是同一列表</h3>
 <div class="scroll">
@@ -517,7 +630,7 @@
 <tr>
 <td>1) time-reversal symmetry</td>
 <td>一个平方为 \(-1\) 的 physical Kramers antiunitary</td>
-<td>complex-conjugate pairing 加 real eigenvalue 的偶数重数；不需要先证明 strict contraction</td>
+<td>complex-conjugate pairing 加 real eigenvalue 的偶数重数；不需要先证明 \(\eta A+A^\dagger\eta&lt;0\)</td>
 </tr>
 <tr>
 <td>2) reflection positivity</td>

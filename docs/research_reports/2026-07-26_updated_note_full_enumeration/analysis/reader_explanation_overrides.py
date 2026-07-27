@@ -212,7 +212,7 @@ coefficient \(gA\) 直接放进指数；这不是上一段所示的完整
     =2\cos\frac y2 .
   \]
   它在 \(y=\pi\) 取零，在 \(y=2\pi\) 取 \(-2\)。
-  因此“\(e^{gA}\) 严格收缩”没有阻止
+  因此即使 note 的原不等式对 \(gA\) 给出负定矩阵，它仍没有阻止
   \(\det(I+e^A)^{1/2}\) 过零并变负。
 </div>
 
@@ -357,7 +357,8 @@ note 的右侧显示矩阵都是第一种，即 \(J_2g\)，不是第二种
 Nambu metric；其余五例虽然左侧多写了 \(i\)，右侧 block multiplication
 也仍是在算正确的 \(J_2gA\)。这意味着这些 case 的
 \(J_2^TAJ_2=\pm\bar A\) 线性分解和右侧 semidefinite test
-不应整体作废，只需按 \(\eta=J_2g\) 重新检查 strictness。
+不应整体作废，只需按 \(\eta=J_2g\) 重新检查允许的生成元中是否存在
+\(\eta A+A^\dagger\eta<0\) 的解。
 </p>
 
 <h4>这项修正怎样改变 Cases \(1'\)--\(10'\) 的读取</h4>
@@ -367,26 +368,27 @@ Nambu metric；其余五例虽然左侧多写了 \(i\)，右侧 block multiplica
     <th>case</th><th>按 \(e^A\) 检查的结果</th><th>应怎样理解</th>
   </tr></thead>
   <tbody>
-    <tr><td>\(1'\)</td><td>maximal-subgroup 边界</td>
+    <tr><td>\(1'\)</td><td>\(J_2gA+A^\dagger J_2g=0\)</td>
     <td>交换 \(J_1,J_2\) 的名字后，确实是 \(9'\) 的双 symmetry
     特例；第三节对两个 \(J\) 都取正号是相容的。</td></tr>
-    <tr><td>\(3',4'\)</td><td>只有等号边界，没有 strict interior</td>
+    <tr><td>\(3',4'\)</td><td>半负定条件只能取等号，不存在负定生成元</td>
     <td>Majorana reflection positivity 与 time-reversal positivity
     是已知定理，但 note 的这两组 real Nambu signs
     不是把这些定理完整换基后的条件。</td></tr>
-    <tr><td>\(5',6',7',8'\)</td><td>存在 strict interior</td>
+    <tr><td>\(5',6',7',8'\)</td><td>存在使收缩矩阵负定的生成元</td>
     <td>这些是直接控制 \(e^A\) 的四类。Case \(5'\)
     的标签和计算都正确；Cases \(6'\)--\(8'\) 的左侧标签应去掉
     \(i\)，其右侧实际计算已经是 \(J_2gA\)。
-    Wei 的 canonical metric 完整拉回后也属于这个 \(J_2g\)
-    strict branch；一个 physical model 还可能同时满足其中多个
-    \(J_1\) labels。因此这些类别不能仅凭 note 的称呼算作新
-    positivity，具体等价关系必须连同 basis 一起检查。</td></tr>
-    <tr><td>\(9',10'\)</td><td>只有等号边界</td>
-    <td>\(J_1\) 把候选半负定方向翻成半正定方向，故不能存在
-    nonzero strict cone。两例右侧也实际算了 \(J_2gA\)，但
-    Case \(9'\) 把存在某些 semidefinite directions 误当成足以
-    支持 Passed；它缺少 strict interior，并有负权重反例。</td></tr>
+    Wei 的 canonical metric 完整拉回后也使用 \(\eta=J_2g\)，
+    并允许收缩矩阵负定；一个 physical model 还可能同时满足其中多个
+    \(J_1\) labels。与已知 positivity classes 的具体对应关系取决于
+    完整的 basis transformation。</td></tr>
+    <tr><td>\(9',10'\)</td><td>任何满足半负定条件的生成元都被迫满足等号</td>
+    <td>两例都满足
+    \(J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
+    =-(J_2gA+A^\dagger J_2g)\)。若括号内的矩阵半负定，
+    左边也半负定，于是括号内的矩阵同时半正定，只能为零。
+    Case \(9'\) 另有负权重反例，所以原 Passed 标签不能保留。</td></tr>
   </tbody>
 </table>
 </div>
@@ -419,9 +421,10 @@ propagation 限制在 maximal subgroup。原报告此前说这里必须
 “一正一负”是由错误地分解 \(gA\) 得出的，现已纠正。
 </p>
 <p>
-还要注意，\(9'\) 在正确判据下并没有 strict cone；因此
-“special case”只能解释双 symmetry 边界，不能替 \(9'\)
-增加一个新的无符号 interior。
+还要注意，\(9'\) 在正确判据下并没有满足
+\(\eta A+A^\dagger\eta<0\) 的生成元；因此 “special case”
+只能解释两条反线性对称性同时成立的等号部分，不能由此增加一组
+已经证明权重非负的传播矩阵。
 </p>
 
 <h4>\(2'\)：为什么说费米对应物 “exists but not useful”</h4>
@@ -486,8 +489,9 @@ semigroup formulation 的 Majorana-RP block form</a>。
 <p>
 然而，note 当前的 \(A\) 是 Nambu propagation generator；原始
 Majorana theorem 中的 generator 应当是 \(UAU^\dagger\)，不是
-\(gA\)。前面的 \(2\times2\) 反例正说明 literal Case \(3'\)
-conditions 没有重现这个定理。标签指出了作者的动机，不能代替换基。
+\(gA\)。前面的 \(2\times2\) 反例正说明：第一节那条以
+\(gA\) 为 generator 的不等式没有重现这个定理。标签指出了作者的
+动机，不能代替把 generator、metric 和两个 \(J\) 一起换基。
 </p>
 
 <h4>\(4'\)：time-reversal positivity 比 TR invariance 多了什么</h4>
@@ -529,8 +533,9 @@ Case \(4'\) 也没有得到该 theorem。其名称说明研究目标，不是证
   \(J_2gA+A^\dagger J_2g\le0\)，因为只有它控制 trace 公式中的 \(e^A\)。</li>
 </ol>
 <p>
-按这套一致标准，Cases \(5'\)--\(8'\) 有 strict cone，
-Cases \(9',10'\) 只能在 maximal-subgroup boundary。后面逐段讲解会把
+按这套一致标准，Cases \(5'\)--\(8'\) 有负定生成元，
+Cases \(9',10'\) 中凡满足半负定条件的生成元都只能满足
+\(J_2gA+A^\dagger J_2g=0\)。后面逐段讲解会把
 note 每一例实际写出的 matrix 与这套正确判据逐项对照，不再用
 “possibly has positivity”代替缺失的推导。
 </p>
@@ -541,54 +546,145 @@ FERMION_PASSED_COMMENT_EXPLANATION = r"""
 <p>
 方括号 \([J_1,J_2]=0\) 表示对易，花括号
 \(\{J_1,J_2\}=0\) 表示反对易。作者的 Comment 是在问：其他四条
-\(J,g\) 关系相同时，只改变这一条，strict cone 是否仍然存在。
-这个问题必须先指定被收缩的传播矩阵。note 没有保持这一点一致，
-所以它的 passed-only 清单需要重审。
+\(J,g\) 关系相同时，只改变这一条，负定生成元是否仍然存在。
+下面以 note 开头 trace 公式中实际出现的传播矩阵 \(e^A\) 为准。
+本组 Cases \(3'\)--\(10'\) 都有
+\[
+  J_2^TgJ_2=-g,\qquad J_2^2=-I,
+\]
+所以正确的 Hermitian metric 是
+\[
+  \eta=J_2g,\qquad \eta^\dagger=\eta,\qquad \eta^2=I,
+\]
+而生成元必须满足
+\[
+  \eta A+A^\dagger\eta\le0.
+\]
+</p>
+
+<h4>先把 \(J_1\) 对收缩不等式的作用完整算出来</h4>
+<p>
+每个候选生成元还满足
+\[
+  J_1^TAJ_1=\bar A .
+\]
+对此式分别取复共轭和转置，得到后面会用到的两条式子：
+</p>
+<div class="scroll">\[
+  J_1^T\bar A J_1=A,\qquad
+  J_1^TA^TJ_1=A^\dagger .
+\]</div>
+<p>
+因为本组的 \(\eta=J_2g\) 是实矩阵，先计算
+\(J_1^T\bar\eta J_1=J_1^TJ_2gJ_1\)。四种正负号可以逐项写成
+</p>
+<div class="scroll">\[
+\begin{array}{c|c|c}
+J_1^TgJ_1 & J_1J_2\text{ 的关系}
+&J_1^T\bar\eta J_1\\ \hline
+g &[J_1,J_2]=0
+&J_1^TJ_2gJ_1=J_2(J_1^TgJ_1)=+\eta\\
+g &\{J_1,J_2\}=0
+&J_1^TJ_2gJ_1=-J_2(J_1^TgJ_1)=-\eta\\
+-g &[J_1,J_2]=0
+&J_1^TJ_2gJ_1=J_2(J_1^TgJ_1)=-\eta\\
+-g &\{J_1,J_2\}=0
+&J_1^TJ_2gJ_1=-J_2(J_1^TgJ_1)=+\eta .
+\end{array}
+\]</div>
+<p>
+现在把这张表代回完整的收缩矩阵，而不是用一句话略过：
+</p>
+<div class="scroll">\[
+\begin{aligned}
+J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1
+={}&(J_1^T\bar\eta J_1)(J_1^T\bar A J_1)\\
+&+(J_1^TA^TJ_1)(J_1^T\bar\eta J_1)\\
+={}&
+\begin{cases}
+\eta A+A^\dagger\eta,
+&J_1^T\bar\eta J_1=+\eta,\\
+-(\eta A+A^\dagger\eta),
+&J_1^T\bar\eta J_1=-\eta.
+\end{cases}
+\end{aligned}
+\]</div>
+<p>
+第一种结果与半负定条件相容，但它本身还不证明负定解存在；
+Octave 会另行解 \(gA+A^Tg=0\) 和 \(J_1^TAJ_1=\bar A\)，并检验
+\(\eta A+A^\dagger\eta<0\)。
 </p>
 <p>
-以 note 顶部实际出现的 \(e^A\) 为准，metric 是
-\(\eta=J_2g\)，生成元条件是
+第二种结果为什么迫使等号，可以直接用矩阵不等式证明。若
 \[
-  \eta A+A^\dagger\eta\le0 .
+  \eta A+A^\dagger\eta\le0,
 \]
-完整穷举与解析计算给出：
+那么复共轭再作正交基变换仍保持半负定，因此
+\[
+  J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1\le0.
+\]
+但第二种结果又说左边等于
+\(-(\eta A+A^\dagger\eta)\)，所以
+\[
+  -(\eta A+A^\dagger\eta)\le0
+  \quad\Longleftrightarrow\quad
+  \eta A+A^\dagger\eta\ge0.
+\]
+同一个 Hermitian matrix 同时满足 \(\le0\) 和 \(\ge0\)，只能有
+\[
+  \boxed{\eta A+A^\dagger\eta=0}.
+\]
+满足这个等式的生成元指数化以后有
+\[
+  (e^A)^\dagger\eta e^A=\eta,
+\]
+所以它们属于保持 \(\eta\) 的 maximal subgroup。这里直接使用矩阵
+不等式即可，不需要借助“谱关于零对称”这句较难核对的描述。
 </p>
+
+<h4>把四种结果逐项代入 Cases \(3'\)--\(10'\)</h4>
 <div class="scroll">
 <table>
-  <thead><tr><th>原 case</th><th>对易关系</th><th>直接 \(e^A\) 结果</th></tr></thead>
+  <thead><tr><th>原 case</th><th>\(J_1^TgJ_1\)</th><th>对易关系</th>
+  <th>\(J_1^T\bar\eta J_1\)</th><th>直接 \(e^A\) 结果</th></tr></thead>
   <tbody>
-    <tr><td>\(3'\)</td><td>反对易</td><td>只有等号边界</td></tr>
-    <tr><td>\(4'\)</td><td>反对易</td><td>只有等号边界</td></tr>
-    <tr><td>\(5'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
-    <tr><td>\(6'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
-    <tr><td>\(7'\)</td><td>对易</td><td>存在 strict interior</td></tr>
-    <tr><td>\(8'\)</td><td>对易</td><td>存在 strict interior</td></tr>
-    <tr><td>\(9'\)</td><td>对易</td><td>只有等号边界</td></tr>
-    <tr><td>\(10'\)</td><td>对易</td><td>只有等号边界</td></tr>
+    <tr><td>\(3',4'\)</td><td>\(+g\)</td><td>反对易</td>
+    <td>\(-\eta\)</td><td>由上面的两组不等式推出只能取等号</td></tr>
+    <tr><td>\(5',6'\)</td><td>\(-g\)</td><td>反对易</td>
+    <td>\(+\eta\)</td><td>不等式相容；Octave 找到负定生成元</td></tr>
+    <tr><td>\(7',8'\)</td><td>\(+g\)</td><td>对易</td>
+    <td>\(+\eta\)</td><td>不等式相容；Octave 找到负定生成元</td></tr>
+    <tr><td>\(9',10'\)</td><td>\(-g\)</td><td>对易</td>
+    <td>\(-\eta\)</td><td>由上面的两组不等式推出只能取等号</td></tr>
   </tbody>
 </table>
 </div>
 <p>
-为什么会这样，可以看 contraction matrix
-\[
-  H(A)=J_2gA+A^\dagger J_2g .
-\]
-第一条 anti-linear constraint 会把 \(H(A)\) 变成自己或自己的相反数。
-变成自己时可以存在全部本征值为负的 \(H(A)\)；变成相反数时，
-\(H(A)\) 的谱必须关于零对称。若又要求 \(H(A)\le0\)，唯一可能就是
-\(H(A)=0\)。对易/反对易并非装饰，它与
-\(J_1^TgJ_1=\pm g\) 的符号共同决定这两种结果。
+这里也能直接回答 Comment 的三组比较。\(1'''\) 与 \(5'''\)
+分别对应 \(3'\) 与 \(7'\)：前者是“保持 \(g\)+反对易”，只能取等号；
+后者是“保持 \(g\)+对易”，允许负定生成元。\(2'''\) 与
+\(6'''\) 同理，分别对应 \(4'\) 与 \(8'\)。
+</p>
+<p>
+原文第三组逐字写成 \(3'\) 与 \(7'''\)。这两项不仅改变对易关系，
+还把 \(J_1^TgJ_1=g\) 改成 \(-g\)，所以不能只检验
+commutator/anti-commutator。若作者本意是
+\(3'''\) 与 \(7'''\)，它们分别对应 \(5'\) 与 \(9'\)：
+“翻转 \(g\)+反对易”给 \(+\eta\)，而“翻转 \(g\)+对易”给
+\(-\eta\)，正好构成受控比较。\(J_1^2=\pm I\) 没有进入上述推导，
+所以 \(3',4'\)、\(5',6'\)、\(7',8'\)、\(9',10'\) 各自成对。
 </p>
 <p>
 Wei 论文的 Majorana classes 控制的是
 \(e^{A_{\rm M}}\)，其中 \(A_{\rm M}=UAU^\dagger\)，不是
 \(e^{gA}\)。完成 metric 与 anti-linear operations 的同一换基后，
 canonical Majorana-RP 与 Kramers semigroups 落入上表的
-\(J_2g\) strict branch；具体是 \(5'\)--\(8'\) 中哪一个或哪几个
+\(J_2g\) 中允许负定生成元的分支；具体是 \(5'\)--\(8'\)
+中哪一个或哪几个
 labels 取决于 complex-fermion basis 和模型是否具有额外 symmetries。
 note 第一节那个单独控制 \(e^{gA}\) 的式子只能作为
-convention-mismatch diagnostic，
-不能与任何一张 physical passed 清单合并。报告后文所称“完整穷举”
+检查 note 的 Majorana 与 Nambu 两套 convention 是否一致的式子，
+不能与任何一张物理无符号类别清单合并。报告后文所称“完整穷举”
 统一采用物理传播 \(e^A\)。
 </p>
 """

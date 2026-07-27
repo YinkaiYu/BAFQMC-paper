@@ -23,10 +23,10 @@ boson_four_component_collective,boson,B-iJ2g-s1-q1-,continuous_gaussian,-3,XIY,Y
 boson_four_component_collective,boson,B-iJ2g-s1-q1-,continuous_gaussian,-1,XIY,YYX,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
 boson_four_component_collective,boson,B-iJ2g-s1-q1-,continuous_gaussian,0,XIY,YYX,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
 boson_four_component_collective,boson,B-iJ2g-s1-q1-,continuous_gaussian,2,XIY,YYX,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
-boson_parametric_dimer,boson,B-iJ2g-s1+q1+,continuous_gaussian,-3,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,anti-Hermitian,neither
-boson_parametric_dimer,boson,B-iJ2g-s1+q1+,continuous_gaussian,-1,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,anti-Hermitian,neither
-boson_parametric_dimer,boson,B-iJ2g-s1+q1+,continuous_gaussian,0,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,anti-Hermitian,Hermitian
-boson_parametric_dimer,boson,B-iJ2g-s1+q1+,continuous_gaussian,2,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,anti-Hermitian,neither
+boson_reflection_lmg_fixed_number,boson,B-iJ2g-s1+q1+,continuous_gaussian,-3,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
+boson_reflection_lmg_fixed_number,boson,B-iJ2g-s1+q1+,continuous_gaussian,-1,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
+boson_reflection_lmg_fixed_number,boson,B-iJ2g-s1+q1+,continuous_gaussian,0,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
+boson_reflection_lmg_fixed_number,boson,B-iJ2g-s1+q1+,continuous_gaussian,2,IX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
 boson_one_axis_twisting,boson,B-iJ2g-s1+q1-,continuous_gaussian,-3,YX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
 boson_one_axis_twisting,boson,B-iJ2g-s1+q1-,continuous_gaussian,-1,YX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian
 boson_one_axis_twisting,boson,B-iJ2g-s1+q1-,continuous_gaussian,0,YX,YY,iJ2g,0,0,0,-2,0,-2,Hermitian,Hermitian,Hermitian

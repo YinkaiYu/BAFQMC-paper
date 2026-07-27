@@ -1,0 +1,139 @@
+function verify_branch_resolved_trace()
+  more off;
+  format long g;
+
+  here = fileparts(mfilename("fullpath"));
+  table_dir = fullfile(here, "..", "tables");
+  if !exist(table_dir, "dir")
+    mkdir(table_dir);
+  endif
+
+  mode_count = 2;
+  damping = 1.3;
+  pairing = 0.22;
+  path_points = 20001;
+  occupation_cutoff = 12;
+
+  exchange = [0, 1; 1, 0];
+  zero = zeros(mode_count);
+  A_damping = [
+    -damping * eye(mode_count), zero;
+    zero, damping * eye(mode_count)
+  ];
+  A_pairing = [
+    zero, pairing * exchange;
+    pairing * exchange, zero
+  ];
+  eta = diag([ones(1, mode_count), -ones(1, mode_count)]);
+
+  [annihilation_1, annihilation_2, fock_identity] = ...
+      two_mode_boson_operators(occupation_cutoff);
+  number_1 = annihilation_1' * annihilation_1;
+  number_2 = annihilation_2' * annihilation_2;
+  h_damping = -damping * (number_1 + number_2 + fock_identity);
+  h_pairing = pairing * ...
+      (annihilation_1' * annihilation_2' - ...
+       annihilation_1 * annihilation_2);
+  base_fock_operator = expm(h_damping) * expm(h_pairing);
+
+  output_file = fullfile(table_dir, "branch_resolved_trace_check.csv");
+  fid = fopen(output_file, "w");
+  assert(fid >= 0);
+  fprintf(fid, ["rotation_turns,final_det_real,final_det_imag," ...
+                "continuous_det_phase_over_2pi,winding_parity," ...
+                "branch_resolved_weight_real,branch_resolved_weight_imag," ...
+                "truncated_fock_trace_real,truncated_fock_trace_imag," ...
+                "absolute_trace_error,min_abs_det_on_path," ...
+                "largest_contraction_eigenvalue\n"]);
+
+  printf("Octave version: %s\n", version());
+  printf("Two bosonic modes, damping %.6g, pairing %.6g, cutoff %d.\n", ...
+         damping, pairing, occupation_cutoff);
+  printf("The pairing and rotation factors do not commute with all earlier factors.\n\n");
+
+  for rotation_turns = 0:2
+    rotation_angle = 2 * pi * rotation_turns;
+    A_rotation = diag([
+      -1i * rotation_angle, 0, 1i * rotation_angle, 0
+    ]);
+    path_parameter = linspace(0, 1, path_points);
+    determinant_values = zeros(1, path_points);
+    largest_contraction_eigenvalue = -Inf;
+
+    for point = 1:path_points
+      path_value = path_parameter(point);
+      M = expm(A_damping) * ...
+          expm(path_value * A_pairing) * ...
+          expm(path_value * A_rotation);
+      determinant_values(point) = det(eye(2 * mode_count) - M);
+      contraction_matrix = M' * eta * M - eta;
+      contraction_matrix = ...
+          (contraction_matrix + contraction_matrix') / 2;
+      largest_contraction_eigenvalue = max( ...
+          largest_contraction_eigenvalue, ...
+          max(real(eig(contraction_matrix))));
+    endfor
+
+    continuous_phase = unwrap(angle(determinant_values));
+    final_determinant = determinant_values(end);
+    continuous_final_phase = continuous_phase(end);
+    winding_number = round( ...
+        (continuous_final_phase - angle(final_determinant)) / (2 * pi));
+    branch_resolved_weight = exp( ...
+        -0.5 * (log(abs(final_determinant)) + ...
+                1i * continuous_final_phase));
+
+    h_rotation = -1i * rotation_angle * ...
+        (number_1 + 0.5 * fock_identity);
+    truncated_fock_trace = trace( ...
+        base_fock_operator * expm(h_rotation));
+    absolute_trace_error = abs( ...
+        truncated_fock_trace - branch_resolved_weight);
+    minimum_determinant_magnitude = min(abs(determinant_values));
+
+    assert(abs(imag(final_determinant)) < 1e-11);
+    assert(minimum_determinant_magnitude > 1);
+    assert(largest_contraction_eigenvalue < -0.8);
+    assert(mod(winding_number, 2) == mod(rotation_turns, 2));
+    assert(absolute_trace_error < 2e-8);
+
+    fprintf(fid, ...
+            ["%d,%.16g,%.16g,%.16g,%d,%.16g,%.16g," ...
+             "%.16g,%.16g,%.16g,%.16g,%.16g\n"], ...
+            rotation_turns, real(final_determinant), ...
+            imag(final_determinant), ...
+            continuous_final_phase / (2 * pi), ...
+            mod(winding_number, 2), ...
+            real(branch_resolved_weight), ...
+            imag(branch_resolved_weight), ...
+            real(truncated_fock_trace), ...
+            imag(truncated_fock_trace), ...
+            absolute_trace_error, ...
+            minimum_determinant_magnitude, ...
+            largest_contraction_eigenvalue);
+
+    printf(["turns=%d: det(I-M)=%.12g%+.3gi, winding=%d, " ...
+            "W_det=%.12g%+.3gi, W_Fock=%.12g%+.3gi, error=%.3e\n"], ...
+           rotation_turns, real(final_determinant), ...
+           imag(final_determinant), winding_number, ...
+           real(branch_resolved_weight), ...
+           imag(branch_resolved_weight), ...
+           real(truncated_fock_trace), ...
+           imag(truncated_fock_trace), ...
+           absolute_trace_error);
+  endfor
+
+  fclose(fid);
+  printf("\nWrote %s\n", output_file);
+endfunction
+
+
+function [annihilation_1, annihilation_2, fock_identity] = ...
+    two_mode_boson_operators(occupation_cutoff)
+  local_dimension = occupation_cutoff + 1;
+  local_annihilation = diag(sqrt(1:occupation_cutoff), 1);
+  local_identity = eye(local_dimension);
+  annihilation_1 = kron(local_annihilation, local_identity);
+  annihilation_2 = kron(local_identity, local_annihilation);
+  fock_identity = eye(local_dimension^2);
+endfunction

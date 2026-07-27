@@ -11,6 +11,8 @@ from bs4 import BeautifulSoup, Tag
 
 REPORT_DIR = Path(__file__).resolve().parents[1]
 SOURCE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
+BRANCH_FRAGMENT_PATH = REPORT_DIR / "branch_sign_sampling_zh.fragment.html"
+CASE12_FRAGMENT_PATH = REPORT_DIR / "case12_semigroups_zh.fragment.html"
 
 
 def clone(tag: Tag) -> Tag:
@@ -56,7 +58,7 @@ def build_index(source: BeautifulSoup) -> None:
             <div class="summary-item established">
               <strong><a href="part_0_framework.html">第 0 卷：阅读框架</a></strong>
               从 AFQMC 时间片出发，说明 \(J_1,J_2\)、五条离散关系、
-              maximal subgroup、invariant cone，以及 TRS/RP/strict contraction
+              maximal subgroup、invariant cone，以及 TRS/RP 与收缩半群内部条件
               三条证明路线的区别。
             </div>
             <div class="summary-item established">
@@ -71,18 +73,34 @@ def build_index(source: BeautifulSoup) -> None:
             </div>
             <div class="summary-item established">
               <strong><a href="part_3_enumeration_models.html">第 3 卷：分类、生成元与模型讲义</a></strong>
-              从解析判据与 Octave 算法依次讲到 64 类穷举，并对 16 个通过类
+              从解析判据与 Octave 算法依次讲到 64 类穷举，并对 16 个
+              存在负定生成元的矩阵类别
               逐项展开 \(A\) 的分块条件、maximal subgroup、invariant cone、
               HS 场约束和物理 Hamiltonian。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>
-              对文章的修改建议、证据边界、最终结论、给合作者的建议回复和
-              可复现文件索引。
+              对文章的修改建议、各结论的准确适用范围、最终结论、
+              给合作者的建议回复和可复现文件索引。
+            </div>
+            <div class="summary-item established">
+              <strong><a href="part_5_branch_sampling.html">独立算法卷：double-cover 符号追踪与采样</a></strong>
+              说明最终 Nambu 矩阵丢失哪一位信息，对照 PfQMC 论文与代码，
+              推导逐构型权重、低秩局部更新、绝对值采样和符号重加权；
+              \(0,2\pi,4\pi\) 路径与 rank-2 更新均有 Octave 直接验证。
+            </div>
+            <div class="summary-item established">
+              <strong><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 的半群证明</a></strong>
+              分别建立 Kramers TRS 的乘法闭合结构和 RP 的
+              reflected-square operators 在乘法下封闭；并逐块证明，
+              全部 reflection-positive generators 不可能共同服从同一个
+              固定 contraction metric，因而不能改写成固定 Nambu metric
+              下的单向 contraction semigroup。
             </div>
             <div class="summary-item corrected">
               <strong><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></strong>
-              包含以上全部内容，适合浏览器全文搜索；首次 MathJax 排版会较慢。
+              包含第 0--4 卷的 note 研究主报告，适合浏览器全文搜索；
+              double-cover 采样与 Case 1/2 半群证明分别保留为独立卷。
             </div>
           </div>
         </section>
@@ -152,6 +170,64 @@ def build_note_pages(source: BeautifulSoup) -> None:
         write_page(REPORT_DIR / filename, page)
 
 
+def build_branch_page(source: BeautifulSoup) -> None:
+    fragment = BeautifulSoup(
+        BRANCH_FRAGMENT_PATH.read_text(encoding="utf-8"), "html.parser"
+    )
+    page = BeautifulSoup(
+        "<!doctype html><html><body><main></main></body></html>", "html.parser"
+    )
+    page.html.insert(0, clone(source.head))
+    page.title.string = "玻色 Gaussian AFQMC：double-cover 符号追踪与采样"
+    header = fragment.find("header", recursive=False)
+    section = fragment.find("section", id="branch-sampling", recursive=False)
+    if header is None or section is None:
+        raise RuntimeError("Branch-sampling fragment needs one header and one section")
+    nav_items = [
+        ("report_index.html", "分卷入口"),
+        ("part_4_implications.html", "返回 note 研究主报告"),
+        ("part_6_case12_semigroups.html", "Case 1/2 半群证明"),
+        (
+            "report_updated_note_full_enumeration_zh.html",
+            "主报告单文件完整版",
+        ),
+    ]
+    page.main.append(clone(header))
+    page.main.append(navigation(nav_items))
+    page.main.append(clone(section))
+    page.main.append(navigation(nav_items))
+    write_page(REPORT_DIR / "part_5_branch_sampling.html", page)
+
+
+def build_case12_page(source: BeautifulSoup) -> None:
+    fragment = BeautifulSoup(
+        CASE12_FRAGMENT_PATH.read_text(encoding="utf-8"), "html.parser"
+    )
+    page = BeautifulSoup(
+        "<!doctype html><html><body><main></main></body></html>", "html.parser"
+    )
+    page.html.insert(0, clone(source.head))
+    page.title.string = "玻色 Case 1/2：TRS、reflection positivity 与半群"
+    header = fragment.find("header", recursive=False)
+    section = fragment.find("section", id="case12-semigroups", recursive=False)
+    if header is None or section is None:
+        raise RuntimeError("Case-1/2 fragment needs one header and one section")
+    nav_items = [
+        ("report_index.html", "分卷入口"),
+        ("part_2_physical_mapping.html", "返回物理对应卷"),
+        ("part_5_branch_sampling.html", "double-cover 算法卷"),
+        (
+            "report_updated_note_full_enumeration_zh.html",
+            "主报告单文件完整版",
+        ),
+    ]
+    page.main.append(clone(header))
+    page.main.append(navigation(nav_items))
+    page.main.append(clone(section))
+    page.main.append(navigation(nav_items))
+    write_page(REPORT_DIR / "part_6_case12_semigroups.html", page)
+
+
 def main() -> None:
     source = BeautifulSoup(SOURCE_PATH.read_text(encoding="utf-8"), "html.parser")
     build_index(source)
@@ -194,13 +270,17 @@ def main() -> None:
         [
             common_index,
             ("part_3_enumeration_models.html", "上一卷：分类与模型讲义"),
+            ("part_5_branch_sampling.html", "独立算法卷：符号追踪与采样"),
+            ("part_6_case12_semigroups.html", "独立理论卷：Case 1/2 半群"),
             (
                 "report_updated_note_full_enumeration_zh.html",
                 "单文件完整版",
             ),
         ],
     )
-    print("Wrote report_index.html and 8 split report volumes.")
+    build_branch_page(source)
+    build_case12_page(source)
+    print("Wrote report_index.html and 10 split report volumes.")
 
 
 if __name__ == "__main__":

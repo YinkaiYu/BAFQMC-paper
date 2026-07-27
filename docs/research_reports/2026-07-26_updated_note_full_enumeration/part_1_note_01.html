@@ -530,29 +530,25 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
         weight 的实性和构造 contraction metric。
         </p>
 <div class="warning">
-<strong>但原文的五条式子还没有证明某个具体 Hamiltonian
-          同时具有这两个 symmetry。</strong>
-          它只列了 \(J_i\) 对 \(g\) 的作用以及 \(J_i^2\)，尚未写
-          \(A\) 必须满足什么。真正的 invariance condition 是
+<strong>原文的五条式子还没有规定 \(A\)。</strong>
+          它只列了 \(J_i\) 对 \(g\) 的作用、\(J_i^2\) 以及二者的
+          对易关系。若 \(J_iK\) 确实是某个具体 quadratic Hamiltonian
+          的 anti-linear symmetry，才应另外检查
           \[
           J_i^T\overline{(gA)}J_i=gA .
           \]
-          本条中 \(J_1^TgJ_1=g\)，所以第一种 symmetry 要求
+          对本条的两个 \(J\)，这会分别变成
           \[
-          J_1^T\overline A J_1=A
-          \quad\Longleftrightarrow\quad
-          J_1^TAJ_1=\overline A .
-          \]
-          但 \(J_2^TgJ_2=-g\)，所以第二种 symmetry 要求的是
-          \[
-          J_2^T\overline A J_2=-A
-          \quad\Longleftrightarrow\quad
+          J_1^TAJ_1=\overline A,\qquad
           J_2^TAJ_2=-\overline A .
           \]
-          后一个负号不是 sign problem；它恰好补偿 \(g\) 在 \(J_2\)
-          下得到的负号，使完整系数 \(gA\) 保持不变。因此五条
-          \(J,g\) 关系只给出两个候选反线性结构；只有再补上这两条
-          \(A\) 的条件，才能严格地说一个具体时间片同时具有这两个 symmetry。
+          但是，文章的 number-conserving Kramers slice 一般只满足第一式；
+          它对 note 给出的第二个 \(J_2\) 满足的是带 transpose 的另一条
+          Nambu 恒等式，下面会逐块算出。因此不能从 “two anti-linear
+          symmetries” 这句话直接推断文章的 \(A\) 同时满足上面两式。
+          对当前文章而言，\(J_1K\) 是真正施加在物理 annihilation
+          operators 上的 Kramers symmetry；\(J_2\) 是把它写进
+          particle/hole doubled space 后出现的结构性伴随矩阵。
         </div>
 <p>
         在本文两组分、无配对的物理实现中，还要再区分“两个矩阵操作”
@@ -663,11 +659,27 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
           D&amp;F\\-\bar F&amp;\bar D
           \end{pmatrix}.
         \]</div>
-<p>忽略由正规序单独处理的标量因子，同一个 number-conserving
-        slice 的 Nambu exponent generator 是</p>
+<p>同一个 number-conserving slice 的 Nambu exponent generator 是</p>
 <div class="scroll">\[
           A=\begin{pmatrix}B&amp;0\\0&amp;-B^T\end{pmatrix}.
         \]</div>
+<p>这一步还包含一个容易漏掉的正规序常数。直接代入 note 的定义，</p>
+<div class="scroll">\[
+          \begin{aligned}
+          \frac12\chi^TgA\chi
+          &amp;=\frac12\left(
+          \hat{\boldsymbol a}^{T}B^T\hat{\boldsymbol a}^{+}
+          +\hat{\boldsymbol a}^{+T}B\hat{\boldsymbol a}\right)\\
+          &amp;=\hat{\boldsymbol a}^{+T}B\hat{\boldsymbol a}
+          +\frac12\Tr B .
+          \end{aligned}
+        \]</div>
+<p>所以若物理 slice 写成
+        \(\hat h=\hat{\boldsymbol a}^{+T}B\hat{\boldsymbol a}\)，
+        note 的完整表示应取
+        \(\xi=-\frac12\Tr B\)。Kramers block form 使
+        \(\Tr B=2\operatorname{Re}\Tr D\) 为实数，因此这个标量不会
+        重新引入 complex phase。</p>
 <p>现在才把上面的 \(J_1,J_2\) 代入，可以直接算到</p>
 <div class="scroll">\[
           J_1^TAJ_1=\bar A,\qquad
@@ -690,6 +702,89 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
         Kramers partners 让 determinant 的所有潜在负因子成对出现。
         该 theorem 当前只覆盖 number-conserving slices；文章在
         \(\Delta\ne0\) 时没有用它来证明 paired Nambu weight，而是使用下面的 RP theorem。</p>
+<h4>Case 1 中 \(A\) 应满足的完整结构</h4>
+<p>现在可以把 Case 1 从五条离散关系补成一个可实际检查的
+        \(A\)-criterion。文章所用的物理条件依次是</p>
+<div class="scroll">\[
+          \begin{gathered}
+          A=\begin{pmatrix}B&amp;0\\0&amp;-B^T\end{pmatrix},\qquad
+          B=\begin{pmatrix}D&amp;F\\-\bar F&amp;\bar D\end{pmatrix},\\
+          J_1=I_2\otimes i\sigma_y,\qquad
+          J_1^TAJ_1=\bar A,\qquad
+          \xi=-\frac12\Tr B\in\mathbb R .
+          \end{gathered}
+        \]</div>
+<p>第一行先排除 pairing，并写出所有 Kramers-symmetric
+        number-conserving generators；\(D\) 和 \(F\) 都可以是任意
+        complex matrices。第二行说明这个 block form 正是
+        \(J_1K\) invariance，而不是额外假定第二个独立的 physical
+        time reversal。note 的第二个矩阵
+        \(J_2=\sigma_x\otimes i\sigma_y\) 随后自动满足
+        \(J_2^TAJ_2=-\bar A^T\)，但它不再缩小 \(D,F\) 的取值范围。</p>
+<h4>若沿收缩半群流程继续，Case 1 会落到 Case 8 的一个子类</h4>
+<p>time-reversal symmetry 本身允许 \(B\) 和 \(-B\)，所以它没有
+        选定“衰减”方向。要让每个时间片还具有可由局部矩阵检查的
+        bosonic damping，可以从 Case 1 已有的两个矩阵构造</p>
+<div class="scroll">\[
+          -J_2J_1=\sigma_x\otimes I .
+        \]</div>
+<p>这个新矩阵的平方为 \(+I\)，保持 \(J_1^2=-I\)，并与 \(J_1\)
+        对易；它正是 note Case 8 中负责收缩的 \(J_2\)，而不是
+        Case 1 原先平方为 \(-I\) 的第二个矩阵。它与 \(g\) 相乘得到</p>
+<div class="scroll">\[
+          (-J_2J_1)g=
+          \begin{pmatrix}I&amp;0\\0&amp;-I\end{pmatrix}.
+        \]</div>
+<p>将上面的 number-conserving \(A\) 代入完整矩阵不等式，左右两块
+        不省略地算成</p>
+<div class="scroll">\[
+          \begin{aligned}
+          &amp;\bigl[(-J_2J_1)g\bigr]A
+          +A^\dagger\bigl[(-J_2J_1)g\bigr]\\
+          &amp;\qquad=
+          \begin{pmatrix}
+          B+B^\dagger&amp;0\\
+          0&amp;(B+B^\dagger)^T
+          \end{pmatrix}.
+          \end{aligned}
+        \]</div>
+<p>因此这个交集的局部判据恰好是
+        \(B+B^\dagger\le0\)。若严格小于零，每个 one-particle
+        slice \(e^B\) 都在通常的 Hilbert-space norm 下收缩；
+        若取等号，则该 slice 是 unitary。把 \(B\) 拆成</p>
+<div class="scroll">\[
+          B_{\rm reversible}=\frac{B-B^\dagger}{2},\qquad
+          B_{\rm damping}=\frac{B+B^\dagger}{2}\le0
+        \]</div>
+<p>就得到与后文 maximal subgroup 和 invariant cone 完全对应的两部分。
+        用文章的 \(D,F\) 逐块写出，第一部分满足</p>
+<div class="scroll">\[
+          B_{\rm reversible}=
+          \begin{pmatrix}
+          D_{\rm a}&amp;F_{\rm s}\\
+          -\bar F_{\rm s}&amp;\bar D_{\rm a}
+          \end{pmatrix},\qquad
+          D_{\rm a}^\dagger=-D_{\rm a},\quad
+          F_{\rm s}^T=F_{\rm s},
+        \]</div>
+<p>它生成 Kramers-symmetric unitary propagations。第二部分满足</p>
+<div class="scroll">\[
+          B_{\rm damping}=
+          \begin{pmatrix}
+          D_{\rm h}&amp;F_{\rm a}\\
+          -\bar F_{\rm a}&amp;\bar D_{\rm h}
+          \end{pmatrix}\le0,\qquad
+          D_{\rm h}^\dagger=D_{\rm h},\quad
+          F_{\rm a}^T=-F_{\rm a},
+        \]</div>
+<p>它提供 one-sided damping。这里
+        \(D_{\rm a}=(D-D^\dagger)/2\)、
+        \(D_{\rm h}=(D+D^\dagger)/2\)、
+        \(F_{\rm s}=(F+F^T)/2\)、
+        \(F_{\rm a}=(F-F^T)/2\)，没有引入新的自由度。
+        因而 Case 1 的全部 TRS generators 由 Kramers block form 给出；
+        其中还能逐 slice 证明收缩与 trace convergence 的部分，正好是
+        Case 8 的 \(B+B^\dagger\le0\) 子类。</p>
 <h4>怎样从文章的 physical reflection 得到 note 的 \(J_1\)</h4>
 <p><code>main.tex</code> 把 \(b\) flavor 与 \(c\) flavor 当作 reflection
         的两侧，定义</p>
@@ -733,7 +828,7 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
         note 从一开始把 \(J_1,J_2\) 限定为 real orthogonal matrices，
         因而它实际上已经选取了 \(\eta_i=1\) 的 phase convention。</p>
 <h4>为什么 \(\eta_i\) 可以规范固定为 1</h4>
-<p>这一点可以直接在 operators 上验证，不需要抽象的群论语言。
+<p>这一点可以直接在 operators 上验证，不需要先引入额外的群论术语。
         对每个格点同时重新定义两种 flavor 的 phase：</p>
 <div class="scroll">\[
           \hat b_i'
@@ -893,6 +988,55 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
           \(\eta=J_2g\) 称为 metric；那个 \(\eta\) 是一个
           \(2N\times2N\) Hermitian matrix。二者没有“一个由另一个生成”的关系。
         </div>
+<h4>Case 2 中 \(A\) 的完整 block structure</h4>
+<p>为了直接对齐 <code>main.tex</code> 的 RP block test，这里改用
+        reflected-sector 顺序
+        \(\chi=(\hat{\boldsymbol b},\hat{\boldsymbol b}^+,
+        \hat{\boldsymbol c},\hat{\boldsymbol c}^+)^T\)。
+        若每一侧有 \(M\) 个 modes，则这个顺序中的 bosonic matrix 是</p>
+<div class="scroll">\[
+          g=
+          \begin{pmatrix}g_0&amp;0\\0&amp;g_0\end{pmatrix},\qquad
+          g_0=\begin{pmatrix}0&amp;-I_M\\I_M&amp;0\end{pmatrix}.
+        \]</div>
+<p>文章把 Gaussian RP slice 写成</p>
+<div class="scroll">\[
+          \hat h=\chi^T
+          \underbrace{\begin{pmatrix}
+          D&amp;F\\F^T&amp;\bar D
+          \end{pmatrix}}_{\displaystyle Q}
+          \chi+\xi,\qquad
+          F=F^\dagger\succeq0,\quad \xi\in\mathbb R .
+        \]</div>
+<p>note 的 convention 则是
+        \(\hat h=\frac12\chi^TgA\chi+\xi\)。二者逐项比较得到</p>
+<div class="scroll">\[
+          gA=2Q,\qquad
+          A=-2gQ
+          =-2\begin{pmatrix}
+          g_0D&amp;g_0F\\
+          g_0F^T&amp;g_0\bar D
+          \end{pmatrix}.
+        \]</div>
+<p>这是 Case 2 缺失的 \(A\)-structure。严格地说，
+        \(gA\) 必须是 symmetric matrix。若原来写下的 \(D\) 含有
+        antisymmetric part，那一部分只通过 canonical commutator
+        贡献一个 scalar，可以移入 \(\xi\)；因此可先取
+        \(D\to(D+D^T)/2\)，再使用上式。这样
+        \(gA+A^Tg=0\) 可直接验证。</p>
+<p>在同一顺序中，note 的两个矩阵为</p>
+<div class="scroll">\[
+          J_1=\begin{pmatrix}0&amp;I_{2M}\\I_{2M}&amp;0\end{pmatrix},\qquad
+          J_2=\begin{pmatrix}0&amp;I_{2M}\\-I_{2M}&amp;0\end{pmatrix}.
+        \]</div>
+<p>\(J_1K\) 交换两侧并复共轭，给出 physical reflection；
+        \(J_2\) 记录两侧的相对 orientation。把它们代回便得到
+        \(J_1^TgJ_1=g\)、\(J_1^2=I\)、
+        \(J_2^TgJ_2=g\)、\(J_2^2=-I\) 与
+        \(J_1J_2=-J_2J_1\)。但是这五条仍看不见
+        \(F\succeq0\)；真正把 reflection symmetry 提升为
+        reflection positivity 的正是 \(A\) 中这个 positive
+        cross-reflection block。</p>
 <h4>为什么这些 matrices 仍不足以给出 reflection positivity</h4>
 <p>reflection symmetry 与 reflection positivity 是两件不同的事。
         前者只说 \(b\) sector 与 \(c\) sector 互为复共轭；后者还要求每个
@@ -904,8 +1048,11 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
           \qquad C=C^\dagger\ge0 .
         \]</div>
 <p>正半定 matrix \(C\) 可以分解成平方和，因而每个传播因子最终是
-        \(\sum_r\hat R_r\theta(\hat R_r)\) 的极限。左右 Fock spaces 的 trace
-        因而给出</p>
+        \(\sum_r\hat R_r\theta(\hat R_r)\) 的极限。这里已经出现一套
+        正确的 semigroup proof：两个 reflected sums 相乘时，左右两侧
+        operators 彼此对易，所以
+        \(R\theta(R)S\theta(S)=RS\theta(RS)\)；任意有限和也因此对乘法
+        封闭。左右 Fock spaces 的 trace 给出</p>
 <div class="scroll">\[
           \Tr[\hat R\,\theta(\hat R)]
           =\left|\Tr_{\hat b}\hat R\right|^2\ge0 .
@@ -916,13 +1063,18 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
         \(F=(\Delta\tau|\Delta|/2)I\ge0\)。因此 paired model 的非负权重来自
         operator-level reflection positivity，而不是仅由
         \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
-        对 finite bare trace，证明直接来自 reflected squares。
+        对 finite bare trace，证明直接来自这个 reflected-square
+        multiplicative semigroup。
         <code>experts/RPBAFQMC.tex</code> 曾尝试把 regularized weight
         表成 contraction part 与 expansion part 的 direct sum，但上面的
         block-mixing calculation 否定了这一步。当前得到验证的 RP 结论仍是：
         finite bare trace 由 reflected squares 保证 nonnegative。
-        是否存在另一套正确的 semigroup proof，需要重新建立，不能沿用该文件
-        的 direct-sum assertion。</p>
+        因而“是否有 semigroup proof”的答案是有，只是它不是
+        \(J_2g\) 定义的 matrix contraction semigroup。完整推导、固定度规
+        contraction 的 no-go calculation，以及它与 TRS/Case 8 的统一关系，
+        单列在
+        <a href="part_6_case12_semigroups.html">《Case 1/2 的半群证明与统一边界》</a>；
+        不能沿用旧文件的 direct-sum assertion。</p>
 </div>
 </article><article class="walkthrough-block" id="note-boson-contraction-list">
 <h3>1.4 玻色 contraction semigroup 的条件与 Cases 3--16</h3>
@@ -1017,7 +1169,7 @@ non-hermitian)</p>
         \[
           \eta A+A^\dagger\eta=0,
         \]
-        则 \(e^A\) 严格保持 \(\eta\)，这些 \(A\) 生成 maximal subgroup。
+        则 \(e^A\) 精确保持 \(\eta\) 不变，这些 \(A\) 生成 maximal subgroup。
         允许小于零的方向来自 invariant cone。对任意一个已经满足共同线性条件的
         \(A\)，定义
         </p>
@@ -1056,7 +1208,7 @@ non-hermitian)</p>
 <p>
         因而第二项只有在再施加
         \(\eta A_{\rm cone}\le0\) 时才属于 invariant cone；严格小于零
-        才是 strict-cone direction。换言之，原先“第一项给零，第二项给
+        才使收缩矩阵负定。换言之，原先“第一项给零，第二项给
         半负定”的次序没有写反，原报告的问题是省略了这段使次序可核验的计算。
         </p>
 <p>
@@ -1124,9 +1276,50 @@ non-hermitian)</p>
 <h4>列表里的 Passed/Failed 还缺什么</h4>
 <p>本段的 Passed/Failed 是作者的手算标签；仅找到满足离散关系的
         \(J_1,J_2\)，或仅解出 \(J_1^TAJ_1=\bar A\) 的 linear subspace，
-        都还不能证明存在 strict contraction。必须继续检查上述 Hermitian matrix
-        是否能严格小于零，再检查多个 \(e^A\) 相乘后的完整 Fock trace 与
-        square-root branch。</p>
+        都还不能证明存在使收缩矩阵负定的生成元。必须继续检查上述 Hermitian matrix
+        是否能严格小于零，再检查多个 \(e^A\) 相乘后的完整 Fock trace，
+        以及 determinant 平方根的连续取号。</p>
+<div class="note">
+<strong>这一总表逐项核对后的结论。</strong>
+        对本表原有的 \(J_2g\) 四类，\(\eta=J_2g\) 是与物理
+        particle/hole 划分相容的 oscillator-semigroup metric。
+        “存在负定生成元”不只是在说某个矩阵例子。若每个时间片传播矩阵
+        \(M_\ell\) 都满足
+        \(M_\ell^\dagger\eta M_\ell-\eta\le0\)，而且每个完整构型中
+        至少有一个时间片满足严格不等式，那么完整传播矩阵满足
+        \(M^\dagger\eta M-\eta&lt;0\)。此时 bosonic Fock operator 是
+        trace class，也就是
+        \(\operatorname{Tr}\sqrt{\hat U^\dagger\hat U}&lt;\infty\)，
+        对所有玻色高占据态的贡献取绝对值后求和仍收敛；\(+1\) pole
+        也被排除。\(J_1\) 使完整权重为实后，
+        连通 Gaussian field space 与正的零场 trace 把全部构型固定在
+        同一个正号上。因此，对报告已经明确构造且满足上述逐时间片条件的
+        HS 模型，结论是完整的“无符号且无极点”。
+        <div class="scroll">
+<table>
+<thead><tr><th>case</th><th>核对结果</th><th>对原标签的判断</th></tr></thead>
+<tbody>
+<tr><td>3</td><td>\(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1=-(\eta A+A^\dagger\eta)\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>4</td><td>\(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1=-(\eta A+A^\dagger\eta)\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>5</td><td>允许的 \(A\) 中有 \(\eta A+A^\dagger\eta&lt;0\) 的解</td><td>报告构造的 HS 模型逐构型无符号、无 pole；note 未在后文手算</td></tr>
+<tr><td>6</td><td>允许的 \(A\) 中有 \(\eta A+A^\dagger\eta&lt;0\) 的解</td><td>报告构造的 HS 模型逐构型无符号、无 pole；note 未在后文手算</td></tr>
+<tr><td>7</td><td>允许的 \(A\) 中有 \(\eta A+A^\dagger\eta&lt;0\) 的解</td><td>报告构造的 HS 模型逐构型无符号、无 pole</td></tr>
+<tr><td>8</td><td>允许的 \(A\) 中有 \(\eta A+A^\dagger\eta&lt;0\) 的解</td><td>报告构造的 HS 模型逐构型无符号、无 pole</td></tr>
+<tr><td>9</td><td>\(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1=-(\eta A+A^\dagger\eta)\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>10</td><td>\(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1=-(\eta A+A^\dagger\eta)\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>11</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>12</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>13</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>14</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>15</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+<tr><td>16</td><td>\(\Tr(\eta A+A^\dagger\eta)=0\)，故半负定只能为零</td><td>Failed 正确</td></tr>
+</tbody>
+</table>
+</div>
+        因此第一节保留 Cases 5--8、排除其余 contraction candidates 的
+        生成元分类正确。原文把 Case 5 的编号写进数学模式
+        <code>$5)</code>，只是排版不一致，不影响五条关系。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-passed-list">
 <h3>1.5 玻色作者版 passed-only 清单</h3>
@@ -1167,9 +1360,17 @@ non-hermitian)</p>
         主要指 physical single-body Hamiltonian，不是笼统地指任意一个
         displayed block 不等于自己的 Hermitian conjugate。</p>
 <p><code>experts/SGNH.tex</code> 声称这些 models sign-problem-free，
-        但当前文件只给出 proof scheme，没有把 metaplectic square-root branch
-        与 regularization 的所有步骤写完。因此这个来源澄清了标签，不能单独替代
+        但当前文件只给出 proof scheme，没有写完 metaplectic 表示中
+        determinant 平方根怎样沿连续传播取号，也没有写完 regularization
+        的全部步骤。因此这个来源澄清了标签，不能单独替代
         本报告对 complete bosonic weight 的检查。</p>
+<div class="note">
+<strong>passed-only 清单的核对结论。</strong>
+        该清单的六项计数与更新后的第一节一致，但它混合了三种不同证据：
+        TRS、operator-level reflection positivity，以及 Cases 5--8
+        中允许负定生成元的四个 contraction classes。因而“六项通过”
+        不能解读成由同一个半群不等式证明的六个类别。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-list">
 <h3>1.6 费米候选条件与 Cases \(1'\)--\(10'\)</h3>
@@ -1406,7 +1607,7 @@ coefficient \(gA\) 直接放进指数；这不是上一段所示的完整
     =2\cos\frac y2 .
   \]
   它在 \(y=\pi\) 取零，在 \(y=2\pi\) 取 \(-2\)。
-  因此“\(e^{gA}\) 严格收缩”没有阻止
+  因此即使 note 的原不等式对 \(gA\) 给出负定矩阵，它仍没有阻止
   \(\det(I+e^A)^{1/2}\) 过零并变负。
 </div>
 <h4>若坚持使用 note 顶部的 \(e^A\)，正确的收缩条件是什么</h4>
@@ -1548,7 +1749,8 @@ note 的右侧显示矩阵都是第一种，即 \(J_2g\)，不是第二种
 Nambu metric；其余五例虽然左侧多写了 \(i\)，右侧 block multiplication
 也仍是在算正确的 \(J_2gA\)。这意味着这些 case 的
 \(J_2^TAJ_2=\pm\bar A\) 线性分解和右侧 semidefinite test
-不应整体作废，只需按 \(\eta=J_2g\) 重新检查 strictness。
+不应整体作废，只需按 \(\eta=J_2g\) 重新检查允许的生成元中是否存在
+\(\eta A+A^\dagger\eta&lt;0\) 的解。
 </p>
 <h4>这项修正怎样改变 Cases \(1'\)--\(10'\) 的读取</h4>
 <div class="scroll">
@@ -1557,26 +1759,27 @@ Nambu metric；其余五例虽然左侧多写了 \(i\)，右侧 block multiplica
 <th>case</th><th>按 \(e^A\) 检查的结果</th><th>应怎样理解</th>
 </tr></thead>
 <tbody>
-<tr><td>\(1'\)</td><td>maximal-subgroup 边界</td>
+<tr><td>\(1'\)</td><td>\(J_2gA+A^\dagger J_2g=0\)</td>
 <td>交换 \(J_1,J_2\) 的名字后，确实是 \(9'\) 的双 symmetry
     特例；第三节对两个 \(J\) 都取正号是相容的。</td></tr>
-<tr><td>\(3',4'\)</td><td>只有等号边界，没有 strict interior</td>
+<tr><td>\(3',4'\)</td><td>半负定条件只能取等号，不存在负定生成元</td>
 <td>Majorana reflection positivity 与 time-reversal positivity
     是已知定理，但 note 的这两组 real Nambu signs
     不是把这些定理完整换基后的条件。</td></tr>
-<tr><td>\(5',6',7',8'\)</td><td>存在 strict interior</td>
+<tr><td>\(5',6',7',8'\)</td><td>存在使收缩矩阵负定的生成元</td>
 <td>这些是直接控制 \(e^A\) 的四类。Case \(5'\)
     的标签和计算都正确；Cases \(6'\)--\(8'\) 的左侧标签应去掉
     \(i\)，其右侧实际计算已经是 \(J_2gA\)。
-    Wei 的 canonical metric 完整拉回后也属于这个 \(J_2g\)
-    strict branch；一个 physical model 还可能同时满足其中多个
-    \(J_1\) labels。因此这些类别不能仅凭 note 的称呼算作新
-    positivity，具体等价关系必须连同 basis 一起检查。</td></tr>
-<tr><td>\(9',10'\)</td><td>只有等号边界</td>
-<td>\(J_1\) 把候选半负定方向翻成半正定方向，故不能存在
-    nonzero strict cone。两例右侧也实际算了 \(J_2gA\)，但
-    Case \(9'\) 把存在某些 semidefinite directions 误当成足以
-    支持 Passed；它缺少 strict interior，并有负权重反例。</td></tr>
+    Wei 的 canonical metric 完整拉回后也使用 \(\eta=J_2g\)，
+    并允许收缩矩阵负定；一个 physical model 还可能同时满足其中多个
+    \(J_1\) labels。与已知 positivity classes 的具体对应关系取决于
+    完整的 basis transformation。</td></tr>
+<tr><td>\(9',10'\)</td><td>任何满足半负定条件的生成元都被迫满足等号</td>
+<td>两例都满足
+    \(J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
+    =-(J_2gA+A^\dagger J_2g)\)。若括号内的矩阵半负定，
+    左边也半负定，于是括号内的矩阵同时半正定，只能为零。
+    Case \(9'\) 另有负权重反例，所以原 Passed 标签不能保留。</td></tr>
 </tbody>
 </table>
 </div>
@@ -1608,9 +1811,10 @@ propagation 限制在 maximal subgroup。原报告此前说这里必须
 “一正一负”是由错误地分解 \(gA\) 得出的，现已纠正。
 </p>
 <p>
-还要注意，\(9'\) 在正确判据下并没有 strict cone；因此
-“special case”只能解释双 symmetry 边界，不能替 \(9'\)
-增加一个新的无符号 interior。
+还要注意，\(9'\) 在正确判据下并没有满足
+\(\eta A+A^\dagger\eta&lt;0\) 的生成元；因此 “special case”
+只能解释两条反线性对称性同时成立的等号部分，不能由此增加一组
+已经证明权重非负的传播矩阵。
 </p>
 <h4>\(2'\)：为什么说费米对应物 “exists but not useful”</h4>
 <p>
@@ -1673,8 +1877,9 @@ semigroup formulation 的 Majorana-RP block form</a>。
 <p>
 然而，note 当前的 \(A\) 是 Nambu propagation generator；原始
 Majorana theorem 中的 generator 应当是 \(UAU^\dagger\)，不是
-\(gA\)。前面的 \(2\times2\) 反例正说明 literal Case \(3'\)
-conditions 没有重现这个定理。标签指出了作者的动机，不能代替换基。
+\(gA\)。前面的 \(2\times2\) 反例正说明：第一节那条以
+\(gA\) 为 generator 的不等式没有重现这个定理。标签指出了作者的
+动机，不能代替把 generator、metric 和两个 \(J\) 一起换基。
 </p>
 <h4>\(4'\)：time-reversal positivity 比 TR invariance 多了什么</h4>
 <p>
@@ -1714,11 +1919,52 @@ Case \(4'\) 也没有得到该 theorem。其名称说明研究目标，不是证
   \(J_2gA+A^\dagger J_2g\le0\)，因为只有它控制 trace 公式中的 \(e^A\)。</li>
 </ol>
 <p>
-按这套一致标准，Cases \(5'\)--\(8'\) 有 strict cone，
-Cases \(9',10'\) 只能在 maximal-subgroup boundary。后面逐段讲解会把
+按这套一致标准，Cases \(5'\)--\(8'\) 有负定生成元，
+Cases \(9',10'\) 中凡满足半负定条件的生成元都只能满足
+\(J_2gA+A^\dagger J_2g=0\)。后面逐段讲解会把
 note 每一例实际写出的 matrix 与这套正确判据逐项对照，不再用
 “possibly has positivity”代替缺失的推导。
 </p>
+<div class="note">
+<strong>费米总表逐项核对后的结论。</strong>
+        原文先说 “7 examined cases”，随后实际列出 \(1'\)--\(10'\)；
+        这里的 7 只能理解为作者随后认为“独立且通过”的数目，不是候选
+        case 数。这是一处文字计数不清，不是矩阵计算。
+        <div class="scroll">
+<table>
+<thead><tr><th>case</th><th>按直接控制 \(e^A\) 的检查</th><th>对原说明的判断</th></tr></thead>
+<tbody>
+<tr><td>\(1'\)</td><td>交换两个 \(J\) 的职责后，落在 \(9'\) 的等号部分</td><td>“special case”在线性约束层面正确；非负权重仍未证明</td></tr>
+<tr><td>\(2'\)</td><td>没有给矩阵或不等式，无法穷举</td><td>“exists but not useful”证据不足</td></tr>
+<tr><td>\(3'\)</td><td>\(J_2gA+A^\dagger J_2g\leq0\) 只能取等号</td><td>名称来自 Majorana RP；当前 Nambu 条件未完成该定理的换基</td></tr>
+<tr><td>\(4'\)</td><td>同样只能取等号</td><td>名称来自 time-reversal positivity；当前 Nambu 条件未完成该定理的换基</td></tr>
+<tr><td>\(5'\)</td><td>存在负定生成元</td><td>按修正后的 \(e^A\) contraction，完整 semigroup sign-free</td></tr>
+<tr><td>\(6'\)</td><td>存在负定生成元</td><td>按修正后的 \(e^A\) contraction，完整 semigroup sign-free</td></tr>
+<tr><td>\(7'\)</td><td>存在负定生成元</td><td>按修正后的 \(e^A\) contraction，完整 semigroup sign-free</td></tr>
+<tr><td>\(8'\)</td><td>存在负定生成元</td><td>按修正后的 \(e^A\) contraction，完整 semigroup sign-free</td></tr>
+<tr><td>\(9'\)</td><td>半负定只能取等号，并有负权重反例</td><td>Passed 错误</td></tr>
+<tr><td>\(10'\)</td><td>半负定只能取等号</td><td>无负定生成元这一判断正确；不能据此断言所有模型都有 sign problem</td></tr>
+</tbody>
+</table>
+</div>
+        第一节写的
+        \(iJ_2gA-iA^\dagger J_2g\leq0\) 与顶部的 \(e^A\) trace
+        formula 不对齐。后面的手算表明作者实际想用的是
+        \(\eta=J_2g\) 和
+        \(J_2gA+A^\dagger J_2g\leq0\)：Case \(5'\) 左右都这样写，
+        Cases \(6'\)--\(10'\) 的右侧也都实际乘了 \(J_2g\)，只是左侧
+        标签多了 \(i\)。这不是 Wei 的 Majorana 论文出错，而是本 note
+        在 Majorana 与 Nambu conventions 之间少做了一次完整换基。
+        对修正后的 Cases \(5'\)--\(8'\)，费米 Fock space 有限。
+        对满足 \(M^\dagger\eta M-\eta&lt;0\) 的传播矩阵，\(-1\)
+        不是本征值，所以权重不为零；\(J_1\) 使权重为实，连续性和
+        一个已知正的参考传播矩阵固定其正号。对只满足
+        \(M^\dagger\eta M-\eta\le0\) 的传播矩阵，乘
+        \(e^{\epsilon A_0}\) 后得到严格收缩矩阵，再令
+        \(\epsilon\to0^+\)，权重得到非负极限。因此这里可以直接使用
+        Wei 的 semigroup continuity argument，结论是完整 sign-free
+        semigroup。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-passed-comment">
 <h3>1.7 费米 passed-only 清单与第一节 Comment</h3>
@@ -1747,56 +1993,168 @@ matters? It has to be checked.</p>
 <p>
 方括号 \([J_1,J_2]=0\) 表示对易，花括号
 \(\{J_1,J_2\}=0\) 表示反对易。作者的 Comment 是在问：其他四条
-\(J,g\) 关系相同时，只改变这一条，strict cone 是否仍然存在。
-这个问题必须先指定被收缩的传播矩阵。note 没有保持这一点一致，
-所以它的 passed-only 清单需要重审。
+\(J,g\) 关系相同时，只改变这一条，负定生成元是否仍然存在。
+下面以 note 开头 trace 公式中实际出现的传播矩阵 \(e^A\) 为准。
+本组 Cases \(3'\)--\(10'\) 都有
+\[
+  J_2^TgJ_2=-g,\qquad J_2^2=-I,
+\]
+所以正确的 Hermitian metric 是
+\[
+  \eta=J_2g,\qquad \eta^\dagger=\eta,\qquad \eta^2=I,
+\]
+而生成元必须满足
+\[
+  \eta A+A^\dagger\eta\le0.
+\]
+</p>
+<h4>先把 \(J_1\) 对收缩不等式的作用完整算出来</h4>
+<p>
+每个候选生成元还满足
+\[
+  J_1^TAJ_1=\bar A .
+\]
+对此式分别取复共轭和转置，得到后面会用到的两条式子：
+</p>
+<div class="scroll">\[
+  J_1^T\bar A J_1=A,\qquad
+  J_1^TA^TJ_1=A^\dagger .
+\]</div>
+<p>
+因为本组的 \(\eta=J_2g\) 是实矩阵，先计算
+\(J_1^T\bar\eta J_1=J_1^TJ_2gJ_1\)。四种正负号可以逐项写成
+</p>
+<div class="scroll">\[
+\begin{array}{c|c|c}
+J_1^TgJ_1 &amp; J_1J_2\text{ 的关系}
+&amp;J_1^T\bar\eta J_1\\ \hline
+g &amp;[J_1,J_2]=0
+&amp;J_1^TJ_2gJ_1=J_2(J_1^TgJ_1)=+\eta\\
+g &amp;\{J_1,J_2\}=0
+&amp;J_1^TJ_2gJ_1=-J_2(J_1^TgJ_1)=-\eta\\
+-g &amp;[J_1,J_2]=0
+&amp;J_1^TJ_2gJ_1=J_2(J_1^TgJ_1)=-\eta\\
+-g &amp;\{J_1,J_2\}=0
+&amp;J_1^TJ_2gJ_1=-J_2(J_1^TgJ_1)=+\eta .
+\end{array}
+\]</div>
+<p>
+现在把这张表代回完整的收缩矩阵，而不是用一句话略过：
+</p>
+<div class="scroll">\[
+\begin{aligned}
+J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1
+={}&amp;(J_1^T\bar\eta J_1)(J_1^T\bar A J_1)\\
+&amp;+(J_1^TA^TJ_1)(J_1^T\bar\eta J_1)\\
+={}&amp;
+\begin{cases}
+\eta A+A^\dagger\eta,
+&amp;J_1^T\bar\eta J_1=+\eta,\\
+-(\eta A+A^\dagger\eta),
+&amp;J_1^T\bar\eta J_1=-\eta.
+\end{cases}
+\end{aligned}
+\]</div>
+<p>
+第一种结果与半负定条件相容，但它本身还不证明负定解存在；
+Octave 会另行解 \(gA+A^Tg=0\) 和 \(J_1^TAJ_1=\bar A\)，并检验
+\(\eta A+A^\dagger\eta&lt;0\)。
 </p>
 <p>
-以 note 顶部实际出现的 \(e^A\) 为准，metric 是
-\(\eta=J_2g\)，生成元条件是
+第二种结果为什么迫使等号，可以直接用矩阵不等式证明。若
 \[
-  \eta A+A^\dagger\eta\le0 .
+  \eta A+A^\dagger\eta\le0,
 \]
-完整穷举与解析计算给出：
+那么复共轭再作正交基变换仍保持半负定，因此
+\[
+  J_1^T\overline{\left(\eta A+A^\dagger\eta\right)}J_1\le0.
+\]
+但第二种结果又说左边等于
+\(-(\eta A+A^\dagger\eta)\)，所以
+\[
+  -(\eta A+A^\dagger\eta)\le0
+  \quad\Longleftrightarrow\quad
+  \eta A+A^\dagger\eta\ge0.
+\]
+同一个 Hermitian matrix 同时满足 \(\le0\) 和 \(\ge0\)，只能有
+\[
+  \boxed{\eta A+A^\dagger\eta=0}.
+\]
+满足这个等式的生成元指数化以后有
+\[
+  (e^A)^\dagger\eta e^A=\eta,
+\]
+所以它们属于保持 \(\eta\) 的 maximal subgroup。这里直接使用矩阵
+不等式即可，不需要借助“谱关于零对称”这句较难核对的描述。
 </p>
+<h4>把四种结果逐项代入 Cases \(3'\)--\(10'\)</h4>
 <div class="scroll">
 <table>
-<thead><tr><th>原 case</th><th>对易关系</th><th>直接 \(e^A\) 结果</th></tr></thead>
+<thead><tr><th>原 case</th><th>\(J_1^TgJ_1\)</th><th>对易关系</th>
+<th>\(J_1^T\bar\eta J_1\)</th><th>直接 \(e^A\) 结果</th></tr></thead>
 <tbody>
-<tr><td>\(3'\)</td><td>反对易</td><td>只有等号边界</td></tr>
-<tr><td>\(4'\)</td><td>反对易</td><td>只有等号边界</td></tr>
-<tr><td>\(5'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
-<tr><td>\(6'\)</td><td>反对易</td><td>存在 strict interior</td></tr>
-<tr><td>\(7'\)</td><td>对易</td><td>存在 strict interior</td></tr>
-<tr><td>\(8'\)</td><td>对易</td><td>存在 strict interior</td></tr>
-<tr><td>\(9'\)</td><td>对易</td><td>只有等号边界</td></tr>
-<tr><td>\(10'\)</td><td>对易</td><td>只有等号边界</td></tr>
+<tr><td>\(3',4'\)</td><td>\(+g\)</td><td>反对易</td>
+<td>\(-\eta\)</td><td>由上面的两组不等式推出只能取等号</td></tr>
+<tr><td>\(5',6'\)</td><td>\(-g\)</td><td>反对易</td>
+<td>\(+\eta\)</td><td>不等式相容；Octave 找到负定生成元</td></tr>
+<tr><td>\(7',8'\)</td><td>\(+g\)</td><td>对易</td>
+<td>\(+\eta\)</td><td>不等式相容；Octave 找到负定生成元</td></tr>
+<tr><td>\(9',10'\)</td><td>\(-g\)</td><td>对易</td>
+<td>\(-\eta\)</td><td>由上面的两组不等式推出只能取等号</td></tr>
 </tbody>
 </table>
 </div>
 <p>
-为什么会这样，可以看 contraction matrix
-\[
-  H(A)=J_2gA+A^\dagger J_2g .
-\]
-第一条 anti-linear constraint 会把 \(H(A)\) 变成自己或自己的相反数。
-变成自己时可以存在全部本征值为负的 \(H(A)\)；变成相反数时，
-\(H(A)\) 的谱必须关于零对称。若又要求 \(H(A)\le0\)，唯一可能就是
-\(H(A)=0\)。对易/反对易并非装饰，它与
-\(J_1^TgJ_1=\pm g\) 的符号共同决定这两种结果。
+这里也能直接回答 Comment 的三组比较。\(1'''\) 与 \(5'''\)
+分别对应 \(3'\) 与 \(7'\)：前者是“保持 \(g\)+反对易”，只能取等号；
+后者是“保持 \(g\)+对易”，允许负定生成元。\(2'''\) 与
+\(6'''\) 同理，分别对应 \(4'\) 与 \(8'\)。
+</p>
+<p>
+原文第三组逐字写成 \(3'\) 与 \(7'''\)。这两项不仅改变对易关系，
+还把 \(J_1^TgJ_1=g\) 改成 \(-g\)，所以不能只检验
+commutator/anti-commutator。若作者本意是
+\(3'''\) 与 \(7'''\)，它们分别对应 \(5'\) 与 \(9'\)：
+“翻转 \(g\)+反对易”给 \(+\eta\)，而“翻转 \(g\)+对易”给
+\(-\eta\)，正好构成受控比较。\(J_1^2=\pm I\) 没有进入上述推导，
+所以 \(3',4'\)、\(5',6'\)、\(7',8'\)、\(9',10'\) 各自成对。
 </p>
 <p>
 Wei 论文的 Majorana classes 控制的是
 \(e^{A_{\rm M}}\)，其中 \(A_{\rm M}=UAU^\dagger\)，不是
 \(e^{gA}\)。完成 metric 与 anti-linear operations 的同一换基后，
 canonical Majorana-RP 与 Kramers semigroups 落入上表的
-\(J_2g\) strict branch；具体是 \(5'\)--\(8'\) 中哪一个或哪几个
+\(J_2g\) 中允许负定生成元的分支；具体是 \(5'\)--\(8'\)
+中哪一个或哪几个
 labels 取决于 complex-fermion basis 和模型是否具有额外 symmetries。
 note 第一节那个单独控制 \(e^{gA}\) 的式子只能作为
-convention-mismatch diagnostic，
-不能与任何一张 physical passed 清单合并。报告后文所称“完整穷举”
+检查 note 的 Majorana 与 Nambu 两套 convention 是否一致的式子，
+不能与任何一张物理无符号类别清单合并。报告后文所称“完整穷举”
 统一采用物理传播 \(e^A\)。
 </p>
+<div class="result">
+<strong>第一节 Comment 的明确答案。</strong>
+        commutator/anti-commutator 确实影响结论。本组取
+        \(\eta=J_2g\)。当
+        \(J_1^T\bar\eta J_1=+\eta\) 时，
+        \[
+        J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =\eta A+A^\dagger\eta,
+        \]
+        半负定条件与 \(J_1\) 相容；Cases \(5'\)--\(8'\) 的穷举
+        进一步找到负定生成元。当
+        \(J_1^T\bar\eta J_1=-\eta\) 时，
+        \[
+        J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta).
+        \]
+        若原矩阵半负定，左边也半负定，所以上式又推出原矩阵半正定；
+        二者合起来只能有
+        \(\eta A+A^\dagger\eta=0\)。这发生在 Cases
+        \(3',4',9',10'\)。原文写的 “\(3'\) 与 \(7'''\)”
+        还同时改变了 \(J_1^TgJ_1\) 的符号；若作者本意是只比较
+        对易关系，较可能应写 “\(3'''\) 与 \(7'''\)”。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case7">
 <h3>1.8 第二节开头与玻色 Case 7</h3>
@@ -1842,10 +2200,11 @@ contraction means “physical”.</p>
 <p>这里的 \(J_1,J_2\) 不是 7 月 19 日报告预先使用的记号。
         那份报告先从物理模型出发，直接发现了两件事：交换 \(b,c\)
         并复共轭会保持每个时间片，而 particle/hole signature matrix
-        \(\operatorname{diag}(I,-I)\) 能控制严格收缩。合作者在读到该证明后，
+        \(\operatorname{diag}(I,-I)\) 使稳定自由项满足
+        \(\eta A_{\rm free}+A_{\rm free}^\dagger\eta&lt;0\)。合作者在读到该证明后，
         才把前一操作写成 \(J_1K\)，并由
         \(\eta=J_2g\) 反推出 \(J_2\)。所以 Case 7 是对那份具体
-        pole-free pairing 证明的抽象化，而不是先有五条矩阵式、再碰巧找到
+        pole-free pairing 证明的矩阵化改写，而不是先有五条矩阵式、再碰巧找到
         文章模型。</p>
 <p>\(J_1K\) 先复共轭，再在 particle 和 hole 两部分中分别交换
         \(b,c\)。这正是文章 reflection
@@ -1867,7 +2226,7 @@ contraction means “physical”.</p>
         取正号，hole components 取负号。它不是 ordinary positive-definite
         norm，也不是一个新的 observable；它记录 bosonic Bogoliubov dynamics
         中 particle/hole 两半的相反符号。</p>
-<h4>“Yinkai Yu's case” 在这里有一个严格定义</h4>
+<h4>“Yinkai Yu's case” 在这里有一个精确定义</h4>
 <p>按你提供的写作背景，合作者是在阅读 7 月 19 日的
         pole-free pairing 报告后开始写这组 note；旧 note 第一节标题
         “Discovery based on Yinkai's observation” 又在文本内部印证了这个
@@ -1882,7 +2241,7 @@ contraction means “physical”.</p>
         \]</div>
 <p>新版 note 把完全相同的五条关系编号为 Case 7，并再次写
         “Yinkai Yu's case”。因此，在需要一个精确数学标签时，本报告把
-        <strong>“Yinkai's Case 7” 严格限定为这五条关系所定义的类别</strong>。
+        <strong>“Yinkai's Case 7” 精确限定为这五条关系所定义的类别</strong>。
         这五条式子逐项都要满足；只共用一个 \(J_2\)，或只得到同一个
         \(J_2g\)，都还不能称为同一个 Case 7。</p>
 <p>判断一个实际辅助场模型时，还要再分两步。首先，对每个时间片的
@@ -1892,14 +2251,16 @@ contraction means “physical”.</p>
           (J_2g)A+A^\dagger(J_2g)\le0 .
         \]</div>
 <p>前一式使传播行列式具有复共轭成对结构；再配合实且为正的
-        正规序标量因子、正权重锚点和不中断的连续路径，完整权重才会
-        留在实数分支。后一式保证 \(e^A\) 位于以 \(J_2g\) 为 metric
+        正规序标量因子、一个已知权重为正的参考构型和不中断的连续路径，
+        才能固定完整权重的符号。后一式保证 \(e^A\) 位于以 \(J_2g\) 为 metric
         的 contraction semigroup。
         其次，若要排除玻色 pole 并把 bare trace 留在收敛分支，还要有
-        严格小于零的稳定方向。对本文模型，这个严格方向由稳定的自由
+        一个使 \(\eta A+A^\dagger\eta&lt;0\) 的稳定自由项。对本文模型，
+        这个负定贡献由稳定的自由
         Hamiltonian 提供，而 \(U_2\) 辅助场满足等号。因而“五条
-        \(J_1,J_2\) 关系”“单个 \(A\) 的两条条件”和“整个辅助场模型
-        具有稳定锚点”是三个依次更具体的检查层次，不能彼此替代。</p>
+        \(J_1,J_2\) 关系”“单个 \(A\) 的两条条件”和“零场自由
+        Hamiltonian 稳定、grand-canonical 玻色迹有限且为正”是三个
+        依次更具体的检查层次，不能彼此替代。</p>
 <h4>为什么这正是 7 月 19 日 pole-free 报告中的结构</h4>
 <p>上面的写作背景和旧 note 的标题
         “Discovery based on Yinkai's observation” 共同确认了这个来源。
@@ -1917,12 +2278,13 @@ contraction means “physical”.</p>
         \(\eta\)-contraction proof 所使用的离散 matrix structure。
         对文章的 \(U_1=0\) paired benchmark，每个时间片有两类传播因子：</p>
 <ol>
-<li>严格稳定的自由配对 Hamiltonian 产生虚时间衰减。若
+<li>稳定的自由配对 Hamiltonian 使其收缩矩阵负定。若
           \(\epsilon_{\min}-\mu&gt;|\Delta|\)，其 exponent generator \(A\) 满足
           \[
             (J_2g)A+A^\dagger(J_2g)&lt;0,
           \]
-          所以 \(e^A\) 是 strict contraction。</li>
+          所以 \((e^A)^\dagger(J_2g)e^A-J_2g&lt;0\)，传播矩阵位于
+          收缩半群内部。</li>
 <li>\(U_2(\hat n_b-\hat n_c)^2\) 的 real HS field 产生
           \(\exp[i\sum_i\theta_i(\hat n_{b,i}-\hat n_{c,i})]\)。
           它只改变 phase，对相应 \(A\) 满足同一个式子的等号，因此是
@@ -2028,10 +2390,33 @@ contraction means “physical”.</p>
         两套证明的假设不同，不能用其中一套的名称替代另一套的推导。
         </p>
 <p>原文还给出 \(J_1=I_{2N}\) 的简单 representative。
-        它只要求 \(A=\bar A\)，适合检查这一抽象 relations class；
+        它只要求 \(A=\bar A\)，适合检查这一组五条矩阵关系；
         但它不再表示文章中实际的 \(b\leftrightarrow c\) reflection。
         因而解释 benchmark 时应使用第一种 \(J_1\)，不能为了矩阵简单而丢掉
         flavor 的物理含义。</p>
+<div class="result">
+<strong>Case 7 核对结论：正确。</strong>
+        原文给出的 \(J_1,J_2\) 满足标题中的五条关系；
+        \(\eta=J_2g\) 是 Hermitian involution；允许的生成元中存在
+        \(\eta A+A^\dagger\eta&lt;0\) 的解。这里没有发现影响计算的局部
+        typo。
+        对报告中对应的 relative-density HS model，固定 number-damping
+        factor 严格收缩，而任意正负的 Gaussian HS field factor 都满足
+        等号。若 \(M_1\) 严格、\(M_2\) 半收缩，则
+        \[
+        (M_1M_2)^\dagger\eta(M_1M_2)-\eta
+        =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+        +(M_2^\dagger\eta M_2-\eta)&lt;0 .
+        \]
+        所以任意时空场构型的完整乘积都严格收缩。这里的 \(J_2g\)
+        正是物理 oscillator-semigroup metric，故对应 Fock operator
+        trace class，并且 \(M\) 没有 \(+1\) eigenvalue。零场权重为
+        \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}&gt;0\)；\(J_1\) 使权重为实，
+        连通的实 Gaussian field space 又不允许它在没有 zero/pole 时换号。
+        因此该 explicit HS model 的最终结论就是
+        <strong>bare trace 对所有构型收敛、权重恒正、没有 determinant
+        pole</strong>。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case8-j1">
 <h3>1.9 玻色 Case 8：矩阵选择与 \(J_1^TAJ_1=\bar A\)</h3>
@@ -2132,6 +2517,12 @@ C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
         同样直接相乘可得 \(J_1^TgJ_1=g\)、
         \(J_2^TgJ_2=-g\)。这说明原文 Case 8 的显式 matrices
         的确实现了标题的五条离散关系。</p>
+<div class="result">
+<strong>Case 8 第一部分核对结论：正确。</strong>
+        显示的 \(J_1,J_2\) 实现了五条离散关系；逐块比较
+        \(J_1^TAJ_1=\bar A\) 得到的线性条件与直接矩阵乘法一致。
+        本段没有发现需要改动数学结果的 typo。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case8-j2">
 <h3>1.10 玻色 Case 8：\(J_2\) 分解、maximal subgroup 与 invariant cone</h3>
@@ -2219,13 +2610,14 @@ B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
 <p>因为玻色原文取 \(g=-\Omega\)，所以
-        \(J_2\Omega A=-J_2gA\)。在 cone 子空间上，
-        \(J_2gA\) 是 Hermitian，故原文的最后一步确实是在施加一个可比较本征值的
+        \(J_2\Omega A=-J_2gA\)。对满足
+        \(J_2^TAJ_2=-\bar A\) 的生成元，\(J_2gA\) 是 Hermitian，
+        故原文的最后一步确实是在施加一个可比较本征值的
         matrix inequality。maximal subgroup 对应等号边界
         \(J_2gA+A^\dagger J_2g=0\)；cone generators 对应离开边界的 Hermitian
         directions。两部分相加才形成完整 semigroup generator。
         这里 \(J_1^2=-I\) 没有妨碍 inequality，Case 8 因而给出了一个真正的候选
-        strict contraction family。</p>
+        含负定生成元的 family。</p>
 <p>还可以不用一般 blocks，直接给出 cone 内一点。对刚才的 \(N=2\)
         matrices，</p>
 <div class="scroll">\[
@@ -2242,8 +2634,24 @@ B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}\\
           J_2gA+A^\dagger J_2g=-2\gamma I_4&lt;0 .
         \]</div>
 <p>所以 Case 8 不只是 “cone equations 有非零解”，而是确实有
-        strict contraction point。原文后面的大 block inequality 是这一简单
+        使收缩矩阵负定的例子。原文后面的大 block inequality 是这一简单
         representative 向一般 \(N\) 与一般 blocks 的展开。</p>
+<div class="result">
+<strong>Case 8 第二部分核对结论：通过，而且可完成到完整无符号结论。</strong>
+        maximal-subgroup 等号部分和 invariant-cone 线性部分的分工正确；
+        穷举确认允许的生成元中存在负定解，例如正文给出的
+        \(A=-\gamma\,\sigma_z\otimes\sigma_x\)。原文最后的 “Good”
+        对应的不是一个停在矩阵层面的猜测。报告给出的双组分
+        relative-density HS model 含固定的严格 number damping，
+        场因子位于 maximal subgroup；利用 Case 7 核对框中逐项写出的
+        乘积恒等式，任意多时间片的完整 \(M\) 仍严格收缩。
+        \(\eta=J_2g\) 可由物理 mode basis transformation 化为标准
+        particle/hole metric，所以 oscillator representation 给出
+        trace-class Fock operator，并排除 \(+1\) pole。权重由 \(J_1\)
+        保证为实，并由连通场域和正零场 trace 固定为正。
+        因此本报告的 explicit Case 8 HS path 同样是
+        <strong>无符号、无极点且 bare trace 收敛</strong>。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case3-j1">
 <h3>1.11 玻色 Case 3：矩阵选择与第一条约束</h3>
@@ -2310,7 +2718,7 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<h4>这里的 “Also” 不能按严格的 Case 7 来读</h4>
+<h4>这里的 “Also” 不能按精确定义的 Case 7 来读</h4>
 <p>Case 3 与 Case 7 确实使用同一个</p>
 <div class="scroll">\[
           J_2=\sigma_x\otimes I_N,\qquad
@@ -2339,7 +2747,7 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
         \(B_{12}^T=\bar B_{12}\) 给出 \(B_{12}=B_{12}^\dagger\)。
         原文写出的其余四条关系也分别来自相应 block。到这里仅确定了允许的线性子空间，
         尚未施加半负定性。</p>
-<p>为什么它最终与 Case 7 不同，可以先试最自然的 strict direction。
+<p>为什么它最终与 Case 7 不同，可以先试最自然的负定方向。
         在最小 \(N=2\) realization 中，原文使用</p>
 <div class="scroll">\[
           J_1=(-i\sigma_y)\otimes(-i\sigma_y),\qquad
@@ -2354,5 +2762,13 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; C^{T}_{12} &amp; C_{22}\\
         \]</div>
 <p>也就是说，\(J_2\) 单独允许的最直接 contracting direction 被
         \(J_1\) 条件排除了。这已经预示后面为什么只剩等号边界。</p>
+<div class="note">
+<strong>Case 3 第一部分核对结论：分块代数正确。</strong>
+        原文的 \(J_1,J_2\) 和 \(J_1^TAJ_1=\bar A\) 分块条件可由直接乘法复现。
+        这里与 Case 7 共用
+        \(J_2=\sigma_x\otimes I_N\)，所以也共用
+        \(J_2g=\operatorname{diag}(I_N,-I_N)\)；不同之处是
+        \(\{J_1,J_2\}=0\)。
+      </div>
 </div>
 </article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">下一卷 note</a></nav></main></body></html>

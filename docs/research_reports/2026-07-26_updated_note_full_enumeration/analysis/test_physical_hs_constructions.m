@@ -81,12 +81,12 @@ function test_physical_hs_constructions()
                 "XIY", "YYX", "iJ2g", A, fixed_part, field_generator);
   endfor
 
-  % Boson iJ2g, s1=+1, q1=+1: two-mode pairing quadrature.
+  % Boson iJ2g, s1=+1, q1=+1: number-conserving LMG dimer.
   for phi = [-3, -1, 0, 2]
     fixed_part = -1i * word("IY");
-    field_generator = word("XX");
+    field_generator = word("ZX");
     A = fixed_part + phi * field_generator;
-    write_check(fid, "boson_parametric_dimer", "boson", ...
+    write_check(fid, "boson_reflection_lmg_fixed_number", "boson", ...
                 "B-iJ2g-s1+q1+", "continuous_gaussian", phi, ...
                 "IX", "YY", "iJ2g", A, fixed_part, field_generator);
   endfor

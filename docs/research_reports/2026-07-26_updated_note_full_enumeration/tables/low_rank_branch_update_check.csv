@@ -1,0 +1,4 @@
+rotation_turns,local_dimension,continuous_phase_over_2pi,weight_ratio_real,weight_ratio_imag,endpoint_determinant_ratio_real,endpoint_determinant_ratio_imag,minimum_reduced_determinant,minimum_reduced_singular_value,green_update_residual,determinant_lemma_residual,integration_error
+0,2,0,1,0,1,0,1,1,0,0,0
+1,2,0.9999999999999999,-1,-5.66553889764798e-16,1,-4.329665478595318e-16,1,1,8.419821428253573e-33,0,5.503620197366783e-13
+2,2,2,1,2.449293598294706e-16,1,-8.659330957190636e-16,1,1,1.683964285650715e-32,0,9.738924766805771e-11

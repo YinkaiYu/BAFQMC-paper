@@ -117,17 +117,26 @@ def main():
         )
 
     legend = [
-        Patch(facecolor=colors[2], label=r"strict, $\eta=J_2g$"),
-        Patch(facecolor=colors[3], label=r"strict, $\eta=iJ_2g$"),
-        Patch(facecolor=colors[1], label=r"$J_1^TAJ_1=\bar A$ flips the cone"),
-        Patch(facecolor=colors[0], label="trace obstruction"),
+        Patch(facecolor=colors[2], label=r"$\eta A+A^\dagger\eta<0$, $\eta=J_2g$"),
+        Patch(facecolor=colors[3], label=r"$\eta A+A^\dagger\eta<0$, $\eta=iJ_2g$"),
+        Patch(
+            facecolor=colors[1],
+            label=(
+                r"$J_1^T\overline{(\eta A+A^\dagger\eta)}J_1"
+                r"=-(\eta A+A^\dagger\eta)$"
+            ),
+        ),
+        Patch(
+            facecolor=colors[0],
+            label=r"$\mathrm{Tr}(\eta A+A^\dagger\eta)=0$",
+        ),
     ]
     figure.legend(
-        handles=legend, loc="lower center", ncol=4, frameon=False,
+        handles=legend, loc="lower center", ncol=2, frameon=False,
         bbox_to_anchor=(0.5, -0.005), fontsize=9
     )
     figure.subplots_adjust(
-        left=0.19, right=0.99, top=0.97, bottom=0.25, hspace=1.03
+        left=0.19, right=0.99, top=0.97, bottom=0.31, hspace=1.03
     )
 
     for suffix in ("pdf", "png"):

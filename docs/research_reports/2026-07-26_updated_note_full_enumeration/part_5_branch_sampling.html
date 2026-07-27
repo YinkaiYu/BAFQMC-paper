@@ -1,0 +1,655 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>玻色 Gaussian AFQMC：double-cover 符号追踪与采样</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>玻色 Gaussian AFQMC 的 double-cover 符号追踪与采样</h1>
+<p class="lead">
+    本卷讨论一个与主报告的无符号证明分开的算法问题：当一个一般
+    Gaussian 辅助场模型确实有正负权重时，怎样在只保存 Nambu
+    传播矩阵的计算中恢复、更新并采样被平方根公式丢掉的那一个符号。
+  </p>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_4_implications.html">返回 note 研究主报告</a><a href="part_6_case12_semigroups.html">Case 1/2 半群证明</a><a href="report_updated_note_full_enumeration_zh.html">主报告单文件完整版</a></nav><section id="branch-sampling">
+<h2>1. 问题从哪里出现</h2>
+<p>
+    对一个固定辅助场构型，把全部虚时间片的 Nambu 传播矩阵按实际顺序
+    相乘，记为 \(M\)。相应的 Fock-space Gaussian operator 还含一个
+    正规序或常数项产生的 scalar \(e^\xi\)。在不碰到
+    \(\det(I-M)=0\) 时，玻色 Gaussian trace 满足
+  </p>
+<div class="scroll">\[
+    W=\operatorname{Tr}_{\rm Fock}\hat{\mathcal U}
+    =\frac{e^\xi}{\sqrt{\det(I-M)}} .
+  \]</div>
+<p>
+    这里的平方根不能只按终点复数的 principal square root 计算。
+    原因是：从 Fock-space Gaussian operator 到 classical Nambu
+    transformation \(M\) 的映射是 two-to-one。两个相差整体负号的
+    Fock operators 作用在 \(\chi\) 上产生完全相同的 \(M\)，但它们的
+    trace 相差负号。这个 two-to-one 结构通常称为 double cover。
+  </p>
+<p>
+    因而最终的 \(M\)、\(\det(I-M)\) 和普通 Green matrix
+    \((I-M)^{-1}\) 都不足以重建 \(W\) 的符号。实际 AFQMC
+    operator 是由一串 elementary exponentials 按次序定义的，所以符号
+    并非任意；必须连同这条 operator path 一起保存。
+  </p>
+<h2>2. 沿一条无 pole 路径唯一恢复权重</h2>
+<p>
+    令 \(t\in[0,1]\) 连续参数化一次辅助场更新，并把对应量写成
+    \(M(t),\xi(t),W(t)\)。假定整条路径上
+    \(\det[I-M(t)]\ne0\)。先对 determinant 求导：
+  </p>
+<div class="scroll">\[
+    \begin{aligned}
+    \frac{d}{dt}\log\det[I-M(t)]
+    &amp;=\operatorname{Tr}\!\left[
+      (I-M)^{-1}\frac{d(I-M)}{dt}\right]\\
+    &amp;=-\operatorname{Tr}\!\left[(I-M)^{-1}\dot M\right].
+    \end{aligned}
+  \]</div>
+<p>
+    这里的 \(\log\) 表示沿路径连续延拓的 logarithm，不是在每个
+    \(t\) 独立调用 principal logarithm。代入
+    \(W=e^\xi[\det(I-M)]^{-1/2}\)，得到
+  </p>
+<div class="scroll">\[
+    \frac{d}{dt}\log W(t)
+    =\dot\xi(t)
+    +\frac12\operatorname{Tr}\!\left[(I-M)^{-1}\dot M\right].
+  \]</div>
+<p>
+    从已知符号的参考点 \(t=0\) 积到新构型 \(t=1\)，便得到沿实际
+    算符路径连续确定的权重。下文把它简称为“路径定支权重”：
+  </p>
+<div class="scroll">\[
+    W(1)=W(0)e^{\xi(1)-\xi(0)}
+    \exp\!\left\{
+      \frac12\int_0^1dt\,
+      \operatorname{Tr}[(I-M)^{-1}\dot M]
+    \right\}.
+  \]</div>
+<p>
+    同一结果也可写成终点 principal logarithm 乘一个额外的
+    \(\mathbb Z_2\) 变量：
+  </p>
+<div class="scroll">\[
+    W=e^\xi\,\sigma_{\rm lift}
+    \exp\!\left[-\frac12
+    \operatorname{Log}_{\rm principal}\det(I-M)\right],
+    \qquad \sigma_{\rm lift}=\pm1 .
+  \]</div>
+<p>
+    若连续 determinant path 相对 principal argument 多绕原点一圈，
+    连续 logarithm 多出 \(2\pi i\)，上式的 inverse square root
+    就多出 \(e^{-\pi i}=-1\)。所以真正需要记录的是 determinant
+    path 的 winding parity，而不是重新猜测终点平方根。
+  </p>
+<h2>3. 一个终点矩阵完全相同、权重却不同的检验</h2>
+<p>
+    数值检验使用两个有 pairing 的玻色模，先施加固定 damping，再让一个
+    local Nambu pair 分别旋转 \(0,2\pi,4\pi\)。三条路径末端的
+    \(M\) 完全相同，终点 determinant 也都为
+    \(4.151838534817697\)。但是 determinant path 的绕数依次为
+    \(0,1,2\)，所以路径定支权重的符号依次为正、负、正，
+    绝对值均为 \(0.4907719947\)。
+  </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>local rotation</th><th>determinant 绕数</th>
+<th>double-cover 符号</th><th>Fock-cutoff 直接求迹误差</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>\(0\)</td><td>0</td><td>\(+1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
+<tr><td>\(2\pi\)</td><td>1</td><td>\(-1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
+<tr><td>\(4\pi\)</td><td>2</td><td>\(+1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+    三条路径的最小 \(|\det(I-M(t))|\) 都大于 \(3.77\)，因此负号不是
+    穿过 pole 造成的数值伪影。截断 Fock space 的直接矩阵求迹给出同样的
+    \(+,-,+\) 结果。完整数据见
+    <a href="tables/branch_resolved_trace_check.csv">branch_resolved_trace_check.csv</a>，
+    脚本见
+    <a href="analysis/verify_branch_resolved_trace.m">verify_branch_resolved_trace.m</a>。
+  </p>
+<h2>4. Local update 不需要重算大 determinant</h2>
+<p>
+    设旧传播矩阵已经按更新位置分成 \(M_0=LR\)。一次局域更新只作用在
+    \(r\) 个物理 modes，也就是 \(2r\) 维 local Nambu space。令
+    \(E\) 把这个局域空间嵌入完整 Nambu space，令 \(D(t)\) 是从
+    \(D(0)=I\) 连续变到新局域因子的路径。完整更新路径写成
+  </p>
+<div class="scroll">\[
+    M(t)=L\left[I+E(D(t)-I)E^T\right]R,
+    \qquad M(0)=LR=M_0 .
+  \]</div>
+<p>
+    旧 Green matrix 与一个 \(2r\times2r\) reduced matrix 为
+  </p>
+<div class="scroll">\[
+    G=(I-M_0)^{-1},\qquad
+    C=E^TRGLE .
+  \]</div>
+<p>
+    从
+    \(I-M(t)=I-M_0-LE(D-I)E^TR\) 使用 matrix determinant lemma，
+    得到精确的小矩阵公式
+  </p>
+<div class="scroll">\[
+    \frac{\det[I-M(t)]}{\det(I-M_0)}
+    =\det\!\left[I_{2r}-(D(t)-I_{2r})C\right].
+  \]</div>
+<p>
+    所以 determinant path、它是否接近 pole、以及连续 logarithm 的导数
+    都可在 \(2r\) 维空间计算：
+  </p>
+<div class="scroll">\[
+    \frac{d}{dt}\log
+    \frac{\det[I-M(t)]}{\det(I-M_0)}
+    =
+    -\operatorname{Tr}\!\left[
+      \bigl(I-(D-I)C\bigr)^{-1}\dot D\,C
+    \right].
+  \]</div>
+<p>
+    令这个小 determinant 在终点的值为 \(z_{\rm end}\)，并对上式积分。
+    数值上用 \(\log|z_{\rm end}|\) 固定连续 logarithm 的实部，用积分的
+    imaginary part 保存没有取模 \(2\pi\) 的全部绕数。若这次局域更新还使
+    scalar 改变 \(\Delta\xi\)，权重比就是
+  </p>
+<div class="scroll">\[
+    \frac{W_{\rm new}}{W_{\rm old}}
+    =
+    \exp\!\left[
+      \Delta\xi-\frac12
+      \left\{\log|z_{\rm end}|
+      +i\,\operatorname{Im}\!\int_0^1dt\,
+      \frac{d}{dt}\log z(t)\right\}
+    \right].
+  \]</div>
+<p>
+    接受更新后，完整 \(G\) 也可用 Woodbury identity 精确更新。记
+    \(D(1)-I\) 为终点局域差值，则
+  </p>
+<div class="scroll">\[
+    \begin{aligned}
+    G_{\rm new}=G
+    +GLE(D(1)-I)
+    \left[I-C(D(1)-I)\right]^{-1}E^TRG .
+    \end{aligned}
+  \]</div>
+<p>
+    对固定的 \(r\)，形成 \(C\) 和更新完整 \(G\) 的主要代价是
+    \(O(N^2r)\)，路径积分每次只解 \(2r\) 维线性方程。实现文件
+    <a href="analysis/boson_branch_low_rank_update.m">boson_branch_low_rank_update.m</a>
+    已包含 determinant lemma、连续相位积分、Woodbury update、
+    endpoint pole check 与路径最小 determinant 诊断。
+  </p>
+<h2>5. 低秩实现的独立数值检查</h2>
+<p>
+<a href="analysis/verify_low_rank_branch_update.m">verify_low_rank_branch_update.m</a>
+    对同一个 \(0,2\pi,4\pi\) 例子只使用 rank-2 local update。结果为：
+  </p>
+<div class="scroll">
+<table>
+<thead>
+<tr><th>旋转圈数</th><th>连续相位/\(2\pi\)</th>
+<th>weight ratio</th><th>Green update residual</th>
+<th>determinant lemma residual</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>\(+1\)</td><td>0</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>\(-1\)</td><td>\(8.4\times10^{-33}\)</td><td>0</td></tr>
+<tr><td>2</td><td>2</td><td>\(+1\)</td><td>\(1.7\times10^{-32}\)</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+    这三次更新的终点 \(D(1)=I\)，所以普通 endpoint ratio 全部为 1；
+    只有连续相位保存了中间绕数。完整输出见
+    <a href="tables/low_rank_branch_update_check.csv">low_rank_branch_update_check.csv</a>。
+  </p>
+<h2>6. 放进 Metropolis sampling 的完整步骤</h2>
+<p>
+    以下算法采样一般有符号或有复相位的 Gaussian 模型。它准确记录符号，
+    但不会神奇地消除平均符号随系统尺寸下降的统计困难。
+  </p>
+<ol>
+<li>
+      选择一个能够直接在 Fock space 或从 elementary factors 确定
+      \(W_{\rm ref}&gt;0\) 的参考构型。保存其 \(M,G,\xi\) 以及
+      \(\sigma_{\rm lift}=+1\)。
+    </li>
+<li>
+      对一次局域辅助场 proposal，使用实际 elementary slice 的连续变化
+      构造 \(D(t)\)。不能用与 operator update 无关的任意闭合路径，因为
+      lift 属于实际有序 operator product。
+    </li>
+<li>
+      用上一节的小矩阵积分算出完整复权重比
+      \(R_W=W_{\rm new}/W_{\rm old}\)，其中已经包括正规序 scalar
+      \(e^{\Delta\xi}\) 与 double-cover 符号。
+    </li>
+<li>
+      把 Gaussian HS density、proposal probability 的正反向比和
+      \(R_W\) 合成 \(R_{\rm total}\)。以
+      \[
+        P_{\rm accept}=\min(1,|R_{\rm total}|)
+      \]
+      决定是否接受。
+    </li>
+<li>
+      若接受，更新 \(M,G,\xi\)，并把已存 phase 乘以
+      \(R_{\rm total}/|R_{\rm total}|\)。对实权重，这一步只更新
+      \(\pm1\)；若 proposal 拒绝，所有状态保持不变。
+    </li>
+<li>
+      测量时使用标准重加权
+      \[
+        \langle O\rangle
+        =\frac{\langle e^{i\varphi}O\rangle_{|W|}}
+        {\langle e^{i\varphi}\rangle_{|W|}} .
+      \]
+      分母同时给出平均 sign/phase，是算法统计可行性的直接诊断。
+    </li>
+</ol>
+<h2>7. Pole、数值稳定与周期性重建</h2>
+<p>
+    若小 determinant
+    \(\det[I-(D(t)-I)C]\) 在路径上为零，则
+    \(\det[I-M(t)]=0\)，玻色 bare trace 在该中间构型发散。此时不能把
+    它当成普通的 sign flip 跨过去。对本文的 pole-free 半群，
+    这种情况由解析不等式排除。在一般模型中，若物理辅助场积分路径本身
+    穿过这个发散点，就必须回到该模型的积分轮廓或正则化定义处理；
+    不能把该步作为有限权重的 Metropolis 更新接受，也不能仅靠改变
+    square-root branch 隐去 divergence。
+  </p>
+<p>
+    长虚时间乘积会产生极端尺度分离，所以实现同时采用两级校验：
+  </p>
+<ol>
+<li>
+      每次 local update 用 reduced determinant 的最小 singular value
+      与 adaptive path subdivision 检查是否接近 pole。
+    </li>
+<li>
+      经过固定数量的接受更新后，从保存的 elementary factors 使用
+      QR/SVD-stabilized multiplication 重建 \(M,G\)，并从已知 reference
+      沿实际 factor path 重新积分 lift。随后比较累计 phase、determinant
+      ratio 与 Green residual；超过容差的 Markov state 不进入测量。
+    </li>
+</ol>
+<p>
+    周期性重建不是用 principal square root 覆盖累计符号；它重放同一条
+    elementary-operator path，所以得到的是对累计 lift 的独立复算。
+  </p>
+<h2>8. 与 PfQMC 的关系</h2>
+<p>
+    Han、Wan、Yao 的
+    <a href="https://arxiv.org/abs/2408.10311">PfQMC</a>
+    处理 fermionic Gaussian operators。其核心关系可写成
+    \[
+      \operatorname{Tr}\hat O=2^N\eta,\qquad
+      2^{2N}\eta^2=\det(I+B),
+    \]
+    并用 Pfaffian product formulas 恢复 determinant square 丢失的
+    Gaussian-operator sign。公开
+    <a href="https://github.com/zyHan2077/PfQMC">PfQMC code</a>
+    在局域更新接受后把权重比的 phase 乘进已存 sign，并周期性从完整
+    operator string 重算；本报告核对的 repository commit 是
+    <code>50b597e7f634298ae5b93aa7afe992405fbdcd5e</code>。
+  </p>
+<p>
+    本卷沿用的是同一数值设计原则，而不是直接移植 fermionic Pfaffian
+    公式：更新时保存被 classical matrix representation 丢掉的 lift，
+    用 \(|W|\) 做接受率，用保存的 sign/phase 重加权，并周期性完整复算。
+    玻色问题的区别是权重含 inverse square root，而且
+    \(\det(I-M)=0\) 是发散 pole。因此这里用连续 logarithm 与 reduced
+    determinant path，而不是把 fermionic Pfaffian 公式换一个符号。
+  </p>
+<h2>9. 本卷得到的结论</h2>
+<div class="summary-grid">
+<div class="summary-item established">
+<strong>符号可唯一计算</strong>
+      只要 elementary operator path 已知且不经过 pole，连续 determinant
+      logarithm 与正规序 scalar 唯一确定真实 Fock trace，不需要指数复杂度
+      枚举 Fock basis。
+    </div>
+<div class="summary-item established">
+<strong>局域更新所需量均已有封闭公式</strong>
+      determinant ratio、连续绕数、Green matrix 与接受率都可由
+      \(2r\) 维 reduced matrices 更新；Octave rank-2 test 对
+      \(0,2\pi,4\pi\) 给出 \(+,-,+\)。
+    </div>
+<div class="summary-item corrected">
+<strong>与主报告分开</strong>
+      主报告的 sign-free classes 依靠半群、实性与正参考点证明
+      \(\sigma_{\rm lift}=+1\)；本卷用于一般有符号模型中显式采样
+      \(\sigma_{\rm lift}\)，二者不是同一个论证。
+    </div>
+</div>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_4_implications.html">返回 note 研究主报告</a><a href="part_6_case12_semigroups.html">Case 1/2 半群证明</a><a href="report_updated_note_full_enumeration_zh.html">主报告单文件完整版</a></nav></main></body></html>

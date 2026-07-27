@@ -419,11 +419,31 @@ C_{12} &amp; C_{11} &amp; -B^{T}_{12} &amp; -B_{11}\\
         \(-\sigma_z\otimes\sigma_x\) 实际等于 \(J_2g\)；
         真正的 \(iJ_2g\) 还应多一个整体 \(i\)。因此右侧 block
         calculation 应按正确的 \(\eta A=J_2gA\) 读取。</p>
-<p>问题不再是它控制了哪个指数，而是这个 sign class 没有
-        strict interior：\(J_1\) constraint 迫使 contraction spectrum
-        关于零成对。半负定时只能退化到等号边界。报告第 8 节还给出
-        满足 Case \(9'\) relations 的多时间片负权重反例，所以原文的
+<p>本 Case 有 \(J_1^TgJ_1=-g\)、\([J_1,J_2]=0\) 和
+        \(\eta=J_2g\)，所以
+        \[
+        J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta).
+        \]
+        若括号内的矩阵半负定，左边也半负定，故上式推出
+        \(-(\eta A+A^\dagger\eta)\le0\)，也就是括号内的矩阵半正定。
+        它同时半负定和半正定，只能取零。报告第 8 节还给出满足
+        Case \(9'\) relations 的多时间片负权重反例，所以原文的
         Passed 标签不能保留。</p>
+<div class="correction">
+<strong>费米 Case \(9'\) 第二部分核对结论：左侧多写了 \(i\)，cone 的最终 \(A\) 还少了一个负号；Passed 不成立。</strong>
+        右侧实际矩阵是 \(J_2gA\)，所以应按
+        \(\eta=J_2g\) 检查。原文给出
+        \(C_{11}=\bar D_{22}\)，而 \(J_1\) 条件又使
+        \(C_{11}=-\bar C_{11}\)，所以 cone 矩阵的 \((4,2)\) block
+        应为 \(\bar C_{11}=-C_{11}\)，不是显示式中的 \(C_{11}\)。
+        修正这些局部符号后，本类仍满足
+        \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta)\)。因此半负定同时推出半正定，
+        只能取等号，不存在负定生成元；
+        报告中的三时间片例子还给出负的完整费米 determinant。因此原文
+        第一节的 Passed 标签不能保留。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case10-j1">
 <h3>1.34 费米 Case \(10'\)：两个 realization 与第一条约束</h3>
@@ -493,7 +513,12 @@ C^{\dagger}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
 <div class="annotation-label">讲解与补全</div>
 <p>第一种 realization 再次表明离散关系本身不足以决定 sign。
         第二种 realization 的 \(A\) 是完整 anti-linear constraint subspace；
-        它的存在仍不说明 cone 内有严格半负定方向。</p>
+        它的存在仍不说明 cone 内有使收缩矩阵负定的方向。</p>
+<div class="result">
+<strong>费米 Case \(10'\) 第一部分核对结论：线性分块条件正确。</strong>
+        两个 realization 都满足所列离散关系；第二个 realization 的
+        \(J_1\) 约束可由直接乘法复现。它们的存在不意味着 cone 中有负定点。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case10-j2">
 <h3>1.35 费米 Case \(10'\)：convex cone 与失败判断</h3>
@@ -564,8 +589,21 @@ C^{\dagger}_{12} &amp; 0 &amp; -B^{T}_{12} &amp; 0
         \(-\sigma_z\otimes\sigma_z\,A\) 实际是 \(J_2gA\)。
         按正确 metric 读取后，所得 contraction candidate 是纯
         off-diagonal block matrix，非零 eigenvalues 成正负对，因此
-        不能 strict seminegative。原文用引号写 “wrong”，是在标记这一组
+        不可能负定。原文用引号写 “wrong”，是在标记这一组
         commutation choice；它不是一个已定义的物理分类名称。</p>
+<div class="correction">
+<strong>费米 Case \(10'\) 第二部分核对结论：左侧多写了 \(i\)，cone 的 displayed \(A\) 还有两处回代错误。</strong>
+        右侧 prefactor 实际是 \(J_2g\)。按正确 metric 读取后，
+        \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta)\)，所以半负定同时推出半正定，
+        只能取等号。由上一行
+        \(B_{12}=-B_{21}^\dagger\) 回代，\((2,1)\) block 应为
+        \(-B_{12}^\dagger\)，不是 \(+B_{12}^\dagger\)；
+        相应的 \((3,4)\) block 应为 \(+\bar B_{12}\)，不是原文的
+        \(-\bar B_{21}\)。作者最后判断存在 sign problem
+        说得过强；这里得到的只是本类没有负定生成元，不能单凭一个
+        充分判据失效就证明每个允许 Hamiltonian 都有符号问题。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case6-j1">
 <h3>1.36 费米 Case \(6'\)：第一条约束</h3>
@@ -636,6 +674,11 @@ B_{21} &amp; B_{22} &amp; -C^{T}_{12} &amp; C_{22}\\
 <p>所得 relations 与玻色 Case 12 的形式相似，但 pairing blocks 的
         transpose signs 由费米反对称性决定。原文逐块乘法已经把这些负号全部写出，
         因此这里不能直接把玻色结论照搬给费米。</p>
+<div class="result">
+<strong>费米 Case \(6'\) 第一部分核对结论：分块代数正确。</strong>
+        各个 block signs 与费米 pairing 的反对称性一致。原文使用的
+        <code>\dag</code> 是可渲染的 dagger 记号，不应误判为数学 typo。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case6-j2">
 <h3>1.37 费米 Case \(6'\)：subgroup、cone 与候选 positivity</h3>
@@ -716,14 +759,29 @@ positivity.</p>
 <p>左侧写成 \(iJ_2gA\)，但右侧
         \(-\sigma_z\otimes\sigma_x\,A\) 实际等于 \(J_2gA\)；
         去掉左侧多出的 \(i\) 后，这正是标准 Nambu contraction cone。
-        完整穷举确认它有 strict interior，乘法封闭性与从正参考点连续延拓
+        完整穷举确认它包含负定生成元，乘法封闭性与从正参考点连续延拓
         随后给出完整 Fock-weight positivity。</p>
 <p>不过 “new” 仍不能由这份手算推出。\(J_1^2=-I\) 的 Wei
         Kramers-plus-pairing semigroup 完整换到 Nambu convention 后，
-        同样落在 \(J_2g\) strict branch；其具体 \(J_1\) label 会随
+        同样落在 \(J_2g\) 中允许负定生成元的分支；其具体 \(J_1\) label 会随
         complex-fermion basis 和额外 symmetries 改变，不应在没有写出
         transformation 时唯一指定为某一个 case。是否还有超出已知类的
         physical realization，需要另做 basis-equivalence analysis。</p>
+<div class="correction">
+<strong>费米 Case \(6'\) 第二部分核对结论：左侧多写了 \(i\)，maximal-subgroup 矩阵的两个 block 符号也写错；cone 结论通过。</strong>
+        右侧实际计算的是 \(J_2gA\)。采用
+        \(\eta=J_2g\) 后，穷举确认该类包含负定生成元。原文
+        maximal-subgroup 矩阵的 \((3,3)\) 与 \((4,4)\) blocks
+        都应为 \(-B_{11}^T\)，不是 \(+B_{11}^T\)；这两个 typo
+        不进入随后写出的 cone 矩阵。因此
+        “Possibly has positivity” 可以加强为确定的 semigroup
+        positivity：费米 Fock space 有限；严格不等式排除 \(-1\)
+        本征值；只满足半负定条件的传播矩阵可乘
+        \(e^{\epsilon A_0}\) 后在 \(\epsilon\to0^+\) 时取非负极限。
+        这三步给出所有 semigroup elements 的非负权重。
+        “new non-Hermitian case” 是否代表文献中新的 positivity
+        仍需 basis-equivalence 和具体 Hamiltonian 检验。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case7-input">
 <h3>1.38 费米 Case \(7'\)：实矩阵条件</h3>
@@ -745,6 +803,11 @@ I_{N} &amp; 0
 <p>这里没有省略额外 block relations：当 \(J_1=I\) 时，
         第一条 anti-linear condition 的确完整等价于 \(A=\bar A\)。
         费米的一般结构仍要求 \(C,D\) 为反对称矩阵。</p>
+<div class="result">
+<strong>费米 Case \(7'\) 第一部分核对结论：正确。</strong>
+        \(J_1=I\) 的确使 \(J_1^TAJ_1=\bar A\) 等价于 \(A=\bar A\)；
+        没有被省略的额外 \(J_1\) block 条件。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case7-j2">
 <h3>1.39 费米 Case \(7'\)：subgroup、cone 与 “With positivity”</h3>
@@ -809,8 +872,20 @@ B &amp; C\\
         要把它称为 Hermitian seminegative matrix，还需使用此前的
         \(B=B^\dagger\)、\(C=\bar D\)、费米反对称性与 \(A=\bar A\)。
         这些条件合在一起给出正确的 slice-level cone；完整穷举确认该类
-        有 strict interior，报告后文再用 semigroup closure 与正参考点
-        固定 Fock-trace branch。</p>
+        包含负定生成元。报告后文再证明任意多时间片的乘积仍满足收缩
+        不等式，并从一个正参考点连续延拓，从而固定 Fock trace 的正号。</p>
+<div class="correction">
+<strong>费米 Case \(7'\) 第二部分核对结论：左侧多写了 \(i\)，修正后存在负定生成元。</strong>
+        右侧实际是 \(J_2gA\)。按 \(\eta=J_2g\) 读取后，cone 的
+        Hermiticity 和半负定条件正确，穷举也找到负定点。原文
+        “With positivity” 没有写证明，但结论可以就地补完：半群乘积
+        保持 \(M^\dagger\eta M-\eta\le0\)；严格不等式排除
+        \(-1\) 本征值；\(J_1\) 使有限维 fermion trace 为实。
+        对任一只满足半负定条件的传播矩阵，乘
+        \(e^{\epsilon A_0}\) 后得到严格收缩矩阵，再令
+        \(\epsilon\to0^+\)，便得到非负权重。因此这是完整的
+        sign-free contraction semigroup。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case8-j1">
 <h3>1.40 费米 Case \(8'\)：第一条约束</h3>
@@ -884,6 +959,17 @@ B_{21} &amp; -B^{\dagger}_{11} &amp; -C^{T}_{12} &amp; C_{22}\\
         原文其余 relations 同样来自对应位置。由于费米 pairing block
         反对称，\((1,2)\) 与 \((2,1)\) positions 的 transpose signs
         不能从玻色 Case 直接复制。</p>
+<div class="correction">
+<strong>费米 Case \(8'\) 第一部分核对结论：列出的独立关系正确，但回代成最终 \(A\) 时交换了 \(C_{11}\) 与 \(C_{22}\)。</strong>
+        由 \(C_{11}=\bar D_{22}\)、\(C_{22}=\bar D_{11}\) 应得
+        \(D_{11}=\bar C_{22}\)、\(D_{22}=\bar C_{11}\)。所以最终
+        \(A\) 的 \((3,1)\) block 应为 \(\bar C_{22}\)，
+        \((4,2)\) block 应为 \(\bar C_{11}\)；原文正好写反。
+        原文的 <code>D_{12}^{\dag}</code> 与
+        <code>D_{12}^{\dagger}</code> 都表示 Hermitian conjugation；
+        这不是 typo。其余独立 block relations 与直接乘法及费米反对称
+        pairing 条件一致。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case8-j2">
 <h3>1.41 费米 Case \(8'\)：subgroup、cone 与 “With positivity”</h3>
@@ -965,10 +1051,25 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 <p>这段是第三节最后一份完整手算。与前几例相同，左侧
         \(iJ_2gA\) 多写了 \(i\)，右侧实际计算的是 \(J_2gA\)。
         按 \(\eta=J_2g\) 读取后，它给出的确是标准 Nambu cone；
-        完整穷举确认该类有 strict interior。原 note 的
-        “With positivity” 仍没有写完多时间片与 spin-trace branch proof，
-        但本报告后文已经补上这两步，因此 Case \(8'\) 可以保留为
+        完整穷举确认该类包含负定生成元。原 note 的
+        “With positivity” 仍没有证明任意多时间片的乘积继续满足收缩
+        不等式，也没有说明怎样从正参考点连续固定 spin trace 的符号。
+        本报告后文已经补上这两步，因此 Case \(8'\) 可以保留为
         \(e^A\) contraction class。</p>
+<div class="correction">
+<strong>费米 Case \(8'\) 第二部分核对结论：左侧多写了 \(i\)；maximal-subgroup 矩阵继承了上一段的两个符号错误，但 cone 结论通过。</strong>
+        右侧实际是 \(J_2gA\)。采用正确 metric 后，穷举确认本类包含
+        \(\eta A+A^\dagger\eta&lt;0\) 的解。在 maximal-subgroup
+        displayed \(A\) 中，\((3,1)\) 应为 \(-\bar C_{11}\)，
+        \((4,2)\) 应为 \(+\bar C_{11}\)；原文符号相反。
+        cone 中 \(C_{22}=C_{11}\)，所以上一段交换 \(C_{11},C_{22}\)
+        的 typo 在 cone 矩阵中恰好消失。原文 “With positivity”
+        只表达作者的判断，没有写出证明。正确证明与 Case \(7'\)
+        相同：乘法保持半负定不等式；严格不等式排除 \(-1\) 本征值；
+        \(J_1\) 使权重为实；只满足半负定条件的传播矩阵可用
+        \(e^{\epsilon A_0}\) 在 \(\epsilon\to0^+\) 时逼近。四步合在一起，
+        给出完整的非负 fermion Fock trace。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-proofs-empty">
 <h3>1.42 第四节 `Proofs`</h3>
@@ -985,5 +1086,23 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         提供了 examples 和 candidate subspaces，但第一节的总分类、Comment、
         semigroup closure 与完整 Fock-weight positivity 都没有在原 note 的
         `Proofs` 节完成。以上已经按原顺序覆盖 note 的每一句正文和每个显示公式。</p>
+<div class="warning">
+<strong>Proofs 节核对结论：原 note 没有完成证明。</strong>
+        一个句点不能承接前面的 Passed/Failed、new positivity 或
+        “With positivity” 等判断。本报告现已把缺失的层次分开补完：
+        修正后的 fermion Cases \(5'\)--\(8'\) 是完整 sign-free
+        semigroups；boson Cases 5--8 中，报告给出的四个具体 HS 模型
+        每个时间片满足半负定条件，每个完整构型至少含一个满足严格
+        不等式的固定因子；这些模型属于物理 oscillator semigroup。
+        对每个构型，相应 Fock operator 都是 trace class，也就是
+        对所有玻色高占据态的贡献取绝对值后求和仍收敛；权重恒正且无
+        pole。新增 bosonic \(iJ_2g\)
+        四类目前证明的是：取 \(\eta=iJ_2g\) 后，确实存在同时满足
+        \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和
+        \(\eta A+A^\dagger\eta&lt;0\) 的 \(A\)。尚未证明的是这个
+        \(\eta\) 与原 grand-canonical Fock representation 的物理
+        particle/hole 取向相同，并使 bare trace 收敛；这是报告尚未
+        证明的部分。
+      </div>
 </div>
 </article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_03.html">上一卷 note</a><a href="part_2_physical_mapping.html">下一卷：物理对应</a></nav></main></body></html>

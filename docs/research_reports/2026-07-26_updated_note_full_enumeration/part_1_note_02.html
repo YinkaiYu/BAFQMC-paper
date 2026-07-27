@@ -399,23 +399,55 @@ I_{N}\right)A\leq0\]</span></p>
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<p>关键不是 cone 线性子空间是否非零，而是该子空间内能否找到严格半负定的
-        \(J_2gA+A^\dagger J_2g\)。Case 3 的 anti-linear condition
-        会把这个 Hermitian matrix 变成其相反数。若一个允许的 \(A\) 令它半负定，
-        对称变换后的同一 \(A\) 又要求它半正定，因此只能等于零。
-        原文的 Failed 判断与这一局部现象一致；显示的 block calculation 给出了
-        “只剩边界”的坐标形式。</p>
-<p>把上一段的观察推广到任意允许 \(A\)。用本 Case 的
-        \(\{J_1,J_2\}=0\)、
-        \(J_1^TgJ_1=g\) 和 \(J_1^TAJ_1=\bar A\) 逐项移动 matrices，
-        得到</p>
+<p>关键不是满足 \(J_2^TAJ_2=-\bar A\) 的线性空间是否非零，
+        而是其中能否找到
+        \(J_2gA+A^\dagger J_2g&lt;0\) 的生成元。下面直接计算这个问题。</p>
+<p>把上一段的观察推广到任意允许 \(A\)。这里不能随意交换
+        matrices 的次序。由 \(J_1^TgJ_1=g\) 和
+        \(J_1J_1^T=I\)，先得到 \(gJ_1=J_1g\)；由
+        \(\{J_1,J_2\}=0\)，再得到
+        \(J_1^TJ_2J_1=-J_2\)。因此</p>
 <div class="scroll">\[
-          J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1
-          =-\left(J_2gA+A^\dagger J_2g\right).
+          \begin{aligned}
+          J_1^T(J_2g)J_1
+          &amp;=J_1^TJ_2gJ_1\\
+          &amp;=J_1^TJ_2J_1g
+            &amp;&amp;\bigl(gJ_1=J_1g\bigr)\\
+          &amp;=-J_2g
+            &amp;&amp;\bigl(J_1^TJ_2J_1=-J_2\bigr).
+          \end{aligned}
         \]</div>
-<p>左边与 \(J_2gA+A^\dagger J_2g\) 的 eigenvalues 相同，
-        右边却把 eigenvalues 全部变号。若这个 matrix 半负定，它便同时半正定，
-        故只能等于零。这才是 Case 3 对所有 blocks 的失败证明。</p>
+<p>复共轭 \(J_1^TAJ_1=\bar A\) 还分别给出
+        \(J_1^T\bar A J_1=A\) 和
+        \(J_1^TA^TJ_1=A^\dagger\)。把这三条已经证明的等式代入完整
+        contraction matrix，才得到</p>
+<div class="scroll">\[
+          \begin{aligned}
+          &amp;J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1\\
+          &amp;=(J_1^TJ_2gJ_1)(J_1^T\bar A J_1)
+          +(J_1^TA^TJ_1)(J_1^TJ_2gJ_1)\\
+          &amp;=(-J_2g)A+A^\dagger(-J_2g)\\
+          &amp;=-\left(J_2gA+A^\dagger J_2g\right).
+          \end{aligned}
+        \]</div>
+<p>若
+        \(J_2gA+A^\dagger J_2g\le0\)，复共轭和正交基变换保持
+        半负定，所以上式左边也 \(\le0\)。利用上式右边得到
+        \[
+        -(J_2gA+A^\dagger J_2g)\le0
+        \quad\Longleftrightarrow\quad
+        J_2gA+A^\dagger J_2g\ge0.
+        \]
+        与原来的半负定条件合并，只能有
+        \(J_2gA+A^\dagger J_2g=0\)。这才是 Case 3 对所有 blocks
+        的失败证明。</p>
+<div class="result">
+<strong>Case 3 第二部分核对结论：Failed 正确。</strong>
+        invariant-cone 的线性方程可以有非零解，但在同时施加
+        \(J_1^TAJ_1=\bar A\) 后，任何半负定收缩矩阵都被迫为零。
+        所以这里的失败不是“找不到任何 \(A\)”，而是找不到使
+        \(\eta A+A^\dagger\eta&lt;0\) 的 \(A\)。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case4-j1">
 <h3>1.13 玻色 Case 4：二维 block form</h3>
@@ -462,7 +494,7 @@ B &amp; C\\
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<h4>Case 4 与严格 Case 7 相差两条关系</h4>
+<h4>Case 4 与精确定义的 Case 7 相差两条关系</h4>
 <p>这里仍有
         \(J_2=\sigma_x\otimes I_N\)，所以 \(J_2g\) 与 Case 7 相同；
         但</p>
@@ -490,7 +522,15 @@ B &amp; C\\
         \(J_2g=\sigma_z\)。看似最好的 choice
         \(A=-\gamma\sigma_z\) 产生 \(-2\gamma I_2\)，
         但 \(J_1^TAJ_1=-A\ne\bar A\)。因此把 \(J_1^2\) 从
-        \(+I\) 改成 \(-I\) 并没有救回这个 anti-commuting branch。</p>
+        \(+I\) 改成 \(-I\) 后，这个反对易类别仍然没有负定生成元。</p>
+<div class="note">
+<strong>Case 4 第一部分核对结论：分块条件正确。</strong>
+        \(B=-B^\dagger\)、\(C=-\bar D\) 与直接逐块比较一致。
+        这里也与 Case 7 共用
+        \(J_2=\sigma_x\otimes I_N\) 和
+        \(J_2g=\operatorname{diag}(I_N,-I_N)\)。Case 4 的
+        \(J_1^2=-I\)，并且 \(J_1,J_2\) 反对易。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case4-j2">
 <h3>1.14 玻色 Case 4：maximal subgroup、cone 与失败判断</h3>
@@ -526,11 +566,29 @@ I_{N} &amp; 0\\
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<p>在 cone 分支 \(A=\begin{pmatrix}0&amp;-\bar C\\C&amp;0\end{pmatrix}\) 中，
-        \(J_2gA=\begin{pmatrix}0&amp;-\bar C\\-C&amp;0\end{pmatrix}\) 的谱关于零成对出现。
-        除非所有本征值都为零，它不可能整体半负定。
-        因此这个非零线性方向不能形成 strict cone；原文的结论有直接的 spectral
-        interpretation。</p>
+<p>在满足 \(J_2^TAJ_2=-\bar A\) 的部分，
+        \[
+        A=\begin{pmatrix}0&amp;-\bar C\\C&amp;0\end{pmatrix},\qquad
+        J_2gA=\begin{pmatrix}0&amp;-\bar C\\-C&amp;0\end{pmatrix}.
+        \]
+        本 Case 还有 \(J_1^TgJ_1=g\)、\(\{J_1,J_2\}=0\) 和
+        \(J_1^TAJ_1=\bar A\)，所以逐项相乘得到
+        \[
+        J_1^T\overline{(J_2gA+A^\dagger J_2g)}J_1
+        =-(J_2gA+A^\dagger J_2g).
+        \]
+        假定括号内的矩阵半负定，则左边半负定，因而括号内的负号也半负定；
+        这等价于括号内的矩阵半正定。它同时半负定和半正定，只能为零，
+        所以 Case 4 不存在负定生成元。</p>
+<div class="result">
+<strong>Case 4 第二部分核对结论：Failed 正确。</strong>
+        本类满足
+        \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta)\)。若括号内的矩阵半负定，左边也
+        半负定，所以上式又给出括号内的矩阵半正定；因此它只能为零。
+        原文“没有 contraction semigroup”更准确地应读成：
+        这个受约束类别没有进入收缩半群内部的生成元，但仍有等号部分。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case9-j1">
 <h3>1.15 玻色 Case 9：两个矩阵实现与第一条约束</h3>
@@ -622,6 +680,14 @@ B^{\dag}_{12} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
         还必须限制 \(A\)。第二种 realization 的 block comparison 给出
         \(B_{11},B_{22}\) anti-Hermitian、\(B_{21}=B_{12}^\dagger\)，
         以及 \(D\) 由 \(C\) 的复共轭决定。原文最后显示的是满足全部这些条件的一般 \(A\)。</p>
+<div class="note">
+<strong>Case 9 第一部分核对结论：分块代数正确。</strong>
+        第二个 matrix realization 和随后的 \(J_1\) 线性条件可由直接乘法复现。
+        第二个 realization 仍取
+        \(J_2=\sigma_x\otimes I_N\)，因而
+        \(J_2g=\operatorname{diag}(I_N,-I_N)\)；与 Case 7 的差别是
+        \(J_1^TgJ_1=-g\)。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case9-j2">
 <h3>1.16 玻色 Case 9：只剩 off-diagonal cone</h3>
@@ -675,10 +741,25 @@ B^{\dag}_{12} &amp; 0 &amp; C^{T}_{12} &amp; 0\\
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<p>这个 cone matrix 具有把两个子空间互换的 off-diagonal form。
-        与 Case 4 一样，其 Hermitian contraction matrix 的非零本征值成
-        \(\lambda,-\lambda\) 对出现，所以只有零矩阵能半负定。
-        这解释了为什么“cone 分支非空”仍然不够。</p>
+<p>这里 \(J_1^TgJ_1=-g\)、\([J_1,J_2]=0\)，并且
+        \(\eta=J_2g\)。直接代入得到
+        \[
+        J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta).
+        \]
+        若 \(\eta A+A^\dagger\eta\le0\)，左边也半负定，于是
+        \(-(\eta A+A^\dagger\eta)\le0\)，即
+        \(\eta A+A^\dagger\eta\ge0\)。因此只能有
+        \(\eta A+A^\dagger\eta=0\)。这说明满足第二条线性等式的
+        off-diagonal \(A\) 虽然存在，却不能给出负定生成元。</p>
+<div class="result">
+<strong>Case 9 第二部分核对结论：Failed 正确。</strong>
+        本类同样满足
+        \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta)\)。因此半负定条件同时推出半正定条件，
+        只能退化为等号。原文正确识别了失败，但应保留 maximal-subgroup
+        等号部分，不能把它表述成完全没有任何半群元素。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case10">
 <h3>1.17 玻色 Case 10：新版矩阵与失败判断</h3>
@@ -752,15 +833,19 @@ See ToLeiWang4.pdf for details.</p>
           J_1^T\overline{\left(J_2gA+A^\dagger J_2g\right)}J_1
           =-\left(J_2gA+A^\dagger J_2g\right).
         \]</div>
-<p>左边由复共轭和正交 basis change 得到，保留 Hermitian matrix 的
-        eigenvalue signs；右边却把所有 signs 翻转。如果
-        \(J_2gA+A^\dagger J_2g\le0\)，同一个 matrix 也必须半正定，
-        因而只能</p>
+<p>如果 \(J_2gA+A^\dagger J_2g\le0\)，复共轭和正交基变换
+        保持半负定，所以上式左边也 \(\le0\)。用上式右边替换左边，得到
+        \[
+        -(J_2gA+A^\dagger J_2g)\le0
+        \quad\Longleftrightarrow\quad
+        J_2gA+A^\dagger J_2g\ge0.
+        \]
+        与原来的半负定条件合并，因而只能</p>
 <div class="scroll">\[
           J_2gA+A^\dagger J_2g=0 .
         \]</div>
-<p>这说明 Case 10 只有 maximal-subgroup boundary，没有 strict
-        contraction interior。新版的 Failed 判断与本报告的解析分类、Octave
+<p>这说明 Case 10 中凡满足半负定条件的生成元都只能满足
+        maximal-subgroup 等号，不存在负定生成元。新版的 Failed 判断与本报告的解析分类、Octave
         穷举完全一致。</p>
 <p>用户补充说明 “ToLeiWang4.pdf” 大概是
         <code>experts/RPBAFQMC.tex</code> 的编译稿。这个判断与文件主题吻合：
@@ -777,7 +862,24 @@ See ToLeiWang4.pdf for details.</p>
 <p>也就是 note 的 RP Case 2，而不是本段 Case 10 的五条 relations。
         因而该文件只能解释作者为什么在 RP 讨论中引入第二个 \(J_2\)；
         既不能证明其声称的 RP regularization，也不能充当 Case 10 的
-        strict-contraction proof。上面的 Case 10 边界证明仍然需要保留。</p>
+        负定收缩证明。上面的 Case 10 等号结论仍然需要保留。</p>
+<div class="result">
+<strong>Case 10 核对结论：新版已改正确。</strong>
+        更新后的 \(J_1,J_2\) 确实对易并满足标题中的其余四条关系，而且
+        \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
+        =-(\eta A+A^\dagger\eta)\)。故半负定条件同时推出半正定条件，
+        只能取等号，Failed 正确。旧版使用
+        \(J_2=\sigma_x\otimes I\) 时实际落入另一个对易类型；新版删除
+        那段旧 block calculation 是必要修正。
+        本条的 “Also a Yin-Kai's case” 与 Cases 3、4、9 的矩阵对应
+        不同：
+        \[
+          J_2=\sigma_z\otimes I_N
+          =J_2^{\mathrm{Case\ 7}}g,\qquad
+          J_2g=-\sigma_x\otimes I_N .
+        \]
+        即本条把 Case 7 的对角度规矩阵放在了新的 \(J_2\) 位置。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case11-j1">
 <h3>1.18 玻色 Case 11：第一条约束</h3>
@@ -848,7 +950,14 @@ B_{21} &amp; B_{22} &amp; C^{T}_{12} &amp; C_{22}\\
         需要注意显示的最终 \(A\) 中第 \((4,2)\) block 写成
         \(-\bar C_{22}\)，而由上一行
         \(C_{11}=-\bar D_{22}\) 应回代为 \(-\bar C_{11}\)。
-        这是局部抄写不一致，不改变随后“能否有 strict contraction”的结构判断。</p>
+        这是局部抄写不一致，不改变随后“是否存在负定生成元”的结构判断。</p>
+<div class="correction">
+<strong>Case 11 第一部分核对结论：有一处回代 typo。</strong>
+        原文上一行给出的关系要求最终 \(A\) 的 \((4,2)\) 子块为
+        \(-\bar C_{11}\)，显示式却写成 \(-\bar C_{22}\)。
+        其余 \(J_1\) 线性关系与直接乘法一致；这个局部错误不改变
+        后面的 trace obstruction。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case11-j2">
 <h3>1.19 玻色 Case 11：convex cone 与失败判断</h3>
@@ -907,7 +1016,16 @@ I_{N/2}\right)A\)</span></p>
         \(\operatorname{Tr}(J_2gA)=0\)，所以
         \(\operatorname{Tr}(J_2gA+A^\dagger J_2g)=0\)。
         Hermitian matrix 若半负定且 trace 为零，全部 eigenvalues 只能为零。
-        因此不存在 strict interior；这比逐个 block 猜测更直接。</p>
+        因此半负定条件只能取等号，不存在负定生成元；这比逐个 block
+        猜测更直接。</p>
+<div class="result">
+<strong>Case 11 第二部分核对结论：Failed 正确。</strong>
+        因 \(J_2^2=-I\)，
+        \(\Tr(\eta A+A^\dagger\eta)=0\)。若本征值为
+        \(\lambda_j\le0\)，则
+        \(\sum_j\lambda_j=0\) 迫使每个 \(\lambda_j=0\)。
+        因此不存在负定生成元，原文的最终判断正确。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case12-j1">
 <h3>1.20 玻色 Case 12：第一条约束</h3>
@@ -978,6 +1096,11 @@ C^{\dag}_{12} &amp; -\bar{C}_{22} &amp; -B^{T}_{12} &amp; -B^{T}_{22}
         \(B_{21}=B_{12}^\dagger\)，以及 \(D\) 由 \(C\) 决定。
         与 Case 11 相比，改变的是 \(J_1\) 的 realization，而
         \(J_2^2=-I\) 导致的 trace obstruction 尚未改变。</p>
+<div class="correction">
+<strong>Case 12 第一部分核对结论：数学正确，英文有 typo。</strong>
+        “We jave” 应为 “We have”。逐块得到的 \(J_1\) 约束与直接乘法一致；
+        该拼写错误不影响公式。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case12-j2">
 <h3>1.21 玻色 Case 12：convex cone 与失败判断</h3>
@@ -1032,9 +1155,16 @@ I_{N/2}\right)A\)</span></p>
 </details>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
-<p>原文没有写 maximal subgroup，但这不影响 strict-cone question。
+<p>原文没有写 maximal subgroup，但这不影响“是否存在负定生成元”这个问题。
         由于 \(J_2^2=-I\)，与 Case 11 相同的 trace argument 迫使任何
         Hermitian seminegative contraction matrix 等于零。因此 Failed
         不是这一组 Pauli matrices 的偶然结果。</p>
+<div class="result">
+<strong>Case 12 第二部分核对结论：Failed 正确。</strong>
+        与 Case 11 相同，\(J_2^2=-I\) 给出
+        \(\Tr(\eta A+A^\dagger\eta)=0\)。半负定使所有本征值
+        \(\lambda_j\le0\)，而 \(\sum_j\lambda_j=0\)，所以每个
+        \(\lambda_j=0\)。原文虽未列 maximal subgroup，失败结论仍成立。
+      </div>
 </div>
 </article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_01.html">上一卷 note</a><a href="part_1_note_03.html">下一卷 note</a></nav></main></body></html>

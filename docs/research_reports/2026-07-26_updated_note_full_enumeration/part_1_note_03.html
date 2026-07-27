@@ -366,8 +366,17 @@ semigroup.</p>
         是维数上的简写或笔误。若 metric 为负单位阵，标准条件变成
         \(A+A^\dagger\ge0\)，它本身可以定义 ordinary expansion/contraction
         direction；但在玻色 Lie-algebra 与本 Case 的 symmetry constraints 下，
-        trace argument 仍排除 strict seminegative interior。
+        trace argument 仍排除负定收缩矩阵。
         因此“没有 semigroup”的可靠依据不是 metric 等于常数本身，而是约束后的 trace。</p>
+<div class="correction">
+<strong>Case 13 核对结论：结论正确，拼写和 metric 维数各有一处 typo。</strong>
+        “metrix” 应为 “metric”；
+        直接相乘得到 \(J_2g=-I_{2N}\)，不是原文写的 \(-I_N\)。
+        在全部生成元约束下仍有
+        \(\Tr(\eta A+A^\dagger\eta)=\sum_j\lambda_j=0\)；半负定要求
+        \(\lambda_j\le0\)，所以每个 \(\lambda_j=0\)，
+        所以 Failed 不受这个维数 typo 影响。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case14">
 <h3>1.23 玻色 Case 14</h3>
@@ -399,6 +408,13 @@ semigroup.</p>
 <p>这里同样有 \(J_2g=-I_{2N}\)，原文写成 \(-I_N\)。
         改变 \(J_1^2\) 不会解除由 \(J_2^2=-I\) 导致的玻色 trace obstruction，
         所以两项成对失败。</p>
+<div class="correction">
+<strong>Case 14 核对结论：结论正确，沿用了同一组 typo。</strong>
+        “metrix” 应为 “metric”，且 metric 应为 \(-I_{2N}\)。
+        改变 \(J_1^2\) 不会解除 \(J_2^2=-I\) 给出的
+        \(\Tr(\eta A+A^\dagger\eta)=0\)。半负定时所有本征值不大于零，
+        本征值总和为零便迫使它们全为零，因此 Failed 正确。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case15">
 <h3>1.24 玻色 Case 15</h3>
@@ -434,7 +450,16 @@ contraction semigroup.</p>
 <p>原文的 \(J_1=I_N\) 应按上下文读作 \(I_{2N}\)。
         \(A=\bar A\) 是 anti-linear condition 的完整内容。
         但 \(J_2^2=-I\) 仍使 contraction matrix trace 为零，
-        所以即使 convex-cone linear equations 有解，也没有 strict interior。</p>
+        所以即使 convex-cone linear equations 有解，半负定条件也只能取等号。</p>
+<div class="correction">
+<strong>Case 15 核对结论：结论正确，两处 identity 的维数少写了一倍。</strong>
+        \(J_1\) 作用在完整 Nambu 空间，应写 \(I_{2N}\)，不是 \(I_N\)。
+        同样，\(J_2g=-I_{2N}\)，不是原文最后一行的 \(-I_N\)。
+        \(A=\bar A\) 和 cone 线性关系可以保留；但仍有
+        \(\Tr(\eta A+A^\dagger\eta)=\sum_j\lambda_j=0\)。
+        若 \(\lambda_j\le0\)，只能全部为零，
+        所以 Failed 正确。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case16-j1">
 <h3>1.25 玻色 Case 16：第一条约束</h3>
@@ -479,6 +504,11 @@ C &amp; B
         \(\begin{pmatrix}-B^T&amp;D\\C&amp;B\end{pmatrix}=\bar A\)
         逐块比较，左上给出 \(B=-B^\dagger\)，右上给出
         \(D=\bar C\)。这是第一条约束的完整解，尚未涉及 inequality。</p>
+<div class="result">
+<strong>Case 16 第一部分核对结论：正确。</strong>
+        \(B=-B^\dagger\)、\(D=\bar C\) 与
+        \(J_1^TAJ_1=\bar A\) 的逐块比较一致，本段没有发现影响公式的 typo。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-boson-case16-j2">
 <h3>1.26 玻色 Case 16：convex cone 与失败判断</h3>
@@ -561,6 +591,13 @@ B_{11} &amp; B_{12} &amp; C_{11} &amp; C_{12}
         半负定的 block choice。实际上 \(J_2^2=-I\) 再次令其 trace 为零，
         所以半负定只能退化为零。至此第二节手算的所有原文都已覆盖；
         其共同的高成本来自每个 Case 都重复展开 \(4\times4\) block products。</p>
+<div class="result">
+<strong>Case 16 第二部分核对结论：Failed 正确。</strong>
+        \(J_2^2=-I\) 再次给出
+        \(\Tr(\eta A+A^\dagger\eta)=\sum_j\lambda_j=0\)。
+        半负定要求每个 \(\lambda_j\le0\)，所以只能全部为零。
+        原文写出的 cone 线性空间非空并不与这个失败结论矛盾。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-general">
 <h3>1.27 第三节标题与一般费米生成元</h3>
@@ -587,6 +624,11 @@ D_{11} &amp; D_{12} &amp; -B^{T}_{11} &amp; -B^{T}_{21}\\
 <p>再把 \(N\times N\) blocks 拆成 \(N/2\) 子块时，
         off-diagonal positions 必须带原文显示的负号，例如
         \(C_{21}=-C_{12}^T\)。这正是它与玻色 block form 的直接差别。</p>
+<div class="result">
+<strong>一般费米分块核对结论：正确。</strong>
+        \(C=-C^T\)、\(D=-D^T\) 以及进一步拆成 \(N/2\) 子块时的转置负号
+        都来自 \((gA)^T=-gA\)，可以直接复现。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case1-j1">
 <h3>1.28 费米 Case \(1'\)：第一条 anti-linear symmetry</h3>
@@ -653,9 +695,15 @@ C^{T}_{12} &amp; -C_{22} &amp; B_{21} &amp; B_{22}
         \(B_{12}=-B_{21}^\dagger\)。
         \(C=-\bar D\) 是对四个 pairing subblocks 的合并写法。
         这些条件说明 \(J_1\mathcal K\) 如何把 particle-hole blocks 配对。</p>
+<div class="result">
+<strong>费米 Case \(1'\) 第一部分核对结论：分块代数正确。</strong>
+        \(B\) blocks 的 anti-Hermitian relations 和 \(C=-\bar D\)
+        与直接矩阵乘法一致；这一步只解出了第一个 anti-linear symmetry，
+        尚未证明权重非负。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case1-j2">
-<h3>1.29 费米 Case \(1'\)：第二个 anti-linear symmetry 与其证据范围</h3>
+<h3>1.29 费米 Case \(1'\)：第二个 anti-linear symmetry 与尚缺的证明</h3>
 <details class="note-original">
 <summary>note 原文，第 1125--1173 行
                 （完整矩阵推导，点击展开）</summary>
@@ -716,6 +764,19 @@ have tried the case with only <span class="math inline">\(B_{11}\neq0\)</span>, 
         subspace inclusion 后，才能构成完整论证；本段的 block calculation 自身没有展示该包含关系。
         更重要的是，本报告第 8 节已经给出 \(9'\) 离散关系下的负权重反例，
         所以“属于 \(9'\)”不能自动成为完整 Fock-weight positivity 的证明。</p>
+<div class="warning">
+<strong>费米 Case \(1'\) 第二部分核对结论：分块计算正确，但作者的疑问不能由该测试解决。</strong>
+        “I don't know how to prove it for this case yet” 准确说明了
+        作者在这里尚未证明什么：
+        只令 \(B_{11}\neq0\) 的测试覆盖了一个很小的子空间，不能推出一般
+        \(B_{12},C_{11},C_{12}\) 的结论。交换 \(J_1,J_2\) 的职责后，
+        本段的两个正号条件确实等于 \(9'\) 的 reality condition 加
+        maximal-subgroup 等号条件，所以 “special case” 在线性约束层面成立。
+        但 \(9'\) 的等号部分本身不能阻止传播穿过 determinant zero；
+        \(9'\) 还有明确负权重反例。因此这个包含关系不能替作者完成
+        Case \(1'\) 的 positivity proof。现有证据既不能证明整个 Case
+        \(1'\) 无符号，也不能证明它一定有符号问题。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case5-j1">
 <h3>1.30 费米 Case \(5'\)：\(J_1\) 条件与原文矩阵笔误</h3>
@@ -753,6 +814,13 @@ B &amp; -C\\
         \(\operatorname{diag}(I_N,-I_N)=\sigma_z\otimes I_N\)。
         因此显示矩阵是笔误，后续三条 relations 对应声称的 \(\sigma_z\)。
         它们分别说明 \(B\) 为实矩阵，而两个 pairing blocks 为纯虚矩阵。</p>
+<div class="correction">
+<strong>费米 Case \(5'\) 第一部分核对结论：关系正确，显示矩阵有 typo。</strong>
+        \(J_1=\sigma_z\otimes I_N\) 应显示为
+        \(\operatorname{diag}(I_N,-I_N)\)；原文却排成
+        \(\operatorname{diag}(I_N,I_N)\)。后续乘法实际使用了正确的
+        \(\sigma_z\)，所以 \(B\) 实、\(C,D\) 纯虚的结论可以保留。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case5-j2">
 <h3>1.31 费米 Case \(5'\)：subgroup、cone 与 “new kind of positivity”</h3>
@@ -813,19 +881,33 @@ be a new kind of positivity.</p>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
 <p>本段与第一节的显示式不同，但本段反而采用了正确的 Nambu
-        metric：\(\eta=J_2g\)。在 cone branch 中
+        metric：\(\eta=J_2g\)。对满足
+        \(J_2^TAJ_2=-\bar A\) 的生成元，
         \(A^\dagger\eta=\eta A\)，所以标准生成元条件
         \(\eta A+A^\dagger\eta\le0\) 正好化为
         \(J_2gA\le0\)。完整解析穷举也确认 Case \(5'\) 有 nonempty
-        strict interior，因此这确实定义了控制 \(e^A\) 的 contraction
+        negative-definite region，因此这确实定义了控制 \(e^A\) 的 contraction
         semigroup。</p>
 <p>需要保留的 caveat 是“new”。把 Wei 论文的 canonical
         Majorana-reflection-positive metric 完整变换到本 note 的 Nambu
         convention 后，metric 也变成 \(J_2g\)，而不是 \(iJ_2g\)。
         在最小 canonical block 中，同一 reality subspace 可以用
         Case \(5'\) 的 \(J_1\) 表示；有额外 symmetries 时也可能同时满足
-        其他 strict labels。所以 Case \(5'\) 的 semigroup 是真的，
+        其他允许负定生成元的标签。所以 Case \(5'\) 的 semigroup 是真的，
         但不能仅凭当前 block form 宣称它是一种新的 positivity。</p>
+<div class="note">
+<strong>费米 Case \(5'\) 第二部分核对结论：完整 semigroup positivity 正确，“new” 尚未证明。</strong>
+        本段正确使用 \(\eta=J_2g\)，并且穷举确认存在
+        \(\eta A+A^\dagger\eta&lt;0\) 的生成元。因此 “gives a semigroup”
+        不只是矩阵乘法闭合：费米 Fock space 有限；满足
+        \(M^\dagger\eta M-\eta&lt;0\) 的传播矩阵没有 \(-1\)
+        本征值；\(J_1\) 使 spin trace 为实。对只满足半负定条件的传播矩阵，
+        乘 \(e^{\epsilon A_0}\) 后再令 \(\epsilon\to0^+\)，便从
+        严格收缩矩阵的正权重得到非负极限。因此整个半群的权重非负。
+        它是否是一种新的 positivity 不能由 block form 决定，因为
+        已知 Majorana semigroups 完整换到 Nambu basis 后也进入
+        \(J_2g\) 分支；还必须做 basis-equivalence 和物理模型比较。
+      </div>
 </div>
 </article><article class="walkthrough-block" id="note-fermion-case9-j1">
 <h3>1.32 费米 Case \(9'\)：第一条约束</h3>
@@ -879,5 +961,10 @@ B_{11} &amp; -B_{12} &amp; -C_{11} &amp; C_{12}\\
         conjugation by \(J_1\) 会按行列符号乘积给每个 block 加正负号。
         正号位置要求 block 等于其复共轭，负号位置要求 block 等于其复共轭的相反数。
         原文列出的十条 relations 正是这一逐块规则。</p>
+<div class="result">
+<strong>费米 Case \(9'\) 第一部分核对结论：线性分块条件正确。</strong>
+        实、纯虚和复共轭 block 的分配与 diagonal \(J_1\) 的直接作用一致。
+        这一步只给出允许的线性空间，不能单独支持 Passed。
+      </div>
 </div>
 </article></section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_0_framework.html">第 0 卷：先读框架</a><a href="part_1_note_02.html">上一卷 note</a><a href="part_1_note_04.html">下一卷 note</a></nav></main></body></html>
