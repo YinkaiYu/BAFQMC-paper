@@ -468,8 +468,8 @@
       符号问题，不能因为它不满足 \(&lt;0\) 就判定有符号问题。
     </div>
 <div class="result">
-<strong>当完整传播矩阵满足
-      \(M^\dagger\eta M-\eta&lt;0\) 时，可以完成无符号、无极点证明。</strong>
+<strong>对任意非退化 Hermitian \(\eta\)，严格收缩首先给出一个
+      不依赖 Fock representation 的矩阵结论。</strong>
       先设每个时间片 factor 都满足半收缩条件，而且每个完整时空构型的
       乘积中至少有一个 factor 满足严格不等式。若 \(M_1\) 严格收缩、
       \(M_2\) 半收缩，则
@@ -482,13 +482,18 @@
       \(X^\dagger(\cdots)X\) 形式的可逆基变换后仍然负定；反复使用
       此式便知任意多时间片的完整 \(M(\phi)\) 都严格收缩。
       严格不等式排除全部 unit-circle eigenvalues，特别排除玻色
-      \(+1\) pole 和费米 \(-1\) zero。
+      \(+1\) pole 和费米 \(-1\) zero。到这里完全没有要求
+      \(\eta=\operatorname{diag}(I,-I)\)。
     </div>
 <p>
-      对 boson Cases 5--8，\(\eta=J_2g\) 可由一个物理 mode-basis
-      transformation 化成标准 particle/hole metric；严格部分正是
-      bosonic oscillator semigroup 的内部。其 Fock representation
-      因而是 trace class，也就是
+      从“没有 \(+1\) eigenvalue”继续走到“物理 bare trace
+      绝对收敛”，还要确认同一个 \(\eta\) 确实描述当前
+      annihilation/creation operators 的物理共轭结构。对报告为 boson
+      Cases 5--8 构造的可采样 representatives，这一步已经完成：
+      \(\eta=J_2g\) 直接等于
+      \(\operatorname{diag}(I,-I)\)。完整传播因此位于物理
+      complex-symplectic semigroup 的严格内部。Howe、Hilgert、
+      Yamashita 与 Neeb 的结果给出 trace class，也就是
       \(\operatorname{Tr}\sqrt{\hat U^\dagger\hat U}&lt;\infty\)：
       对所有玻色高占据态取绝对值后求和仍收敛。这不是由
       \(\det(I-M)\ne0\) 猜出的较弱结论，而是该物理半群在 Fock space

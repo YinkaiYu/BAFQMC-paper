@@ -1,0 +1,6 @@
+Octave version: 10.3.0
+Standard one-mode trace norm: 1.399816284717133
+eta=i*g gives a unitary physical Fock operator; trace norm is infinite.
+Case 8 partial bare trace at cutoff 20: 4745375.770197289
+Case 8 physical-representative trace norm: 1.959485630959279
+Wrote /mnt/c/users/newton/documents/ligroupiop/2408_bosonsignproblem/paper_bafqmc/docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/../tables/general_metric_trace_class_checks.csv

@@ -1,0 +1,5 @@
+scenario,largest_contraction_eigenvalue,trace_class,diagnostic_value
+standard_one_mode,-1.4,yes,1.399816284717133
+eta_equals_i_g,-2,no,Inf
+case8_displayed_metric,-1.4,no,4745375.770197289
+case8_physical_representative,-1.4,yes,1.959485630959279

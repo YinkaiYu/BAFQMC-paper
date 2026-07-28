@@ -580,7 +580,7 @@
         unitary Bogoliubov operator 实现，也就未必保持算符的绝对大小与
         Fock trace 收敛性。下面的半群分解正是用来补上这一步。
       </p>
-<h4>第三步：先定义 trace class，再完整写出 oscillator-semigroup theorem</h4>
+<h4>第三步：先定义 trace class，再区分一般收缩半群与 oscillator representation</h4>
 <p>
         对 paired Gaussian operator，描述上述绝对收敛的标准条件是
       </p>
@@ -605,42 +605,210 @@
         \]
         对上面的单模例子，这一定义就退化成已经写出的几何级数。
       </p>
+<h4>任意 Hermitian \(\eta\) 都可以定义矩阵收缩半群</h4>
 <p>
-        现在定义这里所说的 <em>bosonic oscillator semigroup</em>。
-        先要求 \(M\) 保持玻色对易关系，也就是满足
-        \(M^TgM=g\)。再在物理 Nambu 排列
-        \((\hat a_1,\ldots,\hat a_N,
-        \hat a_1^+,\ldots,\hat a_N^+)^T\) 中取
-        \(\eta=\operatorname{diag}(I,-I)\)，并要求
+        先只讨论有限维 Nambu 矩阵。对任意非退化 Hermitian matrix
+        \(\eta\)，都可以定义
         \[
-          M^\dagger\eta M-\eta\le0 .
+          \mathcal S_\eta=
+          \left\{M\in Sp(2N,\mathbb C)\ \middle|\
+          M^\dagger\eta M-\eta\le0\right\}.
         \]
-        所有同时满足这两条式子的 \(M\) 对矩阵乘法封闭；第一步已经逐项
-        写出了乘积恒等式，所以这里确实得到一个 semigroup。“oscillator”
-        这个名字来自它在玻色 Fock 空间中的作用：取等号的矩阵是 physical
-        canonical Bogoliubov transformations，其 Fock-space operators
-        是 unitary；允许小于零以后，则加入了压低高占据态的 Gaussian
-        operators。
+        这里完全没有要求
+        \(\eta=\operatorname{diag}(I,-I)\)。note 中的
+        \(\eta=J_2g\) 与 \(\eta=iJ_2g\) 都属于这一级讨论。
+        若 \(M_1,M_2\in\mathcal S_\eta\)，直接展开
+        \[
+        \begin{aligned}
+        &amp;(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+        &amp;\quad=M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+        +(M_2^\dagger\eta M_2-\eta)\le0
+        \end{aligned}
+        \]
+        便知乘积仍在 \(\mathcal S_\eta\) 中。相应的生成元条件是
+        \[
+          \eta A+A^\dagger\eta\le0.
+        \]
+        因而本报告的 32 类穷举从来没有把 contraction semigroup
+        限制为某一种对角度规。
       </p>
+<h4>对更一般的度规，trace class 定理究竟怎样陈述</h4>
+<p>
+        先取等号部分
+        \[
+          G_\eta=\{M\in Sp(2N,\mathbb C)\mid
+          M^\dagger\eta M=\eta\}.
+        \]
+        要把有限维矩阵结论提升为无限维 Fock-space 结论，需要逐项核实
+        下列三个条件。这些条件是定理的假设，不能藏在“半群理论”四个字里。
+      </p>
+<ol>
+<li>
+          \(\mathcal S_\eta\) 的相关连通分支确实具有
+          Olshanski decomposition：每个内部矩阵都能写成
+          \(M=k e^X\)，其中 \(k\in G_\eta\)，而 \(X\) 位于一个由
+          \(G_\eta\) 保持的不变开锥中。
+        </li>
+<li>
+          \(G_\eta\) 或它的 double cover 在所研究的 Fock space 中由
+          unitary Gaussian operators 表示。换句话说，等号部分真的保持
+          当前 Hilbert-space inner product，而不只是保持纸面上的
+          Hermitian form \(\eta\)。
+        </li>
+<li>
+          这个 unitary representation 在偶、奇 occupation-parity
+          sectors 上分别不可约，并且能 holomorphically extend 到
+          \(\mathcal S_\eta\) 的内部。这里 holomorphic 的具体含义是：
+          任取两个 Fock states，operator matrix element
+          \(\langle\psi|\pi_\eta(M)|\varphi\rangle\) 都是 \(M\) 的解析函数。
+        </li>
+</ol>
 <div class="result">
-<strong>有限模 bosonic oscillator-semigroup theorem：本报告使用的精确版本。</strong>
-        设 \(M\) 同时满足
+<strong>一般度规下可直接使用的 trace-class 定理。</strong>
+        只要上面三个条件已经建立，Neeb 的 Theorem II.3(ii) 便适用于
+        两个不可约 parity sectors，并证明半群严格内部的每个 matrix
+        在该 Fock representation 中都对应 trace-class operator。
+        这个结论不要求 \(\eta\) 在当前坐标中是对角矩阵。
+      </div>
+<p>
+        证明并不需要再猜一次 determinant 公式。玻色 metaplectic
+        representation 在偶数总占据数与奇数总占据数两个子空间上分别
+        不可约。Neeb 的 Theorem II.3(ii) 对每个不可约部分直接给出
+        \[
+          \pi_\eta(M)\ \hbox{is trace class},
+          \qquad M\in\operatorname{int}\mathcal S_\eta .
+        \]
+        完整 Fock space 是这两个子空间的直和，所以
+        \[
+        \begin{aligned}
+          \|\pi_\eta(M)\|_1
+          &amp;=
+          \|\pi_\eta(M)|_{\rm even}\|_1+
+          \|\pi_\eta(M)|_{\rm odd}\|_1\\
+          &amp;&lt;\infty .
+        \end{aligned}
+        \]
+        这里 \(\|\hat U\|_1=\Tr\sqrt{\hat U^\dagger\hat U}\)。
+        实际有序二次算符乘积与 projective metaplectic
+        representative 之间若相差一个有限的正常序 scalar，
+        trace norm 只乘这个 scalar 的绝对值，仍然有限。
+        因此一般路线是：
+      </p>
+<ol>
+<li>先用任意 \(\eta\) 建立矩阵半群 \(\mathcal S_\eta\)；</li>
+<li>证明相关分支具有 Olshanski decomposition，确认等号部分在
+        当前 Fock space 中由 unitary operators 实现，并证明其
+        metaplectic representation 延拓到这个半群；</li>
+<li>最后对严格内部调用 trace-class 结论。</li>
+</ol>
+<p>
+        这是一个适用于一般 \(\eta\) 的条件定理，而不是
+        \(\operatorname{diag}(I,-I)\) 的特例。只有在第二步的
+        unitary representation 与 holomorphic extension 已经证明后，
+        严格内部才推出 trace class。需要逐类核实的是第二步：
+        note 保持物理 operators \((a,a^+)\) 与 \(g\) 不变，却更换
+        \(J_2g\) 或 \(iJ_2g\)；五条离散关系本身没有说明新的等号部分
+        是否仍由当前物理 Fock space 中的 unitary operators 实现。
+      </p>
+<h4>为什么写成 \(\operatorname{diag}(I,-I)\) 只是物理共轭结构的一组坐标</h4>
+<p>
+        在本报告采用的物理 Nambu 顺序
+        \[
+          (\hat a_1,\ldots,\hat a_N,
+          \hat a_1^+,\ldots,\hat a_N^+)^T
+        \]
+        中，已由 Howe、Hilgert 及后续 Olshanski-semigroup 文献建立的
+        标准 metaplectic extension 使用
+        \[
+          \eta_0=\operatorname{diag}(I_N,-I_N).
+        \]
+        Yamashita 采用相反的 creation-first 顺序，因此其论文写成
+        \(\operatorname{diag}(-I_N,I_N)\)；交换 Nambu 顺序后正是上式。
+        这只是坐标 convention 的差别。
+      </p>
+<p>
+        更一般的 Nambu 坐标可以把同一个物理度规写成非对角形式。
+        令
+        \(\hat\chi=T\hat\chi'\)，并把所有数据一起变换为
+        \[
+          g'=T^TgT,\qquad
+          A'=T^{-1}AT,\qquad
+          \eta_{\rm physical}'=T^\dagger\eta_0T .
+        \]
+        这里 \(T\) 只是在同一个 quadratic operator 中更换坐标；物理
+        adjoint relation 也必须随 \(\hat\chi\) 一起变换。逐项相乘得到
+        \[
+        \begin{aligned}
+          g'A'+A'^Tg'
+          &amp;=T^T(gA+A^Tg)T,\\
+          \eta_{\rm physical}'A'
+          +A'^\dagger\eta_{\rm physical}'
+          &amp;=T^\dagger(\eta_0A+A^\dagger\eta_0)T .
+        \end{aligned}
+        \]
+        因为可逆 congruence 保持正定或负定，原坐标中的严格
+        \(\eta_0\)-contraction 与新坐标中的严格
+        \(\eta_{\rm physical}'\)-contraction 完全等价；两边描述的又是
+        同一个 Fock operator。若只把它看成坐标改写，
+        \(\hat U'=\hat U\)，所以
+        \[
+          \|\hat U'\|_1
+          =\Tr\sqrt{\hat U'^\dagger\hat U'}
+          =\Tr\sqrt{\hat U^\dagger\hat U}
+          =\|\hat U\|_1 .
+        \]
+        若两种 Fock realizations 由 unitary \(\hat W\) 联系，则
+        \(\hat U'=\hat W\hat U\hat W^\dagger\)，trace norm 的 unitary
+        invariance 给出同一等式。因此非对角物理度规的 trace-class
+        证明不是类比，而是标准证明在完整坐标变换下的严格搬运。
+      </p>
+<div class="note">
+<strong>这给出了“不限于对角度规”的精确含义。</strong>
+        任意合法坐标、任意 pairing、任意不对易时间片乘积都包括在内。
+        但不能只把不等式里的 \(\eta_0\) 换成另一矩阵，同时仍把
+        \(\hat\chi\) 当作原来的 \((a,a^+)\)、仍用原来的 adjoint
+        relation。后一操作改变了半群与物理 Fock norm 的对应关系，
+        不是换坐标。
+      </div>
+<p>
+        对
         \[
           M^TgM=g,\qquad
-          M^\dagger\eta M-\eta&lt;0,\qquad
-          \eta=\operatorname{diag}(I,-I).
+          M^\dagger\eta_0M-\eta_0\le0
         \]
-        再设 \(\hat{\mathcal U}\) 是由实际有序二次算符乘积得到、并在
-        Nambu 空间诱导出 \(M\) 的 Gaussian Fock operator；正常序产生的
-        有限标量因子要一并保留。那么
+        的交集，Yamashita 称其为 symplectic Olshanski semigroup，
+        Proposition 2.2 给出 Potapov--Olshanski decomposition。
+        Howe 1988 构造了相应的 oscillator semigroup；Hilgert 1989
+        证明 Schrödinger 与 Bargmann--Fock realizations 给出同一个
+        operator semigroup。
+      </p>
+<div class="warning">
+<strong>闭半群与 Howe 原义的 oscillator semigroup 也不能混为一谈。</strong>
+        Yamashita 的 Remark 3.1 明确指出：上面用 \(\le0\) 定义的闭
+        Olshanski semigroup 含有未压低全部 modes 的边界元素；例如只衰减
+        一个 mode 的 \(e^{-t\hat a_1^+\hat a_1}\) 在多模 Fock space
+        中甚至不是 Hilbert--Schmidt operator。Howe 原义的 oscillator
+        semigroup 使用更小的 Gaussian-operator domain。本文需要
+        trace-class 结论时使用的是负定不等式所定义的严格内部。
+      </div>
+<div class="result">
+<strong>标准物理 Fock 表示中实际使用的是一个文献定理的推论，
+        不是名为“bosonic oscillator-semigroup theorem”的独立定理。</strong>
+        若
+        \[
+          M^TgM=g,\qquad
+          M^\dagger\eta_0M-\eta_0&lt;0,
+        \]
+        而 \(\hat{\mathcal U}\) 是实际有序 quadratic-operator product
+        在物理 Fock space 中的 Gaussian representative，并保留正常序
+        产生的有限 scalar factor，那么 Neeb 的 trace-class result 给出
         \[
           \Tr_{\rm Fock}
           \sqrt{\hat{\mathcal U}^\dagger\hat{\mathcal U}}&lt;\infty .
         \]
-        换言之，\(\hat{\mathcal U}\) 是 trace class，bare Fock trace
-        绝对收敛。
+        因而 bare Fock trace 绝对收敛。
       </div>
-<h4>这个 theorem 怎样用 Bogoliubov 对角化证明</h4>
+<h4>标准物理度规下，Potapov--Olshanski decomposition 的物理内容</h4>
 <p>
         第一步是半群中的 polar decomposition。满足上述负定不等式的
         \(M\) 可以写成
@@ -653,18 +821,60 @@
       </p>
 <div class="scroll">\[
         \begin{aligned}
-        M_{\rm unitary}^\dagger\eta M_{\rm unitary}&amp;=\eta,\\
-        \eta A_{\rm damping}
-        &amp;=A_{\rm damping}^\dagger\eta&lt;0 .
+        M_{\rm unitary}^\dagger\eta_0 M_{\rm unitary}&amp;=\eta_0,\\
+        \eta_0 A_{\rm damping}
+        &amp;=A_{\rm damping}^\dagger\eta_0&lt;0 .
         \end{aligned}
       \]</div>
+<p>
+        为什么第二行也是严格不等式，可以直接检查。
+        Potapov--Olshanski decomposition 先给出
+        \(\eta_0A_{\rm damping}\le0\)。假如它存在非零 null vector
+        \(v\)，那么
+        \(\eta_0A_{\rm damping}v=0\)。因为 \(\eta_0\) 可逆，
+        \(A_{\rm damping}v=0\)，从而
+        \(e^{tA_{\rm damping}}v=v\)。于是
+      </p>
+<div class="scroll">\[
+        \begin{aligned}
+        &amp;v^\dagger
+        \left(e^{A_{\rm damping}^\dagger}\eta_0
+        e^{A_{\rm damping}}-\eta_0\right)v\\
+        &amp;\quad=
+        \int_0^1
+        v^\dagger e^{tA_{\rm damping}^\dagger}
+        \left(A_{\rm damping}^\dagger\eta_0+
+        \eta_0A_{\rm damping}\right)
+        e^{tA_{\rm damping}}v\,dt=0 .
+        \end{aligned}
+      \]</div>
+<p>
+        这会使 \(M^\dagger\eta_0M-\eta_0\) 也有 null direction，与
+        \(M\) 位于严格内部矛盾。因此
+        \(\eta_0A_{\rm damping}&lt;0\)。
+      </p>
 <p>
         第一行表示 \(M_{\rm unitary}\) 是一个 physical canonical
         Bogoliubov transformation；它在 Fock 空间中由 unitary operator
         \(\hat U_{\rm unitary}\) 实现。第二行等价于
-        \(-\eta A_{\rm damping}&gt;0\)。这个正定矩阵正是一个稳定玻色
-        quadratic form，所以现在可以合法地使用你说的 Bogoliubov
-        对角化。换到一组 physical quasiparticle operators 后，与
+        \(-\eta_0 A_{\rm damping}&gt;0\)。同时
+        \(gA_{\rm damping}+A_{\rm damping}^Tg=0\) 保证它仍是合法的
+        bosonic quadratic generator。把 \((a,a^+)\) 用固定的线性关系
+        \(a=(q+ip)/\sqrt2\)、\(a^+=(q-ip)/\sqrt2\) 改写后，
+        \(-\eta_0A_{\rm damping}\) 对应一个实对称正定 quadratic
+        form。正定性在这个可逆换元下保持，所以现在可以合法地使用
+        Williamson diagonalization。它说：
+        存在一个保持 \([q_j,p_k]=i\delta_{jk}\) 的 real canonical
+        transformation，使这个正定二次型化为
+        \[
+          \operatorname{diag}
+          (\epsilon_1,\ldots,\epsilon_N,
+           \epsilon_1,\ldots,\epsilon_N),
+          \qquad \epsilon_j&gt;0 .
+        \]
+        这个 real canonical transformation 在有限模 Fock space 中由 unitary
+        Bogoliubov operator 实现，因此不会改变 singular values。
+        换到相应 physical quasiparticle operators 后，与
         \(A_{\rm damping}\) 对应的 Fock-space generator 为
       </p>
 <div class="scroll">\[
@@ -693,8 +903,11 @@
         \end{aligned}
       \]</div>
 <p>
-        这就逐步证明了 theorem。它并没有绕开 Bogoliubov
-        diagonalization；恰恰相反，它先用半群 polar decomposition
+        每个 \(\epsilon_j&gt;0\)，所以分母
+        \(1-e^{-\epsilon_j}\) 都严格为正；又因为这里只有有限个 modes，
+        有限个有限正数的乘积仍有限。这给出上述 trace-class 推论的直接
+        物理证明。它并没有绕开
+        Bogoliubov diagonalization；恰恰相反，它先用半群 decomposition
         从一般非 Hermitian 有序乘积中抽出一个稳定 damping factor，
         然后对这个 factor 作物理 Bogoliubov diagonalization。不能直接
         假定可按同样方式对角化的是任意完整有序乘积。
@@ -710,22 +923,213 @@
         transformation 对角化，玻色 Fock 空间第 \(n\) 粒子扇区上的
         operator norm 却按 \(2.0978^n\) 增长，所以对应 Gaussian
         operator 不是 bounded，更不是 trace class。严格
-        \(\eta\)-contraction 排除了这种情况；它控制的是物理
+        \(\eta_0\)-contraction 排除了这种情况；它控制的是物理
         Fock norm，而不只是 eigenvalues。
       </p>
+<h4>为什么不能把同一句 trace-class 结论直接套到任意 \(\eta\)</h4>
+<p>
+        一个单模反例已经足够说明缺少的是哪一步。取
+        \[
+          g=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix},\qquad
+          \eta=ig,\qquad A=-ig=-\eta .
+        \]
+        由于 \(g^2=-I\)，逐项计算得到
+        \[
+          gA+A^Tg=0,\qquad
+          \eta A+A^\dagger\eta=-2I&lt;0.
+        \]
+        所以 \(e^A\) 的确位于这个 \(\eta\)-matrix contraction
+        semigroup 的严格内部。然而对应的物理 Fock generator 是
+        \[
+          \hat h=\frac12\hat\chi^TgA\hat\chi
+          =\frac{i}{2}\left(\hat a^2+\hat a^{+2}\right).
+        \]
+        \(\hat a^2+\hat a^{+2}\) 是 Hermitian operator，因此
+        \(\hat h\) 是 anti-Hermitian，\(e^{\hat h}\) 是 unitary squeezing
+        operator。无限维 Fock space 上 unitary operator 的全部 singular
+        values 都等于 \(1\)，故
+        \[
+          \Tr_{\rm Fock}\sqrt{e^{\hat h^\dagger}e^{\hat h}}
+          =\Tr_{\rm Fock}I=\infty .
+        \]
+        这里矩阵严格收缩完全正确，但 physical Fock operator 不是
+        trace class。这不是一般半群理论失效，而是 physical metaplectic
+        representation 没有作为 contraction representation 延拓到这个
+        特定的 \(\mathcal S_\eta\)。
+      </p>
+<h4>note 的 Case 8 本身也给出同样的检验，不能略过</h4>
+<p>
+        取 note 在 Case 8 明写的最小 \(N=2\) matrices，
+        \[
+        \begin{aligned}
+          g&amp;=(-i\sigma_y)\otimes I_2,\\
+          J_1&amp;=(-i\sigma_y)\otimes\sigma_z,\\
+          J_2&amp;=\sigma_x\otimes\sigma_x,\\
+          \eta&amp;=J_2g=\sigma_z\otimes\sigma_x .
+        \end{aligned}
+        \]
+        再取 note 用来证明 invariant cone 非空的方向
+        \(A=-\gamma\eta\)、\(\gamma&gt;0\)。逐项计算确实有
+        \[
+        \begin{aligned}
+          gA+A^Tg&amp;=0,\\
+          J_1^TAJ_1&amp;=\bar A,\\
+          \eta A+A^\dagger\eta&amp;=-2\gamma I_4&lt;0.
+        \end{aligned}
+        \]
+        所以这不是穷举误判：它是严格的 \(\eta\)-matrix
+        contraction。可是把同一个 \(A\) 代回 note 在第一节定义的物理
+        quadratic operator，
+        \[
+          \frac12\hat\chi^TgA\hat\chi
+          =-\gamma\,\hat{\boldsymbol a}^{+T}
+          \sigma_x\hat{\boldsymbol a},
+          \qquad
+          \hat{\boldsymbol a}=(\hat a_1,\hat a_2)^T .
+        \]
+        对角化 \(\sigma_x\) 后，一条单粒子 mode 的 exponent 是
+        \(-\gamma\hat n_+\)，另一条是 \(+\gamma\hat n_-\)。因此
+        \[
+          \Tr_{\rm Fock}e^{\frac12\hat\chi^TgA\hat\chi}
+          =
+          \left(\sum_{n_+=0}^{\infty}e^{-\gamma n_+}\right)
+          \left(\sum_{n_-=0}^{\infty}e^{+\gamma n_-}\right)
+        \]
+        的第二个几何级数发散。这里连 Case 8 的五条关系也全部满足，
+        因而它严格证明：五条离散关系加
+        \(\eta A+A^\dagger\eta&lt;0\) 不能对任意 displayed
+        \(J_2g\) 自动推出原物理 grand-canonical Fock trace 为
+        trace class。
+      </p>
+<p>
+        这个结果并没有缩小 Cases 5--8 的物理发现。五条关系只分类
+        \(J_1,J_2\) 如何彼此配合，并不要求每一个满足它们的矩阵
+        representative 都是稳定的 grand-canonical model。本报告为
+        Cases 5--8 另选了 \(\eta=J_2g=\eta_0\) 的 representatives，
+        并构造稳定自由项与 HS factors；这些具体模型由上面的
+        Potapov--Olshanski--Williamson 证明得到 trace class。对其他
+        displayed \(J_2g\)，若其实际完整传播同时位于物理
+        complex-symplectic semigroup 的严格内部，同一个证明仍然适用。
+      </p>
+<p>
+        对新增 \(iJ_2g\) models，本报告使用 fixed-\(N_{\rm b}\)
+        ensemble。具有 \(N\) 个 one-particle modes、固定
+        \(N_{\rm b}\) 个玻色子的 Hilbert space 维数是
+        \[
+          \dim\mathcal H_{N_{\rm b}}
+          =\binom{N+N_{\rm b}-1}{N_{\rm b}}&lt;\infty .
+        \]
+        有限维空间上的每个 operator 都是 trace class；更具体地，
+        \[
+          \|\hat U|_{\mathcal H_{N_{\rm b}}}\|_1
+          \le
+          \binom{N+N_{\rm b}-1}{N_{\rm b}}
+          \|\hat U|_{\mathcal H_{N_{\rm b}}}\|&lt;\infty .
+        \]
+        第 6.8 节再证明单粒子传播矩阵的本征值成
+        \(\lambda,\lambda^{-1}\) 对出现，并且每个 \(\lambda&gt;0\)，
+        从而 fixed-\(N_{\rm b}\) character 严格为正。因此这些更一般
+        度规也有完整 trace-class 与正权重证明，只是结论属于 canonical
+        ensemble，不能误写成对所有粒子数求和的 grand-canonical trace。
+      </p>
+<h4>16 个存在负定生成元的矩阵类别：trace-class 逐类审计</h4>
+<p>
+        下表把“采用哪个 Hilbert space”和“使用哪条证明”逐类列清楚。
+        能够与物理 Fock representation 对齐的度规使用半群内部定理；
+        固定粒子数的玻色类和全部费米类则直接使用有限维 Hilbert space
+        证明。
+      </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>类别及所采用的物理实现</th>
+<th>报告采用的度规与 ensemble</th>
+<th>trace-class 的严格证明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1+\)（Case 5）</td>
+<td>\(J_2=\sigma_x\)，\(\eta=J_2g=\sigma_z\)；
+              grand canonical</td>
+<td>这是单模物理 particle/hole metric。严格内部的
+              Potapov--Olshanski damping 只有一个 Williamson mode，
+              \(\|\hat U\|_1=e^{-\epsilon/2}/
+              (1-e^{-\epsilon})&lt;\infty\)。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1-\)（Case 6）</td>
+<td>\(J_2=\sigma_x\otimes I\)，
+              \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>适用上面的多模分解，
+              \(\|\hat U\|_1=\prod_j
+              e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})&lt;\infty\)。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1+\)（Case 7）</td>
+<td>同一个物理
+              \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>稳定自由因子提供严格 damping，relative-density HS
+              因子由 unitary phase operator 实现。半群分解证明整个
+              noncommuting product 为 trace class；也可直接用
+              “trace-class 自由因子乘 bounded HS factors”验证。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1-\)（Case 8）</td>
+<td>物理模型采用 alternative representative
+              \(J_2=\sigma_x\otimes I\)，
+              \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>与 Case 7 使用同一稳定 relative-density path，因此
+              同一个 Williamson 几何级数证明适用。note 原显示的
+              \(J_2=\sigma_x\otimes\sigma_x\) 不在这一证明内；其
+              \(A=-\gamma\eta\) 已在上文严格证明 bare trace 发散。</td>
+</tr>
+<tr>
+<td>四个 \(B\)-\(iJ_2g\) 类</td>
+<td>\(\eta=iJ_2g\)，包括 \(iIY\) 与 \(iIYX\)；
+              fixed \(N_{\rm b}\)</td>
+<td>每一类都作用在
+              \(\dim\mathcal H_{N_{\rm b}}=
+              \binom{N+N_{\rm b}-1}{N_{\rm b}}\) 维空间，故
+              \(\|\hat U\|_1\le
+              \dim\mathcal H_{N_{\rm b}}\|\hat U\|&lt;\infty\)。
+              这与度规能否定义 grand-canonical Fock contraction
+              representation 无关。</td>
+</tr>
+<tr>
+<td>八个存在负定生成元的费米类：四个 \(J_2g\) 与四个 \(iJ_2g\)</td>
+<td>完整 fermion Fock space</td>
+<td>\(N\) 个复费米 modes 的 Fock space 维数是 \(2^N\)。
+              任意 \(\hat U\) 都满足
+              \(\|\hat U\|_1\le2^N\|\hat U\|&lt;\infty\)，所以
+              trace class 对全部八类成立；费米部分真正还需证明的是
+              trace 的实性、不为零与非负性，而不是收敛性。</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p class="small">
-        上述 matrix polar decomposition 是
+        文献链条如下：
+        <a href="https://doi.org/10.1090/pspum/048/974332">Howe,
+        <em>The Oscillator Semigroup</em>, 1988</a> 构造原始 operator
+        semigroup；
+        <a href="https://www.numdam.org/articles/10.5802/aif.1182/">
+        Hilgert, 1989</a> 证明 Schrödinger 与 Bargmann--Fock
+        realizations 的等价；
         <a href="https://arxiv.org/abs/2209.04139">Yamashita,
-        arXiv:2209.04139</a> Proposition 2.2 的
-        Potapov--Olshanski decomposition。在 operator 一侧，
+        arXiv:2209.04139</a> Secs. 2--3 给出 matrix semigroup、
+        Proposition 2.2 的 Potapov--Olshanski decomposition 及
+        metaplectic extension，并在 Remark 3.1 解释与 Howe 原定义的
+        边界差别；在一般 representation 一侧，
+        <a href="https://arxiv.org/abs/2601.22252">Giacchi,
+        Rodino and Tramontana, arXiv:2601.22252</a> 系统整理了
+        positive complex symplectic matrices、metaplectic
+        semigroup 及其 factorization；
         <a href="https://www.heldermann-verlag.de/jlt/jlt03/NEEBPL_vol1.PDF">
         Neeb, Theorem II.3(ii)</a> 明确陈述：Olshanski semigroup
-        内部的 representation operator 是 trace class。对这里的
-        metaplectic/oscillator representation，偶、奇 Fock sectors
-        各自满足该定理，二者的有限直和仍是 trace class。
-        <a href="https://www.numdam.org/articles/10.5802/aif.1182/">
-        Hilgert</a> 证明了这一 operator semigroup 在
-        Bargmann--Fock 与通常 oscillator realization 中是同一个对象。
+        内部的 irreducible holomorphic-representation operators 是
+        trace class。
       </p>
 <h4>第四步：排除 pole，也排除权重经过零点</h4>
 <p>
@@ -1517,8 +1921,8 @@
             </td>
 <td>
               对 \(U_1=0\)、具有有限稳定余量的 free pairing 和 real
-              \(U_2\) fields，完整 propagation 位于标准 bosonic
-              oscillator semigroup 的内部；因此 fixed-field
+              \(U_2\) fields，完整 propagation 位于标准 symplectic
+              Olshanski semigroup 的严格内部；因此 fixed-field
               operator 是 trace class，且没有 unit-circle eigenvalue
             </td>
 <td>
@@ -1647,7 +2051,8 @@
       reflected squares 得到 nonnegative operator trace，但把 trace
       convergence 留作前提；Case 7 从零辅助场处收敛且为正的
       grand-canonical 玻色迹与
-      oscillator semigroup 的内部条件得到逐构型 trace convergence，再由
+      标准 symplectic Olshanski semigroup 的严格内部条件得到逐构型
+      trace convergence，再由
       \(J_1\) 实性条件、正实的正规序标量因子、连通辅助场域
       和零场正权重固定 \(W(\phi)&gt;0\)。
       后一论证同时排除 determinant pole。详细的 stability condition、
@@ -1773,8 +2178,10 @@
       因而辅助场取任意正负值都不会改变结论：每个场因子只保持
       \(\eta\)，固定自由因子则提供严格收缩；前面的乘积恒等式保证任意
       多时空点的完整 \(M(\phi)\) 都严格收缩。这里的
-      \(\eta=\operatorname{diag}(I,-I)\) 是物理 oscillator-semigroup
-      metric，所以 fixed-field Fock operator 是 trace class，
+      \(\eta=\operatorname{diag}(I,-I)\) 正是当前
+      \((a,a^+)\) operators 的物理 particle/hole metric；已有
+      metaplectic extension 与严格内部的 trace-class 定理因此适用，
+      所以 fixed-field Fock operator 是 trace class，
       bare trace 收敛且 \(+1\) pole 不存在。零场
       \(W(0)=(1-e^{-\beta\kappa})^{-N_{\rm mode}}&gt;0\)，而
       \(J_1\) 使所有场构型的权重为实。连续实 HS 构型空间上若要从正变负，

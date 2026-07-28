@@ -7,14 +7,18 @@ CASE_AUDITS: dict[str, str] = {
     "boson-contraction-list": r"""
       <div class="note">
         <strong>这一总表逐项核对后的结论。</strong>
-        对本表原有的 \(J_2g\) 四类，\(\eta=J_2g\) 是与物理
-        particle/hole 划分相容的 oscillator-semigroup metric。
+        对本报告为 \(J_2g\) 四类选取的具体矩阵实现，
+        \(\eta=J_2g\) 直接等于标准 physical particle/hole metric
+        \(\operatorname{diag}(I,-I)\)。因此 physical metaplectic
+        representation 对相应 symplectic Olshanski semigroup 的延拓
+        可以使用 Howe、Hilgert 与 Neeb 的已有结果。
         “存在负定生成元”不只是在说某个矩阵例子。若每个时间片传播矩阵
         \(M_\ell\) 都满足
         \(M_\ell^\dagger\eta M_\ell-\eta\le0\)，而且每个完整构型中
         至少有一个时间片满足严格不等式，那么完整传播矩阵满足
-        \(M^\dagger\eta M-\eta<0\)。此时 bosonic Fock operator 是
-        trace class，也就是
+        \(M^\dagger\eta M-\eta<0\)。由于这里的 \(\eta\) 正是标准物理
+        particle/hole metric，且 metaplectic extension 适用，此时
+        bosonic Fock operator 是 trace class，也就是
         \(\operatorname{Tr}\sqrt{\hat U^\dagger\hat U}<\infty\)，
         对所有玻色高占据态的贡献取绝对值后求和仍收敛；\(+1\) pole
         也被排除。\(J_1\) 使完整权重为实后，
@@ -42,8 +46,8 @@ CASE_AUDITS: dict[str, str] = {
             </tbody>
           </table>
         </div>
-        因此第一节保留 Cases 5--8、排除其余 contraction candidates 的
-        生成元分类正确。原文把 Case 5 的编号写进数学模式
+        因此第一节保留 Cases 5--8，并证明其余收缩类别中不存在负定生成元；
+        这一生成元分类正确。原文把 Case 5 的编号写进数学模式
         <code>$5)</code>，只是排版不一致，不影响五条关系。
       </div>
     """,
@@ -138,9 +142,12 @@ CASE_AUDITS: dict[str, str] = {
         =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
         +(M_2^\dagger\eta M_2-\eta)<0 .
         \]
-        所以任意时空场构型的完整乘积都严格收缩。这里的 \(J_2g\)
-        正是物理 oscillator-semigroup metric，故对应 Fock operator
-        trace class，并且 \(M\) 没有 \(+1\) eigenvalue。零场权重为
+        所以任意时空场构型的完整乘积都严格收缩。这里直接有
+        \(J_2g=\operatorname{diag}(I,-I)\)，完整传播位于标准
+        symplectic Olshanski semigroup 的严格内部；已有 metaplectic
+        extension 与 interior trace-class theorem 因而适用。
+        对应 Fock operator 是 trace class，并且 \(M\) 没有
+        \(+1\) eigenvalue。零场权重为
         \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}>0\)；\(J_1\) 使权重为实，
         连通的实 Gaussian field space 又不允许它在没有 zero/pole 时换号。
         因此该 explicit HS model 的最终结论就是
@@ -158,17 +165,34 @@ CASE_AUDITS: dict[str, str] = {
     """,
     "boson-case8-j2": r"""
       <div class="result">
-        <strong>Case 8 第二部分核对结论：通过，而且可完成到完整无符号结论。</strong>
+        <strong>Case 8 第二部分核对结论：生成元分类正确；note 原式采用的
+        度规与本报告物理模型采用的另一组矩阵实现必须分开。</strong>
         maximal-subgroup 等号部分和 invariant-cone 线性部分的分工正确；
         穷举确认允许的生成元中存在负定解，例如正文给出的
         \(A=-\gamma\,\sigma_z\otimes\sigma_x\)。原文最后的 “Good”
-        对应的不是一个停在矩阵层面的猜测。报告给出的双组分
-        relative-density HS model 含固定的严格 number damping，
-        场因子位于 maximal subgroup；利用 Case 7 核对框中逐项写出的
-        乘积恒等式，任意多时间片的完整 \(M\) 仍严格收缩。
-        \(\eta=J_2g\) 可由物理 mode basis transformation 化为标准
-        particle/hole metric，所以 oscillator representation 给出
-        trace-class Fock operator，并排除 \(+1\) pole。权重由 \(J_1\)
+        因而正确表示“受 \(J_1,J_2\) 约束的生成元空间确实进入了
+        \(J_2g\)-contraction semigroup 的内部”。
+        但对 note 原式采用的
+        \(J_2g=\sigma_z\otimes\sigma_x\)，这个最简单的负定解对应
+        \[
+          \frac12\chi^TgA\chi
+          =-\gamma\,\boldsymbol a^{+T}\sigma_x\boldsymbol a .
+        \]
+        \(\sigma_x\) 的两个 eigenvalues 为 \(+1,-1\)，所以一个
+        occupation-number 几何级数含 \(e^{+\gamma n}\) 并发散。
+        因此 “Good” 本身还不是对 note 原式度规的
+        grand-canonical trace-class 证明。
+        <br><br>
+        报告给出的双组分 relative-density HS model 使用同一离散 Case
+        的另一组矩阵实现，并含固定的严格粒子数衰减项；
+        场因子位于 maximal subgroup。利用 Case 7 核对框中逐项写出的
+        乘积恒等式，任意多时间片的完整 \(M\) 都严格收缩。
+        这里用于物理模型的是穷举表中的另一组矩阵实现，
+        它直接满足
+        \(\eta=J_2g=\operatorname{diag}(I,-I)\)；不需要假定 note
+        显示的任意 \(J_2g\) 都能由 physical mode transformation
+        化成标准形式。标准 metaplectic extension 给出 trace-class
+        Fock operator，并排除 \(+1\) pole。权重由 \(J_1\)
         保证为实，并由连通场域和正零场 trace 固定为正。
         因此本报告的 explicit Case 8 HS path 同样是
         <strong>无符号、无极点且 bare trace 收敛</strong>。
@@ -516,16 +540,20 @@ CASE_AUDITS: dict[str, str] = {
         修正后的 fermion Cases \(5'\)--\(8'\) 是完整 sign-free
         semigroups；boson Cases 5--8 中，报告给出的四个具体 HS 模型
         每个时间片满足半负定条件，每个完整构型至少含一个满足严格
-        不等式的固定因子；这些模型属于物理 oscillator semigroup。
+        不等式的固定因子；这些模型使用
+        \(\eta=J_2g=\operatorname{diag}(I,-I)\)，故标准 symplectic
+        Olshanski semigroup 的 metaplectic extension 适用。
         对每个构型，相应 Fock operator 都是 trace class，也就是
         对所有玻色高占据态的贡献取绝对值后求和仍收敛；权重恒正且无
         pole。新增 bosonic \(iJ_2g\)
-        四类目前证明的是：取 \(\eta=iJ_2g\) 后，确实存在同时满足
+        四类则证明了两件不同的事：取 \(\eta=iJ_2g\) 后，确实存在同时满足
         \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和
-        \(\eta A+A^\dagger\eta<0\) 的 \(A\)。尚未证明的是这个
-        \(\eta\) 与原 grand-canonical Fock representation 的物理
-        particle/hole 取向相同，并使 bare trace 收敛；这是报告尚未
-        证明的部分。
+        \(\eta A+A^\dagger\eta<0\) 的 \(A\)；但一般 BdG
+        principal-block calculation 同时证明，这个收缩方向与稳定的
+        grand-canonical Hermitian boson Hamiltonian 不相容，pairing
+        不能消除该阻碍。报告因此没有把它们误报成新的普通
+        grand-canonical classes，而是在 fixed-\(N\) sector 中直接证明
+        四个 canonical models 的 character 逐构型严格为正。
       </div>
     """,
 }

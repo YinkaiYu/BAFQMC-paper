@@ -930,18 +930,22 @@
 <ol>
 <li>辅助场空间是路径连通的，且 \(\mathcal M(\phi)\) 随 \(\phi\) 连续；</li>
 <li>存在一个参考构型 \(\phi_0\)，通常取零场，使对应 bare Fock trace 有限；</li>
-<li>存在同一个固定 Hermitian metric \(\eta\)，其 particle/hole 方向与参考构型的物理 Fock representation 一致，并且对每个构型都有
-        \(\mathcal M(\phi)^\dagger\eta\mathcal M(\phi)-\eta&lt;0\)；</li>
+<li>存在同一个固定 Hermitian metric \(\eta\)，并且对每个构型都有
+        \(\mathcal M(\phi)^\dagger\eta\mathcal M(\phi)-\eta&lt;0\)；
+        此外，必须已经证明这个 \(\eta\) 的等号 subgroup 在当前物理
+        Fock space 中由 unitary Gaussian operators 实现，并且该
+        representation 延拓到相应半群；</li>
 <li>二次算符、正规序常数与 Nambu 平方根表示都由实际时间片乘积连续确定；正规序标量因子也满足使完整权重为实的反线性条件，而不是在每个构型上重新任选代数分支。</li>
 </ol>
 <p>
       在通常的 real Gaussian HS transformation 中，构型空间就是
       \(\mathbb R^{N_\phi}\)，第一项自动成立。第二项是物理稳定性：
       自由 Hamiltonian 的化学势和 pairing gap 必须使
-      \(\operatorname{Tr}e^{-\beta H_0}\) 有限。第三项中的“同一个固定
-      metric”与“方向一致”不能删除，因为一个不定度规有 contracting
-      与 expanding 两种取向；只有包含稳定零场的那一种才是物理 Fock trace
-      所需的取向。
+      \(\operatorname{Tr}e^{-\beta H_0}\) 有限。第三项不是要求
+      \(\eta\) 必须在纸面上写成某一个对角矩阵；它要求的是
+      matrix contraction 与实际 Fock norm 使用同一个物理共轭结构。
+      若只更换 \(\eta\) 而保持 \((a,a^+)\) 的 adjoint relation 不变，
+      这项需要重新证明，不能由矩阵乘法封闭性代替。
     </p>
 <h4>无配对时：为何 \(M^\dagger\eta M-\eta&lt;0\) 保证绝对收敛</h4>
 <p>
@@ -1039,7 +1043,7 @@
       \(\exp(-\hat H_{\rm eff})\)。需要先从完整传播中分离出真正控制
       Fock-space absolute values 的 damping part。
     </p>
-<h4>trace class 与 bosonic oscillator semigroup 的精确定义</h4>
+<h4>trace class、一般 \(\eta\)-contraction semigroup 与 Fock representation</h4>
 <p>
       对无限维玻色 Fock space，称 \(\hat U\) 为
       <em>trace class</em>，是指
@@ -1059,44 +1063,149 @@
       \(\sum_n e^{-\beta E_n}&lt;\infty\)。
     </p>
 <p>
-      现在按物理 Nambu 顺序
-      \((a_1,\ldots,a_N,a_1^+,\ldots,a_N^+)^T\) 取
+      对任意非退化 Hermitian matrix \(\eta\)，都可以定义
       \[
-        \eta=\operatorname{diag}(I_N,-I_N).
+        \mathcal S_\eta=
+        \left\{\mathcal M\in Sp(2N,\mathbb C)\ \middle|\
+        \mathcal M^\dagger\eta\mathcal M-\eta\le0\right\}.
       \]
-      本报告所说的 bosonic oscillator semigroup 由同时满足
-      \[
-        \mathcal M^Tg\mathcal M=g,\qquad
-        \mathcal M^\dagger\eta\mathcal M-\eta\le0
-      \]
-      的 Nambu matrices 组成。第一式保持 bosonic commutators；
-      第二式给出对乘法封闭的收缩条件。这里没有把“semigroup”当成
-      证明的黑箱：若 \(\mathcal M_1,\mathcal M_2\) 都满足第二式，
-      直接展开
+      第一项 \(Sp(2N,\mathbb C)\) 保持 bosonic commutators；
+      第二项给出 contraction condition。这里的 \(\eta\) 可以是
+      \(J_2g\)，也可以是 \(iJ_2g\)，不要求对角。若
+      \(\mathcal M_1,\mathcal M_2\in\mathcal S_\eta\)，则
       \[
       \begin{aligned}
       &amp;(\mathcal M_1\mathcal M_2)^\dagger
       \eta(\mathcal M_1\mathcal M_2)-\eta\\
       &amp;\quad=\mathcal M_2^\dagger
       (\mathcal M_1^\dagger\eta\mathcal M_1-\eta)\mathcal M_2
-      +(\mathcal M_2^\dagger\eta\mathcal M_2-\eta)\le0
+      +(\mathcal M_2^\dagger\eta\mathcal M_2-\eta)\le0 .
       \end{aligned}
       \]
-      即可看到乘积仍满足同一条件。
+      因而穷举中采用的每个 \(\eta\) 都确实定义了矩阵收缩半群。
     </p>
+<h4>一般 \(\eta\) 的 trace-class 定理，以及必须核实的表示条件</h4>
+<p>
+      令等号 subgroup 为
+      \[
+        G_\eta=\{\mathcal M\in Sp(2N,\mathbb C)\mid
+        \mathcal M^\dagger\eta\mathcal M=\eta\}.
+      \]
+      要应用 Neeb 的 Theorem II.3(ii)，必须证明三件事：
+    </p>
+<ol>
+<li>\(\mathcal S_\eta\) 的相关连通分支是一个 Olshanski
+      semigroup，内部矩阵具有
+      \(\mathcal M=k e^X\) 的 decomposition，其中 \(k\in G_\eta\)，
+      \(X\) 位于 \(G_\eta\)-invariant open cone；</li>
+<li>\(G_\eta\) 或它的 double cover 在当前 Fock space 中由
+      unitary Gaussian operators 表示；</li>
+<li>这个表示在偶、奇 occupation-parity sectors 上分别不可约，
+      并 holomorphically extend 到半群内部。也就是所有
+      \(\langle\psi|\pi_\eta(\mathcal M)|\varphi\rangle\)
+      随 \(\mathcal M\) 解析变化。</li>
+</ol>
+<p>
+      在这些假设下，Neeb 的定理直接证明严格内部的 operators 都是
+      trace class。定理没有要求 \(\eta\) 对角；它要求的是上述
+      matrix semigroup 与所用 Hilbert-space representation 真正相容。
+    </p>
+<p>
+      对玻色 metaplectic representation，偶数与奇数总 occupation
+      sectors 分别不可约。Neeb 的定理分别给出
+      \[
+        \|\pi_\eta(\mathcal M)|_{\rm even}\|_1&lt;\infty,\qquad
+        \|\pi_\eta(\mathcal M)|_{\rm odd}\|_1&lt;\infty .
+      \]
+      两个 sector 的直和因而满足
+      \[
+        \|\pi_\eta(\mathcal M)\|_1
+        =
+        \|\pi_\eta(\mathcal M)|_{\rm even}\|_1+
+        \|\pi_\eta(\mathcal M)|_{\rm odd}\|_1&lt;\infty .
+      \]
+      实际时间片乘积相对 projective representative 的有限正常序
+      scalar 只把 trace norm 乘以其绝对值。因此一旦 Olshanski
+      decomposition、unitary action 与 holomorphic extension 都已经
+      建立，严格内部到 trace class 的证明是完整的。需要为更一般
+      \(J_2g\) 核实的不是另一个 determinant 猜想，而是
+      <strong>同一个 matrix-to-operator map 是否满足上述三项表示条件</strong>。
+    </p>
+<h4>非对角物理度规已经全部包括在内</h4>
+<p>
+      在标准物理 Nambu 坐标中，
+      \(\eta_0=\operatorname{diag}(I_N,-I_N)\)。若改用
+      \(\hat\chi=T\hat\chi'\)，同时写
+      \[
+        g'=T^TgT,\qquad
+        A'=T^{-1}AT,\qquad
+        \eta_{\rm physical}'=T^\dagger\eta_0T,
+      \]
+      则
+      \[
+      \begin{aligned}
+        g'A'+A'^Tg'&amp;=T^T(gA+A^Tg)T,\\
+        \eta_{\rm physical}'A'
+        +A'^\dagger\eta_{\rm physical}'
+        &amp;=T^\dagger(\eta_0A+A^\dagger\eta_0)T .
+      \end{aligned}
+      \]
+      所以任意坐标中看起来非对角的物理度规、任意 pairing 与任意
+      noncommuting ordered product 都由同一个定理覆盖。关键是
+      \(g\)、\(A\)、物理 adjoint relation 与 \(\eta\) 必须一起变换。
+      note 的穷举保持 \(\hat\chi=(a,a^+)^T\) 和 \(g\) 不变，只替换
+      \(J_2g\) 或 \(iJ_2g\)；这不是上述坐标变换。
+    </p>
+<p>
+      这里的 trace norm 也能逐式核对。完整换坐标只是在同一个 Fock
+      operator 上改写 matrix coordinates，所以
+      \[
+        \|\hat U'\|_1
+        =\Tr\sqrt{\hat U'^\dagger\hat U'}
+        =\Tr\sqrt{\hat U^\dagger\hat U}
+        =\|\hat U\|_1 .
+      \]
+      若两种 Fock realizations 由 unitary \(\hat W\) 联系，
+      \(\hat U'=\hat W\hat U\hat W^\dagger\)，同一结论来自 trace norm
+      的 unitary invariance。因而所有由完整物理坐标变换得到的非对角
+      \(\eta_{\rm physical}'\) 都有严格 trace-class 证明。
+    </p>
+<p>
+      已有文献完整建立的标准玻色情形，在物理 Nambu 顺序
+      \((a_1,\ldots,a_N,a_1^+,\ldots,a_N^+)^T\) 中使用
+      \[
+        \eta_0=\operatorname{diag}(I_N,-I_N).
+      \]
+      Yamashita 使用 creation-first 顺序，所以写成
+      \(\operatorname{diag}(-I_N,I_N)\)；二者只是 Nambu 排列不同。
+      \(\mathcal S_{\eta_0}\) 是 symplectic Olshanski semigroup。
+      Howe 构造了其 oscillator/metaplectic operator semigroup，
+      Hilgert 证明其 Schrödinger 与 Bargmann--Fock realizations 等价。
+    </p>
+<div class="warning">
+<strong>“oscillator semigroup”不能作为所有
+      \(\mathcal S_\eta\) 的简称。</strong>
+      Yamashita 的 Remark 3.1 还指出，取 \(\le0\) 的闭 Olshanski
+      semigroup 包含不是 Hilbert--Schmidt 的边界 operators；本文需要
+      trace convergence 时使用负定不等式所定义的严格内部。
+      “bosonic oscillator-semigroup theorem”也不是文献中的固定定理名。
+    </div>
 <div class="result">
-<strong>这里实际使用的 oscillator-semigroup theorem。</strong>
+<strong>对标准物理 Fock representation 的准确结论。</strong>
       若
       \[
         \mathcal M^Tg\mathcal M=g,\qquad
-        \mathcal M^\dagger\eta\mathcal M-\eta&lt;0
+        \mathcal M^\dagger\eta_0\mathcal M-\eta_0&lt;0
       \]
-      且 \(\hat U\) 是实际有序 quadratic-operator product 在 Fock
-      space 中的 Gaussian representative，那么 \(\hat U\) 是 trace
-      class，bare trace 绝对收敛。正常序产生的有限 scalar 必须保留，
-      但不改变这个收敛结论。
+      且 \(\hat U\) 是实际有序 quadratic-operator product 的 physical
+      Gaussian Fock representative，那么 Howe--Olshanski
+      metaplectic extension 与 Neeb 的 trace-class result 给出
+      \[
+        \Tr_{\rm Fock}\sqrt{\hat U^\dagger\hat U}&lt;\infty.
+      \]
+      正常序产生的有限 scalar 必须保留，但不改变收敛性。
     </div>
-<h4>这个 theorem 怎样归结为合法的 Bogoliubov 对角化</h4>
+<h4>标准物理度规下怎样归结为合法的 Bogoliubov 对角化</h4>
 <p>
       满足负定不等式的 \(\mathcal M\) 具有半群 polar decomposition
       \[
@@ -1106,14 +1215,42 @@
       其中
       \[
         \mathcal M_{\rm unitary}^\dagger
-        \eta\mathcal M_{\rm unitary}=\eta,\qquad
-        \eta A_{\rm damping}
-        =A_{\rm damping}^\dagger\eta&lt;0.
+        \eta_0\mathcal M_{\rm unitary}=\eta_0,\qquad
+        \eta_0 A_{\rm damping}
+        =A_{\rm damping}^\dagger\eta_0&lt;0.
       \]
+      Potapov--Olshanski decomposition 首先给出
+      \(\eta_0A_{\rm damping}\le0\)。若它有非零 null vector \(v\)，
+      则 \(\eta_0A_{\rm damping}v=0\)，而 \(\eta_0\) 可逆，所以
+      \(A_{\rm damping}v=0\)。由
+      \[
+      \begin{aligned}
+      &amp;e^{A_{\rm damping}^\dagger}\eta_0e^{A_{\rm damping}}-\eta_0\\
+      &amp;\quad=\int_0^1e^{tA_{\rm damping}^\dagger}
+      (A_{\rm damping}^\dagger\eta_0+\eta_0A_{\rm damping})
+      e^{tA_{\rm damping}}\,dt
+      \end{aligned}
+      \]
+      可知这个 \(v\) 也使左边的 quadratic form 为零；乘上保持
+      \(\eta_0\) 的 \(\mathcal M_{\rm unitary}\) 后仍为零。这与
+      \(\mathcal M^\dagger\eta_0\mathcal M-\eta_0&lt;0\) 矛盾，所以
+      \(\eta_0A_{\rm damping}&lt;0\) 的严格性已经得到证明。
+    </p>
+<p>
       第一部分由 Fock-space unitary Bogoliubov operator 实现。
-      第二式等价于 \(-\eta A_{\rm damping}&gt;0\)，所以 damping
-      generator 对应一个稳定的 Hermitian bosonic quadratic form。
-      现在才使用 physical Bogoliubov transformation，把它写成
+      第二式等价于 \(-\eta_0 A_{\rm damping}&gt;0\)，所以 damping
+      generator 对应一个稳定的 Hermitian bosonic quadratic form；
+      Lie-algebra relation
+      \(gA_{\rm damping}+A_{\rm damping}^Tg=0\) 同时保证其
+      bosonic commutator structure 正确。用
+      \(a=(q+ip)/\sqrt2\)、\(a^+=(q-ip)/\sqrt2\) 换成 real
+      quadratures 后，这是一个实对称正定二次型。
+      Williamson diagonalization 通过一个 real canonical
+      transformation 把它化成
+      \(\operatorname{diag}(\epsilon_1,\ldots,\epsilon_N,
+      \epsilon_1,\ldots,\epsilon_N)\)、\(\epsilon_j&gt;0\)；该
+      canonical transformation 的 Fock-space implementer 是 unitary。
+      因此可以把 damping generator 写成
       \[
         \hat h_{\rm damping}
         =-\sum_{j=1}^N\epsilon_j
@@ -1130,22 +1267,184 @@
         \frac{e^{-\epsilon_j/2}}{1-e^{-\epsilon_j}}&lt;\infty.
       \end{aligned}
       \]
-      theorem 并未绕开 Bogoliubov diagonalization。它先从一般
+      每个 \(\epsilon_j&gt;0\)，所以每个分母都严格为正；有限模系统中
+      只有有限个 factors，乘积因此有限。
+      这个推论并未绕开 Bogoliubov diagonalization。它先从一般
       non-Hermitian ordered product 中抽出一个稳定 damping factor，
       再对这个 factor 作物理 Bogoliubov diagonalization。
     </p>
+<p>
+      对本报告 Cases 5--8 的 explicit HS models，还可以作一条完全
+      operator-level 的交叉检查。稳定自由因子
+      \(\hat T=e^{-\Delta\tau\hat H_0}\) 经 Bogoliubov 对角化后已经证明
+      \(\|\hat T\|_1&lt;\infty\)；每个实 HS field factor \(\hat V_\ell\)
+      是 unitary，所以 \(\|\hat V_\ell\|=1\)。trace-class operators
+      构成 bounded operators 的双边理想，逐次使用
+      \[
+        \|\hat B\hat T\hat C\|_1
+        \le\|\hat B\|\,\|\hat T\|_1\,\|\hat C\|
+      \]
+      便知任意有限有序乘积
+      \(\hat T\hat V_L\cdots\hat T\hat V_1\) 仍为 trace class。
+      这条证明不要求各时间片彼此对易。
+    </p>
+<h4>一般 \(\eta\) 不受排除，但必须补做 representation-extension 检查</h4>
+<p>
+      单模例子可以精确显示矩阵条件与物理 Fock trace 之间还差什么。
+      取
+      \[
+        g=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix},\qquad
+        \eta=ig,\qquad A=-ig .
+      \]
+      直接计算有
+      \[
+        gA+A^Tg=0,\qquad
+        \eta A+A^\dagger\eta=-2I&lt;0.
+      \]
+      因而 \(e^A\in\mathcal S_\eta\) 且位于严格内部。但其物理 Fock
+      generator 为
+      \[
+        \hat h=\frac{i}{2}(\hat a^2+\hat a^{+2}),
+      \]
+      所以 \(e^{\hat h}\) 是 unitary squeezing operator，
+      \(\Tr_{\rm Fock}\sqrt{e^{\hat h^\dagger}e^{\hat h}}
+      =\Tr_{\rm Fock}I=\infty\)。这个例子不否定一般
+      \(\eta\)-semigroup；它证明了不能只凭矩阵严格收缩就声称
+      physical grand-canonical Fock trace 收敛。
+    </p>
+<p>
+      note 的 Case 8 提供了一个完全处在本次五条关系内的二模检验。
+      取
+      \[
+        J_1=(-i\sigma_y)\otimes\sigma_z,\qquad
+        J_2=\sigma_x\otimes\sigma_x,\qquad
+        \eta=J_2g=\sigma_z\otimes\sigma_x,
+      \]
+      再取 \(A=-\gamma\eta\)、\(\gamma&gt;0\)。它满足
+      \[
+        gA+A^Tg=0,\qquad J_1^TAJ_1=\bar A,\qquad
+        \eta A+A^\dagger\eta=-2\gamma I_4&lt;0.
+      \]
+      但物理 generator 是
+      \[
+        \frac12\chi^TgA\chi
+        =-\gamma\,\boldsymbol a^{+T}\sigma_x\boldsymbol a
+        =-\gamma n_+ +\gamma n_- .
+      \]
+      bare trace 含
+      \(\sum_{n_-=0}^\infty e^{+\gamma n_-}\)，所以发散。
+      这说明 Case 8 的 “Good” 正确证明了 matrix invariant cone
+      非空，却没有自动证明原 displayed metric 的物理 Fock trace
+      收敛。本报告的可采样 Case 8 model 改用同一组五条关系的
+      alternative representative
+      \(J_2=\sigma_x\otimes I\)，使
+      \(J_2g=\eta_0\)，再由稳定自由项完成上面的 trace-class 证明。
+    </p>
+<p>
+      对 \(iJ_2g\) 四类，报告采用 fixed-\(N_{\rm b}\) ensemble。
+      固定 \(N_{\rm b}\) 个玻色子、\(N\) 个 one-particle modes 的
+      Hilbert space 维数为
+      \[
+        \binom{N+N_{\rm b}-1}{N_{\rm b}}&lt;\infty .
+      \]
+      有限维 Hilbert space 上的每个线性 operator 都是 trace class，并满足
+      \[
+        \|\hat U\|_1
+        \le
+        \binom{N+N_{\rm b}-1}{N_{\rm b}}\|\hat U\|&lt;\infty .
+      \]
+      后文严格为正的 fixed-\(N\) character 公式再证明其 trace 为正。
+      于是这四类
+      不是停在 matrix level；它们得到的是完整 canonical
+      trace-class、sign-free 结论，而不是不成立的 grand-canonical
+      结论。
+    </p>
+<h4>16 个存在负定生成元的矩阵类别：trace-class 逐类审计</h4>
+<p>
+      下表把每一组存在负定生成元的矩阵类别所用的 Hilbert space 和证明列在一起。
+      这样不会把矩阵收缩、grand-canonical trace 与 fixed-particle-number
+      trace 混成同一个命题。
+    </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>类别及所采用的物理实现</th>
+<th>度规与 ensemble</th>
+<th>trace-class 的严格证明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1+\)（Case 5）</td>
+<td>\(J_2=\sigma_x\)，\(\eta=\sigma_z\)；grand canonical</td>
+<td>单模物理 particle/hole metric。严格 damping 的
+            Williamson frequency 为 \(\epsilon&gt;0\)，故
+            \(\|\hat U\|_1=e^{-\epsilon/2}/
+            (1-e^{-\epsilon})&lt;\infty\)。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1-\)（Case 6）</td>
+<td>\(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>Potapov--Olshanski--Williamson 分解给出
+            \(\|\hat U\|_1=\prod_j
+            e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})&lt;\infty\)。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1+\)（Case 7）</td>
+<td>\(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>稳定自由因子是 trace class，HS phase factors
+            bounded 且 unitary；有限个 bounded factors 与
+            trace-class factor 的有序乘积仍是 trace class。等价地，
+            完整乘积可用上面的半群分解证明。</td>
+</tr>
+<tr>
+<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1-\)（Case 8）</td>
+<td>物理模型采用 \(J_2=\sigma_x\otimes I\)，
+            \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
+<td>与 Case 7 使用同一稳定 relative-density path，故同一
+            trace-norm 证明适用。note 原显示的
+            \(J_2=\sigma_x\otimes\sigma_x\) 不在此证明内；上面的
+            \(A=-\gamma\eta\) 已给出其 bare-trace 发散证明。</td>
+</tr>
+<tr>
+<td>四个 \(B\)-\(iJ_2g\) 类</td>
+<td>\(\eta=iJ_2g\)，包括 \(iIY\) 与 \(iIYX\)；
+            fixed \(N_{\rm b}\)</td>
+<td>
+            \(\dim\mathcal H_{N_{\rm b}}=
+            \binom{N+N_{\rm b}-1}{N_{\rm b}}\)，所以
+            \(\|\hat U\|_1\le
+            \dim\mathcal H_{N_{\rm b}}\|\hat U\|&lt;\infty\)。
+            这个有限维证明逐类成立，不依赖 grand-canonical
+            representation extension。</td>
+</tr>
+<tr>
+<td>八个存在负定生成元的费米类：四个 \(J_2g\) 与四个 \(iJ_2g\)</td>
+<td>完整 fermion Fock space</td>
+<td>\(N\) 个复费米 modes 给出
+            \(\dim\mathcal H_{\rm F}=2^N\)，故任意 \(\hat U\) 都满足
+            \(\|\hat U\|_1\le2^N\|\hat U\|&lt;\infty\)。
+            费米类需要继续检查的是权重的实性、不为零与非负性，
+            不是 trace convergence。</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p class="small">
-      matrix decomposition 可参见
-      <a href="https://arxiv.org/abs/2209.04139">Yamashita,
-      Proposition 2.2</a>；semigroup 内部的 representation operator
-      为 trace class 可参见
-      <a href="https://www.heldermann-verlag.de/jlt/jlt03/NEEBPL_vol1.PDF">
-      Neeb, Theorem II.3(ii)</a>。对 metaplectic representation，
-      even 与 odd Fock sectors 各自应用该定理，二者的有限直和仍是
-      trace class。Hilgert 说明 Bargmann--Fock 与通常 oscillator
-      realization 描述的是同一个 operator semigroup：
+<a href="https://doi.org/10.1090/pspum/048/974332">Howe,
+      <em>The Oscillator Semigroup</em>, 1988</a> 是原始构造；
       <a href="https://www.numdam.org/articles/10.5802/aif.1182/">
-      A note on Howe's oscillator semigroup</a>。
+      Hilgert, 1989</a> 证明两种 Fock/oscillator realizations 等价；
+      <a href="https://arxiv.org/abs/2209.04139">Yamashita,
+      Secs. 2--3, Proposition 2.2 and Remark 3.1</a> 给出 matrix
+      semigroup、decomposition、metaplectic extension 与边界区别；
+      <a href="https://arxiv.org/abs/2601.22252">Giacchi,
+      Rodino and Tramontana, arXiv:2601.22252</a> 给出 positive
+      complex symplectic/metaplectic semigroup 的现代 factorization；
+      <a href="https://www.heldermann-verlag.de/jlt/jlt03/NEEBPL_vol1.PDF">
+      Neeb, Theorem II.3(ii)</a> 是一般的 interior
+      trace-class result。
     </p>
 <h4>本节采用的分支论证：跟随实际有序算符，而不是只读最终矩阵</h4>
 <p>
@@ -1161,7 +1460,7 @@
 <p>
       对连续实辅助场，从稳定零场沿
       \(\phi\mapsto s\phi\)、\(0\le s\le1\) 移动。
-      上面的 oscillator-semigroup theorem 保证沿途每个
+      上面的标准 Howe--Olshanski trace-class 推论保证沿途每个
       \(\hat U(s\phi)\) 都是 trace class，所以普通 Fock trace
       绝对收敛；负定不等式又保证
       \(\det[I-\mathcal M(s\phi)]\ne0\)，路径不会碰到玻色 pole。
@@ -1179,7 +1478,7 @@
 <div class="result">
 <strong>对实际连续 HS 场域的结论。</strong>
       只要零场是 trace-convergent 的稳定构型，整个连续辅助场域始终留在
-      与它同向的 bosonic oscillator semigroup 内部，那么所有
+      与它同向的标准 symplectic Olshanski semigroup 严格内部，那么所有
       fixed-field bare traces 都收敛。再加上 \(J_1\) 与正规序 scalar
       共同使完整 operator weight 为实、零场权重为正，整个辅助场域的
       权重便严格为正。
@@ -1251,9 +1550,11 @@
       \(W(0)=2&gt;0\)，但 \(W(\pi)=0\)，随后改变符号。因此连通性真正能
       使用的命题是：先用半群不等式或其他逐构型论证证明
       \(W(\phi)\) 在整个构型空间上有限、实、连续且不为零，再用一个正
-      参考点固定全域正号。辅助场因子取等号、完整传播仍严格收缩时，
-      这些前提由上面的乘积恒等式全部满足；完整传播也取等号时，则必须
-      由具体模型另行验证这些前提。
+      参考点固定全域正号。在已证明具有当前 Fock-space
+      representation extension 的物理半群中，辅助场因子取等号、
+      完整传播仍严格收缩时，这些前提由上面的 trace-class 定理与乘积
+      恒等式共同满足；完整传播也取等号时，则必须由具体模型另行验证
+      这些前提。
     </p>
 <h4>为什么先前的 \(A_0=-\eta\) 例子不反驳这个结论</h4>
 <p>
@@ -1262,10 +1563,12 @@
       \(\eta A_0+A_0^\dagger\eta=-2I\)，但在最直接的
       number-conserving physical basis 中，particle block 有一正一负两个
       eigenvalues，因而 bare trace 发散。这个例子的零辅助场
-      grand-canonical 玻色迹不收敛，
-      它所用的 \(\eta\) 方向也不是标准 Fock convention 中“虚时间传播压低
-      高占据态”的 oscillator-semigroup 方向。辅助场空间即使只取这个常数矩阵仍然是
-      连通的，所以“连通”单独并不能排除它；它缺少的是上面第二、第三项。
+      grand-canonical 玻色迹不收敛。它的 \(\eta\)-等号 subgroup
+      没有按当前 \((a,a^+)\) 的物理 adjoint relation 由 unitary
+      Gaussian operators 实现，因此这个 matrix semigroup 不是当前
+      physical Fock representation 的 contraction semigroup。
+      辅助场空间即使只取这个常数矩阵仍然连通，所以“连通”单独并不能
+      排除它；它缺少的是上面第二、第三项。
     </p>
 <p>
       因此它的正确用途只是说明：五条 \(J_1,J_2\) 离散关系加一个任意
@@ -1400,9 +1703,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -1475,9 +1778,12 @@
             =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
             +(M_2^\dagger\eta M_2-\eta)
             \]
-            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这里的
-            \(J_2g\) 是物理 oscillator-semigroup metric，所以对应
-            Fock operator 是 trace class，bare trace 收敛且 \(+1\)
+            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这个
+            具体矩阵实现直接满足
+            \(J_2g=\operatorname{diag}(I,-I)\)，所以标准 symplectic
+            Olshanski semigroup 的 physical metaplectic extension
+            与 interior trace-class result 适用。对应 Fock operator
+            是 trace class，bare trace 收敛且 \(+1\)
             pole 不存在。\(J_1\) 使权重为实；实 Gaussian field space
             连通，零场的稳定自由玻色 trace
             \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}\) 为正。因此所有
@@ -1554,9 +1860,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -1621,9 +1927,12 @@
             =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
             +(M_2^\dagger\eta M_2-\eta)
             \]
-            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这里的
-            \(J_2g\) 是物理 oscillator-semigroup metric，所以对应
-            Fock operator 是 trace class，bare trace 收敛且 \(+1\)
+            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这个
+            具体矩阵实现直接满足
+            \(J_2g=\operatorname{diag}(I,-I)\)，所以标准 symplectic
+            Olshanski semigroup 的 physical metaplectic extension
+            与 interior trace-class result 适用。对应 Fock operator
+            是 trace class，bare trace 收敛且 \(+1\)
             pole 不存在。\(J_1\) 使权重为实；实 Gaussian field space
             连通，零场的稳定自由玻色 trace
             \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}\) 为正。因此所有
@@ -1700,9 +2009,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -1772,9 +2081,12 @@
             =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
             +(M_2^\dagger\eta M_2-\eta)
             \]
-            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这里的
-            \(J_2g\) 是物理 oscillator-semigroup metric，所以对应
-            Fock operator 是 trace class，bare trace 收敛且 \(+1\)
+            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这个
+            具体矩阵实现直接满足
+            \(J_2g=\operatorname{diag}(I,-I)\)，所以标准 symplectic
+            Olshanski semigroup 的 physical metaplectic extension
+            与 interior trace-class result 适用。对应 Fock operator
+            是 trace class，bare trace 收敛且 \(+1\)
             pole 不存在。\(J_1\) 使权重为实；实 Gaussian field space
             连通，零场的稳定自由玻色 trace
             \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}\) 为正。因此所有
@@ -1851,9 +2163,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -1917,9 +2229,12 @@
             =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
             +(M_2^\dagger\eta M_2-\eta)
             \]
-            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这里的
-            \(J_2g\) 是物理 oscillator-semigroup metric，所以对应
-            Fock operator 是 trace class，bare trace 收敛且 \(+1\)
+            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这个
+            具体矩阵实现直接满足
+            \(J_2g=\operatorname{diag}(I,-I)\)，所以标准 symplectic
+            Olshanski semigroup 的 physical metaplectic extension
+            与 interior trace-class result 适用。对应 Fock operator
+            是 trace class，bare trace 收敛且 \(+1\)
             pole 不存在。\(J_1\) 使权重为实；实 Gaussian field space
             连通，零场的稳定自由玻色 trace
             \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}\) 为正。因此所有
@@ -2733,9 +3048,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -2872,9 +3187,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -3009,9 +3324,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -3139,9 +3454,9 @@
             \begin{pmatrix}B&amp;C\\C^\dagger&amp;B^T\end{pmatrix}\le0 .
           \]</div>
 <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta&lt;0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
 <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -3923,8 +4238,9 @@
       \(\det(I-\mathcal B)&gt;0\)，所以完整的 bosonic determinant weight
       有限且为正。文章的 \(U_2\) benchmark
       是第二个构造加 hopping、sites 与可选 pairing 的推广。有 pairing 时，
-      同一个 \(\eta=\operatorname{diag}(I,-I)\) 是物理
-      oscillator-semigroup metric；稳定零场与传播矩阵的负定收缩条件使整个
+      同一个 \(\eta=\operatorname{diag}(I,-I)\) 对应已有
+      Howe--Olshanski metaplectic extension；稳定零场与传播矩阵的
+      负定收缩条件使整个
       连通 field domain 的 fixed-field operators 都是 trace class，
       \(J_1\) 实性条件、正实的正规序标量因子和零场正权重
       再固定全域正号。RP 同时给出另一条独立的逐构型权重非负证明；

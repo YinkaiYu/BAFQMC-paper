@@ -366,7 +366,8 @@
       \(J_2g=\operatorname{diag}(I,-I)\) 是 particle/hole signature，
       避免只列 \(J_1,J_2\) 而不解释它们对物理算符的作用。</li>
 <li>把论证写完整：稳定零场给出收敛正权重；所有 real \(U_2\)
-      histories 位于同向 oscillator semigroup 的内部，故 fixed-field
+      histories 位于标准 symplectic Olshanski semigroup 的严格内部，
+      故 fixed-field
       traces 都绝对收敛；\(J_1\) 实性条件、正实的正规序标量因子与连通性
       随后推出 \(W(\phi)&gt;0\)。</li>
 <li>说明 RP 本身已经是一套 operator semigroup proof：
@@ -432,7 +433,9 @@
 <div class="summary-item established">
 <strong>Yinkai's Case 7 的当前作用</strong>
         对具有有限稳定余量的 \(U_1=0\) paired benchmark，它与 7 月 19 日
-        \(\eta\)-contraction proof 完全对应。条件
+        \(\eta\)-contraction proof 完全对应。这里
+        \(\eta=J_2g=\operatorname{diag}(I,-I)\) 的 physical metaplectic
+        extension 已经建立，因此条件
         \(M^\dagger\eta M-\eta&lt;0\) 保证逐构型 bare trace 收敛；
         \(J_1\)、正规序标量因子、
         连通场域，以及零场处有限且为正的 grand-canonical 玻色迹，
@@ -450,9 +453,10 @@
 <div class="summary-item established">
 <strong>零场收敛、传播矩阵的负定条件与连续性</strong>
         若零场 bare trace 有限且为正，整个连通辅助场域中的传播矩阵都满足
-        \(M^\dagger\eta M-\eta&lt;0\)，且 \(J_1\) 使权重为实、实际
-        Fock operator 连续单值，则所有构型的 trace
-        都收敛并保持正号。
+        \(M^\dagger\eta M-\eta&lt;0\)，这个 \(\eta\) 的等号 subgroup
+        已在当前 Fock space 中实现为 unitary operators、相应表示已经
+        延拓到半群内部，且 \(J_1\) 使权重为实、实际 Fock operator
+        连续单值，则所有构型的 trace 都收敛并保持正号。
       </div>
 <div class="summary-item established">
 <strong>物理 HS 构造</strong>
@@ -482,7 +486,8 @@
       都补上了 8 个允许负定生成元的类别中尚未手算的 4 个。
       本次已经不再停在 \(A_0=-\eta\)：16 类的 subgroup/cone bases
       与五组 HS slices 都由 Octave 逐项验证。对连通 auxiliary-field space，
-      与稳定零场同向的半群内部传播保持 bare-trace convergence，
+      在已证明与当前物理 Fock representation 相容的半群中，
+      与稳定零场同向的内部传播保持 bare-trace convergence，
       权重为实、分支连续且单值，再加上正参考点，便可固定全域正号。
       当前最清楚的文章用途是把 Case 7 写成 paired benchmark 的一条独立
       matrix-semigroup sign-free theorem，同时把 RP 写成
@@ -559,7 +564,7 @@
               realizations；标签计数本身不构成新的 positivity mechanism，
               因为 Wei 的 canonical transport 位于 \(J_2g\)
               中允许负定生成元的分支，具体 \(J_1\) label 依赖 basis 与额外
-              symmetries；note 第一节的 minus-sign inequality不能沿用
+              symmetries；note 第一节带减号的不等式不能直接沿用
             </td>
 </tr>
 </tbody>
@@ -682,8 +687,9 @@
       <br/><br/>
       关于符号与收敛证明，我的理解与你的半群思路一致，但应把零场条件
       明写出来：只要 auxiliary-field configuration space 连通，零场
-      bare trace 收敛，所有构型都在同一个能压低该 Fock space 高占据态的
-      oscillator semigroup 内部，且 \(J_1\) 与正规序标量因子
+      bare trace 收敛，所有构型都在同一个已证明 physical Fock
+      representation 可解析延拓、并能压低高占据态的 Olshanski
+      semigroup 严格内部，且 \(J_1\) 与正规序标量因子
       共同使 operator weight 为实并连续单值，那么半群内部条件先保证
       每个 fixed-field operator 都是 trace class，也就是对全部玻色
       高占据态取绝对值后求和仍收敛；再由零场正权重推出整个辅助场
@@ -739,6 +745,9 @@
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); verify_boson_iJ2g_canonical"
 
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); verify_general_metric_trace_class"
+
 python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/split_reader_report.py</pre>
 <h3>11.2 文件索引</h3>
 <div class="scroll">
@@ -766,6 +775,9 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
 <tr><td><a href="tables/low_rank_branch_update_check.csv">low_rank_branch_update_check.csv</a></td><td>连续相位、\(+,-,+\) 权重比、Woodbury 与 determinant-lemma residuals</td></tr>
 <tr><td><a href="analysis/verify_boson_iJ2g_canonical.m">verify_boson_iJ2g_canonical.m</a></td><td>四个 bosonic \(iJ_2g\) canonical models 的随机多时间片、fixed-\(N\) character 与 grand-canonical obstruction 检验</td></tr>
 <tr><td><a href="tables/boson_iJ2g_canonical_checks.csv">boson_iJ2g_canonical_checks.csv</a></td><td>四类各 400 个构型的正本征值、正 fixed-\(N\) 权重、收缩余量与 spectral radius</td></tr>
+<tr><td><a href="analysis/verify_general_metric_trace_class.m">verify_general_metric_trace_class.m</a></td><td>标准物理度规、\(\eta=ig\)、Case 8 原 displayed metric 与 Case 8 物理 representative 的严格收缩和 Fock trace-class 对照</td></tr>
+<tr><td><a href="analysis/verify_general_metric_trace_class.log">verify_general_metric_trace_class.log</a></td><td>上述四种情形的 GNU Octave 10.3.0 完整运行日志</td></tr>
+<tr><td><a href="tables/general_metric_trace_class_checks.csv">general_metric_trace_class_checks.csv</a></td><td>matrix contraction 最大本征值、trace-class 结论及有限/发散诊断值</td></tr>
 <tr><td><a href="part_5_branch_sampling.html">part_5_branch_sampling.html</a></td><td>double-cover 符号追踪、低秩更新、绝对值采样、重加权与 PfQMC 对照的独立算法卷</td></tr>
 <tr><td><a href="part_6_case12_semigroups.html">part_6_case12_semigroups.html</a></td><td>Case 1 Kramers 与 Case 2 reflected-square 半群证明，以及完整 RP 生成元集合不能由一个固定 Nambu metric 给出收缩证明的结论</td></tr>
 <tr><td><a href="tables/updated_note_hand_comparison.csv">updated_note_hand_comparison.csv</a></td><td>note 手算标签与 propagation contraction 分类对照</td></tr>

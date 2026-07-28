@@ -1618,8 +1618,8 @@ SEGMENTS = [
         不会改变其值。
         </p>
         <p>
-        对本文的稳定 quadratic free Hamiltonian，不需要先学
-        oscillator-semigroup theory 才能验证这件事。稳定条件
+        对本文的稳定 quadratic free Hamiltonian，可以先用逐模
+        occupation-number 求和直接验证这件事。稳定条件
         \(\epsilon_{\min}-\mu>|\Delta|\) 允许作 bosonic Bogoliubov
         transformation，把自由项写成
         </p>
@@ -1660,7 +1660,15 @@ SEGMENTS = [
         \(\hat V(\phi)^\dagger\hat V(\phi)=I\)：它只给 occupation
         states 加 phase，operator norm 等于 1，不会放大任何态。
         一个 trace-class 算符左右乘这种 bounded operator 后仍为
-        trace class。于是 Trotter product 中只要保留稳定的
+        trace class。这里使用的不是口头判断，而是 trace norm 的
+        双边理想不等式
+        \[
+          \|\hat B\hat T\hat C\|_1
+          \le \|\hat B\|\,\|\hat T\|_1\,\|\hat C\|,
+        \]
+        其中 \(\hat T\) 是 trace class，\(\hat B,\hat C\) 是 bounded
+        operators。对 HS phase factors，
+        \(\|\hat B\|=\|\hat C\|=1\)。于是 Trotter product 中只要保留稳定的
         \(e^{-\Delta\tau\hat H_0}\) factors，任意有限 HS history 的
         many-body product 都有绝对收敛的 Fock trace。
         </p>
@@ -1761,8 +1769,8 @@ SEGMENTS = [
         matrix inequality。maximal subgroup 对应等号边界
         \(J_2gA+A^\dagger J_2g=0\)；cone generators 对应离开边界的 Hermitian
         directions。两部分相加才形成完整 semigroup generator。
-        这里 \(J_1^2=-I\) 没有妨碍 inequality，Case 8 因而给出了一个真正的候选
-        含负定生成元的 family。</p>
+        这里 \(J_1^2=-I\) 没有妨碍这个不等式。因此 Case 8 的允许
+        生成元中确定存在使收缩矩阵负定的方向。</p>
         <p>还可以不用一般 blocks，直接给出 cone 内一点。对刚才的 \(N=2\)
         matrices，</p>
         <div class="scroll">\[
@@ -1781,6 +1789,60 @@ SEGMENTS = [
         <p>所以 Case 8 不只是 “cone equations 有非零解”，而是确实有
         使收缩矩阵负定的例子。原文后面的大 block inequality 是这一简单
         representative 向一般 \(N\) 与一般 blocks 的展开。</p>
+
+        <h4>这一步证明了 matrix cone 非空，但还没有证明原 displayed
+        metric 的 bare Fock trace 收敛</h4>
+        <p>这里必须把同一个 \(A\) 放回第一节定义的物理 quadratic
+        operator，而不能只读 matrix inequality。因为
+        \(J_2g=\sigma_z\otimes\sigma_x\)，直接相乘得到</p>
+        <div class="scroll">\[
+          \frac12\hat\chi^TgA\hat\chi
+          =-\gamma\,\hat{\boldsymbol a}^{+T}
+          \sigma_x\hat{\boldsymbol a},
+          \qquad
+          \hat{\boldsymbol a}=(\hat a_1,\hat a_2)^T .
+        \]</div>
+        <p>令
+        \(\hat a_\pm=(\hat a_1\pm\hat a_2)/\sqrt2\)，便有</p>
+        <div class="scroll">\[
+          \frac12\hat\chi^TgA\hat\chi
+          =-\gamma\hat n_+ +\gamma\hat n_- .
+        \]</div>
+        <p>于是 grand-canonical bare trace 中出现</p>
+        <div class="scroll">\[
+          \left(\sum_{n_+=0}^{\infty}e^{-\gamma n_+}\right)
+          \left(\sum_{n_-=0}^{\infty}e^{+\gamma n_-}\right),
+        \]</div>
+        <p>第二个几何级数发散。这个反例同时满足 Case 8 的五条关系、
+        \(J_1^TAJ_1=\bar A\) 与严格 contraction inequality，所以原文
+        “Good” 的准确含义只能是<strong>生成元分类通过</strong>。
+        它不能单独承担 trace-class 结论。</p>
+
+        <h4>同一个离散 Case 怎样得到可采样的另一组物理矩阵实现</h4>
+        <p>Case 8 的五条关系并没有强迫使用上面的 \(J_2\)。当 flavor
+        数为偶数时，可以改取</p>
+        <div class="scroll">\[
+          J_1=I_2\otimes(-i\sigma_y)\otimes I,\qquad
+          J_2=\sigma_x\otimes I .
+        \]</div>
+        <p>这仍满足
+        \(J_1^TgJ_1=g\)、\(J_1^2=-I\)、
+        \(J_2^TgJ_2=-g\)、\(J_2^2=I\) 与
+        \([J_1,J_2]=0\)，但现在</p>
+        <div class="scroll">\[
+          J_2g=\operatorname{diag}(I,-I).
+        \]</div>
+        <p>报告在物理 Hamiltonian catalog 中采用的是这一组矩阵。
+        稳定自由项提供物理粒子数衰减，
+        HS factors 满足等号；完整传播位于物理
+        complex-symplectic semigroup 的内部。Potapov--Olshanski
+        decomposition 后的正定 damping quadratic form 可由 unitary
+        Bogoliubov transformation 对角化为
+        \(-\sum_j\epsilon_j(\beta_j^+\beta_j+1/2)\)、
+        \(\epsilon_j>0\)，所以 Fock trace norm 是
+        \(\prod_j e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})<\infty\)。
+        这才把同一个离散 Case 8 完成到 bare-trace-convergent、
+        sign-free、pole-free 的物理模型。</p>
         """,
         True,
     ),
@@ -2961,9 +3023,9 @@ def subgroup_and_cone(row: dict[str, str], block_dimension: int) -> str:
             \begin{{pmatrix}}B&C\\C^\dagger&B^T\end{{pmatrix}}\le0 .
           \]</div>
           <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone；
-          只满足前面的线性等式，并不等于已经满足
-          \(\eta A+A^\dagger\eta<0\)。
+          最后一个半负定不等式才从线性 span 中选出真正的 cone。
+          只满足前面的线性等式，并不保证
+          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
           </p>
           <p><strong>一个使收缩矩阵负定的例子。</strong>
           取</p>
@@ -3155,9 +3217,12 @@ def case_sheet(
             =M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
             +(M_2^\dagger\eta M_2-\eta)
             \]
-            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这里的
-            \(J_2g\) 是物理 oscillator-semigroup metric，所以对应
-            Fock operator 是 trace class，bare trace 收敛且 \(+1\)
+            逐因子相乘，完整时空传播矩阵始终满足严格不等式。这个
+            具体矩阵实现直接满足
+            \(J_2g=\operatorname{diag}(I,-I)\)，所以标准 symplectic
+            Olshanski semigroup 的 physical metaplectic extension
+            与 interior trace-class result 适用。对应 Fock operator
+            是 trace class，bare trace 收敛且 \(+1\)
             pole 不存在。\(J_1\) 使权重为实；实 Gaussian field space
             连通，零场的稳定自由玻色 trace
             \(\prod_j(1-e^{-\beta\epsilon_j})^{-1}\) 为正。因此所有
