@@ -75,9 +75,9 @@ def build_index(source: BeautifulSoup) -> None:
               <strong><a href="part_3_enumeration_models.html">第 3 卷：分类、生成元与模型讲义</a></strong>
               从解析判据与 Octave 算法依次讲到 64 类穷举，逐类展开
               \(A\) 的最终约束、maximal subgroup 与 invariant cone。
-              每张类别卡片都就地给出至少一个厄米相互作用模型；其中
-              20 类由原有 semigroup/Majorana 条件保证正性，其余类别
-              明确写出附加 Kramers/RP 条件后的非空无符号子空间。
+              每张类别卡片都就地给出一个厄米相互作用格点模型，并明确
+              区分“原有两条反线性对称已经足够”与“模型还使用附加
+              physical Kramers/RP 条件”这两种证明。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>

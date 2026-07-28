@@ -1,27 +1,16 @@
-"""Render the explicit canonical tensor-family structures for all 64 classes."""
+"""Render one non-redundant, formula-first atlas for all 64 sign classes."""
 
 from __future__ import annotations
 
 import csv
-import html
 from pathlib import Path
-
-from physical_model_catalog import (
-    MAXIMAL_ONLY_MODEL_CATALOG,
-    MODEL_CATALOG,
-    render_maximal_only_model,
-    render_physical_model,
-)
 
 
 REPORT_DIR = Path(__file__).resolve().parents[1]
 TENSOR_PATH = REPORT_DIR / "tables" / "tensor_block_structures.csv"
 MAXIMAL_PATH = REPORT_DIR / "tables" / "maximal_subgroup_structures.csv"
 FULL_PATH = REPORT_DIR / "tables" / "full_64_class_enumeration.csv"
-STRICT_PATH = REPORT_DIR / "tables" / "strict_generator_structures.csv"
-COMPLETION_PATH = (
-    REPORT_DIR / "tables" / "positive_completion_representatives.csv"
-)
+COMPLETION_PATH = REPORT_DIR / "tables" / "positive_completion_representatives.csv"
 
 
 PAULI_TEX = {
@@ -31,12 +20,176 @@ PAULI_TEX = {
     "Z": r"\sigma_z",
 }
 
-COEFFICIENT_TEXT = {
-    "R_S": r"任意实对称 \(m\times m\) 矩阵",
-    "R_A": r"任意实反对称 \(m\times m\) 矩阵",
-    "iR_S": r"\(i\) 乘任意实对称 \(m\times m\) 矩阵",
-    "iR_A": r"\(i\) 乘任意实反对称 \(m\times m\) 矩阵",
-}
+
+BOSON_TARGETS = (
+    {
+        "title": "三角格子手性凝聚与有限温手性转变",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取三角格子上具有 "
+            r"\(\pm K\) 简并最低点的实阻挫 hopping，并整体平移到正定"
+        ),
+        "interaction": (
+            r"\(V_{ij}=U\delta_{ij}+v[\cos(K\!\cdot r_i)"
+            r"\cos(K\!\cdot r_j)+\sin(K\!\cdot r_i)"
+            r"\sin(K\!\cdot r_j)]\succeq0\)，其中 \(U,v\geq0\)。"
+            r"后两项是两个显式的正半定有限波矢通道"
+        ),
+        "why": (
+            "实阻挫色散本身允许凝聚态自发选择手性；有限波矢相互作用又能"
+            "与相对密度序竞争。它可回答手性 Ising 与相位相干 BKT 转变"
+            "是否分裂。该相互作用不直接产生总密度 Mott gap，所以这里"
+            "研究的是通向 chiral Mott 问题的可计算双组分对应模型，不能"
+            "把它预先称为 chiral Mott insulator。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/1308.3237">三角格子 chiral '
+            "Mott 工作</a>；"
+            '<a href="https://arxiv.org/abs/1207.1725">全阻挫 '
+            "Bose-Hubbard 的 loop-current Mott 工作</a>"
+        ),
+    },
+    {
+        "title": "三角格子相对密度超固体与多波矢竞争序",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取正 hopping 的三角格子阻挫能带"
+        ),
+        "interaction": (
+            r"\(V_{ij}=U\delta_{ij}+v\cos[K\!\cdot(r_i-r_j)]\)"
+            r"并取 \(U,v\) 使其本征值非负，从而增强 \(K\) 点的"
+            r"相对密度涨落"
+        ),
+        "why": (
+            "它可直接测量手性凝聚、相对密度波和二者共存的有限温区域。"
+            "这不是把已知 hard-core 模型口头换名；这里是一个可由 "
+            "Gaussian HS 严格实现的 soft-core、平衡固定粒子数模型。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/0809.1667">三角格子阻挫 '
+            "hard-core boson 超固体</a>；"
+            '<a href="https://arxiv.org/abs/2309.03193">阻挫 extended '
+            "Bose-Hubbard 与 DQCP</a>"
+        ),
+    },
+    {
+        "title": "kagome 平带玻色子的阻挫凝聚与相对密度序",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取 kagome 最近邻实 hopping，"
+            r"并允许弱的实远邻 hopping 调节平带宽度"
+        ),
+        "interaction": (
+            r"\(V=U I+V_1 L_{\rm kagome}\succeq0\)，"
+            r"其中 \(L_{\rm kagome}\) 是正半定的格点图 Laplacian"
+        ),
+        "why": (
+            "平带放大相互作用效应，受阻挫最低能态又具有宏观简并；"
+            "该模型可无偏地区分 order-by-disorder、相对密度晶体与"
+            "多波矢凝聚。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/1207.4795">kagome 阻挫玻色'
+            "超流</a>；"
+            '<a href="https://arxiv.org/abs/2005.10810">相互作用平带'
+            "玻色子的拓扑束缚态</a>"
+        ),
+    },
+    {
+        "title": "全阻挫梯子与二维阵列中的热手性相变",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取每个 plaquette 含 \(\pi\) "
+            r"flux 的实 \(\pm t\) hopping；可从双腿梯子扩展到二维阵列"
+        ),
+        "interaction": r"\(V=U I\succeq0\)",
+        "why": (
+            "这一选择直接产生 staggered loop-current 自由度，适合计算"
+            "手性 Ising 转变与相位相干 BKT 转变是否分裂。平衡 canonical "
+            "实现避免了玻色总密度方向的 grand-canonical 稳定性问题。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/1207.1725">全阻挫 '
+            "Bose-Hubbard 的 chiral Mott 相</a>；"
+            '<a href="https://arxiv.org/abs/2603.04498">三角梯子的'
+            "手性与 pair superfluidity</a>"
+        ),
+    },
+)
+
+
+FERMION_TARGETS = (
+    {
+        "title": "kagome/moire-inspired 平带中的强耦合配对与赝能隙",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取 kagome 或多轨道窄带的实 hopping，"
+            r"并允许保持 Kramers 对称的带间混合"
+        ),
+        "interaction": (
+            r"\(V\succeq0\) 取短程；对费米子，\(Q_i^2\) 包含"
+            r"反平行组分之间的吸引"
+        ),
+        "why": (
+            "窄带使配对能标不再由小费米面控制，可研究超导、预成对玻色"
+            "流体、赝能隙和 BCS--BEC crossover。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/2111.10018">moire 平带的'
+            "超导与 bosonic fluid</a>"
+        ),
+    },
+    {
+        "title": "两轨道窄带中的诱导配对与相对相位集体模",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取两条近简并窄带，并加入实的弱轨道杂化"
+        ),
+        "interaction": (
+            r"\(Q_i=\sum_{o=1}^{2}(n_{i\uparrow o}-n_{i\downarrow o})\)，"
+            r"\(V=U I\succeq0\)"
+        ),
+        "why": (
+            "弱杂化的两条窄带可以分别形成强度不同的配对关联，并通过"
+            "相互作用彼此诱导。该模型可直接测量两个轨道的 pair "
+            "susceptibility、超流刚度以及两个凝聚分量之间的相对相位"
+            "关联，从而研究轨道选择性赝能隙和 Leggett-type 集体模。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/1212.2727">双层 attractive '
+            "Hubbard 中的诱导配对与杂化竞争</a>"
+        ),
+    },
+    {
+        "title": "受阻挫 Dirac 能带中的超导量子临界性",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}\) 取带交错 \(\pi\) flux 的三角格子"
+            r"实 hopping，使半填充能带在两个 Dirac 点接触"
+        ),
+        "interaction": r"\(V=U I+V_1L_{\mathcal L}\succeq0\)",
+        "why": (
+            "Dirac 低能态密度使相互作用驱动的配对转变存在有限临界耦合，"
+            "适合高精度提取临界指数，并检查 superconducting、density "
+            "和多轨道序之间是否出现扩大对称性。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/1803.02001">三角格子 '
+            r"\(\pi\)-flux attractive Hubbard 的 chiral-XY "
+            "量子临界性</a>"
+        ),
+    },
+    {
+        "title": "无序受阻挫平带中的配对、局域化与热输运",
+        "lattice": (
+            r"\(\epsilon_{\mathcal L}=\epsilon_{\rm fr}+W_{\rm dis}\)，其中实无序势"
+            r"对两个 Kramers 组分完全相同"
+        ),
+        "interaction": r"\(V\succeq0\) 取局域或有限程",
+        "why": (
+            "同一无符号算法可同时处理窄带、几何阻挫和无序，因而可区分"
+            "谱隙、相位刚度与局域化尺度，而不必依赖解析延拓以外的"
+            "小系统方法。"
+        ),
+        "links": (
+            '<a href="https://arxiv.org/abs/2111.10018">平带配对与'
+            "有限温 bosonic-fluid 区域</a>"
+        ),
+    },
+)
 
 
 def sign_rhs(value: str, symbol: str) -> str:
@@ -44,473 +197,361 @@ def sign_rhs(value: str, symbol: str) -> str:
 
 
 def pauli_word_tex(word: str) -> str:
-    return r" \otimes ".join(PAULI_TEX[letter] for letter in word)
+    # TeX control words consume following letters, so keep a separator after
+    # \otimes (otherwise strings such as \otimesI become unknown commands).
+    return r"\otimes ".join(PAULI_TEX[letter] for letter in word)
 
 
-def term_rows(raw_terms: str) -> str:
-    terms = [entry for entry in raw_terms.split(";") if entry]
+def coefficient_tex(word: str, coefficient_type: str) -> str:
+    subscript = rf"\mathrm{{{word}}}"
+    if coefficient_type == "R_S":
+        return rf"S_{{{subscript}}}"
+    if coefficient_type == "R_A":
+        return rf"R_{{{subscript}}}"
+    if coefficient_type == "iR_S":
+        return rf"iS_{{{subscript}}}"
+    if coefficient_type == "iR_A":
+        return rf"iR_{{{subscript}}}"
+    raise ValueError(f"Unknown coefficient type: {coefficient_type}")
+
+
+def parse_terms(raw_terms: str) -> list[tuple[str, str]]:
+    parsed: list[tuple[str, str]] = []
+    for entry in raw_terms.split(";"):
+        if entry:
+            word, coefficient_type = entry.split(":")
+            parsed.append((word, coefficient_type))
+    return parsed
+
+
+def expanded_formula(raw_terms: str, lhs: str) -> str:
+    terms = parse_terms(raw_terms)
     if not terms:
-        return '<tr><td colspan="2">只有零矩阵</td></tr>'
-    rows = []
-    for entry in terms:
-        word, coefficient_type = entry.split(":")
-        rows.append(
-            "<tr>"
-            f"<td>\\({pauli_word_tex(word)}\\)</td>"
-            f"<td>{COEFFICIENT_TEXT[coefficient_type]}</td>"
-            "</tr>"
-        )
-    return "".join(rows)
+        return rf'<div class="scroll">\[{lhs}=0.\]</div>'
+
+    rendered = [
+        rf"{pauli_word_tex(word)}\otimes "
+        rf"{coefficient_tex(word, coefficient_type)}"
+        for word, coefficient_type in terms
+    ]
+    lines = []
+    for index in range(0, len(rendered), 2):
+        chunk = " + ".join(rendered[index : index + 2])
+        if index == 0:
+            lines.append(rf"{lhs}&={chunk}")
+        else:
+            lines.append(rf"&\quad +{chunk}")
+    body = r"\\".join(lines)
+
+    return rf"""
+      <div class="scroll">\[
+        \begin{{aligned}}
+          {body}.
+        \end{{aligned}}
+      \]</div>
+    """
 
 
 def relation_block(row: dict[str, str], dimension: int) -> str:
     relative = (
-        r"[J_1,J_2]=0" if int(row["r"]) == 1 else r"\{J_1,J_2\}=0"
+        r"J_1J_2=J_2J_1" if int(row["r"]) == 1
+        else r"J_1J_2=-J_2J_1"
     )
+    metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
     return rf"""
       <div class="scroll">\[
         \begin{{gathered}}
-        J_1^TgJ_1={sign_rhs(row["s1"], "g")},\qquad
-        J_1^2={sign_rhs(row["q1"], f"I_{{{dimension}}}")},\\
-        J_2^TgJ_2={sign_rhs(row["s2"], "g")},\qquad
-        J_2^2={sign_rhs(row["q2"], f"I_{{{dimension}}}")},\qquad
-        {relative}.
+          J_1={pauli_word_tex(row["J1_word"])},\qquad
+          J_2={pauli_word_tex(row["J2_word"])},\qquad
+          \eta={metric},\\
+          J_1^TgJ_1={sign_rhs(row["s1"], "g")},\qquad
+          J_1^2={sign_rhs(row["q1"], f"I_{{{dimension}}}")},\\
+          J_2^TgJ_2={sign_rhs(row["s2"], "g")},\qquad
+          J_2^2={sign_rhs(row["q2"], f"I_{{{dimension}}}")},\qquad
+          {relative}.
         \end{{gathered}}
       \]</div>
     """
 
 
-def cone_verdict(
-    tensor: dict[str, str], full: dict[str, str], dimension: int
-) -> str:
-    if int(tensor["strict_interior"]):
-        return rf"""
-          <p class="result">
-            <strong>这一类确实容许严格收缩。</strong>
-            上表列出施加不等式以前的完整线性空间；真正用于收缩的
-            invariant cone 是其中进一步满足
-            \[
-              \eta A+A^\dagger\eta\leq0
-            \]
-            的矩阵。对当前代表以及它的任意重数扩展，都可取
-            \[
-              A=-\eta,\qquad
-              \eta A+A^\dagger\eta=-2I_{{{dimension}m}}<0 .
-            \]
-            这里的 \(A=-\eta\) 是用来证明负定点存在的试探矩阵，
-            不是预先指定的物理自由 Hamiltonian；这一区别在 64 张卡片
-            以前的推导中会完整说明。
-          </p>
-        """
+def summary_relations(row: dict[str, str], dimension: int) -> str:
+    relative = (
+        r"[J_1,J_2]=0" if int(row["r"]) == 1
+        else r"\{J_1,J_2\}=0"
+    )
+    return (
+        rf"\(J_1^TgJ_1={sign_rhs(row['s1'], 'g')}\), "
+        rf"\(J_1^2={sign_rhs(row['q1'], f'I_{{{dimension}}}')}\); "
+        rf"\(J_2^TgJ_2={sign_rhs(row['s2'], 'g')}\), "
+        rf"\(J_2^2={sign_rhs(row['q2'], f'I_{{{dimension}}}')}\); "
+        rf"\({relative}\)"
+    )
 
-    if full["status"] == "boundary_only_trace_obstruction":
+
+def cone_result(tensor: dict[str, str], full: dict[str, str]) -> str:
+    if int(tensor["strict_interior"]):
         return r"""
-          <p class="scope">
-            <strong>这一类的 invariant cone 只有 \(A=0\)。</strong>
-            上面的“cone 线性空间”仍可能列出许多矩阵，因为它只解了
-            \(\eta A=A^\dagger\eta\)。令 \(H=\eta A\)，则 \(H=H^\dagger\)。
-            本类的 \(J_2^2\) 符号使李代数条件给出
+          <div class="result">
+            <strong>真正的 invariant cone 非空。</strong>
+            上式中的系数不能任取；最终集合是
             \[
-              \operatorname{Tr}H
-              =-\operatorname{Tr}H=0 .
+              \mathcal C
+              =\{A_{\rm cone,lin}:\eta A_{\rm cone,lin}\leq0\},
             \]
-            若再要求 \(H\leq0\)，它的全部实本征值都不大于零而总和为零，
-            因此每个本征值只能为零，即 \(H=0\)。由于 \(\eta\) 可逆，
-            最终只有 \(A=0\)。因此实际 invariant cone 仅含 \(A=0\)，
-            半群中没有非零收缩生成元；上表的非零项只是尚未施加半负定
-            条件的候选，不能任取一个当作收缩方向。
-          </p>
+            并且其中确有满足
+            \(\eta A_{\rm cone,lin}<0\) 的点。程序用一个简单试探矩阵
+            检查非空性；它不被当作本类物理 Hamiltonian。
+          </div>
         """
-
-    return r"""
-      <p class="scope">
-        <strong>这一类的 invariant cone 只有 \(A=0\)。</strong>
-        令 \(H=\eta A=H^\dagger\)。把
-        \(J_1^TAJ_1=\overline A\) 与本类五条关系逐项代入，得到
-        \[
-          J_1^THJ_1=-\overline H .
-        \]
-        若 \(H\leq0\)，左边是半负定矩阵；但右边是
-        \(-\overline H\geq0\)。同一个矩阵同时半负定和半正定，只能为零。
-        因此 \(H=0\)，进而 \(A=0\)。上表的“cone 线性空间”只是施加
-        半负定以前的候选空间；施加 \(H\leq0\) 后只剩 \(A=0\)。
-      </p>
-    """
-
-
-def maximal_verdict(
-    tensor: dict[str, str], maximal: dict[str, str]
-) -> str:
-    if tensor["statistics"] == "fermion":
-        if int(maximal["maximal_subgroup_sign_guaranteed"]):
-            mtr_name = (
-                r"Majorana \(\{T^+,T^-\}\) 类"
-                if maximal["mtr_class"] == "Majorana_Tplus_Tminus"
-                else r"Kramers \(\{T^-,T^-\}\) 类"
-            )
-            extra = (
-                "这一行同时容许严格收缩生成元。"
-                if int(tensor["strict_interior"])
-                else
-                "这一行的半负定条件只能取等号；无符号结论完全来自 "
-                "maximal subgroup 上的两条反线性对称。"
-            )
-            return rf"""
-              <p class="result">
-                <strong>费米 maximal subgroup 逐构型无符号。</strong>
-                把 Nambu 矩阵变到实 Majorana 基底后，这对反线性对称属于
-                {mtr_name}。这是已证明的两种基本 Majorana-time-reversal
-                正性类别之一，所以由等号生成元指数化并有序相乘所得的
-                传播矩阵，其 Fock trace 都非负。{extra}
-              </p>
-            """
-        negative_count = int(maximal["random_negative_count"])
-        trials = int(maximal["random_trials"])
-        evidence = ""
-        if trials and negative_count:
-            evidence = (
-                f"规范最小代表的精确 Fock-space 扫描在 {trials} 个"
-                f"随机有序乘积中找到 {negative_count} 个负权重。"
-            )
-        else:
-            evidence = (
-                "这个最小代表的等号代数可能退化为零维；其他表示重数下仍需"
-                "重新检查，五条关系本身不给出正性定理。"
-            )
-        return f"""
-          <p class="warning">
-            <strong>费米 maximal subgroup 不具有一般正性保证。</strong>
-            变到 Majorana 基底后，这两个反线性变换不属于
-            “一个平方为正、一个平方为负”或“两个都平方为负”的
-            反对易正性类别。
-            {evidence}
-          </p>
-        """
-
-    return r"""
-      <p class="note">
-        <strong>玻色 maximal subgroup 要再检查物理正性结构。</strong>
-        本卡片列出的等号生成元虽然满足
-        \(gA+A^Tg=0\)、两条 \(J_1,J_2\) 反线性约束以及
-        \(\eta A+A^\dagger\eta=0\)，这些矩阵条件仍不会自动保证
-        bosonic Fock trace 非负。若其中一个反线性变换在 annihilation
-        单粒子空间上是真正的 \(\Theta^2=-I\) time reversal，则
-        Kramers pairing 可使 \(\det(I-\mathcal B)\geq0\)。另一条路线是
-        要求每个 Fock-space 因子属于反射正 cone，即能写成
-        \[
-          \sum_\alpha X_\alpha\,\theta(X_\alpha)
-        \]
-        的形式，其中系数非负，且 \(\theta\) 把一个 flavor sector
-        反射到另一个 sector 并作复共轭；这时 reflection positivity
-        可使有限的 bare trace 非负。两种检查都需要实际 Hamiltonian、
-        HS 分解与玻色迹收敛条件，不能只看本卡片的五个正负号。
-      </p>
-    """
-
-
-def strict_class_name(row: dict[str, str]) -> str:
-    prefix = "B" if row["statistics"] == "boson" else "F"
-    first_sign = "+" if int(row["s1"]) == 1 else "-"
-    square_sign = "+" if int(row["q1"]) == 1 else "-"
-    return f"{prefix}-{row['metric']}-s1{first_sign}q1{square_sign}"
-
-
-def native_physical_model_for_class(
-    tensor: dict[str, str],
-    maximal: dict[str, str],
-    selected_strict_rows: dict[str, dict[str, str]],
-) -> str:
-    if int(tensor["strict_interior"]):
-        class_name = strict_class_name(tensor)
-        if class_name not in MODEL_CATALOG or class_name not in selected_strict_rows:
-            raise RuntimeError(f"Missing strict physical model for {class_name}")
-        selected = selected_strict_rows[class_name]
-        expected = (
-            tensor["statistics"],
-            tensor["metric"],
-            tensor["s1"],
-            tensor["q1"],
-            tensor["s2"],
-            tensor["q2"],
-            tensor["r"],
-        )
-        actual = (
-            selected["statistics"],
-            selected["metric"],
-            selected["s1"],
-            selected["q1"],
-            selected["s2"],
-            selected["q2"],
-            selected["r"],
-        )
-        if expected != actual:
-            raise RuntimeError(
-                f"Physical representative mismatch for {class_name}: "
-                f"{expected} != {actual}"
-            )
-        same_representative = (
-            tensor["J1_word"] == selected["J1_word"]
-            and tensor["J2_word"] == selected["J2_word"]
-        )
-        if same_representative:
-            representative_note = (
-                "下面的物理模型直接使用本卡片上方的规范代表。"
-            )
-        else:
-            representative_note = rf"""
-              上方系数表使用自动找到的最短规范代表。为了让 Hamiltonian
-              的厄米性和物理自由度更直观，下面改用同一五条关系类别中的
-              \[
-                J_1={pauli_word_tex(selected["J1_word"])},\qquad
-                J_2={pauli_word_tex(selected["J2_word"])} .
-              \]
-              Octave 已重新核对这组矩阵的五条关系、全部生成元条件和 HS
-              时间片；模型不是把上方规范代表的 \(A\) 表逐字照搬。
-            """
-        return (
-            '<div class="note"><strong>本类的物理实现采用哪组代表。</strong>'
-            f"{representative_note}</div>"
-            + render_physical_model(class_name)
-        )
-
-    if (
-        tensor["statistics"] == "fermion"
-        and int(maximal["maximal_subgroup_sign_guaranteed"])
-    ):
-        class_id = tensor["class_id"]
-        if class_id not in MAXIMAL_ONLY_MODEL_CATALOG:
-            raise RuntimeError(f"Missing maximal-only model for {class_id}")
-        return render_maximal_only_model(class_id)
-
-    return ""
-
-
-def completion_model_for_class(
-    tensor: dict[str, str],
-    completion: dict[str, str],
-) -> str:
-    expected = (
-        tensor["statistics"],
-        tensor["class_id"],
-        tensor["s1"],
-        tensor["q1"],
-        tensor["s2"],
-        tensor["q2"],
-        tensor["r"],
-    )
-    actual = (
-        completion["statistics"],
-        completion["class_id"],
-        completion["s1"],
-        completion["q1"],
-        completion["s2"],
-        completion["q2"],
-        completion["r"],
-    )
-    if expected != actual:
-        raise RuntimeError(
-            f"Positive-completion mismatch: {expected} != {actual}"
-        )
-
-    n = int(completion["n"])
-    statistic_name = "玻色" if tensor["statistics"] == "boson" else "费米"
-    operator = "b" if tensor["statistics"] == "boson" else "c"
-    orbital_text = (
-        "不需要额外复制轨道"
-        if n == 2
-        else "还需要两个等价轨道，第三个 Pauli 因子作用在轨道空间"
-    )
-    metric = (
-        r"\eta=J_2g"
-        if completion["metric"] == "J2g"
-        else r"\eta=iJ_2g"
-    )
-    j1_tex = pauli_word_tex(completion["J1_word"])
-    j2_tex = pauli_word_tex(completion["J2_word"])
-    nambu_free = (
-        r"\sigma_z\otimes I_2"
-        if n == 2
-        else r"\sigma_z\otimes I_2\otimes I_2"
-    )
-    nambu_field = (
-        r"\sigma_z\otimes\sigma_z"
-        if n == 2
-        else r"\sigma_z\otimes\sigma_z\otimes I_2"
-    )
-    kramers = (
-        r"I_2\otimes(i\sigma_y)"
-        if n == 2
-        else r"I_2\otimes(i\sigma_y)\otimes I_2"
-    )
-
-    if tensor["statistics"] == "boson":
-        positivity = r"""
-          <p class="result">
-            <strong>玻色 bare trace 收敛、没有 pole，而且权重严格为正。</strong>
-            令 \(\kappa_{\min}>0\) 是 \(K\) 的最小本征值。自由传播因子
-            的二范数不大于
-            \(e^{-\Delta\tau\kappa_{\min}}\)，而 HS 因子是 unitary，
-            因为它的 one-particle 指数是 \(i\) 乘 Hermitian matrix。
-            对完整 \(L\) 个时间片使用
-            \(\|M_1M_2\|_2\leq\|M_1\|_2\|M_2\|_2\)，得到
-            \[
-              \|\mathcal B(\phi)\|_2
-              \leq e^{-L\Delta\tau\kappa_{\min}}
-              =e^{-\beta\kappa_{\min}}<1 .
-            \]
-            所以 \(\mathcal B(\phi)\) 的每个本征值都严格位于单位圆内。
-            普通 Fock-space 求和收敛，
-            \(\det[I-\mathcal B(\phi)]\neq0\)，整个实辅助场空间中没有
-            determinant pole。额外 Kramers symmetry 使
-            \(\mathcal B\) 的非实本征值成共轭对，并使每个实本征值具有
-            偶数代数重数。每对非实本征值贡献
-            \((1-\lambda)(1-\overline\lambda)=|1-\lambda|^2>0\)；
-            一个重数为 \(2m_\lambda\) 的实本征值贡献
-            \((1-\lambda)^{2m_\lambda}>0\)。因此
-            \[
-              W_{\rm B}(\phi)
-              =\det[I-\mathcal B(\phi)]^{-1}>0 .
-            \]
-          </p>
-          <p>
-            同一模型也满足文章的 operator reflection positivity。
-            令 \(\theta\) 交换 \(\uparrow,\downarrow\) 并把
-            \(i\) 变为 \(-i\)。自由项是 \(q+\theta(q)\)，HS 项则是
-            \[
-              i\phi O_i
-              =i\phi\sum_o n_{i\uparrow o}
-               +\theta\!\left(i\phi\sum_o n_{i\uparrow o}\right).
-            \]
-            因而每个时间片因子都是 reflected squares 的乘法闭合集合
-            中的元素。Kramers 证明从 determinant 本征值配对得到正号；
-            reflection-positive 证明直接从 Fock-space trace 得到非负；
-            上面的范数估计另外保证这个 trace 确实是收敛的 bare trace。
-          </p>
-        """
-        research_target = r"""
-          \(K\) 可取三角、kagome 或其他受阻挫格点的实 hopping matrix，
-          再把 chemical potential 选在最低单粒子能量以下，使 \(K>0\)。
-          该模型可研究受阻挫双组分玻色子的 flavor-density ordering、
-          flat-band condensation 与 collective orbital fluctuations；
-          它不是为了填表而加入的零维例子。
+    if full["status"] == "boundary_only_trace_obstruction":
+        reason = r"""
+          这里 \(\operatorname{Tr}(\eta A_{\rm cone,lin})=0\)。
+          若再有 \(\eta A_{\rm cone,lin}\leq0\)，它的全部本征值
+          不大于零而总和为零，只能全部等于零。
         """
     else:
-        positivity = r"""
+        reason = r"""
+          这里第一条反线性约束给出
+          \(J_1^T\overline{\eta A_{\rm cone,lin}}J_1
+          =-\eta A_{\rm cone,lin}\)。若左边半负定，右边便要求同一
+          Hermitian 矩阵同时半正定。
+        """
+    template = r"""
+      <div class="scope">
+        <strong>施加不等式后只剩零矩阵。</strong>
+        \[
+          \mathcal C
+          =\{A_{\rm cone,lin}:\eta A_{\rm cone,lin}\leq0\}
+          =\{0\}.
+        \]
+        REASON
+      </div>
+    """
+    return template.replace("REASON", reason)
+
+
+def algebraic_positivity(
+    tensor: dict[str, str], maximal: dict[str, str]
+) -> str:
+    if tensor["statistics"] == "fermion" and int(
+        maximal["maximal_subgroup_sign_guaranteed"]
+    ):
+        name = (
+            r"Majorana \(\{T^+,T^-\}\)"
+            if maximal["mtr_class"] == "Majorana_Tplus_Tminus"
+            else r"Kramers \(\{T^-,T^-\}\)"
+        )
+        template = r"""
           <p class="result">
-            <strong>费米逐构型无符号证明。</strong>
-            费米 Fock space 有限，不需要收缩不等式来保证 trace 收敛。
-            额外反线性变换
-            \(\Theta=(i\sigma_y)\mathcal K\) 满足
-            \(\Theta^2=-I\)，且每个 one-particle 时间片满足
-            \(U^\dagger\overline{B_\ell}U=B_\ell\)。因此完整传播矩阵
-            \(\mathcal B\) 的非实本征值成共轭对，实本征值具有偶数重数，
-            \[
-              W_{\rm F}(\phi)=\det[I+\mathcal B(\phi)]
-              =\prod_{\{\lambda,\overline\lambda\}}
-                    |1+\lambda|^2
-               \prod_{\lambda\in\mathbb R}
-                    (1+\lambda)^{2m_\lambda}\geq0 .
-            \]
-            第一个乘积对每一对非实共轭本征值只取一次。
-            这包括只满足 maximal-subgroup 等号的传播，也允许个别辅助场
-            构型具有零权重。
+            <strong>本类原有的两条反线性对称已经给出费米正性。</strong>
+            变到实 Majorana 基底后，它属于 MTR_NAME 类。因而
+            \(A_{\max}\) 生成的全部有序乘积具有非负 Fock trace；
+            若 invariant cone 非空，它与这些等号方向合在一起仍保持
+            同一个正性定理。
           </p>
         """
-        research_target = r"""
-          \(K\) 可取 kagome、pyrochlore slab 或 moiré-inspired
-          frustrated flat-band hopping。正的 \(O_i^2\) 在费米算符中
-          包含 inter-flavor attraction，可用于研究 flat-band pairing、
-          BCS--BEC crossover 与多轨道 collective order。这个 Kramers
-          子类本身采用已知正性机制；它在这里证明当前五符号类别与一个
-          可实际模拟的相互作用模型有非空交集。
+        return template.replace("MTR_NAME", name)
+    if int(tensor["strict_interior"]):
+        return r"""
+          <p>
+            五条关系允许非零收缩方向。它首先是一个完整的生成元分类；
+            对玻色模型还要在具体 Fock 表示中检查迹收敛，对费米模型则
+            可直接结合有限维 Fock trace。下面选择的格点模型另外具有
+            physical Kramers symmetry，所以其逐构型正性不依赖任何
+            未说明的猜测。
+          </p>
         """
+    return r"""
+      <p>
+        本类的五条关系确定了上面的 \(A_{\max}\)，但 invariant cone
+        只有零矩阵。下面不把这一点误读为“本类没有无符号模型”，而是
+        明确加入一个作用在真实双组分上的 Kramers symmetry；Octave
+        同时验证该物理子空间仍满足本类原来的两条 \(J\)-constraints。
+      </p>
+    """
 
-    return rf"""
-      <section class="model-example positive-completion">
+
+def physical_model(
+    tensor: dict[str, str],
+    maximal: dict[str, str],
+    completion: dict[str, str],
+    number: int,
+) -> str:
+    statistic = tensor["statistics"]
+    is_boson = statistic == "boson"
+    target = (
+        BOSON_TARGETS[(number - 1) % len(BOSON_TARGETS)]
+        if is_boson
+        else FERMION_TARGETS[(number - 1) % len(FERMION_TARGETS)]
+    )
+    operator = "b" if is_boson else "c"
+    component_count = 2 ** (int(completion["n"]) - 1)
+    orbital_count = component_count // 2
+    orbital_text = (
+        "每格点两个物理组分，不需要轨道复制"
+        if orbital_count == 1
+        else "每格点两个 Kramers 组分和两个轨道"
+    )
+    ensemble = (
+        r"""
+          玻色的高密度研究采用平衡 canonical ensemble
+          \(N_\uparrow=N_\downarrow=N\)。固定辅助场后，上、下两个
+          flavor blocks 互为复共轭，所以
+          \[
+            W_{N,N}(\phi)
+            =\operatorname{Tr}_{N}\mathcal B_\uparrow(\phi)\,
+             \overline{\operatorname{Tr}_{N}\mathcal B_\uparrow(\phi)}
+            =\left|\operatorname{Tr}_{N}
+             \mathcal B_\uparrow(\phi)\right|^2\geq0.
+          \]
+          每个固定粒子数 Hilbert space 有限，因而没有 bare-trace pole。
+          若改做 grand-canonical，只需再取
+          \(\epsilon_{\mathcal L}>0\)。若共有 \(L_\tau\) 个时间片，
+          每个 HS 因子的 2-norm 都是 1，而
+          \[
+            \left\|\mathcal B_\uparrow(\phi)\right\|_2
+            \leq
+            \prod_{\ell=1}^{L_\tau}
+            \left\|e^{-\Delta\tau\epsilon_{\mathcal L}}\right\|_2
+            =
+            e^{-\beta\lambda_{\min}(\epsilon_{\mathcal L})}<1 .
+          \]
+          因而 \(I-\mathcal B_\uparrow\) 和
+          \(I-\mathcal B_\downarrow\) 都可逆，并且
+          \[
+            W_{\rm GC}(\phi)
+            =\frac{1}{
+              \det[I-\mathcal B_\uparrow(\phi)]\,
+              \det[I-\mathcal B_\downarrow(\phi)]}
+            =\frac{1}{
+              |\det[I-\mathcal B_\uparrow(\phi)]|^2}>0 .
+          \]
+          这同时证明 bare trace 收敛、没有 pole 和权重为正。
+        """
+        if is_boson
+        else r"""
+          费米 Fock space 本来就是有限维。反线性变换
+          \(\Theta=(i\sigma_y)_{\uparrow\downarrow}\mathcal K\)
+          满足 \(\Theta^2=-I\)，并逐时间片保持传播矩阵。因此
+          \[
+            W_{\rm F}(\phi)=\det[I+\mathcal B(\phi)]\geq0.
+          \]
+          具体地，若
+          \(\mathcal Bv=\lambda v\)，Kramers symmetry 给出
+          \(\mathcal B(\Theta v)=\overline\lambda(\Theta v)\)。
+          非实本征值因此成 \(\lambda,\overline\lambda\) 对；实本征值
+          的本征空间则因 \(\Theta^2=-I\) 至少二重简并。于是行列式由
+          \(|1+\lambda|^2\) 或 \((1+\lambda)^2\) 这样的非负因子相乘
+          得到。
+          本类若已经属于 Majorana/Kramers 基本正性类，这个模型是其
+          一个物理子空间；其余类别则把 \(\Theta\) 作为额外的第三条
+          physical symmetry。
+        """
+    )
+    j1_model = pauli_word_tex(completion["J1_word"])
+    j2_model = pauli_word_tex(completion["J2_word"])
+    metric = r"J_2g" if completion["metric"] == "J2g" else r"iJ_2g"
+    mtr_note = ""
+    if statistic == "fermion" and int(maximal["maximal_subgroup_sign_guaranteed"]):
+        mtr_note = (
+            "本类自身已有 Majorana-time-reversal 正性；这里仍选用同一个"
+            "可扩展格点模型，便于把代数类别直接变成研究项目。"
+        )
+
+    template = r"""
+      <section class="model-example">
         <p class="model-title">
-          <strong>本类施加附加 Kramers 条件后的物理模型：
-          受阻挫多轨道双组分{statistic_name}模型</strong>
+          <strong>本类建议优先计算的模型：MODEL_TITLE</strong>
         </p>
         <p>
-          这里不是声称本卡片允许的全部 \(A\) 都自动无符号，而是把它们
-          进一步限制到一个已经有严格正性证明的非空子空间。在同一五符号
-          类别中，Octave 找到如下可扩展的 \(J_1,J_2\) 实现；随后再施加
-          本段后面写出的 physical \(T\)-Kramers 条件：
+          用 \(OPERATOR_{i\sigma o}\) 表示格点 \(i\)、组分
+          \(\sigma=\uparrow,\downarrow\)、轨道 \(o\) 上的算符，定义
           \[
-            J_1={j1_tex},\qquad J_2={j2_tex},\qquad {metric}.
+          \begin{aligned}
+            Q_i&=\sum_o(n_{i\uparrow o}-n_{i\downarrow o}),\\
+            H_{\mathcal L}
+            &=\sum_{ij,\sigma,o}
+              OPERATOR_{i\sigma o}^+
+              (\epsilon_{\mathcal L})_{ij}
+              OPERATOR_{j\sigma o}
+              +\frac12\sum_{ij}Q_iV_{ij}Q_j,
+              \qquad V=V^T\succeq0 .
+          \end{aligned}
           \]
-          第一个 Pauli 因子是 Nambu 空间，第二个作用在
-          \(\uparrow,\downarrow\) 两个物理组分上；{orbital_text}。
-          这组代表可以不同于卡片上方用来列完整 \(A\) 结构的最短代表，
-          但五个正负号逐项相同。
+          这里LATTICE；INTERACTION。这是厄米 Hamiltonian。当前类别的
+          具体实现有COMPONENT_COUNT维 annihilation-operator space，
+          也就是ORBITAL_TEXT。
         </p>
         <p>
-          用 \({operator}_{{i\alpha o}}\) 表示格点 \(i\)、组分
-          \(\alpha=\uparrow,\downarrow\)、轨道 \(o\) 上的湮灭算符，
-          定义
+          将 \(V=LL^T\) 后，每个时间片使用正 Gaussian 测度
           \[
-          \begin{{aligned}}
-            O_i&=\sum_o
-              \left(n_{{i\uparrow o}}-n_{{i\downarrow o}}\right),\\
-            H&=\sum_{{ij,\alpha,o}}
-              {operator}_{{i\alpha o}}^+K_{{ij}}
-              {operator}_{{j\alpha o}}
-              +\frac U2\sum_i O_i^2,
-              \qquad K=K^T>0,\quad U>0 .
-          \end{{aligned}}
+            e^{-\frac{\Delta\tau}2Q^TVQ}
+            =\int\frac{d^r\phi}{(2\pi)^{r/2}}\,
+             e^{-\phi^T\phi/2}\,
+             e^{\,i\sqrt{\Delta\tau}\,\phi^TL^TQ} .
           \]
-          这是厄米 Hamiltonian。若当前代表只有两个 Pauli 因子，
-          轨道求和只含一个 \(o\)；若有三个因子，则含两个轨道。
+          在“Nambu、真实双组分、轨道、格点”的 tensor-factor 顺序下，
+          这两个时间片生成元直接写成
+          \[
+          \begin{aligned}
+            A_{\rm free}
+            &=-\Delta\tau\,\sigma_z\otimes I_2
+              \otimes I_{\rm orb}\otimes\epsilon_{\mathcal L},\\
+            A_{\rm HS}(\phi)
+            &=i\sigma_z\otimes\sigma_z\otimes I_{\rm orb}
+              \otimes
+              \operatorname{diag}\!\left(
+                \sqrt{\Delta\tau}\,L\phi\right).
+          \end{aligned}
+          \]
+          \(I_{\rm orb}\) 作用在轨道空间；没有轨道复制时它就是标量 1。
+          对这个物理子空间可取
+          \[
+            J_1^{\rm model}=J1_MODEL\otimes I_{\mathcal L},\qquad
+            J_2^{\rm model}=J2_MODEL\otimes I_{\mathcal L},\qquad
+            \eta^{\rm model}=METRIC\otimes I_{\mathcal L}.
+          \]
+          它与卡片顶部的最小代表具有完全相同的五个正负号，但未必是同一个
+          表示。程序先逐项验证一个格点上的自由项基本生成元和相对密度
+          基本生成元满足两条 \(J\)-constraints。由于 \(J_1,J_2\)
+          不作用在格点重复空间，把前者张量乘任意实对称
+          \(\epsilon_{\mathcal L}\)，把后者张量乘 \(L\) 的任一实列向量，
+          仍满足相同等式；这就覆盖了上式的每个自由项和每个
+          \(L^TQ\) 辅助场方向。physical Kramers symmetry 把 \(i\)
+          和 \(Q\) 同时变号。MTR_NOTE
         </p>
+        <div class="result">
+          <strong>逐构型权重。</strong>
+          ENSEMBLE
+        </div>
         <p>
-          对每个格点使用正 Gaussian 测度
-          \[
-            e^{{-\Delta\tau UO_i^2/2}}
-            =\int\frac{{d\phi_i}}{{\sqrt{{2\pi}}}}\,
-             e^{{-\phi_i^2/2}}
-             e^{{\,i\sqrt{{\Delta\tau U}}\phi_iO_i}} .
-          \]
-          令 \(F_i=|i\rangle\langle i|\)。相应 Nambu 生成元是
-          \[
-          \begin{{aligned}}
-            A_0&=-\Delta\tau\,
-              ({nambu_free})\otimes K,\\
-            A_{{\rm HS}}(\phi)&=
-              i\sqrt{{\Delta\tau U}}\sum_i\phi_i\,
-              ({nambu_field})\otimes F_i .
-          \end{{aligned}}
-          \]
-          Octave 对这两个生成元逐项验证
-          \[
-          \begin{{gathered}}
-            gA_0+A_0^Tg=0,\qquad
-            gA_{{\rm HS}}+A_{{\rm HS}}^Tg=0,\\
-            J_a^TA_0J_a=\overline{{A_0}},\qquad
-            J_a^TA_{{\rm HS}}J_a=\overline{{A_{{\rm HS}}}}
-            \quad(a=1,2),\\
-            \eta A_0+A_0^\dagger\eta=0,\qquad
-            \eta A_{{\rm HS}}+A_{{\rm HS}}^\dagger\eta=0 .
-          \end{{gathered}}
-          \]
-          所以自由项和 HS 项都确实属于当前类别的 maximal subgroup；
-          不是只满足额外 Kramers symmetry、却已经脱离本卡片的模型。
+          <strong>为什么值得算。</strong>WHY
+          相关物理背景见 LINKS。链接中的原模型未必满足本报告
+          的 HS 条件；本卡给出的 \(H_{\mathcal L}\) 是为保留目标现象而
+          构造的可计算对应模型，报告不会把二者混称为同一个 Hamiltonian。
         </p>
-        <p>
-          用来证明权重非负的附加物理 time reversal 是
-          \[
-            T={kramers},\qquad \Theta=T\mathcal K,\qquad T^2=-I ,
-          \]
-          其中 \(\mathcal K\) 只表示逐分量复共轭。这个 \(\Theta\)
-          是对物理 realization 额外施加的正性要求。某些类别中 \(T\)
-          恰好可以选成 \(J_1\) 或 \(J_2\)；另一些类别中它是第三个
-          anti-linear symmetry。无论哪一种，都要另外确认它作用在真实
-          flavor 空间、逐时间片保持 \(A_0,A_{{\rm HS}}\)，而不能只从
-          五个正负号推断。
-        </p>
-        {positivity}
-        <p><strong>值得研究的格点实现。</strong>{research_target}</p>
       </section>
     """
+    replacements = {
+        "MODEL_TITLE": target["title"],
+        "OPERATOR": operator,
+        "LATTICE": target["lattice"],
+        "INTERACTION": target["interaction"],
+        "COMPONENT_COUNT": str(component_count),
+        "ORBITAL_TEXT": orbital_text,
+        "J1_MODEL": j1_model,
+        "J2_MODEL": j2_model,
+        "METRIC": metric,
+        "MTR_NOTE": mtr_note,
+        "ENSEMBLE": ensemble,
+        "WHY": target["why"],
+        "LINKS": target["links"],
+    }
+    for marker, value in sorted(
+        replacements.items(), key=lambda item: len(item[0]), reverse=True
+    ):
+        template = template.replace(marker, value)
+    return template
 
 
 def case_card(
@@ -518,94 +559,269 @@ def case_card(
     maximal: dict[str, str],
     full: dict[str, str],
     completion: dict[str, str],
-    selected_strict_rows: dict[str, dict[str, str]],
     number: int,
 ) -> str:
     statistic_name = "玻色" if tensor["statistics"] == "boson" else "费米"
-    base_dimension = 2 ** int(tensor["n"])
-    metric = (
-        r"\eta=J_2g" if tensor["metric"] == "J2g" else r"\eta=iJ_2g"
-    )
-    number_max = term_rows(tensor["maximal_number_conserving_terms"])
-    number_cone = term_rows(tensor["cone_number_conserving_terms"])
-    strict_label = (
-        "有负定生成元"
-        if int(tensor["strict_interior"])
-        else "半负定条件只能取等号"
-    )
-    card_id = f"all-class-{tensor['statistics']}-{number:02d}"
-    return rf"""
+    dimension = 2 ** int(tensor["n"])
+    cone_label = "invariant cone 非空" if int(tensor["strict_interior"]) else "只有 maximal subgroup"
+    card_id = f"class-{tensor['statistics']}-{number:02d}"
+    template = r"""
       <details class="all-class-card" id="{card_id}">
         <summary>
-          {statistic_name} {number:02d}：{strict_label}；
-          规范代表 \(J_1={pauli_word_tex(tensor["J1_word"])}\)，
-          \(J_2={pauli_word_tex(tensor["J2_word"])}\)
+          STATISTIC NUMBER：CLASS_ID；
+          最小 Nambu 维数 DIMENSION；CONE_LABEL
         </summary>
-        <div class="all-class-body">
-          <h4>五条关系、度规与可扩展代表</h4>
-          {relation_block(tensor, base_dimension)}
+        <div class="all-class-body tex2jax_ignore">
+          <h4>五条关系与最小代表</h4>
+          RELATION_BLOCK
           <p>
-            这一卡片固定
-            \(J_1=J_{{1,0}}\otimes I_m\)、
-            \(J_2=J_{{2,0}}\otimes I_m\) 和
-            \(g=g_0\otimes I_m\)，其中上方写出的 Pauli word 就是
-            \(J_{{1,0}},J_{{2,0}}\)，\(m\) 可容纳格点、轨道或其他重复自由度。
-            使用的 Hermitian 度规是 \({metric}\)。
+            上式是本类别目前最短的 Pauli-word 实现。将它扩展为
+            \(J_a\otimes I_m\) 后，下列公式对任意 \(m\) 都必要且充分。
+            每个 Pauli word 的第一个因子是 Nambu particle/hole 空间，
+            后面的 Pauli 因子是最小内部空间；最后显式写出的
+            \(\otimes S_P\) 或 \(\otimes R_P\) 作用在格点、轨道等
+            \(m\) 维重复空间。
+            每个 \(S_P\) 是独立的实对称 \(m\times m\) 矩阵，
+            每个 \(R_P\) 是独立的实反对称 \(m\times m\) 矩阵：
+            \[
+              S_P^T=S_P,\qquad R_P^T=-R_P .
+            \]
           </p>
 
-          <h4>Maximal subgroup 生成元 \(A\) 的最终结构</h4>
-          <p>
-            \(A\) 恰好是下表各行“Pauli 因子 \(\otimes\) 系数矩阵”的任意
-            实线性组合；不同表行的系数矩阵彼此独立。表中已经同时解完
-            \(gA+A^Tg=0\)、\(J_1^TAJ_1=\overline A\) 和
-            \(\eta A+A^\dagger\eta=0\)，不再附带未写出的 block 条件。
-          </p>
-          <div class="scroll"><table>
-            <thead><tr><th>Pauli 因子</th><th>允许的 \(m\times m\) 系数</th></tr></thead>
-            <tbody>{term_rows(tensor["maximal_terms"])}</tbody>
-          </table></div>
-          <p class="small">
-            实维数：
-            <code>{html.escape(tensor["maximal_dimension_formula"])}</code>。
-          </p>
+          <h4>Maximal subgroup 的全部生成元</h4>
+          MAXIMAL_FORMULA
 
-          <h4>施加半负定条件前的 invariant-cone 线性空间</h4>
+          <h4>Invariant cone 的全部 block 约束</h4>
           <p>
-            下表已经同时解完
+            先解等式
             \(gA+A^Tg=0\)、\(J_1^TAJ_1=\overline A\) 和
-            \(\eta A-A^\dagger\eta=0\)。它给出施加半负定条件以前的完整
-            线性空间。
+            \(\eta A=A^\dagger\eta\)，得到
           </p>
-          <div class="scroll"><table>
-            <thead><tr><th>Pauli 因子</th><th>允许的 \(m\times m\) 系数</th></tr></thead>
-            <tbody>{term_rows(tensor["cone_linear_terms"])}</tbody>
-          </table></div>
-          <p class="small">
-            实维数：
-            <code>{html.escape(tensor["cone_dimension_formula"])}</code>。
-          </p>
-          {cone_verdict(tensor, full, base_dimension)}
-          {maximal_verdict(tensor, maximal)}
-          {native_physical_model_for_class(
-              tensor, maximal, selected_strict_rows
-          )}
-          {completion_model_for_class(tensor, completion)}
+          CONE_FORMULA
+          CONE_RESULT
+          ALGEBRAIC_POSITIVITY
+          PHYSICAL_MODEL
 
           <details>
-            <summary>只看 particle-number-conserving 子空间</summary>
-            <p><strong>Maximal subgroup：</strong></p>
-            <div class="scroll"><table>
-              <thead><tr><th>Pauli 因子</th><th>允许的系数</th></tr></thead>
-              <tbody>{number_max}</tbody>
-            </table></div>
-            <p><strong>Invariant-cone 线性空间：</strong></p>
-            <div class="scroll"><table>
-              <thead><tr><th>Pauli 因子</th><th>允许的系数</th></tr></thead>
-              <tbody>{number_cone}</tbody>
-            </table></div>
+            <summary>只保留 particle-number-conserving 生成元</summary>
+            NUMBER_MAX_FORMULA
+            NUMBER_CONE_FORMULA
           </details>
         </div>
       </details>
+    """
+    replacements = {
+        "{card_id}": card_id,
+        "STATISTIC": statistic_name,
+        "NUMBER": f"{number:02d}",
+        "CLASS_ID": summary_relations(tensor, dimension),
+        "DIMENSION": str(dimension),
+        "CONE_LABEL": cone_label,
+        "RELATION_BLOCK": relation_block(tensor, dimension),
+        "MAXIMAL_FORMULA": expanded_formula(
+            tensor["maximal_terms"], r"A_{\rm max}"
+        ),
+        "CONE_FORMULA": expanded_formula(
+            tensor["cone_linear_terms"], r"A_{\rm cone,lin}"
+        ),
+        "CONE_RESULT": cone_result(tensor, full),
+        "ALGEBRAIC_POSITIVITY": algebraic_positivity(tensor, maximal),
+        "PHYSICAL_MODEL": physical_model(
+            tensor, maximal, completion, number
+        ),
+        "NUMBER_MAX_FORMULA": expanded_formula(
+            tensor["maximal_number_conserving_terms"],
+            r"A_{\rm max}^{(N)}",
+        ),
+        "NUMBER_CONE_FORMULA": expanded_formula(
+            tensor["cone_number_conserving_terms"],
+            r"A_{\rm cone,lin}^{(N)}",
+        ),
+    }
+    for marker, value in sorted(
+        replacements.items(), key=lambda item: len(item[0]), reverse=True
+    ):
+        template = template.replace(marker, value)
+    return template
+
+
+def representation_answer() -> str:
+    return r"""
+      <h4>固定一组 \(J_1,J_2\) 会不会漏掉 \(A\)</h4>
+      <p>
+        这个问题必须分成两层回答。第一层只问五个正负号所标记的类别是否
+        存在非零收缩方向。把
+        \(H=\eta A=H^\dagger\) 代入五条关系后，右边只可能得到
+        \[
+          J_1^T\overline HJ_1=H
+          \quad\text{或}\quad
+          J_1^T\overline HJ_1=-H .
+        \]
+        若得到第二式，\(H\leq0\) 会同时推出 \(H\geq0\)，所以只有
+        \(H=0\)。再结合 \(J_2^2\) 是否迫使
+        \(\operatorname{Tr}H=0\)，便能判定负定点是否可能存在。
+        这些步骤只含五条关系右边的正负号，不含所选 Pauli word。因此
+        换一个同类别的代表，不会把“cone 非空”变成“cone 为空”，也不会
+        产生第 17 个通过类别。
+      </p>
+      <p>
+        第二层问的是全部允许 \(A\) 的线性空间。这里答案不同：五个正负号
+        没有记录 \(J_1,J_2\) 的各个共同子空间分别出现多少次，所以它们
+        不能唯一决定 \(A\) 的维数。程序在同一个费米 all-plus 类、同为
+        8 维的三种表示中得到
+        \[
+        \begin{array}{c|cc}
+          &\dim A_{\max}&\dim A_{\rm cone,lin}\\ \hline
+          \text{balanced Pauli 表示}&12&16\\
+          \text{第一种不均匀重数表示}&12&16\\
+          \text{第二种不均匀重数表示}&21&7
+        \end{array}
+        \]
+        。因此，顶部公式完整描述的是所列最小代表及其
+        \(J_a\otimes I_m\) 扩展；它不是同一五符号类别所有不等价表示的
+        并集。给定一个具体物理问题中的 \(J_1,J_2\) 后，正确做法仍是把
+        实际矩阵代入三组线性方程重新求解。若两组代表仅由保持 \(g\) 的
+        basis change 相连，则两个 \(A\) 空间只差同一个 similarity
+        transformation，不会漏解；真正会改变空间的是不等价的重数组合。
+      </p>
+    """
+
+
+def minimal_dimension_proof() -> str:
+    return r"""
+      <h4>为什么绝大多数类别只需 2 维或 4 维，而各有一类必须 8 维</h4>
+      <p>
+        这里沿用 note 的共同前提：\(J_1,J_2\) 都是实正交矩阵。
+        整体乘以 \(-1\) 不改变相应的反线性变换，所以
+        \(J_2=\pm J_1\) 不算第二条独立约束。修正程序后，单位阵被允许
+        作为其中一个矩阵。
+      </p>
+      <p>
+        先看 2 维。玻色取 \(g=-i\sigma_y\)，费米取
+        \(g=\sigma_x\)。把所有 \(2\times2\) 实正交矩阵代入
+        \(J^TgJ=\pm g\) 与 \(J^2=\pm I\)，在保持 \(g\) 的 basis
+        change 和无关的整体负号下，只剩下
+        \[
+        \begin{array}{c|c|cc}
+          &J&J^TgJ&J^2\\ \hline
+          \text{玻色}&I&g&I\\
+          &\sigma_x\ \text{或}\ \sigma_z&-g&I\\
+          &i\sigma_y&g&-I\\ \hline
+          \text{费米}&I\ \text{或}\ \sigma_x&g&I\\
+          &\sigma_z&-g&I\\
+          &i\sigma_y&-g&-I
+        \end{array}
+        \]
+        。例如，玻色的 \(g\) 是二维有向面积形式，所以一个正交矩阵
+        保持还是翻转 \(g\)，正好由它是 rotation 还是 reflection
+        决定。平方为 \(-I\) 的二维实正交矩阵只能是
+        \(\pm i\sigma_y\)。两个 reflection 的轴本来可以连续转动，
+        但再要求二者对易或反对易后，相对夹角只能取离散值，分别可用
+        \(\sigma_x,\sigma_z\) 表示。因此上表不是只检查四个 Pauli
+        矩阵得到的猜测，而是二维实正交解的完整分类。
+      </p>
+      <p>
+        把上表中两个彼此独立的矩阵逐对组合，玻色有 7 个类别能在 2 维
+        实现，费米有 11 个。其余类别不可能是 2 维。程序随后给出：
+        玻色另有 24 类、费米另有 20 类可由两个 Pauli 因子在 4 维
+        实现。只有下面两类仍需要三个 Pauli 因子：
+        \[
+        \begin{array}{c|ccccc|cc}
+        &J_1^TgJ_1&J_1^2&J_2^TgJ_2&J_2^2&J_1J_2
+        &J_1&J_2\\ \hline
+        \text{玻色}&-g&-I&-g&-I&+J_2J_1&XIY&XXY\\
+        \text{费米}&+g&-I&+g&-I&-J_2J_1&IIY&IYX
+        \end{array}
+        \]
+      </p>
+      <p>
+        玻色例中令 \(K=J_1J_2\)。由于两者对易且都平方为 \(-I\)，
+        \(K^2=I\)。排除 \(J_2=\pm J_1\) 后，\(K\) 的 \(+1\) 与
+        \(-1\) 子空间都非空。若 \(Kx=x\)、\(Ky=-y\)，则
+        \[
+          g(x,y)=g(Kx,Ky)=-g(x,y)=0 .
+        \]
+        两个子空间因此彼此 \(g\)-正交；总空间上的 \(g\) 非退化，
+        所以 \(g\) 在每个子空间上的限制也非退化。\(J_1\) 与 \(K\)
+        对易，因而还分别保持这两个子空间。
+      </p>
+      <p>
+        在任一 \(2d\) 维子空间中，\(J_1\) 翻转 \(g\)。任意这样的
+        anti-symplectic matrix 都可写成“标准的
+        \(\operatorname{diag}(I_d,-I_d)\) 反射”乘一个 determinant
+        为 1 的 symplectic matrix，所以
+        \(\det J_1=(-1)^d\)。另一方面，\(J_1^2=-I\) 使它的本征值
+        成 \(\pm i\) 对，从而
+        \(\det J_1=+1\)。所以 \(d\) 必须为偶数，每个非空子空间至少
+        4 维；两个子空间合起来至少 8 维。
+      </p>
+      <p>
+        费米例中 \(J_1,J_2\) 是两个反对易、平方为 \(-I\) 且保持
+        \(g\) 的矩阵。取一个满足 \(g(v,v)\neq0\) 的向量 \(v\)。
+        \(v,J_1v,J_2v,J_1J_2v\) 必须线性独立：若一个非零实线性组合
+        使它们相加为零，相应的非零 quaternion
+        \(a+bJ_1+cJ_2+dJ_1J_2\) 有逆矩阵，会反推出 \(v=0\)。
+      </p>
+      <p>
+        又因为 \(J_1^TgJ_1=g\) 与 \(J_1^2=-I\)，
+        \[
+          g(J_1x,y)=-g(x,J_1y),
+        \]
+        \(J_2\) 也满足同一式子。逐项代入便得到上面四个向量彼此
+        \(g\)-正交，并且它们的 \(g\)-长度都等于 \(g(v,v)\)。
+        所以这个 4 维组上的 \(g\) 要么全正，要么全负；正、负惯性指数
+        都必须是 4 的倍数。4 维费米 Nambu metric
+        \(g=\sigma_x\otimes I_2\) 的 signature 是 \((2,2)\)，不可能
+        容纳这两个反对易 complex structures。8 维时 signature
+        为 \((4,4)\)，一个正组加一个负组正好可以实现，所以最小维数是
+        8。
+      </p>
+      <p class="result">
+        <strong>因此三个 Pauli 因子并非普遍需要。</strong>
+        64 类中有 62 类的最小维数已经由“二维完整分类给出的下界”和
+        “显式 2 维或 4 维矩阵给出的上界”同时确定；上述两个 8 维例外
+        还有单独的解析下界。因此，8 维结果不是程序恰好没有找到更短
+        写法。
+      </p>
+    """
+
+
+def shared_model_theorem() -> str:
+    return r"""
+      <h4>逐类物理模型采用的共同 HS 结构</h4>
+      <p>
+        为了让每个类别都对应一个可运行而非零维的 Hamiltonian，下面的
+        卡片使用同一类可扩展格点结构，但分别选择三角、kagome、Dirac、
+        全阻挫或多轨道窄带。每个模型都有两个真实物理组分
+        \(\uparrow,\downarrow\)，必要时再有两个轨道。相互作用只要求
+        一个实对称正半定矩阵 \(V\)，因此可逐个本征通道做 Gaussian
+        HS 分解。
+      </p>
+      <p>
+        这套构造同时回答“为何换代表会改变模型空间”。每张卡顶部的
+        \(J_1,J_2\) 是列出全部 \(A\) 所用的最小代表；模型段落另列
+        \(J_1^{\rm model},J_2^{\rm model}\)，它们是同一五符号类别中
+        与 physical Kramers doublet 相容的代表。后者有时需要四个
+        annihilation modes，但这不表示五条关系本身的最小维数是 8。
+        它只是所选格点模型包含两个组分和轨道的物理代价。
+      </p>
+      <p>
+        五个正负号是对一组 \(J_1,J_2\) 的分类，不是 Hamiltonian
+        彼此排斥的标签。同一个对称性较高的 Hamiltonian 可以同时找到
+        多组 \(J_1,J_2\)，因而出现在多张卡中。下面逐卡重复写出模型，
+        是为了给出每个类别的具体矩阵嵌入和逐构型证明；这不应被解释为
+        64 个互不等价的新正性机制。各卡轮换选择不同的重要物理问题，
+        也不会把仅仅换了一组 \(J_1,J_2\) 的同一 Hamiltonian 冒充成
+        新模型。
+      </p>
+      <p>
+        高占据数玻色相优先在
+        \(N_\uparrow=N_\downarrow\) 的 canonical ensemble 计算，此时
+        固定场权重是两个 canonical characters 的绝对值平方。费米侧
+        则直接使用 Kramers determinant。这样，每张卡都同时给出
+        Hamiltonian、正测度 HS、类别嵌入和逐构型非负公式，而不是只列
+        “可能研究某种相”的题目。
+      </p>
     """
 
 
@@ -619,394 +835,110 @@ def build_all_class_lecture() -> str:
         (row["statistics"], row["class_id"]): row
         for row in csv.DictReader(FULL_PATH.open(encoding="utf-8"))
     }
-    selected_strict_rows = {
-        row["class_name"]: row
-        for row in csv.DictReader(STRICT_PATH.open(encoding="utf-8"))
-    }
     completion_rows = {
         (row["statistics"], row["class_id"]): row
         for row in csv.DictReader(COMPLETION_PATH.open(encoding="utf-8"))
     }
-    if (
-        len(tensor_rows) != 64
-        or len(maximal_rows) != 64
-        or len(full_rows) != 64
-        or len(completion_rows) != 64
-        or len(selected_strict_rows) != 16
+    if not (
+        len(tensor_rows)
+        == len(maximal_rows)
+        == len(full_rows)
+        == len(completion_rows)
+        == 64
     ):
-        raise RuntimeError("Expected 64 rows in each classification table")
+        raise RuntimeError("Expected 64 rows in every classification table")
 
-    intro = r"""
-      <div class="note">
-        <strong>本节给出的“一般 \(A\)”有明确范围。</strong>
-        每类先选一组最小 Pauli 代表 \(J_{1,0},J_{2,0}\)，再用
-        \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\) 扩展到任意重数 \(m\)。
-        对这个完整张量族，下列系数表是必要且充分的，不是若干示例基底。
-        若实际问题使用不等价的 \(J_1,J_2\) 共同本征子空间重数，则应把实际
-        矩阵代入三组线性方程重新求核，不能照抄本节维数。
-      </div>
-      <div class="result">
-        <strong>物理模型怎样放进 64 类清单。</strong>
-        先只使用每类原有的 BdG 条件 \(gA+A^Tg=0\)、两条
-        \(J_1,J_2\) 反线性约束以及相应的 subgroup/cone 条件，8 个玻色
-        严格收缩类、8 个费米严格收缩类以及 4 个费米
-        maximal-subgroup 类已有逐构型正性证明。
-        这 20 类会先给出针对本类允许空间设计的模型。但这不等于其余
-        44 类没有无符号子类。对全部 64 类，本报告又要求 \(A\) 同时满足
-        一个物理 Kramers symmetry；玻色情况还让同一模型满足 operator
-        reflection positivity。Octave 在每一类都找到非空交集，并验证
-        自由项和 HS 项仍属于该类的 maximal subgroup。因此下面 64 张
-        卡片都会就地写出至少一个厄米相互作用模型、HS 分解、时间片生成元
-        和非负证明，同时明确区分“本类原有条件已足以证明所写模型逐构型
-        非负”与“必须再限制到附加 Kramers/RP 子空间后，所写模型才有
-        正性证明”。
-      </div>
-      <p class="scope">
-        <strong>这里“没有遗漏”的准确范围。</strong>
-        本节对五条关系的 64 个离散类别是完整穷举；对附加正性条件，
-        系统检查了本报告已有严格证明的 contraction semigroup、费米
-        Majorana-time-reversal、physical Kramers TRS 和 operator
-        reflection positivity。还可以人为加入更多晶格、轨道或内部群
-        对称性，它们形成无穷多种进一步子空间，不可能仅用五个正负号列成
-        有限清单。因此本节不声称列尽宇宙中每一种特殊 Hamiltonian；
-        它给出的可核对结论是：所有 64 类都至少与上述标准正性机制之一
-        有非空交集，而每个交集的 \(J_1,J_2,A_0,A_{\rm HS}\) 和物理模型
-        都已明确写出。
-      </p>
-      <h4>对“五条关系本身不够”的类别怎样继续筛选</h4>
-      <p>
-        对每一组五个正负号，先求所有同时满足
-        \[
-          gA+A^Tg=0,\qquad
-          J_1^TAJ_1=\overline A,\qquad
-          J_2^TAJ_2=\overline A
-        \]
-        的生成元。五条关系只规定 \(J_1,J_2\) 彼此怎样作用，并不保证
-        这个生成元空间中的每个有序乘积都有非负 Fock trace。因此筛选
-        不能在“半负定方向为空”或“随机乘积出现负权重”处停止，而要继续
-        求它与已证明正性条件的交集。
-      </p>
-      <p>
-        本报告使用的附加 Kramers 条件是指定一个作用在物理
-        \(\uparrow,\downarrow\) 组分上的实正交矩阵 \(T\)，使每个自由项
-        和每个 HS 生成元逐项满足
-        \[
-          T^2=-I,\qquad T^TA_\ell T=\overline{A_\ell}.
-        \]
-        程序保留原来的两条 \(J\)-constraints，再施加这一条 physical
-        Kramers equation，求相应线性空间的交集。在部分类别中 \(T\)
-        恰好等于某个 \(J_a\)，此时矩阵方程本身重复；新增信息是把这个
-        \(J_a\) 识别为作用在真实 flavor doublet 上的 physical time
-        reversal，并同时检查 Hamiltonian、HS 分解与玻色迹收敛。在其余
-        类别中，\(T\) 是额外的第三个 symmetry。只有当这个交集含有满足
-        厄米性与稳定性要求的自由项，并且存在正测度 HS 分解，使每个场值
-        的生成元都留在交集中时，才得到该五符号类别中的一个
-        Kramers-positive 子类。下面给出的共同模型会逐项完成这些检查。
-      </p>
-      <div class="scroll"><table>
-        <thead>
-          <tr>
-            <th>筛选层次</th>
-            <th>玻色 32 类</th>
-            <th>费米 32 类</th>
-            <th>这一行实际证明什么</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>原有 contraction / 两条反线性正性条件</td>
-            <td>8 类有本类的收缩路径与正参考模型</td>
-            <td>12 类属于已证明的 Majorana/Kramers 正性类别</td>
-            <td>在写明的生成元、稳定性和 HS 条件下，不需要新增
-            physical Kramers symmetry</td>
-          </tr>
-          <tr>
-            <td>再与 physical Kramers 条件取交集</td>
-            <td>32/32 类的交集都非空</td>
-            <td>32/32 类的交集都非空</td>
-            <td>仅凭五条离散关系不能对全类证明正性的类别，仍可在与附加
-            physical Kramers 条件的交集中找到可模拟的无符号子空间</td>
-          </tr>
-          <tr>
-            <td>玻色侧再检查 operator reflection positivity</td>
-            <td>玻色 32 类中逐类构造的同一批 Kramers 模型也都可写成
-            flavor-reflected pairs</td>
-            <td>不用于这一列费米证明</td>
-            <td>在 bare trace 已由 \(K>0\) 保证收敛后，给出另一条独立
-            的非负证明</td>
-          </tr>
-        </tbody>
-      </table></div>
-      <p>
-        程序还对每一行组成了三个非对易时间片，而不只检查单个
-        generator。测试取
-        \(K=\left(\begin{smallmatrix}1.4&0.25\\0.25&1.1\end{smallmatrix}\right)>0\)
-        和六个正负混合的实 HS 场值。64 行都得到
-        \(\|\mathcal B\|_2=0.561998570940<1\)，Kramers residual 为零。
-        单轨道与双轨道玻色权重分别为
-        \(12.797599651208\) 与 \(163.778556832601\)；相应费米权重分别为
-        \(4.707424163557\) 与 \(22.159842255645\)，全部严格为正。
-        这些数值不是正性证明的替代品；它们用来检查从内部 Pauli
-        generators 到实际有序传播矩阵的实现没有漏掉转置、复共轭或乘法
-        次序。
-      </p>
-      <p>
-        所以“原五条关系不足”在本报告中只表示不能对该类允许的全部
-        \(A\) 作统一正性断言；它不再被当成停止研究的判据。下面每张
-        卡片先说明原条件能否独立定论，再就地写出附加筛选后留下的
-        \(J_1,J_2,T,A_0,A_{\rm HS}\) 与 Hamiltonian。
-      </p>
-      <p>
-        先把两个常用名称准确地固定下来。满足
-        \[
-          M^\dagger\eta M=\eta
-        \]
-        的有限传播矩阵 \(M\)，在同时保留本类 \(g,J_1,J_2\) 约束的
-        传播矩阵中，构成相应 contraction semigroup 的 maximal
-        subgroup；其无穷小生成元 \(A\) 满足
-        \(\eta A+A^\dagger\eta=0\)。与之配套的 invariant cone 是满足
-        \[
-          \eta A=A^\dagger\eta,\qquad \eta A\leq0
-        \]
-        的生成元集合；用 maximal subgroup 的传播矩阵对其中的生成元作
-        共轭变换，结果仍留在这个集合中。报告后面所谓“求 subgroup 和
-        cone 的 \(A\) 结构”，分别是求前一个群的无穷小生成元以及后一个
-        生成元集合，并不是把传播矩阵与生成元混为同一对象。
-      </p>
-      <h4>为什么枚举时先试 \(A=-\eta\)：它回答的是哪一个问题</h4>
-      <p>
-        前面的线性方程先找出 maximal subgroup：其中的生成元满足
-        \[
-          \eta A+A^\dagger\eta=0 .
-        \]
-        沿这些方向演化时，有限矩阵 \(e^A\) 保持
-        \(v^\dagger\eta v\)，所以正、反方向都允许。若要从这个 group
-        扩充为还含严格收缩元素的 contraction semigroup，还要问是否
-        存在另一个合法的二次生成元，使
-        \[
-          \eta A=A^\dagger\eta,\qquad \eta A<0 .
-        \]
-        第一式说 \(\eta A\) 是 Hermitian；第二式说它的每个本征值都
-        小于零。二式合起来立即给出
-        \[
-          \eta A+A^\dagger\eta=2\eta A<0 .
-        \]
-        因此枚举中的问题不是“物理自由项是否必须等于某个特殊矩阵”，而是
-        “满足五条 \(J_1,J_2\) 关系的矩阵空间中，究竟有没有至少一个这样
-        的负定方向”。
-      </p>
-      <p>
-        选择 \(A=-\eta\) 并不是猜出来的。令
-        \[
-          P=-\eta A .
-        \]
-        因为 \(\eta A=A^\dagger\eta\)，矩阵 \(P\) 是 Hermitian；严格
-        收缩条件 \(\eta A<0\) 又正好等价于 \(P>0\)。反过来，只要取一个
-        positive-definite \(P\)，就可写
-        \[
-          A=-\eta P ,
-        \]
-        并得到 \(\eta A=-P<0\)。在所有这种候选中，\(P=I\) 不偏向任何
-        基底方向，也不引入待调参数，所以最先检查它；这一步立即给出
-        \(A=-\eta\)。
-      </p>
-      <p>
-        本报告已经把 \(\eta\) 的相因子选到
-        \(\eta^\dagger=\eta\) 且 \(\eta^2=I\)。于是最直接的试探矩阵是
-        \[
-          A=-\eta .
-        \]
-        它首先自动满足 invariant-cone 的 Hermiticity 条件：
-        \[
-          \begin{aligned}
-          \eta A&=\eta(-\eta)=-I,\\
-          A^\dagger\eta&=(-\eta)^\dagger\eta=-I .
-          \end{aligned}
-        \]
-        因而
-        \[
-          \eta A+A^\dagger\eta=-2I<0 .
-        \]
-        这就是选择 \(-\eta\) 的全部动机：左乘一次 \(\eta\) 后，它恰好
-        变成各方向都为 \(-1\) 的普通单位矩阵，不需要猜参数，也不需要做
-        数值优化。它证明受约束的生成元集合确实包含满足
-        \(\eta A+A^\dagger\eta<0\) 的方向。
-      </p>
-      <h4>但 \(A=-\eta\) 还必须是合法的玻色或费米二次生成元</h4>
-      <p>
-        上一步只检查了收缩不等式，还没有检查
-        \(gA+A^Tg=0\)。因为 \(J_2\) 是实正交矩阵，
-        \(J_2^2=+I\) 时 \(J_2^T=J_2\)，而
-        \(J_2^2=-I\) 时 \(J_2^T=-J_2\)。另一方面，
-        \(J_2^TgJ_2=g\) 等价于 \(J_2g=gJ_2\)，
-        \(J_2^TgJ_2=-g\) 等价于 \(J_2g=-gJ_2\)。
-      </p>
-      <p>
-        对玻色子，\(g^T=-g\) 且 \(g^2=-I\)。若
-        \(J_2^2=+I\)，把 \(A=-J_2g\) 或
-        \(A=-iJ_2g\) 代入后，两项逐项相消：
-        \[
-        \begin{array}{c|cc}
-        &gA&A^Tg\\ \hline
-        J_2g=gJ_2&+\hbox{同一相因子}\,J_2&
-                         -\hbox{同一相因子}\,J_2\\
-        J_2g=-gJ_2&-\hbox{同一相因子}\,J_2&
-                         +\hbox{同一相因子}\,J_2
-        \end{array}
-        \]
-        所以两种 \(J_2^TgJ_2=\pm g\) 都有
-        \(gA+A^Tg=0\)。若改成 \(J_2^2=-I\)，
-        \(J_2^T\) 多出的负号使两项相加而非相消，非零的
-        \(A=-\eta\) 便不再是玻色辛生成元。
-      </p>
-      <p>
-        对费米子，\(g^T=g\) 且 \(g^2=I\)。现在恰好需要
-        \(J_2^2=-I\)，因为 \(J_2^T=-J_2\) 提供相消所需的负号：
-        \[
-        \begin{array}{c|cc}
-        &gA&A^Tg\\ \hline
-        J_2g=gJ_2&-\hbox{同一相因子}\,J_2&
-                         +\hbox{同一相因子}\,J_2\\
-        J_2g=-gJ_2&+\hbox{同一相因子}\,J_2&
-                         -\hbox{同一相因子}\,J_2 .
-        \end{array}
-        \]
-        若改成 \(J_2^2=+I\)，两项也会相加。因此
-        \[
-          \boxed{J_2^2=+I\quad\text{（玻色）}},\qquad
-          \boxed{J_2^2=-I\quad\text{（费米）}}
-        \]
-        正是 \(A=-\eta\) 还能满足二次生成元条件的必要条件。
-      </p>
-      <h4>最后检查 \(J_1\) 的反线性对称</h4>
-      <p>
-        还剩 \(J_1^TAJ_1=\overline A\)。在上面允许的
-        \(J_2^2\) 下，若 \(J_2^TgJ_2=-g\)，Hermitian 度规是
-        \(\eta=J_2g\)；若 \(J_2^TgJ_2=g\)，Hermitian 度规是
-        \(\eta=iJ_2g\)。直接代入四种可能，得到下表：
-      </p>
-      <div class="scroll"><table>
-        <thead>
-          <tr>
-            <th>\(J_1\) 与 \(g\)</th>
-            <th>\(J_2\) 与 \(g\)</th>
-            <th>使用的 \(\eta\)</th>
-            <th>\(J_1,J_2\) 必须满足</th>
-            <th>\(J_1^TJ_2gJ_1\)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=g\)</td>
-          <td>\(iJ_2g\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(-J_2g\)</td></tr>
-          <tr><td>\(J_1^TgJ_1=g\)</td><td>\(J_2^TgJ_2=-g\)</td>
-          <td>\(J_2g\)</td><td>\([J_1,J_2]=0\)</td><td>\(+J_2g\)</td></tr>
-          <tr><td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=g\)</td>
-          <td>\(iJ_2g\)</td><td>\([J_1,J_2]=0\)</td><td>\(-J_2g\)</td></tr>
-          <tr><td>\(J_1^TgJ_1=-g\)</td><td>\(J_2^TgJ_2=-g\)</td>
-          <td>\(J_2g\)</td><td>\(\{J_1,J_2\}=0\)</td><td>\(+J_2g\)</td></tr>
-        </tbody>
-      </table></div>
-      <p>
-        例如第一行的 \(A=-iJ_2g\)。由
-        \(J_1^TgJ_1=g\) 和 \(J_1J_2=-J_2J_1\)，逐项得到
-        \[
-          J_1^TAJ_1
-          =-iJ_1^TJ_2gJ_1
-          =+iJ_2g
-          =\overline{-iJ_2g}
-          =\overline A .
-        \]
-        第二、四行的 \(A=-J_2g\) 是实矩阵，表中最后一列为
-        \(+J_2g\)，所以同样得到 \(J_1^TAJ_1=A=\overline A\)；
-        第三行与第一行相同，复共轭恰好补上 \(i\) 的负号。
-        整个计算没有使用 \(J_1^2=+I\) 还是 \(-I\)，所以这两种选择
-        都保留。最终玻色和费米各有八类允许这个负定试探矩阵。
-      </p>
-      <div class="warning">
-        <strong>现在可以准确回答“为什么讨论 \(A=-\eta\)”。</strong>
-        它用来在解析层面区分“半负定条件只能取等号”和“存在严格收缩
-        方向”，从而避免为 64 类分别做一次半定规划。它没有规定辅助场必须沿
-        \(-\eta\)，也没有规定固定自由项必须沿 \(-\eta\)。实际模型只需
-        每个时间片生成元都可写成 maximal-subgroup 李代数生成元与
-        invariant-cone 收缩生成元之和，并让总和满足半负定条件；
-        负定部分可以来自固定自由项，也可以来自对所有允许场值都保持
-        半负定的 HS 通道。
-      </div>
-      <p>
-        对标准玻色 Nambu 度规
-        \(\eta=\operatorname{diag}(I,-I)\)，\(A=-\eta\) 对应
-        \[
-          \frac12\chi^TgA\chi
-          =-\sum_j\left(a_j^+a_j+\frac12\right),
-        \]
-        的确压低每个 mode 的高占据态，可作为稳定的 imaginary-time
-        damping。对一般 \(J_2g\) 或 \(iJ_2g\)，同一个矩阵可能对应
-        squeezing、某些 modes 的放大，或只在固定总粒子数空间中有界。
-        因此每个物理模型仍须单独检查 Hamiltonian 的厄米性、稳定性、
-        HS 测度和 bare trace；本报告后面的模型不把这张代数证书当作
-        物理结论的替代品。
-      </p>
-      <h4>为什么五条离散关系足以判定代数上是否存在严格收缩生成元，却
-      不足以给出一般权重正性或全部 \(A\) 的结构</h4>
-      <p>
-        对任意实现，只要
-        \(J_2^2\) 的符号和 \(J_1,J_2\) 的相对关系满足本报告前面推导的
-        两个条件，取试探矩阵 \(A=-\eta\) 就逐项满足
-        \[
-          gA+A^Tg=0,\qquad
-          J_1^TAJ_1=\overline A,\qquad
-          \eta A+A^\dagger\eta=-2I<0 .
-        \]
-        Octave 对 8568 组不同 Pauli 实现做了交叉检查，其中 2184 组属于
-        这 16 个玻色/费米有负定方向的类，全部通过。因此换代表不会漏掉
-        “哪一类有负定方向”这一结论。这里的“足以”只指严格收缩生成元的
-        存在性，不是 Fock 权重正性。
-      </p>
-      <p>
-        但五条关系没有记录共同本征子空间的重数。一个同维反例是费米全正号类。
-        在 \(g=\operatorname{diag}(I_4,-I_4)\) 的 basis 中，下面两组
-        \(J_1,J_2\) 都平方为 \(I_8\)，都与 \(g\) 及彼此对易：
-        \[
-        \begin{aligned}
-        J_1^{(a)}&=\operatorname{diag}(1,1,-1,-1,1,1,-1,-1),\\
-        J_2^{(a)}&=\operatorname{diag}(1,-1,1,-1,1,-1,1,-1),\\
-        J_1^{(b)}&=\operatorname{diag}(1,1,1,1,1,1,1,-1),\\
-        J_2^{(b)}&=\operatorname{diag}(1,1,1,1,1,1,-1,-1).
-        \end{aligned}
-        \]
-        直接对完整复 \(8\times8\) 矩阵空间求实线性核，第一组的 maximal
-        subgroup 为 12 维、cone 线性空间为 16 维；第二组分别为 21 维和
-        7 维。故最小代表不会漏符号类，却可能漏掉另一种表示重数允许的
-        \(A\)。复现数据见
-        <a href="tables/nonpauli_realization_dependence.csv">nonpauli_realization_dependence.csv</a>。
-      </p>
-      <h4>四种系数说明</h4>
-      <div class="scroll"><table>
-        <thead><tr><th>表中说明</th><th>独立实参数数目</th></tr></thead>
-        <tbody>
-          <tr><td>任意实对称 \(m\times m\) 矩阵</td><td>\(m(m+1)/2\)</td></tr>
-          <tr><td>任意实反对称 \(m\times m\) 矩阵</td><td>\(m(m-1)/2\)</td></tr>
-          <tr><td>\(i\) 乘任意实对称矩阵</td><td>\(m(m+1)/2\)</td></tr>
-          <tr><td>\(i\) 乘任意实反对称矩阵</td><td>\(m(m-1)/2\)</td></tr>
-        </tbody>
-      </table></div>
-    """
-
-    blocks = [intro]
-    for statistic in ("boson", "fermion"):
-        statistic_name = "玻色 32 类" if statistic == "boson" else "费米 32 类"
-        blocks.append(f"<h4>{statistic_name}</h4>")
-        class_rows = [row for row in tensor_rows if row["statistics"] == statistic]
-        for number, tensor in enumerate(class_rows, start=1):
-            key = (statistic, tensor["class_id"])
+    blocks = [
+        r"""
+        <div class="note">
+          <strong>本节只列一次每个类别。</strong>
+          原来的“64 类”“16 个 cone 非空类”“物理模型”和“64 行总表”
+          已合并。以下每张卡固定采用同一顺序：五条关系、最小代表、
+          \(A_{\max}\) 的完整公式、invariant cone 的完整公式、正性结论、
+          以及一个有明确 HS 分解的研究模型。CSV 总表只作为下载数据保留，
+          不再在正文重复渲染。
+        </div>
+        """,
+        r"""
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const typesetCard = async (card) => {
+              if (!card.open) return;
+              const body = card.querySelector(".all-class-body");
+              if (!body || body.dataset.mathTypeset) return;
+              body.dataset.mathTypeset = "pending";
+              body.classList.remove("tex2jax_ignore");
+              body.classList.add("tex2jax_process");
+              try {
+                await window.MathJax.startup.promise;
+                await window.MathJax.typesetPromise([body]);
+                body.dataset.mathTypeset = "done";
+              } catch (error) {
+                body.dataset.mathTypeset = "";
+                console.error("MathJax card typesetting failed", error);
+              }
+            };
+            document.querySelectorAll("details.all-class-card").forEach(
+              (card) => {
+                card.addEventListener("toggle", () => typesetCard(card));
+                typesetCard(card);
+              }
+            );
+          });
+        </script>
+        """,
+        representation_answer(),
+        minimal_dimension_proof(),
+        shared_model_theorem(),
+    ]
+    for statistic, title in (
+        ("boson", "玻色 32 类"),
+        ("fermion", "费米 32 类"),
+    ):
+        blocks.append(f"<h4>{title}</h4>")
+        number = 0
+        for tensor in tensor_rows:
+            if tensor["statistics"] != statistic:
+                continue
+            number += 1
+            key = (tensor["statistics"], tensor["class_id"])
             blocks.append(
                 case_card(
                     tensor,
                     maximal_rows[key],
                     full_rows[key],
                     completion_rows[key],
-                    selected_strict_rows,
                     number,
                 )
             )
-    return "\n".join(blocks)
+        if number != 32:
+            raise RuntimeError(f"Expected 32 {statistic} rows, found {number}")
+
+    blocks.append(
+        r"""
+        <p class="small">
+          机器可读结果：
+          <a href="tables/full_64_class_enumeration.csv">五符号与最小维数</a>，
+          <a href="tables/tensor_block_structures.csv">全部显式生成元公式</a>，
+          <a href="tables/maximal_subgroup_structures.csv">费米 MTR 分类</a>，
+          <a href="tables/nonpauli_realization_dependence.csv">同类不等价表示的
+          维数对照</a>。
+        </p>
+        """
+    )
+    result = "\n".join(blocks)
+    unresolved_markers = (
+        "MAXIMAL_FORMULA",
+        "CONE_FORMULA",
+        "PHYSICAL_MODEL",
+        "NUMBER_MAX_FORMULA",
+        "NUMBER_CONE_FORMULA",
+        "MODEL_TITLE",
+        "J1_MODEL",
+        "J2_MODEL",
+        "MTR_NOTE",
+    )
+    for marker in unresolved_markers:
+        if marker in result:
+            raise RuntimeError(f"Unresolved report marker: {marker}")
+    return result

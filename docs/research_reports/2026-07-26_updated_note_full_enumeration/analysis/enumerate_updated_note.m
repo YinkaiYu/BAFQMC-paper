@@ -133,12 +133,9 @@ function witnesses = find_minimal_witnesses(statistics)
     g = canonical_g(statistics, n);
     dimension = rows(g);
     for first = 1:numel(names)
-      if all(names{first} == "I")
-        continue;
-      endif
       J1 = matrices{first};
       for second = 1:numel(names)
-        if first == second || all(names{second} == "I")
+        if first == second
           continue;
         endif
         J2 = matrices{second};

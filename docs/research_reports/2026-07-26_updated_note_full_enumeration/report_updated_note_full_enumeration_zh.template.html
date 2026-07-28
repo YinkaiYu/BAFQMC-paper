@@ -236,6 +236,11 @@
       color: #39464f;
     }
     .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
     figure { margin: 24px 0 32px; }
     figure img {
       display: block;
@@ -318,6 +323,10 @@
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
@@ -331,7 +340,7 @@
       <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
     </h1>
     <div class="meta">
-      <div>报告日期：2026-07-28</div>
+      <div>报告日期：2026-07-29</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
       <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -552,19 +561,20 @@
       与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
       trace-class、无 pole、正权重结论。对新增的四个
       \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
-      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.9 节证明：
+      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.4 节证明：
       任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
       \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
       principal-block obstruction。因此这四类不是新的普通
       grand-canonical BAFQMC classes。
     </div>
     <p>
-      这不使四类成为空的代数标签。第 6.7、6.9 节为四类都构造了
-      number-conserving collective-boson Hamiltonian。在固定总粒子数
-      sector 中，Hilbert space 有限；完整 one-particle product 的
-      eigenvalues 沿全部实辅助场构型保持为正的 reciprocal pairs，
-      fixed-\(N\) character 因而逐构型严格为正。四类由此给出完整的
-      canonical sign-free models，只是不能对总粒子数求到无穷。
+      这不使四类成为空的代数标签。第 6.6 节为四类都构造了
+      number-conserving 双组分格点 Hamiltonian。在
+      \(N_\uparrow=N_\downarrow\) 的平衡固定粒子数 sector 中，
+      Hilbert space 有限；两个 flavor 的 canonical characters 互为
+      复共轭，权重是其绝对值平方。四类由此都有完整的 canonical
+      sign-free 子模型，只是不能把同一个 \(iJ_2g\) contraction
+      结论直接改写成对所有粒子数求和的 grand-canonical trace。
     </p>
 
     <h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
@@ -1292,7 +1302,7 @@
         假定可按同样方式对角化的是任意完整有序乘积。
       </p>
       <p>
-        一个不含 pairing 的二模例子也能看出“任意 similarity
+        一个不含 pairing 的双模例子也能看出“任意 similarity
         diagonalization”为什么不够。取 particle block
         \[
           B=\begin{pmatrix}0.4&2\\0&0.5\end{pmatrix}.
@@ -1405,11 +1415,11 @@
           \binom{N+N_{\rm b}-1}{N_{\rm b}}
           \|\hat U|_{\mathcal H_{N_{\rm b}}}\|<\infty .
         \]
-        第 6.9 节再证明单粒子传播矩阵的本征值成
-        \(\lambda,\lambda^{-1}\) 对出现，并且每个 \(\lambda>0\)，
-        从而 fixed-\(N_{\rm b}\) character 严格为正。因此这些更一般
-        度规也有完整 trace-class 与正权重证明，只是结论属于 canonical
-        ensemble，不能误写成对所有粒子数求和的 grand-canonical trace。
+        第 6.6 节的平衡双组分模型使两个 fixed-\(N_{\rm b}\)
+        characters 互为复共轭，因而构型权重是绝对值平方。因此这些
+        更一般度规也有完整的 finite-trace 与正权重子模型，只是结论属于
+        canonical ensemble，不能误写成对所有粒子数求和的
+        grand-canonical trace。
       </p>
       <h4>16 个存在负定生成元的矩阵类别：trace-class 逐类审计</h4>
       <p>
@@ -1429,7 +1439,10 @@
           </thead>
           <tbody>
             <tr>
-              <td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1+\)（Case 5）</td>
+              <td>Case 5：
+              \(J_1^TgJ_1=-g,\ J_1^2=I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \(\{J_1,J_2\}=0\)</td>
               <td>\(J_2=\sigma_x\)，\(\eta=J_2g=\sigma_z\)；
               grand canonical</td>
               <td>这是单模物理 particle/hole metric。严格内部的
@@ -1438,7 +1451,10 @@
               (1-e^{-\epsilon})<\infty\)。</td>
             </tr>
             <tr>
-              <td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1-\)（Case 6）</td>
+              <td>Case 6：
+              \(J_1^TgJ_1=-g,\ J_1^2=-I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \(\{J_1,J_2\}=0\)</td>
               <td>\(J_2=\sigma_x\otimes I\)，
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
               <td>适用上面的多模分解，
@@ -1446,7 +1462,10 @@
               e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})<\infty\)。</td>
             </tr>
             <tr>
-              <td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1+\)（Case 7）</td>
+              <td>Case 7：
+              \(J_1^TgJ_1=g,\ J_1^2=I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \([J_1,J_2]=0\)</td>
               <td>同一个物理
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
               <td>稳定自由因子提供严格 damping，relative-density HS
@@ -1455,7 +1474,10 @@
               “trace-class 自由因子乘 bounded HS factors”验证。</td>
             </tr>
             <tr>
-              <td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1-\)（Case 8）</td>
+              <td>Case 8：
+              \(J_1^TgJ_1=g,\ J_1^2=-I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \([J_1,J_2]=0\)</td>
               <td>物理模型采用 alternative representative
               \(J_2=\sigma_x\otimes I\)，
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
@@ -1735,7 +1757,7 @@
         annihilation/creation 结构的物理基变换，所以可调用上述
         Fock-space 收敛定理。新增四类的
         \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
-        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.9 节从
+        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.4 节从
         一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
         Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
         迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在
@@ -3294,7 +3316,8 @@
       P_j\in\{I,\sigma_x,i\sigma_y,\sigma_z\}.
     \]</div>
     <p>
-      对每一对非平凡 Pauli words，代码直接相乘并读取下面五个正负号：
+      对每一对彼此不同的 Pauli words，代码直接相乘并读取下面五个
+      正负号；\(J_1\) 或 \(J_2\) 可以是单位阵：
     </p>
     <div class="scroll">\[
       J_1^TgJ_1=\pm g,\quad J_1^2=\pm I,\quad
@@ -3345,7 +3368,7 @@
       </li>
     </ol>
     <p>
-      另一个脚本对 16 个允许负定生成元的类别选择便于物理解读的
+      另一个脚本对全部 64 类使用各自的最小
       \(J_1,J_2\)，再扫描矩阵空间的完整实 basis
       \(\{P,iP\}\)。一个 basis element 只有同时满足
     </p>
@@ -3358,7 +3381,7 @@
       maximal-subgroup 生成元空间。若
       \(\eta A-A^\dagger\eta=0\)，则 \(\eta A\) 是 Hermitian matrix；
       这些 \(A\) 先形成一个线性空间，再对其线性组合施加
-      \(\eta A\le0\)，才得到 note 所称的 invariant cone。因此第 6.7
+      \(\eta A\le0\)，才得到 note 所称的 invariant cone。因此第 6.6
       节不只给出一个 \(A\)，而是列出所选 \(J_1,J_2\) 下所有允许的
       maximal-subgroup 生成元和 invariant-cone 生成元。
     </p>
@@ -3399,7 +3422,7 @@
             <td>玻色 note 原有的 4 个 \(J_2g\) 类，即 Cases 5--8</td>
             <td>
               这里的 metric 与物理 Nambu particle/hole 结构相容。对
-              第 6.7 节给出的四个 HS 模型，每个时间片满足半负定条件，
+              第 6.6 节统一图谱中的相应 HS 模型，每个时间片满足半负定条件，
               每个完整构型又至少含一个满足严格不等式的固定自由传播因子，
               所以 \(M^\dagger\eta M-\eta<0\)。对应 Fock operator 是
               trace class，也就是对所有玻色占据数取绝对值后求和仍收敛；
@@ -3414,7 +3437,7 @@
               一般 Hermitian BdG block 证明表明：不存在一个来自稳定
               Hermitian 二次玻色 Hamiltonian 的零场生成元，使
               grand-canonical 迹收敛并同时满足同一个
-              \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.7、6.9 节为四类
+              \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.6 节为四类
               都给出 number-conserving fixed-\(N\) Hamiltonian。
               one-particle eigenvalues 始终为正的 reciprocal pairs，
               所以 fixed-\(N\) symmetric-power character 对每个辅助场
@@ -3427,7 +3450,7 @@
     <p>
       “一个 microscopic Hamiltonian 是否经某个 HS identity 落入上述
       半群”仍是模型归属问题，不是 semigroup theorem 自己能够替代的输入。
-      本报告已经对第 6.7 节列出的每个模型逐项给出
+      本报告已经对第 6.6 节列出的每个模型逐项给出
       \(A_0,A_{\rm HS}(\phi)\) 并核对；所以对 boson \(J_2g\) 四类和
       \(iJ_2g\) 四类以及 fermion 八类，都不再把这个检查留给以后。
     </p>
@@ -3919,7 +3942,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1+\)（Case 5）</td>
+            <td>Case 5：
+            \(J_1^TgJ_1=-g,\ J_1^2=I\)，
+            \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+            \(\{J_1,J_2\}=0\)</td>
             <td>\(J_2=\sigma_x\)，\(\eta=\sigma_z\)；grand canonical</td>
             <td>单模物理 particle/hole metric。严格 damping 的
             Williamson frequency 为 \(\epsilon>0\)，故
@@ -3927,14 +3953,20 @@
             (1-e^{-\epsilon})<\infty\)。</td>
           </tr>
           <tr>
-            <td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1-\)（Case 6）</td>
+            <td>Case 6：
+            \(J_1^TgJ_1=-g,\ J_1^2=-I\)，
+            \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+            \(\{J_1,J_2\}=0\)</td>
             <td>\(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
             <td>Potapov--Olshanski--Williamson 分解给出
             \(\|\hat U\|_1=\prod_j
             e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})<\infty\)。</td>
           </tr>
           <tr>
-            <td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1+\)（Case 7）</td>
+            <td>Case 7：
+            \(J_1^TgJ_1=g,\ J_1^2=I\)，
+            \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+            \([J_1,J_2]=0\)</td>
             <td>\(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
             <td>稳定自由因子是 trace class，HS phase factors
             bounded 且 unitary；有限个 bounded factors 与
@@ -3942,7 +3974,10 @@
             完整乘积可用上面的半群分解证明。</td>
           </tr>
           <tr>
-            <td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1-\)（Case 8）</td>
+            <td>Case 8：
+            \(J_1^TgJ_1=g,\ J_1^2=-I\)，
+            \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+            \([J_1,J_2]=0\)</td>
             <td>物理模型采用 \(J_2=\sigma_x\otimes I\)，
             \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
             <td>与 Case 7 使用同一稳定 relative-density path，故同一
@@ -4103,29 +4138,10 @@
       这些前提。
     </p>
 
-    <h4>为什么测试矩阵 \(A=-\eta\) 不反驳这个结论</h4>
-    <p>
-      对新增 bosonic \(iJ_2g\) 类，可以取
-      \(A=-\eta\) 作为纯代数的负定例子。它确实满足
-      \(\eta A+A^\dagger\eta=-2I\)，但在最直接的
-      number-conserving physical basis 中，particle block 有一正一负两个
-      eigenvalues，因而 bare trace 发散。这个例子的零辅助场
-      grand-canonical 玻色迹不收敛。它的 \(\eta\)-等号 subgroup
-      没有按当前 \((a,a^+)\) 的物理 adjoint relation 由 unitary
-      Gaussian operators 实现，因此这个 matrix semigroup 不是当前
-      physical Fock representation 的 contraction semigroup。
-      辅助场空间即使只取这个常数矩阵仍然连通，所以“连通”单独并不能
-      排除它；它缺少的是上面第二、第三项。
-    </p>
-    <p>
-      因此它的正确用途只是说明：五条 \(J_1,J_2\) 离散关系加一个任意
-      满足 \(\eta A+A^\dagger\eta<0\) 的例子，还不能自动产生
-      grand-canonical 玻色模型。第 6.9 节进一步证明，这一困难不能靠
-      加入 pairing 修复：稳定 Hermitian BdG generator 的 particle
-      principal block 与 \(iJ_2g\) contraction 要求直接矛盾。
-      本报告实际可采样的实现改用固定总粒子数 sector；那里 Hilbert space
-      有限，并且权重正性由显式 character 公式证明，不依赖这个发散的
-      \(A=-\eta\) 测试矩阵作为 grand-canonical 参考点。
+    <p class="scope">
+      \(A=-\eta\) 在程序中只用于检查某一类的半负定集合是否含负定点；
+      它不是物理自由 Hamiltonian，也不参与后面的模型构造。玻色迹是否
+      收敛仍由本节已经写出的 Fock representation 与稳定性条件决定。
     </p>
 
     <h3>6.5 计数与残差</h3>
@@ -4148,517 +4164,11 @@
       </table>
     </div>
     <p>
-      所有 16 个允许负定生成元的类别中，测试矩阵 \(A=-\eta\)
-      的 residuals 都为机器输出中的精确 0：
-      \(\|gA+A^Tg\|=0\)、
-      \(\|J_1^TAJ_1-\bar A\|=0\)，以及
-      \(\|\eta A+A^\dagger\eta+2I\|=0\)。
+      16 个 cone 非空类的代数 residuals 都为机器精度下的零；具体
+      \(A\) 结构和物理模型统一列在下一节。
     </p>
 
-    <h3>6.6 全部 64 类：maximal subgroup 与 invariant cone 的显式 \(A\) 结构</h3>
-    {{ALL_CLASS_STRUCTURES}}
-
-    <h3>6.7 十六个存在负定生成元的矩阵类别：逐类物理讲义</h3>
-    <p>
-      本节不再用一张压缩总表代表全部结构。合作者在 note 中对手算成功的
-      情形逐类写出了 \(A\) 的 block constraints；为了让完整穷举达到同样的
-      可读层级，下面对玻色、费米各八类逐项展开。每类都区分
-      maximal-subgroup 等号部分与 invariant-cone 收缩部分，并把
-      半负定条件写到 block matrix 上。
-    </p>
-    {{STRICT_GENERATOR_CASES}}
-
-    <h3>6.8 HS 场的正负、场的取值范围与规范变换</h3>
-    <p>
-      需要先限定命题。若采用同一个固定 metric \(\eta\)，一个连续 Gaussian
-      HS field 线性进入<strong>同一个时间片生成元</strong>
-    </p>
-    <div class="scroll">\[
-      A(\phi)=A_0+\phi A_1,\qquad -\infty<\phi<\infty,
-    \]</div>
-    <p>并要求每个实 \(\phi\) 都满足 generator inequality，则</p>
-    <div class="scroll">\[
-      \eta A(\phi)+A(\phi)^\dagger\eta
-      =
-      \left(\eta A_0+A_0^\dagger\eta\right)
-      +\phi\left(\eta A_1+A_1^\dagger\eta\right)\le0.
-    \]</div>
-    <p>
-      对任意向量取 expectation value，右边是关于 \(\phi\) 的一次函数。
-      它若在整条实轴都不为正，一次项只能为零。因此在这个特定 setting 中
-    </p>
-    <div class="scroll">\[
-      \eta A_1+A_1^\dagger\eta=0.
-    \]</div>
-    <p>
-      也就是说，连续无界且线性出现的场方向位于 maximal-subgroup
-      Lie algebra；固定项可以使完整时间片满足负定收缩条件。这是一个充分清楚的
-      构造原则，但不是所有 HS transformations 的一般前提。
-    </p>
-    <p>至少有四种需要另算的情况：</p>
-    <ol>
-      <li>
-        <strong>离散或有界场。</strong>
-        若 \(\phi=\pm1\)，完全可以有
-        \(H_0+H_1\le0\) 与 \(H_0-H_1\le0\)，但 \(H_1\ne0\)。
-        本节的费米例子取 \(H_0=-2I,\ H_1=\operatorname{diag}(1,-1)\)，
-        两个场值的最大 eigenvalue 都是 \(-1\)。
-      </li>
-      <li>
-        <strong>非线性参数化。</strong>
-        若 \(A(\phi)\) 还含 \(-\phi^2\) 型 contraction contribution，
-        正负场可以给出同一半负定项；必须检查实际 HS identity，不能套用
-        一次函数论证。
-      </li>
-      <li>
-        <strong>因子化时间片。</strong>
-        AFQMC 常使用 \(e^{A_0}e^{\phi A_1}\)，而不是
-        \(e^{A_0+\phi A_1}\)。若要求 field factor
-        \(e^{\phi A_1}\) 本身对所有正负 \(\phi\) 都属于同一 semigroup，
-        它与逆元同时出现，因而落在 maximal subgroup；但只要求完整乘积
-        \(e^{A_0}e^{\phi A_1}\) contraction 时，应直接检查 product
-        inequality，固定的负定余量有时可以容纳一个 uniformly bounded
-        field orbit。
-      </li>
-      <li>
-        <strong>不同的 HS contours。</strong>
-        compact、complex 或 truncated contours 改变 field support；
-        结论必须随 contour 重新证明。
-      </li>
-    </ol>
-    <p>
-      规范变换也要分两类。若固定 \(G\) 同时保持 canonical form 与 metric，
-    </p>
-    <div class="scroll">\[
-      G^TgG=g,\qquad G^\dagger\eta G=\eta,
-    \]</div>
-    <p>
-      则 \(A\mapsto G^{-1}AG\) 只是在同一 semigroup 内换 basis。
-      它可以把 \(\phi\) 与 \(-\phi\) 显式联系起来，也可以吸收 reflection
-      phase，但不会改变 Hermitian matrix 的正负惯性。若使用
-      field-dependent \(G(\phi)\) 并让 metric 也变成
-      \(\eta(\phi)\)，不同时间片一般不再共享同一个 contraction inequality；
-      只有当中间 gauges 在相邻时间片间准确消去，或能重新证明一个固定
-      common metric 时，乘法封闭性才保留。因此规范变换可能有帮助，但不能只凭
-      “两种场值 gauge equivalent” 就跳过完整 product check。
-    </p>
-
-    <h3>6.9 从生成元结构到具体物理 Hamiltonian</h3>
-    <h4>玻色 \(J_2g\) 四类：可构造稳定的 Hermitian 相互作用模型</h4>
-    <p>
-      合作者 note 的 Cases 5--8 都可选
-      \(J_2=\sigma_x^{\rm Nambu}\otimes I\)，从而
-      \(\eta=\sigma_z^{\rm Nambu}\otimes I\)。Case 5 的一个直观粒子数守恒实现
-      使用两个玻色模，并定义
-    </p>
-    <div class="scroll">\[
-      \hat O=i(\hat a_1^+\hat a_2-\hat a_2^+\hat a_1),\qquad
-      \hat H=\kappa(\hat n_1+\hat n_2)+\frac U2\hat O^2,
-      \qquad \kappa>0,\ U>0.
-    \]</div>
-    <p>
-      repulsive-square HS identity 给出
-    </p>
-    <div class="scroll">\[
-      e^{-\Delta\tau U\hat O^2/2}
-      =\int\frac{d\phi}{\sqrt{2\pi}}e^{-\phi^2/2}
-       e^{i\sqrt{\Delta\tau U}\phi\hat O}.
-    \]</div>
-    <p>
-      在 \((a_1,a_2,a_1^+,a_2^+)^T\) 中，两个生成元分别是
-    </p>
-    <div class="scroll">\[
-      A_0=-\kappa\Delta\tau\,\sigma_z^{\rm Nambu}\otimes I,\qquad
-      A_{\rm HS}(\phi)=
-      -\sqrt{\Delta\tau U}\phi\,I_{\rm Nambu}\otimes(i\sigma_y).
-    \]</div>
-    <p>
-      对称 Trotter 时间片是
-      \(e^{A_0/2}e^{A_{\rm HS}(\phi)}e^{A_0/2}\)，不是默认把两个
-      不对易生成元相加后指数化。取
-      \(J_1=\sigma_z^{\rm Nambu}\otimes I\) 后，这是 Case 5：
-      field generator 位于 maximal subgroup，而固定生成元使收缩矩阵负定：
-    </p>
-    <div class="scroll">\[
-      \eta A_0+A_0^\dagger\eta=-2\kappa\Delta\tau I<0,\qquad
-      \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0 .
-    \]</div>
-    <p>
-      与 \(\phi\) 无关。原 Hamiltonian Hermitian 且由
-      \(\kappa N\) 与正算符 \(\frac U2O^2\) 从下方稳定。
-    </p>
-    <p>
-      Cases 6、7、8 可由同一个双组分模型同时实现：
-    </p>
-    <div class="scroll">\[
-      \hat H=\kappa(\hat n_b+\hat n_c)
-      +\frac U2(\hat n_b-\hat n_c)^2,\qquad \kappa>0,\ U>0.
-    \]</div>
-    <p>连续 HS 后的两个 Nambu generators 为</p>
-    <div class="scroll">\[
-      \begin{aligned}
-      A_0&=-\kappa\Delta\tau\,
-      \sigma_z^{\rm Nambu}\otimes I_{\rm flavor},\\
-      A_{\rm HS}(\phi)&=i\sqrt{\Delta\tau U}\phi\,
-      \sigma_z^{\rm Nambu}\otimes\sigma_z^{\rm flavor}.
-      \end{aligned}
-    \]</div>
-    <p>
-      它分别与 Case 6 的
-      \(J_1=\operatorname{diag}(i\sigma_y,-i\sigma_y)\)、
-      Case 7 的 \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，以及
-      Case 8 的 \(J_1=I_{\rm Nambu}\otimes i\sigma_y\) 相容；
-      三种选择的 \(J_2\) 和 \(\eta\) 相同；\(A_0\) 的 contraction
-      matrix 是 \(-2\kappa\Delta\tau I\)，而 \(A_{\rm HS}\) 的是零。
-      这说明五条关系给出的矩阵类别不是互斥的 physical phases；
-      由同一个 \(A_0\) 与 \(A_{\rm HS}(\phi)\) 生成的全部时间片，
-      可以同时满足多组 \(J_1,J_2\) 条件。
-    </p>
-    <p>
-      这两个例子还是 number conserving。单粒子 \(b\)-matrix 的 Hermitian
-      part 始终严格为负，所以每个 factor 是普通 Euclidean contraction，
-      完整乘积的 spectral radius 小于 1。\(J_1\) 又使 eigenvalues
-      complex-conjugate paired；real eigenvalues 也都小于 1。因此
-      \(\det(I-\mathcal B)>0\)，所以完整的 bosonic determinant weight
-      有限且为正。文章的 \(U_2\) benchmark
-      是第二个构造加 hopping、sites 与可选 pairing 的推广。有 pairing 时，
-      同一个 \(\eta=\operatorname{diag}(I,-I)\) 对应已有
-      Howe--Olshanski metaplectic extension；稳定零场与传播矩阵的
-      负定收缩条件使整个
-      连通 field domain 的 fixed-field operators 都是 trace class，
-      \(J_1\) 实性条件、正实的正规序标量因子和零场正权重
-      再固定全域正号。RP 同时给出另一条独立的逐构型权重非负证明；
-      半群证明本身已经由迹收敛、权重实性、连续性和正零场推出严格正权重。
-      对固定 number term，正常序还产生正标量
-      \(e^{+\kappa\Delta\tau m/2}\)；它须计入完整 operator weight，
-      但不会改变上述正号。
-    </p>
-
-    <h4>新增玻色 \(iJ_2g\) 四类：grand-canonical 阻碍与
-    canonical 无符号模型</h4>
-    <p>
-      这四类首先确实含有使收缩矩阵负定的代数生成元。取
-      \(\eta=iJ_2g\) 与 \(A_0=-\eta\)，便有
-      \[
-        \eta A_0+A_0^\dagger\eta=-2I<0.
-      \]
-      但是 \(A_0\) 的 particle block 同时有正、负本征值，所以不能作为
-      grand-canonical 玻色系统的稳定自由传播。下面证明这不是
-      \(A_0\) 选得不够巧，也不能靠加入 pairing 消除。
-    </p>
-
-    <p><strong>先写出最一般的 Hermitian 玻色二次生成元。</strong>
-      在 \(\chi=(\boldsymbol a,\boldsymbol a^+)^T\) 的 Nambu 顺序中，
-      合法且对应 Hermitian 二次算符的 \(A\) 可写成
-    </p>
-    <div class="scroll">\[
-      A=\begin{pmatrix}
-      B&C\\-C^\dagger&-B^T
-      \end{pmatrix},
-      \qquad B^\dagger=B,\qquad C^T=C .
-    \]</div>
-    <p>
-      代入
-      \(\hat h(A)=\frac12\chi^TgA\chi\) 后，\(B\) 是
-      \(\boldsymbol a^+B\boldsymbol a\) 的 number-conserving block，
-      \(C\) 给出 pair creation 与 pair annihilation。若
-      \(e^{\hat h(A)}=e^{-\Delta\tau\hat H_0}\) 来自一个严格稳定的
-      Hermitian 玻色二次 Hamiltonian，\(\hat H_0\) 的 BdG energy
-      matrix 必须 positive definite。它的 particle-particle
-      principal block 因而也 positive definite；在虚时间指数中符号相反，
-      所以这里必须有
-      \[
-        B<0 .
-      \]
-      这只是说增加任一单粒子态的占据数都会增加 \(\hat H_0\) 的能量；
-      否则把该态占据到任意高，grand-canonical bare trace 就不收敛。
-    </p>
-
-    <p>
-      四个 \(iJ_2g\) 类的 metric 都具有
-      \[
-        \eta=\begin{pmatrix}R&0\\0&R\end{pmatrix},
-        \qquad R^\dagger=R,\qquad R^2=I,
-      \]
-      而且 \(R\) 同时含 \(+1\) 与 \(-1\) eigenspaces。选择一个固定
-      unitary basis 使
-      \(R=\operatorname{diag}(I_+,-I_-)\)，再把 \(B\) 按这两个
-      subspaces 写成 blocks。完整收缩矩阵的左上 principal block 是
-    </p>
-    <div class="scroll">\[
-      \left(\eta A+A^\dagger\eta\right)_{\rm particle,particle}
-      =RB+BR
-      =
-      \begin{pmatrix}
-      2B_{++}&0\\
-      0&-2B_{--}
-      \end{pmatrix}.
-    \]</div>
-    <p>
-      若完整 Hermitian matrix
-      \(\eta A+A^\dagger\eta\le0\)，它的任意 principal block 也必须
-      半负定。因此
-      \[
-        B_{++}\le0,\qquad B_{--}\ge0.
-      \]
-      可是稳定 grand-canonical 虚时间生成元要求 \(B<0\)，于是它的
-      principal block 必须满足 \(B_{--}<0\)。\(B_{--}\ge0\) 与
-      \(B_{--}<0\) 直接矛盾。注意 \(C\) 从未被设为零；pairing 只出现在
-      收缩矩阵的其他 blocks，不能改变这个 principal-block 结论。
-    </p>
-    <div class="warning">
-      <strong>Grand-canonical 结论。</strong>
-      在报告采用的固定 \(\eta=iJ_2g\) contraction framework 内，四类都
-      不存在既来自稳定 Hermitian 玻色二次 Hamiltonian、又使
-      grand-canonical bare trace 收敛的自由生成元。保持同一 \(g\) 与
-      \(\eta\) 的固定规范变换只会同时变换 \(R\) 与 \(B\)，不会改变上述
-      正、负 eigenspaces 的维数，因此不能绕过这个矛盾。
-    </div>
-
-    <p><strong>改在固定总粒子数 sector 中。</strong>
-      四类都允许 number-conserving generators，因而可以把计算限制在
-      \(\sum_i n_i=N\)。这个 Hilbert space 有限，不需要对
-      \(N=0,1,2,\ldots\) 求和。下面四个模型都使用 attractive-square
-      Gaussian identity
-      \[
-        e^{+\Delta\tau U\hat O^2}
-        \propto\int d\phi\,e^{-\phi^2/2}
-        e^{\sqrt{2\Delta\tau U}\phi\hat O},
-      \]
-      归一化常数为正，不改变符号。
-    </p>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr><th>矩阵类别</th><th>\(J_1\)</th><th>固定-\(N\) Hamiltonian</th><th>HS 耦合</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>\(B\)-\(iJ_2g\)-\(s_1+\)-\(q_1+\)</td>
-            <td>\(I_{\rm Nambu}\otimes\sigma_x\)</td>
-            <td>\(\hat H=-2\Omega S_y-2U S_x^2\)</td>
-            <td>\(S_x\)</td>
-          </tr>
-          <tr>
-            <td>\(B\)-\(iJ_2g\)-\(s_1+\)-\(q_1-\)</td>
-            <td>\((i\sigma_y)_{\rm Nambu}\otimes\sigma_x\)</td>
-            <td>\(\hat H=-2\Omega S_y-2U S_z^2\)</td>
-            <td>\(S_z\)</td>
-          </tr>
-          <tr>
-            <td>\(B\)-\(iJ_2g\)-\(s_1-\)-\(q_1+\)</td>
-            <td>\(\sigma_z^{\rm Nambu}\otimes\sigma_x\)</td>
-            <td>\(\hat H=-2\Omega S_y-2U S_x^2\)</td>
-            <td>\(S_x\)</td>
-          </tr>
-          <tr>
-            <td>\(B\)-\(iJ_2g\)-\(s_1-\)-\(q_1-\)</td>
-            <td>\(\sigma_x^{\rm Nambu}\otimes I\otimes i\sigma_y\)</td>
-            <td>\(\hat H=-\Omega\boldsymbol a^+
-              (\sigma_y\otimes\sigma_x)\boldsymbol a
-              -\frac U2[\boldsymbol a^+(I\otimes\sigma_z)
-              \boldsymbol a]^2\)</td>
-            <td>\(\boldsymbol a^+(I\otimes\sigma_z)\boldsymbol a\)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      前三个是双模 collective-spin models，
-      \(S_x=(a_1^+a_2+a_2^+a_1)/2\)、
-      \(S_y=(a_1^+a_2-a_2^+a_1)/(2i)\)、
-      \(S_z=(n_1-n_2)/2\)。第四个使用四个内部组分；
-      \(\boldsymbol a\) 是四分量 annihilation-operator column。
-      第 6.7 节逐类写出了对应的 \(A_0,A_{\rm HS}(\phi)\) 和全部
-      \(J_1,J_2\) checks。
-    </p>
-
-    <p><strong>双模三类的固定-\(N\) 权重。</strong>
-      对任意数量的时间片，把 one-particle factors 按实际次序相乘并记为
-      \(m\)。每个 factor 的 generator 都 traceless，所以
-      \(\det m=1\)。相应 \(J_1\) 条件使 characteristic polynomial
-      的 coefficients 为实，因而 \(\operatorname{tr}m\in\mathbb R\)。
-      完整 Nambu product 又满足
-      \(M^\dagger\eta M-\eta<0\)。若 \(m\) 有
-      \(|\lambda|=1\) 的 eigenvalue，则完整 \(M\) 也有 unit-circle
-      eigenvalue；把对应 eigenvector 代入上式，左边为零，与
-      \(<0\) 矛盾。因此 \(m\) 没有 unit-circle eigenvalue。
-    </p>
-    <p>
-      \(\det m=1\) 且 \(\operatorname{tr}m\) 为实时，两个 eigenvalues
-      只有两种可能：实数 reciprocal pair，或位于单位圆上的
-      complex-conjugate pair。后一种已经排除。零辅助场时两个 eigenvalues
-      是正数。实辅助场空间连通；若它们要从正实轴变到负实轴，
-      \(\operatorname{tr}m\) 必须从 \(>2\) 连续经过
-      \([-2,2]\)，这一区间恰对应 unit-circle eigenvalues，仍与上式矛盾。
-      所以全部构型都可写成
-      \[
-        \operatorname{spec}m=\{\lambda,\lambda^{-1}\},
-        \qquad \lambda>0.
-      \]
-      固定总粒子数 \(N\) 的玻色 Hilbert space 是 \(m\) 的第 \(N\)
-      个 symmetric tensor power；其 trace 为
-      \[
-        W_N=\sum_{n=0}^{N}\lambda^{N-n}(\lambda^{-1})^n
-        =\sum_{n=0}^{N}\lambda^{N-2n}>0 .
-      \]
-      每一项都是正实数，所以没有符号抵消，也没有 determinant pole。
-    </p>
-
-    <p><strong>四组分类的固定-\(N\) 权重。</strong>
-      把第一个内部 Pauli space 的 \(\sigma_y\) diagonalize 后，
-      one-particle product 分成两个 \(2\times2\) blocks。一个 block
-      由 \(e^{+\Omega\Delta\tau\sigma_x}\) 与
-      \(e^{\phi\sigma_z}\) 依次相乘，另一个把 \(\Omega\) 换成
-      \(-\Omega\)。因为
-      \[
-        \sigma_z e^{+\Omega\Delta\tau\sigma_x}\sigma_z
-        =e^{-\Omega\Delta\tau\sigma_x},\qquad
-        \sigma_z e^{\phi\sigma_z}\sigma_z=e^{\phi\sigma_z},
-      \]
-      两个完整 blocks 彼此相似。上一个双模论证适用于其中任一 block，
-      所以四维 one-particle spectrum 是
-      \(\lambda,\lambda^{-1},\lambda,\lambda^{-1}\)，其中
-      \(\lambda>0\)。全部固定-\(N\) traces 由
-      \[
-        \sum_{N=0}^{\infty}W_Nz^N
-        =\frac{1}{[(1-z\lambda)(1-z/\lambda)]^2}
-      \]
-      生成。右边展开时每个 coefficient 都是正数，故
-      \(W_N>0\)。
-    </p>
-
-    <p>
-      Octave 对每类随机生成 400 个七时间片构型，并检查到
-      \(N=8\)。四类的 fixed-\(N\) weight 最小实部分分别为
-      \(10.01,10.05,9.41,19.40\)，相对虚部均低于
-      \(1.3\times10^{-14}\)；完整收缩矩阵的最大 eigenvalue 分别不超过
-      \(-0.042,-0.013,-0.032,-0.016\)。同时每个 one-particle product
-      都有大于 1 的 eigenvalue，直接确认 grand-canonical
-      \(\sum_NW_N\) 发散。完整数据见
-      <a href="tables/boson_iJ2g_canonical_checks.csv">boson_iJ2g_canonical_checks.csv</a>。
-    </p>
-
-    <h4>费米 \(\eta=J_2g\) 的四类：离散场可以直接满足负定条件</h4>
-    <p>
-      费米 Fock space 有限，没有上面的玻色收敛障碍。取
-      \(\eta=\sigma_z^{\rm Nambu}\otimes I\) 和 bounded Ising field
-      \(s=\pm1\)：
-    </p>
-    <div class="scroll">\[
-      A_s=-\kappa\,\sigma_z^{\rm Nambu}\otimes I
-          +s\lambda\,\sigma_z^{\rm Nambu}\otimes\sigma_z,\qquad
-      \kappa>|\lambda|.
-    \]</div>
-    <p>则</p>
-    <div class="scroll">\[
-      \eta A_s+A_s^\dagger\eta
-      =-2\kappa I+2s\lambda(I\otimes\sigma_z)<0
-    \]</div>
-    <p>
-      对两个场值都成立，但 field direction 本身不在 maximal subgroup。
-      这可由标准离散 Hubbard--Stratonovich identity 产生：
-    </p>
-    <div class="scroll">\[
-      e^{-\Delta\tau U(n_\uparrow-\frac12)(n_\downarrow-\frac12)}
-      =
-      \frac{e^{-\Delta\tau U/4}}2
-      \sum_{s=\pm1}e^{\lambda s(n_\uparrow-n_\downarrow)},\qquad
-      \cosh\lambda=e^{\Delta\tau U/2}.
-    \]</div>
-    <p>
-      再由 chemical-potential/free contribution 提供
-      \(\kappa>|\lambda|\)，就得到一族 Hermitian Hubbard-type
-      effective slices。这个例子直接说明：对 bounded discrete HS，
-      “field 必须位于 maximal subgroup”并不成立。
-    </p>
-
-    <h4>费米 \(\eta=iJ_2g\) 的四类：可以用 pairing 生成元实现</h4>
-    <p>
-      新穷举补出的四个 \(iJ_2g\) classes 可选
-      \(\eta=i\sigma_x^{\rm Nambu}\otimes(i\sigma_y)^{\rm flavor}\)。
-      这时 invariant-cone witness \(A_0=-\eta\) 是 Hermitian pairing
-      term，而 number-conserving density/hopping directions 可以进入
-      maximal subgroup。对 symmetric \(J_1\)，它是 Majorana reflection
-      positivity 的 Nambu 表示；对 skew-symmetric \(J_1\)，它对应 Wei
-      semigroup paper 的 Kramers-plus-pairing class。该文给出的具体模型为
-    </p>
-    <div class="scroll">\[
-      \begin{aligned}
-      H_0={}&-t\sum_{\langle i,j\rangle}
-      (c_i^+c_j+d_i^+d_j+\mathrm{h.c.}),\\
-      H_\perp={}&-t_\perp\sum_i(-1)^{x_i+y_i}
-      (c_i^+d_i+\mathrm{h.c.}),\\
-      H_p={}&\sum_i\{\Delta c_i^+
-      (d_{i+\hat x}^+-d_{i+\hat y}^+
-       d_{i-\hat x}^+-d_{i-\hat y}^+)+\mathrm{h.c.}\},\\
-      H_U={}&U\sum_i(n_{c,i}-\tfrac12)(n_{d,i}-\tfrac12),
-      \qquad U\ge0 .
-      \end{aligned}
-    \]</div>
-    <p>
-      hopping 与 HS-decoupled interaction terms 属于 maximal-subgroup
-      directions，positive pairing matrices 属于 invariant cone。
-      对 \(J_1\) 翻转 \(g\) 的 partner classes，可对一个 flavor 做
-      particle--hole transformation；这会把一部分 pairing 与 hopping
-      互换，并改变五条表中 \(J_1\) 对 \(g\) 的符号。因而费米新增四行有
-      concrete physical realizations，但它们与已知 Majorana RP/Kramers
-      semigroups 之间存在 basis/particle--hole equivalence，不能仅凭本次
-      Nambu 五位标签声称发现四种文献中从未出现的新机制。
-    </p>
-    <p>
-      还要保留第 8 节的 caveat：合作者 note 写的是
-      \(iJ_2gA-iA^\dagger J_2g\le0\)，而标准 propagation derivative
-      要求第二项为加号。本节的 physical constructions 与 16 类表使用后者；
-      它们不能替 note 中符号不同的不等式作证明。
-    </p>
-
-    {{HIGH_VALUE_MODELS}}
-
-    <h3>6.10 固定总粒子数的玻色 AFQMC：从有限维迹到可执行算法</h3>
-    {{CANONICAL_ALGORITHM}}
-
-    <h3>6.11 手算 note 与完整穷举的覆盖范围</h3>
-    <div class="scroll">
-      <table>
-        <thead><tr><th>对象</th><th>note 已覆盖</th><th>本次新增</th><th>当前物理地位</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>玻色</td>
-            <td>\(J_2^TgJ_2=-g,\ J_2^2=I\) 的 Cases 5--8</td>
-            <td>\(J_2^TgJ_2=g,\ J_2^2=I\) 的四个 \(iJ_2g\) partners；并补齐 8 类的完整 subgroup/cone bases</td>
-            <td>note 四类已有稳定 grand-canonical Hermitian HS models；新增四类存在解析 grand-canonical obstruction，但已有逐构型正权重的 canonical fixed-\(N\) models</td>
-          </tr>
-          <tr>
-            <td>费米</td>
-            <td>只展开 \(J_2^TgJ_2=-g,\ J_2^2=-I\) 的一种 \(J_2\)</td>
-            <td>\(J_2^TgJ_2=g,\ J_2^2=-I\) 的四个 \(iJ_2g\) partners；并按标准加号 contraction 重新分类</td>
-            <td>pairing-cone physical models 存在，但与已知 Majorana RP/Kramers semigroups 有等价关系；novelty 需逐模型判断</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>6.12 完整 64 行</h3>
-    <p>
-      表格不使用额外的正负号简称。每一列直接写出 note 中的矩阵关系。
-      Pauli words 使用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的首字母；
-      例如 <code>IX</code> 表示 \(I\otimes\sigma_x\)。
-    </p>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>统计</th><th>\(J_1\) 对 \(g\)</th><th>\(J_1^2\)</th>
-            <th>\(J_2\) 对 \(g\)</th><th>\(J_2^2\)</th><th>\(J_1,J_2\)</th>
-            <th>metric</th><th>穷举与半群结论</th><th>最短 \(J_1,J_2\) Pauli words</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{FULL_ENUMERATION_ROWS}}
-        </tbody>
-      </table>
-    </div>
+    {{ENUMERATION_TAIL}}
   </section>
 
   <section id="audit-note">
@@ -4958,7 +4468,7 @@
       因而程序和解析证明共同确认：这四类都包含负定生成元。
       所以，若“新增”是指相对于合作者只展开一种 \(J_2\) 的手算，费米侧确实新增了
       四个 \(iJ_2g\) partner classes。若“新增”是指四种文献中从未出现的
-      sign-problem-free mechanism，则不能这样计数：第 6.9 节已经把
+      sign-problem-free mechanism，则不能这样计数：第 6.6 节已经把
       \(J_1^2=+I\) 的情形对应到 Majorana reflection positivity，
       把 \(J_1^2=-I\) 的情形对应到已知 Kramers-plus-pairing semigroup，
       而 \(J_1\) 翻转 \(g\) 的 partners 可由 particle--hole transformation

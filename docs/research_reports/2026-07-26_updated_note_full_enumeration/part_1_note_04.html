@@ -235,6 +235,11 @@
       color: #39464f;
     }
     .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
     figure { margin: 24px 0 32px; }
     figure img {
       display: block;
@@ -317,6 +322,10 @@
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
@@ -327,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-28</div>
+<div>报告日期：2026-07-29</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>

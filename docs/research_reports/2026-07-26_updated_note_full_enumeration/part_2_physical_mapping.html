@@ -235,6 +235,11 @@
       color: #39464f;
     }
     .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
     figure { margin: 24px 0 32px; }
     figure img {
       display: block;
@@ -317,6 +322,10 @@
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
@@ -327,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-28</div>
+<div>报告日期：2026-07-29</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -913,7 +922,7 @@
         假定可按同样方式对角化的是任意完整有序乘积。
       </p>
 <p>
-        一个不含 pairing 的二模例子也能看出“任意 similarity
+        一个不含 pairing 的双模例子也能看出“任意 similarity
         diagonalization”为什么不够。取 particle block
         \[
           B=\begin{pmatrix}0.4&amp;2\\0&amp;0.5\end{pmatrix}.
@@ -1026,11 +1035,11 @@
           \binom{N+N_{\rm b}-1}{N_{\rm b}}
           \|\hat U|_{\mathcal H_{N_{\rm b}}}\|&lt;\infty .
         \]
-        第 6.9 节再证明单粒子传播矩阵的本征值成
-        \(\lambda,\lambda^{-1}\) 对出现，并且每个 \(\lambda&gt;0\)，
-        从而 fixed-\(N_{\rm b}\) character 严格为正。因此这些更一般
-        度规也有完整 trace-class 与正权重证明，只是结论属于 canonical
-        ensemble，不能误写成对所有粒子数求和的 grand-canonical trace。
+        第 6.6 节的平衡双组分模型使两个 fixed-\(N_{\rm b}\)
+        characters 互为复共轭，因而构型权重是绝对值平方。因此这些
+        更一般度规也有完整的 finite-trace 与正权重子模型，只是结论属于
+        canonical ensemble，不能误写成对所有粒子数求和的
+        grand-canonical trace。
       </p>
 <h4>16 个存在负定生成元的矩阵类别：trace-class 逐类审计</h4>
 <p>
@@ -1050,7 +1059,10 @@
 </thead>
 <tbody>
 <tr>
-<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1+\)（Case 5）</td>
+<td>Case 5：
+              \(J_1^TgJ_1=-g,\ J_1^2=I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \(\{J_1,J_2\}=0\)</td>
 <td>\(J_2=\sigma_x\)，\(\eta=J_2g=\sigma_z\)；
               grand canonical</td>
 <td>这是单模物理 particle/hole metric。严格内部的
@@ -1059,7 +1071,10 @@
               (1-e^{-\epsilon})&lt;\infty\)。</td>
 </tr>
 <tr>
-<td>\(B\)-\(J_2g\)-\(s_1-\)-\(q_1-\)（Case 6）</td>
+<td>Case 6：
+              \(J_1^TgJ_1=-g,\ J_1^2=-I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \(\{J_1,J_2\}=0\)</td>
 <td>\(J_2=\sigma_x\otimes I\)，
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
 <td>适用上面的多模分解，
@@ -1067,7 +1082,10 @@
               e^{-\epsilon_j/2}/(1-e^{-\epsilon_j})&lt;\infty\)。</td>
 </tr>
 <tr>
-<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1+\)（Case 7）</td>
+<td>Case 7：
+              \(J_1^TgJ_1=g,\ J_1^2=I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \([J_1,J_2]=0\)</td>
 <td>同一个物理
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
 <td>稳定自由因子提供严格 damping，relative-density HS
@@ -1076,7 +1094,10 @@
               “trace-class 自由因子乘 bounded HS factors”验证。</td>
 </tr>
 <tr>
-<td>\(B\)-\(J_2g\)-\(s_1+\)-\(q_1-\)（Case 8）</td>
+<td>Case 8：
+              \(J_1^TgJ_1=g,\ J_1^2=-I\)，
+              \(J_2^TgJ_2=-g,\ J_2^2=I\)，
+              \([J_1,J_2]=0\)</td>
 <td>物理模型采用 alternative representative
               \(J_2=\sigma_x\otimes I\)，
               \(\eta=\operatorname{diag}(I,-I)\)；grand canonical</td>
@@ -1351,7 +1372,7 @@
         annihilation/creation 结构的物理基变换，所以可调用上述
         Fock-space 收敛定理。新增四类的
         \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
-        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.9 节从
+        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.4 节从
         一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
         Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
         迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在

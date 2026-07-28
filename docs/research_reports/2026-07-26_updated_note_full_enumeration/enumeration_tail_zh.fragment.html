@@ -1,0 +1,108 @@
+    <h3>6.6 统一的 64 类生成元与物理模型图谱</h3>
+    {{ALL_CLASS_STRUCTURES}}
+
+    <h3>6.7 辅助场取正负值时应检查什么</h3>
+    <p>
+      设一个无界实 Gaussian 场线性进入同一个生成元，
+      \[
+        A(\phi)=A_0+\phi A_1,\qquad -\infty<\phi<\infty .
+      \]
+      若要求每个 \(\phi\) 都满足同一个 generator inequality，则
+      \[
+      \begin{aligned}
+        &\eta A(\phi)+A(\phi)^\dagger\eta\\
+        &\quad=\eta A_0+A_0^\dagger\eta
+        +\phi(\eta A_1+A_1^\dagger\eta)\leq0 .
+      \end{aligned}
+      \]
+      对任意向量取矩阵元后，右边是关于 \(\phi\) 的一次函数。它若在
+      整条实轴上都不为正，一次项只能为零：
+      \[
+        \eta A_1+A_1^\dagger\eta=0 .
+      \]
+      因此，在“无界实场、线性进入同一个指数、固定同一度规”这三个前提
+      同时成立时，场方向属于 maximal subgroup；固定项可以提供收缩。
+    </p>
+    <p>
+      这不是对所有 HS 分解的限制。离散场只需分别检查有限个场值；有界
+      连续场允许固定负定余量覆盖非零场方向；非线性
+      \(A(\phi)=A_0+\phi A_1-\phi^2A_2\) 也不能用一次函数论证；
+      因子化时间片
+      \(e^{A_0/2}e^{\phi A_1}e^{A_0/2}\) 则应直接检查三个因子的乘积。
+      因而每张类别卡都写出实际 HS identity，不能只根据“Gaussian 场可正
+      可负”猜测场方向。
+    </p>
+    <p>
+      固定 basis change \(G\) 若满足
+      \[
+        G^TgG=g,\qquad G^\dagger\eta G=\eta ,
+      \]
+      则 \(A\mapsto G^{-1}AG\) 只是在同一半群内换坐标，不改变
+      Hermitian contraction matrix 的正负惯性。field-dependent gauge
+      只有在相邻时间片的中间变换精确消去，或能重新找到一个所有时间片
+      共用的固定度规时，才保持乘法封闭性。
+    </p>
+
+    <h3>6.8 固定总粒子数的玻色 AFQMC</h3>
+    {{CANONICAL_ALGORITHM}}
+
+    <h3>6.9 手算 note 与完整穷举的覆盖范围</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>对象</th><th>note 手算到哪里</th>
+            <th>完整穷举补上什么</th><th>物理结论</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>玻色</td>
+            <td>
+              重点展开
+              \(J_2^TgJ_2=-g,\ J_2^2=I\) 的四个
+              \(J_2g\) cone 类，并手算部分其余标签。
+            </td>
+            <td>
+              完整列出 32 类；8 类的 invariant cone 非空，其中
+              \(J_2g\) 与 \(iJ_2g\) 各 4 类；其余 24 类仍完整列出
+              maximal subgroup。修正单位阵遗漏后，只有一类最小为 8 维。
+            </td>
+            <td>
+              每类都给出一个具有附加 physical Kramers/RP 条件的厄米
+              格点子模型。dense boson phases 采用
+              \(N_\uparrow=N_\downarrow\) 的 canonical 权重绝对值平方；
+              标准物理 \(J_2g\) 收缩类还可直接做稳定 grand-canonical
+              模拟。
+            </td>
+          </tr>
+          <tr>
+            <td>费米</td>
+            <td>
+              只详细展开一种 \(J_2\) 的 8 个例子，未系统列完
+              maximal-subgroup-only 情形。
+            </td>
+            <td>
+              完整列出 32 类；8 类的 invariant cone 非空，另有 4 类
+              虽只有 maximal subgroup，却已经属于基本
+              Majorana-time-reversal 正性类。修正后也只有一类最小为
+              8 维。
+            </td>
+            <td>
+              12 类由原有两条反线性对称直接保证非负；其余 20 类在额外
+              physical Kramers 子空间中都有非空、可扩展的无符号格点模型。
+              这些标签重新组织已知 Majorana/Kramers 机制，并不等于发现
+              32 种互不等价的新正性原理。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      完整 64 行不再在正文重复排版。离散关系、最小代表、残差和程序状态
+      保存在
+      <a href="tables/full_64_class_enumeration.csv">
+      full_64_class_enumeration.csv</a>；每张卡片中的 \(A\) 公式来自
+      <a href="tables/tensor_block_structures.csv">
+      tensor_block_structures.csv</a>。
+    </p>

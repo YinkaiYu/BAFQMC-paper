@@ -235,6 +235,11 @@
       color: #39464f;
     }
     .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
     figure { margin: 24px 0 32px; }
     figure img {
       display: block;
@@ -317,6 +322,10 @@
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
@@ -327,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-28</div>
+<div>报告日期：2026-07-29</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -520,19 +529,20 @@
       与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
       trace-class、无 pole、正权重结论。对新增的四个
       \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
-      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.9 节证明：
+      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.4 节证明：
       任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
       \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
       principal-block obstruction。因此这四类不是新的普通
       grand-canonical BAFQMC classes。
     </div>
 <p>
-      这不使四类成为空的代数标签。第 6.7、6.9 节为四类都构造了
-      number-conserving collective-boson Hamiltonian。在固定总粒子数
-      sector 中，Hilbert space 有限；完整 one-particle product 的
-      eigenvalues 沿全部实辅助场构型保持为正的 reciprocal pairs，
-      fixed-\(N\) character 因而逐构型严格为正。四类由此给出完整的
-      canonical sign-free models，只是不能对总粒子数求到无穷。
+      这不使四类成为空的代数标签。第 6.6 节为四类都构造了
+      number-conserving 双组分格点 Hamiltonian。在
+      \(N_\uparrow=N_\downarrow\) 的平衡固定粒子数 sector 中，
+      Hilbert space 有限；两个 flavor 的 canonical characters 互为
+      复共轭，权重是其绝对值平方。四类由此都有完整的 canonical
+      sign-free 子模型，只是不能把同一个 \(iJ_2g\) contraction
+      结论直接改写成对所有粒子数求和的 grand-canonical trace。
     </p>
 <h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
 <p>

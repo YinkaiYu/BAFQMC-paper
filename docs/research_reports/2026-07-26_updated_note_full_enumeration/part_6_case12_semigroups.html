@@ -235,6 +235,11 @@
       color: #39464f;
     }
     .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
     figure { margin: 24px 0 32px; }
     figure img {
       display: block;
@@ -317,6 +322,10 @@
         inlineMath: [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
         macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
       }
     };
   </script>
