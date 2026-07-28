@@ -15,7 +15,13 @@ function derive_strict_generator_structures()
   fprintf(fid, ["statistics,class_name,n,J1_word,J2_word,metric," ...
                 "s1,q1,s2,q2,r,eta,A0,maximal_subgroup_dimension," ...
                 "invariant_cone_dimension,maximal_subgroup_basis," ...
-                "invariant_cone_basis,A0_physical_adjoint," ...
+                "invariant_cone_basis,maximal_tensor_terms," ...
+                "invariant_cone_tensor_terms," ...
+                "maximal_number_tensor_terms," ...
+                "invariant_cone_number_tensor_terms," ...
+                "maximal_tensor_dimension_formula," ...
+                "invariant_cone_tensor_dimension_formula," ...
+                "A0_physical_adjoint," ...
                 "A0_number_conserving,A0_boson_stability," ...
                 "relation_residual,lie_residual,reality_residual," ...
                 "cone_residual\n"]);
@@ -67,14 +73,24 @@ function derive_strict_generator_structures()
 
     [physical_adjoint, number_conserving, boson_stability] = ...
         physical_diagnostics(statistics, g, A0, n);
+    [maximal_tensor_terms, cone_tensor_terms, ...
+     maximal_number_tensor_terms, cone_number_tensor_terms, ...
+     maximal_tensor_dimension_formula, cone_tensor_dimension_formula] = ...
+        tensor_generator_terms(g, J1, J2, eta, n);
 
     fprintf(fid, ...
             ["%s,%s,%d,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%d,%d," ...
-             "\"%s\",\"%s\",%s,%d,%s,%.16g,%.16g,%.16g,%.16g\n"], ...
+             "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"," ...
+             "%s,%d,%s,%.16g,%.16g,%.16g,%.16g\n"], ...
             statistics, class_name, n, J1_word, J2_word, metric_name, ...
             signs, matrix_label(eta, n), matrix_label(A0, n), ...
             length(subgroup_basis), length(cone_basis), ...
             strjoin(subgroup_basis, ";"), strjoin(cone_basis, ";"), ...
+            strjoin(maximal_tensor_terms, ";"), ...
+            strjoin(cone_tensor_terms, ";"), ...
+            strjoin(maximal_number_tensor_terms, ";"), ...
+            strjoin(cone_number_tensor_terms, ";"), ...
+            maximal_tensor_dimension_formula, cone_tensor_dimension_formula, ...
             physical_adjoint, number_conserving, boson_stability, ...
             relation_residual, lie_residual, reality_residual, cone_residual);
   endfor
@@ -83,6 +99,114 @@ function derive_strict_generator_structures()
   printf("Octave version: %s\n", version());
   printf("Verified %d strict classes.\n", rows(cases));
   printf("Wrote %s\n", output_file);
+endfunction
+
+
+function [maximal_terms, cone_terms, maximal_number_terms, ...
+          cone_number_terms, maximal_formula, cone_formula] = ...
+    tensor_generator_terms(g, J1, J2, eta, n)
+  [word_names, word_matrices] = pauli_words(n);
+  maximal_terms = {};
+  cone_terms = {};
+  maximal_number_terms = {};
+  cone_number_terms = {};
+  maximal_dimension_terms = {};
+  cone_dimension_terms = {};
+
+  for word_index = 1:length(word_names)
+    P = word_matrices{word_index};
+    transpose_sign = matrix_sign(P.' * g, g * P);
+    J1_sign = matrix_sign(J1.' * P * J1, P);
+    J2_sign = matrix_sign(J2.' * P * J2, P);
+    coefficient_type = tensor_coefficient_type(transpose_sign, J1_sign);
+    term = sprintf("%s:%s", word_names{word_index}, coefficient_type);
+    dimension_term = tensor_coefficient_dimension(coefficient_type);
+    number_conserving = ...
+        word_names{word_index}(1) == "I" || word_names{word_index}(1) == "Z";
+
+    coefficient = tensor_test_coefficient(coefficient_type);
+    test_A = kron(P, coefficient);
+    test_g = kron(g, eye(rows(coefficient)));
+    test_J1 = kron(J1, eye(rows(coefficient)));
+    test_eta = kron(eta, eye(rows(coefficient)));
+    assert(norm(test_g * test_A + test_A.' * test_g, "fro") < 1e-10);
+    assert(norm(test_J1.' * test_A * test_J1 - conj(test_A), "fro") < 1e-10);
+
+    if J2_sign == J1_sign
+      assert(norm(test_eta * test_A + test_A' * test_eta, "fro") < 1e-10);
+      maximal_terms{end + 1} = term;
+      maximal_dimension_terms{end + 1} = dimension_term;
+      if number_conserving
+        maximal_number_terms{end + 1} = term;
+      endif
+    else
+      assert(norm(test_eta * test_A - test_A' * test_eta, "fro") < 1e-10);
+      cone_terms{end + 1} = term;
+      cone_dimension_terms{end + 1} = dimension_term;
+      if number_conserving
+        cone_number_terms{end + 1} = term;
+      endif
+    endif
+  endfor
+
+  maximal_formula = tensor_dimension_formula(maximal_dimension_terms);
+  cone_formula = tensor_dimension_formula(cone_dimension_terms);
+endfunction
+
+
+function coefficient_type = tensor_coefficient_type( ...
+    transpose_sign, reality_sign)
+  if transpose_sign == 1
+    transpose_label = "A";
+  else
+    transpose_label = "S";
+  endif
+  if reality_sign == 1
+    coefficient_type = ["R_", transpose_label];
+  else
+    coefficient_type = ["iR_", transpose_label];
+  endif
+endfunction
+
+
+function dimension_term = tensor_coefficient_dimension(coefficient_type)
+  if endsWith(coefficient_type, "_S")
+    dimension_term = "m(m+1)/2";
+  else
+    dimension_term = "m(m-1)/2";
+  endif
+endfunction
+
+
+function formula = tensor_dimension_formula(terms)
+  symmetric_count = sum(strcmp(terms, "m(m+1)/2"));
+  antisymmetric_count = sum(strcmp(terms, "m(m-1)/2"));
+  pieces = {};
+  if symmetric_count > 0
+    pieces{end + 1} = sprintf("%d*m*(m+1)/2", symmetric_count);
+  endif
+  if antisymmetric_count > 0
+    pieces{end + 1} = sprintf("%d*m*(m-1)/2", antisymmetric_count);
+  endif
+  if isempty(pieces)
+    formula = "0";
+  else
+    formula = strjoin(pieces, "+");
+  endif
+endfunction
+
+
+function coefficient = tensor_test_coefficient(coefficient_type)
+  symmetric = [1, 2; 2, -1];
+  antisymmetric = [0, 1; -1, 0];
+  if endsWith(coefficient_type, "_S")
+    coefficient = symmetric;
+  else
+    coefficient = antisymmetric;
+  endif
+  if startsWith(coefficient_type, "i")
+    coefficient *= 1i;
+  endif
 endfunction
 
 

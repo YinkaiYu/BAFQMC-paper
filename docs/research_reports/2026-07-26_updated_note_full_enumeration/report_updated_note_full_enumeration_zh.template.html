@@ -552,14 +552,14 @@
       与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
       trace-class、无 pole、正权重结论。对新增的四个
       \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
-      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.8 节证明：
+      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.9 节证明：
       任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
       \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
       principal-block obstruction。因此这四类不是新的普通
       grand-canonical BAFQMC classes。
     </div>
     <p>
-      这不使四类成为空的代数标签。第 6.6、6.8 节为四类都构造了
+      这不使四类成为空的代数标签。第 6.7、6.9 节为四类都构造了
       number-conserving collective-boson Hamiltonian。在固定总粒子数
       sector 中，Hilbert space 有限；完整 one-particle product 的
       eigenvalues 沿全部实辅助场构型保持为正的 reciprocal pairs，
@@ -1405,7 +1405,7 @@
           \binom{N+N_{\rm b}-1}{N_{\rm b}}
           \|\hat U|_{\mathcal H_{N_{\rm b}}}\|<\infty .
         \]
-        第 6.8 节再证明单粒子传播矩阵的本征值成
+        第 6.9 节再证明单粒子传播矩阵的本征值成
         \(\lambda,\lambda^{-1}\) 对出现，并且每个 \(\lambda>0\)，
         从而 fixed-\(N_{\rm b}\) character 严格为正。因此这些更一般
         度规也有完整 trace-class 与正权重证明，只是结论属于 canonical
@@ -1735,7 +1735,7 @@
         annihilation/creation 结构的物理基变换，所以可调用上述
         Fock-space 收敛定理。新增四类的
         \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
-        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.8 节从
+        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.9 节从
         一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
         Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
         迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在
@@ -2099,7 +2099,7 @@
             <td>2) reflection positivity</td>
             <td>\(J_1K\) 交换两个 reflected sectors；另一个离散矩阵标记两侧</td>
             <td>跨反射 coupling matrix 必须 positive semidefinite，使 operator 写成 reflected squares</td>
-            <td>玻色文章使用 operator-positive multiplication semigroup；note 明确称它为 non-contraction semigroup</td>
+            <td>满足 reflection positivity 的 Fock-space operators 在相乘后仍满足同一条件；note 因此明确称它为 non-contraction semigroup</td>
           </tr>
           <tr>
             <td>3)--16) contraction cases</td>
@@ -2750,8 +2750,8 @@
     </div>
     <div class="correction">
       <strong>消息与新版 note 的时间关系。</strong>
-      上面保留的是合作者当时发送的原话。此后更新的 note 已把玻色独立 passed
-      cases 从 7 改为 6，把费米独立 examined cases 从 8 改为 7；
+      上面保留的是合作者当时发送的原话。此后更新的 note 已把玻色独立
+      通过情形从 7 个改为 6 个，把费米独立检验情形从 8 个改为 7 个；
       以下解释以当前 note 为准，并在涉及旧计数时说明它属于消息发送时的版本。
     </div>
 
@@ -3199,24 +3199,38 @@
     <h3>5.4 两条要求不仅必要，而且给出一个显式负定解</h3>
     <p>
       按上一节选择 \(J_2^2\)，再按表中规则选择 commutator 或 anti-commutator。
-      令 \(\eta\) 为对应的 \(J_2g\) 或 \(iJ_2g\)，并直接取
+      令 \(\eta\) 为对应的 \(J_2g\) 或 \(iJ_2g\)。先说明下面为什么会取
+      \(A=-\eta\)，而不是把它作为没有来由的特殊答案。对于
+      invariant-cone 方向，
+      \[
+        \eta A=A^\dagger\eta,\qquad \eta A<0 .
+      \]
+      定义 \(P=-\eta A\)，则 \(P=P^\dagger>0\)。反过来，任何这种方向
+      都能写成
+      \[
+        A=-\eta P,\qquad P=P^\dagger>0.
+      \]
+      最简单、最不依赖基底的选择是 \(P=I\)，于是得到测试矩阵
     </p>
     <div class="scroll">\[
-      A_0=-\eta .
+      A=-\eta .
     \]</div>
     <p>
       由 \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)，contraction inequality
       不是边界而是严格成立：
     </p>
     <div class="scroll">\[
-      \eta A_0+A_0^\dagger\eta
+      \eta A+A^\dagger\eta
       =-\eta^2-\eta^2=-2I<0 .
     \]</div>
     <p>
-      再把 \(A_0=-\eta\) 代回，所选 \(J_2\) 关系保证
-      \(gA_0+A_0^Tg=0\)；上一小节的 commutation rule 保证
-      \(J_1^TA_0J_1=\bar A_0\)。因此这不是随机扫描中的“似乎通过”，
-      而是每一个允许类别都有明确的负定例子。
+      再把 \(A=-\eta\) 代回，所选 \(J_2\) 关系保证
+      \(gA+A^Tg=0\)；上一小节的 commutation rule 保证
+      \(J_1^TAJ_1=\bar A\)。因此这不是随机扫描中的“似乎通过”，
+      而是每一个允许类别都有明确的负定例子。这里故意不写下标 \(0\)：
+      在后面的物理模型中，\(A_0\) 专指实际 Hamiltonian 的固定、零辅助场
+      生成元；此处的 \(A=-\eta\) 只负责证明某一代数类别容许严格收缩，
+      未必是稳定或厄米的物理自由项。
     </p>
     <div class="result">
       <strong>note 所选 ansatz 内的完整传播判据。</strong>
@@ -3312,10 +3326,10 @@
         同号作用时必须反对易，异号作用时必须对易。
       </li>
       <li>
-        对每个允许类取 \(A_0=-\eta\)，逐项验证
-        \(gA_0+A_0^Tg=0\)、
-        \(J_1^TA_0J_1=\bar A_0\)，以及
-        \(\eta A_0+A_0^\dagger\eta=-2I<0\)。
+        对每个允许类取测试矩阵 \(A=-\eta\)，逐项验证
+        \(gA+A^Tg=0\)、
+        \(J_1^TAJ_1=\bar A\)，以及
+        \(\eta A+A^\dagger\eta=-2I<0\)。
       </li>
       <li>
         对不存在负定生成元的类别不伪造一个数值 “Failed”。程序记录
@@ -3344,7 +3358,7 @@
       maximal-subgroup 生成元空间。若
       \(\eta A-A^\dagger\eta=0\)，则 \(\eta A\) 是 Hermitian matrix；
       这些 \(A\) 先形成一个线性空间，再对其线性组合施加
-      \(\eta A\le0\)，才得到 note 所称的 invariant cone。因此第 6.6
+      \(\eta A\le0\)，才得到 note 所称的 invariant cone。因此第 6.7
       节不只给出一个 \(A\)，而是列出所选 \(J_1,J_2\) 下所有允许的
       maximal-subgroup 生成元和 invariant-cone 生成元。
     </p>
@@ -3385,7 +3399,7 @@
             <td>玻色 note 原有的 4 个 \(J_2g\) 类，即 Cases 5--8</td>
             <td>
               这里的 metric 与物理 Nambu particle/hole 结构相容。对
-              第 6.6 节给出的四个 HS 模型，每个时间片满足半负定条件，
+              第 6.7 节给出的四个 HS 模型，每个时间片满足半负定条件，
               每个完整构型又至少含一个满足严格不等式的固定自由传播因子，
               所以 \(M^\dagger\eta M-\eta<0\)。对应 Fock operator 是
               trace class，也就是对所有玻色占据数取绝对值后求和仍收敛；
@@ -3400,7 +3414,7 @@
               一般 Hermitian BdG block 证明表明：不存在一个来自稳定
               Hermitian 二次玻色 Hamiltonian 的零场生成元，使
               grand-canonical 迹收敛并同时满足同一个
-              \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.6、6.8 节为四类
+              \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.7、6.9 节为四类
               都给出 number-conserving fixed-\(N\) Hamiltonian。
               one-particle eigenvalues 始终为正的 reciprocal pairs，
               所以 fixed-\(N\) symmetric-power character 对每个辅助场
@@ -3413,7 +3427,7 @@
     <p>
       “一个 microscopic Hamiltonian 是否经某个 HS identity 落入上述
       半群”仍是模型归属问题，不是 semigroup theorem 自己能够替代的输入。
-      本报告已经对第 6.6 节列出的每个模型逐项给出
+      本报告已经对第 6.7 节列出的每个模型逐项给出
       \(A_0,A_{\rm HS}(\phi)\) 并核对；所以对 boson \(J_2g\) 四类和
       \(iJ_2g\) 四类以及 fermion 八类，都不再把这个检查留给以后。
     </p>
@@ -3611,7 +3625,7 @@
     </p>
     <h4>一般 \(\eta\) 的 trace-class 定理，以及必须核实的表示条件</h4>
     <p>
-      令等号 subgroup 为
+      满足等号的传播矩阵组成 maximal subgroup：
       \[
         G_\eta=\{\mathcal M\in Sp(2N,\mathbb C)\mid
         \mathcal M^\dagger\eta\mathcal M=\eta\}.
@@ -3840,7 +3854,7 @@
       physical grand-canonical Fock trace 收敛。
     </p>
     <p>
-      note 的 Case 8 提供了一个完全处在本次五条关系内的二模检验。
+      note 的 Case 8 提供了一个完全满足本次五条关系的双模检验。
       取
       \[
         J_1=(-i\sigma_y)\otimes\sigma_z,\qquad
@@ -3860,8 +3874,8 @@
       \]
       bare trace 含
       \(\sum_{n_-=0}^\infty e^{+\gamma n_-}\)，所以发散。
-      这说明 Case 8 的 “Good” 正确证明了 matrix invariant cone
-      非空，却没有自动证明原 displayed metric 的物理 Fock trace
+      这说明 Case 8 的 “Good” 正确证明了允许的生成元中存在满足
+      \(\eta A+A^\dagger\eta<0\) 的方向，却没有自动证明原文所列度规下的物理 Fock trace
       收敛。本报告的可采样 Case 8 model 改用同一组五条关系的
       alternative representative
       \(J_2=\sigma_x\otimes I\)，使
@@ -3874,7 +3888,9 @@
       \[
         \binom{N+N_{\rm b}-1}{N_{\rm b}}<\infty .
       \]
-      有限维 Hilbert space 上的每个线性 operator 都是 trace class，并满足
+      有限维 Hilbert space 上的每个线性算符都是 trace class。这里
+      trace class 表示该算符的全部奇异值之和有限；有限维时奇异值只有
+      有限多个，所以这个条件自动满足，并且
       \[
         \|\hat U\|_1
         \le
@@ -4087,11 +4103,11 @@
       这些前提。
     </p>
 
-    <h4>为什么先前的 \(A_0=-\eta\) 例子不反驳这个结论</h4>
+    <h4>为什么测试矩阵 \(A=-\eta\) 不反驳这个结论</h4>
     <p>
       对新增 bosonic \(iJ_2g\) 类，可以取
-      \(A_0=-\eta\) 作为纯代数的负定例子。它确实满足
-      \(\eta A_0+A_0^\dagger\eta=-2I\)，但在最直接的
+      \(A=-\eta\) 作为纯代数的负定例子。它确实满足
+      \(\eta A+A^\dagger\eta=-2I\)，但在最直接的
       number-conserving physical basis 中，particle block 有一正一负两个
       eigenvalues，因而 bare trace 发散。这个例子的零辅助场
       grand-canonical 玻色迹不收敛。它的 \(\eta\)-等号 subgroup
@@ -4104,12 +4120,12 @@
     <p>
       因此它的正确用途只是说明：五条 \(J_1,J_2\) 离散关系加一个任意
       满足 \(\eta A+A^\dagger\eta<0\) 的例子，还不能自动产生
-      grand-canonical 玻色模型。第 6.8 节进一步证明，这一困难不能靠
+      grand-canonical 玻色模型。第 6.9 节进一步证明，这一困难不能靠
       加入 pairing 修复：稳定 Hermitian BdG generator 的 particle
       principal block 与 \(iJ_2g\) contraction 要求直接矛盾。
       本报告实际可采样的实现改用固定总粒子数 sector；那里 Hilbert space
       有限，并且权重正性由显式 character 公式证明，不依赖这个发散的
-      \(A_0=-\eta\) 参考点。
+      \(A=-\eta\) 测试矩阵作为 grand-canonical 参考点。
     </p>
 
     <h3>6.5 计数与残差</h3>
@@ -4132,14 +4148,17 @@
       </table>
     </div>
     <p>
-      所有 16 个允许负定生成元的类别中，例子 \(A_0=-\eta\)
+      所有 16 个允许负定生成元的类别中，测试矩阵 \(A=-\eta\)
       的 residuals 都为机器输出中的精确 0：
-      \(\|gA_0+A_0^Tg\|=0\)、
-      \(\|J_1^TA_0J_1-\bar A_0\|=0\)，以及
-      \(\|\eta A_0+A_0^\dagger\eta+2I\|=0\)。
+      \(\|gA+A^Tg\|=0\)、
+      \(\|J_1^TAJ_1-\bar A\|=0\)，以及
+      \(\|\eta A+A^\dagger\eta+2I\|=0\)。
     </p>
 
-    <h3>6.6 十六个存在负定生成元的矩阵类别：\(A\) 的分块讲义</h3>
+    <h3>6.6 全部 64 类：maximal subgroup 与 invariant cone 的显式 \(A\) 结构</h3>
+    {{ALL_CLASS_STRUCTURES}}
+
+    <h3>6.7 十六个存在负定生成元的矩阵类别：逐类物理讲义</h3>
     <p>
       本节不再用一张压缩总表代表全部结构。合作者在 note 中对手算成功的
       情形逐类写出了 \(A\) 的 block constraints；为了让完整穷举达到同样的
@@ -4149,7 +4168,7 @@
     </p>
     {{STRICT_GENERATOR_CASES}}
 
-    <h3>6.7 HS 场的正负、场的取值范围与规范变换</h3>
+    <h3>6.8 HS 场的正负、场的取值范围与规范变换</h3>
     <p>
       需要先限定命题。若采用同一个固定 metric \(\eta\)，一个连续 Gaussian
       HS field 线性进入<strong>同一个时间片生成元</strong>
@@ -4224,7 +4243,7 @@
       “两种场值 gauge equivalent” 就跳过完整 product check。
     </p>
 
-    <h3>6.8 从生成元结构到具体物理 Hamiltonian</h3>
+    <h3>6.9 从生成元结构到具体物理 Hamiltonian</h3>
     <h4>玻色 \(J_2g\) 四类：可构造稳定的 Hermitian 相互作用模型</h4>
     <p>
       合作者 note 的 Cases 5--8 都可选
@@ -4450,7 +4469,7 @@
       \(S_y=(a_1^+a_2-a_2^+a_1)/(2i)\)、
       \(S_z=(n_1-n_2)/2\)。第四个使用四个内部组分；
       \(\boldsymbol a\) 是四分量 annihilation-operator column。
-      第 6.6 节逐类写出了对应的 \(A_0,A_{\rm HS}(\phi)\) 和全部
+      第 6.7 节逐类写出了对应的 \(A_0,A_{\rm HS}(\phi)\) 和全部
       \(J_1,J_2\) checks。
     </p>
 
@@ -4594,7 +4613,12 @@
       它们不能替 note 中符号不同的不等式作证明。
     </p>
 
-    <h3>6.9 手算 note 与完整穷举的覆盖范围</h3>
+    {{HIGH_VALUE_MODELS}}
+
+    <h3>6.10 固定总粒子数的玻色 AFQMC：从有限维迹到可执行算法</h3>
+    {{CANONICAL_ALGORITHM}}
+
+    <h3>6.11 手算 note 与完整穷举的覆盖范围</h3>
     <div class="scroll">
       <table>
         <thead><tr><th>对象</th><th>note 已覆盖</th><th>本次新增</th><th>当前物理地位</th></tr></thead>
@@ -4615,7 +4639,7 @@
       </table>
     </div>
 
-    <h3>6.10 完整 64 行</h3>
+    <h3>6.12 完整 64 行</h3>
     <p>
       表格不使用额外的正负号简称。每一列直接写出 note 中的矩阵关系。
       Pauli words 使用 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的首字母；
@@ -4934,7 +4958,7 @@
       因而程序和解析证明共同确认：这四类都包含负定生成元。
       所以，若“新增”是指相对于合作者只展开一种 \(J_2\) 的手算，费米侧确实新增了
       四个 \(iJ_2g\) partner classes。若“新增”是指四种文献中从未出现的
-      sign-problem-free mechanism，则不能这样计数：第 6.8 节已经把
+      sign-problem-free mechanism，则不能这样计数：第 6.9 节已经把
       \(J_1^2=+I\) 的情形对应到 Majorana reflection positivity，
       把 \(J_1^2=-I\) 的情形对应到已知 Kramers-plus-pairing semigroup，
       而 \(J_1\) 翻转 \(g\) 的 partners 可由 particle--hole transformation
@@ -5013,10 +5037,13 @@
       grand-canonical、sign-problem-free、pole-free 的 contraction
       classes；报告已经给出稳定 Hamiltonian、HS slices、trace 收敛和
       正分支证明。</li>
-      <li>可以把四个 \(iJ_2g\) partners 表述为新的 canonical
-      fixed-\(N\) sign-free realizations；不能把它们写成普通
-      grand-canonical classes，因为一般含 pairing 的解析 no-go 已经
-      排除了这一解释。</li>
+      <li>四个 \(iJ_2g\) partners 的 contraction-semigroup
+      realization 可以表述为新的 canonical fixed-\(N\) sign-free
+      models。一般含 pairing 的解析 no-go 排除的是“同一个稳定 Hermitian
+      零场生成元同时位于 \(\eta=iJ_2g\) 的半负定 cone”这一更具体的
+      grand-canonical 方案，不能据此排除该五符号类别中另加 Kramers/RP
+      条件的 grand-canonical 子类。第 6.6 节已为四类都构造出位于
+      maximal subgroup、bare trace 收敛且无 pole 的这种子类。</li>
       <li>Case 1 的 Kramers propagation 与 Case 2 的 reflected-square
       propagation 都属于对乘法封闭、且相关 Fock operators 的迹有限并
       非负的集合；前者不是必然的
@@ -5026,6 +5053,11 @@
       <li>double-cover 算法能够在一般有符号模型中精确追踪丢失的
       \(\mathbb Z_2\) lift；它是一套采样与诊断工具，不应与本文依赖
       连通性的无符号定理混写成同一个证明。</li>
+      <li>64 类的补充筛选说明：即使某类没有 invariant-cone 负定方向，
+      它仍可能在 maximal subgroup 内拥有 Euclidean 稳定传播，并由额外
+      Kramers/RP 条件保证正权重。这个观察适合放入 SM 作为“不同正性机制
+      可以在同一五符号标签中重叠”的说明，不应把 64 个标签宣传成 64 种
+      新的无符号原理。</li>
     </ul>
 
     <h3>9.4 现在不应写入文章的表述</h3>
@@ -5077,7 +5109,21 @@
         每种统计各有 8 个类别允许负定生成元，其中 4 个使用
         \(J_2g\)，4 个使用 \(iJ_2g\)。相对于 note 固定一种
         \(J_2\) 的手算，玻色和费米两侧都各补出 4 个 \(iJ_2g\) classes；
-        16 类的 maximal-subgroup 与 invariant-cone basis 均已完整求出。
+        全部 64 类在规范张量族
+        \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\) 中的
+        maximal-subgroup 与 invariant-cone 生成元结构均已写成显式
+        Pauli 因子和系数矩阵约束。16 个允许负定生成元的类别另选了便于
+        物理解读的代表做逐项复核。
+      </div>
+      <div class="summary-item established">
+        <strong>费米等号部分不能漏掉</strong>
+        把两条反线性变换完整搬到 Majorana basis 后，费米 32 类中有
+        12 类具有一般正性证明：8 类同时容许负定生成元，另有 4 类的
+        半负定条件只能取等号、但属于 Majorana
+        \(\{T^+,T^-\}\) 类。其余 20 类不能仅凭五条关系保证正权重，
+        且规范代表的精确 Fock-space 扫描给出了负权重反例；若再要求
+        每个时间片满足一个额外 physical Kramers symmetry，这 20 类
+        也都含有非空的无符号子空间。
       </div>
       <div class="summary-item established">
         <strong>零场收敛、传播矩阵的负定条件与连续性</strong>
@@ -5097,6 +5143,11 @@
         principal-block 证明同时表明，不存在来自稳定 Hermitian 二次玻色
         Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足
         同一个 \(\eta=iJ_2g\) 收缩不等式。
+        第 6.6 节在全部 64 张类别卡片中都就地给出至少一个厄米
+        Hamiltonian、正测度 HS 分解、实际 \(J_1,J_2,\eta\) 和非负证明。
+        其中 20 类另有不借助新增 Kramers 条件的本类模型；对其余类别，
+        报告明确写出附加对称性筛选后保留下来的 \(A_0,A_{\rm HS}\)。
+        第 6.9 节只负责跨类别总结。
       </div>
       <div class="summary-item corrected">
         <strong>Comment</strong>
@@ -5113,8 +5164,10 @@
     <p>
       合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它在玻色和费米两侧
       都补上了 8 个允许负定生成元的类别中尚未手算的 4 个。
-      本次已经不再停在 \(A_0=-\eta\)：16 类的 subgroup/cone bases
-      与五组 HS slices 都由 Octave 逐项验证。对连通 auxiliary-field space，
+      本次已明确区分测试矩阵 \(A=-\eta\) 与实际物理零场生成元
+      \(A_0\)：前者只是证明某类允许负定方向。全部 64 类的显式生成元
+      结构、16 个负定类别的替代物理代表，以及相应 HS slices 都由
+      Octave 逐项验证。对连通 auxiliary-field space，
       在已证明与当前物理 Fock representation 相容的半群中，
       与稳定零场同向的内部传播保持 bare-trace convergence，
       权重为实、分支连续且单值，再加上正参考点，便可固定全域正号。
@@ -5123,15 +5176,17 @@
       reflected-square operator semigroup，而不是只称为 pole-free 补充。
       新增玻色 \(iJ_2g\) 类不能提供一个既来自稳定 Hermitian 二次玻色
       Hamiltonian、又满足同一个 \(\eta=iJ_2g\) 收缩不等式的
-      grand-canonical 零场；它们的正确物理落点是本报告已经证明的
-      canonical fixed-\(N\) collective-boson models。费米 \(iJ_2g\)
-      类已有显式 pairing-cone slice realizations，但目前不能把它们直接
-      认作 Wei 的 Majorana RP/Kramers classes。Wei 的 canonical
-      Majorana metric 完整拉回 Nambu basis 后属于 \(J_2g\)
-      中允许负定生成元的分支；具体 \(J_1\) label 依赖 basis 与额外
-      symmetries。
-      使用 \(iJ_2g\) 的四类在本文中应保守地称为 Nambu labels：
-      具体模型的文献新颖性不能从标签计数本身推出。
+      grand-canonical 零场；因此依赖这个 invariant cone 的直接物理落点
+      是本报告已经证明的 canonical fixed-\(N\) collective-boson models。
+      这并不排除同一五符号类别中的 maximal-subgroup 方向再叠加
+      Kramers/RP 正性。本报告对全部 32 个玻色类别都构造了这样的稳定
+      grand-canonical 子类，并证明其 bare trace 收敛且没有 pole。
+      费米侧则不能只数
+      8 个负定类别：Majorana-time-reversal 检查给出 12 个一般无符号
+      类，其中 4 个只使用 maximal subgroup。费米 \(iJ_2g\) 四个负定
+      标签也都落入已知的 Majorana \(\{T^+,T^-\}\) 或 Kramers
+      \(\{T^-,T^-\}\) 正性机制；因此它们补齐的是 Nambu 分类与模型空间，
+      不是四种新的正性原理。
     </p>
 
     <h3>这次穷举究竟发现了什么</h3>
@@ -5145,6 +5200,15 @@
             <td>\(J_1,J_2\) realization</td>
             <td>玻色、费米各 32 类全部找到 real Pauli-product matrices</td>
             <td>五条离散 relations 本身都可实现；它们不负责区分收缩矩阵能否负定，还是只能为零</td>
+          </tr>
+          <tr>
+            <td>增加 Kramers/RP 条件后的无符号交集</td>
+            <td>全部 64 类都找到 \(J_1\ne\pm J_2\) 的代表，使稳定自由项与
+            relative-density HS 项位于该类 maximal subgroup，并同时满足
+            physical Kramers symmetry；玻色模型还满足 operator RP</td>
+            <td>每一类都有厄米相互作用的无符号子类。这个结果不把该类
+            全部 \(A\) 误判为正，也不把同一 Kramers/RP 机制重复计成
+            64 种新原理</td>
           </tr>
           <tr>
             <td>玻色：存在负定生成元</td>
@@ -5167,9 +5231,11 @@
             </td>
             <td>
               相对手算新增四类允许负定生成元的传播分类，完整 subgroup/cone
-              basis 已知；一般 Hermitian BdG 分析排除 ordinary
-              grand-canonical realization，但四类都已有完整
-              canonical fixed-\(N\) sign-free Hamiltonian
+              basis 已知；一般 Hermitian BdG 分析排除稳定零场同时位于
+              同一个 \(iJ_2g\) invariant cone 的 grand-canonical
+              realization，但四类都已有完整 canonical fixed-\(N\)
+              sign-free Hamiltonian，也都有另加 Kramers/RP 条件的
+              maximal-subgroup grand-canonical 子类
             </td>
           </tr>
           <tr>
@@ -5178,23 +5244,28 @@
             \(\Tr(\eta A+A^\dagger\eta)=0\)；另 8 类满足
             \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
             =-(\eta A+A^\dagger\eta)\)。在两种情况下，半负定条件都只能取等号</td>
-            <td>不存在使 \(\eta A+A^\dagger\eta<0\) 的生成元</td>
+            <td>不存在使 \(\eta A+A^\dagger\eta<0\) 的生成元；但每类都含有
+            Euclidean 单粒子传播严格衰减、同时满足额外 Kramers/RP 条件的
+            maximal-subgroup 子空间，所以仍有 grand-canonical 无符号、
+            无 pole 的相互作用模型</td>
           </tr>
           <tr>
-            <td>费米标准 contraction</td>
+            <td>费米：负定类别与 maximal-subgroup 正性合并计数</td>
             <td>
-              同样恰有 8 类，要求 \(J_2^2=-I\)。note 已展开的
+              恰有 8 类允许负定生成元，要求 \(J_2^2=-I\)。note 已展开的
               \(J_2^TgJ_2=-g\) 分支包含 4 个允许负定生成元的
               \(J_2g\) 类；
               完整穷举另补出 4 个满足 \(J_2^TgJ_2=g\) 的
-              \(iJ_2g\) 类，它们同样允许负定生成元
+              \(iJ_2g\) 类，它们同样允许负定生成元。除此以外还有
+              4 个 \(J_2^2=+I\) 的类别，虽然半负定条件只能取等号，
+              但 Majorana \(\{T^+,T^-\}\) 定理仍保证权重非负；
+              所以一般无符号的费米类别总数是 12
             </td>
             <td>
-              四个新增 \(iJ_2g\) Nambu labels 有 pairing-cone physical
-              realizations；标签计数本身不构成新的 positivity mechanism，
-              因为 Wei 的 canonical transport 位于 \(J_2g\)
-              中允许负定生成元的分支，具体 \(J_1\) label 依赖 basis 与额外
-              symmetries；note 第一节带减号的不等式不能直接沿用
+              8 个负定类和 4 个等号类都已逐类给出厄米模型。
+              12 个标签只使用两种已知基本机制：
+              Majorana \(\{T^+,T^-\}\) 与 Kramers
+              \(\{T^-,T^-\}\)；note 第一节带减号的不等式仍不能直接沿用
             </td>
           </tr>
         </tbody>
@@ -5207,10 +5278,14 @@
       reflected squares 保证 nonnegative。反过来，一旦 real、continuous、
       single-valued weight 已在收缩半群内部的连通区域中定义，
       \(M^\dagger\eta M-\eta<0\) 与一个 positive reference
-      的确足以固定全域正号。64 类矩阵穷举本身没有为每一类给出
-      对应的 HS decomposition，也没有证明玻色 bare trace 收敛或
-      说明 regularization 的定义；
-      不是另一个逐点符号定理。
+      的确足以固定全域正号。为了不把“没有 invariant-cone 负定方向”
+      误读成“没有无符号模型”，本报告又对全部 64 类施加了明确的
+      physical Kramers condition，并在玻色侧同时施加 operator RP。
+      对每一类都找到了非空的 \(A\) 子空间和正测度 HS decomposition；
+      玻色模型还由
+      \(\|\mathcal B(\phi)\|_2\le e^{-\beta\kappa_{\min}}<1\)
+      逐构型证明 bare trace 收敛且无 pole。这是附加条件后的正性定理，
+      不是五条关系本身突然变成了逐点符号定理。
     </p>
 
     <h3>建议给合作者的回复</h3>
@@ -5219,10 +5294,12 @@
       穷举的目标不只是找 \(J_1,J_2\) 或 maximal subgroup，而是检查
       \(J_1^TAJ_1=\bar A\) 的实性条件能否与由
       \(J_2g\) 或 \(iJ_2g\) 定义的 invariant cone 同时成立，并确认
-      是否存在 \(\eta A+A^\dagger\eta<0\) 的生成元。我也把每个
-      存在这类生成元的矩阵类别中全部
-      maximal-subgroup generator basis 和 invariant-cone generator
-      basis 求出来了，不再只用 \(A_0=-\eta\) 作一个存在性见证。
+      是否存在 \(\eta A+A^\dagger\eta<0\) 的生成元。我把全部 64 类
+      在 \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\) 张量族中的
+      maximal-subgroup 与 invariant-cone 生成元都求成了显式
+      “Pauli 因子 \(\otimes\) 实对称、实反对称、纯虚对称或纯虚反对称
+      系数矩阵”的形式。这里 \(A=-\eta\) 只用作检验负定方向存在的
+      测试矩阵，不把它默认成物理零场项。
       <br><br>
       穷举中玻色、费米各 32 类都能找到 real Pauli-product
       \(J_1,J_2\) representatives，但每边都只有 8 类允许
@@ -5230,6 +5307,44 @@
       \(J_2^2=I\)，费米必须有 \(J_2^2=-I\)。
       \(J_1,J_2\) 对 \(g\) 同号作用时必须反对易，
       异号作用时必须对易；\(J_1^2=\pm I\) 都可以。
+      负定方向的计数不是费米无符号类别的最终计数：把 \(J_1,J_2\)
+      变到 Majorana basis 后，8 个负定类全部属于已证明的
+      Majorana \(\{T^+,T^-\}\) 或 Kramers
+      \(\{T^-,T^-\}\) 正性类别；此外还有 4 个 \(J_2^2=+I\)
+      的类别，半负定条件虽只能取等号，却仍属于
+      \(\{T^+,T^-\}\) 类。因此费米共有 12 类能从这两条反线性对称
+      得到一般的逐构型非负定理。
+      <br><br>
+      我另外检查了“其余类别是否在增加物理正性条件后仍有可用模型”。
+      结果不是空的：玻色和费米全部 64 个五符号类别，都能另选一组同类
+      \(J_1,J_2\)，使自由生成元
+      \[
+        A_0=-\Delta\tau\,(\sigma_z\otimes I_2\otimes I)\otimes K
+      \]
+      和 relative-density HS 生成元
+      \[
+        A_{\rm HS}=i\sqrt{\Delta\tau U}\sum_i\phi_i
+        (\sigma_z\otimes\sigma_z\otimes I)\otimes|i\rangle\langle i|
+      \]
+      都位于该类的 maximal subgroup，同时还满足作用在真实 flavor
+      doublet 上的 physical Kramers symmetry
+      \(I_2\otimes i\sigma_y\otimes I\)。在有些五符号类中，这个
+      Kramers operator 可与 \(J_1\) 或 \(J_2\) 重合；在其余类中它是
+      第三个 symmetry。正性判断依赖的是它的物理作用和逐时间片不变性，
+      不是仅仅多写一个矩阵名字。
+      它们来自厄米模型
+      \[
+        H=\sum_{ij,\alpha,o}a_{i\alpha o}^+K_{ij}a_{j\alpha o}
+        +\frac U2\sum_i
+        \left[\sum_o(n_{i\uparrow o}-n_{i\downarrow o})\right]^2 ,
+        \qquad K=K^T>0,\quad U>0 ,
+      \]
+      其中 \(a\) 在玻色、费米两种统计下分别解释。玻色侧同一模型还满足
+      reflected-square RP，且
+      \(\|\mathcal B(\phi)\|_2\le e^{-\beta\lambda_{\min}(K)}<1\)，
+      所以每个构型的 bare trace 都收敛并且没有 pole。这里必须强调：
+      这个结果证明的是每类与附加 Kramers/RP 条件的交集非空，并不是说
+      原来五条关系允许的全部 \(A\) 都无符号。
       <br><br>
       玻色方面，你手算的 Cases 5--8，也就是 metric 为 \(J_2g\) 的四类，
       全部通过；你标为 Failed 的其他 contraction cases 也与穷举一致。
@@ -5279,7 +5394,9 @@
       one-particle propagation matrix 的有限阶 character，而不是
       grand-canonical 公式 \(1/\sqrt{\det(I-\mathcal M)}\)；因此这里
       根本没有 grand-canonical determinant pole。它们不是 ordinary
-      grand-canonical classes。
+      grand-canonical <em>contraction-cone</em> realizations；但同一个
+      五符号标签仍可在 maximal subgroup 中再加 Kramers/RP 条件，得到
+      上面已经写出的另一组稳定 grand-canonical models。
       <br><br>
       费米方面，在由 \(e^A\) 直接导出的标准 contraction condition
       \(\eta A+A^\dagger\eta\leq0\) 下，你已经展开的
@@ -5300,21 +5417,15 @@
       Cases \(5'\)--\(8'\) 仍允许负定生成元；\(9',10'\) 中凡是满足
       半负定条件的生成元都只能满足等号。
       <br><br>
-      Wei semigroup paper 本身在 Majorana basis 使用
-      \(A_{\rm M}\) 与 metric \(iJ_2^{\rm M}\)，二者直接控制
-      \(e^{A_{\rm M}}\)。完整换到 Nambu basis 时
-      \(A_{\rm M}=UAU^\dagger\)，metric 同时变成 \(J_2g\)；
-      canonical Majorana-reflection-positive 与 Kramers
-      semigroups 因而落在 \(J_2g\) 中允许负定生成元的分支，不是
-      新增的 \(\eta=iJ_2g\) 四类。具体对应 Cases \(5'\)--\(8'\)
-      中哪一个或哪几个 labels，会随 complex-fermion basis 和模型的
-      额外 symmetries 改变。另一支
-      \(iJ_2g\) classes 仍有同时满足
-      \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和
-      \(\eta A+A^\dagger\eta<0\) 的 concrete slice realizations，
-      但它们与哪些已知 Majorana classes
-      basis-equivalent、哪些真正扩大模型集合，需要另做完整的
-      transformation analysis，不能仅凭相似的 Pauli labels 判断。
+      为避免把 Nambu 标签误当成新机制，我还把每一行的两条反线性变换
+      完整搬到实 Majorana basis，重新计算它们的平方与相对对易关系。
+      结果是 12 个正性类只落入两种已知基本机制：
+      Majorana \(\{T^+,T^-\}\) 与 Kramers
+      \(\{T^-,T^-\}\)。四个新增 \(iJ_2g\) 负定标签并不是四种新的
+      positivity mechanisms；它们的价值在于补齐 Nambu 分类、给出新的
+      pairing/density slice 组合和可研究的厄米模型。四个
+      maximal-subgroup-only 类也不能遗漏，因为费米 Fock space 有限，
+      它们不需要靠 \(<0\) 解决玻色式的高占据态收敛问题。
       <br><br>
       关于符号与收敛证明，我的理解与你的半群思路一致，但应把零场条件
       明写出来：只要 auxiliary-field configuration space 连通，零场
@@ -5333,9 +5444,11 @@
       <a href="part_5_branch_sampling.html">《double-cover 符号追踪与采样》</a>。
       这套算法不参与上面的连通性 sign-free theorem。
       <br><br>
-      对新增玻色 \(iJ_2g\) 类，grand-canonical 稳定零场不存在的原因
-      已由一般 BdG principal-block 证明确定；相应的正权重结论改在
-      fixed-\(N\) sector 中由 character 公式逐构型给出。
+      对新增玻色 \(iJ_2g\) 类，稳定 grand-canonical 零场不能同时位于
+      同一个 \(\eta=iJ_2g\) invariant cone，原因已由一般 BdG
+      principal-block 证明确定；依赖该 cone 的模型因此改在 fixed-\(N\)
+      sector 中由 character 公式逐构型给出。另加 Kramers/RP 条件的
+      maximal-subgroup grand-canonical 子类不受这个 no-go 约束。
       <br><br>
       现有文章的 paired \(U_1=0\) model 明确落在 Case 7；
       稳定自由部分、pure \(U_2\) phases、标准 \(J_2g\) metric、
@@ -5368,6 +5481,21 @@
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); derive_strict_generator_structures"
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); derive_maximal_subgroup_structures"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); derive_tensor_block_structures"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); derive_positive_completion_representatives"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); scan_pauli_realizations"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); verify_nonpauli_realization_dependence"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); test_physical_hs_constructions"
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
@@ -5381,6 +5509,9 @@
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); verify_general_metric_trace_class"
+
+/home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); verify_canonical_boson_afqmc"
 
 python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/split_reader_report.py</pre>
 
@@ -5398,8 +5529,19 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、负定例子与 residual checks</td></tr>
           <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
           <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>完整 64 行原始计算结果</td></tr>
-          <tr><td><a href="analysis/derive_strict_generator_structures.m">derive_strict_generator_structures.m</a></td><td>对 16 个允许负定生成元的类别求完整 maximal-subgroup 与 invariant-cone Pauli bases，并检查 \(A_0=-\eta\)</td></tr>
+          <tr><td><a href="analysis/derive_strict_generator_structures.m">derive_strict_generator_structures.m</a></td><td>对 16 个允许负定生成元的类别求完整 maximal-subgroup 与 invariant-cone Pauli bases，并用测试矩阵 \(A=-\eta\) 检查负定方向确实存在</td></tr>
           <tr><td><a href="tables/strict_generator_structures.csv">strict_generator_structures.csv</a></td><td>16 类生成元维数、完整 bases、metric、witness 与 operator diagnostics</td></tr>
+          <tr><td><a href="analysis/derive_maximal_subgroup_structures.m">derive_maximal_subgroup_structures.m</a></td><td>对全部 64 类求 maximal-subgroup 生成元、number-conserving 子空间，并在费米侧检查 Majorana-time-reversal 正性</td></tr>
+          <tr><td><a href="tables/maximal_subgroup_structures.csv">maximal_subgroup_structures.csv</a></td><td>64 类 maximal-subgroup 维数、Pauli bases、费米正性类别与精确 Fock-space 随机扫描结果</td></tr>
+          <tr><td><a href="analysis/derive_tensor_block_structures.m">derive_tensor_block_structures.m</a></td><td>把全部 64 类扩展为 \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\)，求每个 Pauli 因子允许的实对称、实反对称、纯虚对称或纯虚反对称系数</td></tr>
+          <tr><td><a href="tables/tensor_block_structures.csv">tensor_block_structures.csv</a></td><td>第 6.6 节 64 张卡片中全部显式 \(A\) 结构的机器可读来源</td></tr>
+          <tr><td><a href="analysis/derive_positive_completion_representatives.m">derive_positive_completion_representatives.m</a></td><td>逐类搜索与 physical Kramers symmetry 相容、且自由项和 relative-density HS 项仍位于该类 maximal subgroup 的 \(J_1\ne\pm J_2\) 代表；并以三个非对易时间片检查传播矩阵范数、Kramers residual 与玻色/费米权重</td></tr>
+          <tr><td><a href="analysis/derive_positive_completion_representatives.log">derive_positive_completion_representatives.log</a></td><td>GNU Octave 10.3.0 对全部 64 类附加正性子空间的完整运行摘要</td></tr>
+          <tr><td><a href="tables/positive_completion_representatives.csv">positive_completion_representatives.csv</a></td><td>64 类的 \(J_1,J_2,\eta,A_0,A_{\rm HS}\)、Kramers matrix 与三组 residuals</td></tr>
+          <tr><td><a href="analysis/scan_pauli_realizations.m">scan_pauli_realizations.m</a></td><td>扫描不同 Pauli representatives，核对负定方向是否依赖代表以及生成元空间维数</td></tr>
+          <tr><td><a href="tables/pauli_realization_scan.csv">pauli_realization_scan.csv</a></td><td>8568 组 Pauli realizations 的分类与残差汇总</td></tr>
+          <tr><td><a href="analysis/verify_nonpauli_realization_dependence.m">verify_nonpauli_realization_dependence.m</a></td><td>构造同一五符号类别、同一矩阵维数但共同本征子空间重数不同的非 Pauli 代表</td></tr>
+          <tr><td><a href="tables/nonpauli_realization_dependence.csv">nonpauli_realization_dependence.csv</a></td><td>说明五个符号决定负定方向是否存在，却不唯一决定全部 \(A\) 空间维数的显式反例</td></tr>
           <tr><td><a href="analysis/physical_model_catalog.py">physical_model_catalog.py</a></td><td>为 16 个允许负定生成元的传播类别逐类给出 Hamiltonian、HS 分解、有序时间片生成元 \(A_0,A_{\rm HS}(\phi)\)、物理适用范围与必要 caveat</td></tr>
           <tr><td><a href="analysis/test_physical_hs_constructions.m">test_physical_hs_constructions.m</a></td><td>连续 Gaussian、bounded discrete 以及 pairing/density HS slice 的逐场值矩阵检查</td></tr>
           <tr><td><a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a></td><td>所有物理 HS candidate 的 Lie 代数、实性与收缩残差，以及厄米性诊断</td></tr>
@@ -5413,6 +5555,8 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="analysis/verify_general_metric_trace_class.m">verify_general_metric_trace_class.m</a></td><td>标准物理度规、\(\eta=ig\)、Case 8 原 displayed metric 与 Case 8 物理 representative 的严格收缩和 Fock trace-class 对照</td></tr>
           <tr><td><a href="analysis/verify_general_metric_trace_class.log">verify_general_metric_trace_class.log</a></td><td>上述四种情形的 GNU Octave 10.3.0 完整运行日志</td></tr>
           <tr><td><a href="tables/general_metric_trace_class_checks.csv">general_metric_trace_class_checks.csv</a></td><td>matrix contraction 最大本征值、trace-class 结论及有限/发散诊断值</td></tr>
+          <tr><td><a href="analysis/verify_canonical_boson_afqmc.m">verify_canonical_boson_afqmc.m</a></td><td>固定粒子数 bosonic AFQMC coefficient recursion、one-body estimator 与 low-rank update 的独立数值核对</td></tr>
+          <tr><td><a href="tables/canonical_boson_afqmc_checks.csv">canonical_boson_afqmc_checks.csv</a></td><td>canonical 权重、递推公式、有限差分和 low-rank update residuals</td></tr>
           <tr><td><a href="part_5_branch_sampling.html">part_5_branch_sampling.html</a></td><td>double-cover 符号追踪、低秩更新、绝对值采样、重加权与 PfQMC 对照的独立算法卷</td></tr>
           <tr><td><a href="part_6_case12_semigroups.html">part_6_case12_semigroups.html</a></td><td>Case 1 Kramers 与 Case 2 reflected-square 半群证明，以及完整 RP 生成元集合不能由一个固定 Nambu metric 给出收缩证明的结论</td></tr>
           <tr><td><a href="tables/updated_note_hand_comparison.csv">updated_note_hand_comparison.csv</a></td><td>note 手算标签与 propagation contraction 分类对照</td></tr>

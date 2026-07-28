@@ -1,0 +1,4 @@
+Octave version: 10.3.0
+Checked 8568 distinct ordered Pauli realizations.
+Verified A0=-eta for all 2184 strict-class realizations encountered.
+Wrote 144 aggregate rows to /mnt/c/users/newton/documents/ligroupiop/2408_bosonsignproblem/paper_bafqmc/docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/../tables/pauli_realization_scan.csv

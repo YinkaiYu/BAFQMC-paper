@@ -9,6 +9,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+from all_class_lecture import build_all_class_lecture, term_rows
 from case_audit_summaries import CASE_AUDITS
 from physical_model_catalog import MODEL_CATALOG, render_physical_model
 from reader_explanation_overrides import EXPLANATION_OVERRIDES
@@ -21,6 +22,8 @@ TEMPLATE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.template.h
 OUTPUT_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
 TABLE_PATH = REPORT_DIR / "tables" / "full_64_class_enumeration.csv"
 STRICT_STRUCTURE_PATH = REPORT_DIR / "tables" / "strict_generator_structures.csv"
+CANONICAL_FRAGMENT_PATH = REPORT_DIR / "canonical_afqmc_algorithm_zh.fragment.html"
+HIGH_VALUE_MODELS_PATH = REPORT_DIR / "high_value_models_zh.fragment.html"
 
 
 @dataclass(frozen=True)
@@ -2892,72 +2895,6 @@ def signed_rhs(sign: str, value: str) -> str:
     return value if int(sign) == 1 else f"-{value}"
 
 
-def signed_sandwich(sign: int, word: str, center: str) -> str:
-    prefix = "" if sign == 1 else "-"
-    if not word or set(word) == {"I"}:
-        return f"{prefix}{center}"
-    matrix = pauli_word_tex(word)
-    return rf"{prefix}\left({matrix}\right){center}\left({matrix}\right)"
-
-
-def reality_equations(row: dict[str, str]) -> str:
-    first_factor = row["J1_word"][0]
-    internal_word = row["J1_word"][1:]
-    transpose_sign = -1 if internal_word.count("Y") % 2 else 1
-
-    if first_factor == "I":
-        equations = [
-            (signed_sandwich(transpose_sign, internal_word, "B"), r"\overline B"),
-            (signed_sandwich(transpose_sign, internal_word, "C"), r"\overline C"),
-            (signed_sandwich(transpose_sign, internal_word, "D"), r"\overline D"),
-        ]
-    elif first_factor == "Z":
-        equations = [
-            (signed_sandwich(transpose_sign, internal_word, "B"), r"\overline B"),
-            (signed_sandwich(-transpose_sign, internal_word, "C"), r"\overline C"),
-            (signed_sandwich(-transpose_sign, internal_word, "D"), r"\overline D"),
-        ]
-    elif first_factor == "X":
-        equations = [
-            (
-                signed_sandwich(-transpose_sign, internal_word, "B^T"),
-                r"\overline B",
-            ),
-            (
-                signed_sandwich(transpose_sign, internal_word, "D"),
-                r"\overline C",
-            ),
-            (
-                signed_sandwich(transpose_sign, internal_word, "C"),
-                r"\overline D",
-            ),
-        ]
-    elif first_factor == "Y":
-        equations = [
-            (
-                signed_sandwich(-transpose_sign, internal_word, "B^T"),
-                r"\overline B",
-            ),
-            (
-                signed_sandwich(-transpose_sign, internal_word, "D"),
-                r"\overline C",
-            ),
-            (
-                signed_sandwich(-transpose_sign, internal_word, "C"),
-                r"\overline D",
-            ),
-        ]
-    else:
-        raise RuntimeError(f"Unsupported Nambu factor {first_factor}")
-
-    rendered = r",\qquad ".join(f"{left}={right}" for left, right in equations)
-    return rf"""
-      <div class="scroll">\[
-        {rendered}.
-      \]</div>
-    """
-
-
 def internal_metric_tex(row: dict[str, str]) -> str:
     eta_label = row["eta"]
     if not eta_label.startswith("i"):
@@ -2998,125 +2935,75 @@ def metric_declaration(row: dict[str, str], block_dimension: int) -> str:
     """
 
 
-def subgroup_and_cone(row: dict[str, str], block_dimension: int) -> str:
-    identity = "1" if block_dimension == 1 else rf"I_{{{block_dimension}}}"
-    if row["metric"] == "J2g":
-        return rf"""
-          <p><strong>Maximal subgroup。</strong>
-          等号部分可以且只能写成</p>
-          <div class="scroll">\[
-            A_{{\rm subgroup}}=
-            \begin{{pmatrix}}B&C\\C^\dagger&-B^T\end{{pmatrix}},
-            \qquad B^\dagger=-B .
-          \]</div>
-          <p>
-          这里的 \(C\) 仍满足本类的玻色对称或费米反对称条件，
-          \(B,C,D=C^\dagger\) 还必须满足上面已经逐项写出的
-          \(J_1^TAJ_1=\overline A\) 约束。
-          </p>
-          <p><strong>Invariant cone。</strong>
-          收缩部分可以且只能写成</p>
-          <div class="scroll">\[
-            A_{{\rm cone}}=
-            \begin{{pmatrix}}B&C\\-C^\dagger&-B^T\end{{pmatrix}},
-            \qquad B^\dagger=B,\qquad
-            \begin{{pmatrix}}B&C\\C^\dagger&B^T\end{{pmatrix}}\le0 .
-          \]</div>
-          <p>
-          最后一个半负定不等式才从线性 span 中选出真正的 cone。
-          只满足前面的线性等式，并不保证
-          \(\eta A+A^\dagger\eta\le0\)；严格小于零则进一步选出这个锥的内部。
-          </p>
-          <p><strong>一个使收缩矩阵负定的例子。</strong>
-          取</p>
-          <div class="scroll">\[
-            A_0=-\eta=
-            \begin{{pmatrix}}-{identity}&0\\0&{identity}\end{{pmatrix}},
-            \qquad
-            \eta A_0+A_0^\dagger\eta=-2I_{{{2 * block_dimension}}}<0 .
-          \]</div>
-        """
-
-    if row["statistics"] == "boson":
-        return rf"""
-          <p><strong>Maximal subgroup。</strong>
-          令 \(\eta_{{\rm in}}\) 取上一式已经写明的内部块。等号部分为</p>
-          <div class="scroll">\[
-            A_{{\rm subgroup}}=
-            \begin{{pmatrix}}
-            B&C\\-\eta_{{\rm in}}C^\dagger\eta_{{\rm in}}&-B^T
-            \end{{pmatrix}},
-          \]</div>
-          <div class="scroll">\[
-            \eta_{{\rm in}}B+B^\dagger\eta_{{\rm in}}=0,\qquad
-            \eta_{{\rm in}}B^T+\overline B\,\eta_{{\rm in}}=0 .
-          \]</div>
-          <p>
-          此外 \(C\) 与
-          \(D=-\eta_{{\rm in}}C^\dagger\eta_{{\rm in}}\)
-          都必须对称，并满足本类上方的 \(J_1\) 实性条件。
-          </p>
-          <p><strong>Invariant cone。</strong>
-          收缩部分为</p>
-          <div class="scroll">\[
-            A_{{\rm cone}}=
-            \begin{{pmatrix}}
-            B&C\\\eta_{{\rm in}}C^\dagger\eta_{{\rm in}}&-B^T
-            \end{{pmatrix}},
-          \]</div>
-          <div class="scroll">\[
-            \eta_{{\rm in}}B=B^\dagger\eta_{{\rm in}},\qquad
-            \eta_{{\rm in}}B^T=\overline B\,\eta_{{\rm in}},\qquad
-            \begin{{pmatrix}}
-            \eta_{{\rm in}}B&\eta_{{\rm in}}C\\
-            C^\dagger\eta_{{\rm in}}&-\eta_{{\rm in}}B^T
-            \end{{pmatrix}}\le0 .
-          \]</div>
-          <p><strong>一个使收缩矩阵负定的例子。</strong></p>
-          <div class="scroll">\[
-            A_0=-\eta=
-            -\begin{{pmatrix}}\eta_{{\rm in}}&0\\0&\eta_{{\rm in}}\end{{pmatrix}},
-            \qquad
-            \eta A_0+A_0^\dagger\eta=-2I_{{{2 * block_dimension}}}<0 .
-          \]</div>
-        """
-
+def explicit_strict_tensor_structures(row: dict[str, str]) -> str:
+    dimension = 2 ** int(row["n"])
+    maximal_number = term_rows(row["maximal_number_tensor_terms"])
+    cone_number = term_rows(row["invariant_cone_number_tensor_terms"])
     return rf"""
-      <p><strong>Maximal subgroup。</strong>
-      令 \(\eta_{{\rm in}}\) 取上一式已经写明的内部块。等号部分仍写成
-      \(A=\left(\begin{{smallmatrix}}B&C\\D&-B^T\end{{smallmatrix}}\right)\)，
-      其中</p>
-      <div class="scroll">\[
-        \eta_{{\rm in}}D+D^\dagger\eta_{{\rm in}}=0,\qquad
-        \eta_{{\rm in}}C+C^\dagger\eta_{{\rm in}}=0,\qquad
-        \eta_{{\rm in}}B=\overline B\,\eta_{{\rm in}} .
-      \]</div>
       <p>
-      \(C^T=-C,\ D^T=-D\) 与本类的 \(J_1\) 实性条件仍须同时成立。
+        为了不给读者留下任何还需自行补齐的 \(B,C,D\) 约束，把格点、轨道
+        或其他重复自由度统一放进一个任意的 \(m\) 维系数空间。这个实现中的
+        完整矩阵写成
+        \[
+          A=\sum_P P\otimes K_P ,
+        \]
+        其中 \(P\) 是下表逐行列出的 Pauli 因子；没有列出的 \(P\) 的系数
+        必须为零。不同表行的 \(K_P\) 相互独立。
       </p>
-      <p><strong>Invariant cone。</strong>
-      cone 的线性部分满足</p>
-      <div class="scroll">\[
-        \eta_{{\rm in}}D=D^\dagger\eta_{{\rm in}},\qquad
-        \eta_{{\rm in}}C=C^\dagger\eta_{{\rm in}},\qquad
-        \eta_{{\rm in}}B=-\overline B\,\eta_{{\rm in}},
-      \]</div>
-      <p>并进一步施加完整的半负定条件</p>
-      <div class="scroll">\[
-        \eta A=
-        \begin{{pmatrix}}
-        \eta_{{\rm in}}D&-\eta_{{\rm in}}B^T\\
-        \eta_{{\rm in}}B&\eta_{{\rm in}}C
-        \end{{pmatrix}}\le0 .
-      \]</div>
-      <p><strong>一个使收缩矩阵负定的例子。</strong></p>
-      <div class="scroll">\[
-        A_0=-\eta=
-        -\begin{{pmatrix}}0&\eta_{{\rm in}}\\
-        \eta_{{\rm in}}&0\end{{pmatrix}},
-        \qquad
-        \eta A_0+A_0^\dagger\eta=-2I_{{{2 * block_dimension}}}<0 .
-      \]</div>
+      <p><strong>Maximal subgroup 的全部生成元。</strong>
+        下表已经同时施加
+        \(gA+A^Tg=0\)、\(J_1^TAJ_1=\overline A\) 和
+        \(\eta A+A^\dagger\eta=0\)，没有省略的附加条件。
+      </p>
+      <div class="scroll"><table>
+        <thead><tr><th>Pauli 因子 \(P\)</th><th>系数矩阵 \(K_P\) 必须满足</th></tr></thead>
+        <tbody>{term_rows(row["maximal_tensor_terms"])}</tbody>
+      </table></div>
+      <p class="small">
+        实维数：
+        <code>{html.escape(row["maximal_tensor_dimension_formula"])}</code>。
+      </p>
+      <p><strong>Invariant cone 的全部生成元。</strong>
+        下表已经同时施加
+        \(gA+A^Tg=0\)、\(J_1^TAJ_1=\overline A\) 和
+        \(\eta A=A^\dagger\eta\)。先按表取任意实线性组合，再施加唯一剩余的
+        条件
+        \[
+          (\eta\otimes I_m)A\leq0 .
+        \]
+        这样选出的矩阵才是 invariant cone；表中没有隐含的 block 条件。
+      </p>
+      <div class="scroll"><table>
+        <thead><tr><th>Pauli 因子 \(P\)</th><th>系数矩阵 \(K_P\) 必须满足</th></tr></thead>
+        <tbody>{term_rows(row["invariant_cone_tensor_terms"])}</tbody>
+      </table></div>
+      <p class="small">
+        施加半负定条件以前的实维数：
+        <code>{html.escape(row["invariant_cone_tensor_dimension_formula"])}</code>。
+      </p>
+      <p>
+        这个类别确实允许严格收缩，因为对任意 \(m\) 都可在上表中取
+        \[
+          A=-(\eta\otimes I_m),\qquad
+          (\eta\otimes I_m)A+A^\dagger(\eta\otimes I_m)
+          =-2I_{{{dimension}m}}<0 .
+        \]
+        这仍只是检验该类别是否含负定方向的测试矩阵，不是把物理自由项
+        预先指定成 \(-\eta\)。
+      </p>
+      <details>
+        <summary>只保留 particle-number-conserving 生成元</summary>
+        <p><strong>Maximal subgroup：</strong></p>
+        <div class="scroll"><table>
+          <thead><tr><th>Pauli 因子</th><th>允许的系数矩阵</th></tr></thead>
+          <tbody>{maximal_number}</tbody>
+        </table></div>
+        <p><strong>Invariant cone 的线性空间：</strong></p>
+        <div class="scroll"><table>
+          <thead><tr><th>Pauli 因子</th><th>允许的系数矩阵</th></tr></thead>
+          <tbody>{cone_number}</tbody>
+        </table></div>
+      </details>
     """
 
 
@@ -3156,11 +3043,6 @@ def case_sheet(
     block_dimension = full_dimension // 2
     statistic = row["statistics"]
     statistic_name = "玻色" if statistic == "boson" else "费米"
-    transpose_condition = (
-        r"C=C^T,\qquad D=D^T"
-        if statistic == "boson"
-        else r"C=-C^T,\qquad D=-D^T"
-    )
     relative_relation = (
         r"[J_1,J_2]=0" if int(row["r"]) == 1 else r"\{J_1,J_2\}=0"
     )
@@ -3168,12 +3050,13 @@ def case_sheet(
 
     if statistic == "boson" and row["metric"] == "J2g":
         interpretation = (
-            r"这里的 \(A_0\) 是 Hermitian、粒子数守恒的稳定 number damping；"
-            r"以它作为零辅助场时，grand-canonical 玻色迹有限且为正。"
+            r"在这个具体矩阵实现中，测试矩阵 \(A=-\eta\) 恰好也是 "
+            r"Hermitian、粒子数守恒的稳定 number damping。后面的物理模型"
+            r"会明确说明何时把它乘以正尺度后用作实际零辅助场生成元。"
         )
     elif statistic == "boson":
         interpretation = (
-            r"这里的 \(A_0=-\eta\) 是 Hermitian、粒子数守恒的代数例子，"
+            r"这里的测试矩阵 \(A=-\eta\) 是 Hermitian、粒子数守恒的代数例子，"
             r"但其单粒子谱同时含正、负本征值。它证明存在同时满足三条矩阵条件 "
             r"\(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和 "
             r"\(\eta A+A^\dagger\eta<0\) 的 \(A\)，不能作为 "
@@ -3184,12 +3067,12 @@ def case_sheet(
     elif row["metric"] == "J2g":
         interpretation = (
             r"费米 Fock space 有限，因此没有玻色高占据态导致的 trace 发散；"
-            r"这个 \(A_0\) 同时是粒子数守恒的负定例子。"
+            r"这个测试矩阵 \(A=-\eta\) 同时是粒子数守恒的负定例子。"
         )
     else:
         interpretation = (
-            r"费米 Fock space 有限；这个 \(A_0\) 含 pairing，并满足 "
-            r"\(\eta A_0+A_0^\dagger\eta<0\)。按直接控制 \(e^A\) 的不等式，"
+            r"费米 Fock space 有限；这个测试矩阵 \(A=-\eta\) 含 pairing，并满足 "
+            r"\(\eta A+A^\dagger\eta<0\)。按直接控制 \(e^A\) 的不等式，"
             r"本类的 semigroup positivity 已经成立；仍待判断的只是它与 "
             r"已知 Majorana classes 的 basis "
             r"equivalence 和文献新颖性。"
@@ -3237,9 +3120,9 @@ def case_sheet(
             若 \(M^\dagger\eta M-\eta<0\)，则 \(-1\) 不是 \(M\)
             的本征值，所以 spin trace 不为零；\(J_1\) 使它为实，
             连续性和一个已知正的参考传播矩阵固定其正号。对只满足
-            \(M^\dagger\eta M-\eta\le0\) 的传播矩阵，先乘
-            \(e^{\epsilon A_0}\)，其中
-            \(\eta A_0+A_0^\dagger\eta<0\)，再令
+            \(M^\dagger\eta M-\eta\le0\) 的传播矩阵，先乘测试因子
+            \(e^{-\epsilon\eta}\)，其中
+            \(\eta(-\eta)+(-\eta)^\dagger\eta=-2I<0\)，再令
             \(\epsilon\to0^+\)，其权重是正权重的非负极限。按这里直接控制
             \(e^A\) 的不等式，本类得到完整 sign-free
             contraction semigroup；是否相对已知 Majorana classes
@@ -3293,7 +3176,7 @@ def case_sheet(
 
     return rf"""
       <article class="case-sheet" id="strict-case-{case_number}">
-        <h4>6.6.{case_number} {statistic_name}第 {case_number if case_number <= 8 else case_number - 8} 类：{case_label}</h4>
+        <h4>6.7.{case_number} {statistic_name}第 {case_number if case_number <= 8 else case_number - 8} 类：{case_label}</h4>
         {fermion_scope}
         <p><strong>五条关系与一个具体矩阵实现。</strong>
         张量积第一个因子作用在 Nambu particle/hole 空间，其余因子作用在
@@ -3313,18 +3196,7 @@ def case_sheet(
         <div class="scroll">\[
           {metric_formula}
         \]</div>
-        <p><strong>一般合法的 \(A\)。</strong>
-        本实现中的 \(B,C,D\) 都是
-        \( {block_dimension}\times {block_dimension}\) 矩阵，先满足</p>
-        <div class="scroll">\[
-          A=\begin{{pmatrix}}B&C\\D&-B^T\end{{pmatrix}},
-          \qquad {transpose_condition}.
-        \]</div>
-        <p><strong>\(J_1\) 施加的实性条件。</strong>
-        把上面显示的 \(J_1\) 直接代入
-        \(J_1^TAJ_1=\overline A\)，逐块得到</p>
-        {reality_equations(row)}
-        {subgroup_and_cone(row, block_dimension)}
+        {explicit_strict_tensor_structures(row)}
         <p>{interpretation}</p>
         {render_physical_model(row["class_name"])}
         {final_verdict}
@@ -3438,7 +3310,10 @@ def main() -> None:
     validate_coverage(note_lines)
     walkthrough = build_walkthrough(note_lines)
     table = build_full_table()
+    all_class_lecture = build_all_class_lecture()
     strict_case_lecture = build_strict_case_lecture()
+    canonical_algorithm = CANONICAL_FRAGMENT_PATH.read_text(encoding="utf-8")
+    high_value_models = HIGH_VALUE_MODELS_PATH.read_text(encoding="utf-8")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     if template.count("{{NOTE_WALKTHROUGH}}") != 1:
         raise RuntimeError("Template must contain exactly one note walkthrough marker")
@@ -3446,14 +3321,24 @@ def main() -> None:
         raise RuntimeError("Template must contain exactly one enumeration marker")
     if template.count("{{STRICT_GENERATOR_CASES}}") != 1:
         raise RuntimeError("Template must contain exactly one strict-generator marker")
+    if template.count("{{ALL_CLASS_STRUCTURES}}") != 1:
+        raise RuntimeError("Template must contain exactly one all-class marker")
+    if template.count("{{CANONICAL_ALGORITHM}}") != 1:
+        raise RuntimeError("Template must contain exactly one canonical marker")
+    if template.count("{{HIGH_VALUE_MODELS}}") != 1:
+        raise RuntimeError("Template must contain exactly one high-value-model marker")
     output = template.replace("{{NOTE_WALKTHROUGH}}", walkthrough)
     output = output.replace("{{FULL_ENUMERATION_ROWS}}", table)
+    output = output.replace("{{ALL_CLASS_STRUCTURES}}", all_class_lecture)
     output = output.replace("{{STRICT_GENERATOR_CASES}}", strict_case_lecture)
+    output = output.replace("{{HIGH_VALUE_MODELS}}", high_value_models)
+    output = output.replace("{{CANONICAL_ALGORITHM}}", canonical_algorithm)
     output = "\n".join(line.rstrip() for line in output.splitlines()) + "\n"
     OUTPUT_PATH.write_text(output, encoding="utf-8")
     print(
         f"Wrote {OUTPUT_PATH.name}: {len(SEGMENTS)} note segments, "
         "continuous source coverage lines 22-1824, 64 enumeration rows, "
+        "64 explicit canonical tensor-family sheets, "
         "16 fully expanded negative-definite-generator case sheets."
     )
 

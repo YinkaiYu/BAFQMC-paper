@@ -1,0 +1,4 @@
+Octave version: 10.3.0
+Verified canonical recurrence, one-body estimator, and exact rank-one update convolution in 12 trials.
+Worst relative errors: weight 5.323e-16, one-body 6.673e-16, update 5.974e-15.
+Wrote /mnt/c/users/newton/documents/ligroupiop/2408_bosonsignproblem/paper_bafqmc/docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/../tables/canonical_boson_afqmc_checks.csv

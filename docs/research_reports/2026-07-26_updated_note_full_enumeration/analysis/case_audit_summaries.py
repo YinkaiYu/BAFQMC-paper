@@ -549,11 +549,13 @@ CASE_AUDITS: dict[str, str] = {
         四类则证明了两件不同的事：取 \(\eta=iJ_2g\) 后，确实存在同时满足
         \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和
         \(\eta A+A^\dagger\eta<0\) 的 \(A\)；但一般 BdG
-        principal-block calculation 同时证明，这个收缩方向与稳定的
-        grand-canonical Hermitian boson Hamiltonian 不相容，pairing
-        不能消除该阻碍。报告因此没有把它们误报成新的普通
-        grand-canonical classes，而是在 fixed-\(N\) sector 中直接证明
-        四个 canonical models 的 character 逐构型严格为正。
+        principal-block calculation 同时证明，这个
+        \(\eta=iJ_2g\) 收缩方向与稳定的 grand-canonical Hermitian
+        boson Hamiltonian 不相容，pairing 不能消除该阻碍。因此依赖该
+        invariant cone 的四个模型改在 fixed-\(N\) sector 中直接证明
+        character 逐构型严格为正。这个 no-go 不排除同一五符号类别的
+        maximal-subgroup 子空间再满足额外 Kramers/RP 条件；报告已为
+        四类都另行构造这种 grand-canonical、bare-trace 收敛的子类。
       </div>
     """,
 }

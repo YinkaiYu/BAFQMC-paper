@@ -73,10 +73,11 @@ def build_index(source: BeautifulSoup) -> None:
             </div>
             <div class="summary-item established">
               <strong><a href="part_3_enumeration_models.html">第 3 卷：分类、生成元与模型讲义</a></strong>
-              从解析判据与 Octave 算法依次讲到 64 类穷举，并对 16 个
-              存在负定生成元的矩阵类别
-              逐项展开 \(A\) 的分块条件、maximal subgroup、invariant cone、
-              HS 场约束和物理 Hamiltonian。
+              从解析判据与 Octave 算法依次讲到 64 类穷举，逐类展开
+              \(A\) 的最终约束、maximal subgroup 与 invariant cone。
+              每张类别卡片都就地给出至少一个厄米相互作用模型；其中
+              20 类由原有 semigroup/Majorana 条件保证正性，其余类别
+              明确写出附加 Kramers/RP 条件后的非空无符号子空间。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>

@@ -1,0 +1,4 @@
+realization,matrix_dimension,tr_J1,tr_J2,tr_J1J2,maximal_subgroup_dimension,cone_linear_dimension,relation_residual
+balanced_Pauli_family,8,0,0,0,12,16,0
+uneven_but_same_dimensions,8,4,0,0,12,16,0
+uneven_different_dimensions,8,6,4,6,21,7,0

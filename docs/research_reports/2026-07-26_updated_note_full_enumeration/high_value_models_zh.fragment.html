@@ -1,0 +1,518 @@
+<h4>6.9.5 先把“可直接计算”“可检验的新模型”和“尚未解决”分开</h4>
+<p>
+  一个 Hamiltonian 值得研究，不等于它已经被五条矩阵关系解决。要成为本报告
+  可以交给 AFQMC 实现的模型，至少要逐项完成：
+</p>
+<ol>
+  <li>原 Hamiltonian 厄米，并在所用 ensemble 中从下方稳定；</li>
+  <li>每个相互作用都有正的 Gaussian 或离散 HS 测度；</li>
+  <li>每个 HS 场值产生的二次生成元都满足同一组 \(J_1,J_2,\eta\) 条件；</li>
+  <li>玻色 grand-canonical 情况还要证明每个 fixed-field bare trace 收敛；</li>
+  <li>若使用固定粒子数或 parton 表示，还要证明投影权重可在多项式时间计算。</li>
+</ol>
+<p>
+  下面把满足全部五步的模型标为“可直接实现”；只完成前三步、但相结构尚未
+  确认的标为“新的可检验模型”；含有硬核或逐格点约束、当前仍缺高效投影的
+  标为“尚未解决”。非厄米例子不作为重点物理方向：既然同类有厄米实现，
+  就优先使用厄米实现。
+</p>
+
+<h4>6.9.6 可直接实现的玻色模型一：相反磁通的 Kramers 双组分玻色子</h4>
+<p>
+  令 \(b_i,c_i\) 是两种玻色内部态。取任意厄米单粒子矩阵
+  \(K_\Phi\)，其中可以包含三角格子阻挫、Hofstadter 磁通、Haldane
+  次近邻 hopping、spin-orbit mixing 或无序；第二个组分取复共轭矩阵
+  \(K_\Phi^*\)。考虑
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  H_{\rm Kramers}={}&
+  \boldsymbol b^+K_\Phi\boldsymbol b
+  +\boldsymbol c^+K_\Phi^*\boldsymbol c
+  -\mu\sum_i(n_{b,i}+n_{c,i})\\
+  &+\frac{U_s}{2}\sum_i(n_{b,i}-n_{c,i})^2,
+  \qquad U_s>0 .
+  \end{aligned}
+\]</div>
+<p>
+  这是厄米 Hamiltonian。若
+  \(\epsilon=K_\Phi-\mu I\) 的最小本征值
+  \(\epsilon_{\min}>0\)，自由部分和非负的相互作用都从下方稳定。
+  相互作用逐格点使用
+</p>
+<div class="scroll">\[
+  e^{-\Delta\tau U_s(n_b-n_c)^2/2}
+  =
+  \int\frac{d\phi}{\sqrt{2\pi}}e^{-\phi^2/2}
+  e^{\,i\sqrt{\Delta\tau U_s}\phi(n_b-n_c)} .
+\]</div>
+<p>
+  右边的 Gaussian 测度严格为正。对固定 \(\phi\)，\(b\) 得到
+  \(+i\phi\) 势，\(c\) 得到 \(-i\phi\) 势；二者正好互为复共轭。
+  在
+  \(\chi=(\boldsymbol b,\boldsymbol c,
+  \boldsymbol b^+,\boldsymbol c^+)^T\) 中可取
+</p>
+<div class="scroll">\[
+  J_1=I_{\rm Nambu}\otimes(i\sigma_y)_{\rm flavor},\qquad
+  J_2=\sigma_x^{\rm Nambu}\otimes I_{\rm flavor},\qquad
+  \eta=J_2g=\sigma_z^{\rm Nambu}\otimes I_{\rm flavor}.
+\]</div>
+<p>
+  对应玻色 \(J_2g\)、\(J_1^2=-I\) 的严格收缩类。自由和 HS 生成元分别为
+</p>
+<div class="scroll">\[
+  A_0=
+  \begin{pmatrix}
+  -\Delta\tau\,\epsilon_{\rm K}&0\\
+  0&+\Delta\tau\,\epsilon_{\rm K}^T
+  \end{pmatrix},
+  \qquad
+  A_{\rm HS}(\phi)=
+  \begin{pmatrix}
+  iV(\phi)&0\\0&-iV(\phi)^T
+  \end{pmatrix},
+\]</div>
+<p>
+  其中
+  \(\epsilon_{\rm K}=\operatorname{diag}(\epsilon,\epsilon^*)\)，
+  \(V(\phi)=\sqrt{\Delta\tau U_s}
+  \operatorname{diag}(\phi_1,\ldots,\phi_L,
+  -\phi_1,\ldots,-\phi_L)\) 是实对角矩阵。直接相乘得到
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  \eta A_0+A_0^\dagger\eta
+  &=-2\Delta\tau
+  \begin{pmatrix}\epsilon_{\rm K}&0\\0&\epsilon_{\rm K}^T\end{pmatrix}<0,\\
+  \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta&=0 .
+  \end{aligned}
+\]</div>
+<p>
+  对称 Trotter 的 field factor \(e^{iV(\phi)}\) 是 unitary，
+  固定 factor 的算符范数不超过 \(e^{-\Delta\tau\epsilon_{\min}}\)。
+  因而一个完整时空乘积满足
+</p>
+<div class="scroll">\[
+  \|\mathcal B(\phi)\|
+  \le e^{-\beta\epsilon_{\min}}<1 .
+\]</div>
+<p>
+  所有 fixed-field bare traces 都收敛，也不可能碰到
+  \(\det(I-\mathcal B)=0\)。反线性变换
+  \(\Theta=(i\sigma_y)_{\rm flavor}K\) 满足 \(\Theta^2=-I\)，
+  所以 \(\mathcal B\) 的非实本征值成共轭对，实本征值有偶数重数：
+</p>
+<div class="scroll">\[
+  \det(I-\mathcal B)
+  =\prod_{\lambda\notin\mathbb R}|1-\lambda|^2
+   \prod_{\lambda\in\mathbb R}(1-\lambda)^{2m_\lambda}>0 .
+\]</div>
+<p class="result">
+  <strong>结论：可直接实现，逐构型 sign-free 且 pole-free。</strong>
+  值得研究的方向包括相反 Chern 数的 bosonic bands、helical/counterflow
+  condensate、强相互作用下的 flavor-density order，以及阻挫格子上的
+  热手性与 BKT 转变。它不是单拷贝的 bosonic fractional quantum Hall
+  模型：两个组分的磁通相反，总手性为零；是否形成 bosonic fractional
+  topological insulator 还需要更强且仍满足 HS 条件的相互作用，不能由上式
+  预先断言。
+</p>
+
+<h4>6.9.7 可直接实现的玻色模型二：阻挫格子上的环流平方相互作用</h4>
+<p>
+  对每个有向 plaquette \(p\) 定义厄米环流
+</p>
+<div class="scroll">\[
+  \hat J_p=-i\sum_{(ij)\in\partial p}
+  \nu_{ij}^{(p)}(a_i^+a_j-a_j^+a_i),
+  \qquad \nu_{ij}^{(p)}=\pm1 .
+\]</div>
+<p>
+  取实对称的阻挫 hopping 矩阵 \(K_{\rm fr}\)，例如三角格子正 hopping，
+  并考虑
+</p>
+<div class="scroll">\[
+  H_{\rm current}
+  =\boldsymbol a^+(K_{\rm fr}-\mu I)\boldsymbol a
+  +\frac{U_J}{2}\sum_p\hat J_p^2,
+  \qquad U_J>0 .
+\]</div>
+<p>
+  若 \(K_{\rm fr}-\mu I>0\)，整个 Hamiltonian 厄米且从下方稳定。
+  每个正的 \(\hat J_p^2\) 用
+</p>
+<div class="scroll">\[
+  e^{-\Delta\tau U_J\hat J_p^2/2}
+  =\int\frac{d\phi_p}{\sqrt{2\pi}}e^{-\phi_p^2/2}
+   e^{\,i\sqrt{\Delta\tau U_J}\phi_p\hat J_p}
+\]</div>
+<p>
+  分解。单粒子 \(\hat J_p\) 矩阵是纯虚反对称的 Hermitian 矩阵；
+  乘 \(i\) 后成为实反对称矩阵。因此
+</p>
+<div class="scroll">\[
+  A_0=-\Delta\tau\,\sigma_z^{\rm Nambu}
+  \otimes(K_{\rm fr}-\mu I),\qquad
+  A_{\rm HS}=
+  I_{\rm Nambu}\otimes
+  \sum_p i\sqrt{\Delta\tau U_J}\phi_p J_p
+\]</div>
+<p>
+  分别属于玻色 \(J_2g\)、\(J_1^2=+I\) 类的负定方向和 maximal
+  subgroup。取 \(J_1=\sigma_z^{\rm Nambu}\)、
+  \(J_2=\sigma_x^{\rm Nambu}\)、\(\eta=\sigma_z^{\rm Nambu}\)，
+  逐项有
+</p>
+<div class="scroll">\[
+  \eta A_0+A_0^\dagger\eta
+  =-2\Delta\tau I_{\rm Nambu}\otimes(K_{\rm fr}-\mu I)<0,
+  \qquad
+  \eta A_{\rm HS}+A_{\rm HS}^\dagger\eta=0 .
+\]</div>
+<p>
+  field factors 是普通 orthogonal matrices，固定 factor 提供统一
+  damping；所以与上一模型一样逐构型 trace 收敛、无 pole，且
+  \(\det(I-\mathcal B)>0\)。
+</p>
+<p class="result">
+  <strong>结论：可直接实现的新厄米模型。</strong>
+  它把 `main.tex` 引言中的 chiral Mott/loop-current 问题改写成一个
+  与当前半群完全相容的相互作用。正的 \(J_p^2\) 本身惩罚过大的环流，
+  但阻挫 hopping 已产生 \(\pm K\) 简并和手性倾向；二者竞争是否出现
+  手性绝缘体、分裂的 Ising 与 BKT 转变、或新的 current-disordered
+  phase，是需要 QMC 决定的问题，报告不预先把候选相写成既成事实。
+</p>
+
+<h4>6.9.8 可直接实现的玻色模型三：反射配对的阻挫 parametric lattice</h4>
+<p>
+  取两组 reflection partners，并令
+  \(\epsilon=\epsilon^\dagger>0\) 含任意格子阻挫。设
+  \(\Delta=\Delta^\dagger\geq0\) 是跨 reflection sectors 的 pairing
+  matrix。模型
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  H_{\rm pair}={}&
+  \boldsymbol b^+\epsilon\boldsymbol b+
+  \boldsymbol c^+\overline\epsilon\boldsymbol c
+  -\sum_{ij}\left(
+  \Delta_{ij}b_i^+c_j^+
+  +
+  \overline{\Delta}_{ij}c_jb_i\right)\\
+  &+\frac{U_s}{2}\sum_i(n_{b,i}-n_{c,i})^2
+  \end{aligned}
+\]</div>
+<p>
+  是厄米的。一个便于检查的充分稳定条件是
+  \(\lambda_{\min}(\epsilon)>\|\Delta\|_2\)；此时相应 bosonic BdG
+  energy matrix positive definite。相对密度平方仍按第 6.9.6 节用
+  imaginary HS field 分解。定义反射
+  \(\theta(b_i)=c_i\)、\(\theta(i)=-i\)，pairing 部分为
+</p>
+<div class="scroll">\[
+  \sum_{ij}\Delta_{ij}
+  \left[b_i^+\theta(b_j^+)+b_i\theta(b_j)\right],
+  \qquad \Delta\geq0 .
+\]</div>
+<p>
+  因而每个 quadratic factor 是 reflected squares 的正和，Fock-space
+  operator multiplication 保持 reflection positivity。与此同时，
+  充分稳定条件给出 grand-canonical trace-class；这里
+  “trace-class”具体表示该 fixed-field Fock operator 的奇异值之和有限，
+  从而普通 Fock trace 绝对收敛，不是只对 determinant 做代数延拓。
+</p>
+<p class="result">
+  <strong>结论：可直接实现，含 pairing，厄米且稳定。</strong>
+  这个模型适合 parametric optical lattices、bosonic BdG topology、
+  squeezed thermal phases 及阻挫 pair correlations。因为 Hamiltonian
+  显式含 pair source，它检验的是被驱动或 proximity-induced pairing，
+  不能直接替代保持 \(U(1)\) 后自发形成的 pair superfluid。
+</p>
+
+<h4>6.9.9 固定总粒子数的 \(iJ_2g\) 模型有什么实际价值</h4>
+<p>
+  第 6.7 节四个 \(iJ_2g\) 玻色模型都是厄米的 collective-spin
+  Hamiltonians，例如
+</p>
+<div class="scroll">\[
+  H=-2\Omega S_y-2U S_x^2,\qquad
+  H=-2\Omega S_y-2U S_z^2 .
+\]</div>
+<p>
+  它们在固定 \(N\) 时从下方有界，且第 6.10 节给出不枚举
+  \(N+1\) 维以外更大 Fock space 的 canonical AFQMC。可研究大
+  pseudo-spin 极限的 squeezing、cat-state crossover、macroscopic
+  tunnelling 和有限温 quantum metrology。它们不是非厄米模型，也不是
+  只满足形式矩阵关系的例子：报告已经在固定总粒子数子空间中逐构型证明
+  权重为正。限制是不能把同一 \(iJ_2g\) 收缩条件推广成
+  稳定的 grand-canonical 玻色零场。局域格子版还需要重新证明每个
+  fixed-\(N\) trace 为正，不能从双模证明直接外推。
+</p>
+
+<h4>6.9.10 `main.tex` 引言中的模型逐项核对</h4>
+<div class="scroll">
+<table>
+  <thead>
+    <tr><th>引言中的物理问题</th><th>当前框架的准确结论</th><th>最近的可计算目标</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>三角格子 hard-core boson supersolid</td>
+      <td>
+        原模型的 \(n_i=0,1\) 是逐格点硬约束；普通 bosonic Gaussian
+        trace 仍会对 \(n_i=2,3,\ldots\) 求和，所以不能把
+        \(U\to\infty\) 口头当作已经实现的 exact BAFQMC。
+      </td>
+      <td>
+        先模拟第 6.9.6、6.9.7 节的 soft-core Kramers/current
+        models，研究阻挫凝聚、density/flavor order 与 chirality；
+        它们是相关但不等同于 hard-core supersolid 的新模型。
+      </td>
+    </tr>
+    <tr>
+      <td>三角格子 chiral Mott 和 frustrated extended Bose-Hubbard DQCP</td>
+      <td>
+        原模型含正的 onsite \(U(\delta n)^2\) 和正的 nearest-neighbor
+        \(V\delta n_i\delta n_j\)。单组分 repulsive-density HS
+        产生 imaginary common potential，不满足本报告现有 Kramers
+        pair；一般邻接相互作用矩阵又同时有正、负本征方向。
+        因此原 Hamiltonian 尚未被当前类别直接解决。
+      </td>
+      <td>
+        第 6.9.7 的 current-square model 直接瞄准 chirality；
+        还可把第 6.9.6 推广为
+        \[
+        H_{\rm int}=\frac12\sum_{ij}V_{ij}
+        (n_{b,i}-n_{c,i})(n_{b,j}-n_{c,j}),\quad V\succeq0,
+        \]
+        以正半定、在 ordering wavevector 附近增强的 \(V\) 竞争
+        frustrated condensate 与 flavor-density wave。该模型逐构型
+        sign-free/pole-free，但是否出现 DQCP 要由模拟判断。
+      </td>
+    </tr>
+    <tr>
+      <td>pair/multiparticle superfluid</td>
+      <td>
+        第 6.9.8 的显式 pairing 模型已经可算；单组分 hard-core
+        correlated pair hopping 与自发 \(U(1)\to Z_2\) 的原模型通常不
+        直接落入同一 Gaussian HS 结构。
+      </td>
+      <td>
+        先研究稳定的 reflection-positive parametric lattice，再寻找保持
+        总粒子数、其 quartic pair channel 仍能产生 positive reflected
+        HS coefficients 的厄米扩展。
+      </td>
+    </tr>
+    <tr>
+      <td>bosonic fractional quantum Hall / chiral topological matter</td>
+      <td>
+        单拷贝净 Chern 数模型不具有 Kramers partner；本报告不能绕过
+        已知的 intrinsic-sign obstruction。第 6.9.6 的相反磁通模型是
+        time-reversal-paired system，不是单拷贝 FQH。
+      </td>
+      <td>
+        相反 Chern 数的两组分 bosons 可用于搜索 helical bosonic
+        topological phases；若要声称 fractional topological insulator，
+        还须找到足够强且仍满足 HS 正性的相互作用并实际测量拓扑响应。
+      </td>
+    </tr>
+    <tr>
+      <td>三角/kagome \(J_1\)-\(J_2\) spin liquid</td>
+      <td>
+        Schwinger boson 或 Abrikosov fermion 都引入逐格点单占据约束；
+        第 6.10 节的单变量固定总数递推不能高效执行全部局域投影。
+      </td>
+      <td>
+        需要找到无冗余的局域表示、使多变量投影因子化的特殊传播结构，
+        或直接在物理 spin Hilbert space 构造 reflected-positive
+        factors；当前尚未完成。
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h4>6.9.11 两篇 \(J\)-\(Q\)/DQCP 论文为何是高价值目标，但目前不能写成已解决</h4>
+<p>
+  <a href="https://arxiv.org/abs/2405.06607">Takahashi 等人的
+  \(SO(5)\) multicriticality 工作</a>使用
+</p>
+<div class="scroll">\[
+  H_{JQ}=-J\sum_{\langle ij\rangle}P_{ij}
+  -\sum_{n}Q_n\sum_{\mathcal C_n}
+  P_{i_1j_1}P_{i_2j_2}\cdots P_{i_nj_n},
+  \qquad
+  P_{ij}=\frac14-\boldsymbol S_i\cdot\boldsymbol S_j .
+\]</div>
+<p>
+  \(Q_n\) 是相邻平行键上 \(n\) 个 singlet projectors 的乘积。
+  论文沿 \(J\)-\(Q_2\)-\(Q_6\) 的一阶线外推，得到 multicritical
+  点约位于 \(Q_{6c}=-0.07(2)\)；负的 \(Q_6\) 不能用该工作现有的
+  sign-free projector/SSE QMC 直接模拟。2026 年的
+  <a href="https://arxiv.org/abs/2606.09985">bootstrap cone 工作</a>
+  正是把“负系数附加相互作用导致 sign problem，因而不能直接抵达
+  multicritical fixed point”列为关键数值缺口。
+</p>
+<p>
+  这个模型不能由“把 spin 写成 boson”一步解决。以 Schwinger boson 为例，
+  一个 singlet projector 已是满足局域单占据约束的 quartic operator；
+  \(Q_6\) 是六个 projector 的乘积。单个 Gaussian HS 恒等式只把
+  bilinear 的平方降为 bilinear，不能无条件把这个十二自旋相互作用一次
+  变成允许的二次 \(A\)。即使通过多级离散辅助变量完成代数分解，仍须同时
+  解决每个格点的 \(n_{i\uparrow}+n_{i\downarrow}=1\) 投影和全部场值的
+  \(J_1,J_2\) 关系。
+</p>
+<p class="warning">
+  <strong>当前结论：高价值、尚未解决。</strong>
+  本报告的 64 类给出检查每个候选二次切片的工具，却还没有给出负
+  \(Q_6\) 的正测度 HS 分解和多项式局域投影算法。能完成这两步将直接
+  打开 multicritical DQCP，足以构成独立工作；在完成以前不应在报告或
+  给合作者的回复中写成已经无符号。
+</p>
+
+<h4>6.9.12 费米结果：四个 maximal-only 遗漏类与八个收缩类</h4>
+<p>
+  把 Nambu 的 \(J_1,J_2\) 变到实 Majorana 基底后，费米 32 类中：
+</p>
+<ul>
+  <li>8 类既有负定方向，又属于可证明正的 Majorana 或 Kramers semigroup；</li>
+  <li>另有 4 类的半负定条件只能取等号，但 maximal subgroup 的两条反线性对称属于 \(\{T^+,T^-\}\)，所以等号传播仍逐构型非负；</li>
+  <li>其余 20 类仅凭五条关系没有一般正性保证，规范代表中可显式找到负权重；但把 \(A\) 进一步限制为满足额外 physical Kramers symmetry 后，每一类都存在非空的无符号子空间，第 6.6 节已逐类给出代表与模型。</li>
+</ul>
+<p>
+  这 12 类并不是 12 种新的费米正性原理。
+  <a href="https://arxiv.org/abs/1601.05780">Li、Jiang、Yao</a>
+  已证明，在只假设反对易 Majorana-time-reversal symmetries 时，基本的
+  sign-free 类只有 Majorana \(\{T^+,T^-\}\) 与 Kramers
+  \(\{T^-,T^-\}\) 两种。本报告的新增内容是把合作者五条 Nambu 关系
+  完整 transport 到这张分类表，发现原报告遗漏了四个
+  maximal-subgroup-only 标签，并写出每类全部 \(A\) 空间。
+</p>
+
+<h4>6.9.13 可直接实现的费米模型：强关联 Kramers 拓扑超导体</h4>
+<p>
+  取每格点一对 Kramers fermions
+  \(\psi_i=(c_i,d_i)^T\)。令 \(h_{\rm TI}=h_{\rm TI}^\dagger\)
+  是任意满足
+</p>
+<div class="scroll">\[
+  (i\sigma_y)^T h_{\rm TI}(i\sigma_y)=\overline{h_{\rm TI}}
+\]</div>
+<p>
+  的 quantum-spin-Hall、moiré Kramers flat-band 或有无序的拓扑能带。
+  取一个在半群规范基底中 positive semidefinite 的 pairing matrix
+  \(\Delta\geq0\)，并考虑厄米模型
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  H_{\rm DIII}={}&
+  \boldsymbol\psi^+h_{\rm TI}\boldsymbol\psi
+  -\left[
+  \boldsymbol c^+\Delta\boldsymbol d^+
+  +\boldsymbol d\,\Delta\boldsymbol c\right]\\
+  &+\frac{U_s}{2}\sum_i(n_{c,i}-n_{d,i})^2 ,
+  \qquad U_s>0 .
+  \end{aligned}
+\]</div>
+<p>
+  最后一项用 imaginary spin-polarization field 分解：
+</p>
+<div class="scroll">\[
+  e^{-\Delta\tau U_s(n_c-n_d)^2/2}
+  =\int\frac{d\phi}{\sqrt{2\pi}}e^{-\phi^2/2}
+  e^{\,i\sqrt{\Delta\tau U_s}\phi(n_c-n_d)} .
+\]</div>
+<p>
+  复共轭把 \(i\) 变号，Kramers 变换同时把
+  \(n_c-n_d\) 变号，所以每个场值保持反线性约束。
+  number-conserving \(h_{\rm TI}\) 和 HS density terms 位于 maximal
+  subgroup；positive pairing matrix 位于 invariant cone。费米 Fock
+  space 本来就是有限维，不要求玻色式的 chemical damping。
+</p>
+<p class="result">
+  <strong>结论：厄米、可直接实现，但正性机制已有文献来源。</strong>
+  可研究相互作用驱动的 DIII 拓扑转变、helical Majorana boundary、
+  磁性与 pairing 的竞争、无序临界性和多轨道 Andreev physics。
+  <a href="https://arxiv.org/abs/1601.05780">Majorana-time-reversal
+  工作</a>已经用 sign-free QMC 研究过一类 interacting helical
+  topological superconductor；因此新颖性必须来自新的 band geometry、
+  interaction channel 或临界问题，不能只来自本报告重新编号的类别。
+</p>
+
+<h4>6.9.14 可直接实现的费米模型：Majorana reflection 的无粒子-空穴对称拓扑绝缘体</h4>
+<p>
+  <a href="https://arxiv.org/abs/1601.01994">Majorana positivity
+  定理</a>允许 bilinear kernel 写成两组反射 sector 的共轭 blocks，
+  并允许 positive cross-reflection coupling。一个厄米 lattice
+  realization 可取
+</p>
+<div class="scroll">\[
+  H_{\rm MR}=
+  \sum_{ij}\left(
+  c_i^+M_{ij}c_j+d_i^+\overline M_{ij}d_j\right)
+  +H_{\rm spin\!-\!flip}
+  +U\sum_i(n_{c,i}-\tfrac12)(n_{d,i}-\tfrac12),
+\]</div>
+<p>
+  其中 \(M\) 可含 spin-orbit、staggered potential 与使普通
+  particle-hole symmetry 失效的项；\(H_{\rm spin\!-\!flip}\) 选择为
+  Majorana-reflection-positive cross block。对 repulsive \(U\)，文献使用
+  离散 imaginary charge HS：
+</p>
+<div class="scroll">\[
+  e^{-\Delta\tau U(n_c-\frac12)(n_d-\frac12)}
+  =\frac12e^{\Delta\tau U/4}
+  \sum_{\zeta=\pm1}
+  e^{\,i\lambda\zeta(n_c+n_d-1)},
+  \qquad
+  \cos\lambda=e^{-\Delta\tau U/2}.
+\]</div>
+<p>
+  经过对一个组分的 particle-hole transformation，每个 exponent
+  变成 Majorana-reflection-positive kernel。该类已经被证明可处理
+  “repulsive interaction、无 particle-hole symmetry、含 spin-flip
+  的 interacting topological insulator”。本报告的 64 类表可进一步列出
+  所有可加入的 hopping/pairing blocks，适合系统搜索此前未模拟的
+  multi-orbital 或 crystalline-topological extensions。
+</p>
+
+<h4>6.9.15 哪些费米难题没有因此自动解决</h4>
+<p>
+  一般掺杂的 repulsive single-band Hubbard model 每个 HS slice
+  不具有上述两种反对易 Majorana-time-reversal pair；本次 64 类中也没有
+  出现第三种一般正性机制。因此不能宣称已经解决 cuprate 型 doped
+  Hubbard sign problem。类似地，真实长程 Coulomb matrix 若在 HS 后同时
+  产生不受允许反线性变换配对的正、负通道，也要逐通道重新检查。
+  本次枚举最有把握的费米研究路线，是在已证明的 Majorana/Kramers
+  类中利用更完整的 pairing 与 multi-orbital \(A\) 空间设计新的厄米
+  Hamiltonian，而不是把一个已知 sign-problematic 模型硬贴到某个五位标签。
+</p>
+
+<h4>6.9.16 全部 64 类的共同无符号子模型说明了什么</h4>
+<p>
+  第 6.6 节逐类写出的 Kramers/RP completion 使用同一个可扩展格点
+  Hamiltonian family：
+</p>
+<div class="scroll">\[
+  H=\sum_{ij,\alpha,o}a_{i\alpha o}^+K_{ij}a_{j\alpha o}
+  +\frac U2\sum_i
+  \left[\sum_o(n_{i\uparrow o}-n_{i\downarrow o})\right]^2,
+  \qquad K=K^T>0,\quad U>0 .
+\]</div>
+<p>
+  对不同五符号类别，需要改变的不是 Hamiltonian 的统计权重，而是用来
+  展示它同时属于该类别的 \(J_1,J_2\) representation；有些类需要一个
+  额外的两轨道复制空间。自由生成元与 imaginary relative-density HS
+  生成元在每类都位于相应 maximal subgroup。真正给出正号的是作用在
+  physical flavor doublet 上的 Kramers symmetry；它在部分类别中可与
+  某个 \(J_a\) 重合，在其余类别中是第三个 symmetry。玻色侧还可用
+  reflected-square RP 再证明一次。
+</p>
+<p class="result">
+  <strong>横向结论。</strong>
+  “invariant cone 没有非零半负定方向”只否定某一套 contraction proof，
+  不否定该类在增加正性条件后有无符号模型。反过来，同一个物理模型可同时
+  承认多组 \(J_1,J_2\)，所以 64 个五符号标签不是 64 个互斥的物理相，
+  也不是 64 种互不相同的正性原理。它们最适合用作组织和筛选允许
+  \(A\) 结构的坐标表。
+</p>

@@ -1,0 +1,4 @@
+Octave version: 10.3.0
+Verified maximal-subgroup bases for 64 classes.
+Fermions: 12 classes have a generic MTR positivity proof; 8 have a strict cone and 4 are maximal-subgroup-only.
+Wrote /mnt/c/users/newton/documents/ligroupiop/2408_bosonsignproblem/paper_bafqmc/docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/../tables/maximal_subgroup_structures.csv

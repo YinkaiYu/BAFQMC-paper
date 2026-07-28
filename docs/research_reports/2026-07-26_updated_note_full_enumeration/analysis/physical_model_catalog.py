@@ -688,7 +688,8 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \]
         \(ZII\) 明确属于 maximal subgroup，\(-iXYI=-\eta\)
         是使收缩矩阵负定的 pairing direction。\(J_1=IXY\) 平方为 \(-I\)，
-        因而 \(J_1K\) 是一个 Kramers-type anti-linear operation；
+        因而 \(J_1\mathcal K\) 是一个 Kramers-type anti-linear
+        operation，其中 \(\mathcal K\) 表示逐分量复共轭；
         它同时交换 spin 与 orbital labels，而不是默认等同于电子的标准
         time reversal。\(J_2=IYI\) 则选择 contraction cone。
         </p>
@@ -701,6 +702,216 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \(\eta=J_2g\) 的形式；本例使用的则是 \(\eta=iJ_2g\)。
         它们是否可由额外的 particle--hole or complex-orthogonal
         transformation 联系，必须另行证明。
+        </p>
+        """,
+    },
+}
+
+
+MAXIMAL_ONLY_MODEL_CATALOG: dict[str, dict[str, str]] = {
+    "s1+_q1-_s2+_q2+_r-": {
+        "title": "相反 Chern 带中的相互作用 Kramers 费米子",
+        "body": r"""
+        <p>
+        令 \(\psi_i=(c_{i\uparrow},c_{i\downarrow})^T\)，并令
+        \(S_0=S_0^T\)、\(F_a=F_a^T\) 是实对称格点矩阵，
+        \(R_z=-R_z^T\) 是实反对称格点矩阵。考虑厄米模型
+        \[
+          H=\psi^+\!\left(S_0+i\sigma_z\otimes R_z\right)\psi
+          +\frac U2\sum_a
+          \left(\psi^+\sigma_z\otimes F_a\,\psi\right)^2,
+          \qquad U>0 .
+        \]
+        \(S_0\) 可包含实 hopping、无序和轨道势；
+        \(i\sigma_z\otimes R_z\) 给两个 Kramers components 相反的
+        Peierls phases，可实现相反 Chern 数、量子自旋霍尔带或
+        time-reversal-symmetric moiré flat bands。\(F_a\) 可选为局域
+        flavor density，也可选成有限程 form factor，以研究磁性、
+        excitonic order 与拓扑 Mott 转变。
+        </p>
+        <p>
+        每个正的平方用
+        \[
+          e^{-\Delta\tau U O_a^2/2}
+          =\int\frac{d\phi_a}{\sqrt{2\pi}}e^{-\phi_a^2/2}
+          e^{\,i\sqrt{\Delta\tau U}\phi_aO_a}
+        \]
+        分解。采用本卡片的
+        \(J_1=I_{\rm Nambu}\otimes i\sigma_y\)、
+        \(J_2=I_{\rm Nambu}\otimes\sigma_x\)，固定项与场项为
+        \[
+        \begin{aligned}
+          A_0&=-\Delta\tau\left[
+          ZI\otimes S_0+i\,IZ\otimes R_z\right],\\
+          A_{\rm HS}(\phi)
+          &=i\sqrt{\Delta\tau U}\sum_a\phi_a\,ZZ\otimes F_a .
+        \end{aligned}
+        \]
+        对照本卡片的最终系数表：
+        \(ZI\otimes S_0\) 属于 \(ZI{:}R_S\)，
+        \(iIZ\otimes R_z\) 属于 \(IZ{:}iR_A\)，
+        \(iZZ\otimes F_a\) 属于 \(ZZ{:}iR_S\)；三者全都在
+        maximal-subgroup 李代数中。
+        </p>
+        <p class="result">
+        <strong>逐构型无符号证明。</strong>
+        \(\Theta=(i\sigma_y)\mathcal K\) 满足
+        \(\Theta^2=-I\)，每个时间片及其
+        有序乘积 \(\mathcal B\) 都与 \(\Theta\) 对易。非实本征值成
+        \(\lambda,\bar\lambda\) 对，实本征值具有偶数重数，故
+        \[
+          \det(I+\mathcal B)
+          =\prod_{\{\lambda,\overline\lambda\}}|1+\lambda|^2
+           \prod_{\lambda\in\mathbb R}(1+\lambda)^{2m_\lambda}\geq0 .
+        \]
+        第一个乘积对每一对非实共轭本征值只取一次。
+        费米 Fock space 有限，所以这里不需要
+        \(\eta A+A^\dagger\eta<0\) 来控制收敛；等号传播已经给出完整
+        grand-canonical AFQMC 权重。
+        </p>
+        """,
+    },
+    "s1+_q1-_s2-_q2+_r+": {
+        "title": "纯 spin-orbit Kramers Dirac 格点与相互作用质量生成",
+        "body": r"""
+        <p>
+        仍取两分量 \(\psi\)，令
+        \(R_x=-R_x^T\)、\(R_z=-R_z^T\) 为实反对称 hopping matrices，
+        \(F_a=F_a^T\) 为实对称 form factors。模型
+        \[
+          H=\psi^+i(\sigma_x\otimes R_x+\sigma_z\otimes R_z)\psi
+          +\frac U2\sum_a
+          \left(\psi^+\sigma_y\otimes F_a\,\psi\right)^2,
+          \qquad U>0
+        \]
+        是厄米的。适当选择 \(R_x,R_z\) 可产生 Kramers Dirac cones、
+        nodal spin-orbit semimetals 或近乎平坦的 helical bands；
+        \(F_a\) 则控制 interaction-generated mass、nematicity 与
+        superconducting competition。该类别不允许普通 scalar chemical
+        potential，因而自然描述 particle-hole-symmetric filling。
+        </p>
+        <p>
+        同一正测度 Gaussian 分解给出
+        \[
+        \begin{aligned}
+          A_0&=-i\Delta\tau
+          (IX\otimes R_x+IZ\otimes R_z),\\
+          A_{\rm HS}(\phi)&=
+          \sqrt{\Delta\tau U}\sum_a\phi_a\,IY\otimes F_a .
+        \end{aligned}
+        \]
+        这里 \(IX{:}iR_A\)、\(IZ{:}iR_A\) 和 \(IY{:}R_S\)
+        都在本卡片列出的 maximal-subgroup 生成元中。场项的
+        \(IY\otimes F_a\) 对应 \(i\psi^+\sigma_yF_a\psi\)，所以正好是
+        repulsive-square HS 指数，而不是非厄米原 Hamiltonian。
+        </p>
+        <p class="result">
+        <strong>逐构型无符号证明。</strong>
+        \(J_1\mathcal K=(I_{\rm Nambu}\otimes i\sigma_y)\mathcal K\)
+        给出 Kramers anti-linear symmetry；与 \(J_2\mathcal K\)
+        一起变到 Majorana 基底后，
+        两者属于反对易的 \(\{T^+,T^-\}\) 类。每个有序乘积的 Majorana
+        weight 分解为一对互为复共轭的因子，
+        \(W(\phi)=w(\phi)\overline{w(\phi)}=|w(\phi)|^2\geq0\)。
+        这是 maximal-subgroup 正性，不依赖负定收缩方向。
+        </p>
+        """,
+    },
+    "s1-_q1-_s2+_q2+_r+": {
+        "title": "相关双轨道 singlet-triplet 拓扑配对网络",
+        "body": r"""
+        <p>
+        令 \(\psi=(c_1,c_2)^T\) 表示两个轨道或两个 layer。
+        取 \(S_\Delta=S_\Delta^T\)、\(F_a=F_a^T\) 实对称，
+        \(R_\Delta=-R_\Delta^T\) 实反对称，并定义两个反对称 pairing
+        matrices
+        \[
+          \Delta_s=i(i\sigma_y)\otimes S_\Delta,\qquad
+          \Delta_t=i\sigma_z\otimes R_\Delta .
+        \]
+        二者都满足 \(\Delta_{s,t}^T=-\Delta_{s,t}\) 且
+        \(\Delta_{s,t}^\dagger=\Delta_{s,t}\)。考虑
+        \[
+        \begin{aligned}
+          H={}&\frac12\left[
+          \psi^T(\Delta_s+\Delta_t)\psi+
+          \psi^{+T}(\Delta_s+\Delta_t)\psi^+\right]\\
+          &+\frac U2\sum_a
+          \left(\psi^+\sigma_z\otimes F_a\,\psi\right)^2 ,
+          \qquad U>0 .
+        \end{aligned}
+        \]
+        这是厄米的 two-orbital BdG lattice。改变
+        \(S_\Delta,R_\Delta\) 的键结构可研究 singlet 与 odd-parity
+        triplet pairing 的竞争、higher-order Majorana boundary modes
+        及 interaction-driven changes of BdG topology。
+        </p>
+        <p>
+        在本卡片的 Nambu 顺序中，
+        \[
+        \begin{aligned}
+          A_0&=-i\Delta\tau
+          (XY\otimes S_\Delta+XZ\otimes R_\Delta),\\
+          A_{\rm HS}(\phi)&=
+          i\sqrt{\Delta\tau U}\sum_a\phi_a\,ZZ\otimes F_a .
+        \end{aligned}
+        \]
+        固定项分别属于 \(XY{:}iR_S\)、\(XZ{:}iR_A\)，场项属于
+        \(ZZ{:}iR_S\)；本卡片的最终表显示三者都在 maximal subgroup。
+        因此时间片含真正的 Hermitian pairing，而不是为了满足矩阵关系
+        引入非厄米 Hamiltonian。
+        </p>
+        <p class="result">
+        <strong>逐构型无符号证明。</strong>
+        这里 \(J_1\mathcal K\) 混合 particle 与 hole；它不应被误称为
+        电子的普通 time reversal。把 \(J_1\mathcal K,J_2\mathcal K\)
+        同时变到 Majorana basis 后，
+        它们是反对易的 \(\{T^+,T^-\}\) 对。该结构把 Gaussian trace
+        分成互为复共轭的两个 Majorana sectors，所以
+        \(W=|w|^2\geq0\)，并覆盖有 pairing 的全部辅助场历史。
+        </p>
+        """,
+    },
+    "s1-_q1-_s2-_q2+_r-": {
+        "title": "相互作用 p-wave Majorana 平带网络",
+        "body": r"""
+        <p>
+        这一类的最小 \(m=1\) maximal-subgroup 李代数为零；要得到非平凡
+        格点模型必须取至少两个空间轨道。令
+        \(R_\Delta=-R_\Delta^T\)、\(R_p=-R_p^T\) 是实反对称矩阵，并定义
+        \[
+          H_0=\frac12\left(
+          c^T iR_\Delta c+c^{+T}iR_\Delta c^+\right),\qquad
+          O_p=-i\,c^+R_pc .
+        \]
+        \(H_0\) 与 \(O_p\) 都是 Hermitian。模型
+        \[
+          H=H_0+\frac U2\sum_p O_p^2,\qquad U>0
+        \]
+        描述 particle-hole-symmetric p-wave pairing network 与
+        current fluctuations。取 \(R_\Delta\) 为有向 kagome、honeycomb
+        或 amorphous graph 的邻接矩阵，可研究 Majorana flat bands、
+        disorder topology 与 interaction-driven current order。
+        </p>
+        <p>
+        Gaussian HS 分解后
+        \[
+          A_0=-\Delta\tau\,X\otimes iR_\Delta,\qquad
+          A_{\rm HS}(\phi)=
+          \sqrt{\Delta\tau U}\sum_p\phi_p\,I\otimes R_p .
+        \]
+        它们恰好对应本卡片的 \(X{:}iR_A\) 与 \(I{:}R_A\) 两行。
+        后者代表 \(iO_p\)，所以辅助场测度为正，而原 Hamiltonian 保持
+        Hermitian。
+        </p>
+        <p class="result">
+        <strong>逐构型无符号证明。</strong>
+        \(J_1=i\sigma_y\)、\(J_2=\sigma_z\) 在 Nambu 空间给出该行五条
+        关系。变到 Majorana basis 后是反对易的
+        \(\{T^+,T^-\}\) anti-linear symmetry pair，所有时间片都在
+        maximal subgroup 中，Gaussian trace 为
+        \(|w(\phi)|^2\geq0\)。费米 Fock space 有限；即使
+        contraction inequality 只能取等号，也没有玻色高占据态发散。
         </p>
         """,
     },
@@ -743,4 +954,16 @@ def render_physical_model(class_name: str) -> str:
         f'{model["body"]}'
         f"{scalar_note}"
         "</section>"
+    )
+
+
+def render_maximal_only_model(class_id: str) -> str:
+    model = MAXIMAL_ONLY_MODEL_CATALOG[class_id]
+    return (
+        '<section class="model-example">'
+        f'<p class="model-title"><strong>物理模型：{model["title"]}</strong></p>'
+        '<p class="model-scope"><strong>已经证明的结论：</strong>'
+        '费米 maximal-subgroup 逐构型无符号；不要求负定收缩方向</p>'
+        f'{model["body"]}'
+        '</section>'
     )

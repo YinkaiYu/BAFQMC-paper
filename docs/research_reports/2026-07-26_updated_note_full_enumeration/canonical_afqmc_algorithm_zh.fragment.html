@@ -1,0 +1,307 @@
+<div class="note">
+  <strong>适用范围。</strong>
+  本节讨论每个辅助场时间片都保持总粒子数的玻色 AFQMC。
+  若时间片含 \(aa\) 或 \(a^+a^+\) pairing，总粒子数不守恒，便不能把
+  Fock space 限制在固定 \(N\) 的子空间；那种情况仍须使用 Nambu
+  grand-canonical trace 或另选守恒量做投影。
+</div>
+
+<h4>6.10.1 从单粒子传播矩阵得到固定-\(N\) 权重</h4>
+<p>
+  固定一组时空辅助场后，令 \(L\) 表示单粒子轨道数，并按实际虚时间顺序
+  相乘：
+</p>
+<div class="scroll">\[
+  \mathcal B=e^{B_1}e^{B_2}\cdots e^{B_{L_\tau}} .
+\]</div>
+<p>
+  相应的 Fock-space 算符保持粒子数。若 \(\operatorname{Tr}_N\) 只在
+  “恰有 \(N\) 个玻色子”的有限维子空间求迹，配置权重记为
+  \(W_N(\mathcal B)\)。先引入一个只用于提取系数的变量 \(z\)：
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  \sum_{N=0}^{\infty}W_N(\mathcal B)z^N
+  &=\operatorname{Tr}_{\rm Fock}
+    \!\left[z^{\hat N}\widehat{\mathcal B}\right]\\
+  &=\frac{1}{\det(I_L-z\mathcal B)} .
+  \end{aligned}
+\]</div>
+<p>
+  第二行可以先在 \(\mathcal B\) 可对角化时直接看懂。若单粒子本征值为
+  \(\lambda_1,\ldots,\lambda_L\)，占据数
+  \(n_1,\ldots,n_L\) 对应的因子是
+  \(\lambda_1^{n_1}\cdots\lambda_L^{n_L}\)，所以
+</p>
+<div class="scroll">\[
+  \prod_{j=1}^{L}\sum_{n_j=0}^{\infty}(z\lambda_j)^{n_j}
+  =\prod_{j=1}^{L}\frac{1}{1-z\lambda_j}
+  =\frac{1}{\det(I_L-z\mathcal B)} .
+\]</div>
+<p>
+  两边作为 \(\mathcal B\) 矩阵元的函数连续，因此公式也覆盖不可对角化的
+  情况。固定 \(N\) 的权重就是有限阶系数
+</p>
+<div class="scroll">\[
+  W_N(\mathcal B)
+  =[z^N]\frac{1}{\det(I_L-z\mathcal B)} .
+\]</div>
+<p>
+  它是 \(\mathcal B\) 矩阵元的有限次多项式；即使
+  \(\mathcal B\) 有本征值 \(1\)，也不会出现 grand-canonical
+  \(1/\det(I-\mathcal B)\) 的 pole。有限不等于自动为正：用于采样前，
+  仍须像第 6.7、6.9 节的四个 \(iJ_2g\) 模型那样，另外证明
+  \(W_N(\mathcal B)\geq0\)。
+</p>
+
+<h4>6.10.2 不枚举 Fock 基底的精确递推</h4>
+<p>
+  直接枚举所有占据数组合需要
+  \(\binom{N+L-1}{N}\) 个基态，随系统增长很快。实际算法只计算
+  \(L\times L\) 矩阵。定义
+</p>
+<div class="scroll">\[
+  p_k=\operatorname{Tr}(\mathcal B^k),\qquad W_0=1 .
+\]</div>
+<p>
+  对生成函数取对数导数：
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  z\frac{d}{dz}\log\frac1{\det(I-z\mathcal B)}
+  &=\operatorname{Tr}\!\left[
+    z\mathcal B(I-z\mathcal B)^{-1}\right]\\
+  &=\sum_{k=1}^{\infty}p_kz^k .
+  \end{aligned}
+\]</div>
+<p>
+  再把左边写成
+  \(z(\sum_n nW_nz^{n-1})/(\sum_nW_nz^n)\)，比较 \(z^N\)
+  的系数，逐阶得到
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  W_N=\frac1N\sum_{k=1}^{N}
+  \operatorname{Tr}(\mathcal B^k)\,W_{N-k}},
+  \qquad N\geq1 .
+\]</div>
+<p>
+  所以只要依次保存 \(\mathcal B,\mathcal B^2,\ldots,\mathcal B^N\)
+  及其迹，就能从 \(W_0\) 算到目标 \(W_N\)。这一方法与
+  <a href="https://arxiv.org/abs/2010.09813">Shen 等人的
+  canonical AFQMC 递推</a>相同；这里把它接到本报告逐构型正性的
+  分类上。
+</p>
+<p>
+  另一种等价实现先计算
+</p>
+<div class="scroll">\[
+  D(z)=\det(I-z\mathcal B)
+  =1+d_1z+\cdots+d_Lz^L .
+\]</div>
+<p>
+  由 \(D(z)\sum_{N\geq0}W_Nz^N=1\) 得
+</p>
+<div class="scroll">\[
+  W_0=1,\qquad
+  W_N=-\sum_{k=1}^{\min(N,L)}d_kW_{N-k}.
+\]</div>
+<p>
+  在已经有稳定特征多项式系数的实现里，这一形式每个粒子数只需
+  \(O(L)\) 次标量运算。
+</p>
+
+<h4>6.10.3 Monte Carlo 权重与接受率</h4>
+<p>
+  设 \(P_{\rm HS}(\phi)>0\) 是 Gaussian 或离散 HS 测度。固定总粒子数
+  的完整配置权重为
+</p>
+<div class="scroll">\[
+  \mathcal W_N(\phi)=P_{\rm HS}(\phi)\,
+  W_N[\mathcal B(\phi)] .
+\]</div>
+<p>
+  对称 proposal \(\phi\to\phi'\) 的 Metropolis 接受率是
+</p>
+<div class="scroll">\[
+  P_{\rm acc}
+  =\min\!\left[
+  1,\,
+  \frac{P_{\rm HS}(\phi')}{P_{\rm HS}(\phi)}
+  \frac{W_N[\mathcal B(\phi')]}{W_N[\mathcal B(\phi)]}
+  \right].
+\]</div>
+<p>
+  若已证明每个允许构型的 \(W_N>0\)，这个比值就是普通正概率之比。
+  若只知道 \(W_N\) 为实而可能变号，固定 \(N\) 本身并没有消除符号问题。
+</p>
+
+<h4>6.10.4 局域或低秩 proposal 的精确更新</h4>
+<p>
+  在被更新的时间片处循环移动矩阵乘积，使 proposal 写成
+</p>
+<div class="scroll">\[
+  \mathcal B'=(I_L+UV^\dagger)\mathcal B ,
+\]</div>
+<p>
+  其中 \(U,V\) 各有 \(r\) 列；单格点更新通常有很小的 \(r\)。
+  令
+</p>
+<div class="scroll">\[
+  D(z)=\det(I-z\mathcal B),\qquad
+  D'(z)=\det(I-z\mathcal B').
+\]</div>
+<p>
+  两个 grand generating functions 的比值不是在 \(z=1\) 取值，而是
+  保留到目标阶数：
+</p>
+<div class="scroll">\[
+  \frac{D(z)}{D'(z)}
+  =\sum_{n=0}^{N}r_nz^n+O(z^{N+1}) .
+\]</div>
+<p>
+  若 \(D(z)=\sum_{k=0}^{L}d_kz^k\)、
+  \(D'(z)=\sum_{k=0}^{L}d'_kz^k\)，其中 \(d_0=d'_0=1\)，则
+</p>
+<div class="scroll">\[
+  r_0=1,\qquad
+  r_n=d_n-\sum_{k=1}^{\min(n,L)}d'_k r_{n-k},
+\]</div>
+<p>
+  并约定 \(n>L\) 时 \(d_n=0\)。更新后的 canonical 权重无需重新展开
+  Fock space：
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  W_N(\mathcal B')
+  =\sum_{k=0}^{N}r_k\,W_{N-k}(\mathcal B)} .
+\]</div>
+<p>
+  矩阵行列式引理还给出
+</p>
+<div class="scroll">\[
+  \frac{D'(z)}{D(z)}
+  =\det\!\left[
+    I_r-zV^\dagger\mathcal B
+    (I_L-z\mathcal B)^{-1}U
+  \right].
+\]</div>
+<p>
+  这里使用了
+  \(I-z\mathcal B'=I-z\mathcal B-zUV^\dagger\mathcal B\)。
+  一个稳妥的基线实现是先更新 \(D'(z)\) 的 \(L+1\) 个系数，再用
+  \(r_n\) 递推；进一步优化时才对上面的 \(r\times r\) 行列式做截断
+  幂级数运算。不能只在 \(z=1\) 计算普通 grand-canonical
+  determinant ratio，因为那会把所有粒子数 sector 混在一起。
+</p>
+
+<h4>6.10.5 固定-\(N\) 一体观测量</h4>
+<p>
+  定义矩阵
+  \([\overline G_N]_{ij}
+  =\operatorname{Tr}_N(a_j^+a_i\widehat{\mathcal B})/W_N\)。
+  在生成函数中插入 \(e^{a^+Xa}\)，再对 \(X\) 求一次导数，得到
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  \overline G_N
+  =\frac{1}{W_N}
+  \sum_{k=1}^{N}W_{N-k}\mathcal B^k } .
+\]</div>
+<p>
+  对它取迹并使用上一节的 Newton 递推：
+</p>
+<div class="scroll">\[
+  \operatorname{Tr}\overline G_N
+  =\frac1{W_N}\sum_{k=1}^{N}
+   \operatorname{Tr}(\mathcal B^k)W_{N-k}
+  =N ,
+\]</div>
+<p>
+  这既是粒子数守恒的解析证明，也是实现中很有效的逐构型自检。
+</p>
+
+<h4>6.10.6 二体及更高观测量</h4>
+<p>
+  固定 \(N\) 投影后的算符不再满足普通 grand-canonical Wick 分解，
+  但仍能用同一个系数提取多项式时间计算低阶观测量。对暂时保留的
+  fugacity \(z\)，定义
+</p>
+<div class="scroll">\[
+  \overline G(z)=z\mathcal B(I-z\mathcal B)^{-1},\qquad
+  \Xi(z)=\det(I-z\mathcal B)^{-1}.
+\]</div>
+<p>
+  例如正常序的四算符期望值为
+</p>
+<div class="scroll">\[
+  \frac{[z^N]\Xi(z)
+  \left[
+  \overline G_{ji}(z)\overline G_{lk}(z)
+  +\overline G_{li}(z)\overline G_{jk}(z)
+  \right]}{W_N}.
+\]</div>
+<p>
+  这就是先在 \(z\) 依赖的 Gaussian 问题中做 bosonic Wick
+  contraction，再只取 \(z^N\) 系数。密度、动量分布、结构因子和能量只需
+  一体或二体版本，所需卷积阶数不超过 \(N\)，不需要枚举
+  \(\binom{N+L-1}{N}\) 个 Fock states。
+</p>
+
+<h4>6.10.7 低温数值稳定化</h4>
+<p>
+  长虚时间乘积 \(\mathcal B\) 的奇异值可能跨越许多数量级，直接形成
+  \(\mathcal B^k\) 会溢出或严重抵消。实现至少需要以下三层保护：
+</p>
+<ol>
+  <li>
+    像 grand-canonical AFQMC 一样，按若干时间片做带列主元的
+    QR/UDT 分解，保存大、中、小尺度，不直接长期累乘稠密矩阵。
+  </li>
+  <li>
+    选择正尺度 \(\rho\)，写
+    \(\mathcal B=\rho\widetilde{\mathcal B}\)。递推先算
+    \(W_n(\widetilde{\mathcal B})\)，最后使用严格恒等式
+    \(W_n(\mathcal B)=\rho^nW_n(\widetilde{\mathcal B})\)，并在
+    log scale 中保存 \(\rho^n\)。
+  </li>
+  <li>
+    当 power-trace 递推出现严重抵消时，改用经过平衡的特征多项式递推，
+    或直接采用
+    <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.055302">
+    Shen 等人的稳定 canonical AFQMC 递推方案</a>；每次 wrap 后用
+    \(\operatorname{Tr}\overline G_N=N\) 和两种权重递推互相核对。
+  </li>
+</ol>
+
+<h4>6.10.8 为什么这还没有自动解决一般自旋模型</h4>
+<p>
+  Schwinger-boson 表示的 spin-\(\tfrac12\) 在每个格点都要求
+  \(n_{i\uparrow}+n_{i\downarrow}=1\)。这不是一个固定总数条件，而是
+  \(L_{\rm site}\) 个独立条件。相应投影要提取多变量系数
+</p>
+<div class="scroll">\[
+  \left[\prod_i z_i^1\right]
+  \frac1{\det[I-Z\mathcal B]},\qquad
+  Z=\operatorname{diag}(z_1,z_1,z_2,z_2,\ldots).
+\]</div>
+<p>
+  单变量递推只需保存 \(0,\ldots,N\) 共 \(N+1\) 个系数；上式一般要追踪
+  所有局域占据组合，数量随格点数指数增长。因此第 6.12 节讨论
+  \(J\)-\(Q\)、三角格子磁体时，会把“二次传播满足某类矩阵关系”和
+  “局域投影仍能多项式计算”分开。除非模型还有额外结构使多变量系数
+  因子化或可由其他局域表示消去约束，不能把本节算法直接宣传成一般
+  无符号自旋 QMC。
+</p>
+
+<h4>6.10.9 独立数值核对</h4>
+<p>
+  <a href="analysis/verify_canonical_boson_afqmc.m">verify_canonical_boson_afqmc.m</a>
+  对三个轨道、四个玻色子的完整 occupation basis 显式构造
+  symmetric-power Fock operator，并与上述递推比较。12 组随机复矩阵
+  乘积中，权重、一体密度矩阵和 rank-one 更新卷积的最坏相对误差分别为
+  \(5.4\times10^{-16}\)、\(6.7\times10^{-16}\) 和
+  \(6.0\times10^{-15}\)；同时逐构型满足
+  \(\operatorname{Tr}\overline G_N=N\)。逐次数据见
+  <a href="tables/canonical_boson_afqmc_checks.csv">canonical_boson_afqmc_checks.csv</a>。
+</p>
