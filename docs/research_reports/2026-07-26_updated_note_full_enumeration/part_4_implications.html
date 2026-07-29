@@ -400,9 +400,10 @@
       realization 可以表述为新的 canonical fixed-\(N\) sign-free
       models。一般含 pairing 的解析 no-go 排除的是“同一个稳定 Hermitian
       零场生成元同时位于 \(\eta=iJ_2g\) 的半负定 cone”这一更具体的
-      grand-canonical 方案，不能据此排除该五符号类别中另加 Kramers/RP
-      条件的 grand-canonical 子类。第 6.6 节已为四类都构造出位于
-      maximal subgroup、bare trace 收敛且无 pole 的这种子类。</li>
+      grand-canonical 方案，不能据此排除该五符号类别的 maximal
+      subgroup 中另加第三条 anti-linear symmetry 或
+      reflection-positive coupling 的子类。这样的子类必须逐个验证物理
+      Nambu 实现和 bare-trace 收敛，不能由五符号标签自动推出。</li>
 <li>Case 1 的 Kramers propagation 与 Case 2 的 reflected-square
       propagation 都属于对乘法封闭、且相关 Fock operators 的迹有限并
       非负的集合；前者不是必然的
@@ -413,10 +414,11 @@
       \(\mathbb Z_2\) lift；它是一套采样与诊断工具，不应与本文依赖
       连通性的无符号定理混写成同一个证明。</li>
 <li>64 类的补充筛选说明：即使某类没有 invariant-cone 负定方向，
-      它仍可能在 maximal subgroup 内拥有 Euclidean 稳定传播，并由额外
-      Kramers/RP 条件保证正权重。这个观察适合放入 SM 作为“不同正性机制
-      可以在同一五符号标签中重叠”的说明，不应把 64 个标签宣传成 64 种
-      新的无符号原理。</li>
+      它仍可能在 maximal subgroup 内由两条原有 anti-linear symmetries、
+      新增第三条 symmetry、RP coupling 或特殊 determinant-positive
+      subgroup 保证正权重。这个观察适合放入 SM 作为“不同正性机制可以在
+      同一五符号标签中重叠”的说明，不应把 64 个标签宣传成 64 种新的
+      无符号原理。</li>
 </ul>
 <h3>9.4 现在不应写入文章的表述</h3>
 <ul>
@@ -461,25 +463,28 @@
       </div>
 <div class="summary-item established">
 <strong>完整穷举</strong>
-        玻色、费米各 32 类都找到 real Pauli-product representatives。
-        每种统计各有 8 个类别允许负定生成元，其中 4 个使用
-        \(J_2g\)，4 个使用 \(iJ_2g\)。相对于 note 固定一种
-        \(J_2\) 的手算，玻色和费米两侧都各补出 4 个 \(iJ_2g\) classes；
-        全部 64 类在规范张量族
-        \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\) 中的
-        maximal-subgroup 与 invariant-cone 生成元结构均已写成显式
-        Pauli 因子和系数矩阵约束。16 个允许负定生成元的类别另选了便于
-        物理解读的代表做逐项复核。
+        玻色、费米各 32 类都有显式 real-orthogonal representatives。
+        每种统计各有 8 类允许负定生成元，其中 4 类使用 \(J_2g\)，
+        4 类使用 \(iJ_2g\)。为了不把一个方便的 Pauli representative
+        误当作整个类别，本报告又穷举了二维和四维的全部
+        signed-permutation 表示：玻色有 \(10+50\) 个代数轨道，费米有
+        \(16+73\) 个，共 149 个；玻色另按物理 Nambu 共轭关系细分出
+        \(4+40\) 个物理子轨道。每个轨道都列出完整
+        \(A_{\mathrm{group}}\) 方向，以及非空时完整
+        \(A_{\mathrm{cone}}\) 方向和代入实际 \(\eta\) 后的负定条件。
       </div>
 <div class="summary-item established">
-<strong>费米等号部分不能漏掉</strong>
-        把两条反线性变换完整搬到 Majorana basis 后，费米 32 类中有
-        12 类具有一般正性证明：8 类同时容许负定生成元，另有 4 类的
-        半负定条件只能取等号、但属于 Majorana
-        \(\{T^+,T^-\}\) 类。其余 20 类不能仅凭五条关系保证正权重，
-        且规范代表的精确 Fock-space 扫描给出了负权重反例；若再要求
-        每个时间片满足一个额外 physical Kramers symmetry，这 20 类
-        也都含有非空的无符号子空间。
+<strong>费米 group-only 部分</strong>
+        直接在统一 Nambu 空间定义
+        \(U_a=J_a\) 或 \(iJ_a\)、\(\Theta_a=U_a\mathcal K\) 后，
+        32 类中有 12 类由两条反线性对称性得到一般正性证明：8 类同时
+        有非空 cone，另 4 类只有 maximal subgroup。剩余 20 类的两条
+        原始对称性本身没有普适正性定理。对这 20 类，报告给出一个
+        二重 flavor 构造：它逐项保留原来每个
+        \(A_{\mathrm{group}}\) 方向，并添加第三条平方为 \(-I\) 的
+        反线性对称性，从而把模型嵌入已经证明的 \((+,-)\) 或
+        \((-,-)\) 正性类。这是保留原解空间的构造，不是把原来未扩充的
+        maximal subgroup 误判为整体非负。
       </div>
 <div class="summary-item established">
 <strong>零场收敛、传播矩阵的负定条件与连续性</strong>
@@ -499,11 +504,16 @@
         principal-block 证明同时表明，不存在来自稳定 Hermitian 二次玻色
         Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足
         同一个 \(\eta=iJ_2g\) 收缩不等式。
-        第 6.6 节在全部 64 张类别卡片中都就地给出至少一个厄米
-        Hamiltonian、正测度 HS 分解、实际 \(J_1,J_2,\eta\) 和非负证明。
-        其中 20 类另有不借助新增 Kramers 条件的本类模型；对其余类别，
-        报告明确写出附加对称性筛选后保留下来的 \(A_0,A_{\rm HS}\)。
-        第 6.9 节只负责跨类别总结。
+        第 6.6 节的每张类别卡都先给出该类实际
+        \(J_1,J_2,\eta,A_{\mathrm{group}},A_{\mathrm{cone}}\)，再判断
+        哪一种正性证明可以使用。费米 24 个 group-only 类中，4 类直接
+        满足双对称定理，其余 20 类有上述保留全部 group 方向的二重
+        flavor 嵌入；全正号类还单独包含 compact \(SO(m)\) 与 split
+        \(O(n,n)\) 无符号子群。玻色 24 个 group-only 类中有 8 类具备
+        两条反线性对称性的正确代数，其中 6 类已在二维或四维找到物理
+        Nambu 表示；其余情况在卡片中明确保留物理 adjoint、正 CCR
+        subspace 与 trace-class 检查，不把纯矩阵代数自动写成玻色
+        Fock-space 定理。
       </div>
 <div class="summary-item corrected">
 <strong>Comment</strong>
@@ -521,8 +531,8 @@
       合作者关于 \(iJ_2g\) 伙伴类的提醒是实质性的，因为它在玻色和费米两侧
       都补上了 8 个允许负定生成元的类别中尚未手算的 4 个。
       本次已明确区分测试矩阵 \(A=-\eta\) 与实际物理零场生成元
-      \(A_0\)：前者只是证明某类允许负定方向。全部 64 类的显式生成元
-      结构、16 个负定类别的替代物理代表，以及相应 HS slices 都由
+      \(A_0\)：前者只证明某类允许负定方向。64 类的最小代表以及二维、
+      四维全部 149 个 real-orthogonal 表示轨道的显式生成元结构均由
       Octave 逐项验证。对连通 auxiliary-field space，
       在已证明与当前物理 Fock representation 相容的半群中，
       与稳定零场同向的内部传播保持 bare-trace convergence，
@@ -534,15 +544,15 @@
       Hamiltonian、又满足同一个 \(\eta=iJ_2g\) 收缩不等式的
       grand-canonical 零场；因此依赖这个 invariant cone 的直接物理落点
       是本报告已经证明的 canonical fixed-\(N\) collective-boson models。
-      这并不排除同一五符号类别中的 maximal-subgroup 方向再叠加
-      Kramers/RP 正性。本报告对全部 32 个玻色类别都构造了这样的稳定
-      grand-canonical 子类，并证明其 bare trace 收敛且没有 pole。
-      费米侧则不能只数
-      8 个负定类别：Majorana-time-reversal 检查给出 12 个一般无符号
-      类，其中 4 个只使用 maximal subgroup。费米 \(iJ_2g\) 四个负定
-      标签也都落入已知的 Majorana \(\{T^+,T^-\}\) 或 Kramers
-      \(\{T^-,T^-\}\) 正性机制；因此它们补齐的是 Nambu 分类与模型空间，
-      不是四种新的正性原理。
+      这并不排除同一五符号类别中的 maximal-subgroup 方向再加第三条
+      反线性对称性、reflection-positive coupling，或限制到另一个具有
+      determinant-sign theorem 的子群。报告已经把这些选择逐卡作用到
+      明确的 \(A\) 空间。费米侧尤其不能只数 8 个负定类别：统一 Nambu
+      证明给出 12 个由原有两条对称性直接保证非负的类，其中 4 个只使用
+      maximal subgroup；其余 20 个 group-only 类则有保留原
+      \(A_{\mathrm{group}}\) 的二重 flavor 嵌入。玻色侧还必须逐项通过
+      物理 Nambu 共轭、正 CCR subspace 和 trace 收敛三道检查，所以不沿用
+      费米计数作自动外推。
     </p>
 <h3>这次穷举究竟发现了什么</h3>
 <div class="scroll">
@@ -557,13 +567,12 @@
 <td>五条离散 relations 本身都可实现；它们不负责区分收缩矩阵能否负定，还是只能为零</td>
 </tr>
 <tr>
-<td>增加 Kramers/RP 条件后的无符号交集</td>
-<td>全部 64 类都找到 \(J_1\ne\pm J_2\) 的代表，使稳定自由项与
-            relative-density HS 项位于该类 maximal subgroup，并同时满足
-            physical Kramers symmetry；玻色模型还满足 operator RP</td>
-<td>每一类都有厄米相互作用的无符号子类。这个结果不把该类
-            全部 \(A\) 误判为正，也不把同一 Kramers/RP 机制重复计成
-            64 种新原理</td>
+<td>二维与四维的全部表示</td>
+<td>玻色 \(10+50\) 个代数轨道、费米 \(16+73\) 个代数轨道；
+            玻色再按物理 Nambu 共轭关系分成 \(4+40\) 个物理子轨道</td>
+<td>每个轨道分别列出全部 \(A_{\mathrm{group}}\) 与
+            \(A_{\mathrm{cone}}\) 独立方向。同一五符号类别换表示不会改变
+            cone 是否为空，却会改变具体允许哪些 Hamiltonian coefficients</td>
 </tr>
 <tr>
 <td>玻色：存在负定生成元</td>
@@ -589,8 +598,9 @@
               basis 已知；一般 Hermitian BdG 分析排除稳定零场同时位于
               同一个 \(iJ_2g\) invariant cone 的 grand-canonical
               realization，但四类都已有完整 canonical fixed-\(N\)
-              sign-free Hamiltonian，也都有另加 Kramers/RP 条件的
-              maximal-subgroup grand-canonical 子类
+              sign-free Hamiltonian；它们的 maximal subgroup 中还可继续
+              施加第 5.5 节列出的 anti-linear 或 reflection-positive
+              条件，但需逐模型验证
             </td>
 </tr>
 <tr>
@@ -599,10 +609,12 @@
             \(\Tr(\eta A+A^\dagger\eta)=0\)；另 8 类满足
             \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
             =-(\eta A+A^\dagger\eta)\)。在两种情况下，半负定条件都只能取等号</td>
-<td>不存在使 \(\eta A+A^\dagger\eta&lt;0\) 的生成元；但每类都含有
-            Euclidean 单粒子传播严格衰减、同时满足额外 Kramers/RP 条件的
-            maximal-subgroup 子空间，所以仍有 grand-canonical 无符号、
-            无 pole 的相互作用模型</td>
+<td>不存在使 \(\eta A+A^\dagger\eta&lt;0\) 的生成元。8 类的两条
+            generalized anti-linear symmetries 形成 \((+,-)\) 或
+            \((-,-)\) 正性代数，其中 6 类已在 \(d\le4\) 找到物理玻色表示；
+            另外 16 类必须在本卡实际 \(A_{\mathrm{group}}\) 内增加第三条
+            symmetry、RP coupling 或更强子群。所有玻色结论还要独立检查
+            Fock trace 收敛</td>
 </tr>
 <tr>
 <td>费米：负定类别与 maximal-subgroup 正性合并计数</td>
@@ -613,34 +625,37 @@
               完整穷举另补出 4 个满足 \(J_2^TgJ_2=g\) 的
               \(iJ_2g\) 类，它们同样允许负定生成元。除此以外还有
               4 个 \(J_2^2=+I\) 的类别，虽然半负定条件只能取等号，
-              但 Majorana \(\{T^+,T^-\}\) 定理仍保证权重非负；
+              但 \((+,-)\) 双反线性对称定理仍保证权重非负；
               所以一般无符号的费米类别总数是 12
             </td>
 <td>
               8 个负定类和 4 个等号类都已逐类给出厄米模型。
-              12 个标签只使用两种已知基本机制：
-              Majorana \(\{T^+,T^-\}\) 与 Kramers
-              \(\{T^-,T^-\}\)；note 第一节带减号的不等式仍不能直接沿用
+              12 个标签分别由 \((+,-)\) Fock-factorization 与
+              \((-,-)\) Kramers pairing 证明。其余 20 个 group-only
+              类的原始两条对称性没有普适结论，但二重 flavor 加第三条
+              symmetry 的显式构造保留了每个原始 \(A_{\mathrm{group}}\)
+              方向
             </td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>
-      TRS 与 operator-level reflection positivity 不应塞进上述“8 个允许
-      负定生成元的类别”的计数。它们使用不同的 positivity mechanism；
+      generalized TRS 与 operator-level reflection positivity 不应塞进
+      上述“8 个允许负定生成元的类别”的计数。它们使用不同的
+      positivity mechanism；
       尤其 bosonic RP 即使不存在这样的负定生成元，仍能在 bare trace 有限时由
       reflected squares 保证 nonnegative。反过来，一旦 real、continuous、
       single-valued weight 已在收缩半群内部的连通区域中定义，
       \(M^\dagger\eta M-\eta&lt;0\) 与一个 positive reference
       的确足以固定全域正号。为了不把“没有 invariant-cone 负定方向”
-      误读成“没有无符号模型”，本报告又对全部 64 类施加了明确的
-      physical Kramers condition，并在玻色侧同时施加 operator RP。
-      对每一类都找到了非空的 \(A\) 子空间和正测度 HS decomposition；
-      玻色模型还由
-      \(\|\mathcal B(\phi)\|_2\le e^{-\beta\kappa_{\min}}&lt;1\)
-      逐构型证明 bare trace 收敛且无 pole。这是附加条件后的正性定理，
-      不是五条关系本身突然变成了逐点符号定理。
+      误读成“没有无符号模型”，第 6.6 节对每类自己的
+      \(J_1,J_2\) 和完整 \(A_{\mathrm{group}}\) 空间逐项检查两条原始
+      generalized anti-linear symmetries；在它们不足时，再明确写出第三条
+      symmetry 或可证明正性的具体子群。费米 Fock space 有限维，因而这条
+      group-only 研究不需要玻色式的占据数收敛条件。玻色侧则把
+      physical-adjoint compatibility、正 CCR subspace 和 trace class
+      列为定理条件，并只在这些条件真正成立时下结论。
     </p>
 <h3>建议给合作者的回复</h3>
 <div class="source-quote">
@@ -648,12 +663,15 @@
       穷举的目标不只是找 \(J_1,J_2\) 或 maximal subgroup，而是检查
       \(J_1^TAJ_1=\bar A\) 的实性条件能否与由
       \(J_2g\) 或 \(iJ_2g\) 定义的 invariant cone 同时成立，并确认
-      是否存在 \(\eta A+A^\dagger\eta&lt;0\) 的生成元。我把全部 64 类
-      在 \(J_{1,0}\otimes I_m,J_{2,0}\otimes I_m\) 张量族中的
-      maximal-subgroup 与 invariant-cone 生成元都求成了显式
-      “Pauli 因子 \(\otimes\) 实对称、实反对称、纯虚对称或纯虚反对称
-      系数矩阵”的形式。这里 \(A=-\eta\) 只用作检验负定方向存在的
-      测试矩阵，不把它默认成物理零场项。
+      是否存在 \(\eta A+A^\dagger\eta&lt;0\) 的生成元。除每类一个便于阅读
+      的最小 representative 外，我还穷举了二维和四维全部
+      signed-permutation 表示，按保持 \(g\) 的实正交换基合并后得到
+      149 个代数轨道；玻色再按物理 Nambu 共轭关系细分出 44 个物理
+      子轨道。每个轨道的全部 \(A_{\rm group}\) 独立方向，以及非空时
+      全部 \(A_{\rm cone}\) 独立方向和具体负定条件都已列出。因此这里
+      不再假定一组 Pauli matrices 可以代表同类所有 Hamiltonian
+      directions。\(A=-\eta\) 只用作检验负定方向存在的测试矩阵，
+      不把它默认成物理零场项。
       <br/><br/>
       穷举中玻色、费米各 32 类都能找到 real Pauli-product
       \(J_1,J_2\) representatives，但每边都只有 8 类允许
@@ -661,44 +679,47 @@
       \(J_2^2=I\)，费米必须有 \(J_2^2=-I\)。
       \(J_1,J_2\) 对 \(g\) 同号作用时必须反对易，
       异号作用时必须对易；\(J_1^2=\pm I\) 都可以。
-      负定方向的计数不是费米无符号类别的最终计数：把 \(J_1,J_2\)
-      变到 Majorana basis 后，8 个负定类全部属于已证明的
-      Majorana \(\{T^+,T^-\}\) 或 Kramers
-      \(\{T^-,T^-\}\) 正性类别；此外还有 4 个 \(J_2^2=+I\)
-      的类别，半负定条件虽只能取等号，却仍属于
-      \(\{T^+,T^-\}\) 类。因此费米共有 12 类能从这两条反线性对称
-      得到一般的逐构型非负定理。
+      负定方向的计数不是费米无符号类别的最终计数。直接在统一 Nambu
+      空间令 \(U_a=J_a\)（若 \(J_a\) 保持 \(g\)）或
+      \(U_a=iJ_a\)（若 \(J_a\) 翻转 \(g\)），再定义
+      \(\Theta_a=U_a\mathcal K\)，可以不换 basis 地算出
+      \[
+        \Theta_a^2=J_a^2,\qquad
+        \Theta_1\Theta_2
+        =(s_1s_2r)\Theta_2\Theta_1 .
+      \]
+      8 个负定类均落入 \((+,-)\) Fock-factorization 或
+      \((-,-)\) Kramers-pairing 类；此外还有 4 个
+      \(J_2^2=+I\) 的 group-only 类属于 \((+,-)\) 类。因此费米共有
+      12 类能从原有两条反线性对称性得到一般逐构型非负定理。
       <br/><br/>
-      我另外检查了“其余类别是否在增加物理正性条件后仍有可用模型”。
-      结果不是空的：玻色和费米全部 64 个五符号类别，都能另选一组同类
-      \(J_1,J_2\)，使自由生成元
+      对其余 20 个费米 group-only 类，我没有再把同一个现成模型套进每张
+      卡，而是给出一个保留原 \(A_{\rm group}\) 解空间的构造。增加一个
+      二重 flavor，取
       \[
-        A_0=-\Delta\tau\,(\sigma_z\otimes I_2\otimes I)\otimes K
+        g'=g\otimes I_2,\qquad
+        J_2'=J_2\otimes I_2,\qquad
+        J_3=I\otimes i\sigma_y ,
       \]
-      和 relative-density HS 生成元
+      并在 \(J_1^TgJ_1=+g\) 时取
+      \(J_1'=J_1\otimes\sigma_z\)，在
+      \(J_1^TgJ_1=-g\) 时取 \(J_1'=J_1\otimes I_2\)。
+      原来任意 \(A=A_{\rm group}\) 提升为
       \[
-        A_{\rm HS}=i\sqrt{\Delta\tau U}\sum_i\phi_i
-        (\sigma_z\otimes\sigma_z\otimes I)\otimes|i\rangle\langle i|
+        A'=\frac{A+\bar A}{2}\otimes I_2
+          +\frac{A-\bar A}{2}\otimes\sigma_z .
       \]
-      都位于该类的 maximal subgroup，同时还满足作用在真实 flavor
-      doublet 上的 physical Kramers symmetry
-      \(I_2\otimes i\sigma_y\otimes I\)。在有些五符号类中，这个
-      Kramers operator 可与 \(J_1\) 或 \(J_2\) 重合；在其余类中它是
-      第三个 symmetry。正性判断依赖的是它的物理作用和逐时间片不变性，
-      不是仅仅多写一个矩阵名字。
-      它们来自厄米模型
-      \[
-        H=\sum_{ij,\alpha,o}a_{i\alpha o}^+K_{ij}a_{j\alpha o}
-        +\frac U2\sum_i
-        \left[\sum_o(n_{i\uparrow o}-n_{i\downarrow o})\right]^2 ,
-        \qquad K=K^T&gt;0,\quad U&gt;0 ,
-      \]
-      其中 \(a\) 在玻色、费米两种统计下分别解释。玻色侧同一模型还满足
-      reflected-square RP，且
-      \(\|\mathcal B(\phi)\|_2\le e^{-\beta\lambda_{\min}(K)}&lt;1\)，
-      所以每个构型的 bare trace 都收敛并且没有 pole。这里必须强调：
-      这个结果证明的是每类与附加 Kramers/RP 条件的交集非空，并不是说
-      原来五条关系允许的全部 \(A\) 都无符号。
+      逐式可证 \(A'\) 仍满足原五关系对应的两个 group 等式，同时
+      \(J_3^TA'J_3=\bar A'\)，而 \(\Theta_3^2=-I\) 且
+      \(\Theta_1'\Theta_3=-\Theta_3\Theta_1'\)。所以任意已有正测度
+      HS 分解、且每个 slice 都位于 \(A_{\rm group}\) 的原模型，都有一个
+      让两个 flavor 共用辅助场、并落入 \((+,-)\) 或 \((-,-)\) 正性类的
+      实现。这个结论保留了原来所有 \(A\) 方向，却不声称未增加 flavor
+      的整个 group 已经非负。
+      玻色侧可以使用同一代数构造，但必须另外检查
+      \(C\bar U_aC=U_a\)、正 CCR subspace 和 trace class；二维、四维
+      物理子轨道已经逐类列出，不满足这些条件的纯代数表示没有被写成
+      玻色无符号定理。
       <br/><br/>
       玻色方面，你手算的 Cases 5--8，也就是 metric 为 \(J_2g\) 的四类，
       全部通过；你标为 Failed 的其他 contraction cases 也与穷举一致。
@@ -749,8 +770,10 @@
       grand-canonical 公式 \(1/\sqrt{\det(I-\mathcal M)}\)；因此这里
       根本没有 grand-canonical determinant pole。它们不是 ordinary
       grand-canonical <em>contraction-cone</em> realizations；但同一个
-      五符号标签仍可在 maximal subgroup 中再加 Kramers/RP 条件，得到
-      上面已经写出的另一组稳定 grand-canonical models。
+      五符号标签仍可在 maximal subgroup 中再加第三条 generalized
+      anti-linear symmetry、reflection-positive coupling，或限制到
+      已证明行列式非负的子群；每一种选择都要使用该卡列出的具体
+      \(A_{\rm group}\) 重新检查。
       <br/><br/>
       费米方面，在由 \(e^A\) 直接导出的标准 contraction condition
       \(\eta A+A^\dagger\eta\leq0\) 下，你已经展开的
@@ -771,11 +794,13 @@
       Cases \(5'\)--\(8'\) 仍允许负定生成元；\(9',10'\) 中凡是满足
       半负定条件的生成元都只能满足等号。
       <br/><br/>
-      为避免把 Nambu 标签误当成新机制，我还把每一行的两条反线性变换
-      完整搬到实 Majorana basis，重新计算它们的平方与相对对易关系。
-      结果是 12 个正性类只落入两种已知基本机制：
-      Majorana \(\{T^+,T^-\}\) 与 Kramers
-      \(\{T^-,T^-\}\)。四个新增 \(iJ_2g\) 负定标签并不是四种新的
+      为避免把 Nambu 标签误当成新机制，我直接从每一行的
+      \(J_a^TgJ_a=s_ag\) 定义
+      \(U_a=J_a\) 或 \(iJ_a\)，并在同一 Nambu/Fock 空间计算
+      \(\Theta_a=U_a\mathcal K\) 的平方与相对对易关系。结果是 12 个
+      正性类只落入两种已知基本机制：\((+,-)\)
+      Fock-factorization 与 \((-,-)\) Kramers pairing。四个新增
+      \(iJ_2g\) 负定标签并不是四种新的
       positivity mechanisms；它们的价值在于补齐 Nambu 分类、给出新的
       pairing/density slice 组合和可研究的厄米模型。四个
       maximal-subgroup-only 类也不能遗漏，因为费米 Fock space 有限，
@@ -801,8 +826,10 @@
       对新增玻色 \(iJ_2g\) 类，稳定 grand-canonical 零场不能同时位于
       同一个 \(\eta=iJ_2g\) invariant cone，原因已由一般 BdG
       principal-block 证明确定；依赖该 cone 的模型因此改在 fixed-\(N\)
-      sector 中由 character 公式逐构型给出。另加 Kramers/RP 条件的
-      maximal-subgroup grand-canonical 子类不受这个 no-go 约束。
+      sector 中由 character 公式逐构型给出。在 maximal subgroup 中
+      另加第三条 anti-linear symmetry 或 reflection-positive coupling
+      的 grand-canonical 子类不受这个 no-go 约束，但仍须逐模型检查物理
+      Nambu 实现与 bare-trace 收敛。
       <br/><br/>
       现有文章的 paired \(U_1=0\) model 明确落在 Case 7；
       稳定自由部分、pure \(U_2\) phases、标准 \(J_2g\) metric、
@@ -821,6 +848,9 @@
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); enumerate_updated_note"
+
+/home/yyk/conda/bin/conda run -n bafqmc-octave octave --quiet \
+  --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); enumerate_real_representations_le4"
 
 /home/yyk/conda/envs/notebook/bin/python \
   docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/plot_full_enumeration.py
@@ -879,6 +909,9 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
 <tr><td><a href="analysis/enumerate_updated_note.m">enumerate_updated_note.m</a></td><td>玻色与费米全部 64 类的 Pauli representatives、负定例子与 residual checks</td></tr>
 <tr><td><a href="analysis/enumerate_updated_note.log">enumerate_updated_note.log</a></td><td>GNU Octave 10.3.0 完整运行日志</td></tr>
 <tr><td><a href="tables/full_64_class_enumeration.csv">full_64_class_enumeration.csv</a></td><td>完整 64 行原始计算结果</td></tr>
+<tr><td><a href="analysis/enumerate_real_representations_le4.m">enumerate_real_representations_le4.m</a></td><td>穷举二维、四维全部 signed-permutation representations，用完整 character 与显式 intertwiner 合并代数轨道，并另按同时保持 \(g,C\) 的换基细分玻色物理轨道</td></tr>
+<tr><td><a href="tables/real_representation_orbits_le4.csv">real_representation_orbits_le4.csv</a></td><td>149 个二维、四维完整实正交代数轨道；逐轨道列出 \(J_1,J_2,\eta,A_{\mathrm{group}},A_{\mathrm{cone}}\) 的全部独立方向</td></tr>
+<tr><td><a href="tables/bosonic_physical_representation_suborbits_le4.csv">bosonic_physical_representation_suborbits_le4.csv</a></td><td>同时保持 \(g\) 与物理 Nambu 共轭矩阵 \(C\) 的 44 个玻色物理子轨道，以及每个子轨道的完整生成元方向</td></tr>
 <tr><td><a href="analysis/derive_strict_generator_structures.m">derive_strict_generator_structures.m</a></td><td>对 16 个允许负定生成元的类别求完整 maximal-subgroup 与 invariant-cone Pauli bases，并用测试矩阵 \(A=-\eta\) 检查负定方向确实存在</td></tr>
 <tr><td><a href="tables/strict_generator_structures.csv">strict_generator_structures.csv</a></td><td>16 类生成元维数、完整 bases、metric、witness 与 operator diagnostics</td></tr>
 <tr><td><a href="analysis/derive_maximal_subgroup_structures.m">derive_maximal_subgroup_structures.m</a></td><td>对全部 64 类求 maximal-subgroup 生成元、number-conserving 子空间，并在费米侧检查 Majorana-time-reversal 正性</td></tr>

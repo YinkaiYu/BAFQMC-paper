@@ -50,28 +50,51 @@
     <h3>6.9 结果覆盖范围与复核入口</h3>
     <p>
       第 6.6 节已经按图 1 的编号逐一列完玻色 32 类与费米 32 类，
-      因此这里不再另做一张内容重复的 64 行表。玻色与费米各有 8 类
-      \(A_{\mathrm{cone}}\) 非空；其余类别只保留
-      \(A_{\mathrm{group}}\)。group-only 类中，对逐卡列出的最小
-      Pauli 代表，有 6 个玻色类至少包含一个保持 particle 子空间、
-      平方为 \(-I\) 的反线性变换，所以其
-      particle-number-conserving \(A_{\mathrm{group}}\) 子空间具有
-      Kramers determinant 配对。其中只有一类在所列最小代表中还包含
-      单粒子矩阵迹非零的稳定方向；它同时是 note 的 RP 代数骨架，并在
-      跨反射 block 半正定时允许 pairing。其余 5 类的形式行列式虽非负，
-      但最小代表的所有厄米 one-particle generators 都无迹，不能仅用
-      这些 group directions 构成 bare trace 有限的 grand-canonical
-      热分支。费米另有 4 类由原来的 \(J_1,J_2\) 直接落入 MTR 正性类。
-      其余类别的卡片只把 class-compatible Hamiltonian 作为后续研究入口，
-      不再统一附加一个与本类无关的 Kramers 模板。
+      因此这里不再另做一张重复的 64 行表。严格负定
+      \(A_{\mathrm{cone}}\) 在玻色、费米中各有 8 类；其余各 24 类只有
+      \(A_{\mathrm{group}}\)。这不等于“其余类别都有符号问题”，因为
+      group boundary 上还有独立的行列式或 Fock-trace 正性机制。
     </p>
     <p>
-      离散关系、最小代表、残差和程序状态保存在
+      费米的 24 个 group-only 类中，4 类由原来的两条
+      generalized anti-linear symmetries 直接满足“一条平方为 \(+I\)、
+      一条平方为 \(-I\)，并且二者反对易”的模平方定理。全正类另外含有
+      compact \(SO(m)\) 与 split \(O(n,n)\) 两个无符号子群；卡片已经
+      写出它们的全部生成元、Hermitian interaction 和逐构型行列式证明。
+      对其余类，第 5.5 节给出怎样加入第三条 symmetry 的统一构造，具体
+      卡片则把这条附加约束作用到本类自己的
+      \(A_{\mathrm{group}}\) 系数上。随机乘积出现负权重的卡片同时给出
+      明确反例，所以报告不会把“存在一个无符号子群”误写成“整个
+      maximal subgroup 都无符号”。
+    </p>
+    <p>
+      玻色的 24 个 group-only 类中，有 8 个五符号类在代数上落入上述
+      两种双-symmetry 机制；二维、四维的完整物理表示表在其中 6 类找到
+      了同时保持
+      \(g\) 与 \(C=\sigma_x^{\rm Nambu}\otimes I\) 的表示。只有这些
+      物理表示，才能把矩阵反线性变换提升到玻色 Fock space。随后还要
+      分别检查 reflected sectors 是否形成真正的模平方，或
+      \(Q=\Theta_1\Theta_2\) 的 \(+i\) 子空间是否具有正 CCR norm，
+      并检查完整有序乘积是否 trace class。note 的 RP 与 TRS cases
+      都在卡片中按这个顺序完成，而不是仅凭五个正负号宣布无符号。
+    </p>
+    <p>
+      二维、四维的完整实正交枚举得到玻色 \(10+50\)、费米
+      \(16+73\)，共 149 个代数轨道；若排除 \(J_1=\pm J_2\)，则为
+      128 个。玻色物理等价还必须保持 \(C\)，其子分类得到二维 4 个、
+      四维 40 个物理轨道。离散关系、最小代表、残差和程序状态保存在
       <a href="tables/full_64_class_enumeration.csv">
       full_64_class_enumeration.csv</a>；每张卡片中的 \(A\) 公式来自
       <a href="tables/tensor_block_structures.csv">
       tensor_block_structures.csv</a>；费米 MTR 判断来自
       <a href="tables/maximal_subgroup_structures.csv">
-      maximal_subgroup_structures.csv</a>。读者可用这三个文件逐格复核
-      图 1，也可直接重跑本节列出的 Octave 脚本。
+      maximal_subgroup_structures.csv</a>；完整低维代数轨道与玻色物理
+      子轨道分别保存在
+      <a href="tables/real_representation_orbits_le4.csv">
+      real_representation_orbits_le4.csv</a> 和
+      <a href="tables/bosonic_physical_representation_suborbits_le4.csv">
+      bosonic_physical_representation_suborbits_le4.csv</a>。读者可以
+      直接重跑
+      <code>analysis/enumerate_real_representations_le4.m</code>
+      逐行复核这些结果。
     </p>

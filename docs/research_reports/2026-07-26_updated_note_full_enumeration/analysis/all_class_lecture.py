@@ -17,6 +17,14 @@ REPORT_DIR = Path(__file__).resolve().parents[1]
 TENSOR_PATH = REPORT_DIR / "tables" / "tensor_block_structures.csv"
 MAXIMAL_PATH = REPORT_DIR / "tables" / "maximal_subgroup_structures.csv"
 FULL_PATH = REPORT_DIR / "tables" / "full_64_class_enumeration.csv"
+LOW_DIMENSIONAL_REPRESENTATIONS_PATH = (
+    REPORT_DIR / "tables" / "real_representation_orbits_le4.csv"
+)
+BOSON_PHYSICAL_REPRESENTATIONS_PATH = (
+    REPORT_DIR
+    / "tables"
+    / "bosonic_physical_representation_suborbits_le4.csv"
+)
 
 
 PAULI_TEX = {
@@ -37,22 +45,18 @@ COEFFICIENT_CONDITIONS = {
     "R_S": (
         r"K_P^T=K_P",
         r"\overline{K_P}=K_P",
-        "实对称",
     ),
     "R_A": (
         r"K_P^T=-K_P",
         r"\overline{K_P}=K_P",
-        "实反对称",
     ),
     "iR_S": (
         r"K_P^T=K_P",
         r"\overline{K_P}=-K_P",
-        "纯虚对称",
     ),
     "iR_A": (
         r"K_P^T=-K_P",
         r"\overline{K_P}=-K_P",
-        "纯虚反对称",
     ),
 }
 
@@ -341,11 +345,83 @@ def pauli_word_tex(word: str) -> str:
     return r"\otimes ".join(PAULI_TEX[letter] for letter in word)
 
 
+def phased_word_label_tex(label: str) -> str:
+    if label.startswith("-i"):
+        return "-i" + pauli_word_tex(label[2:])
+    if label.startswith("i"):
+        return "i" + pauli_word_tex(label[1:])
+    if label.startswith("-"):
+        return "-" + pauli_word_tex(label[1:])
+    return pauli_word_tex(label)
+
+
 def pauli_word_numpy(word: str) -> np.ndarray:
     result = np.array([[1]], dtype=complex)
     for letter in word:
         result = np.kron(result, PAULI_NUMPY[letter])
     return result
+
+
+def pauli_matrix_decomposition(matrix: np.ndarray) -> tuple[complex, str]:
+    """Return coefficient and real-Pauli word for a single Pauli product."""
+    n = int(round(np.log2(matrix.shape[0])))
+    for letters in np.ndindex(*(4,) * n):
+        word = "".join("IXYZ"[index] for index in letters)
+        basis = pauli_word_numpy(word)
+        coefficient = np.vdot(basis, matrix) / np.vdot(basis, basis)
+        if np.linalg.norm(matrix - coefficient * basis) < 1e-10:
+            for allowed in (1, -1, 1j, -1j):
+                if abs(coefficient - allowed) < 1e-10:
+                    return complex(allowed), word
+    raise RuntimeError("Matrix is not a single real-Pauli word up to phase")
+
+
+def phased_pauli_tex(coefficient: complex, word: str) -> str:
+    body = pauli_word_tex(word)
+    prefixes = {
+        complex(1): "",
+        complex(-1): "-",
+        complex(1j): "i",
+        complex(-1j): "-i",
+    }
+    return prefixes[complex(coefficient)] + body
+
+
+def metric_matrix_and_tex(row: dict[str, str]) -> tuple[np.ndarray, str]:
+    n = int(row["n"])
+    identity = np.eye(2 ** (n - 1), dtype=complex)
+    g = np.kron(
+        -PAULI_NUMPY["Y"]
+        if row["statistics"] == "boson"
+        else PAULI_NUMPY["X"],
+        identity,
+    )
+    eta = pauli_word_numpy(row["J2_word"]) @ g
+    if row["metric"] == "iJ2g":
+        eta = 1j * eta
+    coefficient, word = pauli_matrix_decomposition(eta)
+    return eta, phased_pauli_tex(coefficient, word)
+
+
+def explicit_eta_product(
+    row: dict[str, str], raw_terms: str
+) -> str:
+    eta, _ = metric_matrix_and_tex(row)
+    pieces: list[str] = []
+    for word, _ in parse_terms(raw_terms):
+        coefficient, product_word = pauli_matrix_decomposition(
+            eta @ pauli_word_numpy(word)
+        )
+        matrix_tex = phased_pauli_tex(coefficient, product_word)
+        pieces.append(
+            rf"{matrix_tex}\otimes K_{{{pauli_word_tex(word)}}}"
+        )
+    if not pieces:
+        return "0"
+    expression = pieces[0]
+    for piece in pieces[1:]:
+        expression += piece if piece.startswith("-") else f"+{piece}"
+    return expression
 
 
 def parse_terms(raw_terms: str) -> list[tuple[str, str]]:
@@ -465,6 +541,63 @@ def physical_channel(
     return r"\(i\) 乘厄米的 pairing 项（pairing-channel HS 方向）"
 
 
+def coefficient_kernel_tex(word: str) -> str:
+    internal_word = word[1:]
+    if not internal_word or set(internal_word) == {"I"}:
+        return r"K_P"
+    return rf"{pauli_word_tex(internal_word)}\otimes K_P"
+
+
+def explicit_quadratic_operator(statistics: str, word: str) -> str:
+    kernel = coefficient_kernel_tex(word)
+    nambu = word[0]
+    if statistics == "boson":
+        if nambu == "I":
+            return (
+                rf"\(\displaystyle\sum_{{ij}}b_i^+"
+                rf"({kernel})_{{ij}}b_j\)"
+            )
+        if nambu == "Z":
+            return (
+                rf"\(\displaystyle\sum_{{ij}}b_i^+"
+                rf"({kernel})_{{ij}}b_j"
+                rf"+\frac12\operatorname{{Tr}}({kernel})\)"
+            )
+        if nambu == "X":
+            return (
+                rf"\(\displaystyle\frac12\left["
+                rf"\boldsymbol b^{{+T}}({kernel})\boldsymbol b^+"
+                rf"-\boldsymbol b^T({kernel})\boldsymbol b\right]\)"
+            )
+        return (
+            rf"\(\displaystyle\frac12\left["
+            rf"\boldsymbol b^{{+T}}({kernel})\boldsymbol b^+"
+            rf"+\boldsymbol b^T({kernel})\boldsymbol b\right]\)"
+        )
+    if nambu == "I":
+        return (
+            rf"\(\displaystyle\sum_{{ij}}c_i^+"
+            rf"({kernel})_{{ij}}c_j\)"
+        )
+    if nambu == "Z":
+        return (
+            rf"\(\displaystyle\sum_{{ij}}c_i^+"
+            rf"({kernel})_{{ij}}c_j"
+            rf"-\frac12\operatorname{{Tr}}({kernel})\)"
+        )
+    if nambu == "X":
+        return (
+            rf"\(\displaystyle\frac12\left["
+            rf"\boldsymbol c^T({kernel})\boldsymbol c"
+            rf"+\boldsymbol c^{{+T}}({kernel})\boldsymbol c^+\right]\)"
+        )
+    return (
+        rf"\(\displaystyle\frac12\left["
+        rf"-\boldsymbol c^T({kernel})\boldsymbol c"
+        rf"+\boldsymbol c^{{+T}}({kernel})\boldsymbol c^+\right]\)"
+    )
+
+
 def coefficient_table(
     raw_terms: str,
     statistics: str,
@@ -476,11 +609,13 @@ def coefficient_table(
         return "<p>没有非零项。</p>"
     rows = []
     for word, coefficient_type in terms:
-        transpose, conjugation, plain_name = COEFFICIENT_CONDITIONS[
-            coefficient_type
-        ]
-        interpretation = physical_channel(
-            statistics, word, coefficient_type
+        transpose, conjugation = COEFFICIENT_CONDITIONS[coefficient_type]
+        operator = explicit_quadratic_operator(statistics, word)
+        adjoint = physical_adjoint(statistics, word, coefficient_type)
+        adjoint_text = (
+            "该式本身为 Hermitian"
+            if adjoint == "Hermitian"
+            else r"\(-i\hat h\) 为 Hermitian"
         )
         if compact:
             rows.append(
@@ -492,14 +627,15 @@ def coefficient_table(
                 rf"<tr><td>\({pauli_word_tex(word)}\)</td>"
                 rf"<td>\({transpose}\)</td>"
                 rf"<td>\({conjugation}\)</td>"
-                rf"<td>{plain_name}</td><td>{interpretation}</td></tr>"
+                rf"<td>{operator}<br><span class='small'>{adjoint_text}</span>"
+                rf"</td></tr>"
             )
     if compact:
         heading = r"<tr><th>\(P\)</th><th>\(K_P\) 的完整条件</th></tr>"
     else:
         heading = (
             r"<tr><th>\(P\)</th><th>转置</th><th>复共轭</th>"
-            "<th>等价说法</th><th>对应二次算符</th></tr>"
+            r"<th>具体二次算符 \(\hat h(P\otimes K_P)\)</th></tr>"
         )
     return (
         '<div class="scroll"><table class="coefficient-table"><thead>'
@@ -529,12 +665,13 @@ def relation_block(row: dict[str, str], dimension: int) -> str:
         else r"J_1J_2=-J_2J_1"
     )
     metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
+    _, explicit_metric = metric_matrix_and_tex(row)
     return rf"""
       <div class="scroll">\[
         \begin{{gathered}}
           J_1={pauli_word_tex(row["J1_word"])},\qquad
           J_2={pauli_word_tex(row["J2_word"])},\qquad
-          \eta={metric},\\
+          \eta={metric}={explicit_metric},\\
           J_1^TgJ_1={sign_rhs(row["s1"], "g")},\qquad
           J_1^2={sign_rhs(row["q1"], f"I_{{{dimension}}}")},\\
           J_2^TgJ_2={sign_rhs(row["s2"], "g")},\qquad
@@ -556,126 +693,6 @@ def summary_relations(row: dict[str, str]) -> str:
     )
 
 
-def defining_lemmas() -> str:
-    return r"""
-      <h4>先把 48 个空锥类别一次证明完</h4>
-      <p>
-        为避免在每张卡片里先写一组候选矩阵、最后又把它们全部排除，
-        这里先证明两个判据。推导始终直接使用
-        \(J_a^TgJ_a=\pm g\)、\(J_a^2=\pm I\) 以及对易或反对易，
-        不再为这五个正负号另取缩写。
-      </p>
-      <p>
-        对 invariant-cone 方向定义
-        \[
-          H=\eta A_{\mathrm{cone}}
-          =H^\dagger,\qquad H<0 .
-        \]
-        因为 \(J_2\) 是实正交矩阵，
-        当 \(J_2^2=I\) 时 \(J_2^T=J_2\)，当
-        \(J_2^2=-I\) 时 \(J_2^T=-J_2\)。利用
-        \(gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg=0\)，逐步得到
-        \[
-        \begin{aligned}
-          \operatorname{Tr}(J_2gA_{\mathrm{cone}})
-          &=\operatorname{Tr}\!\left[
-             (J_2gA_{\mathrm{cone}})^T\right]\\
-          &=\operatorname{Tr}
-             (A_{\mathrm{cone}}^Tg^TJ_2^T).
-        \end{aligned}
-        \]
-        最后一行尚未代入玻色或费米的 \(g^T\)。现在分别使用
-        \(A_{\mathrm{cone}}^Tg=-gA_{\mathrm{cone}}\) 以及
-        \(J_2^T=\pm J_2\)，得到
-      </p>
-      <div class="scroll">
-        <table>
-          <thead><tr><th></th><th>\(J_2^2=I\)</th>
-          <th>\(J_2^2=-I\)</th></tr></thead>
-          <tbody>
-            <tr><td>玻色：\(g^T=-g\)</td>
-            <td>等式没有迫使迹为零</td>
-            <td>\(\operatorname{Tr}H=-\operatorname{Tr}H=0\)</td></tr>
-            <tr><td>费米：\(g^T=g\)</td>
-            <td>\(\operatorname{Tr}H=-\operatorname{Tr}H=0\)</td>
-            <td>等式没有迫使迹为零</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        负定 Hermitian 矩阵的全部本征值都小于零，其迹必小于零。
-        因此玻色要有严格 cone 必须取 \(J_2^2=I\)，费米必须取
-        \(J_2^2=-I\)。其余 32 类立即被排除。这就是
-        <strong>迹阻碍引理</strong>。
-      </p>
-      <p>
-        第二个判据使用 \(J_1\)。先看一个具体例子：若
-        \(J_1^TgJ_1=g\)、\(J_2^TgJ_2=g\)，metric 是
-        \(\eta=iJ_2g\)。若 \(J_1,J_2\) 反对易，
-        \[
-        \begin{aligned}
-          J_1^T\overline\eta J_1
-          &=-iJ_1^TJ_2gJ_1\\
-          &=-iJ_1^TJ_2J_1g\\
-          &=-i(-J_2)g\\
-          &=iJ_2g=\eta .
-        \end{aligned}
-        \]
-        若把反对易改成对易，第三行便少一个负号，最后得到
-        \(-\eta\)。其余三种 \(J_1,J_2\) 对 \(g\) 的作用完全类似，
-        直接结果是
-      </p>
-      <div class="scroll">
-        <table>
-          <thead><tr><th>\(J_1\) 对 \(g\)</th><th>\(J_2\) 对 \(g\)</th>
-          <th>Hermitian metric</th><th>使
-          \(J_1^T\overline\eta J_1=\eta\) 的关系</th></tr></thead>
-          <tbody>
-            <tr><td>保持</td><td>保持</td><td>\(iJ_2g\)</td>
-            <td>反对易</td></tr>
-            <tr><td>保持</td><td>翻转</td><td>\(J_2g\)</td>
-            <td>对易</td></tr>
-            <tr><td>翻转</td><td>保持</td><td>\(iJ_2g\)</td>
-            <td>对易</td></tr>
-            <tr><td>翻转</td><td>翻转</td><td>\(J_2g\)</td>
-            <td>反对易</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        再利用
-        \(J_1^T\overline A_{\mathrm{cone}}J_1=A_{\mathrm{cone}}\)，
-        得到
-        \[
-          J_1^T\overline HJ_1
-          =(J_1^T\overline\eta J_1)
-           (J_1^T\overline A_{\mathrm{cone}}J_1).
-        \]
-        表中所列的对易关系使右边等于 \(H\)。若采用另一种对易关系，
-        右边等于 \(-H\)：左边仍是负定矩阵，右边却是正定矩阵，矛盾。
-        在允许等号的半负定版本中，同一论证只留下 \(H=0\)。
-        这就是<strong>\(J_1\) 翻转引理</strong>。
-      </p>
-      <div class="result">
-        <strong>严格锥非空的充要条件。</strong>
-        玻色先要 \(J_2^2=I\)，费米先要 \(J_2^2=-I\)。
-        在此基础上，\(J_1,J_2\) 若同为保持 \(g\) 或同为翻转 \(g\)，
-        二者必须反对易；若一个保持、另一个翻转，二者必须对易。
-        这些条件成立时，取
-        \(A_{\mathrm{cone}}=-\eta\) 便有
-        \[
-          \eta A_{\mathrm{cone}}
-          +A_{\mathrm{cone}}^\dagger\eta=-2I<0 .
-        \]
-        而且
-        \(gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg=0\) 与
-        \(J_1^TA_{\mathrm{cone}}J_1=\overline A_{\mathrm{cone}}\)
-        也逐项成立。因此这两个条件不仅排除 48 类，也显式证明其余
-        16 类确实有严格负定方向。
-      </div>
-    """
-
-
 def group_block(row: dict[str, str]) -> str:
     formula = sum_formula(
         r"A_{\mathrm{group}}", row["maximal_terms"]
@@ -684,9 +701,12 @@ def group_block(row: dict[str, str]) -> str:
         row["maximal_terms"], row["statistics"]
     )
     return rf"""
-      <h4>\(A_{{\mathrm{{group}}}}\)：maximal subgroup 的全部生成元</h4>
-      <p>这里的“全部”是指所列最小代表及其
-      \(J_a\otimes I_m\) 扩展。生成元同时满足</p>
+      <h4>\(A_{{\mathrm{{group}}}}\)：本卡顶部代表的完整解</h4>
+      <p>
+      这一组公式解的是卡片顶部明确写出的 \(J_1,J_2\)，以及
+      \(J_a\otimes I_m\) 的格点或轨道重复。其他二维、四维实现另列在本卡
+      后面的可折叠表中。当前代表的生成元同时满足
+      </p>
       <div class="scroll">\[
         \boxed{{
         \begin{{aligned}}
@@ -704,7 +724,10 @@ def group_block(row: dict[str, str]) -> str:
       <p class="small">
         每一行的 \(K_P\) 都是独立的 \(m\times m\) 矩阵。若
         \(m=1\)，满足 \(K_P^T=-K_P\) 的行自动为零；其余行仍可取
-        任意满足表中条件的系数。
+        任意满足表中条件的系数。表中 \(\boldsymbol b\) 或
+        \(\boldsymbol c\) 包含 Pauli word 除第一个 Nambu 因子以外的内部
+        指标以及 \(m\) 维重复指标；因此最后一列已经是可直接写进
+        Hamiltonian 的算符，而不是“normal/pairing”标签。
       </p>
     """
 
@@ -715,11 +738,10 @@ def cone_block(row: dict[str, str], full: dict[str, str]) -> str:
             reason = (
                 r"本类有 \(J_2^2="
                 + sign_rhs(row["q2"], "I")
-                + r"\)，并满足迹阻碍引理的条件；所以"
+                + r"\)。由 <a href='#lemma-1'>引理1</a>，"
                 r" \(\operatorname{Tr}(\eta A)=0\) 与"
                 r" \(\eta A<0\) 不相容。"
             )
-            lemma = "迹阻碍引理"
         else:
             kappa = (
                 int(full["tau"])
@@ -731,24 +753,30 @@ def cone_block(row: dict[str, str], full: dict[str, str]) -> str:
             if kappa != -1:
                 raise RuntimeError("Unexpected reality-flip sign")
             reason = (
-                r"本类逐项给出 "
+                r"由 <a href='#lemma-2'>引理2</a>，本类逐项给出 "
                 r"\(J_1^T\overline{(\eta A)}J_1=-\eta A\)，"
                 r"所以一个负定矩阵会被等式送到它的正定相反数。"
             )
-            lemma = r"\(J_1\) 翻转引理"
         return rf"""
           <h4>\(A_{{\mathrm{{cone}}}}\)：严格 invariant cone</h4>
           <div class="scope">
             <strong>没有解：</strong>
             \[
-              \boxed{{\mathcal C=\varnothing}} .
+              \boxed{{
+                \nexists\,A_{{\mathrm{{cone}}}}\ \text{{同时满足本卡全部等式与 }}
+                \eta A_{{\mathrm{{cone}}}}
+                +A_{{\mathrm{{cone}}}}^\dagger\eta<0
+              }} .
             \]
             {reason} 因而本卡不再列“尚未施加不等式的候选空间”；
             那个线性空间不是 invariant cone，也不能提供严格收缩。
-            本类引用的是前面的<strong>{lemma}</strong>。
           </div>
         """
 
+    _, explicit_metric = metric_matrix_and_tex(row)
+    explicit_product = explicit_eta_product(
+        row, row["cone_linear_terms"]
+    )
     formula = sum_formula(
         r"A_{\mathrm{cone}}", row["cone_linear_terms"]
     )
@@ -757,7 +785,11 @@ def cone_block(row: dict[str, str], full: dict[str, str]) -> str:
     )
     return rf"""
       <h4>\(A_{{\mathrm{{cone}}}}\)：严格 invariant cone 的全部约束</h4>
-      <p>这一类通过了两个引理。\(A_{{\mathrm{{cone}}}}\) 必须同时满足</p>
+      <p>
+      这一类满足<a href="#lemma-1">引理1</a>和
+      <a href="#lemma-2">引理2</a>留下的条件。
+      \(A_{{\mathrm{{cone}}}}\) 必须同时满足
+      </p>
       <div class="scroll">\[
         \boxed{{
         \begin{{aligned}}
@@ -783,8 +815,10 @@ def cone_block(row: dict[str, str], full: dict[str, str]) -> str:
         表中每个 \(K_P\) 的转置与复共轭条件可以逐行写开；负定性却是
         <em>整块矩阵</em>
         \[
+          \eta={explicit_metric},\qquad
           \boxed{{
-            \eta\sum_{{P\in\mathcal P}}P\otimes K_P<0}}
+            \eta A_{{\mathrm{{cone}}}}
+            ={explicit_product}<0}} .
         \]
         的条件。不同 \(P\) 项一般不对易，因此不能把这一个矩阵不等式
         错拆成若干互相独立的标量不等式。本类 cone 非空已经由前面的
@@ -849,69 +883,143 @@ def physical_kernel_block(row: dict[str, str]) -> str:
     """
 
 
-def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, list[int]]:
-    """Explain the two actual anti-linear actions for a group-only class."""
-    paragraphs: list[str] = []
-    physical_kramers: list[int] = []
+def generalized_antilinear_is_physical(
+    row: dict[str, str],
+) -> tuple[bool, tuple[bool, bool]]:
+    """Check whether U_a K preserves the Nambu adjoint relation."""
+    dimension = 2 ** int(row["n"])
+    exchange = np.kron(
+        PAULI_NUMPY["X"], np.eye(dimension // 2, dtype=complex)
+    )
+    checks: list[bool] = []
+    for index in (1, 2):
+        matrix = pauli_word_numpy(row[f"J{index}_word"])
+        generalized = (
+            matrix if int(row[f"s{index}"]) == 1 else 1j * matrix
+        )
+        checks.append(
+            np.linalg.norm(
+                exchange @ generalized.conj() @ exchange - generalized
+            )
+            < 1e-10
+        )
+    return all(checks), (checks[0], checks[1])
+
+
+def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
+    """Write the generalized anti-linear algebra directly in Nambu space."""
+    items: list[str] = []
+    _, physical_checks = generalized_antilinear_is_physical(row)
     for index in (1, 2):
         word = row[f"J{index}_word"]
         square = int(row[f"q{index}"])
-        kernel_sign = int(row[f"s{index}"])
+        action_on_g = int(row[f"s{index}"])
         matrix = pauli_word_tex(word)
-        if kernel_sign == 1:
-            equation = (
-                rf"J_{index}^TB_{{\mathrm{{group}}}}J_{index}"
-                r"=\overline{B_{\mathrm{group}}}"
+        generalized_matrix = matrix if action_on_g == 1 else f"i{matrix}"
+        raw_kernel_sign = "" if action_on_g == 1 else "-"
+        phase_explanation = (
+            r"\(U_" + str(index) + rf"=J_{index}\)"
+            if action_on_g == 1
+            else (
+                r"\(U_" + str(index) + rf"=iJ_{index}\)；左右两个 "
+                r"\(i\) 抵消 \(J_" + str(index)
+                + r"\) 翻转 \(g\) 与 \(B\) 的负号"
             )
-            if square == -1 and word[0] in ("I", "Z"):
-                physical_kramers.append(index)
-                meaning = rf"""
-                  这个 \(J_{index}\) 的第一个 Pauli 因子是
-                  \({PAULI_TEX[word[0]]}\)，所以它不交换 Nambu 的
-                  particle 与 hole 两半。限制到 particle-number-conserving
-                  generators 后，\(J_{index}\mathcal K\) 直接作用在
-                  annihilation operators 上，而且
-                  \((J_{index}\mathcal K)^2=-I\)。它因此是一条真正可用于
-                  Kramers 配对的 physical time-reversal symmetry。
-                """
-            elif square == -1:
-                meaning = rf"""
-                  虽然 \((J_{index}\mathcal K)^2=-I\)，
-                  \(J_{index}={matrix}\) 的第一个 Pauli 因子交换 particle
-                  与 hole。因此它是 BdG/Nambu 空间中的反线性约束，
-                  不是作用在 annihilation operators 内部的普通
-                  Kramers time reversal；仅凭这一式不能套用文章的
-                  number-conserving determinant 配对证明。
-                """
-            else:
-                meaning = rf"""
-                  这里 \((J_{index}\mathcal K)^2=+I\)。它使
-                  \(B_{{\mathrm{{group}}}}\) 保持一个反线性 symmetry，
-                  但不会产生 Kramers 二重简并；实本征值仍可单独出现。
-                """
+        )
+        if row["statistics"] == "fermion":
+            physical_check = (
+                r"费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 "
+                r"\(U_" + str(index)
+                + r"^TgU_" + str(index)
+                + r"=g\) 已同时保证 "
+                r"\(C\overline U_" + str(index)
+                + r"C=U_" + str(index) + r"\)"
+            )
+        elif physical_checks[index - 1]:
+            physical_check = (
+                r"直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 "
+                r"\(C\overline U_" + str(index)
+                + r"C=U_" + str(index)
+                + r"\)，所以这条变换保持 \(b^+\) 与 \(b\) 的 "
+                r"Hermitian-conjugate relation"
+            )
         else:
-            equation = (
-                rf"J_{index}^TB_{{\mathrm{{group}}}}J_{index}"
-                r"=-\overline{B_{\mathrm{group}}}"
+            physical_check = (
+                r"但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 "
+                r"\(C\overline U_" + str(index)
+                + r"C\ne U_" + str(index)
+                + r"\)。因此这张卡顶部的代表只实现复化 CCR，不能把 "
+                r"\(\Theta_" + str(index)
+                + r"\) 当作物理玻色 Fock 空间上的 antiunitary"
             )
-            meaning = rf"""
-              右边多出的负号说明 \(J_{index}\mathcal K\) 把
-              Hamiltonian kernel 送到其相反数。它是 particle-hole/chiral
-              型约束，而不是使同一个 \(B_{{\mathrm{{group}}}}\) 不变的
-              time reversal；无论 \(J_{index}^2\) 取什么符号，这一条
-              都不能单独给出 Kramers determinant positivity。
-            """
-        paragraphs.append(
+        items.append(
             rf"""
               <li>
-                \(J_{index}={matrix}\)：\({equation}\)，并且
-                \(J_{index}^2={sign_rhs(square, "I")}\)。{meaning}
+                原始矩阵 \(J_{index}={matrix}\) 满足
+                \[
+                  J_{index}^TgJ_{index}
+                    ={sign_rhs(action_on_g, "g")},\qquad
+                  J_{index}^T\overline{{B_{{\mathrm{{group}}}}}}J_{index}
+                    ={raw_kernel_sign}B_{{\mathrm{{group}}}} .
+                \]
+                定义 \(U_{index}={generalized_matrix}\) 和
+                \(\Theta_{index}=U_{index}\mathcal K\) 后，
+                \[
+                  U_{index}^TgU_{index}=g,\qquad
+                  U_{index}^T\overline{{B_{{\mathrm{{group}}}}}}U_{index}
+                  =B_{{\mathrm{{group}}}},\qquad
+                  \Theta_{index}^2={sign_rhs(square, "I")}.
+                \]
+                {phase_explanation}。{physical_check}。
               </li>
             """
         )
+    generalized_mutual = (
+        int(row["r"]) * int(row["s1"]) * int(row["s2"])
+    )
+    if generalized_mutual == -1:
+        if sorted((int(row["q1"]), int(row["q2"]))) == [-1, 1]:
+            theorem_class = "Majorana"
+            theorem_text = (
+                r"二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；"
+                r"第 5.5 节将直接证明这种组合产生两个互为复共轭的 "
+                r"Fock factors"
+            )
+        elif int(row["q1"]) == int(row["q2"]) == -1:
+            theorem_class = "Kramers"
+            theorem_text = (
+                r"二者反对易且都平方为 \(-I\)；第 5.5 节将直接证明 "
+                r"这种组合在适当的物理 annihilation subspace 中产生 "
+                r"Kramers eigenvalue pairing"
+            )
+        else:
+            theorem_class = "none"
+            theorem_text = (
+                r"二者反对易但都平方为 \(+I\)；这组 symmetry 本身没有"
+                r"普适非负定理"
+            )
+    else:
+        theorem_class = "none"
+        theorem_text = (
+            r"二者彼此对易；这组 symmetry 本身没有普适非负定理"
+        )
+    mutual_rhs = (
+        r"-\Theta_2\Theta_1"
+        if generalized_mutual == -1
+        else r"\Theta_2\Theta_1"
+    )
     return (
-        '<ul class="relation-analysis">' + "".join(paragraphs) + "</ul>",
-        physical_kramers,
+        rf"""
+          <ul class="relation-analysis">{"".join(items)}</ul>
+          <p>
+            对本卡两条实际 generalized anti-linear transformations，
+            \[
+              \Theta_1\Theta_2={mutual_rhs}.
+            \]
+            {theorem_text}。
+          </p>
+        """,
+        theorem_class,
     )
 
 
@@ -923,8 +1031,398 @@ def has_stable_number_conserving_direction(row: dict[str, str]) -> bool:
     )
 
 
+def group_only_positivity(
+    row: dict[str, str],
+    maximal: dict[str, str],
+    anti_linear_text: str,
+    theorem_class: str,
+    physical_orbit_rows: list[dict[str, str]],
+) -> str:
+    heading = (
+        r"<h4>由本卡 \(J_1,J_2\) 直接得到的 generalized "
+        r"anti-linear algebra</h4>"
+    )
+    if row["statistics"] == "boson":
+        displayed_physical, _ = generalized_antilinear_is_physical(row)
+        if displayed_physical:
+            physical_gate = (
+                "本卡顶部代表已经通过物理 Nambu 共轭检查。"
+            )
+        elif physical_orbit_rows:
+            physical_gate = (
+                "本卡顶部代表没有通过物理 Nambu 共轭检查，不能直接用于"
+                "下面的 Fock-space 证明；但是卡片末尾列出的 "
+                f"{len(physical_orbit_rows)} 个二维或四维物理子轨道通过了"
+                "检查。下面的结论只用于那些物理子轨道。"
+            )
+        else:
+            physical_gate = (
+                "二维和四维内没有通过物理 Nambu 共轭检查的表示；"
+                "下面的代数关系在这两个维数内不能提升成玻色 Fock-space "
+                "正性定理。"
+            )
+        if theorem_class == "Majorana":
+            special = (
+                r"""
+                <p>
+                  这正是 note 的 bosonic reflection-positivity Case 2。
+                  上式证明 maximal-subgroup boundary 已经是两个 reflected
+                  Fock traces 的模平方。若加入跨两个 sectors 的 coupling，
+                  还必须要求其 coefficient matrix 半正定；这条附加条件把
+                  group boundary 扩展成 reflection-positive semigroup。
+                </p>
+                """
+                if row["class_id"] == BOSON_RP_CLASS
+                else ""
+            )
+            return rf"""
+              {heading}
+              {anti_linear_text}
+              <p class="result">
+                <strong>一条 symmetry 平方为 \(+I\)、另一条平方为
+                \(-I\) 且二者反对易时，可得到模平方权重。</strong>
+                {physical_gate}
+                令 \(P=\Theta_1\Theta_2\)，并把平方为 \(+I\) 的那条
+                symmetry 记为 \(\Theta_+\)。由
+                \(P^2=I\)、\([P,\hat h_\ell]=0\) 与
+                \(\Theta_+P\Theta_+^{{-1}}=-P\)，每个时间片精确分解为
+                \[
+                  \hat h_\ell=\hat h_{{\ell,+}}+\hat h_{{\ell,-}},
+                  \qquad
+                  [\hat h_{{\ell,+}},\hat h_{{m,-}}]=0 .
+                \]
+                若这两个 \(P\) 子空间在物理 CCR Fock space 中实现为两个
+                独立 bosonic sectors，而且完整 Gaussian product 是
+                trace class，则
+                \[
+                  W=
+                  \operatorname{{Tr}}_+\widehat{{\mathcal U}}_+\,
+                  \operatorname{{Tr}}_-\widehat{{\mathcal U}}_-
+                  =
+                  \left|\operatorname{{Tr}}_+
+                  \widehat{{\mathcal U}}_+\right|^2\ge0 .
+                \]
+                这里的 trace-class 假设确保两个无限占据数求和真正绝对收敛；
+                模平方证明允许原 \(b,b^+\) basis 中有 pairing。若
+                {len(physical_orbit_rows)} 个物理子轨道的计数为零，这一段
+                只是条件定理，不是本卡的无符号结论。
+              </p>
+              {special}
+            """
+        if theorem_class == "Kramers":
+            special = (
+                r"""
+                这组五条关系正是 note 的 bosonic time-reversal Case 1。
+                在 note 限定的 real orthogonal \(J_a\) ansatz 中，
+                physical-adjoint condition 进一步推出
+                \([\Sigma,U_a]=0\)。正 CCR condition 随即迫使
+                \(Q=i\Sigma\)（差一个可由 \(J_a\to-J_a\) 调整的整体
+                符号），所以 \([A_\ell,\Sigma]=0\)：它正好恢复
+                main.tex 的 particle-number-conserving Kramers 构造，
+                不能在这次 32 类穷举内宣称同时覆盖 pairing。要允许
+                pairing，必须把 \(U_a\) 扩展为非 Euclidean-orthogonal
+                的 physical Bogoliubov transformations。
+                """
+                if row["class_id"] == BOSON_TRS_CLASS
+                else (
+                    r"本卡与 note Case 1 具有同一个 generalized Kramers "
+                    r"代数；其具体 \(Q\) 由本卡上方的 \(J_1,J_2\) 决定。"
+                )
+            )
+            return rf"""
+              {heading}
+              {anti_linear_text}
+              <p class="result">
+                <strong>两条 symmetry 都平方为 \(-I\) 且反对易时，
+                可在它们共同定义的物理粒子空间中使用 Kramers
+                eigenvalue pairing。</strong>
+                {physical_gate}
+                令 \(Q=\Theta_1\Theta_2\)。由
+                \(Q^2=-I\) 和 \([Q,\hat h_\ell]=0\)，先检查
+                \[
+                  \Sigma=-gC=\operatorname{{diag}}(I,-I),\qquad
+                  \left.\Sigma\right|_{{\ker(Q-iI)}}>0 .
+                \]
+                若正的是 \(-i\) 子空间，只需把一条 \(J_a\) 整体变号，
+                便可交换 \(+i\) 与 \(-i\)。这个正定条件表示该子空间中的
+                operators 确实满足
+                \([b_\mu,b_\nu^+]=\delta_{{\mu\nu}}\)，而不是零范数
+                quadratures。对一般 physical Bogoliubov symmetry，这会
+                定义一组 emergent particles；但对本报告实际枚举的实正交
+                \(J_a\)，它会退化成原来的 annihilation block。若
+                \(M=\prod_\ell e^{{K_\ell}}\) 是该子空间上的传播，
+                \[
+                  \det(I-M)=
+                  \prod_{{\lambda\notin\mathbb R}}|1-\lambda|^2
+                  \prod_{{r\in\mathbb R}}(1-r)^{{2m_r}}>0 .
+                \]
+                对 nonnormal \(M\)，有限单粒子维数下保证 Fock operator
+                为 trace class 的直接条件是
+                \(\sigma_{{\max}}(M)<1\)。在这个收敛区域，
+                \[
+                  W_{{\mathrm B}}
+                  =\frac{{\exp[\frac12\sum_\ell
+                  \operatorname{{Tr}}K_\ell]}}{{\det(I-M)}}>0 .
+                \]
+                Kramers symmetry 使 \(\operatorname{{Tr}}K_\ell\) 为实数，
+                所以前因子严格为正。{special}
+              </p>
+            """
+        return rf"""
+          {heading}
+          {anti_linear_text}
+          <p class="scope">
+            <strong>本卡两条 generalized anti-linear symmetries 本身没有
+            普适的 group-product 正性定理。</strong>
+            这不是说本类不存在无符号子模型。可继续在上方明确列出的
+            \(A_{{\mathrm{{group}}}}\) 内加入第三条反线性 symmetry、
+            reflection-positive block condition，或限制到另一个具有
+            determinant-sign theorem 的连通子群；每一种附加条件都必须
+            重新作用在本卡的具体 \(P\otimes K_P\) 系数上。
+          </p>
+        """
+
+    if theorem_class in ("Majorana", "Kramers"):
+        if theorem_class == "Majorana":
+            theorem_description = (
+                r"一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易"
+            )
+            proof = r"""
+              令 \(P=\Theta_1\Theta_2\)，则
+              \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
+              平方为 \(+I\) 的反线性 symmetry 交换两部分，所以
+              \[
+                W_{\mathrm F}
+                =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
+                 \operatorname{Tr}_-\widehat{\mathcal U}_-
+                =\left|\operatorname{Tr}_+
+                 \widehat{\mathcal U}_+\right|^2\ge0 .
+              \]
+              这是 operator-level factorization，不要求粒子数守恒，也不
+              丢失 fermion Spin double-cover 的符号。
+            """
+        else:
+            theorem_description = (
+                r"两条都平方为 \(-I\) 且二者反对易"
+            )
+            proof = r"""
+              令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
+              \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
+              其中任一 \(\Theta_a\) 平方为 \(-I\)。若 \(M\) 是该子空间
+              的传播矩阵，Kramers pairing 给出
+              \[
+                \det(I+M)=
+                \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
+                \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
+              \]
+              conserved charge 由 \(Q\) 定义，所以原 Nambu basis 仍可
+              含 pairing。
+            """
+        return rf"""
+          {heading}
+          {anti_linear_text}
+          <p class="result">
+            <strong>本类虽然只有 maximal subgroup，但
+            {theorem_description}，所以已有完整的费米无符号证明。</strong>
+            {proof}
+          </p>
+        """
+
+    all_plus_class = "s1+_q1+_s2+_q2+_r+"
+    if row["class_id"] == all_plus_class:
+        return rf"""
+          {heading}
+          {anti_linear_text}
+          <p>
+            两条 commuting \(T^+\) symmetries 对任意
+            \(A_{{\mathrm{{group}}}}\) 没有普适 MTR 定理。不过，本类至少
+            含有下面两个可以直接证明的无符号子群；它们都来自本类实际
+            \(J_1,J_2\) 约束，而不是额外套用 Kramers 条件。
+          </p>
+          <p>
+            <strong>第一，compact \(SO(m)\) 子群。</strong>取
+            \[
+              g=\sigma_x^{{\rm Nambu}}\otimes I_m,\qquad
+              J_1=I,\qquad J_2=\sigma_x^{{\rm Nambu}}\otimes I_m,
+            \]
+            以及
+            \[
+              A_\ell=I_2^{{\rm Nambu}}\otimes k_\ell,\qquad
+              k_\ell\in\mathbb R^{{m\times m}},\quad k_\ell^T=-k_\ell .
+            \]
+            三个 group 等式逐项成立。粒子子空间中的传播为
+            \(M=\prod_\ell e^{{k_\ell}}\in SO(m)\)。其非实本征值成
+            \(e^{{i\theta}},e^{{-i\theta}}\) 对；因为
+            \(\det M=1\)，本征值 \(-1\) 的重数为偶数。因此
+            \[
+              \det(I+M)
+              =\prod_\theta|1+e^{{i\theta}}|^2\ge0 .
+            \]
+            对应的 Hermitian current 是
+            \(\hat L=-i\,c^+kc\)。相互作用
+            \(+\frac U2\hat L^2\) 的实 Gaussian HS exponent 正好产生
+            \(c^+kc\)，所以这是可直接实现的 interacting AFQMC 子类。
+          </p>
+          <p>
+            <strong>第二，split \(O(n,n)\) 子群。</strong>令
+            \[
+              \Gamma=\operatorname{{diag}}(I_n,-I_n),\qquad
+              J_1=I,\qquad
+              J_2=\sigma_x^{{\rm Nambu}}\otimes\Gamma,
+            \]
+            并取
+            \[
+              A_\ell=
+              \begin{{pmatrix}}a_\ell&0\\0&-a_\ell^T\end{{pmatrix}},
+              \qquad a_\ell\in\mathbb R^{{2n\times2n}} .
+            \]
+            逐块计算给出
+            \[
+              J_2^TA_\ell J_2=A_\ell
+              \quad\Longleftrightarrow\quad
+              a_\ell^T\Gamma+\Gamma a_\ell=0 .
+            \]
+            上式取迹还给出 \(\operatorname{{Tr}}a_\ell=0\)，所以 Nambu
+            normal-ordering scalar 恰为 1。因而
+            \(M=\prod_\ell e^{{a_\ell}}\) 位于与恒等矩阵相连的
+            \(O(n,n)\) 分支，split-orthogonal determinant theorem 给出
+            \[
+              \boxed{{W_{{\mathrm F}}=\det(I+M)\ge0}} .
+            \]
+            这条定理覆盖的是本类明确写出的 particle-number-conserving
+            子空间，而不是同类任意 pairing direction。它说明二维最小
+            代表不能代表整个类别。这一 split-\(O\) 结果是已有
+            split-orthogonal/semigroup 定理在统一 Nambu 五关系框架中的
+            嵌入；新的作用是让它与同类其余 \(A\) 方向直接比较。
+          </p>
+        """
+
+    negative_count = int(maximal["random_negative_count"])
+    subgroup_dimension = int(maximal["maximal_subgroup_dimension"])
+    if negative_count:
+        numerical_check = rf"""
+          本卡顶部代表的完整 group 基底已经随机组成 600 组有序乘积，
+          其中 {negative_count} 组 Fock trace 为负，最小值为
+          \({float(maximal["random_min_real_weight"]):.6g}\)。一个负例已经
+          排除“五条关系保证整个 group 非负”。
+        """
+    elif subgroup_dimension == 0:
+        numerical_check = r"""
+          卡片顶部的最小代表在不添加重复空间时只有恒等传播；卡片末尾的
+          四维表示表显示本类还可能有非平凡 group directions，必须逐个
+          表示继续检查，不能把这个平凡正值外推为正性定理。
+        """
+    else:
+        numerical_check = r"""
+          600 组随机乘积没有发现负值，但随机抽样不能证明整个连续 group
+          非负；本卡只采用已经证明的反线性代数结论。
+        """
+    return rf"""
+      {heading}
+      {anti_linear_text}
+      <p class="scope">
+        <strong>本卡不属于第 5.5 节两个普适费米
+        generalized-TRS 正性类。</strong>
+        {numerical_check}
+        仍可在本卡的 \(P\otimes K_P\) 表内施加更强的
+        split-orthogonal、reflection-positive 或额外
+        anti-linear constraints；这些是本类的无符号子空间，而不是对
+        整个 maximal subgroup 的结论。
+      </p>
+    """
+
+
+def third_symmetry_extension(
+    row: dict[str, str],
+    physical_orbit_rows: list[dict[str, str]],
+) -> str:
+    dimension = 2 ** int(row["n"])
+    j1 = pauli_word_tex(row["J1_word"])
+    j2 = pauli_word_tex(row["J2_word"])
+    j1_extension = (
+        rf"{j1}\otimes\sigma_z"
+        if int(row["s1"]) == 1
+        else rf"{j1}\otimes I_2"
+    )
+    pair_type = (
+        r"\(\Theta_1'^2=+I,\Theta_3^2=-I\)"
+        if int(row["q1"]) == 1
+        else r"\(\Theta_1'^2=\Theta_3^2=-I\)"
+    )
+    if row["statistics"] == "fermion":
+        conclusion = rf"""
+          费米 Fock space 有限维，而且 \(C=g\)，所以这些矩阵自动满足
+          物理 adjoint condition。{pair_type} 与
+          \(\Theta_1'\Theta_3=-\Theta_3\Theta_1'\) 正好是第 5.5 节已经
+          证明的两种基本无符号 pair 之一。因此，<strong>本类任意
+          满足物理 Hermiticity 与 HS 条件的
+          \(A_{{\mathrm{{group}}}}\) 模型都有一个只增加二重 flavor
+          的无符号 realization</strong>。这不是说原来未加
+          flavor 的整个 maximal subgroup 已经非负；它是一个逐项保持
+          原 \(A\) 方向的构造性嵌入。
+        """
+    elif physical_orbit_rows:
+        conclusion = rf"""
+          本卡末尾有 {len(physical_orbit_rows)} 个二维或四维物理子轨道；
+          从其中任意一个出发，上述二重 flavor 构造仍保持
+          \(C=\sigma_x^{{\rm Nambu}}\otimes I\)。若
+          \(J_1^2=+I\)，两个 \(P=\pm1\) Fock factors 在完整传播
+          trace class 时给出模平方。若 \(J_1^2=-I\)，还必须检查
+          \(Q=\Theta_1'\Theta_3\) 的 \(+i\) 子空间具有正 CCR norm；
+          在 note 的实正交 \(J\) ansatz 中，这个条件会使该
+          Kramers realization 回到 particle-number-conserving
+          subspace。因而这里给出的是逐卡可执行的玻色筛选，不把
+          algebraic doubling 自动写成含 pairing 的无符号定理。
+        """
+    else:
+        conclusion = r"""
+          本类在二维、四维内没有同时保持 \(g\) 与物理 Nambu 共轭关系
+          的表示，所以这一步目前只完成代数嵌入。要得到玻色 Hamiltonian，
+          必须先在更高维数找到满足
+          \(C\overline U_aC=U_a\) 的物理表示，再做同样的 trace-class
+          与正 CCR subspace 检查。
+        """
+    return rf"""
+      <details class="basis-audit extra-symmetry-construction">
+        <summary>本类怎样加入第三条 symmetry，而不丢掉原来的
+        \(A_{{\mathrm{{group}}}}\) 方向</summary>
+        <p>
+          <a href="#third-symmetry-completion">第 5.5 节的统一构造</a>
+          已经逐式证明这个提升保持 canonical condition、原来的两个
+          group 等式和每一个 \(A_{{\mathrm{{group}}}}\) 独立方向。
+          对本卡顶部的具体代表，所需矩阵就是
+          \[
+            g'=g\otimes I_2,\qquad
+            J_1'={j1_extension},\qquad
+            J_2'={j2}\otimes I_2,\qquad
+            J_3=I_{{{dimension}}}\otimes(i\sigma_y).
+          \]
+          若玻色顶部代表没有通过物理 Nambu 共轭检查，就把这里的
+          \(J_1,J_2\) 换成本卡末尾任一物理子轨道列出的具体矩阵。
+        </p>
+        <p>
+          对本卡任意 \(A=A_{{\mathrm{{group}}}}\)，对应的扩大后生成元为
+          \[
+            A'=
+            \frac{{A+\overline A}}{{2}}\otimes I_2+
+            \frac{{A-\overline A}}{{2}}\otimes\sigma_z .
+          \]
+          它的两个 flavor blocks 分别是 \(A\) 与 \(\overline A\)，因而
+          本卡表中任何粒子数守恒或 pairing coefficient 都没有被删掉。
+          新增反线性对称性满足
+          \(\Theta_3^2=-I\) 和
+          \(\Theta_1'\Theta_3=-\Theta_3\Theta_1'\)，所以本卡具体落入
+          {pair_type}。
+        </p>
+        <p>{conclusion}</p>
+      </details>
+    """
+
+
 def positivity_block(
-    row: dict[str, str], maximal: dict[str, str]
+    row: dict[str, str],
+    maximal: dict[str, str],
+    physical_orbit_rows: list[dict[str, str]],
 ) -> str:
     if int(row["strict_interior"]):
         if row["statistics"] == "boson" and row["metric"] == "J2g":
@@ -1012,219 +1510,30 @@ def positivity_block(
         if row["statistics"] == "fermion" and int(
             maximal["maximal_subgroup_sign_guaranteed"]
         ):
-            name = (
-                r"Majorana \(\{T^+,T^-\}\)"
-                if maximal["mtr_class"] == "Majorana_Tplus_Tminus"
-                else r"Kramers \(\{T^-,T^-\}\)"
-            )
+            anti_linear_text, theorem_class = group_antilinear_analysis(row)
             base += rf"""
-              <p>
-                对本类的等号边界还能作一个独立校验：把两条反线性变换
-                搬到实 Majorana 基底后，平方与相互关系正好是
-                {name} 类。因此纯 \(A_{{\mathrm{{group}}}}\) 时间片的费米
-                trace 已经非负；加入本类 \(A_{{\mathrm{{cone}}}}\) 后则可
-                同时使用半群论证。
-              </p>
+              <details class="basis-audit">
+                <summary>等号边界的 generalized {theorem_class} 正性</summary>
+                {anti_linear_text}
+                <p>
+                  因此纯 \(A_{{\mathrm{{group}}}}\) 时间片已经满足
+                  <a href="#group-only-theorems">第 5.5 节</a>的直接
+                  Nambu/Fock 正性证明；加入
+                  \(A_{{\mathrm{{cone}}}}\) 后还可同时使用收缩半群论证。
+                </p>
+              </details>
             """
         return base
 
-    anti_linear_text, physical_kramers = group_antilinear_analysis(row)
-
-    if row["statistics"] == "boson":
-        result = r"""
-          <h4>这两个 \(J\) 对本类 \(gA\) 的实际正性含义</h4>
-        """ + anti_linear_text
-        if physical_kramers:
-            indices = ", ".join(rf"\(J_{index}\mathcal K\)" for index in physical_kramers)
-            note_case = (
-                r"""
-                  本卡的五个离散正负号正是 note 的玻色
-                  time-reversal Case 1；其中
-                  \(J_1\mathcal K\) 是文章所用的 physical Kramers
-                  transformation，\(J_2\) 是它与 Nambu
-                  particle/hole exchange 的组合。需要同时记住，本节
-                  的 group 卡还额外要求
-                  \(J_2^TA_{\mathrm{group}}J_2
-                  =\overline{A_{\mathrm{group}}}\)，而文章的一般 TRS
-                  slice 满足的是
-                  \(J_2^TAJ_2=-\overline A^{\,T}\)。所以“离散正负号
-                  相同”不等于“允许的 \(A\) 完全相同”；本卡只是文章
-                  TRS 条件与当前 group 等式的更小交集。
-                """
-                if row["class_id"] == BOSON_TRS_CLASS
-                else r"""
-                  note 没有把这张交集卡另起一个 time-reversal 编号，
-                  但卡片施加的第二条约束只会缩小允许的 generators，
-                  不会破坏这里已经存在的 physical Kramers symmetry。
-                """
-            )
-            if has_stable_number_conserving_direction(row):
-                stable_text = rf"""
-                  本卡的 \(P\)-\(K_P\) 表还包含
-                  \[
-                    A_0=-\kappa\,
-                    {pauli_word_tex("Z" + "I" * (int(row["n"]) - 1))}
-                    \otimes I_m,\qquad \kappa>0 .
-                  \]
-                  它对应正的 one-particle energy
-                  \(\kappa\sum_i b_i^+b_i\)，使零场传播的全部本征值模
-                  小于 1。因此本卡确有 bare trace 有限的
-                  grand-canonical 参考构型；在与 pole 不相交的连通
-                  区域中，Kramers determinant 配对给出正权重。
-                """
-            else:
-                stable_text = r"""
-                  但本卡所列最小代表还有一个必须就地说明的限制：表中的
-                  particle-number-conserving 厄米 one-particle
-                  generators 全部无迹。任意这类时间片的 particle block
-                  \(D_\ell\) 因而满足
-                  \[
-                    \operatorname{Tr}D_\ell=0,\qquad
-                    |\det e^{D_\ell}|=e^{\operatorname{ReTr}D_\ell}=1 .
-                  \]
-                  有序乘积 \(\mathcal B\) 仍有
-                  \(|\det\mathcal B|=1\)。若它的所有本征值都满足
-                  \(|\lambda|<1\)，则
-                  \(|\det\mathcal B|=\prod_\lambda|\lambda|<1\)，与前式
-                  矛盾。因此这个最小代表虽然有 Kramers determinant
-                  配对，却没有只靠本卡 number-conserving group
-                  generators 构成的、bare trace 有限的
-                  grand-canonical 热分支。要得到可模拟模型，必须换用
-                  同一五符号类的物理适配表示并重新求 \(A\) 交集，或再
-                  加一条与原 \(J_1,J_2\) 同时相容的稳定方向。
-                """
-            result += rf"""
-              <p class="result">
-                <strong>本卡的 particle-number-conserving group 子空间
-                具有 Kramers determinant 配对。</strong>
-                可直接使用 {indices}。对任意由这些
-                number-conserving generators 构成的传播矩阵
-                \(\mathcal B\)，非实本征值成
-                \((\lambda,\overline\lambda)\) 对，实本征值具有偶数
-                重数，所以
-                \[
-                  \det(I-\mathcal B)=
-                  \prod_{{\lambda\notin\mathbb R}}|1-\lambda|^2
-                  \prod_{{\lambda\in\mathbb R}}
-                  (1-\lambda)^{{\mathrm{{even}}}}\geq0 .
-                \]
-                {note_case}
-              </p>
-              <p>{stable_text}</p>
-            """
-        else:
-            result += r"""
-              <p class="scope">
-                <strong>因此，本卡原有的两条反线性约束没有给出
-                number-conserving Kramers positivity。</strong>
-                上面的结论来自本卡实际 \(J_1,J_2\) 对 \(gA\) 的作用，
-                不是根据类别名称猜测。若另加一条保持 annihilation
-                子空间、平方为 \(-I\) 的 physical time reversal，
-                必须把它作为第三个明确矩阵写出并重新求交集。
-              </p>
-            """
-        if row["class_id"] == BOSON_RP_CLASS:
-            result += r"""
-              <p class="result">
-                <strong>本卡同时是 note 所称的 reflection-positivity
-                离散类别。</strong>
-                \(J_1^2=+I\)、\(J_2^2=-I\) 与
-                \(J_1J_2=-J_2J_1\) 给出一对 reflected sectors 的代数
-                骨架。对于含 pairing 的模型，还要在本卡 group algebra
-                内逐块检查跨反射系数
-                \(F=F^\dagger\succeq0\)。满足这条附加条件时，有限
-                bare trace 可写成 reflected operator squares 的和，
-                因而非负；这一 RP 证明允许 pairing，不依赖上一段只适用
-                于 particle-number-conserving slices 的 Kramers 证明。
-              </p>
-            """
-        return result
-
-    if row["statistics"] == "fermion" and int(
-        maximal["maximal_subgroup_sign_guaranteed"]
-    ):
-        name = (
-            r"Majorana \(\{T^+,T^-\}\)"
-            if maximal["mtr_class"] == "Majorana_Tplus_Tminus"
-            else r"Kramers \(\{T^-,T^-\}\)"
-        )
-        return rf"""
-          <h4>这两个 \(J\) 对本类 \(gA\) 的实际正性含义</h4>
-          {anti_linear_text}
-          <p class="result">
-            <strong>本类只有 maximal subgroup，但已经是完整的费米
-            无符号类。</strong>
-            把本卡列出的 \(J_1,J_2\) 变到实 Majorana 基底后，直接得到
-            \[
-              T_1^2={sign_rhs(maximal["majorana_q1"], "I")},\qquad
-              T_2^2={sign_rhs(maximal["majorana_q2"], "I")},\qquad
-              T_1T_2={signed_word(maximal["majorana_r"], "T_2T_1")}.
-            \]
-            这正是 {name}，不是另加的一套 Kramers 模板。它使 Gaussian
-            trace 分解成实平方或一对共轭因子的乘积。因此任意
-            \(A_{{\mathrm{{group}}}}\) 时间片的有序乘积都有非负权重；
-            费米 Hilbert space 有限，所以不需要
-            \(A_{{\mathrm{{cone}}}}\) 来排除 bare-trace pole。
-          </p>
-        """
-
-    negative_count = int(maximal["random_negative_count"])
-    subgroup_dimension = int(maximal["maximal_subgroup_dimension"])
-    if negative_count:
-        numerical_check = rf"""
-          对本卡最小代表，从完整
-          \(A_{{\mathrm{{group}}}}\) 基底随机组成 600 组有序传播后，
-          已找到 {negative_count} 组负 Fock trace；最小值为
-          \({float(maximal["random_min_real_weight"]):.6g}\)。
-          一个负例已经足以排除“本卡五条关系保证任意 group product
-          非负”这一命题。
-        """
-    elif subgroup_dimension == 0:
-        numerical_check = r"""
-          本卡最小代表在 \(m=1\) 时
-          \(A_{\mathrm{group}}=0\)，所以只有恒等传播，正权重是平凡的。
-          当 \(m\geq2\) 时，\(K_P^T=-K_P\) 的行可以变成非零；这时必须
-          使用上面的完整 \(P\)-\(K_P\) 表重新判断，不能把最小表示的
-          平凡结果外推到所有重数。
-        """
-    else:
-        numerical_check = rf"""
-          本卡最小代表的 600 组随机乘积没有出现负值，但这不是正性证明：
-          其 Majorana 反线性 pair 不属于两个已知的非负类，而且随机抽样
-          不能覆盖整个连续 group。卡片因此只保留精确代数结论。
-        """
-    mtr_description = {
-        "commuting_pair_not_generic": (
-            "两条 Majorana 反线性变换彼此对易"
-        ),
-        "Tplus_Tplus_not_generic": (
-            r"两条 Majorana 反线性变换彼此反对易，但二者平方都为 \(+I\)"
-        ),
-    }[maximal["mtr_class"]]
-    positive_pair_names = (
-        r"Majorana \(\{T^+,T^-\}\) 或 Kramers "
-        r"\(\{T^-,T^-\}\)"
+    anti_linear_text, theorem_class = group_antilinear_analysis(row)
+    base = group_only_positivity(
+        row,
+        maximal,
+        anti_linear_text,
+        theorem_class,
+        physical_orbit_rows,
     )
-    return rf"""
-      <h4>这两个 \(J\) 对本类 \(gA\) 的实际正性含义</h4>
-      {anti_linear_text}
-      <p>
-        在实 Majorana 基底中，本卡两条反线性变换满足
-        \[
-          T_1^2={sign_rhs(maximal["majorana_q1"], "I")},\qquad
-          T_2^2={sign_rhs(maximal["majorana_q2"], "I")},\qquad
-          T_1T_2={signed_word(maximal["majorana_r"], "T_2T_1")}.
-        \]
-        也就是说，{mtr_description}；它不等于
-        {positive_pair_names} 的一般正性类。{numerical_check}
-      </p>
-      <p class="scope">
-        因此本卡五条关系精确确定了 group algebra，却没有给出整个
-        group 的费米无符号定理。一个具体 Hamiltonian 仍可在该
-        algebra 内取更小的共轭分块、Majorana-RP 或 physical Kramers
-        子空间；那是对本卡 \(P\)-\(K_P\) 系数的附加限制，必须明确写出。
-      </p>
-    """
+    return base + third_symmetry_extension(row, physical_orbit_rows)
 
 
 def strict_model_key(row: dict[str, str]) -> str:
@@ -1510,6 +1819,88 @@ def representative_probe_model(
     """
 
 
+def fermion_all_plus_model() -> str:
+    return r"""
+      <section class="model-example">
+        <p class="model-title"><strong>本类已经严格无符号的两个
+        Hermitian interacting models</strong></p>
+        <p>
+          <strong>受挫图上的 loop-current-square fermions。</strong>
+          对任意实反对称 one-particle matrices
+          \(k_\mu^T=-k_\mu\)，定义 Hermitian currents
+          \[
+            \hat L_\mu=-i\sum_{ij}c_i^+(k_\mu)_{ij}c_j ,
+          \]
+          并考虑
+          \[
+            \hat H_{\rm current}
+            =\frac12\sum_\mu U_\mu\hat L_\mu^2,
+            \qquad U_\mu>0 .
+          \]
+          每个 \(k_\mu\) 可取为三角、kagome 或 moiré 图上的局域
+          loop-current pattern；不同 \(k_\mu\) 不必彼此对易。逐项使用
+          \[
+            e^{-\Delta\tau U_\mu\hat L_\mu^2/2}
+            \propto\int d\phi_\mu\,e^{-\phi_\mu^2/2}
+            e^{\,\sqrt{\Delta\tau U_\mu}\phi_\mu\,c^+k_\mu c}
+          \]
+          后，HS generator 是
+          \(A_{\rm HS}=I_2^{\rm Nambu}\otimes k_\mu\)，正是上文
+          compact-\(SO(m)\) 方向。任意时空场构型给出
+          \(M\in SO(m)\)，所以
+          \[
+            \det(I+M)
+            =\prod_{\operatorname{Im}\lambda>0}|1+\lambda|^2
+             \prod_{r=\pm1}(1+r)^{n_r}\ge0 .
+          \]
+          第一项遍历非实共轭本征值对，\(n_r\) 是实本征值
+          \(r=\pm1\) 的重数；若出现 \(-1\)，权重为零，否则每个因子均
+          为正。这里没有加入 chemical potential，因为
+          \(\mu I\notin\mathfrak{so}(m)\)，加入它会离开本卡所证明的
+          compact-\(SO(m)\) maximal-subgroup 子空间。这个模型可直接研究
+          受挫平带中自发 loop-current、轨道磁性与电荷序的竞争；它不要求
+          bipartite lattice。
+        </p>
+        <p>
+          <strong>二分格点 spinless \(t\!-\!V\) 的 hopping-channel
+          CT-AFQMC。</strong>把全部 A-sublattice sites 排在 B sites
+          之前，令
+          \(\Gamma=\operatorname{diag}(I_A,-I_B)\)。取实对称、只连接
+          两个子晶格的 \(K\)，并考虑
+          \[
+            \hat H=\sum_{ij}c_i^+K_{ij}c_j+
+            \sum_{\langle ij\rangle}
+            \left[V\hat n_i\hat n_j-\frac V2(\hat n_i+\hat n_j)-\Gamma_0\right],
+            \qquad V,\Gamma_0>0 .
+          \]
+          对每条 A--B bond，令
+          \(\hat o_{ij}=c_i^+c_j+c_j^+c_i\)。由于
+          \(\hat o_{ij}^2=\hat n_i+\hat n_j-2\hat n_i\hat n_j\)，有精确
+          分解
+          \[
+            -\hat v_{ij}
+            =\frac{\Gamma_0}{2}\sum_{\sigma=\pm1}
+              e^{\sigma\lambda\hat o_{ij}},
+            \qquad
+            \cosh\lambda=1+\frac{V}{2\Gamma_0}.
+          \]
+          自由传播与每个 bond vertex 的 one-particle generators 都满足
+          \[
+            a^T\Gamma+\Gamma a=0 .
+          \]
+          因此每个 CT configuration 的有序乘积属于
+          \(O^{++}(n,n)\)，上文的 split-orthogonal theorem 逐构型给出
+          \(\det(I+M)\ge0\)。取 honeycomb、\(\pi\)-flux square 或带
+          boundary defects 的 bipartite Dirac lattice，可研究
+          semimetal--charge-order criticality、缺陷束缚态与长程
+          opposite-sublattice interactions。这个模型是已有
+          split-orthogonal 方法的代表；这里的新信息是它在五关系全正类
+          的完整四维表示与 \(A_{\rm group}\) 表中的确切位置。
+        </p>
+      </section>
+    """
+
+
 def physical_model(
     row: dict[str, str], maximal: dict[str, str], number: int
 ) -> str:
@@ -1520,6 +1911,11 @@ def physical_model(
         and row["class_id"] == BOSON_RP_CLASS
     ):
         return boson_special_model(row)
+    if (
+        row["statistics"] == "fermion"
+        and row["class_id"] == "s1+_q1+_s2+_q2+_r+"
+    ):
+        return fermion_all_plus_model()
     if row["statistics"] == "fermion" and int(
         maximal["maximal_subgroup_sign_guaranteed"]
     ):
@@ -1570,10 +1966,456 @@ def number_conserving_block(row: dict[str, str]) -> str:
     """
 
 
+def parse_integer_matrix(raw: str) -> np.ndarray:
+    rows = [
+        [int(entry) for entry in row.split()]
+        for row in raw.split("|")
+        if row
+    ]
+    matrix = np.asarray(rows, dtype=int)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
+        raise RuntimeError(f"Invalid serialized square matrix: {raw}")
+    return matrix
+
+
+def signed_permutation_matrix(raw: str) -> np.ndarray:
+    entries = [int(entry) for entry in raw.strip("[]").split()]
+    matrix = np.zeros((len(entries), len(entries)), dtype=int)
+    for column, entry in enumerate(entries):
+        matrix[abs(entry) - 1, column] = 1 if entry > 0 else -1
+    return matrix
+
+
+def integer_matrix_tex(matrix: np.ndarray) -> str:
+    rows = [
+        "&".join(str(int(value)) for value in row)
+        for row in np.asarray(matrix)
+    ]
+    return (
+        r"\begin{pmatrix}"
+        + r"\\".join(rows)
+        + r"\end{pmatrix}"
+    )
+
+
+def phased_matrix_tex(phase: str, matrix: np.ndarray) -> str:
+    prefix = "" if phase == "1" else "i"
+    return prefix + integer_matrix_tex(matrix)
+
+
+def parse_orbit_terms(raw: str) -> list[tuple[str, np.ndarray]]:
+    terms: list[tuple[str, np.ndarray]] = []
+    for entry in raw.split(";"):
+        if not entry:
+            continue
+        coefficient_type, serialized_matrix = entry.split("@", 1)
+        terms.append(
+            (coefficient_type, parse_integer_matrix(serialized_matrix))
+        )
+    return terms
+
+
+def canonical_g_matrix(statistics: str, dimension: int) -> np.ndarray:
+    nambu_metric = (
+        -PAULI_NUMPY["Y"]
+        if statistics == "boson"
+        else PAULI_NUMPY["X"]
+    )
+    return np.kron(
+        nambu_metric, np.eye(dimension // 2, dtype=complex)
+    )
+
+
+def orbit_literal_span(
+    terms: list[tuple[str, np.ndarray]],
+) -> str:
+    entries: list[str] = []
+    for coefficient_type, matrix in terms:
+        if coefficient_type == "R_S":
+            entries.append(integer_matrix_tex(matrix))
+        elif coefficient_type == "iR_S":
+            entries.append("i" + integer_matrix_tex(matrix))
+    if not entries:
+        return r"\{0\}"
+    return (
+        r"\operatorname{span}_{\mathbb R}\left\{"
+        + r",\, ".join(entries)
+        + r"\right\}"
+    )
+
+
+def orbit_dimension_formula(
+    terms: list[tuple[str, np.ndarray]],
+) -> str:
+    symmetric_count = sum(
+        coefficient_type in ("R_S", "iR_S")
+        for coefficient_type, _ in terms
+    )
+    antisymmetric_count = len(terms) - symmetric_count
+    return (
+        rf"{symmetric_count}\frac{{m(m+1)}}2"
+        rf"+{antisymmetric_count}\frac{{m(m-1)}}2"
+    )
+
+
+def orbit_operator_tex(
+    statistics: str,
+    matrix: np.ndarray,
+    coefficient_index: int,
+) -> str:
+    dimension = matrix.shape[0]
+    half = dimension // 2
+    kernel = np.real_if_close(
+        canonical_g_matrix(statistics, dimension) @ matrix
+    ).astype(int)
+    blocks = (
+        kernel[:half, :half],
+        kernel[:half, half:],
+        kernel[half:, :half],
+        kernel[half:, half:],
+    )
+    operator = "b" if statistics == "boson" else "c"
+    block_tex = [integer_matrix_tex(block) for block in blocks]
+    coefficient = rf"K_{coefficient_index}"
+    return rf"""
+      \(\displaystyle \frac12\Big[
+      \boldsymbol {operator}^T({block_tex[0]}\otimes {coefficient})
+      \boldsymbol {operator}
+      +\boldsymbol {operator}^T({block_tex[1]}\otimes {coefficient})
+      \boldsymbol {operator}^+
+      +\boldsymbol {operator}^{{+T}}({block_tex[2]}\otimes {coefficient})
+      \boldsymbol {operator}
+      +\boldsymbol {operator}^{{+T}}({block_tex[3]}\otimes {coefficient})
+      \boldsymbol {operator}^+\Big]\)
+    """
+
+
+def orbit_terms_table(
+    statistics: str,
+    terms: list[tuple[str, np.ndarray]],
+) -> str:
+    if not terms:
+        return "<p>没有非零方向。</p>"
+    rows: list[str] = []
+    for index, (coefficient_type, matrix) in enumerate(terms, 1):
+        transpose, conjugation = COEFFICIENT_CONDITIONS[coefficient_type]
+        rows.append(
+            "<tr>"
+            rf"<td>\(P_{index}={integer_matrix_tex(matrix)}\)</td>"
+            rf"<td>\({transpose.replace('K_P', f'K_{index}')}\)</td>"
+            rf"<td>\({conjugation.replace('K_P', f'K_{index}')}\)</td>"
+            f"<td>{orbit_operator_tex(statistics, matrix, index)}</td></tr>"
+        )
+    return (
+        '<div class="scroll"><table class="coefficient-table"><thead>'
+        r"<tr><th>\(P_\alpha\)</th><th>转置</th><th>复共轭</th>"
+        r"<th>具体二次算符 \(\hat h(P_\alpha\otimes K_\alpha)\)</th>"
+        "</tr></thead><tbody>"
+        + "".join(rows)
+        + "</tbody></table></div>"
+    )
+
+
+def orbit_sum_formula(
+    lhs: str, terms: list[tuple[str, np.ndarray]]
+) -> str:
+    if not terms:
+        return rf"\[{lhs}=0.\]"
+    return rf"""
+      \[
+        {lhs}=\sum_{{\alpha=1}}^{{{len(terms)}}}
+        P_\alpha\otimes K_\alpha .
+      \]
+    """
+
+
+def orbit_cone_lmi(
+    orbit: dict[str, str],
+    terms: list[tuple[str, np.ndarray]],
+) -> str:
+    phase = orbit["eta_phase"]
+    eta_base = parse_integer_matrix(orbit["eta_matrix"])
+    pieces = [
+        rf"{phased_matrix_tex(phase, eta_base @ matrix)}"
+        rf"\otimes K_{index}"
+        for index, (_, matrix) in enumerate(terms, 1)
+    ]
+    return "+".join(pieces) if pieces else "0"
+
+
+def orbit_pair_list(raw_pairs: str) -> str:
+    rendered: list[str] = []
+    for pair in raw_pairs.split(";"):
+        first, second = pair.split("/", 1)
+        rendered.append(
+            rf"\left({integer_matrix_tex(signed_permutation_matrix(first))},"
+            rf"{integer_matrix_tex(signed_permutation_matrix(second))}\right)"
+        )
+    return r",\quad ".join(rendered)
+
+
+def orbit_sheet(
+    row: dict[str, str],
+    orbit: dict[str, str],
+    full: dict[str, str],
+    *,
+    physical_suborbit: bool = False,
+) -> str:
+    dimension = int(orbit["matrix_dimension"])
+    first = signed_permutation_matrix(orbit["representative_J1"])
+    second = signed_permutation_matrix(orbit["representative_J2"])
+    eta_base = parse_integer_matrix(orbit["eta_matrix"])
+    eta = phased_matrix_tex(orbit["eta_phase"], eta_base)
+    group_terms = parse_orbit_terms(orbit["group_terms"])
+    cone_terms = parse_orbit_terms(orbit["cone_terms"])
+    independence = (
+        "两条反线性约束彼此独立"
+        if int(orbit["distinct_J1_J2"])
+        else r"\(J_1=J_2\)，所以这里只提供一条独立反线性约束"
+    )
+    if physical_suborbit:
+        orbit_id = orbit["physical_orbit_id"]
+        orbit_kind = "玻色物理表示子轨道"
+        physicality = (
+            r"本轨道的每个代表都满足 "
+            r"\(CJ_1C=s_1J_1,\ CJ_2C=s_2J_2\)，"
+            r"所以 \(U_a=J_a\) 或 \(iJ_a\) 真正保持 "
+            r"\(\chi^\dagger=\chi^TC\)"
+        )
+    else:
+        orbit_id = orbit["orbit_id"]
+        orbit_kind = "代数表示轨道"
+        physicality = (
+            r"本轨道只按保持 \(g\) 的换基合并；玻色情形能否作为同一 "
+            r"Fock representation 的物理换基，必须再看本卡后面的物理子表"
+            if row["statistics"] == "boson"
+            else (
+                r"费米情形 \(C=g\)，所以保持 \(g\) 已同时保持物理 "
+                r"creation/annihilation adjoint relation"
+            )
+        )
+    group_formula = orbit_sum_formula(
+        r"A_{\mathrm{group}}", group_terms
+    )
+    group_table = orbit_terms_table(row["statistics"], group_terms)
+    if int(row["strict_interior"]):
+        cone_formula = orbit_sum_formula(
+            r"A_{\mathrm{cone}}", cone_terms
+        )
+        cone_table = orbit_terms_table(row["statistics"], cone_terms)
+        cone_content = rf"""
+          <p>
+            \(A_{{\mathrm{{cone}}}}\) 必须满足本卡前面列出的四个等式。
+            对这个表示，它们的完整解为
+          </p>
+          {cone_formula}
+          {cone_table}
+          <p>
+            继续施加严格不等式时，必须把具体
+            \(\eta={eta}\) 代入整块矩阵：
+            \[
+              \boxed{{\eta A_{{\mathrm{{cone}}}}
+              ={orbit_cone_lmi(orbit, cone_terms)}<0}} .
+            \]
+            不能把这一个整块负定条件拆成各个 \(K_\alpha\) 分别为负。
+          </p>
+        """
+    else:
+        lemma_id = (
+            "lemma-1"
+            if full["status"] == "boundary_only_trace_obstruction"
+            else "lemma-2"
+        )
+        lemma_number = "1" if lemma_id == "lemma-1" else "2"
+        cone_content = rf"""
+          <p>
+            对这一整个五关系类别，
+            <a href="#{lemma_id}">引理{lemma_number}</a>已经证明
+            \[
+              \boxed{{
+                \nexists\,A_{{\mathrm{{cone}}}}\ \text{{同时满足全部等式与 }}
+                \eta A_{{\mathrm{{cone}}}}
+                +A_{{\mathrm{{cone}}}}^\dagger\eta<0
+              }} .
+            \]
+            因此这里不列只满足 cone 等式、却不可能满足严格负定不等式的
+            线性候选。
+          </p>
+        """
+    return rf"""
+      <section class="orbit-sheet">
+        <h5>{dimension} 维，{orbit_kind} {orbit_id}</h5>
+        <p>
+          取
+          \[
+            J_1={integer_matrix_tex(first)},\qquad
+            J_2={integer_matrix_tex(second)},\qquad
+            \eta={eta}.
+          \]
+          {independence}；{physicality}。这个表示轨道含
+          {orbit["orbit_size"]} 组 signed-permutation 标准代表。
+        </p>
+        <details>
+          <summary>展开同一轨道内的全部标准代表</summary>
+          <div class="scroll">\[
+            {orbit_pair_list(orbit["all_pairs"])}
+          \]</div>
+        </details>
+        <p>
+          不额外张量格点或轨道重复空间，即 \(m=1\) 时，
+          \(A_{{\mathrm{{group}}}}\) 的全部独立实方向为
+          \[
+            A_{{\mathrm{{group}}}}^{{({dimension})}}
+            \in {orbit_literal_span(group_terms)} .
+          \]
+          张量任意 \(m\) 维重复空间后，独立实参数数目为
+          \[
+            \dim_{{\mathbb R}}A_{{\mathrm{{group}}}}
+            ={orbit_dimension_formula(group_terms)},
+          \]
+          完整矩阵结构如下。
+        </p>
+        {group_formula}
+        {group_table}
+        {cone_content}
+      </section>
+    """
+
+
+def low_dimensional_representation_block(
+    row: dict[str, str],
+    orbit_rows: list[dict[str, str]],
+    physical_orbit_rows: list[dict[str, str]],
+    full: dict[str, str],
+) -> str:
+    by_dimension = {
+        dimension: [
+            orbit
+            for orbit in orbit_rows
+            if int(orbit["matrix_dimension"]) == dimension
+        ]
+        for dimension in (2, 4)
+    }
+    blocks: list[str] = []
+    for dimension in (2, 4):
+        if by_dimension[dimension]:
+            blocks.extend(
+                orbit_sheet(row, orbit, full)
+                for orbit in by_dimension[dimension]
+            )
+        else:
+            blocks.append(
+                rf"""
+                <p>
+                  <strong>{dimension} 维：</strong>不存在满足这五条关系的
+                  实正交表示。
+                </p>
+                """
+            )
+    physical_blocks: list[str] = []
+    if row["statistics"] == "boson":
+        physical_by_dimension = {
+            dimension: [
+                orbit
+                for orbit in physical_orbit_rows
+                if int(orbit["matrix_dimension"]) == dimension
+            ]
+            for dimension in (2, 4)
+        }
+        for dimension in (2, 4):
+            if physical_by_dimension[dimension]:
+                physical_blocks.extend(
+                    orbit_sheet(
+                        row,
+                        orbit,
+                        full,
+                        physical_suborbit=True,
+                    )
+                    for orbit in physical_by_dimension[dimension]
+                )
+            else:
+                physical_blocks.append(
+                    rf"""
+                    <p>
+                      <strong>{dimension} 维：</strong>本类没有同时保持
+                      \(g\) 与物理 Nambu 共轭矩阵 \(C\) 的表示。
+                    </p>
+                    """
+                )
+        physical_section = (
+            r"""
+            <details class="basis-audit physical-suborbits">
+              <summary>只看可直接实现为玻色 Hamiltonian 的物理表示</summary>
+              <p>
+                这里不再按任意保持 \(g\) 的矩阵合并，而是同时要求换基
+                保持
+                \[
+                  C=\sigma_x^{\mathrm{Nambu}}\otimes I,\qquad
+                  \chi^\dagger=\chi^TC .
+                \]
+                因此下面每一个 \(J_1,J_2\) 都能提升为物理 Fock 空间的
+                generalized anti-linear transformation；列出的
+                \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 才可直接
+                用于构造玻色 Hamiltonian。
+              </p>
+            """
+            + "".join(physical_blocks)
+            + "</details>"
+        )
+    else:
+        physical_section = ""
+    return r"""
+      <details class="basis-audit low-dimensional-representations">
+        <summary>二维和四维内全部实正交表示及其 \(A\) 独立方向</summary>
+        <p>
+          三个实正交矩阵 \(g,J_1,J_2\) 两两对易或反对易，平方又都等于
+          \(\pm I\)。任何矩阵乘积都能把顺序整理为
+          \[
+            \pm g^aJ_1^bJ_2^c,\qquad a,b,c\in\{0,1\},
+          \]
+          所以它们生成的有限群至多有 16 个元素。有限群的实正交表示可
+          分解成互相正交、不能再分的小块。由这些平方与对易关系得到的
+          实矩阵代数，只可能由
+          \(\mathbb R,\mathbb C,M_2(\mathbb R),\mathbb H\) 或
+          \(M_2(\mathbb C)\) 型小块组成；每一种小块都能用
+          \(I_2,\sigma_x,i\sigma_y,\sigma_z\) 的 signed-permutation
+          矩阵实现。因此，穷举全部 signed-permutation 矩阵及其正交
+          直和，确实覆盖二维、四维的全部实正交表示，不再局限于单个
+          Pauli tensor word。
+        </p>
+        <p>
+          程序用八个迹
+          \[
+            \operatorname{Tr}(g^aJ_1^bJ_2^c),
+            \qquad a,b,c\in\{0,1\},
+          \]
+          区分这些有限群表示，再用
+          \[
+            S^TS=I,\qquad S^TgS=g,\qquad
+            J_a'=S^{-1}J_aS
+          \]
+          的显式换基矩阵核对等价性。这里同时保留
+          \(J_1=J_2\) 的轨道：它只有一条独立反线性约束，却允许更大的
+          \(A\) 空间，删除它反而会漏掉模型。
+        </p>
+        <p>
+          每个轨道先给出 \(m=1\) 时全部独立方向，再给出
+          \(\sum_\alpha P_\alpha\otimes K_\alpha\) 的任意重复空间解、
+          每个 \(K_\alpha\) 的转置与复共轭条件、具体二次算符，以及
+          代入该轨道实际 \(\eta\) 后的 cone 不等式。玻色轨道还逐项标明
+          反线性变换是否保持物理 creation/annihilation adjoint relation。
+        </p>
+    """ + "".join(blocks) + physical_section + r"""
+      </details>
+    """
+
+
 def case_card(
     row: dict[str, str],
     maximal: dict[str, str],
     full: dict[str, str],
+    orbit_rows: list[dict[str, str]],
+    physical_orbit_rows: list[dict[str, str]],
     number: int,
 ) -> str:
     statistic_name = "玻色" if row["statistics"] == "boson" else "费米"
@@ -1583,22 +2425,25 @@ def case_card(
             rf"\(A_{{\mathrm{{cone}}}}\neq\varnothing\)，"
             rf"metric={row['metric']}"
         )
-    elif row["statistics"] == "boson" and row["class_id"] == BOSON_RP_CLASS:
-        cone_label = "group-only；玻色 RP 骨架与稳定 Kramers 子空间"
-    elif row["statistics"] == "boson":
-        _, physical_kramers = group_antilinear_analysis(row)
-        if physical_kramers and has_stable_number_conserving_direction(row):
-            cone_label = "group-only；Kramers determinant 配对与稳定方向"
-        elif physical_kramers:
-            cone_label = "group-only；Kramers determinant 配对，但本代表无稳定方向"
-        else:
-            cone_label = "group-only；五条关系本身无正性定理"
-    elif row["statistics"] == "fermion" and int(
-        maximal["maximal_subgroup_sign_guaranteed"]
-    ):
-        cone_label = "group-only；费米 MTR 正性"
     else:
-        cone_label = "group-only；五条关系本身无正性定理"
+        _, theorem_class = group_antilinear_analysis(row)
+        if theorem_class == "Majorana":
+            cone_label = (
+                "group-only；一条反线性 symmetry 平方为 +I、"
+                "一条平方为 -I，并且二者反对易"
+            )
+        elif theorem_class == "Kramers":
+            cone_label = (
+                "group-only；两条反线性 symmetries 都平方为 -I，"
+                "并且二者反对易"
+            )
+        elif (
+            row["statistics"] == "fermion"
+            and row["class_id"] == "s1+_q1+_s2+_q2+_r+"
+        ):
+            cone_label = "group-only；含 split-orthogonal 无符号子群"
+        else:
+            cone_label = "group-only；需要更强的子群或对称条件"
     card_id = f"class-{row['statistics']}-{number:02d}"
     return rf"""
       <details class="all-class-card" id="{card_id}">
@@ -1619,9 +2464,12 @@ def case_card(
           {group_block(row)}
           {cone_block(row, full)}
           {physical_kernel_block(row)}
-          {positivity_block(row, maximal)}
+          {positivity_block(row, maximal, physical_orbit_rows)}
           {physical_model(row, maximal, number)}
           {number_conserving_block(row)}
+          {low_dimensional_representation_block(
+              row, orbit_rows, physical_orbit_rows, full
+          )}
         </div>
       </details>
     """
@@ -1629,37 +2477,73 @@ def case_card(
 
 def representation_answer() -> str:
     return r"""
-      <h4>固定一组 \(J_1,J_2\) 会不会漏掉允许的 \(A\)</h4>
+      <h4>为什么每一类还要继续枚举二维和四维表示</h4>
       <p>
-        先回答“某一五符号类别有没有严格收缩方向”。前面的两个引理只用
+        “某一五符号类别有没有严格收缩方向”只由
+        <a href="#lemma-1">引理1</a>和
+        <a href="#lemma-2">引理2</a>决定。这两个证明只用
         \(J_1,J_2\) 的五个正负号，完全没有使用某个 Pauli word。
-        因而，同一类别换成另一组矩阵表示，不会把空 cone 变成非空，也
+        因此，同一类别换成另一组矩阵表示，不会把空 cone 变成非空，也
         不会把非空 cone 变成空。16 个严格类的数目不会因代表选择改变。
       </p>
       <p>
-        但“允许的 \(A\) 一共有多少个独立方向”确实依赖表示。原因很具体：
-        五个正负号没有记录 \(J_1,J_2\) 的共同本征子空间各重复了多少次。
-        程序用同一个费米 all-plus 类的三个 8 维表示作过直接比较：
+        “允许哪些具体 \(A\)”却必须知道 \(J_1,J_2\) 的矩阵本身。
+        若一个保持 \(g\) 的实正交矩阵 \(S\) 把两组表示联系为
       </p>
-      <div class="scroll">
-        <table>
-          <thead><tr><th>8 维表示</th>
-          <th>满足全部 group 等式的实维数</th>
-          <th>满足 cone 等式、尚未施加负定条件的实维数</th></tr></thead>
-          <tbody>
-            <tr><td>重数平衡的 Pauli 表示</td><td>12</td><td>16</td></tr>
-            <tr><td>第一种不平衡重数</td><td>12</td><td>16</td></tr>
-            <tr><td>第二种不平衡重数</td><td>21</td><td>7</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="scroll">\[
+        S^TgS=g,\qquad
+        J_a'=S^{-1}J_aS,\qquad
+        A'=S^{-1}AS ,
+      \]</div>
       <p>
-        因此每张卡的 \(P\)–\(K_P\) 表是对“卡上所列最小代表以及
-        \(J_a\otimes I_m\) 扩展”的完整答案，不是假称覆盖同一五符号
-        类的全部不等价表示。若实际模型给出另一组 \(J_1,J_2\)，就应把
-        它们直接代入卡片所写的四组等式重新求解。两组表示若只差一个
-        保持 \(g\) 的 basis change，允许的 \(A\) 只是相似变换，不会
-        漏解；只有共同子空间的重数真正不同，解空间维数才会改变。
+        那么两组 \(A\) 只是同一解空间的换坐标。若不存在这样的 \(S\)，
+        五个正负号相同也可能允许不同的 \(A\) 方向。这里的差别不是一个
+        新假设。它只表示同一个有限群可在四维空间中由不同的小块直和而成：
+        某些选择把更多向量放在 \(J_1=+1\) 的子空间，另一些选择把更多
+        向量放在 \(J_1=-1\) 的子空间；与 \(J_2\) 联合后，允许的矩阵元
+        位置自然不同。
+      </p>
+      <p>
+        为了不漏掉这些方向，程序不再只遍历单个 Pauli words，而是遍历
+        二维与四维的全部 signed-permutation matrices，包括它们的可约
+        直和表示。按保持 \(g\) 的实正交换基合并后，结果为
+        \[
+          \begin{array}{c|cc|c}
+          &d=2&d=4&\text{合计}\\ \hline
+          \text{玻色}&10&50&60\\
+          \text{费米}&16&73&89
+          \end{array}
+        \]
+        这里包含 \(J_1=\pm J_2\) 的表示，因为我们要保留全部允许
+        \(A\) 方向。若要求两条 symmetry 确实不同，则相应数目是玻色
+        \(7+44\)、费米 \(12+65\)，共 128 个。每张类别卡末尾同时列出
+        二维和四维结果，即使该类最小表示已经是二维。
+      </p>
+      <p>
+        单-Pauli 搜索真正漏掉的例子集中在四维费米全正类。例如把费米
+        \(g\) 写成 \(\operatorname{diag}(1,1,-1,-1)\)，取
+        \[
+          J_1=\operatorname{diag}(1,1,1,-1),\qquad
+          J_2=\operatorname{diag}(1,-1,1,1),
+        \]
+        二者满足五个正号且彼此对易，但
+        \(\operatorname{Tr}J_1=\operatorname{Tr}J_2=2\)；四维单 Pauli
+        word 的迹的绝对值只能是 0 或 4，所以单-Pauli 表不可能包含它。
+        新枚举已经把它以及同类其余可约表示全部纳入。
+      </p>
+      <p>
+        对玻色 Hamiltonian 还要做第二层区分。记
+        \(C=\sigma_x^{\mathrm{Nambu}}\otimes I\)，物理 Nambu 算符满足
+        \(\chi^\dagger=\chi^TC\)。一个只保持 \(g\) 的换基矩阵未必也
+        保持 \(C\)，所以“代数上等价”不必等于“同一个玻色 Fock
+        representation 中物理等价”。本报告另用
+        \[
+          S^TgS=g,\qquad S^TCS=C
+        \]
+        重新细分玻色物理轨道，并只从这些物理轨道构造 Hamiltonian。
+        因此，149 个代数轨道负责证明没有漏掉矩阵解；玻色物理子表负责
+        保证 \(b^+\) 仍是 \(b\) 的 Hermitian conjugate。两种表承担
+        不同任务。
       </p>
     """
 
@@ -1712,7 +2596,8 @@ def minimal_dimension_proof() -> str:
           玻色情形中，\(J_1,J_2\) 对易且都平方为 \(-I\)。令
           \(K=J_1J_2\)，则 \(K^2=I\)，空间分成 \(K=+1\) 与
           \(K=-1\) 两部分。两个部分彼此不由 \(g\) 配对，每一部分都
-          必须单独带一个非退化的玻色 Nambu 结构。与此同时 \(J_1\)
+          必须单独带一个可逆、没有零方向的玻色 Nambu 结构。与此同时
+          \(J_1\)
           在每一部分都平方为 \(-I\) 并翻转 \(g\)。在二维实空间中，
           “翻转 \(g\)”的矩阵行列式为 \(-1\)，而“平方为 \(-I\)”
           的矩阵行列式为 \(+1\)，二者矛盾；所以每一部分至少 4 维，
@@ -1743,13 +2628,14 @@ def atlas_guide() -> str:
       <p>
         图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
         编号一致；\(d=2,4,8\) 是最小 Nambu 维数；C(J) 与 C(iJ)
-        表示两种 metric 下的严格 contraction cone；Kdet(N) 表示卡片所列
-        代表的 particle-number-conserving group 子空间具有 Kramers
-        determinant 配对，是否另有稳定热分支要看卡片中的 trace 检查；
-        RP、MTR 分别表示 reflection positivity 与费米
-        Majorana-time-reversal 正性，G 表示目前只得到 maximal
-        subgroup。格子底部同时
-        标出空 cone 是被迹引理还是 \(J_1\) 翻转引理排除。
+        表示两种 metric 下的严格 contraction cone；Kdet(N) 表示该卡
+        明确列出的 particle-number-conserving 子空间具有 Kramers
+        eigenvalue pairing；RP 表示 reflection positivity，MTR 表示
+        两条 generalized anti-linear symmetries 已落入费米无符号类，
+        G 表示五条关系本身目前只给出 maximal subgroup，必须继续查看
+        卡片中的附加条件。格子底部同时
+        标出空 cone 是由<a href="#lemma-1">引理1</a>还是
+        <a href="#lemma-2">引理2</a>排除。
       </p>
     """
 
@@ -1795,6 +2681,24 @@ def build_all_class_lecture() -> str:
         (row["statistics"], row["class_id"]): row
         for row in csv.DictReader(FULL_PATH.open(encoding="utf-8"))
     }
+    orbit_rows_by_class: dict[
+        tuple[str, str], list[dict[str, str]]
+    ] = {}
+    for orbit in csv.DictReader(
+        LOW_DIMENSIONAL_REPRESENTATIONS_PATH.open(encoding="utf-8")
+    ):
+        orbit_rows_by_class.setdefault(
+            (orbit["statistics"], orbit["class_id"]), []
+        ).append(orbit)
+    physical_orbit_rows_by_class: dict[
+        tuple[str, str], list[dict[str, str]]
+    ] = {}
+    for orbit in csv.DictReader(
+        BOSON_PHYSICAL_REPRESENTATIONS_PATH.open(encoding="utf-8")
+    ):
+        physical_orbit_rows_by_class.setdefault(
+            (orbit["statistics"], orbit["class_id"]), []
+        ).append(orbit)
     if not (
         len(tensor_rows) == len(maximal_rows) == len(full_rows) == 64
     ):
@@ -1803,7 +2707,6 @@ def build_all_class_lecture() -> str:
     blocks = [
         atlas_guide(),
         lazy_mathjax_script(),
-        defining_lemmas(),
         representation_answer(),
         minimal_dimension_proof(),
     ]
@@ -1823,6 +2726,8 @@ def build_all_class_lecture() -> str:
                     row,
                     maximal_rows[key],
                     full_rows[key],
+                    orbit_rows_by_class.get(key, []),
+                    physical_orbit_rows_by_class.get(key, []),
                     number,
                 )
             )
@@ -1840,7 +2745,11 @@ def build_all_class_lecture() -> str:
           <a href="tables/maximal_subgroup_structures.csv">费米 MTR
           分类与数值抽样复核</a>；
           <a href="tables/nonpauli_realization_dependence.csv">同类不等价
-          表示的维数对照</a>。
+          表示的维数对照</a>；
+          <a href="tables/real_representation_orbits_le4.csv">二维与四维
+          149 个完整实正交表示轨道及其 \(A\) 基底</a>；
+          <a href="tables/bosonic_physical_representation_suborbits_le4.csv">
+          同时保持 \(g\) 与物理 Nambu 共轭关系的玻色表示轨道</a>。
         </p>
         """
     )
