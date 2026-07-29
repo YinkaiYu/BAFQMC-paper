@@ -708,6 +708,411 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
 }
 
 
+STRICT_RESEARCH_PROGRAMS: dict[str, dict[str, str]] = {
+    "B-J2g-s1-q1+": {
+        "title": "受驱动 kagome/三角平带中的相互作用玻色 BdG 相",
+        "body": r"""
+        <p>
+        这个二维 Nambu 类不需要内部 flavor。令 \(a_i\) 是一个
+        单组分玻色，取
+        \[
+        \begin{aligned}
+          H={}&\sum_{ij}a_i^+K_{ij}a_j+
+          \frac12\sum_{ij}\Delta_{ij}(a_i^+a_j^++a_ia_j)\\
+          &+\frac U2\sum_\alpha
+          \left[\frac12\sum_{ij}F_{\alpha,ij}
+          (a_i^+a_j^++a_ia_j)\right]^2 ,
+          \qquad U>0 ,
+        \end{aligned}
+        \]
+        其中 \(K=K^\dagger\) 可取 kagome 或三角格子的受阻挫平带，
+        \(\Delta=\Delta^T\)、\(F_\alpha=F_\alpha^T\) 实。
+        \(K\) 与 \(\Delta\) 选择在本类
+        \(A_{\mathrm{cone}}\) 中并要求
+        \(\eta A_{\mathrm{cone}}<0\)；pair quadrature 的纯虚 HS
+        生成元则位于 \(A_{\mathrm{group}}\)。
+        </p>
+        <p>
+        这是可研究 interacting squeezed condensate、有限动量
+        pair condensation 和受驱动平带拓扑转变的格点模型。与普通
+        Bose-Hubbard 模型相比，它真正使用本类允许的 anomalous
+        Nambu directions；下面展开的单模公式只是每个
+        \(F_\alpha\) 通道的最小矩阵核。
+        </p>
+        """,
+    },
+    "B-J2g-s1-q1-": {
+        "title": "全阻挫格子上的玻色 loop-current 相互作用模型",
+        "body": r"""
+        <p>
+        在含三角形或方形 plaquettes 的格子上定义
+        \[
+          \hat j_{ij}=-i(a_i^+a_j-a_j^+a_i),\qquad
+          \hat J_p=\sum_{\langle ij\rangle\in p}\nu_{p,ij}\hat j_{ij},
+        \]
+        并考虑
+        \[
+          H=\sum_{ij}a_i^+(\kappa I-t)_{ij}a_j
+          +\frac U2\sum_p\hat J_p^2,\qquad U>0 .
+        \]
+        实反对称的有向 incidence matrices
+        \(\nu_{p,ij}\) 正是本类 \(IY\otimes K_{IY}\) 的
+        \(A_{\mathrm{group}}\) 方向；稳定的
+        \(\kappa I-t>0\) 则从本类 number-conserving
+        \(A_{\mathrm{cone}}\) 中选择。
+        </p>
+        <p>
+        该模型直接检验 loop-current order、手性 Ising 转变与 BKT
+        相干转变能否分裂，并可用于全阻挫 Bose-Hubbard 所涉及的
+        chiral-Mott 邻域。相关背景见
+        <a href="https://arxiv.org/abs/1207.1725">全阻挫玻色子的
+        chiral Mott 工作</a>。下方 dimer 只负责把每条有向 bond 的
+        HS 生成元逐项核对清楚。
+        </p>
+        """,
+    },
+    "B-J2g-s1+q1+": {
+        "title": "反射配对的受阻挫双组分玻色平带",
+        "body": r"""
+        <p>
+        令 \(b_i,c_i\) 是被 \(J_1\) 交换的一对物理组分。一个直接的
+        格点推广是
+        \[
+        \begin{aligned}
+          H={}&\sum_{ij,\alpha=b,c}
+          \alpha_i^+K_{ij}\alpha_j+
+          \sum_{ij}\Delta_{ij}(b_i^+c_j^++b_ic_j)\\
+          &+\frac12\sum_{ij}V_{ij}
+          (n_{b,i}-n_{c,i})(n_{b,j}-n_{c,j}),
+          \qquad V\succeq0 .
+        \end{aligned}
+        \]
+        \(K\) 可取三角或 kagome 阻挫平带；pairing 与稳定正位移共同
+        放入本类 \(A_{\mathrm{cone}}\)，相对密度的纯虚 HS 场属于
+        \(A_{\mathrm{group}}\)。这里 \(J_1=IX\) 不是额外模板，而是
+        卡片解空间中实际交换两个 reflected flavors 的矩阵。
+        </p>
+        <p>
+        这正是 Yin-Kai paired class 的可扩展版本，可研究
+        pair-superfluid、手性凝聚和相对密度序的竞争；它也把 7 月
+        19 日 pole-free 配对模型从局域 benchmark 推到受阻挫格点。
+        </p>
+        """,
+    },
+    "B-J2g-s1+q1-": {
+        "title": "Kramers 玻色双层中的阻挫凝聚与相对密度临界性",
+        "body": r"""
+        <p>
+        取 Kramers-like 组分
+        \(\boldsymbol b_i=(b_{i\uparrow},b_{i\downarrow})^T\)，
+        \[
+          H=\sum_{ij}\boldsymbol b_i^+
+          [K_{ij}I+iR_{ij}\sigma_z]\boldsymbol b_j+
+          \frac12\sum_{ij}V_{ij}Q_iQ_j,\qquad
+          Q_i=n_{i\uparrow}-n_{i\downarrow},
+        \]
+        其中 \(K=K^T\)、\(R=-R^T\)、\(V\succeq0\)。
+        两组分看到相反的 Peierls texture；\(iR\sigma_z\) 与
+        \(iQ\) 的 HS 场都可从本类 \(A_{\mathrm{group}}\) 表中选取，
+        稳定的共同 chemical-potential/hopping block 放在
+        \(A_{\mathrm{cone}}\)。
+        </p>
+        <p>
+        这个模型可研究 bosonic quantum-spin-Hall-like 平带中的
+        相互作用凝聚、涡旋结构与相对密度临界性。它使用
+        \(J_1^2=-I\) 的实际双组分结构，而不是在最小模型外再添加一套
+        无关 Kramers flavor。
+        </p>
+        """,
+    },
+    "B-iJ2g-s1-q1+": {
+        "title": "固定粒子数的长程 Josephson 网络与集体临界性",
+        "body": r"""
+        <p>
+        将两个模推广成两组各含 \(L\) 个轨道的 collective modes，
+        \[
+          H=-2\sum_{ij}\Omega_{ij}S_{y,ij}
+          -2\sum_{\alpha}U_\alpha
+          \left(\sum_i f_{\alpha i}S_{x,i}\right)^2 ,
+          \qquad U_\alpha>0 .
+        \]
+        实际 one-body conversion 选在本类
+        \(A_{\mathrm{cone}}\)，每个 \(S_x\) form factor 是
+        \(A_{\mathrm{group}}\) 的实 HS 方向。算法在固定总玻色数
+        \(N\) 的有限 Hilbert space 中采样，不使用发散的
+        grand-canonical trace。
+        </p>
+        <p>
+        该网络可研究多模自陷、collective first-order transitions、
+        spin squeezing 与有限尺寸临界动力学。下方 LMG dimer 给出
+        一条通道的严格 fixed-\(N\) 正性证明；推广时必须逐个检查
+        one-particle blocks 是否仍具有同一正谱结构。
+        </p>
+        """,
+    },
+    "B-iJ2g-s1-q1-": {
+        "title": "四组分自旋轨道耦合玻色子的集体拓扑与纠缠",
+        "body": r"""
+        <p>
+        取四组分
+        \(\boldsymbol a_i=(a_{\uparrow1},a_{\uparrow2},
+        a_{\downarrow1},a_{\downarrow2})^T\)，并令
+        \[
+          H=-\sum_{ij}\boldsymbol a_i^+
+          [\Omega_{ij}\sigma_y\otimes\sigma_x]\boldsymbol a_j
+          -\frac12\sum_\alpha U_\alpha
+          \left[\sum_i f_{\alpha i}
+          \boldsymbol a_i^+(I\otimes\sigma_z)\boldsymbol a_i\right]^2 .
+        \]
+        第一项来自这个 8 维物理代表的
+        \(A_{\mathrm{cone}}\)，orbital polarization 则是
+        \(A_{\mathrm{group}}\) 的实 HS 方向。四个组分是同时实现
+        本类 \(J_1^2=-I\) 与其余关系所需的结构，不是装饰性复制。
+        </p>
+        <p>
+        在固定总粒子数下，这一模型可研究 spin-orbital entanglement、
+        Raman-induced band inversion 与 collective symmetry breaking。
+        下方公式还说明为什么当前已证明的正性依赖两个相似
+        \(2\times2\) blocks；任意加入破坏该 block pairing 的 hopping
+        都必须重新检验。
+        </p>
+        """,
+    },
+    "B-iJ2g-s1+q1+": {
+        "title": "反射对称双阱阵列中的多轴 squeezing 相",
+        "body": r"""
+        <p>
+        对反射交换的双阱单元 \(i\) 定义 \(S_{x,i},S_{y,i}\)，取
+        \[
+          H=-2\sum_{ij}\Omega_{ij}S_{y,ij}
+          -2\sum_{\alpha}U_\alpha
+          \left(\sum_i f_{\alpha i}S_{x,i}\right)^2 .
+        \]
+        \(J_1^2=+I\) 的 reflection 把两个阱交换；conversion block
+        选择在 \(A_{\mathrm{cone}}\)，所有 collective \(S_x\)
+        HS directions 列在 \(A_{\mathrm{group}}\) 表中。
+        </p>
+        <p>
+        该 fixed-\(N\) 阵列可研究多轴 squeezing、反射破缺和
+        macroscopic tunnelling。它与另一 LMG 标签可共享同一高对称
+        Hamiltonian，但在本卡中必须用这里实际的 \(J_1,J_2\) 逐项
+        检查；下方 dimer 是这一检查的最小版本。
+        </p>
+        """,
+    },
+    "B-iJ2g-s1+q1-": {
+        "title": "固定粒子数 Josephson 阵列中的自陷、cat 态与量子计量",
+        "body": r"""
+        <p>
+        令 \(S_{z,i}=(n_{i1}-n_{i2})/2\)，考虑
+        \[
+          H=-2\sum_{ij}\Omega_{ij}S_{y,ij}
+          -2\sum_\alpha U_\alpha
+          \left(\sum_i f_{\alpha i}S_{z,i}\right)^2 .
+        \]
+        \(S_y\) conversion 取自本类 \(A_{\mathrm{cone}}\)，
+        \(S_z\) form factors 取自 \(A_{\mathrm{group}}\)。
+        这给出带空间相关 one-axis twisting 的 canonical AFQMC
+        目标，而不是只计算单个 Josephson dimer。
+        </p>
+        <p>
+        可测量的核心问题包括 interaction-driven self trapping、
+        多体 cat-state crossover、Fisher information 与 squeezing
+        的温度依赖。严格证明目前覆盖保持下方正谱配对的 form factors；
+        一般空间耦合需按卡片中的 \(P\)–\(K_P\) 条件重新核对。
+        </p>
+        """,
+    },
+    "F-J2g-s1-q1+": {
+        "title": "阻挫 Dirac/平带费米子的 loop-current 相互作用",
+        "body": r"""
+        <p>
+        在 honeycomb、kagome 或 \(\pi\)-flux 格子上定义 plaquette
+        current \(\hat J_p\)，考虑
+        \[
+          H=\sum_{ij}c_i^+(\kappa I-t)_{ij}c_j+
+          \frac U2\sum_p\hat J_p^2 .
+        \]
+        有向实反对称 bond matrix 给出本类
+        \(IY\otimes K_{IY}\) 的 \(A_{\mathrm{group}}\) HS 方向；
+        \(\kappa I-t>0\) 是 number-conserving
+        \(A_{\mathrm{cone}}\)。它可研究 loop-current mass、
+        anomalous Hall order 与平带轨道磁性。
+        </p>
+        <p>
+        单条 bond 上 \(\hat j^2\) 会退化为密度相互作用，所以真正值得
+        计算的是含多个独立 plaquette currents 的格点；下方 dimer 仅
+        用来验证每条 bond 的矩阵归属。
+        </p>
+        """,
+    },
+    "F-J2g-s1-q1-": {
+        "title": "相互作用拓扑超导体中的 parity 与 pair-density-wave 转变",
+        "body": r"""
+        <p>
+        将两模 pair quadrature 推广到格点 form factors
+        \[
+          P_\alpha=i\sum_{ij}F_{\alpha,ij}
+          (c_i^+c_j^++c_ic_j),\qquad
+          H=H_{\mathrm{BdG}}-\frac12\sum_\alpha U_\alpha P_\alpha^2 .
+        \]
+        稳定的 \(H_{\mathrm{BdG}}\) 取自
+        \(A_{\mathrm{cone}}\)，每个 \(P_\alpha\) 的实 HS
+        direction 取自本类 \(A_{\mathrm{group}}\)。通过选择 onsite、
+        bond 或有限动量 \(F_\alpha\)，可研究 Andreev-band parity
+        crossing、pair-density wave 与 charge-\(4e\) 关联。
+        </p>
+        <p>
+        下方两模恒等式说明最小 onsite 通道并不独立；在格点上采用多个
+        bond form factors 后，quartic interaction 不再只是一个局域
+        charging term，这才是该类的新物理内容。
+        </p>
+        """,
+    },
+    "F-J2g-s1+q1+": {
+        "title": "Majorana-reflection 多轨道 BdG 平带与相互作用边界态",
+        "body": r"""
+        <p>
+        对一对 reflected orbitals 写
+        \[
+          H=H_{\mathrm{BdG}}[K,\Delta]
+          -\frac12\sum_\alpha U_\alpha P_{\alpha,y}^2 ,
+        \]
+        其中 reflection-even hybridization 与稳定 pairing 选入
+        \(A_{\mathrm{cone}}\)，\(P_{\alpha,y}\) 的 HS generators
+        逐行取自 \(A_{\mathrm{group}}\)。在 decorated honeycomb、
+        kagome 或 amorphous lattices 上，这允许研究 flat Majorana
+        bands、interaction-shifted Andreev levels 与边界质量生成。
+        </p>
+        <p>
+        本类的关键不是抽象 reflection 名称，而是卡片表中
+        \(J_1=IX\) 对每个 \(gA\) block 的实际作用；下方 dimer 把
+        hybridization、cone margin 与 pairing HS 三者的矩阵位置写明。
+        </p>
+        """,
+    },
+    "F-J2g-s1+q1-": {
+        "title": "Kramers 拓扑超导平带中的集体配对涨落",
+        "body": r"""
+        <p>
+        令 \(c_{i\uparrow},c_{i\downarrow}\) 是 Kramers partners，
+        取 time-reversal-invariant \(H_{\mathrm{BdG}}\) 并加入
+        \[
+          -\frac12\sum_\alpha U_\alpha
+          \left[\sum_{ij}F_{\alpha,ij}
+          (c_{i\uparrow}^+c_{j\downarrow}^+
+          -c_{i\uparrow}c_{j\downarrow})\right]^2 .
+        \]
+        Kramers-even BdG stability block 放在
+        \(A_{\mathrm{cone}}\)，pair quadratures 的实 HS 场放在
+        \(A_{\mathrm{group}}\)。可选择窄带、Dirac 或 moiré-inspired
+        hopping，研究预成对、赝能隙与 time-reversal-invariant
+        topological superconductivity。
+        </p>
+        <p>
+        这里 \(J_1^2=-I\) 就作用在真实 Kramers pair 上；下方两模
+        模型是每个格点 form factor 的局部核，不再额外引入另一套
+        “physical Kramers”来补证明。
+        </p>
+        """,
+    },
+    "F-iJ2g-s1-q1+": {
+        "title": "相互作用 proximitized Dirac/Chern 格点的 parity 临界性",
+        "body": r"""
+        <p>
+        将 superconducting dot 推广为
+        \[
+          H=H_{\mathrm{Dirac/Chern}}-\sum_i\Delta_i\Delta_{y,i}
+          -\frac12\sum_{ij}U_{ij}Q_iQ_j,\qquad U\succeq0 .
+        \]
+        物理 pairing stability direction 属于本类
+        \(A_{\mathrm{cone}}\)，charge HS directions 属于
+        \(A_{\mathrm{group}}\)。这使有限温 AFQMC 可以同时处理拓扑
+        normal band、proximity pairing 与 attractive charging
+        fluctuations。
+        </p>
+        <p>
+        值得测量的问题包括 parity-changing transitions、Andreev
+        flat bands 与 interaction-driven topological changes。下方
+        quantum dot 不是最终目标，而是每个局域 pairing/charge
+        channel 的严格矩阵核。
+        </p>
+        """,
+    },
+    "F-iJ2g-s1-q1-": {
+        "title": "磁性涨落与拓扑配对竞争的超导格点模型",
+        "body": r"""
+        <p>
+        取
+        \[
+          H=H_{\mathrm{BdG}}[\Delta,K]
+          +\frac12\sum_{\alpha}U_\alpha
+          \left(\sum_i f_{\alpha i}S_{z,i}\right)^2 ,
+          \qquad U_\alpha>0 .
+        \]
+        稳定 pairing block 是 \(A_{\mathrm{cone}}\)，纯虚
+        spin-polarization HS generators 是
+        \(A_{\mathrm{group}}\)。选择 Dirac、Chern 或多轨道窄带
+        \(K\) 后，可研究磁性量子临界涨落如何重构 Andreev bands，
+        以及是否诱导 nodal 或拓扑超导相。
+        </p>
+        <p>
+        下方 superconducting atom 给出一个 \(S_z\) 通道的精确
+        HS 对应；格点推广只允许卡片 \(P\)–\(K_P\) 表中列出的
+        form factors。
+        </p>
+        """,
+    },
+    "F-iJ2g-s1+q1+": {
+        "title": "reflection-protected 高阶拓扑超导体的相互作用角态",
+        "body": r"""
+        <p>
+        在 reflection-symmetric 多轨道格子上取
+        \[
+          H=H_{\mathrm{HOTSC}}[\Delta,t]
+          +\frac12\sum_\alpha U_\alpha
+          (n_{\alpha,L}-n_{\alpha,R})^2 .
+        \]
+        reflection-even pairing/hybridization 选在
+        \(A_{\mathrm{cone}}\)，左右极化的纯虚 HS 场列在
+        \(A_{\mathrm{group}}\)。当 normal band 与 pairing mass
+        形成高阶拓扑结构时，可用该类研究 corner Majorana modes、
+        interaction-shifted boundary transitions 与反射破缺。
+        </p>
+        <p>
+        \(\Delta>|t|\) 一类条件在格点上应替换为完整 contraction
+        matrix 负定；下方 dimer 展示的是这一矩阵不等式的最小
+        eigenvalue 检查。
+        </p>
+        """,
+    },
+    "F-iJ2g-s1+q1-": {
+        "title": "Kramers 多轨道超导岛阵列与 moiré 窄带配对",
+        "body": r"""
+        <p>
+        令每个单元含两个 Kramers components 与两个 orbitals，考虑
+        \[
+          H=\sum_{ij}\boldsymbol c_i^+K_{ij}\boldsymbol c_j
+          -\sum_i\Delta_i\Delta_{y,i}
+          -\frac12\sum_{ij}U_{ij}Q_iQ_j .
+        \]
+        \(K\) 可取 time-reversal-symmetric moiré-inspired 窄带；
+        pairing stability block 属于 \(A_{\mathrm{cone}}\)，
+        total-charge HS generators 属于
+        \(A_{\mathrm{group}}\)。四个 annihilation modes 正是本物理
+        realization 的 spin-orbital 内容。
+        </p>
+        <p>
+        该模型可研究多轨道 Andreev multiplets、orbital-selective
+        pseudogap、pair transfer 与 parity transitions。下方单岛公式
+        逐项证明 charge field 与 pairing cone 的归属；格点 hopping
+        必须继续满足同一张 \(P\)–\(K_P\) 表。
+        </p>
+        """,
+    },
+}
+
+
 MAXIMAL_ONLY_MODEL_CATALOG: dict[str, dict[str, str]] = {
     "s1+_q1-_s2+_q2+_r-": {
         "title": "相反 Chern 带中的相互作用 Kramers 费米子",
@@ -920,6 +1325,7 @@ MAXIMAL_ONLY_MODEL_CATALOG: dict[str, dict[str, str]] = {
 
 def render_physical_model(class_name: str) -> str:
     model = MODEL_CATALOG[class_name]
+    program = STRICT_RESEARCH_PROGRAMS[class_name]
     scalar_note = ""
     if class_name.startswith("B-J2g"):
         scope = "稳定的 grand-canonical 玻色 HS 构造"
@@ -949,10 +1355,25 @@ def render_physical_model(class_name: str) -> str:
         scope = r"费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验"
     return (
         '<section class="model-example">'
-        f'<p class="model-title"><strong>物理模型：{model["title"]}</strong></p>'
+        f'<p class="model-title"><strong>物理模型：{program["title"]}</strong></p>'
         f'<p class="model-scope"><strong>已经证明的结论：</strong>{scope}</p>'
+        '<p class="small">'
+        '卡片顶部的 \\(P\\)-\\(K_P\\) 表属于该类的最小 Pauli 代表。'
+        '下面的物理模型有时采用同一五条关系的另一组适配 '
+        '\\(J_1,J_2\\)，以便让 particle/hole、轨道和格点指标具有直接'
+        '物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的'
+        '最小 HS building block 已经用其自身列出的 '
+        '\\(J_1,J_2,g,\\eta\\) 重新检验，数值残差记录在 '
+        '<a href="tables/physical_hs_slice_checks.csv">'
+        'physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 '
+        '\\(P\\)-\\(K_P\\) 表逐项选取方向，新增任意 hopping、pairing '
+        '或 form factor 时仍必须保持同一张表的全部条件。'
+        '</p>'
+        f'{program["body"]}'
+        '<details><summary>最小 HS building block 与逐矩阵核对</summary>'
         f'{model["body"]}'
         f"{scalar_note}"
+        '</details>'
         "</section>"
     )
 

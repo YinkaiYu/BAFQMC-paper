@@ -1,4 +1,5 @@
-    <h3>6.6 统一的 64 类生成元与物理模型图谱</h3>
+    <h3>6.6 64 类 \(A_{\mathrm{group}}\)、\(A_{\mathrm{cone}}\)
+    与物理模型周期表</h3>
     {{ALL_CLASS_STRUCTURES}}
 
     <h3>6.7 辅助场取正负值时应检查什么</h3>
@@ -46,63 +47,31 @@
     <h3>6.8 固定总粒子数的玻色 AFQMC</h3>
     {{CANONICAL_ALGORITHM}}
 
-    <h3>6.9 手算 note 与完整穷举的覆盖范围</h3>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr>
-            <th>对象</th><th>note 手算到哪里</th>
-            <th>完整穷举补上什么</th><th>物理结论</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>玻色</td>
-            <td>
-              重点展开
-              \(J_2^TgJ_2=-g,\ J_2^2=I\) 的四个
-              \(J_2g\) cone 类，并手算部分其余标签。
-            </td>
-            <td>
-              完整列出 32 类；8 类的 invariant cone 非空，其中
-              \(J_2g\) 与 \(iJ_2g\) 各 4 类；其余 24 类仍完整列出
-              maximal subgroup。修正单位阵遗漏后，只有一类最小为 8 维。
-            </td>
-            <td>
-              每类都给出一个具有附加 physical Kramers/RP 条件的厄米
-              格点子模型。dense boson phases 采用
-              \(N_\uparrow=N_\downarrow\) 的 canonical 权重绝对值平方；
-              标准物理 \(J_2g\) 收缩类还可直接做稳定 grand-canonical
-              模拟。
-            </td>
-          </tr>
-          <tr>
-            <td>费米</td>
-            <td>
-              只详细展开一种 \(J_2\) 的 8 个例子，未系统列完
-              maximal-subgroup-only 情形。
-            </td>
-            <td>
-              完整列出 32 类；8 类的 invariant cone 非空，另有 4 类
-              虽只有 maximal subgroup，却已经属于基本
-              Majorana-time-reversal 正性类。修正后也只有一类最小为
-              8 维。
-            </td>
-            <td>
-              12 类由原有两条反线性对称直接保证非负；其余 20 类在额外
-              physical Kramers 子空间中都有非空、可扩展的无符号格点模型。
-              这些标签重新组织已知 Majorana/Kramers 机制，并不等于发现
-              32 种互不等价的新正性原理。
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h3>6.9 结果覆盖范围与复核入口</h3>
     <p>
-      完整 64 行不再在正文重复排版。离散关系、最小代表、残差和程序状态
-      保存在
+      第 6.6 节已经按图 1 的编号逐一列完玻色 32 类与费米 32 类，
+      因此这里不再另做一张内容重复的 64 行表。玻色与费米各有 8 类
+      \(A_{\mathrm{cone}}\) 非空；其余类别只保留
+      \(A_{\mathrm{group}}\)。group-only 类中，对逐卡列出的最小
+      Pauli 代表，有 6 个玻色类至少包含一个保持 particle 子空间、
+      平方为 \(-I\) 的反线性变换，所以其
+      particle-number-conserving \(A_{\mathrm{group}}\) 子空间具有
+      Kramers determinant 配对。其中只有一类在所列最小代表中还包含
+      单粒子矩阵迹非零的稳定方向；它同时是 note 的 RP 代数骨架，并在
+      跨反射 block 半正定时允许 pairing。其余 5 类的形式行列式虽非负，
+      但最小代表的所有厄米 one-particle generators 都无迹，不能仅用
+      这些 group directions 构成 bare trace 有限的 grand-canonical
+      热分支。费米另有 4 类由原来的 \(J_1,J_2\) 直接落入 MTR 正性类。
+      其余类别的卡片只把 class-compatible Hamiltonian 作为后续研究入口，
+      不再统一附加一个与本类无关的 Kramers 模板。
+    </p>
+    <p>
+      离散关系、最小代表、残差和程序状态保存在
       <a href="tables/full_64_class_enumeration.csv">
       full_64_class_enumeration.csv</a>；每张卡片中的 \(A\) 公式来自
       <a href="tables/tensor_block_structures.csv">
-      tensor_block_structures.csv</a>。
+      tensor_block_structures.csv</a>；费米 MTR 判断来自
+      <a href="tables/maximal_subgroup_structures.csv">
+      maximal_subgroup_structures.csv</a>。读者可用这三个文件逐格复核
+      图 1，也可直接重跑本节列出的 Octave 脚本。
     </p>
