@@ -1,0 +1,1164 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>固定粒子数玻色 AFQMC：有限温与零温投影算法</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<p class="eyebrow">独立算法卷</p>
+<h1>固定粒子数玻色 AFQMC：有限温 character 与零温投影</h1>
+<p class="lead">
+    本卷先回答 \(iJ_2g\) 收缩半群与 ensemble 选择之间的准确关系，
+    再分别推导有限温 canonical AFQMC 和零温 projector BAFQMC。
+    两种算法都保持粒子数，但一个在完整固定-\(N\) Hilbert space 求迹，
+    另一个从指定 trial state 做开边界虚时间投影，二者的正性证明不能互相替代。
+  </p>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">反线性对称性理论卷</a></nav><section id="canonical-projector-algorithms">
+<h2 id="ensemble-choice">1. \(iJ_2g\) 为什么在当前模型中使用固定粒子数</h2>
+<h3>1.1 先分开三个问题</h3>
+<p>
+    “\(iJ_2g\) 类能不能做 grand-canonical AFQMC”不能只用一个 yes/no
+    回答，因为它混合了三件不同的事：
+  </p>
+<ol>
+<li>矩阵方程是否允许 \(\eta A+A^\dagger\eta&lt;0\)，其中 \(\eta=iJ_2g\)；</li>
+<li>相应的 Fock-space operator 对每个辅助场构型是否有有限的 bare trace；</li>
+<li>这个有限权重是否对每个构型非负。</li>
+</ol>
+<p>
+    Octave 穷举已经肯定回答第一问：玻色 32 类中有四个
+    \(iJ_2g\) 类包含严格负定的矩阵生成元。这个结果本身既没有选择
+    canonical ensemble，也没有保证 grand-canonical trace 收敛。ensemble
+    的区别从第二问才开始。
+  </p>
+<h3>1.2 稳定 Hermitian 零场不能位于实 \(J_2\) 的严格 \(iJ_2g\) 锥</h3>
+<p>
+    下面的证明不假设粒子数守恒，因此也包括有 pairing 的一般 Nambu
+    二次型。令
+  </p>
+<div class="scroll">\[
+    C=\begin{pmatrix}0&amp;I\\I&amp;0\end{pmatrix},
+    \qquad
+    \eta_0=Cg=\begin{pmatrix}I&amp;0\\0&amp;-I\end{pmatrix}.
+  \]</div>
+<p>
+    \(C\) 表示 Nambu column 中 annihilation 与 creation components 的
+    Hermitian-conjugate 关系；\(\eta_0\) 是相应的标准物理
+    particle/hole metric。一个稳定的 Hermitian 玻色 Gaussian 零场可写成
+  </p>
+<div class="scroll">\[
+    \eta_0A_0=-H_{\rm BdG},\qquad
+    H_{\rm BdG}=H_{\rm BdG}^\dagger&gt;0 .
+  \]</div>
+<p>
+    这里 \(H_{\rm BdG}\) 是稳定 Hamiltonian 的 Hermitian
+    quadratic-form matrix；相应的虚时间 slice generator 是
+    \(\hat h(A_0)=-\frac12\hat\chi^\dagger
+    H_{\rm BdG}\hat\chi\)。\(H_{\rm BdG}&gt;0\) 的物理含义是：作合法
+    Bogoliubov 变换以后，
+    \(e^{\hat h(A_0)}\) 的每个 quasiparticle mode 都带有衰减因子
+    \(e^{-\epsilon_j\hat n_j}\)，其中 \(\epsilon_j&gt;0\)。
+  </p>
+<p>
+    假设同一个 \(A_0\) 还位于 \(\eta=iJ_2g\) 的严格收缩锥。把
+    \(A_0=-\eta_0H_{\rm BdG}\) 代入，
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \eta A_0+A_0^\dagger\eta
+      &amp;=-\bigl[(\eta\eta_0)H_{\rm BdG}
+        +H_{\rm BdG}(\eta_0\eta)\bigr]&lt;0,\\
+    \eta\eta_0&amp;=iJ_2C,\qquad
+    \eta_0\eta=(iJ_2C)^\dagger .
+  \end{aligned}
+  \]</div>
+<p>
+    这里没有省略 \(J_2\) 的条件。严格锥非空的玻色 \(iJ_2g\) 四类满足
+    \(J_2^TgJ_2=g\)、\(J_2^2=I\)，而 \(J_2\) 是实正交矩阵。因此
+    \(J_2^T=J_2\)、\(gJ_2=J_2g\)。再用 \(gCg=C\)、\(g^2=-I\)，逐步有
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \eta\eta_0
+      &amp;=iJ_2gCg=iJ_2C,\\
+    \eta_0\eta
+      &amp;=iCgJ_2g=iCJ_2g^2=-iCJ_2=(iJ_2C)^\dagger .
+  \end{aligned}
+  \]</div>
+<p>所以严格收缩要求</p>
+<div class="scroll">\[
+    (iJ_2C)H_{\rm BdG}
+      +H_{\rm BdG}(iJ_2C)^\dagger&gt;0
+    \qquad\text{(1)}
+  \]</div>
+<p>
+    取 \(iJ_2C\) 的任意左本征矢，
+    \(v^\dagger(iJ_2C)=\lambda v^\dagger\)。对式 (1) 取矩阵元：
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    &amp;v^\dagger\bigl[(iJ_2C)H_{\rm BdG}
+      +H_{\rm BdG}(iJ_2C)^\dagger\bigr]v\\
+    &amp;\qquad=(\lambda+\overline\lambda)
+      v^\dagger H_{\rm BdG}v
+      =2\operatorname{Re}\lambda\,
+       v^\dagger H_{\rm BdG}v&gt;0 .
+  \end{aligned}
+  \]</div>
+<p>
+    因为 \(H_{\rm BdG}&gt;0\)，这要求 \(iJ_2C\) 的每个本征值都满足
+    \(\operatorname{Re}\lambda&gt;0\)。但 \(J_2C\) 是实矩阵：若它有一对
+    本征值 \(\mu,\overline\mu\)，乘 \(i\) 后的实部分分别是
+    \(-\operatorname{Im}\mu\) 与 \(+\operatorname{Im}\mu\)；若
+    \(\mu\) 本来就是实数，两个相应实部都为零。它们不可能全部严格为正，
+    与式 (1) 矛盾。
+  </p>
+<div class="result">
+<strong>这个证明的准确范围。</strong>
+    在本次 64 类所限定的实正交 \(J_2\) 中，稳定 Hermitian 玻色零场
+    不能同时位于同一个严格 \(iJ_2g\) 锥。它没有证明所有
+    \(iJ_2g\) 模型都不能做 grand-canonical AFQMC，也没有排除非
+    Hermitian 时间片的完整有序乘积最终具有有限 trace。
+  </div>
+<h3>1.3 grand-canonical 算法真正需要的统一收敛条件</h3>
+<p>
+    先考虑保持总粒子数的 fixed-field 单粒子传播矩阵
+    \(\mathcal B(\phi)\)，并引入 fugacity
+    \(z=e^{\beta\mu}&gt;0\)。grand-canonical Fock operator 是
+    \(\Gamma[z\mathcal B(\phi)]\)，其中 \(\Gamma\) 表示把单粒子传播提升到
+    任意玻色占据数的 Fock space。
+  </p>
+<p>
+    首次在这里使用 <em>trace class</em>。它表示
+  </p>
+<div class="scroll">\[
+    \|\Gamma(z\mathcal B)\|_1
+      =\operatorname{Tr}_{\rm Fock}
+       \sqrt{\Gamma(z\mathcal B)^\dagger\Gamma(z\mathcal B)}&lt;\infty .
+  \]</div>
+<p>
+    也就是说，把 Fock operator 的所有 singular values 相加仍然有限；
+    这保证普通 bare trace 绝对收敛。若
+    \(s_1,\ldots,s_L\) 是 \(\mathcal B\) 的 singular values，则
+  </p>
+<div class="scroll">\[
+    \|\Gamma(z\mathcal B)\|_1
+      =\prod_{j=1}^{L}\frac{1}{1-zs_j}
+      =\frac{1}{\det[I-z|\mathcal B|]}&lt;\infty
+  \]</div>
+<p>
+    对一个给定构型，上式当且仅当
+    \(z\|\mathcal B(\phi)\|_2&lt;1\)。完整辅助场路径积分实际要求
+  </p>
+<div class="scroll">\[
+    \int d\phi\,P_{\rm HS}(\phi)\,
+      \left|\operatorname{Tr}_{\rm Fock}
+      \Gamma[z\mathcal B(\phi)]\right|&lt;\infty .
+  \]</div>
+<p>
+    若不想依赖不同 Fock states 或不同辅助场构型之间的抵消，可使用
+    \(|\operatorname{Tr}X|\leq\|X\|_1\)。因此
+    \(\int d\phi\,P_{\rm HS}\|\Gamma\|_1&lt;\infty\) 是一个更强、但直接的
+    operator-level 充分条件。下面的统一余量又是保证它成立的一个方便而
+    严格的<strong>充分条件</strong>，不是必要条件：
+  </p>
+<div class="scroll">\[
+    \boxed{
+    z\sup_\phi\|\mathcal B(\phi)\|_2\leq1-\epsilon
+    \quad\text{for some }\epsilon&gt;0.}
+  \]</div>
+<p>
+    若单粒子空间有 \(L\) 个 modes，这个条件逐构型给出
+    \(\|\Gamma[z\mathcal B(\phi)]\|_1\leq\epsilon^{-L}\)。归一化的
+    Gaussian HS measure 满足 \(\int d\phi\,P_{\rm HS}(\phi)=1\)，所以
+    上一式的积分随即有限。某些没有统一 \(\epsilon\) 的模型仍可能因
+    Gaussian measure 的衰减而使该积分收敛，必须对具体模型另行估计。
+  </p>
+<p>
+    若每个 fixed-\(N\) coefficient 已另外证明非负，那么在这一区域
+  </p>
+<div class="scroll">\[
+    W_{\rm GC}(z,\phi)
+      =\sum_{N=0}^{\infty}z^NW_N(\phi)
+      =\frac{1}{\det[I-z\mathcal B(\phi)]}&gt;0 .
+  \]</div>
+<p>
+    所以 \(iJ_2g\) 并不要求必须使用 canonical ensemble。有界连续 HS
+    场、离散 HS 场，或者任何能给出统一传播范数上界的构造，都可能通过
+    足够负的化学势满足上式。对本报告当前四个模型，第 1.4 节会直接得到
+    \(\sup_\phi\rho[\mathcal B(\phi)]=\infty\)。固定的相似变换或 gauge
+    transformation 不改变 spectral radius，因而不能消除这项谱增长；加入
+    fugacity 则是在 Hamiltonian 中加入化学势，不是 gauge transformation。
+  </p>
+<h3>1.4 为什么报告当前四个 \(iJ_2g\) 模型仍然选择 fixed-\(N\)</h3>
+<p>
+    当前四个物理构造都有无界实 Gaussian 场。沿 maximal-subgroup 的双曲
+    方向，单粒子传播含 \(e^{+\phi}\) 与 \(e^{-\phi}\)，因此
+  </p>
+<div class="scroll">\[
+    \sup_{\phi\in\mathbb R}\rho[\mathcal B(\phi)]
+    =\sup_{\phi\in\mathbb R}\|\mathcal B(\phi)\|_2=\infty .
+  \]</div>
+<p>
+    对任意固定 \(z&gt;0\)，总能找到足够大的 \(|\phi|\) 使某个 mode 不再
+    衰减，所以没有一个有限化学势能让全部辅助场构型的
+    grand-canonical bare trace 同时收敛。
+  </p>
+<p>
+    两模实现的每个 generator 在 annihilation sector 内无迹，故
+    \(\det\mathcal B=1\)。数值与解析约束又给出正本征值
+    \(\lambda,\lambda^{-1}\)，于是
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    W_N(\phi)&amp;=\sum_{n=0}^{N}\lambda^{N-2n}&gt;0,\\
+    \sum_{N=0}^{\infty}z^NW_N(\phi)
+      &amp;=\frac{1}{(1-z\lambda)(1-z/\lambda)} .
+  \end{aligned}
+  \]</div>
+<p>
+    第二行只有在 \(z&lt;\min(\lambda,\lambda^{-1})\) 时才是原来的
+    occupation-number sum；越过 pole 后对有理函数作代数延拓，不能称为
+    bare trace。四模实现只是把这一分母平方。固定 \(N\) 时第一行是有限项
+    正数和，不会发生发散。
+  </p>
+<div class="warning">
+<strong>fixed-\(N\) 本身不自动消除符号问题。</strong>
+    它只把 Hilbert space 变成有限维。当前四个模型的正性还使用了
+    \(\mathcal B(\phi)\) 的正 reciprocal spectrum。另一个模型若只有
+    \(iJ_2g\) 矩阵锥，却没有这项或其他正性结构，fixed-\(N\) character
+    仍可能为负。含 \(aa\) 或 \(a^+a^+\) pairing 时总粒子数不守恒，
+    本卷的 canonical 公式也不能直接使用。
+  </div>
+<h2>2. 有限温 canonical AFQMC</h2>
+<div class="note">
+<strong>适用范围。</strong>
+  本节讨论每个辅助场时间片都保持总粒子数的玻色 AFQMC。
+  若时间片含 \(aa\) 或 \(a^+a^+\) pairing，总粒子数不守恒，便不能把
+  Fock space 限制在固定 \(N\) 的子空间；那种情况仍须使用 Nambu
+  grand-canonical trace 或另选守恒量做投影。
+</div>
+<h3>2.1 从单粒子传播矩阵得到固定-\(N\) 权重</h3>
+<p>
+  固定一组时空辅助场后，令 \(L\) 表示单粒子轨道数，并按实际虚时间顺序
+  相乘：
+</p>
+<div class="scroll">\[
+  \mathcal B=e^{B_1}e^{B_2}\cdots e^{B_{L_\tau}} .
+\]</div>
+<p>
+  相应的 Fock-space 算符保持粒子数。若 \(\operatorname{Tr}_N\) 只在
+  “恰有 \(N\) 个玻色子”的有限维子空间求迹，配置权重记为
+  \(W_N(\mathcal B)\)。先引入一个只用于提取系数的变量 \(z\)：
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+  \sum_{N=0}^{\infty}W_N(\mathcal B)z^N
+  &amp;=\operatorname{Tr}_{\rm Fock}
+    \!\left[z^{\hat N}\widehat{\mathcal B}\right]\\
+  &amp;=\frac{1}{\det(I_L-z\mathcal B)} .
+  \end{aligned}
+\]</div>
+<p>
+  第二行可以先在 \(\mathcal B\) 可对角化时直接看懂。若单粒子本征值为
+  \(\lambda_1,\ldots,\lambda_L\)，占据数
+  \(n_1,\ldots,n_L\) 对应的因子是
+  \(\lambda_1^{n_1}\cdots\lambda_L^{n_L}\)，所以
+</p>
+<div class="scroll">\[
+  \prod_{j=1}^{L}\sum_{n_j=0}^{\infty}(z\lambda_j)^{n_j}
+  =\prod_{j=1}^{L}\frac{1}{1-z\lambda_j}
+  =\frac{1}{\det(I_L-z\mathcal B)} .
+\]</div>
+<p>
+  两边作为 \(\mathcal B\) 矩阵元的函数连续，因此公式也覆盖不可对角化的
+  情况。固定 \(N\) 的权重就是有限阶系数
+</p>
+<div class="scroll">\[
+  W_N(\mathcal B)
+  =[z^N]\frac{1}{\det(I_L-z\mathcal B)} .
+\]</div>
+<p>
+  它是 \(\mathcal B\) 矩阵元的有限次多项式；即使
+  \(\mathcal B\) 有本征值 \(1\)，也不会出现 grand-canonical
+  \(1/\det(I-\mathcal B)\) 的 pole。有限不等于自动为正：用于采样前，
+  仍须对所研究的具体模型另外证明
+  \(W_N(\mathcal B)\geq0\)。
+</p>
+<h3>2.2 不枚举 Fock 基底的正项递推</h3>
+<p>
+  直接枚举所有占据数组合需要
+  \(\binom{N+L-1}{N}\) 个基态，随系统增长很快。实际算法只计算
+  \(L\times L\) 单粒子矩阵。对本报告中已经逐构型证明
+  \(\lambda_j&gt;0\) 的 \(iJ_2g\) 模型，先稳定地求出
+  \(\mathcal B\) 的 \(L\) 个本征值，再逐个展开
+</p>
+<div class="scroll">\[
+  \prod_{j=1}^{L}\frac{1}{1-z\lambda_j}
+  =\sum_{n=0}^{\infty}w_n^{(L)}z^n .
+\]</div>
+<p>
+  只加入前 \(j\) 个本征值时，系数满足
+</p>
+<div class="scroll">\[
+  w_0^{(j)}=1,\qquad
+  w_n^{(j)}=w_n^{(j-1)}+\lambda_j w_{n-1}^{(j)}
+  \quad(n\geq1).
+\]</div>
+<p>
+  这是因为第 \(j\) 个轨道可占据
+  \(0,1,2,\ldots\) 个玻色子。用一个长度 \(N+1\) 的数组原位实现时，
+  对每个 \(\lambda_j\) 必须让 \(n=1,2,\ldots,N\) 正向递增：
+</p>
+<pre><code>w[0] = 1;  w[1:N] = 0
+for lambda in eigenvalues(B):
+    for n = 1,...,N:
+        w[n] = w[n] + lambda*w[n-1]
+W_N = w[N]</code></pre>
+<p>
+  递推本身需要 \(O(LN)\) 次正数运算和 \(O(N)\) memory；本征值求解
+  通常需要 \(O(L^3)\)。由于所有加数都为正，这一实现不会产生正负抵消。
+  若本征值跨度很大，先令
+  \(\rho=\max_j\lambda_j\)、\(\widetilde\lambda_j=\lambda_j/\rho\)，
+  对 \(\widetilde\lambda_j\) 递推，最后使用
+  \(W_N(\lambda)=\rho^N W_N(\widetilde\lambda)\)，并把尺度保存在
+  logarithm 中。
+</p>
+<p>
+  一个与本征值无关、适合做独立核对的恒等式来自生成函数的对数导数。
+  定义 \(p_k=\operatorname{Tr}(\mathcal B^k)\)、\(W_0=1\)，则
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  W_N=\frac1N\sum_{k=1}^{N}
+  \operatorname{Tr}(\mathcal B^k)\,W_{N-k}} .
+\]</div>
+<p>
+  这条 Newton recurrence 数学上精确，但直接形成
+  \(\mathcal B^k\) 在低温容易溢出，计算量也通常高于上面的正项递推，
+  因而不应作为默认的低温实现。若还需要各本征模占据数，可使用
+  <a href="https://arxiv.org/abs/2212.08654">稳定 canonical AFQMC
+  递推</a>
+</p>
+<div class="scroll">\[
+  \begin{aligned}
+    n_{\alpha,N+1}
+      &amp;=\frac{W_N}{W_{N+1}}\lambda_\alpha(1+n_{\alpha,N}),\\
+    W_{N+1}
+      &amp;=\frac{W_N}{N+1}
+        \sum_{\alpha=1}^{L}\lambda_\alpha(1+n_{\alpha,N}),
+  \end{aligned}
+\]</div>
+<p>
+  初值为 \(W_0=1\)、\(n_{\alpha,0}=0\)。实际代码用 log-sum-exp
+  计算第二行，可以避免大 \(N\) 或低温时的 overflow。
+</p>
+<h3>2.3 Monte Carlo 权重与接受率</h3>
+<p>
+  设 \(P_{\rm HS}(\phi)&gt;0\) 是 Gaussian 或离散 HS 测度。固定总粒子数
+  的完整配置权重为
+</p>
+<div class="scroll">\[
+  \mathcal W_N(\phi)=P_{\rm HS}(\phi)\,
+  W_N[\mathcal B(\phi)] .
+\]</div>
+<p>
+  对称 proposal \(\phi\to\phi'\) 的 Metropolis 接受率是
+</p>
+<div class="scroll">\[
+  P_{\rm acc}
+  =\min\!\left[
+  1,\,
+  \frac{P_{\rm HS}(\phi')}{P_{\rm HS}(\phi)}
+  \frac{W_N[\mathcal B(\phi')]}{W_N[\mathcal B(\phi)]}
+  \right].
+\]</div>
+<p>
+  若已证明每个允许构型的 \(W_N&gt;0\)，这个比值就是普通正概率之比。
+  若只知道 \(W_N\) 为实而可能变号，固定 \(N\) 本身并没有消除符号问题。
+</p>
+<h3>2.4 局域或低秩 proposal 的精确更新</h3>
+<p>
+  在被更新的时间片处循环移动矩阵乘积，使 proposal 写成
+</p>
+<div class="scroll">\[
+  \mathcal B'=(I_L+UV^\dagger)\mathcal B ,
+\]</div>
+<p>
+  其中 \(U,V\) 各有 \(r\) 列；单格点更新通常有很小的 \(r\)。
+  令
+</p>
+<div class="scroll">\[
+  D(z)=\det(I-z\mathcal B),\qquad
+  D'(z)=\det(I-z\mathcal B').
+\]</div>
+<p>
+  两个 grand generating functions 的比值不是在 \(z=1\) 取值，而是
+  保留到目标阶数：
+</p>
+<div class="scroll">\[
+  \frac{D(z)}{D'(z)}
+  =\sum_{n=0}^{N}r_nz^n+O(z^{N+1}) .
+\]</div>
+<p>
+  若 \(D(z)=\sum_{k=0}^{L}d_kz^k\)、
+  \(D'(z)=\sum_{k=0}^{L}d'_kz^k\)，其中 \(d_0=d'_0=1\)，则
+</p>
+<div class="scroll">\[
+  r_0=1,\qquad
+  r_n=d_n-\sum_{k=1}^{\min(n,L)}d'_k r_{n-k},
+\]</div>
+<p>
+  并约定 \(n&gt;L\) 时 \(d_n=0\)。更新后的 canonical 权重无需重新展开
+  Fock space：
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  W_N(\mathcal B')
+  =\sum_{k=0}^{N}r_k\,W_{N-k}(\mathcal B)} .
+\]</div>
+<p>
+  矩阵行列式引理还给出
+</p>
+<div class="scroll">\[
+  \frac{D'(z)}{D(z)}
+  =\det\!\left[
+    I_r-zV^\dagger\mathcal B
+    (I_L-z\mathcal B)^{-1}U
+  \right].
+\]</div>
+<p>
+  这里使用了
+  \(I-z\mathcal B'=I-z\mathcal B-zUV^\dagger\mathcal B\)。
+  一个稳妥的基线实现是先更新 \(D'(z)\) 的 \(L+1\) 个系数，再用
+  \(r_n\) 递推；进一步优化时才对上面的 \(r\times r\) 行列式做截断
+  幂级数运算。不能只在 \(z=1\) 计算普通 grand-canonical
+  determinant ratio，因为那会把所有粒子数 sector 混在一起。
+</p>
+<h3>2.5 固定-\(N\) 一体观测量</h3>
+<p>
+  定义矩阵
+  \([\overline G_N]_{ij}
+  =\operatorname{Tr}_N(a_j^+a_i\widehat{\mathcal B})/W_N\)。
+  在生成函数中插入 \(e^{a^+Xa}\)，再对 \(X\) 求一次导数，得到
+</p>
+<div class="scroll">\[
+  \boxed{\displaystyle
+  \overline G_N
+  =\frac{1}{W_N}
+  \sum_{k=1}^{N}W_{N-k}\mathcal B^k } .
+\]</div>
+<p>
+  对它取迹并使用上一节的 Newton 递推：
+</p>
+<div class="scroll">\[
+  \operatorname{Tr}\overline G_N
+  =\frac1{W_N}\sum_{k=1}^{N}
+   \operatorname{Tr}(\mathcal B^k)W_{N-k}
+  =N ,
+\]</div>
+<p>
+  这既是粒子数守恒的解析证明，也是实现中很有效的逐构型自检。
+</p>
+<h3>2.6 二体及更高观测量</h3>
+<p>
+  固定 \(N\) 投影后的算符不再满足普通 grand-canonical Wick 分解，
+  但仍能用同一个系数提取多项式时间计算低阶观测量。对暂时保留的
+  fugacity \(z\)，定义
+</p>
+<div class="scroll">\[
+  \overline G(z)=z\mathcal B(I-z\mathcal B)^{-1},\qquad
+  \Xi(z)=\det(I-z\mathcal B)^{-1}.
+\]</div>
+<p>
+  例如正规序的四算符期望值为
+</p>
+<div class="scroll">\[
+  \left\langle
+    \hat a_i^+\hat a_j^+\hat a_l\hat a_k
+  \right\rangle_N
+  =
+  \frac{[z^N]\Xi(z)
+  \left[
+  \overline G_{ki}(z)\overline G_{lj}(z)
+  +\overline G_{li}(z)\overline G_{kj}(z)
+  \right]}{W_N}.
+\]</div>
+<p>
+  这就是先在 \(z\) 依赖的 Gaussian 问题中做 bosonic Wick
+  contraction，再只取 \(z^N\) 系数。密度、动量分布、结构因子和能量只需
+  一体或二体版本，所需卷积阶数不超过 \(N\)，不需要枚举
+  \(\binom{N+L-1}{N}\) 个 Fock states。
+</p>
+<h3>2.7 低温数值稳定化</h3>
+<p>
+  长虚时间乘积 \(\mathcal B\) 的奇异值可能跨越许多数量级，直接形成
+  \(\mathcal B^k\) 会溢出或严重抵消。实现至少需要以下三层保护：
+</p>
+<ol>
+<li>
+    像 grand-canonical AFQMC 一样，按若干时间片做带列主元的
+    QR/UDT 分解，保存大、中、小尺度，不直接长期累乘稠密矩阵。
+  </li>
+<li>
+    选择正尺度 \(\rho\)，写
+    \(\mathcal B=\rho\widetilde{\mathcal B}\)。递推先算
+    \(W_n(\widetilde{\mathcal B})\)，最后使用严格恒等式
+    \(W_n(\mathcal B)=\rho^nW_n(\widetilde{\mathcal B})\)，并在
+    log scale 中保存 \(\rho^n\)。
+  </li>
+<li>
+    当 power-trace 递推出现严重抵消时，改用经过平衡的特征多项式递推，
+    或直接采用
+    <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.055302">
+    Shen 等人的稳定 canonical AFQMC 递推方案</a>；每次 wrap 后用
+    \(\operatorname{Tr}\overline G_N=N\) 和两种权重递推互相核对。
+  </li>
+</ol>
+<h3>2.8 为什么这还没有自动解决一般自旋模型</h3>
+<p>
+  Schwinger-boson 表示的 spin-\(\tfrac12\) 在每个格点都要求
+  \(n_{i\uparrow}+n_{i\downarrow}=1\)。这不是一个固定总数条件，而是
+  \(L_{\rm site}\) 个独立条件。相应投影要提取多变量系数
+</p>
+<div class="scroll">\[
+  \left[\prod_i z_i^1\right]
+  \frac1{\det[I-Z\mathcal B]},\qquad
+  Z=\operatorname{diag}(z_1,z_1,z_2,z_2,\ldots).
+\]</div>
+<p>
+  单变量递推只需保存 \(0,\ldots,N\) 共 \(N+1\) 个系数；上式一般要追踪
+  所有局域占据组合，数量随格点数指数增长。因此讨论
+  \(J\)-\(Q\) 或三角格子磁体时，必须把“二次传播满足某类矩阵关系”和
+  “局域投影仍能多项式计算”分开。除非模型还有额外结构使多变量系数
+  因子化或可由其他局域表示消去约束，不能把本节算法直接宣传成一般
+  无符号自旋 QMC。
+</p>
+<h3>2.9 独立数值核对</h3>
+<p>
+<a href="analysis/verify_canonical_boson_afqmc.m">verify_canonical_boson_afqmc.m</a>
+  对三个轨道、四个玻色子的完整 occupation basis 显式构造
+  symmetric-power Fock operator，并与上述递推比较。12 组随机复矩阵
+  乘积中，权重、一体密度矩阵、二体收缩公式和 rank-one 更新卷积的最坏
+  相对误差分别为 \(5.4\times10^{-16}\)、\(6.7\times10^{-16}\)、
+  \(6.4\times10^{-16}\) 和 \(6.0\times10^{-15}\)；同时逐构型满足
+  \(\operatorname{Tr}\overline G_N=N\)。逐次数据见
+  <a href="tables/canonical_boson_afqmc_checks.csv">canonical_boson_afqmc_checks.csv</a>。
+</p>
+<h2 id="zero-temperature-projector">3. 零温 rank-one projector BAFQMC</h2>
+<h3>3.1 它与有限温 canonical trace 不是同一个对象</h3>
+<p>有限温算法计算</p>
+<div class="scroll">\[
+    Z_N(\beta)=\operatorname{Tr}_{N}e^{-\beta\hat H}.
+  \]</div>
+<p>零温投影算法则选一个固定-\(N\) trial state，并计算</p>
+<div class="scroll">\[
+    Z_\theta
+      =\langle\Phi_T|e^{-2\theta\hat H}|\Phi_T\rangle,
+    \qquad
+    \langle\hat O\rangle_\theta
+      =\frac{\langle\Phi_T|e^{-\theta\hat H}
+        \hat Oe^{-\theta\hat H}|\Phi_T\rangle}
+       {\langle\Phi_T|e^{-2\theta\hat H}|\Phi_T\rangle}.
+  \]</div>
+<p>
+    若基态非简并，而且 trial state 与它有非零重叠，能量本征态展开立即
+    给出 \(\langle\hat O\rangle_\theta\to\langle0|\hat O|0\rangle\)。
+    若基态简并，令 \(\Pi_0\) 表示对整个基态子空间的投影，则极限改为
+  </p>
+<div class="scroll">\[
+    \frac{\langle\Phi_T|\Pi_0\hat O\Pi_0|\Phi_T\rangle}
+         {\langle\Phi_T|\Pi_0|\Phi_T\rangle}.
+  \]</div>
+<p>
+    即 trial state 投到基态子空间后所得归一化态的期望值。
+    canonical trace 的正性并不自动推出这个特定 trial-state overlap
+    非负，因此下面重新证明 projector 权重。
+  </p>
+<h3>3.2 rank-one condensate trial state 为什么只需传播一个向量</h3>
+<p>
+    对任意单粒子向量 \(R\)，先定义一个不要求归一化的 many-body ket
+  </p>
+<div class="scroll">\[
+    |R;N\rangle
+      \equiv\frac{1}{\sqrt{N!}}
+        \bigl(\hat a^\dagger R\bigr)^N|0\rangle,
+    \qquad
+    \langle R;N|R;N\rangle=(R^\dagger R)^N.
+  \]</div>
+<p>
+    trial orbital 取作 \(P^\dagger P=1\)，所以初始的
+    \(|P;N\rangle\) 已归一化；传播后的 \(\mathcal BP\) 一般不再
+    归一化，而它的 norm 正是 Monte Carlo overlap 的一部分，不应在记号中
+    暗中除掉。
+  </p>
+<p>
+    对任意保持粒子数的 Gaussian operator
+    \(\widehat{\mathcal B}\)，其单粒子矩阵记为 \(\mathcal B\)。由
+  </p>
+<div class="scroll">\[
+    \widehat{\mathcal B}
+      (\hat a^\dagger P)\widehat{\mathcal B}^{-1}
+      =\hat a^\dagger(\mathcal BP)
+  \]</div>
+<p>可直接得到</p>
+<div class="scroll">\[
+    \widehat{\mathcal B}|P;N\rangle
+      =|\mathcal BP;N\rangle,\qquad
+    \langle L;N|R;N\rangle=(L^\dagger R)^N .
+  \]</div>
+<p>
+    第二式可由
+    \(\hat a(L)[\hat a^\dagger(R)]^N
+      =N(L^\dagger R)[\hat a^\dagger(R)]^{N-1}\)
+    反复使用 \(N\) 次得到。因此许多体波函数不必展开为
+    \(\binom{N+L-1}{N}\) 个 Fock amplitudes，只传播一个长度为 \(L\)
+    的向量。
+  </p>
+<h3>3.3 fixed-field projector 权重与真正的正性条件</h3>
+<p>
+    给定整条辅助场路径，令
+    \(\mathcal B_\phi=\mathcal B(2\theta,0;\phi)\)。单个 flavor 的
+    fixed-field 权重是
+  </p>
+<div class="scroll">\[
+    \mathcal W_\theta(\phi)
+      =P_{\rm HS}(\phi)
+       \bigl[P^\dagger\mathcal B_\phi P\bigr]^N .
+  \]</div>
+<p>
+    这个复数的 \(N\) 次方并不自动非负。若模型具有两个逐构型共轭的
+    flavors，
+  </p>
+<div class="scroll">\[
+    \mathcal B_c(\phi)=\overline{\mathcal B_b(\phi)},
+    \qquad
+    |\Phi_T\rangle
+      =|P;N\rangle_b\otimes|\overline P;N\rangle_c ,
+  \]</div>
+<p>并分别固定两个 flavors 各有 \(N\) 个玻色子，则</p>
+<div class="scroll">\[
+  \begin{aligned}
+    \mathcal W_\theta(\phi)
+      &amp;=P_{\rm HS}(\phi)
+        [P^\dagger\mathcal B_bP]^N
+        [\overline P^\dagger
+          \overline{\mathcal B_b}\,\overline P]^N\\
+      &amp;=P_{\rm HS}(\phi)
+        |P^\dagger\mathcal B_bP|^{2N}\geq0 .
+  \end{aligned}
+  \]</div>
+<p>
+    这就是下文所参考 BPQMC 分支实际使用的正性证明。必须分别固定
+    \(N_b=N_c=N\)。如果只固定两种 flavor 的总数
+    \(N_{\rm tot}\)，权重包含
+  </p>
+<div class="scroll">\[
+    \sum_{n=0}^{N_{\rm tot}}
+      W_n(\mathcal B_b)
+      \overline{W_{N_{\rm tot}-n}(\mathcal B_b)},
+  \]</div>
+<p>它自动为实，但一般不是模平方，也不自动非负。</p>
+<h3>3.4 局域辅助场更新</h3>
+<p>
+    在被更新的时间片处，把右、左传播向量和 overlap 写成
+  </p>
+<div class="scroll">\[
+    R=\mathcal B(\tau,0)P,\qquad
+    L^\dagger=P^\dagger\mathcal B(2\theta,\tau),\qquad
+    S=L^\dagger R .
+  \]</div>
+<p>若局域单粒子更新是 \(I+uv^\dagger\)，那么</p>
+<div class="scroll">\[
+  \begin{aligned}
+    S'&amp;=S+(L^\dagger u)(v^\dagger R),\\
+    \delta&amp;=\frac{(L^\dagger u)(v^\dagger R)}{S},
+    \qquad \frac{S'}{S}=1+\delta .
+  \end{aligned}
+  \]</div>
+<p>共轭双 flavor 模型的 Metropolis log ratio 因此是</p>
+<div class="scroll">\[
+    \boxed{
+    \log R_{\rm MC}
+      =\log\frac{P_{\rm HS}(\phi')}{P_{\rm HS}(\phi)}
+       +2N\log|1+\delta| .}
+  \]</div>
+<p>
+    程序不应先形成 \((1+\delta)^N\)，因为大 \(N\) 时会 overflow。
+    可使用
+  </p>
+<div class="scroll">\[
+    \log|1+\delta|
+      =\frac12\log\bigl(1+2\operatorname{Re}\delta+|\delta|^2\bigr)
+  \]</div>
+<p>
+    并比较 \(\log u&lt;\min(0,\log R_{\rm MC})\)。对 diagonal local update，
+    \(u\) 与 \(v\) 只在一个格点非零，已有 \(L^\dagger,R,S\) 后每次 proposal
+    只需要 \(O(1)\) 标量运算。
+  </p>
+<h3>3.5 midpoint 一体、二体与能量 estimator</h3>
+<p>在 \(\tau=\theta\) 的 midpoint，逐构型有</p>
+<div class="scroll">\[
+  \begin{aligned}
+    \frac{\langle L;N|\hat a_i^+\hat a_j|R;N\rangle}
+         {\langle L;N|R;N\rangle}
+      &amp;=N\,\frac{(L^\dagger)_iR_j}{S},\\
+    \frac{\langle L;N|
+       \hat a_i^+\hat a_j^+\hat a_l\hat a_k|R;N\rangle}
+         {\langle L;N|R;N\rangle}
+      &amp;=N(N-1)
+        \frac{(L^\dagger)_i(L^\dagger)_jR_kR_l}{S^2}.
+  \end{aligned}
+  \]</div>
+<p>
+    第一式的 trace 是 \(N\)，这是最直接的逐构型程序检查。若
+  </p>
+<div class="scroll">\[
+    \hat H=\sum_{ij}K_{ij}\hat a_i^+\hat a_j
+      +\frac12\sum_{ij;kl}V_{ij;kl}
+       \hat a_i^+\hat a_j^+\hat a_l\hat a_k ,
+  \]</div>
+<p>则 local energy 为</p>
+<div class="scroll">\[
+    E_{\rm loc}
+      =N\frac{L^\dagger KR}{S}
+       +\frac{N(N-1)}{2S^2}
+        \sum_{ij;kl}V_{ij;kl}
+        (L^\dagger)_i(L^\dagger)_jR_kR_l .
+  \]</div>
+<h3>3.6 长投影长度的稳定化与计算量</h3>
+<p>
+    周期性归一化左右向量，并保存被取出的 logarithmic scales：
+  </p>
+<div class="scroll">\[
+    R=e^{\alpha_R}\widetilde R,\qquad
+    L^\dagger=e^{\alpha_L}\widetilde L^\dagger .
+  \]</div>
+<p>
+    局域 ratio 中的
+    \(\delta=(\widetilde L^\dagger u)(v^\dagger\widetilde R)/
+    (\widetilde L^\dagger\widetilde R)\)
+    与 \(\alpha_L,\alpha_R\) 无关。需要绝对权重、global update 或诊断时，
+  </p>
+<div class="scroll">\[
+    \log\mathcal W_\theta
+      =\log P_{\rm HS}
+       +2N\left[\alpha_L+\alpha_R+
+       \log|\widetilde L^\dagger\widetilde R|\right].
+  \]</div>
+<p>
+    若 \(|S|\) 接近机器精度，不能只打印 warning 后继续除以 \(S\)；应从最近
+    的稳定化点重新传播，仍不可靠时再用更高精度计算完整 overlap ratio。
+  </p>
+<div class="scroll">
+<table>
+<thead><tr><th>操作</th><th>计算量</th></tr></thead>
+<tbody>
+<tr><td>dense kinetic matrix 作用于一个向量</td><td>\(O(L^2)\)</td></tr>
+<tr><td>diagonal HS factor 作用于向量</td><td>\(O(L)\)</td></tr>
+<tr><td>一个 diagonal local proposal</td><td>\(O(1)\)</td></tr>
+<tr><td>构造完整一体密度矩阵</td><td>\(O(L^2)\)</td></tr>
+<tr><td>一次完整 dense-propagation sweep</td><td>\(O(L_\tau L^2)\)</td></tr>
+</tbody>
+</table>
+</div>
+<h3>3.7 与 YinkaiYu/BPQMC 分支的逐项对应</h3>
+<p>
+    本节审计的是用户指定的
+    <a href="https://github.com/YinkaiYu/BPQMC/tree/feature/triangular-lattice">
+    BPQMC <code>feature/triangular-lattice</code> 分支</a>，审计时 commit 为
+    <code>7f9cfccd63cddf9f692400d9881e57f6088e4d79</code>：
+  </p>
+<ul>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/initial_state.f90"><code>initial_state.f90</code></a> 对 trial Hamiltonian 对角化并选择最低单粒子轨道 \(P\)。</li>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/process_matrix.f90"><code>process_matrix.f90</code></a> 中的 <code>UUR</code>、<code>UUL</code> 与 <code>overlap</code> 分别对应 \(R,L^\dagger,S\)。</li>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/localU.f90"><code>localU.f90</code></a> 实现 \(1+\delta\)，并把其 \(N\) 次方乘以复共轭。</li>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/obser_equal.f90"><code>obser_equal.f90</code></a> 实现 \(NRL^\dagger/S\)，并把第二 flavor 的 Green function 设为第一 flavor 的复共轭。</li>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/local_sweep.f90"><code>local_sweep.f90</code></a> 在 \(L_\tau/2\) 测量，对应 symmetric midpoint estimator。</li>
+<li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/stabilization.f90"><code>stabilization.f90</code></a> 周期性归一化左右向量。</li>
+</ul>
+<p>
+    README 写出的是单 flavor 的
+    \(P_{\rm HS}[P^\dagger\mathcal BP]^N\)，而当前源码实际采样
+    \(P_{\rm HS}|P^\dagger\mathcal BP|^{2N}\)。结合第二 flavor Green
+    function 的复共轭构造，源码对应本节 3.3 的共轭双 flavor 模型。
+  </p>
+<p>
+    还有三个值得直接修正的数值细节：当前 <code>stabilization.f90</code>
+    归一化后没有保存 \(\alpha_L,\alpha_R\)；<code>localU.f90</code> 先形成
+    \(e^{N\log(1+\delta)}\)，大 \(N\) 时可能 overflow；overlap 小于阈值后
+    当前只发出 warning，仍继续除法。它们不改变现有局域 ratio 和 midpoint
+    estimator 的尺度不变性，但会影响绝对权重、global proposal 与极小
+    overlap 的稳健处理。
+  </p>
+<h3>3.8 独立 Octave 核对</h3>
+<p>
+<a href="analysis/verify_canonical_projector_bpqmc.m">
+    verify_canonical_projector_bpqmc.m</a> 在三轨道、四玻色子完整
+    symmetric-power Fock basis 中显式构造传播算符，并核对
+    rank-one overlap、局域 ratio、一体 midpoint estimator 与共轭双 flavor
+    正性。10 组随机复矩阵的最坏相对误差分别为
+    \(9.2\times10^{-16}\)、\(1.4\times10^{-15}\) 与
+    \(9.3\times10^{-16}\)；另一个五玻色子测试在
+    \(\theta=10\) 时的投影能量误差为 \(6.1\times10^{-9}\)。
+    逐次数据见
+    <a href="tables/canonical_projector_bpqmc_checks.csv">
+    canonical_projector_bpqmc_checks.csv</a>。
+  </p>
+<h2>4. 两种固定粒子数算法的适用边界</h2>
+<div class="scroll">
+<table>
+<thead>
+<tr><th></th><th>有限温 canonical AFQMC</th><th>零温 rank-one projector</th></tr>
+</thead>
+<tbody>
+<tr><td>计算对象</td><td>\(\operatorname{Tr}_N e^{-\beta H}\)</td><td>\(\langle\Phi_T|e^{-2\theta H}|\Phi_T\rangle\)</td></tr>
+<tr><td>fixed-field 权重</td><td>\([z^N]\det(I-z\mathcal B)^{-1}\)</td><td>\([P^\dagger\mathcal BP]^N\)</td></tr>
+<tr><td>正性需要</td><td>逐构型正 character 或共轭 character 模平方</td><td>正 overlap，或共轭双 flavor 的 \(|S|^{2N}\)</td></tr>
+<tr><td>低温代价</td><td>稳定矩阵乘积加 \(O(LN)\) coefficient 递推</td><td>rank-one trial 只传播左右向量</td></tr>
+<tr><td>主要限制</td><td>时间片必须保持所投影的守恒量</td><td>rank-one condensate trial；一般 fragmented trial 会引入 permanent</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+    一般 fixed-\(N\) trial state 含多个不同占据轨道时，Gaussian overlap
+    是 permanent，而不是一个标量的 \(N\) 次方；计算量通常重新变得很高。
+    因此 rank-one projector 是一套重要而具体的算法结构，不应被描述成任意
+    canonical boson state 的自动快速算法。其 identical-orbital 推导可参见
+    <a href="https://arxiv.org/abs/physics/0403146">Purwanto--Zhang
+    bosonic ground-state AFQMC</a>；有限温稳定递推可参见
+    <a href="https://arxiv.org/abs/2010.09813">canonical AFQMC</a> 与
+    <a href="https://arxiv.org/abs/2212.08654">稳定递推方案</a>。
+  </p>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">反线性对称性理论卷</a></nav></main></body></html>

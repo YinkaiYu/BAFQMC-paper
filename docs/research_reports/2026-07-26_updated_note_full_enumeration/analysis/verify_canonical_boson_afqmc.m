@@ -10,12 +10,14 @@ function verify_canonical_boson_afqmc()
   assert(fid >= 0);
   fprintf(fid, ["trial,orbitals,particle_number,recurrence_weight," ...
                 "explicit_fock_weight,weight_relative_error," ...
-                "one_body_relative_error,particle_number_residual," ...
+                "one_body_relative_error,two_body_relative_error," ...
+                "particle_number_residual," ...
                 "low_rank_weight_relative_error\n"]);
 
   trial_count = 12;
   worst_weight_error = 0;
   worst_one_body_error = 0;
+  worst_two_body_error = 0;
   worst_number_residual = 0;
   worst_update_error = 0;
   for trial = 1:trial_count
@@ -34,10 +36,15 @@ function verify_canonical_boson_afqmc()
     explicit_weight = trace(fock_operator);
     explicit_one_body = explicit_one_body_trace( ...
         fock_operator, occupations, particle_number) / explicit_weight;
+    two_body = canonical_two_body(B, weights, particle_number);
+    explicit_two_body = explicit_two_body_trace( ...
+        fock_operator, occupations) / explicit_weight;
 
     weight_error = relative_error(weight, explicit_weight);
     one_body_error = norm(one_body - explicit_one_body, "fro") / ...
                      max(1, norm(explicit_one_body, "fro"));
+    two_body_error = norm(two_body(:) - explicit_two_body(:)) / ...
+                     max(1, norm(explicit_two_body(:)));
     number_residual = abs(trace(one_body) - particle_number);
 
     update_left = 0.04 * (randn(orbitals, 1) + ...
@@ -58,12 +65,14 @@ function verify_canonical_boson_afqmc()
         convolution_weight, updated_weights(particle_number + 1));
 
     fprintf(fid, ["%d,%d,%d,%.16g%+.16gi,%.16g%+.16gi," ...
-                  "%.16g,%.16g,%.16g,%.16g\n"], ...
+                  "%.16g,%.16g,%.16g,%.16g,%.16g\n"], ...
             trial, orbitals, particle_number, real(weight), imag(weight), ...
             real(explicit_weight), imag(explicit_weight), ...
-            weight_error, one_body_error, number_residual, update_error);
+            weight_error, one_body_error, two_body_error, ...
+            number_residual, update_error);
     worst_weight_error = max(worst_weight_error, weight_error);
     worst_one_body_error = max(worst_one_body_error, one_body_error);
+    worst_two_body_error = max(worst_two_body_error, two_body_error);
     worst_number_residual = max(worst_number_residual, number_residual);
     worst_update_error = max(worst_update_error, update_error);
   endfor
@@ -71,15 +80,54 @@ function verify_canonical_boson_afqmc()
 
   assert(worst_weight_error < 2e-11);
   assert(worst_one_body_error < 2e-11);
+  assert(worst_two_body_error < 2e-11);
   assert(worst_number_residual < 2e-11);
   assert(worst_update_error < 2e-11);
 
   printf("Octave version: %s\n", version());
-  printf(["Verified canonical recurrence, one-body estimator, and exact " ...
-          "rank-one update convolution in %d trials.\n"], trial_count);
-  printf("Worst relative errors: weight %.3e, one-body %.3e, update %.3e.\n", ...
-         worst_weight_error, worst_one_body_error, worst_update_error);
+  printf(["Verified canonical recurrence, one- and two-body estimators, " ...
+          "and exact rank-one update convolution in %d trials.\n"], ...
+         trial_count);
+  printf(["Worst relative errors: weight %.3e, one-body %.3e, " ...
+          "two-body %.3e, update %.3e.\n"], ...
+         worst_weight_error, worst_one_body_error, ...
+         worst_two_body_error, worst_update_error);
   printf("Wrote %s\n", output_file);
+endfunction
+
+
+function two_body = canonical_two_body(B, weights, particle_number)
+  orbitals = rows(B);
+  powers = cell(particle_number, 1);
+  current_power = eye(orbitals);
+  for order = 1:particle_number
+    current_power = current_power * B;
+    powers{order} = current_power;
+  endfor
+
+  two_body = zeros(orbitals, orbitals, orbitals, orbitals);
+  for creation_first = 1:orbitals
+    for creation_second = 1:orbitals
+      for annihilation_second = 1:orbitals
+        for annihilation_first = 1:orbitals
+          total = 0;
+          for first_order = 1:particle_number
+            for second_order = 1:(particle_number - first_order)
+              remaining = particle_number - first_order - second_order;
+              total += weights(remaining + 1) * ( ...
+                  powers{first_order}(annihilation_first, creation_first) * ...
+                  powers{second_order}(annihilation_second, creation_second) + ...
+                  powers{first_order}(annihilation_second, creation_first) * ...
+                  powers{second_order}(annihilation_first, creation_second));
+            endfor
+          endfor
+          two_body(creation_first, creation_second, ...
+                   annihilation_second, annihilation_first) = ...
+              total / weights(particle_number + 1);
+        endfor
+      endfor
+    endfor
+  endfor
 endfunction
 
 
@@ -240,6 +288,45 @@ function one_body = explicit_one_body_trace( ...
       % The returned matrix follows G_{ij}=<a_j^+ a_i>.
       one_body(annihilation, creation) = ...
           trace(fock_operator * observable);
+    endfor
+  endfor
+endfunction
+
+
+function two_body = explicit_two_body_trace(fock_operator, occupations)
+  orbitals = columns(occupations);
+  sector_dimension = rows(occupations);
+  two_body = zeros(orbitals, orbitals, orbitals, orbitals);
+  for creation_first = 1:orbitals
+    for creation_second = 1:orbitals
+      for annihilation_second = 1:orbitals
+        for annihilation_first = 1:orbitals
+          observable = zeros(sector_dimension);
+          for ket_index = 1:sector_dimension
+            bra = occupations(ket_index, :);
+            if bra(annihilation_first) == 0
+              continue;
+            endif
+            amplitude = sqrt(bra(annihilation_first));
+            bra(annihilation_first) -= 1;
+            if bra(annihilation_second) == 0
+              continue;
+            endif
+            amplitude *= sqrt(bra(annihilation_second));
+            bra(annihilation_second) -= 1;
+            amplitude *= sqrt(bra(creation_second) + 1);
+            bra(creation_second) += 1;
+            amplitude *= sqrt(bra(creation_first) + 1);
+            bra(creation_first) += 1;
+            bra_index = find(all(occupations == bra, 2));
+            assert(numel(bra_index) == 1);
+            observable(bra_index, ket_index) = amplitude;
+          endfor
+          two_body(creation_first, creation_second, ...
+                   annihilation_second, annihilation_first) = ...
+              trace(fock_operator * observable);
+        endfor
+      endfor
     endfor
   endfor
 endfunction

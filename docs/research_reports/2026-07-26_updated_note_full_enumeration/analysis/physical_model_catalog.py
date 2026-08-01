@@ -219,9 +219,12 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           W_N(\phi)=\sum_{n=0}^{N}\lambda^{N-n}\lambda^{-n}
           =\sum_{n=0}^{N}\lambda^{N-2n}>0 .
         \]
-        这给出完整的 canonical sign-free proof。相反，其中一个
-        eigenvalue 大于 1，所以 \(\sum_{N=0}^\infty W_N\) 发散；
-        同一模型不能改称 grand-canonical sign-free BAFQMC。
+        这给出完整的 canonical sign-free proof。在本卡当前没有 fugacity
+        damping 的 \(z=1\) 实现中，其中一个 eigenvalue 大于 1，所以
+        \(\sum_{N=0}^\infty W_N\) 发散。这个结论只针对当前无界 Gaussian
+        场构造；若另一实现能满足
+        \(z\sup_\phi\|\mathcal B(\phi)\|_2<1\)，grand-canonical
+        权重仍可收敛并保持正号。
         </p>
         """,
     },
@@ -286,8 +289,9 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           =\frac{1}{[(1-z\lambda)(1-z/\lambda)]^2}.
         \]
         右边每个 \(z^N\) coefficient 都是正数，所以所有 fixed-\(N\)
-        auxiliary-field weights 严格为正。grand-canonical sum 仍因
-        \(\lambda>1\) 发散。
+        auxiliary-field weights 严格为正。当前 \(z=1\) bare trace 因
+        \(\lambda>1\) 发散；有统一传播界的其他 HS 实现仍可能在足够小
+        fugacity 下做 grand-canonical 采样。
         </p>
         """,
     },
@@ -340,8 +344,9 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         \[
           W_N=\sum_{n=0}^{N}\lambda^{N-2n}>0 .
         \]
-        因而它是完整的 canonical fixed-\(N\) sign-free model；
-        grand-canonical trace 仍发散。
+        因而它是完整的 canonical fixed-\(N\) sign-free model。当前无界场
+        构造在 \(z=1\) 的 grand-canonical trace 发散；这不是整个
+        \(iJ_2g\) 类的普遍 no-go。
         </p>
         """,
     },
@@ -384,7 +389,9 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
         它们固定为正的 \(\lambda,\lambda^{-1}\)。所以每个 fixed-\(N\)
         weight 都等于
         \(\sum_{n=0}^{N}\lambda^{N-2n}>0\)。
-        这是完整的 canonical sign-free proof；grand-canonical sum 发散。
+        这是完整的 canonical sign-free proof；当前 \(z=1\) 且辅助场无界的
+        grand-canonical sum 发散。若另一个实现具有统一传播范数上界，
+        足够负的化学势仍可恢复 grand-canonical 收敛。
         </p>
         """,
     },
@@ -1348,10 +1355,10 @@ def render_physical_model(class_name: str) -> str:
         scope = (
             "完整 canonical fixed-"
             r"\(N\) sign-free 构造；固定粒子数权重是有限阶 character，"
-            "不使用 grand-canonical determinant 公式；不存在一个来自稳定 "
-            "Hermitian 二次玻色 Hamiltonian 的零场生成元，使 "
-            "grand-canonical 迹收敛并同时满足同一个 "
-            r"\(\eta=iJ_2g\) 的收缩不等式"
+            "不使用 grand-canonical determinant 公式。对实正交 "
+            r"\(J_2\)，稳定 Hermitian 零场不位于同一个严格 "
+            r"\(\eta=iJ_2g\) 锥；当前无界 Gaussian 场又没有统一传播界。"
+            "这不排除有界或离散 HS 的其他 grand-canonical 实现"
         )
     else:
         scope = r"费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验"

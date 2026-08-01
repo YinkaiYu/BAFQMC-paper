@@ -1420,20 +1420,21 @@ def strict_semigroup_positivity(row: dict[str, str]) -> str:
               反线性对称性。
             </p>
             <p>
-              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
-              与物理 oscillator representation 对齐。第 6.4 节的
-              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
-              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
-              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
-              grand-canonical 连通正分支已经建立。
+              对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
+              稳定 Hermitian 零场生成元不能同时位于同一个严格
+              \(iJ_2g\) 锥。这只排除了把通常稳定零场直接作为该矩阵半群
+              正参考点的做法，不是对所有 grand-canonical 实现的 no-go。
             </p>
             <p>
-              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
-              有限维，完整 character 对每个辅助场构型被显式证明为正；
-              所以它仍是完整的 canonical 无符号模型。这个结论保留了
-              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
-              与“grand-canonical oscillator-semigroup representation
-              已经构造”这两个不同陈述。
+              本卡下方的 number-conserving 实现含无界 Gaussian 双曲场，
+              所以 \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，不存在一个
+              对全部构型有效的固定 fugacity。它改在固定总粒子数空间
+              求迹，并另外用正 reciprocal spectrum 证明每个 character
+              严格为正。若另一个实现具有有界或离散 HS support，并满足
+              \(z\sup_\phi\|\mathcal B(\phi)\|_2<1\)，则足够负的化学势仍可
+              给出 grand-canonical 正权重；完整 ensemble 条件和算法见
+              <a href="part_8_canonical_projector_algorithms.html">
+              固定粒子数算法卷</a>。
             </p>
           </section>
         """
@@ -2580,8 +2581,9 @@ def atlas_guide() -> str:
         \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；然后按 cone
         是否非空选择正性证明。cone 非空时先研究矩阵收缩半群；其中
         玻色 \(J_2g\) 与全部费米卡进一步使用相容的 Fock representation
-        和连通正分支，玻色 \(iJ_2g\) 卡则明确改用 fixed-\(N\) character
-        证明实际权重。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
+        和连通正分支；玻色 \(iJ_2g\) 卡当前给出的无界场模型用
+        fixed-\(N\) character 证明实际权重，并不排除其他具有统一传播界的
+        grand-canonical 实现。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
         反线性正性。
         最后列出与实际矩阵方向相连的物理模型。
       </div>

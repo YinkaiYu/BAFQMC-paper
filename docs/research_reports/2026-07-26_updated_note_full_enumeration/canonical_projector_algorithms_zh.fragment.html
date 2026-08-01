@@ -1,0 +1,531 @@
+<header>
+  <p class="eyebrow">独立算法卷</p>
+  <h1>固定粒子数玻色 AFQMC：有限温 character 与零温投影</h1>
+  <p class="lead">
+    本卷先回答 \(iJ_2g\) 收缩半群与 ensemble 选择之间的准确关系，
+    再分别推导有限温 canonical AFQMC 和零温 projector BAFQMC。
+    两种算法都保持粒子数，但一个在完整固定-\(N\) Hilbert space 求迹，
+    另一个从指定 trial state 做开边界虚时间投影，二者的正性证明不能互相替代。
+  </p>
+</header>
+
+<section id="canonical-projector-algorithms">
+  <h2 id="ensemble-choice">1. \(iJ_2g\) 为什么在当前模型中使用固定粒子数</h2>
+
+  <h3>1.1 先分开三个问题</h3>
+  <p>
+    “\(iJ_2g\) 类能不能做 grand-canonical AFQMC”不能只用一个 yes/no
+    回答，因为它混合了三件不同的事：
+  </p>
+  <ol>
+    <li>矩阵方程是否允许 \(\eta A+A^\dagger\eta&lt;0\)，其中 \(\eta=iJ_2g\)；</li>
+    <li>相应的 Fock-space operator 对每个辅助场构型是否有有限的 bare trace；</li>
+    <li>这个有限权重是否对每个构型非负。</li>
+  </ol>
+  <p>
+    Octave 穷举已经肯定回答第一问：玻色 32 类中有四个
+    \(iJ_2g\) 类包含严格负定的矩阵生成元。这个结果本身既没有选择
+    canonical ensemble，也没有保证 grand-canonical trace 收敛。ensemble
+    的区别从第二问才开始。
+  </p>
+
+  <h3>1.2 稳定 Hermitian 零场不能位于实 \(J_2\) 的严格 \(iJ_2g\) 锥</h3>
+  <p>
+    下面的证明不假设粒子数守恒，因此也包括有 pairing 的一般 Nambu
+    二次型。令
+  </p>
+  <div class="scroll">\[
+    C=\begin{pmatrix}0&I\\I&0\end{pmatrix},
+    \qquad
+    \eta_0=Cg=\begin{pmatrix}I&0\\0&-I\end{pmatrix}.
+  \]</div>
+  <p>
+    \(C\) 表示 Nambu column 中 annihilation 与 creation components 的
+    Hermitian-conjugate 关系；\(\eta_0\) 是相应的标准物理
+    particle/hole metric。一个稳定的 Hermitian 玻色 Gaussian 零场可写成
+  </p>
+  <div class="scroll">\[
+    \eta_0A_0=-H_{\rm BdG},\qquad
+    H_{\rm BdG}=H_{\rm BdG}^\dagger>0 .
+  \]</div>
+  <p>
+    这里 \(H_{\rm BdG}\) 是稳定 Hamiltonian 的 Hermitian
+    quadratic-form matrix；相应的虚时间 slice generator 是
+    \(\hat h(A_0)=-\frac12\hat\chi^\dagger
+    H_{\rm BdG}\hat\chi\)。\(H_{\rm BdG}>0\) 的物理含义是：作合法
+    Bogoliubov 变换以后，
+    \(e^{\hat h(A_0)}\) 的每个 quasiparticle mode 都带有衰减因子
+    \(e^{-\epsilon_j\hat n_j}\)，其中 \(\epsilon_j>0\)。
+  </p>
+  <p>
+    假设同一个 \(A_0\) 还位于 \(\eta=iJ_2g\) 的严格收缩锥。把
+    \(A_0=-\eta_0H_{\rm BdG}\) 代入，
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \eta A_0+A_0^\dagger\eta
+      &=-\bigl[(\eta\eta_0)H_{\rm BdG}
+        +H_{\rm BdG}(\eta_0\eta)\bigr]<0,\\
+    \eta\eta_0&=iJ_2C,\qquad
+    \eta_0\eta=(iJ_2C)^\dagger .
+  \end{aligned}
+  \]</div>
+  <p>
+    这里没有省略 \(J_2\) 的条件。严格锥非空的玻色 \(iJ_2g\) 四类满足
+    \(J_2^TgJ_2=g\)、\(J_2^2=I\)，而 \(J_2\) 是实正交矩阵。因此
+    \(J_2^T=J_2\)、\(gJ_2=J_2g\)。再用 \(gCg=C\)、\(g^2=-I\)，逐步有
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \eta\eta_0
+      &=iJ_2gCg=iJ_2C,\\
+    \eta_0\eta
+      &=iCgJ_2g=iCJ_2g^2=-iCJ_2=(iJ_2C)^\dagger .
+  \end{aligned}
+  \]</div>
+  <p>所以严格收缩要求</p>
+  <div class="scroll">\[
+    (iJ_2C)H_{\rm BdG}
+      +H_{\rm BdG}(iJ_2C)^\dagger>0
+    \qquad\text{(1)}
+  \]</div>
+  <p>
+    取 \(iJ_2C\) 的任意左本征矢，
+    \(v^\dagger(iJ_2C)=\lambda v^\dagger\)。对式 (1) 取矩阵元：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    &v^\dagger\bigl[(iJ_2C)H_{\rm BdG}
+      +H_{\rm BdG}(iJ_2C)^\dagger\bigr]v\\
+    &\qquad=(\lambda+\overline\lambda)
+      v^\dagger H_{\rm BdG}v
+      =2\operatorname{Re}\lambda\,
+       v^\dagger H_{\rm BdG}v>0 .
+  \end{aligned}
+  \]</div>
+  <p>
+    因为 \(H_{\rm BdG}>0\)，这要求 \(iJ_2C\) 的每个本征值都满足
+    \(\operatorname{Re}\lambda>0\)。但 \(J_2C\) 是实矩阵：若它有一对
+    本征值 \(\mu,\overline\mu\)，乘 \(i\) 后的实部分分别是
+    \(-\operatorname{Im}\mu\) 与 \(+\operatorname{Im}\mu\)；若
+    \(\mu\) 本来就是实数，两个相应实部都为零。它们不可能全部严格为正，
+    与式 (1) 矛盾。
+  </p>
+  <div class="result">
+    <strong>这个证明的准确范围。</strong>
+    在本次 64 类所限定的实正交 \(J_2\) 中，稳定 Hermitian 玻色零场
+    不能同时位于同一个严格 \(iJ_2g\) 锥。它没有证明所有
+    \(iJ_2g\) 模型都不能做 grand-canonical AFQMC，也没有排除非
+    Hermitian 时间片的完整有序乘积最终具有有限 trace。
+  </div>
+
+  <h3>1.3 grand-canonical 算法真正需要的统一收敛条件</h3>
+  <p>
+    先考虑保持总粒子数的 fixed-field 单粒子传播矩阵
+    \(\mathcal B(\phi)\)，并引入 fugacity
+    \(z=e^{\beta\mu}>0\)。grand-canonical Fock operator 是
+    \(\Gamma[z\mathcal B(\phi)]\)，其中 \(\Gamma\) 表示把单粒子传播提升到
+    任意玻色占据数的 Fock space。
+  </p>
+  <p>
+    首次在这里使用 <em>trace class</em>。它表示
+  </p>
+  <div class="scroll">\[
+    \|\Gamma(z\mathcal B)\|_1
+      =\operatorname{Tr}_{\rm Fock}
+       \sqrt{\Gamma(z\mathcal B)^\dagger\Gamma(z\mathcal B)}<\infty .
+  \]</div>
+  <p>
+    也就是说，把 Fock operator 的所有 singular values 相加仍然有限；
+    这保证普通 bare trace 绝对收敛。若
+    \(s_1,\ldots,s_L\) 是 \(\mathcal B\) 的 singular values，则
+  </p>
+  <div class="scroll">\[
+    \|\Gamma(z\mathcal B)\|_1
+      =\prod_{j=1}^{L}\frac{1}{1-zs_j}
+      =\frac{1}{\det[I-z|\mathcal B|]}<\infty
+  \]</div>
+  <p>
+    对一个给定构型，上式当且仅当
+    \(z\|\mathcal B(\phi)\|_2&lt;1\)。完整辅助场路径积分实际要求
+  </p>
+  <div class="scroll">\[
+    \int d\phi\,P_{\rm HS}(\phi)\,
+      \left|\operatorname{Tr}_{\rm Fock}
+      \Gamma[z\mathcal B(\phi)]\right|&lt;\infty .
+  \]</div>
+  <p>
+    若不想依赖不同 Fock states 或不同辅助场构型之间的抵消，可使用
+    \(|\operatorname{Tr}X|\leq\|X\|_1\)。因此
+    \(\int d\phi\,P_{\rm HS}\|\Gamma\|_1&lt;\infty\) 是一个更强、但直接的
+    operator-level 充分条件。下面的统一余量又是保证它成立的一个方便而
+    严格的<strong>充分条件</strong>，不是必要条件：
+  </p>
+  <div class="scroll">\[
+    \boxed{
+    z\sup_\phi\|\mathcal B(\phi)\|_2\leq1-\epsilon
+    \quad\text{for some }\epsilon>0.}
+  \]</div>
+  <p>
+    若单粒子空间有 \(L\) 个 modes，这个条件逐构型给出
+    \(\|\Gamma[z\mathcal B(\phi)]\|_1\leq\epsilon^{-L}\)。归一化的
+    Gaussian HS measure 满足 \(\int d\phi\,P_{\rm HS}(\phi)=1\)，所以
+    上一式的积分随即有限。某些没有统一 \(\epsilon\) 的模型仍可能因
+    Gaussian measure 的衰减而使该积分收敛，必须对具体模型另行估计。
+  </p>
+  <p>
+    若每个 fixed-\(N\) coefficient 已另外证明非负，那么在这一区域
+  </p>
+  <div class="scroll">\[
+    W_{\rm GC}(z,\phi)
+      =\sum_{N=0}^{\infty}z^NW_N(\phi)
+      =\frac{1}{\det[I-z\mathcal B(\phi)]}>0 .
+  \]</div>
+  <p>
+    所以 \(iJ_2g\) 并不要求必须使用 canonical ensemble。有界连续 HS
+    场、离散 HS 场，或者任何能给出统一传播范数上界的构造，都可能通过
+    足够负的化学势满足上式。对本报告当前四个模型，第 1.4 节会直接得到
+    \(\sup_\phi\rho[\mathcal B(\phi)]=\infty\)。固定的相似变换或 gauge
+    transformation 不改变 spectral radius，因而不能消除这项谱增长；加入
+    fugacity 则是在 Hamiltonian 中加入化学势，不是 gauge transformation。
+  </p>
+
+  <h3>1.4 为什么报告当前四个 \(iJ_2g\) 模型仍然选择 fixed-\(N\)</h3>
+  <p>
+    当前四个物理构造都有无界实 Gaussian 场。沿 maximal-subgroup 的双曲
+    方向，单粒子传播含 \(e^{+\phi}\) 与 \(e^{-\phi}\)，因此
+  </p>
+  <div class="scroll">\[
+    \sup_{\phi\in\mathbb R}\rho[\mathcal B(\phi)]
+    =\sup_{\phi\in\mathbb R}\|\mathcal B(\phi)\|_2=\infty .
+  \]</div>
+  <p>
+    对任意固定 \(z>0\)，总能找到足够大的 \(|\phi|\) 使某个 mode 不再
+    衰减，所以没有一个有限化学势能让全部辅助场构型的
+    grand-canonical bare trace 同时收敛。
+  </p>
+  <p>
+    两模实现的每个 generator 在 annihilation sector 内无迹，故
+    \(\det\mathcal B=1\)。数值与解析约束又给出正本征值
+    \(\lambda,\lambda^{-1}\)，于是
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    W_N(\phi)&=\sum_{n=0}^{N}\lambda^{N-2n}>0,\\
+    \sum_{N=0}^{\infty}z^NW_N(\phi)
+      &=\frac{1}{(1-z\lambda)(1-z/\lambda)} .
+  \end{aligned}
+  \]</div>
+  <p>
+    第二行只有在 \(z<\min(\lambda,\lambda^{-1})\) 时才是原来的
+    occupation-number sum；越过 pole 后对有理函数作代数延拓，不能称为
+    bare trace。四模实现只是把这一分母平方。固定 \(N\) 时第一行是有限项
+    正数和，不会发生发散。
+  </p>
+  <div class="warning">
+    <strong>fixed-\(N\) 本身不自动消除符号问题。</strong>
+    它只把 Hilbert space 变成有限维。当前四个模型的正性还使用了
+    \(\mathcal B(\phi)\) 的正 reciprocal spectrum。另一个模型若只有
+    \(iJ_2g\) 矩阵锥，却没有这项或其他正性结构，fixed-\(N\) character
+    仍可能为负。含 \(aa\) 或 \(a^+a^+\) pairing 时总粒子数不守恒，
+    本卷的 canonical 公式也不能直接使用。
+  </div>
+
+  <h2>2. 有限温 canonical AFQMC</h2>
+  {{FINITE_T_CANONICAL}}
+
+  <h2 id="zero-temperature-projector">3. 零温 rank-one projector BAFQMC</h2>
+
+  <h3>3.1 它与有限温 canonical trace 不是同一个对象</h3>
+  <p>有限温算法计算</p>
+  <div class="scroll">\[
+    Z_N(\beta)=\operatorname{Tr}_{N}e^{-\beta\hat H}.
+  \]</div>
+  <p>零温投影算法则选一个固定-\(N\) trial state，并计算</p>
+  <div class="scroll">\[
+    Z_\theta
+      =\langle\Phi_T|e^{-2\theta\hat H}|\Phi_T\rangle,
+    \qquad
+    \langle\hat O\rangle_\theta
+      =\frac{\langle\Phi_T|e^{-\theta\hat H}
+        \hat Oe^{-\theta\hat H}|\Phi_T\rangle}
+       {\langle\Phi_T|e^{-2\theta\hat H}|\Phi_T\rangle}.
+  \]</div>
+  <p>
+    若基态非简并，而且 trial state 与它有非零重叠，能量本征态展开立即
+    给出 \(\langle\hat O\rangle_\theta\to\langle0|\hat O|0\rangle\)。
+    若基态简并，令 \(\Pi_0\) 表示对整个基态子空间的投影，则极限改为
+  </p>
+  <div class="scroll">\[
+    \frac{\langle\Phi_T|\Pi_0\hat O\Pi_0|\Phi_T\rangle}
+         {\langle\Phi_T|\Pi_0|\Phi_T\rangle}.
+  \]</div>
+  <p>
+    即 trial state 投到基态子空间后所得归一化态的期望值。
+    canonical trace 的正性并不自动推出这个特定 trial-state overlap
+    非负，因此下面重新证明 projector 权重。
+  </p>
+
+  <h3>3.2 rank-one condensate trial state 为什么只需传播一个向量</h3>
+  <p>
+    对任意单粒子向量 \(R\)，先定义一个不要求归一化的 many-body ket
+  </p>
+  <div class="scroll">\[
+    |R;N\rangle
+      \equiv\frac{1}{\sqrt{N!}}
+        \bigl(\hat a^\dagger R\bigr)^N|0\rangle,
+    \qquad
+    \langle R;N|R;N\rangle=(R^\dagger R)^N.
+  \]</div>
+  <p>
+    trial orbital 取作 \(P^\dagger P=1\)，所以初始的
+    \(|P;N\rangle\) 已归一化；传播后的 \(\mathcal BP\) 一般不再
+    归一化，而它的 norm 正是 Monte Carlo overlap 的一部分，不应在记号中
+    暗中除掉。
+  </p>
+  <p>
+    对任意保持粒子数的 Gaussian operator
+    \(\widehat{\mathcal B}\)，其单粒子矩阵记为 \(\mathcal B\)。由
+  </p>
+  <div class="scroll">\[
+    \widehat{\mathcal B}
+      (\hat a^\dagger P)\widehat{\mathcal B}^{-1}
+      =\hat a^\dagger(\mathcal BP)
+  \]</div>
+  <p>可直接得到</p>
+  <div class="scroll">\[
+    \widehat{\mathcal B}|P;N\rangle
+      =|\mathcal BP;N\rangle,\qquad
+    \langle L;N|R;N\rangle=(L^\dagger R)^N .
+  \]</div>
+  <p>
+    第二式可由
+    \(\hat a(L)[\hat a^\dagger(R)]^N
+      =N(L^\dagger R)[\hat a^\dagger(R)]^{N-1}\)
+    反复使用 \(N\) 次得到。因此许多体波函数不必展开为
+    \(\binom{N+L-1}{N}\) 个 Fock amplitudes，只传播一个长度为 \(L\)
+    的向量。
+  </p>
+
+  <h3>3.3 fixed-field projector 权重与真正的正性条件</h3>
+  <p>
+    给定整条辅助场路径，令
+    \(\mathcal B_\phi=\mathcal B(2\theta,0;\phi)\)。单个 flavor 的
+    fixed-field 权重是
+  </p>
+  <div class="scroll">\[
+    \mathcal W_\theta(\phi)
+      =P_{\rm HS}(\phi)
+       \bigl[P^\dagger\mathcal B_\phi P\bigr]^N .
+  \]</div>
+  <p>
+    这个复数的 \(N\) 次方并不自动非负。若模型具有两个逐构型共轭的
+    flavors，
+  </p>
+  <div class="scroll">\[
+    \mathcal B_c(\phi)=\overline{\mathcal B_b(\phi)},
+    \qquad
+    |\Phi_T\rangle
+      =|P;N\rangle_b\otimes|\overline P;N\rangle_c ,
+  \]</div>
+  <p>并分别固定两个 flavors 各有 \(N\) 个玻色子，则</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \mathcal W_\theta(\phi)
+      &=P_{\rm HS}(\phi)
+        [P^\dagger\mathcal B_bP]^N
+        [\overline P^\dagger
+          \overline{\mathcal B_b}\,\overline P]^N\\
+      &=P_{\rm HS}(\phi)
+        |P^\dagger\mathcal B_bP|^{2N}\geq0 .
+  \end{aligned}
+  \]</div>
+  <p>
+    这就是下文所参考 BPQMC 分支实际使用的正性证明。必须分别固定
+    \(N_b=N_c=N\)。如果只固定两种 flavor 的总数
+    \(N_{\rm tot}\)，权重包含
+  </p>
+  <div class="scroll">\[
+    \sum_{n=0}^{N_{\rm tot}}
+      W_n(\mathcal B_b)
+      \overline{W_{N_{\rm tot}-n}(\mathcal B_b)},
+  \]</div>
+  <p>它自动为实，但一般不是模平方，也不自动非负。</p>
+
+  <h3>3.4 局域辅助场更新</h3>
+  <p>
+    在被更新的时间片处，把右、左传播向量和 overlap 写成
+  </p>
+  <div class="scroll">\[
+    R=\mathcal B(\tau,0)P,\qquad
+    L^\dagger=P^\dagger\mathcal B(2\theta,\tau),\qquad
+    S=L^\dagger R .
+  \]</div>
+  <p>若局域单粒子更新是 \(I+uv^\dagger\)，那么</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    S'&=S+(L^\dagger u)(v^\dagger R),\\
+    \delta&=\frac{(L^\dagger u)(v^\dagger R)}{S},
+    \qquad \frac{S'}{S}=1+\delta .
+  \end{aligned}
+  \]</div>
+  <p>共轭双 flavor 模型的 Metropolis log ratio 因此是</p>
+  <div class="scroll">\[
+    \boxed{
+    \log R_{\rm MC}
+      =\log\frac{P_{\rm HS}(\phi')}{P_{\rm HS}(\phi)}
+       +2N\log|1+\delta| .}
+  \]</div>
+  <p>
+    程序不应先形成 \((1+\delta)^N\)，因为大 \(N\) 时会 overflow。
+    可使用
+  </p>
+  <div class="scroll">\[
+    \log|1+\delta|
+      =\frac12\log\bigl(1+2\operatorname{Re}\delta+|\delta|^2\bigr)
+  \]</div>
+  <p>
+    并比较 \(\log u<\min(0,\log R_{\rm MC})\)。对 diagonal local update，
+    \(u\) 与 \(v\) 只在一个格点非零，已有 \(L^\dagger,R,S\) 后每次 proposal
+    只需要 \(O(1)\) 标量运算。
+  </p>
+
+  <h3>3.5 midpoint 一体、二体与能量 estimator</h3>
+  <p>在 \(\tau=\theta\) 的 midpoint，逐构型有</p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \frac{\langle L;N|\hat a_i^+\hat a_j|R;N\rangle}
+         {\langle L;N|R;N\rangle}
+      &=N\,\frac{(L^\dagger)_iR_j}{S},\\
+    \frac{\langle L;N|
+       \hat a_i^+\hat a_j^+\hat a_l\hat a_k|R;N\rangle}
+         {\langle L;N|R;N\rangle}
+      &=N(N-1)
+        \frac{(L^\dagger)_i(L^\dagger)_jR_kR_l}{S^2}.
+  \end{aligned}
+  \]</div>
+  <p>
+    第一式的 trace 是 \(N\)，这是最直接的逐构型程序检查。若
+  </p>
+  <div class="scroll">\[
+    \hat H=\sum_{ij}K_{ij}\hat a_i^+\hat a_j
+      +\frac12\sum_{ij;kl}V_{ij;kl}
+       \hat a_i^+\hat a_j^+\hat a_l\hat a_k ,
+  \]</div>
+  <p>则 local energy 为</p>
+  <div class="scroll">\[
+    E_{\rm loc}
+      =N\frac{L^\dagger KR}{S}
+       +\frac{N(N-1)}{2S^2}
+        \sum_{ij;kl}V_{ij;kl}
+        (L^\dagger)_i(L^\dagger)_jR_kR_l .
+  \]</div>
+
+  <h3>3.6 长投影长度的稳定化与计算量</h3>
+  <p>
+    周期性归一化左右向量，并保存被取出的 logarithmic scales：
+  </p>
+  <div class="scroll">\[
+    R=e^{\alpha_R}\widetilde R,\qquad
+    L^\dagger=e^{\alpha_L}\widetilde L^\dagger .
+  \]</div>
+  <p>
+    局域 ratio 中的
+    \(\delta=(\widetilde L^\dagger u)(v^\dagger\widetilde R)/
+    (\widetilde L^\dagger\widetilde R)\)
+    与 \(\alpha_L,\alpha_R\) 无关。需要绝对权重、global update 或诊断时，
+  </p>
+  <div class="scroll">\[
+    \log\mathcal W_\theta
+      =\log P_{\rm HS}
+       +2N\left[\alpha_L+\alpha_R+
+       \log|\widetilde L^\dagger\widetilde R|\right].
+  \]</div>
+  <p>
+    若 \(|S|\) 接近机器精度，不能只打印 warning 后继续除以 \(S\)；应从最近
+    的稳定化点重新传播，仍不可靠时再用更高精度计算完整 overlap ratio。
+  </p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>操作</th><th>计算量</th></tr></thead>
+      <tbody>
+        <tr><td>dense kinetic matrix 作用于一个向量</td><td>\(O(L^2)\)</td></tr>
+        <tr><td>diagonal HS factor 作用于向量</td><td>\(O(L)\)</td></tr>
+        <tr><td>一个 diagonal local proposal</td><td>\(O(1)\)</td></tr>
+        <tr><td>构造完整一体密度矩阵</td><td>\(O(L^2)\)</td></tr>
+        <tr><td>一次完整 dense-propagation sweep</td><td>\(O(L_\tau L^2)\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.7 与 YinkaiYu/BPQMC 分支的逐项对应</h3>
+  <p>
+    本节审计的是用户指定的
+    <a href="https://github.com/YinkaiYu/BPQMC/tree/feature/triangular-lattice">
+    BPQMC <code>feature/triangular-lattice</code> 分支</a>，审计时 commit 为
+    <code>7f9cfccd63cddf9f692400d9881e57f6088e4d79</code>：
+  </p>
+  <ul>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/initial_state.f90"><code>initial_state.f90</code></a> 对 trial Hamiltonian 对角化并选择最低单粒子轨道 \(P\)。</li>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/process_matrix.f90"><code>process_matrix.f90</code></a> 中的 <code>UUR</code>、<code>UUL</code> 与 <code>overlap</code> 分别对应 \(R,L^\dagger,S\)。</li>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/localU.f90"><code>localU.f90</code></a> 实现 \(1+\delta\)，并把其 \(N\) 次方乘以复共轭。</li>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/obser_equal.f90"><code>obser_equal.f90</code></a> 实现 \(NRL^\dagger/S\)，并把第二 flavor 的 Green function 设为第一 flavor 的复共轭。</li>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/local_sweep.f90"><code>local_sweep.f90</code></a> 在 \(L_\tau/2\) 测量，对应 symmetric midpoint estimator。</li>
+    <li><a href="https://github.com/YinkaiYu/BPQMC/blob/feature/triangular-lattice/src/stabilization.f90"><code>stabilization.f90</code></a> 周期性归一化左右向量。</li>
+  </ul>
+  <p>
+    README 写出的是单 flavor 的
+    \(P_{\rm HS}[P^\dagger\mathcal BP]^N\)，而当前源码实际采样
+    \(P_{\rm HS}|P^\dagger\mathcal BP|^{2N}\)。结合第二 flavor Green
+    function 的复共轭构造，源码对应本节 3.3 的共轭双 flavor 模型。
+  </p>
+  <p>
+    还有三个值得直接修正的数值细节：当前 <code>stabilization.f90</code>
+    归一化后没有保存 \(\alpha_L,\alpha_R\)；<code>localU.f90</code> 先形成
+    \(e^{N\log(1+\delta)}\)，大 \(N\) 时可能 overflow；overlap 小于阈值后
+    当前只发出 warning，仍继续除法。它们不改变现有局域 ratio 和 midpoint
+    estimator 的尺度不变性，但会影响绝对权重、global proposal 与极小
+    overlap 的稳健处理。
+  </p>
+
+  <h3>3.8 独立 Octave 核对</h3>
+  <p>
+    <a href="analysis/verify_canonical_projector_bpqmc.m">
+    verify_canonical_projector_bpqmc.m</a> 在三轨道、四玻色子完整
+    symmetric-power Fock basis 中显式构造传播算符，并核对
+    rank-one overlap、局域 ratio、一体 midpoint estimator 与共轭双 flavor
+    正性。10 组随机复矩阵的最坏相对误差分别为
+    \(9.2\times10^{-16}\)、\(1.4\times10^{-15}\) 与
+    \(9.3\times10^{-16}\)；另一个五玻色子测试在
+    \(\theta=10\) 时的投影能量误差为 \(6.1\times10^{-9}\)。
+    逐次数据见
+    <a href="tables/canonical_projector_bpqmc_checks.csv">
+    canonical_projector_bpqmc_checks.csv</a>。
+  </p>
+
+  <h2>4. 两种固定粒子数算法的适用边界</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th></th><th>有限温 canonical AFQMC</th><th>零温 rank-one projector</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>计算对象</td><td>\(\operatorname{Tr}_N e^{-\beta H}\)</td><td>\(\langle\Phi_T|e^{-2\theta H}|\Phi_T\rangle\)</td></tr>
+        <tr><td>fixed-field 权重</td><td>\([z^N]\det(I-z\mathcal B)^{-1}\)</td><td>\([P^\dagger\mathcal BP]^N\)</td></tr>
+        <tr><td>正性需要</td><td>逐构型正 character 或共轭 character 模平方</td><td>正 overlap，或共轭双 flavor 的 \(|S|^{2N}\)</td></tr>
+        <tr><td>低温代价</td><td>稳定矩阵乘积加 \(O(LN)\) coefficient 递推</td><td>rank-one trial 只传播左右向量</td></tr>
+        <tr><td>主要限制</td><td>时间片必须保持所投影的守恒量</td><td>rank-one condensate trial；一般 fragmented trial 会引入 permanent</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    一般 fixed-\(N\) trial state 含多个不同占据轨道时，Gaussian overlap
+    是 permanent，而不是一个标量的 \(N\) 次方；计算量通常重新变得很高。
+    因此 rank-one projector 是一套重要而具体的算法结构，不应被描述成任意
+    canonical boson state 的自动快速算法。其 identical-orbital 推导可参见
+    <a href="https://arxiv.org/abs/physics/0403146">Purwanto--Zhang
+    bosonic ground-state AFQMC</a>；有限温稳定递推可参见
+    <a href="https://arxiv.org/abs/2010.09813">canonical AFQMC</a> 与
+    <a href="https://arxiv.org/abs/2212.08654">稳定递推方案</a>。
+  </p>
+</section>

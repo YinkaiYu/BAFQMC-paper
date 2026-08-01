@@ -234,7 +234,12 @@
       font-weight: 750;
       color: #39464f;
     }
-    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
     .scroll mjx-container[display="true"],
     .scroll mjx-container[display="true"] > mjx-math {
       max-width: none !important;
@@ -343,7 +348,7 @@
 <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
 <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
 </div>
-</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a><a href="part_7_determinant_symmetry_groups.html">Nambu half-power 反线性正性</a></nav><section id="question">
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a><a href="part_7_determinant_symmetry_groups.html">Nambu half-power 反线性正性</a><a href="part_8_canonical_projector_algorithms.html">固定粒子数算法</a></nav><section id="question">
 <h2>4. 分类对象与判定层级</h2>
 <h3>4.1 从五条离散关系到 \(2^5=32\) 个候选类</h3>
 <p>
@@ -1104,14 +1109,16 @@
 <tr>
 <td>新增玻色 4 个 \(iJ_2g\) 类</td>
 <td>
-              一般 Hermitian BdG block 证明表明：不存在一个来自稳定
+              一般 Hermitian BdG 证明表明：不存在一个来自稳定
               Hermitian 二次玻色 Hamiltonian 的零场生成元，使
               grand-canonical 迹收敛并同时满足同一个
               \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.6 节为四类
               都给出 number-conserving fixed-\(N\) Hamiltonian。
               one-particle eigenvalues 始终为正的 reciprocal pairs，
               所以 fixed-\(N\) symmetric-power character 对每个辅助场
-              构型严格为正。这四类得到完整 canonical sign-free 结论。
+              构型严格为正。这四个具体模型得到完整 canonical sign-free
+              结论。若其他实现能给出统一传播范数上界，足够负的化学势
+              仍可能产生 grand-canonical 正权重。
             </td>
 </tr>
 </tbody>
@@ -1145,9 +1152,10 @@
       boson \(J_2g\) 四个具体模型，这些条件已经逐项成立。对 fermion
       八类，有限 Fock space、严格收缩时权重不为零，以及
       \(e^{\epsilon A_0}\) 在 \(\epsilon\to0^+\) 时给出的非负极限，
-      共同给出同样的全域非负结论。新增 bosonic \(iJ_2g\)
-      四类不满足这一 grand-canonical 前提；后文给出一般 no-go
-      proof，并在 fixed-\(N\) sector 中改用正 character 证明。
+      共同给出同样的全域非负结论。当前 bosonic \(iJ_2g\)
+      四个无界场模型不满足这一 grand-canonical 前提；后文只排除
+      稳定 Hermitian 零场位于同一严格锥的方案，并在 fixed-\(N\)
+      sector 中用正 character 证明当前模型。
     </p>
 <details class="basis-audit long-proof" id="bare-trace-proof">
 <summary><strong>6.4 传播矩阵的负定条件与玻色 bare trace 收敛</strong></summary>
@@ -1416,6 +1424,54 @@
       实际路径不会到达产生 pole 的边界点。
     </p>
 </details>
+<details class="basis-audit" id="ij2g-grand-canonical">
+<summary><strong>6.4.4 \(iJ_2g\) 并非只能 fixed-\(N\)：当前模型受限在哪里</strong></summary>
+<p>
+      令
+      \[
+        C=\begin{pmatrix}0&amp;I\\I&amp;0\end{pmatrix},\qquad
+        \eta_0=Cg=\operatorname{diag}(I,-I).
+      \]
+      稳定 Hermitian 玻色零场可写成
+      \(\eta_0A_0=-P\)，其中 \(P=P^\dagger&gt;0\)。若它还满足
+      \(\eta A_0+A_0^\dagger\eta&lt;0\)、\(\eta=iJ_2g\)，代入后需要
+      \[
+      \eta\eta_0=iJ_2C,\qquad
+      \eta_0\eta=(iJ_2C)^\dagger.
+      \]
+      这两式由该四类的
+      \(J_2^TgJ_2=g\)、\(J_2^2=I\) 与实正交性直接得到：
+      \(J_2^T=J_2\)、\(gJ_2=J_2g\)，再使用 \(gCg=C\) 与
+      \(g^2=-I\)。因此必须有
+      \[
+        (iJ_2C)P+P(iJ_2C)^\dagger&gt;0
+        \qquad\text{(6.4.4)}
+      \]
+      对 \(iJ_2C\) 的左本征矢 \(v^\dagger\)，本征值记为
+      \(\lambda\)，式 (6.4.4) 的矩阵元是
+      \[
+        2\operatorname{Re}\lambda\,v^\dagger Pv&gt;0.
+      \]
+      因而所有 \(\lambda\) 都必须有正实部。但 \(J_2C\) 是实矩阵；
+      它的共轭本征值乘 \(i\) 后实部成正负对，实本征值乘 \(i\) 后实部
+      为零，所以不可能全部为正。这个矛盾不假设粒子数守恒，包含 pairing。
+    </p>
+<p>
+      它只证明稳定 Hermitian 零场不能位于同一个严格 \(iJ_2g\) 锥，
+      没有证明其他 grand-canonical 构造不存在。number-conserving
+      fixed-field propagation 若能对某个固定 fugacity
+      \(z=e^{\beta\mu}&gt;0\) 满足
+      \[
+        z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1,
+      \]
+      则相应 Fock operator 对全部构型都是 trace class；若 fixed-\(N\)
+      coefficients 已证明非负，其 grand-canonical sum 也为正。当前四个
+      模型的 Gaussian 双曲场无界，使上述 supremum 为无穷，才没有这样的
+      固定 \(z\)。完整 ensemble 分析见
+      <a href="part_8_canonical_projector_algorithms.html#ensemble-choice">
+      固定粒子数算法卷第 1 节</a>。
+    </p>
+</details>
 <h4>从收敛到连续辅助场域上的正权重</h4>
 <p>
       对一个确定的辅助场构型，实际有序乘积
@@ -1481,8 +1537,9 @@
         \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；然后按 cone
         是否非空选择正性证明。cone 非空时先研究矩阵收缩半群；其中
         玻色 \(J_2g\) 与全部费米卡进一步使用相容的 Fock representation
-        和连通正分支，玻色 \(iJ_2g\) 卡则明确改用 fixed-\(N\) character
-        证明实际权重。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
+        和连通正分支；玻色 \(iJ_2g\) 卡当前给出的无界场模型用
+        fixed-\(N\) character 证明实际权重，并不排除其他具有统一传播界的
+        grand-canonical 实现。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
         反线性正性。
         最后列出与实际矩阵方向相连的物理模型。
       </div>
@@ -3665,23 +3722,24 @@
               反线性对称性。
             </p>
 <p>
-              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
-              与物理 oscillator representation 对齐。第 6.4 节的
-              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
-              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
-              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
-              grand-canonical 连通正分支已经建立。
+              对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
+              稳定 Hermitian 零场生成元不能同时位于同一个严格
+              \(iJ_2g\) 锥。这只排除了把通常稳定零场直接作为该矩阵半群
+              正参考点的做法，不是对所有 grand-canonical 实现的 no-go。
             </p>
 <p>
-              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
-              有限维，完整 character 对每个辅助场构型被显式证明为正；
-              所以它仍是完整的 canonical 无符号模型。这个结论保留了
-              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
-              与“grand-canonical oscillator-semigroup representation
-              已经构造”这两个不同陈述。
+              本卡下方的 number-conserving 实现含无界 Gaussian 双曲场，
+              所以 \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，不存在一个
+              对全部构型有效的固定 fugacity。它改在固定总粒子数空间
+              求迹，并另外用正 reciprocal spectrum 证明每个 character
+              严格为正。若另一个实现具有有界或离散 HS support，并满足
+              \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，则足够负的化学势仍可
+              给出 grand-canonical 正权重；完整 ensemble 条件和算法见
+              <a href="part_8_canonical_projector_algorithms.html">
+              固定粒子数算法卷</a>。
             </p>
 </section>
-<section class="model-example"><p class="model-title"><strong>物理模型：反射对称双阱阵列中的多轴 squeezing 相</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：反射对称双阱阵列中的多轴 squeezing 相</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式。对实正交 \(J_2\)，稳定 Hermitian 零场不位于同一个严格 \(\eta=iJ_2g\) 锥；当前无界 Gaussian 场又没有统一传播界。这不排除有界或离散 HS 的其他 grand-canonical 实现</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
 <p>
         对反射交换的双阱单元 \(i\) 定义 \(S_{x,i},S_{y,i}\)，取
         \[
@@ -3745,8 +3803,9 @@
         \[
           W_N=\sum_{n=0}^{N}\lambda^{N-2n}&gt;0 .
         \]
-        因而它是完整的 canonical fixed-\(N\) sign-free model；
-        grand-canonical trace 仍发散。
+        因而它是完整的 canonical fixed-\(N\) sign-free model。当前无界场
+        构造在 \(z=1\) 的 grand-canonical trace 发散；这不是整个
+        \(iJ_2g\) 类的普遍 no-go。
         </p>
 </details></section>
 <details>
@@ -10570,23 +10629,24 @@
               反线性对称性。
             </p>
 <p>
-              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
-              与物理 oscillator representation 对齐。第 6.4 节的
-              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
-              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
-              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
-              grand-canonical 连通正分支已经建立。
+              对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
+              稳定 Hermitian 零场生成元不能同时位于同一个严格
+              \(iJ_2g\) 锥。这只排除了把通常稳定零场直接作为该矩阵半群
+              正参考点的做法，不是对所有 grand-canonical 实现的 no-go。
             </p>
 <p>
-              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
-              有限维，完整 character 对每个辅助场构型被显式证明为正；
-              所以它仍是完整的 canonical 无符号模型。这个结论保留了
-              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
-              与“grand-canonical oscillator-semigroup representation
-              已经构造”这两个不同陈述。
+              本卡下方的 number-conserving 实现含无界 Gaussian 双曲场，
+              所以 \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，不存在一个
+              对全部构型有效的固定 fugacity。它改在固定总粒子数空间
+              求迹，并另外用正 reciprocal spectrum 证明每个 character
+              严格为正。若另一个实现具有有界或离散 HS support，并满足
+              \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，则足够负的化学势仍可
+              给出 grand-canonical 正权重；完整 ensemble 条件和算法见
+              <a href="part_8_canonical_projector_algorithms.html">
+              固定粒子数算法卷</a>。
             </p>
 </section>
-<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数 Josephson 阵列中的自陷、cat 态与量子计量</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数 Josephson 阵列中的自陷、cat 态与量子计量</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式。对实正交 \(J_2\)，稳定 Hermitian 零场不位于同一个严格 \(\eta=iJ_2g\) 锥；当前无界 Gaussian 场又没有统一传播界。这不排除有界或离散 HS 的其他 grand-canonical 实现</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
 <p>
         令 \(S_{z,i}=(n_{i1}-n_{i2})/2\)，考虑
         \[
@@ -10641,7 +10701,9 @@
         它们固定为正的 \(\lambda,\lambda^{-1}\)。所以每个 fixed-\(N\)
         weight 都等于
         \(\sum_{n=0}^{N}\lambda^{N-2n}&gt;0\)。
-        这是完整的 canonical sign-free proof；grand-canonical sum 发散。
+        这是完整的 canonical sign-free proof；当前 \(z=1\) 且辅助场无界的
+        grand-canonical sum 发散。若另一个实现具有统一传播范数上界，
+        足够负的化学势仍可恢复 grand-canonical 收敛。
         </p>
 </details></section>
 <details>
@@ -15568,23 +15630,24 @@
               反线性对称性。
             </p>
 <p>
-              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
-              与物理 oscillator representation 对齐。第 6.4 节的
-              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
-              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
-              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
-              grand-canonical 连通正分支已经建立。
+              对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
+              稳定 Hermitian 零场生成元不能同时位于同一个严格
+              \(iJ_2g\) 锥。这只排除了把通常稳定零场直接作为该矩阵半群
+              正参考点的做法，不是对所有 grand-canonical 实现的 no-go。
             </p>
 <p>
-              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
-              有限维，完整 character 对每个辅助场构型被显式证明为正；
-              所以它仍是完整的 canonical 无符号模型。这个结论保留了
-              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
-              与“grand-canonical oscillator-semigroup representation
-              已经构造”这两个不同陈述。
+              本卡下方的 number-conserving 实现含无界 Gaussian 双曲场，
+              所以 \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，不存在一个
+              对全部构型有效的固定 fugacity。它改在固定总粒子数空间
+              求迹，并另外用正 reciprocal spectrum 证明每个 character
+              严格为正。若另一个实现具有有界或离散 HS support，并满足
+              \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，则足够负的化学势仍可
+              给出 grand-canonical 正权重；完整 ensemble 条件和算法见
+              <a href="part_8_canonical_projector_algorithms.html">
+              固定粒子数算法卷</a>。
             </p>
 </section>
-<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数的长程 Josephson 网络与集体临界性</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数的长程 Josephson 网络与集体临界性</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式。对实正交 \(J_2\)，稳定 Hermitian 零场不位于同一个严格 \(\eta=iJ_2g\) 锥；当前无界 Gaussian 场又没有统一传播界。这不排除有界或离散 HS 的其他 grand-canonical 实现</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
 <p>
         将两个模推广成两组各含 \(L\) 个轨道的 collective modes，
         \[
@@ -15653,9 +15716,12 @@
           W_N(\phi)=\sum_{n=0}^{N}\lambda^{N-n}\lambda^{-n}
           =\sum_{n=0}^{N}\lambda^{N-2n}&gt;0 .
         \]
-        这给出完整的 canonical sign-free proof。相反，其中一个
-        eigenvalue 大于 1，所以 \(\sum_{N=0}^\infty W_N\) 发散；
-        同一模型不能改称 grand-canonical sign-free BAFQMC。
+        这给出完整的 canonical sign-free proof。在本卡当前没有 fugacity
+        damping 的 \(z=1\) 实现中，其中一个 eigenvalue 大于 1，所以
+        \(\sum_{N=0}^\infty W_N\) 发散。这个结论只针对当前无界 Gaussian
+        场构造；若另一实现能满足
+        \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，grand-canonical
+        权重仍可收敛并保持正号。
         </p>
 </details></section>
 <details>
@@ -22986,23 +23052,24 @@
               反线性对称性。
             </p>
 <p>
-              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
-              与物理 oscillator representation 对齐。第 6.4 节的
-              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
-              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
-              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
-              grand-canonical 连通正分支已经建立。
+              对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
+              稳定 Hermitian 零场生成元不能同时位于同一个严格
+              \(iJ_2g\) 锥。这只排除了把通常稳定零场直接作为该矩阵半群
+              正参考点的做法，不是对所有 grand-canonical 实现的 no-go。
             </p>
 <p>
-              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
-              有限维，完整 character 对每个辅助场构型被显式证明为正；
-              所以它仍是完整的 canonical 无符号模型。这个结论保留了
-              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
-              与“grand-canonical oscillator-semigroup representation
-              已经构造”这两个不同陈述。
+              本卡下方的 number-conserving 实现含无界 Gaussian 双曲场，
+              所以 \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，不存在一个
+              对全部构型有效的固定 fugacity。它改在固定总粒子数空间
+              求迹，并另外用正 reciprocal spectrum 证明每个 character
+              严格为正。若另一个实现具有有界或离散 HS support，并满足
+              \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，则足够负的化学势仍可
+              给出 grand-canonical 正权重；完整 ensemble 条件和算法见
+              <a href="part_8_canonical_projector_algorithms.html">
+              固定粒子数算法卷</a>。
             </p>
 </section>
-<section class="model-example"><p class="model-title"><strong>物理模型：四组分自旋轨道耦合玻色子的集体拓扑与纠缠</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
+<section class="model-example"><p class="model-title"><strong>物理模型：四组分自旋轨道耦合玻色子的集体拓扑与纠缠</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式。对实正交 \(J_2\)，稳定 Hermitian 零场不位于同一个严格 \(\eta=iJ_2g\) 锥；当前无界 Gaussian 场又没有统一传播界。这不排除有界或离散 HS 的其他 grand-canonical 实现</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
 <p>
         取四组分
         \(\boldsymbol a_i=(a_{\uparrow1},a_{\uparrow2},
@@ -23084,8 +23151,9 @@
           =\frac{1}{[(1-z\lambda)(1-z/\lambda)]^2}.
         \]
         右边每个 \(z^N\) coefficient 都是正数，所以所有 fixed-\(N\)
-        auxiliary-field weights 严格为正。grand-canonical sum 仍因
-        \(\lambda&gt;1\) 发散。
+        auxiliary-field weights 严格为正。当前 \(z=1\) bare trace 因
+        \(\lambda&gt;1\) 发散；有统一传播界的其他 HS 实现仍可能在足够小
+        fugacity 下做 grand-canonical 采样。
         </p>
 </details></section>
 <details>
@@ -49312,305 +49380,15 @@
       只有在相邻时间片的中间变换精确消去，或能重新找到一个所有时间片
       共用的固定度规时，才保持乘法封闭性。
     </p>
-<h3>6.8 固定总粒子数的玻色 AFQMC</h3>
-<div class="note">
-<strong>适用范围。</strong>
-  本节讨论每个辅助场时间片都保持总粒子数的玻色 AFQMC。
-  若时间片含 \(aa\) 或 \(a^+a^+\) pairing，总粒子数不守恒，便不能把
-  Fock space 限制在固定 \(N\) 的子空间；那种情况仍须使用 Nambu
-  grand-canonical trace 或另选守恒量做投影。
-</div>
-<h4>6.8.1 从单粒子传播矩阵得到固定-\(N\) 权重</h4>
+<h3>6.8 固定粒子数算法移至独立卷</h3>
 <p>
-  固定一组时空辅助场后，令 \(L\) 表示单粒子轨道数，并按实际虚时间顺序
-  相乘：
-</p>
-<div class="scroll">\[
-  \mathcal B=e^{B_1}e^{B_2}\cdots e^{B_{L_\tau}} .
-\]</div>
-<p>
-  相应的 Fock-space 算符保持粒子数。若 \(\operatorname{Tr}_N\) 只在
-  “恰有 \(N\) 个玻色子”的有限维子空间求迹，配置权重记为
-  \(W_N(\mathcal B)\)。先引入一个只用于提取系数的变量 \(z\)：
-</p>
-<div class="scroll">\[
-  \begin{aligned}
-  \sum_{N=0}^{\infty}W_N(\mathcal B)z^N
-  &amp;=\operatorname{Tr}_{\rm Fock}
-    \!\left[z^{\hat N}\widehat{\mathcal B}\right]\\
-  &amp;=\frac{1}{\det(I_L-z\mathcal B)} .
-  \end{aligned}
-\]</div>
-<p>
-  第二行可以先在 \(\mathcal B\) 可对角化时直接看懂。若单粒子本征值为
-  \(\lambda_1,\ldots,\lambda_L\)，占据数
-  \(n_1,\ldots,n_L\) 对应的因子是
-  \(\lambda_1^{n_1}\cdots\lambda_L^{n_L}\)，所以
-</p>
-<div class="scroll">\[
-  \prod_{j=1}^{L}\sum_{n_j=0}^{\infty}(z\lambda_j)^{n_j}
-  =\prod_{j=1}^{L}\frac{1}{1-z\lambda_j}
-  =\frac{1}{\det(I_L-z\mathcal B)} .
-\]</div>
-<p>
-  两边作为 \(\mathcal B\) 矩阵元的函数连续，因此公式也覆盖不可对角化的
-  情况。固定 \(N\) 的权重就是有限阶系数
-</p>
-<div class="scroll">\[
-  W_N(\mathcal B)
-  =[z^N]\frac{1}{\det(I_L-z\mathcal B)} .
-\]</div>
-<p>
-  它是 \(\mathcal B\) 矩阵元的有限次多项式；即使
-  \(\mathcal B\) 有本征值 \(1\)，也不会出现 grand-canonical
-  \(1/\det(I-\mathcal B)\) 的 pole。有限不等于自动为正：用于采样前，
-  仍须像第 6.6 节每张类别卡中的模型那样，另外证明
-  \(W_N(\mathcal B)\geq0\)。
-</p>
-<h4>6.8.2 不枚举 Fock 基底的精确递推</h4>
-<p>
-  直接枚举所有占据数组合需要
-  \(\binom{N+L-1}{N}\) 个基态，随系统增长很快。实际算法只计算
-  \(L\times L\) 矩阵。定义
-</p>
-<div class="scroll">\[
-  p_k=\operatorname{Tr}(\mathcal B^k),\qquad W_0=1 .
-\]</div>
-<p>
-  对生成函数取对数导数：
-</p>
-<div class="scroll">\[
-  \begin{aligned}
-  z\frac{d}{dz}\log\frac1{\det(I-z\mathcal B)}
-  &amp;=\operatorname{Tr}\!\left[
-    z\mathcal B(I-z\mathcal B)^{-1}\right]\\
-  &amp;=\sum_{k=1}^{\infty}p_kz^k .
-  \end{aligned}
-\]</div>
-<p>
-  再把左边写成
-  \(z(\sum_n nW_nz^{n-1})/(\sum_nW_nz^n)\)，比较 \(z^N\)
-  的系数，逐阶得到
-</p>
-<div class="scroll">\[
-  \boxed{\displaystyle
-  W_N=\frac1N\sum_{k=1}^{N}
-  \operatorname{Tr}(\mathcal B^k)\,W_{N-k}},
-  \qquad N\geq1 .
-\]</div>
-<p>
-  所以只要依次保存 \(\mathcal B,\mathcal B^2,\ldots,\mathcal B^N\)
-  及其迹，就能从 \(W_0\) 算到目标 \(W_N\)。这一方法与
-  <a href="https://arxiv.org/abs/2010.09813">Shen 等人的
-  canonical AFQMC 递推</a>相同；这里把它接到本报告逐构型正性的
-  分类上。
-</p>
-<p>
-  另一种等价实现先计算
-</p>
-<div class="scroll">\[
-  D(z)=\det(I-z\mathcal B)
-  =1+d_1z+\cdots+d_Lz^L .
-\]</div>
-<p>
-  由 \(D(z)\sum_{N\geq0}W_Nz^N=1\) 得
-</p>
-<div class="scroll">\[
-  W_0=1,\qquad
-  W_N=-\sum_{k=1}^{\min(N,L)}d_kW_{N-k}.
-\]</div>
-<p>
-  在已经有稳定特征多项式系数的实现里，这一形式每个粒子数只需
-  \(O(L)\) 次标量运算。
-</p>
-<h4>6.8.3 Monte Carlo 权重与接受率</h4>
-<p>
-  设 \(P_{\rm HS}(\phi)&gt;0\) 是 Gaussian 或离散 HS 测度。固定总粒子数
-  的完整配置权重为
-</p>
-<div class="scroll">\[
-  \mathcal W_N(\phi)=P_{\rm HS}(\phi)\,
-  W_N[\mathcal B(\phi)] .
-\]</div>
-<p>
-  对称 proposal \(\phi\to\phi'\) 的 Metropolis 接受率是
-</p>
-<div class="scroll">\[
-  P_{\rm acc}
-  =\min\!\left[
-  1,\,
-  \frac{P_{\rm HS}(\phi')}{P_{\rm HS}(\phi)}
-  \frac{W_N[\mathcal B(\phi')]}{W_N[\mathcal B(\phi)]}
-  \right].
-\]</div>
-<p>
-  若已证明每个允许构型的 \(W_N&gt;0\)，这个比值就是普通正概率之比。
-  若只知道 \(W_N\) 为实而可能变号，固定 \(N\) 本身并没有消除符号问题。
-</p>
-<h4>6.8.4 局域或低秩 proposal 的精确更新</h4>
-<p>
-  在被更新的时间片处循环移动矩阵乘积，使 proposal 写成
-</p>
-<div class="scroll">\[
-  \mathcal B'=(I_L+UV^\dagger)\mathcal B ,
-\]</div>
-<p>
-  其中 \(U,V\) 各有 \(r\) 列；单格点更新通常有很小的 \(r\)。
-  令
-</p>
-<div class="scroll">\[
-  D(z)=\det(I-z\mathcal B),\qquad
-  D'(z)=\det(I-z\mathcal B').
-\]</div>
-<p>
-  两个 grand generating functions 的比值不是在 \(z=1\) 取值，而是
-  保留到目标阶数：
-</p>
-<div class="scroll">\[
-  \frac{D(z)}{D'(z)}
-  =\sum_{n=0}^{N}r_nz^n+O(z^{N+1}) .
-\]</div>
-<p>
-  若 \(D(z)=\sum_{k=0}^{L}d_kz^k\)、
-  \(D'(z)=\sum_{k=0}^{L}d'_kz^k\)，其中 \(d_0=d'_0=1\)，则
-</p>
-<div class="scroll">\[
-  r_0=1,\qquad
-  r_n=d_n-\sum_{k=1}^{\min(n,L)}d'_k r_{n-k},
-\]</div>
-<p>
-  并约定 \(n&gt;L\) 时 \(d_n=0\)。更新后的 canonical 权重无需重新展开
-  Fock space：
-</p>
-<div class="scroll">\[
-  \boxed{\displaystyle
-  W_N(\mathcal B')
-  =\sum_{k=0}^{N}r_k\,W_{N-k}(\mathcal B)} .
-\]</div>
-<p>
-  矩阵行列式引理还给出
-</p>
-<div class="scroll">\[
-  \frac{D'(z)}{D(z)}
-  =\det\!\left[
-    I_r-zV^\dagger\mathcal B
-    (I_L-z\mathcal B)^{-1}U
-  \right].
-\]</div>
-<p>
-  这里使用了
-  \(I-z\mathcal B'=I-z\mathcal B-zUV^\dagger\mathcal B\)。
-  一个稳妥的基线实现是先更新 \(D'(z)\) 的 \(L+1\) 个系数，再用
-  \(r_n\) 递推；进一步优化时才对上面的 \(r\times r\) 行列式做截断
-  幂级数运算。不能只在 \(z=1\) 计算普通 grand-canonical
-  determinant ratio，因为那会把所有粒子数 sector 混在一起。
-</p>
-<h4>6.8.5 固定-\(N\) 一体观测量</h4>
-<p>
-  定义矩阵
-  \([\overline G_N]_{ij}
-  =\operatorname{Tr}_N(a_j^+a_i\widehat{\mathcal B})/W_N\)。
-  在生成函数中插入 \(e^{a^+Xa}\)，再对 \(X\) 求一次导数，得到
-</p>
-<div class="scroll">\[
-  \boxed{\displaystyle
-  \overline G_N
-  =\frac{1}{W_N}
-  \sum_{k=1}^{N}W_{N-k}\mathcal B^k } .
-\]</div>
-<p>
-  对它取迹并使用上一节的 Newton 递推：
-</p>
-<div class="scroll">\[
-  \operatorname{Tr}\overline G_N
-  =\frac1{W_N}\sum_{k=1}^{N}
-   \operatorname{Tr}(\mathcal B^k)W_{N-k}
-  =N ,
-\]</div>
-<p>
-  这既是粒子数守恒的解析证明，也是实现中很有效的逐构型自检。
-</p>
-<h4>6.8.6 二体及更高观测量</h4>
-<p>
-  固定 \(N\) 投影后的算符不再满足普通 grand-canonical Wick 分解，
-  但仍能用同一个系数提取多项式时间计算低阶观测量。对暂时保留的
-  fugacity \(z\)，定义
-</p>
-<div class="scroll">\[
-  \overline G(z)=z\mathcal B(I-z\mathcal B)^{-1},\qquad
-  \Xi(z)=\det(I-z\mathcal B)^{-1}.
-\]</div>
-<p>
-  例如正规序的四算符期望值为
-</p>
-<div class="scroll">\[
-  \frac{[z^N]\Xi(z)
-  \left[
-  \overline G_{ji}(z)\overline G_{lk}(z)
-  +\overline G_{li}(z)\overline G_{jk}(z)
-  \right]}{W_N}.
-\]</div>
-<p>
-  这就是先在 \(z\) 依赖的 Gaussian 问题中做 bosonic Wick
-  contraction，再只取 \(z^N\) 系数。密度、动量分布、结构因子和能量只需
-  一体或二体版本，所需卷积阶数不超过 \(N\)，不需要枚举
-  \(\binom{N+L-1}{N}\) 个 Fock states。
-</p>
-<h4>6.8.7 低温数值稳定化</h4>
-<p>
-  长虚时间乘积 \(\mathcal B\) 的奇异值可能跨越许多数量级，直接形成
-  \(\mathcal B^k\) 会溢出或严重抵消。实现至少需要以下三层保护：
-</p>
-<ol>
-<li>
-    像 grand-canonical AFQMC 一样，按若干时间片做带列主元的
-    QR/UDT 分解，保存大、中、小尺度，不直接长期累乘稠密矩阵。
-  </li>
-<li>
-    选择正尺度 \(\rho\)，写
-    \(\mathcal B=\rho\widetilde{\mathcal B}\)。递推先算
-    \(W_n(\widetilde{\mathcal B})\)，最后使用严格恒等式
-    \(W_n(\mathcal B)=\rho^nW_n(\widetilde{\mathcal B})\)，并在
-    log scale 中保存 \(\rho^n\)。
-  </li>
-<li>
-    当 power-trace 递推出现严重抵消时，改用经过平衡的特征多项式递推，
-    或直接采用
-    <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.107.055302">
-    Shen 等人的稳定 canonical AFQMC 递推方案</a>；每次 wrap 后用
-    \(\operatorname{Tr}\overline G_N=N\) 和两种权重递推互相核对。
-  </li>
-</ol>
-<h4>6.8.8 为什么这还没有自动解决一般自旋模型</h4>
-<p>
-  Schwinger-boson 表示的 spin-\(\tfrac12\) 在每个格点都要求
-  \(n_{i\uparrow}+n_{i\downarrow}=1\)。这不是一个固定总数条件，而是
-  \(L_{\rm site}\) 个独立条件。相应投影要提取多变量系数
-</p>
-<div class="scroll">\[
-  \left[\prod_i z_i^1\right]
-  \frac1{\det[I-Z\mathcal B]},\qquad
-  Z=\operatorname{diag}(z_1,z_1,z_2,z_2,\ldots).
-\]</div>
-<p>
-  单变量递推只需保存 \(0,\ldots,N\) 共 \(N+1\) 个系数；上式一般要追踪
-  所有局域占据组合，数量随格点数指数增长。因此讨论
-  \(J\)-\(Q\) 或三角格子磁体时，必须把“二次传播满足某类矩阵关系”和
-  “局域投影仍能多项式计算”分开。除非模型还有额外结构使多变量系数
-  因子化或可由其他局域表示消去约束，不能把本节算法直接宣传成一般
-  无符号自旋 QMC。
-</p>
-<h4>6.8.9 独立数值核对</h4>
-<p>
-<a href="analysis/verify_canonical_boson_afqmc.m">verify_canonical_boson_afqmc.m</a>
-  对三个轨道、四个玻色子的完整 occupation basis 显式构造
-  symmetric-power Fock operator，并与上述递推比较。12 组随机复矩阵
-  乘积中，权重、一体密度矩阵和 rank-one 更新卷积的最坏相对误差分别为
-  \(5.4\times10^{-16}\)、\(6.7\times10^{-16}\) 和
-  \(6.0\times10^{-15}\)；同时逐构型满足
-  \(\operatorname{Tr}\overline G_N=N\)。逐次数据见
-  <a href="tables/canonical_boson_afqmc_checks.csv">canonical_boson_afqmc_checks.csv</a>。
-</p>
+      本卷只负责 64 类的收缩半群筛选与逐类物理构造。有限温固定-\(N\)
+      character、低秩更新、观测量与稳定化，以及零温 fixed-\(N\)
+      projector BAFQMC，现已整理为
+      <a href="part_8_canonical_projector_algorithms.html">独立算法卷</a>。
+      该卷也专门回答为什么本报告当前四个玻色 \(iJ_2g\) 模型使用
+      fixed-\(N\)，以及在什么附加条件下 grand-canonical 算法仍然可行。
+    </p>
 <h3>6.9 结果覆盖范围与复核入口</h3>
 <p>
       第 6.6 节已经按统一类别编号逐一列完玻色 32 类与费米 32 类，
@@ -49626,9 +49404,15 @@
       oscillator representation 相容；strict contraction 同时给出
       trace class、无 \(+1\) pole 和连通正分支，所以得到完整的
       grand-canonical 无符号模型。四个玻色 \(iJ_2g\) 类也确实具有
-      Octave 找到的严格矩阵锥，但该 metric 不能与稳定 Hermitian
-      grand-canonical 零场同时实现；本报告为它们构造的是固定总粒子数
-      的有限维正 character 模型。这个区别在每张相应卡片中就地写明。
+      Octave 找到的严格矩阵锥。对实正交 \(J_2\)，稳定 Hermitian
+      grand-canonical 零场不能同时位于这个严格 \(iJ_2g\) 锥；而本报告
+      当前四个 number-conserving 构造中的无界 Gaussian 场又使传播谱半径
+      没有统一上界。因此这四个具体模型采用固定总粒子数的有限阶正
+      character。这个结论不是对所有 \(iJ_2g\) 实现的 no-go：有界或离散
+      HS 场若能给出统一谱界，足够负的化学势仍可使 grand-canonical
+      bare trace 对全部构型收敛。完整证明见
+      <a href="part_8_canonical_projector_algorithms.html#ensemble-choice">
+      独立算法卷第 1 节</a>。
     </p>
 <p>
       48 个 strict cone 为空的类别中，才使用原有 \(J_1,J_2\) 做
@@ -49985,4 +49769,4 @@
       或所用 regularization 的定义。对费米，note 当前写出的 minus-sign
       inequality 已被上面的精确反例排除为 Nambu weight 的充分条件。
     </div>
-</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a><a href="part_7_determinant_symmetry_groups.html">Nambu half-power 反线性正性</a></nav></main></body></html>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_2_physical_mapping.html">上一卷：物理对应</a><a href="part_4_implications.html">下一卷：文章影响与结论</a><a href="part_7_determinant_symmetry_groups.html">Nambu half-power 反线性正性</a><a href="part_8_canonical_projector_algorithms.html">固定粒子数算法</a></nav></main></body></html>

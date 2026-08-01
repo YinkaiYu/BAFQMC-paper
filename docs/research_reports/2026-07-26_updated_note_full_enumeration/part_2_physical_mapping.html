@@ -234,7 +234,12 @@
       font-weight: 750;
       color: #39464f;
     }
-    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
     .scroll mjx-container[display="true"],
     .scroll mjx-container[display="true"] > mjx-math {
       max-width: none !important;
@@ -1369,19 +1374,23 @@
       </p>
 <h4>为什么玻色 \(iJ_2g\) 四类改用固定总粒子数</h4>
 <p>
-        上述第二、三步使用了标准 Nambu
-        \(\eta=\operatorname{diag}(I,-I)\)：前 \(N\) 个 components
-        是 annihilation operators，后 \(N\) 个是 creation operators。
-        对 boson Cases 5--8 的 \(\eta=J_2g\)，报告已经给出保持这一
-        annihilation/creation 结构的物理基变换，所以可调用上述
-        Fock-space 收敛定理。新增四类的
-        \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
-        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.4 节从
-        一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
-        Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
-        迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在
-        固定总粒子数 sector 中使用这四类；该 sector
-        有限维，并且已有逐构型严格正的 character 公式。
+        这里需要把“当前构造为何使用 fixed-\(N\)”与“所有 \(iJ_2g\)
+        是否都只能 fixed-\(N\)”分开。对本次实正交 \(J_2\) 的 64 类，
+        一般含 pairing 的 Nambu 推导证明：稳定 Hermitian 零场不能同时
+        位于同一个严格 \(iJ_2g\) 锥。当前四个 number-conserving 物理模型
+        又含无界 Gaussian 双曲场，使
+        \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，因此没有一个固定
+        fugacity 能让所有构型的 grand-canonical bare trace 都收敛。
+        它们改用 fixed-\(N\)，并由正 reciprocal spectrum 另外证明
+        character 逐构型严格为正。
+      </p>
+<p>
+        这不是由相因子 \(i\) 导出的普遍 no-go。若另一个有界或离散 HS
+        实现满足 \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，则足够负的
+        化学势仍可得到收敛且为正的 grand-canonical 权重。矩阵证明、
+        ensemble 判据、有限温 canonical 算法与零温 projector 算法均在
+        <a href="part_8_canonical_projector_algorithms.html">独立算法卷</a>
+        中完整给出。
       </p>
 </div>
 <p>

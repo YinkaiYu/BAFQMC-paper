@@ -16,6 +16,12 @@ CASE12_FRAGMENT_PATH = REPORT_DIR / "case12_semigroups_zh.fragment.html"
 DETERMINANT_SYMMETRY_FRAGMENT_PATH = (
     REPORT_DIR / "determinant_symmetry_groups_zh.fragment.html"
 )
+CANONICAL_ALGORITHM_FRAGMENT_PATH = (
+    REPORT_DIR / "canonical_projector_algorithms_zh.fragment.html"
+)
+FINITE_T_CANONICAL_FRAGMENT_PATH = (
+    REPORT_DIR / "canonical_afqmc_algorithm_zh.fragment.html"
+)
 HALF_POWER_SYMMETRY_TABLE_PATH = (
     REPORT_DIR / "half_power_symmetry_64_table.fragment.html"
 )
@@ -112,6 +118,13 @@ def build_index(source: BeautifulSoup) -> None:
               给出玻色、费米统一的反线性对称性周期表，检验 main.tex 的
               paired benchmark，并构造一个 \((+,-)\) 保护的厄米 paired
               玻色模型；最后把判据应用到玻色、费米各 32 类关系。
+            </div>
+            <div class="summary-item established">
+              <strong><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数有限温与零温投影</a></strong>
+              解释当前 \(iJ_2g\) 模型为何采用 fixed-\(N\)，给出
+              grand-canonical 可行的统一收敛条件；随后完整推导有限温
+              canonical character 算法，以及 BPQMC 使用的零温 rank-one
+              projector、局域更新、测量与稳定化。
             </div>
             <div class="summary-item corrected">
               <strong><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></strong>
@@ -287,6 +300,42 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
     write_page(REPORT_DIR / "part_7_determinant_symmetry_groups.html", page)
 
 
+def build_canonical_algorithm_page(source: BeautifulSoup) -> None:
+    fragment_text = CANONICAL_ALGORITHM_FRAGMENT_PATH.read_text(encoding="utf-8")
+    finite_t_text = FINITE_T_CANONICAL_FRAGMENT_PATH.read_text(encoding="utf-8")
+    marker = "{{FINITE_T_CANONICAL}}"
+    if fragment_text.count(marker) != 1:
+        raise RuntimeError("Canonical algorithm fragment needs one finite-T marker")
+    finite_t_text = finite_t_text.replace("6.8.", "2.")
+    finite_t_text = finite_t_text.replace("<h4>", "<h3>").replace("</h4>", "</h3>")
+    fragment = BeautifulSoup(
+        fragment_text.replace(marker, finite_t_text), "html.parser"
+    )
+    page = BeautifulSoup(
+        "<!doctype html><html><body><main></main></body></html>", "html.parser"
+    )
+    page.html.insert(0, clone(source.head))
+    page.title.string = "固定粒子数玻色 AFQMC：有限温与零温投影算法"
+    header = fragment.find("header", recursive=False)
+    section = fragment.find(
+        "section", id="canonical-projector-algorithms", recursive=False
+    )
+    if header is None or section is None:
+        raise RuntimeError(
+            "Canonical algorithm fragment needs one header and one section"
+        )
+    nav_items = [
+        ("report_index.html", "分卷入口"),
+        ("part_3_enumeration_models.html", "返回 64 类生成元讲义"),
+        ("part_7_determinant_symmetry_groups.html", "反线性对称性理论卷"),
+    ]
+    page.main.append(clone(header))
+    page.main.append(navigation(nav_items))
+    page.main.append(clone(section))
+    page.main.append(navigation(nav_items))
+    write_page(REPORT_DIR / "part_8_canonical_projector_algorithms.html", page)
+
+
 def main() -> None:
     source = BeautifulSoup(SOURCE_PATH.read_text(encoding="utf-8"), "html.parser")
     build_index(source)
@@ -320,6 +369,7 @@ def main() -> None:
             ("part_2_physical_mapping.html", "上一卷：物理对应"),
             ("part_4_implications.html", "下一卷：文章影响与结论"),
             ("part_7_determinant_symmetry_groups.html", "Nambu half-power 反线性正性"),
+            ("part_8_canonical_projector_algorithms.html", "固定粒子数算法"),
         ],
     )
     build_section_page(
@@ -333,6 +383,7 @@ def main() -> None:
             ("part_5_branch_sampling.html", "独立算法卷：符号追踪与采样"),
             ("part_6_case12_semigroups.html", "独立理论卷：Case 1/2 半群"),
             ("part_7_determinant_symmetry_groups.html", "独立理论卷：Nambu half-power 权重"),
+            ("part_8_canonical_projector_algorithms.html", "独立算法卷：固定粒子数"),
             (
                 "report_updated_note_full_enumeration_zh.html",
                 "单文件完整版",
@@ -342,7 +393,8 @@ def main() -> None:
     build_branch_page(source)
     build_case12_page(source)
     build_determinant_symmetry_page(source)
-    print("Wrote report_index.html and 11 split report volumes.")
+    build_canonical_algorithm_page(source)
+    print("Wrote report_index.html and 12 split report volumes.")
 
 
 if __name__ == "__main__":

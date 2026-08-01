@@ -44,8 +44,15 @@
       共用的固定度规时，才保持乘法封闭性。
     </p>
 
-    <h3>6.8 固定总粒子数的玻色 AFQMC</h3>
-    {{CANONICAL_ALGORITHM}}
+    <h3>6.8 固定粒子数算法移至独立卷</h3>
+    <p>
+      本卷只负责 64 类的收缩半群筛选与逐类物理构造。有限温固定-\(N\)
+      character、低秩更新、观测量与稳定化，以及零温 fixed-\(N\)
+      projector BAFQMC，现已整理为
+      <a href="part_8_canonical_projector_algorithms.html">独立算法卷</a>。
+      该卷也专门回答为什么本报告当前四个玻色 \(iJ_2g\) 模型使用
+      fixed-\(N\)，以及在什么附加条件下 grand-canonical 算法仍然可行。
+    </p>
 
     <h3>6.9 结果覆盖范围与复核入口</h3>
     <p>
@@ -62,9 +69,15 @@
       oscillator representation 相容；strict contraction 同时给出
       trace class、无 \(+1\) pole 和连通正分支，所以得到完整的
       grand-canonical 无符号模型。四个玻色 \(iJ_2g\) 类也确实具有
-      Octave 找到的严格矩阵锥，但该 metric 不能与稳定 Hermitian
-      grand-canonical 零场同时实现；本报告为它们构造的是固定总粒子数
-      的有限维正 character 模型。这个区别在每张相应卡片中就地写明。
+      Octave 找到的严格矩阵锥。对实正交 \(J_2\)，稳定 Hermitian
+      grand-canonical 零场不能同时位于这个严格 \(iJ_2g\) 锥；而本报告
+      当前四个 number-conserving 构造中的无界 Gaussian 场又使传播谱半径
+      没有统一上界。因此这四个具体模型采用固定总粒子数的有限阶正
+      character。这个结论不是对所有 \(iJ_2g\) 实现的 no-go：有界或离散
+      HS 场若能给出统一谱界，足够负的化学势仍可使 grand-canonical
+      bare trace 对全部构型收敛。完整证明见
+      <a href="part_8_canonical_projector_algorithms.html#ensemble-choice">
+      独立算法卷第 1 节</a>。
     </p>
     <p>
       48 个 strict cone 为空的类别中，才使用原有 \(J_1,J_2\) 做

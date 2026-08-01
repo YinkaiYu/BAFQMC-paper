@@ -234,7 +234,12 @@
       font-weight: 750;
       color: #39464f;
     }
-    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
     .scroll mjx-container[display="true"],
     .scroll mjx-container[display="true"] > mjx-math {
       max-width: none !important;
@@ -447,6 +452,22 @@
   </div>
 <h3>1.3 为什么终点 \(M\) 永远不可能单独决定平方根符号</h3>
 <p>
+    一个复费米模已经给出最短反例：存在逐层保持的物理
+    \(\Theta^2=-I\)，但对连续参数 \(x\)
+  </p>
+<div class="scroll">\[
+    W_{\rm F}(x)=2\cos x,\qquad
+    \det[I+M(x)]=4\cos^2x .
+  \]</div>
+<p>
+    当 \(\pi/2&lt;x&lt;\pi\) 时，右边严格为正而实际权重为负；在
+    \(x=\pi\) 时甚至 \(M=I\)，实际 Fock operator 却是 \(-I\)。
+    因此终点传播矩阵少保存了一个 double-cover 符号，谱配对本身不能
+    选择 Nambu half-power。完整的单模核对如下。
+  </p>
+<details>
+<summary>展开：费米单模与玻色 \(2\pi\) 旋转的逐式反例</summary>
+<p>
     二次玻色算符在 Fock space 中给出 symplectic matrix 的
     metaplectic lift；二次费米算符给出 orthogonal matrix 的 Spin lift。
     “lift”在这里的具体意思很简单：
@@ -522,6 +543,7 @@
     都不可能区分这个算符与 \(+I\)。这不是数值选错 principal square
     root，而是 \(M\) 本来就少保存了一位 \(\mathbb Z_2\) 信息。
   </p>
+</details>
 <h3>1.4 一个真正的正性定理必须多做哪一步</h3>
 <p>
     上面的反例把任务说得很明确。下文不会再从 \(M\) 的谱出发猜平方根，
@@ -619,7 +641,63 @@
   </p>
 </section><section id="two-antilinear-theorems">
 <h2>3. 第一条统一定理：两个共轭的 bosonic Fock 或 fermionic Majorana 分块</h2>
-<h3>3.1 对称性假设</h3>
+<h3>3.1 先看完整证明的主线</h3>
+<p>
+    每个时间片都由同一对物理反线性对称性保持，并满足
+  </p>
+<div class="scroll">\[
+    \Theta_+^2=I,
+    \qquad \Theta_-^2=-I,
+    \qquad \Theta_+\Theta_-=-\Theta_-\Theta_+ .
+  \]</div>
+<p>
+    两条反线性变换的乘积 \(P=\Theta_+\Theta_-\) 是线性的。只用上面
+    三个等式，就有
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    P^2&amp;=-\Theta_+^2\Theta_-^2=I,\\
+    [P,\hat h_\ell]&amp;=0,\\
+    \Theta_+P&amp;=-P\Theta_+ .
+  \end{aligned}
+  \]</div>
+<p>
+    第一行把 Nambu 算符空间分成 \(P=+1\) 与 \(P=-1\) 两部分；第二行说明
+    每个时间片都不连接这两部分；第三行说明 \(\Theta_+\) 恰好交换它们。
+    因而每层二次算符以及完整有序积分别写成
+  </p>
+<div class="scroll">\[
+  \begin{gathered}
+    \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
+    \qquad
+    [\hat h_{\ell,+},\hat h_{m,-}]=0,\\
+    \hat h_{\ell,-}
+      =\widehat\Theta_+\hat h_{\ell,+}\widehat\Theta_+^{-1},\\
+    \widehat{\mathcal U}
+      =\left(\prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right)
+       \left(\prod_{\ell=L}^{1}e^{\hat h_{\ell,-}}\right).
+  \end{gathered}
+  \]</div>
+<p>
+    现在正性已经直接可见。两个括号作用在互相独立、彼此共轭的 Fock
+    factors 上，所以
+  </p>
+<div class="scroll">\[
+    \boxed{
+    W=\operatorname{Tr}\widehat{\mathcal U}
+      =\left|\operatorname{Tr}_{+}
+        \prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right|^2\geq0 .}
+  \]</div>
+<p>
+    这条等式直接计算实际 Fock-space trace，因而同时确定 Nambu
+    determinant 平方根的符号。玻色子在 trace 存在时直接使用上式；偶数个
+    复费米模也直接使用上式。若复费米模数为奇数，两边各剩一条 Majorana
+    算符，加入一个完全解耦的辅助复费米模后同一计算给出
+    \(2W_{\rm F}=|w|^2\)，所以仍有 \(W_{\rm F}\geq0\)。
+  </p>
+<details>
+<summary>展开：为什么两个 \(P\) 子空间确实是独立的物理子系统，以及奇数个费米模怎样补齐</summary>
+<h3>3.A.1 对称性假设</h3>
 <p>
     假设每个时间片同时具有两条第 2 节定义的物理反线性对称性，分别记为
     \(\Theta_+\) 与 \(\Theta_-\)，并且
@@ -639,7 +717,7 @@
     trace 存在的构型上成立；本节只解决符号，不重复讨论收敛域。
     下面不引用外部分类表，直接从这些条件求出实际 trace。
   </p>
-<h3>3.2 两条反线性变换的乘积把系统分成两半</h3>
+<h3>3.A.2 两条反线性变换的乘积把系统分成两半</h3>
 <p>
     设两条反线性变换的矩阵部分分别为 \(U_+\) 与 \(U_-\)。它们的乘积
     是普通线性变换；在 Nambu operator column 上的矩阵为
@@ -678,7 +756,7 @@
     \qquad
     \Theta_+P=-P\Theta_+.
   \]</div>
-<h3>3.3 玻色分块与费米 Majorana 分块分别是什么</h3>
+<h3>3.A.3 玻色分块与费米 Majorana 分块分别是什么</h3>
 <p>
     作为两个 physical antiunitary 的乘积，\(P\) 保持 \(g\)，也与
     Hermitian conjugation 相容。因此，\(P\) 的每个本征子空间都连同其中
@@ -714,7 +792,7 @@
     彼此对易。这保证下面的有序算符仍可分成两边；需要区分的只是最后怎样
     对每边取迹。
   </p>
-<h3>3.4 有序积怎样给出非负权重</h3>
+<h3>3.A.4 奇数个费米模的辅助模核对</h3>
 <p>
     因为 \(P^{-1}A_\ell P=A_\ell\)，生成元在 \(P=+1\) 与 \(P=-1\)
     子空间之间没有非零 matrix block。上一小节又已证明 \(g\) 在两个
@@ -814,7 +892,7 @@
     这个结论直接固定玻色
     \([(-1)^N\det(I-M)]^{-1/2}\) 与费米 \([\det(I+M)]^{1/2}\) 的实际符号。
   </div>
-<h3>3.5 这条定理允许 pairing，但不允许任意跨两半 coupling</h3>
+<h3>3.A.5 这条定理允许 pairing，但不允许任意跨两半 coupling</h3>
 <p>
     每个 \(\hat h_{\ell,+}\) 内部可以同时含 number-conserving 与 pairing
     terms，\(\hat h_{\ell,-}\) 是其反线性伙伴，所以定理不依赖原粒子数
@@ -823,8 +901,109 @@
     第 5.2 节会说明 reflection positivity 怎样在保持实际 trace 非负的
     同时加入一类跨反射 coupling。
   </p>
+</details>
 <h2>4. 第二条统一定理：由两条对称性确定物理粒子空间</h2>
-<h3>4.1 两条平方为 \(-I\) 的反线性对称性产生什么</h3>
+<h3>4.1 先看从 Nambu 二次型到正 determinant 的完整计算</h3>
+<p>现在改为两条都平方为 \(-I\) 的反线性对称性：</p>
+<div class="scroll">\[
+    \Theta_1^2=\Theta_2^2=-I,
+    \qquad
+    \Theta_1\Theta_2=-\Theta_2\Theta_1 .
+  \]</div>
+<p>
+    令 \(Q=\Theta_1\Theta_2\)。同样只用这三条关系即可得到
+  </p>
+<div class="scroll">\[
+    Q^2=-I,
+    \qquad [Q,\hat h_\ell]=0,
+    \qquad Q\Theta_1=-\Theta_1Q .
+  \]</div>
+<p>
+    \(Q\) 的本征值是 \(+i\) 与 \(-i\)。若其中一半可以选作物理
+    annihilation operators \(\beta\)，另一半便是 \(\beta^+\)。在这个 basis
+    中，矩阵关系必须逐步写成
+  </p>
+<div class="scroll">\[
+    Q=\begin{pmatrix}iI&amp;0\\0&amp;-iI\end{pmatrix},
+    \qquad [Q,A_\ell]=0
+    \quad\Longrightarrow\quad
+    A_\ell=\begin{pmatrix}K_\ell&amp;0\\0&amp;L_\ell\end{pmatrix}.
+  \]</div>
+<p>
+    玻色和费米的 canonical relation 都是
+    \(gA_\ell+A_\ell^Tg=0\)。把上面的两个对角 blocks 代入，非零的
+    右上 block 给出 \(L_\ell+K_\ell^T=0\)，所以
+  </p>
+<div class="scroll">\[
+    L_\ell=-K_\ell^T,
+    \qquad
+    \hat h_{\ell,{\rm B}}
+      =\beta^+K_\ell\beta+\frac12\operatorname{Tr}K_\ell,
+    \qquad
+    \hat h_{\ell,{\rm F}}
+      =\beta^+K_\ell\beta-\frac12\operatorname{Tr}K_\ell .
+  \]</div>
+<p>
+    令 \(\mathcal B=e^{K_L}\cdots e^{K_1}\)。Nambu 平方根因此不是被猜出
+    来的，而是被上式严格还原为普通 occupation-number trace：
+  </p>
+<div class="scroll">\[
+    W_{\rm B}
+      =\frac{e^{\frac12\sum_\ell\operatorname{Tr}K_\ell}}
+             {\det(I-\mathcal B)},
+    \qquad
+    W_{\rm F}
+      =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
+             \det(I+\mathcal B).
+  \]</div>
+<p>
+    因为 \(Q\Theta_1=-\Theta_1Q\) 且 \(\Theta_1\) 反线性，\(\Theta_1\)
+    实际保持 \(Q=+i\) 的 annihilation subspace：
+  </p>
+<div class="scroll">\[
+    Qv=iv
+    \quad\Longrightarrow\quad
+    Q(\Theta_1v)=-\Theta_1(iv)=i\Theta_1v .
+  \]</div>
+<p>
+    它在那里仍满足 \(\Theta_1^2=-I\) 并与 \(\mathcal B\) 对易。若实本征值
+    \(r\) 的完整广义本征空间维数为 \(d_r\)，把该空间中的
+    \(\Theta_1\) 写成 \(X\mathcal K\)，则
+  </p>
+<div class="scroll">\[
+    X\overline X=-I_{d_r}
+    \quad\Longrightarrow\quad
+    |\det X|^2=(-1)^{d_r}
+    \quad\Longrightarrow\quad d_r\ \text{为偶数}.
+  \]</div>
+<p>
+    非实本征值则成 \(\lambda,\overline\lambda\) 对。因此一步得到
+  </p>
+<div class="scroll">\[
+    \boxed{
+    \det(I\mp\mathcal B)
+      =\prod_{r\in\mathbb R}(1\mp r)^{d_r}
+       \prod_{\operatorname{Im}\lambda&gt;0}
+       |1\mp\lambda|^{2d_\lambda}\geq0 .}
+  \]</div>
+<p>同一条反线性对称性还逐层给出</p>
+<div class="scroll">\[
+    U_1^{-1}\overline{K_\ell}U_1=K_\ell
+    \quad\Longrightarrow\quad
+    \overline{\operatorname{Tr}K_\ell}=\operatorname{Tr}K_\ell
+    \quad\Longrightarrow\quad
+    \exp\!\left[\pm\frac12\sum_\ell
+      \operatorname{Tr}K_\ell\right]&gt;0 .
+  \]</div>
+<p>
+    这就是这里所需的全部 Kramers 正性证明。费米侧总能从 \(Q\) 的一半
+    构造物理 fermionic annihilation operators；玻色侧还须直接计算该子空间
+    的 commutator matrix，并确认它全为正。下面只保留这一步和正规序常数的
+    逐项核对，供需要检查每个假设时展开阅读。
+  </p>
+<details>
+<summary>展开：玻色 commutator 的正定检查、正规序常数与完整基底推导</summary>
+<h3>4.A.1 两条平方为 \(-I\) 的反线性对称性产生什么</h3>
 <p>现在假设每个时间片同时满足</p>
 <div class="scroll">\[
     \Theta_1^2=\Theta_2^2=-I,
@@ -857,7 +1036,7 @@
     自动是相应的 creation operators。费米子一定可以这样选；玻色子需要
     下一小节的额外检查。
   </p>
-<h3>4.2 玻色子为什么还要检查正的 commutator</h3>
+<h3>4.A.2 玻色子为什么还要检查正的 commutator</h3>
 <p>
     对费米子，任意线性组合 \(\beta=v^+\hat\chi\) 都满足
     \(\{\beta,\beta^+\}=v^+v\)。这里出现的是 coefficient vector 的普通
@@ -944,7 +1123,7 @@
     commutator matrix 因而没有零本征值，只可能正定、负定或同时含正负
     本征值。
   </p>
-<h3>4.3 \(Q\) 把一般 Nambu 二次型化为 number-conserving 形式</h3>
+<h3>4.A.3 \(Q\) 把一般 Nambu 二次型化为 number-conserving 形式</h3>
 <p>
     因为 \(Q^{-1}A_\ell Q=A_\ell\)，\(A_\ell\) 分别保持 \(Q\) 的两个
     本征子空间。因此 \(\hat h_\ell\) 不会把选作 annihilation operators
@@ -990,7 +1169,7 @@
     仍可作为计算 representation 使用，但实际权重已经被还原成一个不带
     平方根的 determinant；Spin 或 metaplectic sheet 不再需要猜测。
   </p>
-<h3>4.4 剩下的一条反线性对称性给出 Kramers 配对</h3>
+<h3>4.A.4 剩下的一条反线性对称性给出 Kramers 配对</h3>
 <p>
     \(\Theta_1\) 虽然与 \(Q\) 反对易，却会保持 \(Q=+i\) 子空间。若
     \(Qv=iv\)，考虑到 \(\Theta_1\) 是反线性的，
@@ -1056,7 +1235,7 @@
     实正 exponential prefactor；若 HS 分解另乘了任何不包含在 \(A_\ell\)
     中的 scalar factor，它在全部时间片上的乘积还必须另行证明为非负实数。
   </div>
-<h3>4.5 “至少两条”是 generic paired 问题的充分结构，不是逻辑上的必要条件</h3>
+<h3>4.A.5 “至少两条”是 generic paired 问题的充分结构，不是逻辑上的必要条件</h3>
 <p>
     第 1.3 节已经严格证明：在没有预先给定 particle structure 的一般
     paired fermion Nambu 问题中，单条 \(\Theta^2=-I\) 不够。两条
@@ -1070,94 +1249,158 @@
     的 Kramers antiunitary 就足够。这正是 main.tex 的玻色 TRS 定理，
     也是普通 determinantal fermion QMC 中熟悉的 Kramers criterion。
   </p>
+</details>
 </section><section id="known-theories-unified">
 <h2>5. 同一框架怎样包含 TRS、Majorana positivity、RP 与 split orthogonal group</h2>
-<h3>5.1 统一点不是某一种谱配对，而是三种固定实际 half-power 的办法</h3>
+<h3 id="rp-versus-trs">5.1 main.tex 的 reflection positivity 是否等价于一种 time-reversal symmetry</h3>
 <p>
-    前两节的证明揭示了一个比“有几条 time-reversal symmetries”更直接的
-    组织方式。一般 Nambu Gaussian weight 要避免平方根符号不定，至少要有
-    下列一种算符级结构：
-  </p>
-<ol>
-<li><strong>共轭分块：</strong>实际算符分成被反线性变换互换的两半；玻色和偶数模费米 trace 是 \(|w|^2\)，奇数模费米可加一个解耦辅助模完成同一证明。</li>
-<li><strong>确定的物理粒子空间：</strong>对称性给出一组 annihilation operators，Nambu half-power 还原为普通 determinant，再用 Kramers pairing 或矩阵群固定其符号。</li>
-<li><strong>reflected squares：</strong>完整 Gaussian operator 本身是若干 \(X\theta(X)\) 的正系数组合，trace 直接成为若干模平方之和。</li>
-</ol>
-<p>
-    这三项是本卷统一框架的主体。反线性对称性的数量只是实现这些结构的
-    一种方式；单纯给 \(M\) 添加更多谱对称性并不能替代它们。
-  </p>
-<h3>5.2 Reflection positivity 直接解决实际 trace，而不是先解决 determinant</h3>
-<p>
-    把物理 Hilbert space 写成相互反射的左右两部分。令 \(\theta\) 既交换
-    左右 operators，又 complex-conjugate 普通 coefficient。对只作用在
-    左半边的 operators \(X_\alpha\)，考虑
+    不等价。为了看清二者相差什么，先从 main.tex 已经给定的反射出发，
+    构造与它最直接的一正一负两条反线性变换。把反射相位吸收到右侧算符
+    的定义中，并按 main.tex 的 reflected-sector 顺序写
   </p>
 <div class="scroll">\[
-    \widehat{\mathcal U}
-      =\sum_{\alpha,\beta}G_{\alpha\beta}
-        X_\alpha\,\theta(X_\beta),
-    \qquad G=G^+\geq0.
+    \hat\chi=
+    \begin{pmatrix}\hat z\\ \theta(\hat z)\end{pmatrix},
+    \qquad
+    U_R=\begin{pmatrix}0&amp;I\\ I&amp;0\end{pmatrix},
+    \qquad
+    \Theta_R=U_R\mathcal K,\qquad \Theta_R^2=I .
   \]</div>
 <p>
-    \(G\geq0\) 的具体含义是存在一个普通矩阵 \(L\)，使
-    \(G_{\alpha\beta}=\sum_\mu L_{\mu\alpha}
-      \overline{L_{\mu\beta}}\)。定义
-    \(Y_\mu=\sum_\alpha L_{\mu\alpha}X_\alpha\)，上式便成为
+    这里 \(\hat z=(\hat{\boldsymbol b},\hat{\boldsymbol b}^{+})^T\)，而
+    \(\theta\) 一边交换 \(b,c\) 两个 reflected sectors，一边把普通复数
+    coefficient 复共轭。main.tex 的 Gaussian slice 是
   </p>
 <div class="scroll">\[
-    \widehat{\mathcal U}=\sum_\mu Y_\mu\theta(Y_\mu).
+    \hat h=\hat\chi^T
+    \begin{pmatrix}D&amp;F\\F^T&amp;\overline D\end{pmatrix}
+    \hat\chi+\xi,\qquad \xi\in\mathbb R .
   \]</div>
 <p>
-    左右 trace 分解，并且右半边是左半边的 complex conjugate，因此
+    反线性变换先复共轭 coefficient matrix，再用 \(U_R\) 交换两边。直接
+    相乘，不省略中间结果：
   </p>
+<div class="scroll">\[
+    U_R^T
+    \overline{\begin{pmatrix}D&amp;F\\F^T&amp;\overline D\end{pmatrix}}
+    U_R
+    =
+    \begin{pmatrix}D&amp;\overline F^{\,T}\\
+                    \overline F&amp;\overline D\end{pmatrix}.
+  \]</div>
+<p>所以这条平方为 \(+I\) 的反线性反射保持 \(\hat h\) 当且仅当</p>
+<div class="scroll">\[
+    \Theta_R\hat h\Theta_R^{-1}=\hat h
+    \quad\Longleftrightarrow\quad F=F^\dagger .
+  \]</div>
+<p>
+    到这里仅仅得到 reflection symmetry。main.tex 的 reflection
+    positivity 还要求
+  </p>
+<div class="scroll">\[
+    \boxed{\text{reflection positivity}\quad\Longleftrightarrow\quad
+    F=F^\dagger\succeq0 .}
+  \]</div>
+<p>
+    因而 RP 确实包含一条反线性对称性，但正性并不由这条对称性单独推出；
+    \(F\succeq0\) 是额外的不等式条件。它规定跨反射面的 coupling 是正系数
+    reflected squares，普通 time-reversal symmetry 没有这项要求。
+  </p>
+<p>
+    接着给同一个左右交换加上相对负号，构造最自然的平方为 \(-I\) 的
+    companion：
+  </p>
+<div class="scroll">\[
+    U_-=\begin{pmatrix}0&amp;I\\-I&amp;0\end{pmatrix},
+    \qquad \Theta_-=U_-\mathcal K .
+  \]</div>
+<p>逐项计算给出</p>
+<div class="scroll">\[
+  \begin{gathered}
+    \Theta_-^2=-I,\qquad
+    \Theta_R\Theta_-=-\Theta_-\Theta_R,\\
+    U_-^T
+    \overline{\begin{pmatrix}D&amp;F\\F^T&amp;\overline D\end{pmatrix}}
+    U_-
+    =
+    \begin{pmatrix}D&amp;-\overline F^{\,T}\\
+                   -\overline F&amp;\overline D\end{pmatrix}.
+  \end{gathered}
+  \]</div>
+<p>
+    因此 \(\Theta_-\) 也是对称性当且仅当 \(F=-F^\dagger\)。RP 同时要求
+    \(F=F^\dagger\succeq0\)，所以 RP 与<strong>这组自然的</strong>
+    反对易 \((+,-)\) reflection pair 同时成立恰好是
+  </p>
+<div class="scroll">\[
+    \boxed{F=0.}
+  \]</div>
+<p>
+    在这个边界上，左右 sectors 完全分块，既可用 RP，也可用第 3 节的
+    \((+,-)\) 共轭分块证明 \(W=|w|^2\)。main.tex 的
+    \(\Delta=0\) benchmark 正在这个共同子类内。配对 benchmark 的
+    \(F=(\Delta\tau|\Delta|/2)I\succ0\) 则破坏上面这条
+    \(\Theta_-\)，但 RP 仍成立。这个计算没有声称排除含额外内部自由度时
+    可能存在的其他反线性对称性；第 6.4 节会针对 main.tex 的具体 benchmark
+    模型族穷尽允许的自然候选，并说明它剩余的一正一负两条变换彼此对易。
+  </p>
+<div class="result">
+<strong>回答本节问题。</strong>
+    main.tex 的 RP 可以写成“平方为 \(+I\) 的反线性 reflection symmetry
+    加上 \(F\succeq0\)”。它一般不等价于 time-reversal 周期表中的纯群判据；
+    当 \(F=0\) 时，上面显式构造的自然 companion 也成为对称性，因而该
+    子类同时落入反对易的 \((+,-)\) 类。
+  </div>
+<h3>5.2 为什么 \(F\succeq0\) 直接给出实际 trace 非负</h3>
+<p>
+    main.tex 对每层要求
+  </p>
+<div class="scroll">\[
+    \hat h_\ell=\hat q_\ell+\theta(\hat q_\ell)
+      +\sum_{\mu,\nu}F_{\ell,\mu\nu}
+       \hat X_{\ell,\mu}\theta(\hat X_{\ell,\nu}),
+    \qquad F_\ell\succeq0 .
+  \]</div>
+<p>
+    把 \(F_\ell\) 分解为 \(F_{\ell,\mu\nu}
+    =\sum_a R_{a\mu}\overline{R_{a\nu}}\)，并定义
+    \(\hat Y_a=\sum_\mu R_{a\mu}\hat X_{\ell,\mu}\)。跨反射项便逐项成为
+  </p>
+<div class="scroll">\[
+    \sum_{\mu,\nu}F_{\ell,\mu\nu}
+      \hat X_{\ell,\mu}\theta(\hat X_{\ell,\nu})
+    =\sum_a\hat Y_a\theta(\hat Y_a).
+  \]</div>
+<p>左右 operators 对易，因此两个需要的 exponential 都可直接展开：</p>
+<div class="scroll">\[
+  \begin{aligned}
+    e^{\hat q_\ell+\theta(\hat q_\ell)}
+      &amp;=e^{\hat q_\ell}\theta(e^{\hat q_\ell}),\\
+    e^{s\hat Y_a\theta(\hat Y_a)}
+      &amp;=\sum_{n=0}^{\infty}\frac{s^n}{n!}
+        \hat Y_a^n\theta(\hat Y_a^n),\qquad s\geq0 .
+  \end{aligned}
+  \]</div>
+<p>
+    用 Lie--Trotter 公式组合这些 factors，再按时间顺序相乘，所得完整
+    Gaussian operator 仍可写成
+  </p>
+<div class="scroll">\[
+    \widehat{\mathcal U}=\sum_r\hat R_r\theta(\hat R_r).
+  \]</div>
+<p>最后只需在左右 Fock spaces 分别求迹：</p>
 <div class="scroll">\[
     \boxed{
-      \operatorname{Tr}\widehat{\mathcal U}
-      =\sum_\mu\operatorname{Tr}_{L}Y_\mu\,
-        \overline{\operatorname{Tr}_{L}Y_\mu}
-      =\sum_\mu|\operatorname{Tr}_{L}Y_\mu|^2\geq0.}
+    \operatorname{Tr}\widehat{\mathcal U}
+      =\sum_r\operatorname{Tr}_{L}\hat R_r\,
+       \overline{\operatorname{Tr}_{L}\hat R_r}
+      =\sum_r|\operatorname{Tr}_{L}\hat R_r|^2\geq0 .}
   \]</div>
 <p>
-    这里默认左右算符确实按普通 tensor product 分解。玻色算符自动满足；
-    对费米算符，本式用于偶宇称 operators，此时左右 factors 彼此对易，
-    不会在交换次序时产生额外负号。二次 Gaussian operators 正属于这个
-    偶宇称代数。
-  </p>
-<p>
-    这条等式直接选定实际 metaplectic 或 Spin representative。它比
-    “Hamiltonian 具有 reflection symmetry”强：后者只说左右系数有关联，
-    并没有要求跨反射 coupling matrix \(G\) 为 positive semidefinite。
-  </p>
-<p>
-    main.tex 使用的 exponential form 也落在同一结构中。若每层 generator
-    可写成
-  </p>
-<div class="scroll">\[
-    \hat h_\ell
-      =\hat H_{\ell,L}+\theta(\hat H_{\ell,L})
-       +\sum_{\alpha,\beta}G^{(\ell)}_{\alpha\beta}
-        O_{\ell,\alpha}\theta(O_{\ell,\beta}),
-    \qquad G^{(\ell)}\geq0,
-  \]</div>
-<p>
-    其中 \(\hat H_{\ell,L}\) 与 \(O_{\ell,\alpha}\) 只作用在左半边；费米
-    情形要求它们具有偶宇称。左右两项彼此对易，因此
-    \(e^{\hat H_{\ell,L}+\theta(\hat H_{\ell,L})}
-      =e^{\hat H_{\ell,L}}\theta(e^{\hat H_{\ell,L}})\)，已经是一个
-    reflected square。再把正半定矩阵 \(G^{(\ell)}\) 作上面同样的分解，
-    跨反射项就是若干 \(Y_\mu\theta(Y_\mu)\) 之和。其 exponential 的
-    power series 每一项都有正系数；相邻 reflected squares 相乘时，左边
-    operators 按原次序相乘，右边得到相同乘积的反射，所以仍是 reflected
-    square。最后用 Trotter product
-  </p>
-<div class="scroll">\[
-    e^{X+Y}=\lim_{n\to\infty}(e^{X/n}e^{Y/n})^n
-  \]</div>
-<p>
-    即知每个 \(e^{\hat h_\ell}\) 以及完整有序乘积都保持 reflected-square
-    form。因此 RP 能允许一类跨左右 sectors 的 pairing/coupling；第 3 节
-    的简单共轭分块正是 \(G=0\) 的边界情形。
+    这就是 RP 正性证明的全部主线。它计算的是实际 Fock-space trace，
+    不需要先对 Nambu determinant 选平方根。这里证明的是 main.tex 使用的
+    玻色 reflection positivity；费米左右代数中的奇算符交换还会产生额外
+    符号，不能把上面的普通乘法规则不加修改地直接外推到费米情形。
   </p>
 <h3>5.3 main.tex 的粒子数守恒玻色 time-reversal symmetry</h3>
 <p>
@@ -1170,11 +1413,40 @@
     \qquad \mathcal B=e^{K_L}\cdots e^{K_1}.
   \]</div>
 <p>
-    若 annihilation space 上有一条 \(\Theta^2=-I\) 且逐层保持
-    \(K_\ell\)，第 4.4 节的 Kramers argument 原封不动给出
-    \(\det(I-\mathcal B)\geq0\)，所以实际 inverse determinant 非负。
-    这里一条 anti-linear symmetry 已经足够，因为普通 determinant 没有
-    double-cover square root。
+    若 annihilation space 上有 \(\Theta=U\mathcal K\)，逐层条件与平方
+    条件是
+  </p>
+<div class="scroll">\[
+    U^\dagger\overline{K_\ell}U=K_\ell,
+    \qquad U\overline U=-I .
+  \]</div>
+<p>指数化并保持原时间顺序后，</p>
+<div class="scroll">\[
+    U^\dagger\overline{\mathcal B}U
+    =U^\dagger
+      e^{\overline K_L}\cdots e^{\overline K_1}U
+    =e^{K_L}\cdots e^{K_1}
+    =\mathcal B .
+  \]</div>
+<p>
+    因而非实本征值成 \(\lambda,\overline\lambda\) 对；实本征值 \(r\)
+    的广义本征空间维数 \(d_r\) 为偶数，因为在该空间中
+    \(\Theta=X\mathcal K\) 给出
+    \(X\overline X=-I_{d_r}\)，从而
+    \(|\det X|^2=(-1)^{d_r}\)。于是
+  </p>
+<div class="scroll">\[
+    \det(I-\mathcal B)
+      =\prod_{r\in\mathbb R}(1-r)^{d_r}
+       \prod_{\operatorname{Im}\lambda&gt;0}
+       |1-\lambda|^{2d_\lambda}\geq0 .
+  \]</div>
+<p>
+    在 bare trace 存在时，
+    \(W_{\rm B}=\det(I-\mathcal B)^{-1}\geq0\)。这就是 main.tex 的
+    time-reversal 正性证明；不需要再引入别的群论。这里只需一条
+    anti-linear symmetry，因为物理 annihilation space 已由粒子数守恒预先
+    给定，权重是普通 determinant 的倒数，不再含 Nambu half-power。
   </p>
 <p>
     这也解释了为什么不能把同一句话直接外推到任意 paired bosonic
@@ -1584,6 +1856,8 @@
     不是正定矩阵，因而也不能把这个 eigenspace 当作新的 bosonic
     annihilation space 来消去 Nambu square root。
   </p>
+<details>
+<summary>展开：穷尽 flavor-only 候选，并排除 generic Bogoliubov 候选</summary>
 <p>
     对 generic \(D_\ell\)，这不是漏掉了另一条简单的 flavor time
     reversal。下面把这一点逐式算出。令 flavor-only 反线性变换为
@@ -1666,6 +1940,7 @@
     穷尽的 flavor-only 候选。某个固定、精细调节的化学势点仍可能出现
     增强对称性，但不能作为整个 benchmark 参数族的证明。
   </p>
+</details>
 <div class="result">
 <strong>对 main.tex paired benchmark 的结论。</strong>
     它目前不能由本节“两两反对易反线性对称性”的周期表重新证明无符号；
@@ -1685,13 +1960,6 @@
     \(\hat b_i,\hat c_i\) 是两个 bosonic flavors，取
     \(K=K^\dagger\)、\(\Delta=\Delta^T\)，并定义
   </p>
-<p>
-    这一步与 main.tex 的跨 flavor 项
-    \(\hat b_i^+\hat c_i^++\hat b_i\hat c_i\) 不同：这里的 anomalous
-    terms 分别是 \(\hat b_i^+\hat b_j^+\) 与
-    \(\hat c_i^+\hat c_j^+\)，两份完整 BdG Hamiltonian 再由反线性变换
-    互换。正是这个改变使一正一负的两条反线性对称性彼此反对易。
-  </p>
 <div class="scroll">\[
   \begin{aligned}
     \hat H_0={}&amp;
@@ -1707,6 +1975,13 @@
       (\hat n_{b,i}-\hat n_{c,i})^2,\qquad U&gt;0.
   \end{aligned}
   \]</div>
+<p>
+    这一步与 main.tex 的跨 flavor 项
+    \(\hat b_i^+\hat c_i^++\hat b_i\hat c_i\) 不同：这里的 anomalous
+    terms 分别是 \(\hat b_i^+\hat b_j^+\) 与
+    \(\hat c_i^+\hat c_j^+\)，两份完整 BdG Hamiltonian 再由反线性变换
+    互换。正是这个改变使一正一负的两条反线性对称性彼此反对易。
+  </p>
 <p>
     这是一个普通 Hermitian Hamiltonian。若写
     \(K=\kappa I+T\)，条件

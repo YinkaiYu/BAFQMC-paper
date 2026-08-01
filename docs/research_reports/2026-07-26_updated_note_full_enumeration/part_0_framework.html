@@ -234,7 +234,12 @@
       font-weight: 750;
       color: #39464f;
     }
-    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
     .scroll mjx-container[display="true"],
     .scroll mjx-container[display="true"] > mjx-math {
       max-width: none !important;
@@ -526,26 +531,24 @@
       时间片，全部时空构型的 bare trace 都收敛、权重恒正且没有 pole。
     </p>
 <div class="warning">
-<strong>玻色 \(J_2g\) 四类与玻色 \(iJ_2g\) 四类必须使用不同的
-      ensemble。</strong>
+<strong>当前两组物理构造使用不同 ensemble，但这不是
+      \(iJ_2g\) 的普遍禁令。</strong>
       对 \(\eta=J_2g=\operatorname{diag}(I,-I)\) 的四类，负定收缩
       与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
-      trace-class、无 pole、正权重结论。对新增的四个
-      \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
-      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.4 节证明：
-      任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
-      \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
-      principal-block obstruction。因此这四类不是新的普通
-      grand-canonical BAFQMC classes。
+      trace-class、无 pole、正权重结论。对实正交 \(J_2\) 的
+      \(\eta=iJ_2g\) 四类，一般 Nambu 证明表明：稳定 Hermitian
+      玻色零场不能同时位于同一个严格 \(iJ_2g\) 锥，且该结论包括
+      pairing。当前四个 number-conserving 模型又含无界 Gaussian
+      双曲场，故不存在对全部构型有效的固定 fugacity。
     </div>
 <p>
       这不使四类成为空的代数标签。第 6.6 节为四类都构造了
-      number-conserving 双组分格点 Hamiltonian。在
-      \(N_\uparrow=N_\downarrow\) 的平衡固定粒子数 sector 中，
-      Hilbert space 有限；两个 flavor 的 canonical characters 互为
-      复共轭，权重是其绝对值平方。四类由此都有完整的 canonical
-      sign-free 子模型，只是不能把同一个 \(iJ_2g\) contraction
-      结论直接改写成对所有粒子数求和的 grand-canonical trace。
+      number-conserving Hamiltonian。它们的 fixed-\(N\) Hilbert space
+      有限，并且逐构型正 reciprocal spectrum 使 canonical character
+      严格为正。若未来的有界或离散 HS 构造满足
+      \(z\sup_\phi\|\mathcal B(\phi)\|_2&lt;1\)，足够负的化学势仍可给出
+      grand-canonical 正权重。详细条件见
+      <a href="part_8_canonical_projector_algorithms.html">固定粒子数算法卷</a>。
     </p>
 <h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
 <p>

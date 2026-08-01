@@ -235,7 +235,12 @@
       font-weight: 750;
       color: #39464f;
     }
-    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      margin: 12px 0 17px;
+    }
     .scroll mjx-container[display="true"],
     .scroll mjx-container[display="true"] > mjx-math {
       max-width: none !important;
@@ -558,26 +563,24 @@
       时间片，全部时空构型的 bare trace 都收敛、权重恒正且没有 pole。
     </p>
     <div class="warning">
-      <strong>玻色 \(J_2g\) 四类与玻色 \(iJ_2g\) 四类必须使用不同的
-      ensemble。</strong>
+      <strong>当前两组物理构造使用不同 ensemble，但这不是
+      \(iJ_2g\) 的普遍禁令。</strong>
       对 \(\eta=J_2g=\operatorname{diag}(I,-I)\) 的四类，负定收缩
       与稳定的 grand-canonical 玻色虚时间传播方向一致，因而得到上段的
-      trace-class、无 pole、正权重结论。对新增的四个
-      \(\eta=iJ_2g\) 类，\(\eta=\operatorname{diag}(R,R)\)，其中
-      \(R\) 同时有 \(+1\) 与 \(-1\) eigenspaces。第 6.4 节证明：
-      任意稳定 Hermitian 玻色二次 Hamiltonian 的虚时间生成元都与
-      \(\eta A+A^\dagger\eta\le0\) 矛盾，而且 pairing 不能消除这个
-      principal-block obstruction。因此这四类不是新的普通
-      grand-canonical BAFQMC classes。
+      trace-class、无 pole、正权重结论。对实正交 \(J_2\) 的
+      \(\eta=iJ_2g\) 四类，一般 Nambu 证明表明：稳定 Hermitian
+      玻色零场不能同时位于同一个严格 \(iJ_2g\) 锥，且该结论包括
+      pairing。当前四个 number-conserving 模型又含无界 Gaussian
+      双曲场，故不存在对全部构型有效的固定 fugacity。
     </div>
     <p>
       这不使四类成为空的代数标签。第 6.6 节为四类都构造了
-      number-conserving 双组分格点 Hamiltonian。在
-      \(N_\uparrow=N_\downarrow\) 的平衡固定粒子数 sector 中，
-      Hilbert space 有限；两个 flavor 的 canonical characters 互为
-      复共轭，权重是其绝对值平方。四类由此都有完整的 canonical
-      sign-free 子模型，只是不能把同一个 \(iJ_2g\) contraction
-      结论直接改写成对所有粒子数求和的 grand-canonical trace。
+      number-conserving Hamiltonian。它们的 fixed-\(N\) Hilbert space
+      有限，并且逐构型正 reciprocal spectrum 使 canonical character
+      严格为正。若未来的有界或离散 HS 构造满足
+      \(z\sup_\phi\|\mathcal B(\phi)\|_2<1\)，足够负的化学势仍可给出
+      grand-canonical 正权重。详细条件见
+      <a href="part_8_canonical_projector_algorithms.html">固定粒子数算法卷</a>。
     </p>
 
     <h3>0.3 为什么 note 恰好列五条关于 \(J_1,J_2\) 的式子</h3>
@@ -1757,19 +1760,23 @@
 
       <h4>为什么玻色 \(iJ_2g\) 四类改用固定总粒子数</h4>
       <p>
-        上述第二、三步使用了标准 Nambu
-        \(\eta=\operatorname{diag}(I,-I)\)：前 \(N\) 个 components
-        是 annihilation operators，后 \(N\) 个是 creation operators。
-        对 boson Cases 5--8 的 \(\eta=J_2g\)，报告已经给出保持这一
-        annihilation/creation 结构的物理基变换，所以可调用上述
-        Fock-space 收敛定理。新增四类的
-        \(\eta=iJ_2g=\operatorname{diag}(R,R)\) 对 particle 与 hole
-        使用同一个 indefinite \(R\)，不具有这个物理取向。第 6.4 节从
-        一般含 pairing 的 Hermitian generator 出发，证明不存在来自稳定
-        Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical
-        迹收敛并同时满足同一个 \(\eta=iJ_2g\) 收缩不等式。报告因此改在
-        固定总粒子数 sector 中使用这四类；该 sector
-        有限维，并且已有逐构型严格正的 character 公式。
+        这里需要把“当前构造为何使用 fixed-\(N\)”与“所有 \(iJ_2g\)
+        是否都只能 fixed-\(N\)”分开。对本次实正交 \(J_2\) 的 64 类，
+        一般含 pairing 的 Nambu 推导证明：稳定 Hermitian 零场不能同时
+        位于同一个严格 \(iJ_2g\) 锥。当前四个 number-conserving 物理模型
+        又含无界 Gaussian 双曲场，使
+        \(\sup_\phi\|\mathcal B(\phi)\|_2=\infty\)，因此没有一个固定
+        fugacity 能让所有构型的 grand-canonical bare trace 都收敛。
+        它们改用 fixed-\(N\)，并由正 reciprocal spectrum 另外证明
+        character 逐构型严格为正。
+      </p>
+      <p>
+        这不是由相因子 \(i\) 导出的普遍 no-go。若另一个有界或离散 HS
+        实现满足 \(z\sup_\phi\|\mathcal B(\phi)\|_2<1\)，则足够负的
+        化学势仍可得到收敛且为正的 grand-canonical 权重。矩阵证明、
+        ensemble 判据、有限温 canonical 算法与零温 projector 算法均在
+        <a href="part_8_canonical_projector_algorithms.html">独立算法卷</a>
+        中完整给出。
       </p>
     </div>
     <p>
@@ -3524,14 +3531,16 @@
           <tr>
             <td>新增玻色 4 个 \(iJ_2g\) 类</td>
             <td>
-              一般 Hermitian BdG block 证明表明：不存在一个来自稳定
+              一般 Hermitian BdG 证明表明：不存在一个来自稳定
               Hermitian 二次玻色 Hamiltonian 的零场生成元，使
               grand-canonical 迹收敛并同时满足同一个
               \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.6 节为四类
               都给出 number-conserving fixed-\(N\) Hamiltonian。
               one-particle eigenvalues 始终为正的 reciprocal pairs，
               所以 fixed-\(N\) symmetric-power character 对每个辅助场
-              构型严格为正。这四类得到完整 canonical sign-free 结论。
+              构型严格为正。这四个具体模型得到完整 canonical sign-free
+              结论。若其他实现能给出统一传播范数上界，足够负的化学势
+              仍可能产生 grand-canonical 正权重。
             </td>
           </tr>
         </tbody>
@@ -3565,9 +3574,10 @@
       boson \(J_2g\) 四个具体模型，这些条件已经逐项成立。对 fermion
       八类，有限 Fock space、严格收缩时权重不为零，以及
       \(e^{\epsilon A_0}\) 在 \(\epsilon\to0^+\) 时给出的非负极限，
-      共同给出同样的全域非负结论。新增 bosonic \(iJ_2g\)
-      四类不满足这一 grand-canonical 前提；后文给出一般 no-go
-      proof，并在 fixed-\(N\) sector 中改用正 character 证明。
+      共同给出同样的全域非负结论。当前 bosonic \(iJ_2g\)
+      四个无界场模型不满足这一 grand-canonical 前提；后文只排除
+      稳定 Hermitian 零场位于同一严格锥的方案，并在 fixed-\(N\)
+      sector 中用正 character 证明当前模型。
     </p>
 
     <details class="basis-audit long-proof" id="bare-trace-proof">
@@ -3838,6 +3848,55 @@
       分母趋于零，bare trace 发散。这个例子说明的不是“所有等号方向都
       不可用”，而是：若只知道完整传播满足半负定不等式，就还要另外证明
       实际路径不会到达产生 pole 的边界点。
+    </p>
+    </details>
+
+    <details class="basis-audit" id="ij2g-grand-canonical">
+    <summary><strong>6.4.4 \(iJ_2g\) 并非只能 fixed-\(N\)：当前模型受限在哪里</strong></summary>
+    <p>
+      令
+      \[
+        C=\begin{pmatrix}0&I\\I&0\end{pmatrix},\qquad
+        \eta_0=Cg=\operatorname{diag}(I,-I).
+      \]
+      稳定 Hermitian 玻色零场可写成
+      \(\eta_0A_0=-P\)，其中 \(P=P^\dagger>0\)。若它还满足
+      \(\eta A_0+A_0^\dagger\eta<0\)、\(\eta=iJ_2g\)，代入后需要
+      \[
+      \eta\eta_0=iJ_2C,\qquad
+      \eta_0\eta=(iJ_2C)^\dagger.
+      \]
+      这两式由该四类的
+      \(J_2^TgJ_2=g\)、\(J_2^2=I\) 与实正交性直接得到：
+      \(J_2^T=J_2\)、\(gJ_2=J_2g\)，再使用 \(gCg=C\) 与
+      \(g^2=-I\)。因此必须有
+      \[
+        (iJ_2C)P+P(iJ_2C)^\dagger>0
+        \qquad\text{(6.4.4)}
+      \]
+      对 \(iJ_2C\) 的左本征矢 \(v^\dagger\)，本征值记为
+      \(\lambda\)，式 (6.4.4) 的矩阵元是
+      \[
+        2\operatorname{Re}\lambda\,v^\dagger Pv>0.
+      \]
+      因而所有 \(\lambda\) 都必须有正实部。但 \(J_2C\) 是实矩阵；
+      它的共轭本征值乘 \(i\) 后实部成正负对，实本征值乘 \(i\) 后实部
+      为零，所以不可能全部为正。这个矛盾不假设粒子数守恒，包含 pairing。
+    </p>
+    <p>
+      它只证明稳定 Hermitian 零场不能位于同一个严格 \(iJ_2g\) 锥，
+      没有证明其他 grand-canonical 构造不存在。number-conserving
+      fixed-field propagation 若能对某个固定 fugacity
+      \(z=e^{\beta\mu}>0\) 满足
+      \[
+        z\sup_\phi\|\mathcal B(\phi)\|_2<1,
+      \]
+      则相应 Fock operator 对全部构型都是 trace class；若 fixed-\(N\)
+      coefficients 已证明非负，其 grand-canonical sum 也为正。当前四个
+      模型的 Gaussian 双曲场无界，使上述 supremum 为无穷，才没有这样的
+      固定 \(z\)。完整 ensemble 分析见
+      <a href="part_8_canonical_projector_algorithms.html#ensemble-choice">
+      固定粒子数算法卷第 1 节</a>。
     </p>
     </details>
 
@@ -4241,8 +4300,8 @@
       <li>给出负定例子 \(A_0=-\eta\)，并把生成元条件推到
       \((e^A)^\dagger\eta e^A\le\eta\)；同时明确这个例子只证明存在
       同时满足三条矩阵条件的 \(A\)。对 \(J_2g\) 四类，稳定零场和
-      Fock-trace 收敛证明已经成立；对 \(iJ_2g\) 四类，一般 BdG
-      principal-block 证明表明，不存在来自稳定 Hermitian 二次玻色
+      Fock-trace 收敛证明已经成立；对 \(iJ_2g\) 四类，一般 Nambu
+      矩阵证明表明，不存在来自稳定 Hermitian 二次玻色
       Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足
       同一个 \(\eta=iJ_2g\) 收缩不等式；canonical fixed-\(N\)
       models 的 character 已逐构型证明为正。</li>
@@ -4280,7 +4339,7 @@
       正分支证明。</li>
       <li>四个 \(iJ_2g\) partners 的 contraction-semigroup
       realization 可以表述为新的 canonical fixed-\(N\) sign-free
-      models。一般含 pairing 的解析 no-go 排除的是“同一个稳定 Hermitian
+      models。一般含 pairing 的 Nambu 解析证明排除的是“同一个稳定 Hermitian
       零场生成元同时位于 \(\eta=iJ_2g\) 的半负定 cone”这一更具体的
       grand-canonical 方案，不能据此排除该五条关系对应的 maximal
       subgroup 中具有其他 anti-linear symmetry 或
@@ -4400,8 +4459,8 @@
         current-square/relative-density-square models；费米侧给出了
         取值有界的离散辅助场模型，以及已知的 Kramers 共轭配对模型。
         新增玻色 \(iJ_2g\) 四类已有 canonical fixed-\(N\)
-        collective-boson models 与逐构型正 character；一般 BdG
-        principal-block 证明同时表明，不存在来自稳定 Hermitian 二次玻色
+        collective-boson models 与逐构型正 character；一般 Nambu
+        证明同时表明，不存在来自稳定 Hermitian 二次玻色
         Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足
         同一个 \(\eta=iJ_2g\) 收缩不等式。
         第 6.6 节的每张类别卡都先给出该类实际
@@ -4736,12 +4795,13 @@
       这套算法不参与上面的连通性 sign-free theorem。
       <br><br>
       对新增玻色 \(iJ_2g\) 类，稳定 grand-canonical 零场不能同时位于
-      同一个 \(\eta=iJ_2g\) invariant cone，原因已由一般 BdG
-      principal-block 证明确定；依赖该 cone 的模型因此改在 fixed-\(N\)
+      同一个 \(\eta=iJ_2g\) invariant cone，原因已由一般 Nambu
+      证明确定；当前依赖该 cone 的无界场模型因此改在 fixed-\(N\)
       sector 中由 character 公式逐构型给出。在 maximal subgroup 中
       具有额外 anti-linear symmetry 或 reflection-positive coupling
-      的 grand-canonical 子类不受这个 no-go 约束，但仍须逐模型检查物理
-      Nambu 实现与 bare-trace 收敛。
+      的 grand-canonical 子类不受这个限制；有界或离散 HS 场若满足
+      \(z\sup_\phi\|\mathcal B(\phi)\|_2<1\)，也可由足够负的化学势得到
+      统一收敛。两条路线都仍须逐模型检查正性与 bare-trace 收敛。
       <br><br>
       现有文章的 paired \(U_1=0\) model 明确落在 Case 7；
       稳定自由部分、pure \(U_2\) phases、标准 \(J_2g\) metric、

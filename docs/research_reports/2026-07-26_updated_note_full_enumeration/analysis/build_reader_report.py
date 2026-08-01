@@ -18,7 +18,6 @@ REPO_ROOT = REPORT_DIR.parents[2]
 NOTE_PATH = REPO_ROOT / "experts" / "ToYinkaiYu-20260726.tex"
 TEMPLATE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.template.html"
 OUTPUT_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
-CANONICAL_FRAGMENT_PATH = REPORT_DIR / "canonical_afqmc_algorithm_zh.fragment.html"
 ENUMERATION_TAIL_PATH = REPORT_DIR / "enumeration_tail_zh.fragment.html"
 DETERMINANT_SYMMETRY_BRIDGE_PATH = (
     REPORT_DIR / "determinant_symmetry_bridge_zh.fragment.html"
@@ -2778,7 +2777,6 @@ def main() -> None:
     validate_coverage(note_lines)
     walkthrough = build_walkthrough(note_lines)
     all_class_lecture = build_all_class_lecture()
-    canonical_algorithm = CANONICAL_FRAGMENT_PATH.read_text(encoding="utf-8")
     enumeration_tail = ENUMERATION_TAIL_PATH.read_text(encoding="utf-8")
     determinant_symmetry_bridge = DETERMINANT_SYMMETRY_BRIDGE_PATH.read_text(
         encoding="utf-8"
@@ -2794,15 +2792,12 @@ def main() -> None:
         )
     if enumeration_tail.count("{{ALL_CLASS_STRUCTURES}}") != 1:
         raise RuntimeError("Enumeration tail must contain one all-class marker")
-    if enumeration_tail.count("{{CANONICAL_ALGORITHM}}") != 1:
-        raise RuntimeError("Enumeration tail must contain one canonical marker")
     output = template.replace("{{NOTE_WALKTHROUGH}}", walkthrough)
     output = output.replace(
         "{{DETERMINANT_SYMMETRY_BRIDGE}}", determinant_symmetry_bridge
     )
     output = output.replace("{{ENUMERATION_TAIL}}", enumeration_tail)
     output = output.replace("{{ALL_CLASS_STRUCTURES}}", all_class_lecture)
-    output = output.replace("{{CANONICAL_ALGORITHM}}", canonical_algorithm)
     output = "\n".join(line.rstrip() for line in output.splitlines()) + "\n"
     OUTPUT_PATH.write_text(output, encoding="utf-8")
     print(

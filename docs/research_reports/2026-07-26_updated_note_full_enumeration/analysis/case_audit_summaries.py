@@ -548,8 +548,8 @@ CASE_AUDITS: dict[str, str] = {
         pole。新增 bosonic \(iJ_2g\)
         四类则证明了两件不同的事：取 \(\eta=iJ_2g\) 后，确实存在同时满足
         \(gA+A^Tg=0\)、\(J_1^TAJ_1=\bar A\) 和
-        \(\eta A+A^\dagger\eta<0\) 的 \(A\)；但一般 BdG
-        principal-block calculation 同时证明，这个
+        \(\eta A+A^\dagger\eta<0\) 的 \(A\)；但一般 Nambu
+        矩阵计算同时证明，这个
         \(\eta=iJ_2g\) 收缩方向与稳定的 grand-canonical Hermitian
         boson Hamiltonian 不相容，pairing 不能消除该阻碍。因此依赖该
         invariant cone 的四个模型改在 fixed-\(N\) sector 中直接证明
