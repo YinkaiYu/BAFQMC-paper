@@ -85,10 +85,11 @@ def build_index(source: BeautifulSoup) -> None:
               给合作者的建议回复和可复现文件索引。
             </div>
             <div class="summary-item established">
-              <strong><a href="part_5_branch_sampling.html">独立算法卷：double-cover 符号追踪与采样</a></strong>
-              说明最终 Nambu 矩阵丢失哪一位信息，对照 PfQMC 论文与代码，
-              推导逐构型权重、低秩局部更新、绝对值采样和符号重加权；
-              \(0,2\pi,4\pi\) 路径与 rank-2 更新均有 Octave 直接验证。
+              <strong><a href="part_5_branch_sampling.html">独立算法卷：lifted double-cover 符号追踪</a></strong>
+              用 \((M,\eta_U)\) lifted state 取代逐 proposal 的连续路径，
+              推导 Gaussian cocycle、product tree、低秩 fast update
+              与 sign/phase 重加权；旋转、squeezing 和 local ratio
+              均有 Python/SciPy 与有限 Fock-space 检查。
             </div>
             <div class="summary-item established">
               <strong><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 的半群证明</a></strong>
@@ -179,7 +180,7 @@ def build_branch_page(source: BeautifulSoup) -> None:
         "<!doctype html><html><body><main></main></body></html>", "html.parser"
     )
     page.html.insert(0, clone(source.head))
-    page.title.string = "玻色 Gaussian AFQMC：double-cover 符号追踪与采样"
+    page.title.string = "玻色 Gaussian AFQMC：用 (M, eta_U) 离散追踪符号"
     header = fragment.find("header", recursive=False)
     section = fragment.find("section", id="branch-sampling", recursive=False)
     if header is None or section is None:

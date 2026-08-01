@@ -1,342 +1,701 @@
 <header>
-  <h1>玻色 Gaussian AFQMC 的 double-cover 符号追踪与采样</h1>
+  <h1>玻色 Gaussian AFQMC：用 \((M,\eta_U)\) 离散追踪 double-cover 符号</h1>
+  <div class="meta">
+    <div><strong>更新日期：</strong>2026-08-02</div>
+    <div><strong>状态：</strong>公式推导、端点算法与有限 Fock-space 数值检查均已完成</div>
+  </div>
   <p class="lead">
-    本卷讨论一个与主报告的无符号证明分开的算法问题：当一个一般
-    Gaussian 辅助场模型确实有正负权重时，怎样在只保存 Nambu
-    传播矩阵的计算中恢复、更新并采样被平方根公式丢掉的那一个符号。
+    本卷解决一个实际采样问题：一般 paired bosonic Gaussian
+    权重的符号不能从最终 Nambu 矩阵 \(M\) 单独恢复，而在每次
+    Monte Carlo proposal 中人为构造并积分一条连续辅助场路径又很不方便。
+    下面改用 lifted state。程序同时保存 \(M\) 和一个真空振幅
+    \(\eta_U\)，并用离散的 Gaussian 乘法规则更新二者。连续路径只保留为
+    独立校验工具，不再是 sweep 的组成部分。
   </p>
 </header>
 
 <section id="branch-sampling">
-  <h2>1. 问题从哪里出现</h2>
+  <h2>1. 要保存的是算符多出来的那一位信息</h2>
   <p>
-    对一个固定辅助场构型，把全部虚时间片的 Nambu 传播矩阵按实际顺序
-    相乘，记为 \(M\)。相应的 Fock-space Gaussian operator 还含一个
-    正规序或常数项产生的 scalar \(e^\xi\)。在不碰到
-    \(\det(I-M)=0\) 时，玻色 Gaussian trace 满足
+    令 \(\hat\chi=(\hat{\boldsymbol a},\hat{\boldsymbol a}^{+})^T\)，
+    \([\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}\)，并把一个辅助场构型的
+    Gaussian 算符写成
   </p>
   <div class="scroll">\[
-    W=\operatorname{Tr}_{\rm Fock}\hat{\mathcal U}
-    =\frac{e^\xi}{\sqrt{\det(I-M)}} .
+    \hat U=e^\Xi\hat U_0,\qquad
+    \hat\chi\,\hat U_0=\hat U_0 M\hat\chi,\qquad
+    M\in{\rm Sp}(2N,\mathbb C).
   \]</div>
   <p>
-    这里的平方根不能只按终点复数的 principal square root 计算。
-    原因是：从 Fock-space Gaussian operator 到 classical Nambu
-    transformation \(M\) 的映射是 two-to-one。两个相差整体负号的
-    Fock operators 作用在 \(\chi\) 上产生完全相同的 \(M\)，但它们的
-    trace 相差负号。这个 two-to-one 结构通常称为 double cover。
+    \(\Xi\) 汇总正规序常数以及其他已知 scalar；\(\hat U_0\) 是去掉这部分
+    scalar 后的中心化 Gaussian 算符。映射
+    \(\hat U_0\mapsto M\) 是 two-to-one：
+    \(\hat U_0\) 和 \(-\hat U_0\) 产生同一个 \(M\)，但所有 Fock-space
+    矩阵元和 trace 都相差负号。因此只保存 \(M\)、\(\det(I-M)\) 或
+    \(G=(I-M)^{-1}\) 都不够。
   </p>
   <p>
-    因而最终的 \(M\)、\(\det(I-M)\) 和普通 Green matrix
-    \((I-M)^{-1}\) 都不足以重建 \(W\) 的符号。实际 AFQMC
-    operator 是由一串 elementary exponentials 按次序定义的，所以符号
-    并非任意；必须连同这条 operator path 一起保存。
+    解决办法是再保存一个会随整体负号一起改变的普通复数。本卷选
+  </p>
+  <div class="scroll">\[
+    \boxed{\eta_U=\langle0|\hat U_0|0\rangle},\qquad
+    \boxed{\mathcal L(\hat U_0)=(M,\eta_U)} .
+  \]</div>
+  <div class="note">
+    <strong>记号提醒。</strong>
+    这里的 \(\eta_U\) 是某个 Gaussian 算符的真空振幅；它不是第 3、4、7
+    卷中用于写 contraction inequality 的 Hermitian metric \(\eta\)。
+    下标 \(U\) 专门用来避免这两个对象混淆。
+  </div>
+  <p>
+    若把 \(e^\Xi\) 吸收到真空振幅中，只保存 \((M,e^\Xi\eta_U)\) 也可以。
+    本卷把 \(\Xi\) 分开，是因为这样能清楚区分正规序 scalar 与
+    double-cover 的 \(\mathbb Z_2\) 信息，并与现有 BAFQMC 更新公式一致。
   </p>
 
-  <h2>2. 沿一条无 pole 路径唯一恢复权重</h2>
+  <h2>2. 为什么 \(\eta_U\) 正好保存丢失的符号</h2>
   <p>
-    令 \(t\in[0,1]\) 连续参数化一次辅助场更新，并把对应量写成
-    \(M(t),\xi(t),W(t)\)。假定整条路径上
-    \(\det[I-M(t)]\ne0\)。先对 determinant 求导：
+    把 \(M\) 按 particle/hole 两个 \(N\) 维子空间分块：
+  </p>
+  <div class="scroll">\[
+    M=\begin{pmatrix}u&v\\w&z\end{pmatrix}.
+  \]</div>
+  <p>
+    先考虑 \(z\) 可逆的区域。定义
+  </p>
+  <div class="scroll">\[
+    X=vz^{-1},\qquad Z=-z^{-1}w .
+  \]</div>
+  <p>
+    辛条件保证 \(X^T=X\) 和 \(Z^T=Z\)。在这个区域，算符可以按
+    “先产生 pair、再传播粒子、最后湮灭 pair”的次序写成
+  </p>
+  <div class="scroll">\[
+    \hat U_0=
+    \eta_U
+    \exp\!\left[\frac12(\hat{\boldsymbol a}^{+})^T
+      X\hat{\boldsymbol a}^{+}\right]
+    \exp\!\left[(\hat{\boldsymbol a}^{+})^TY
+      \hat{\boldsymbol a}\right]
+    \exp\!\left[\frac12\hat{\boldsymbol a}^T
+      Z\hat{\boldsymbol a}\right],
+    \qquad z=e^{-Y^T}.
+  \]</div>
+  <p>
+    这就是后文所说的 Balian--Brézin chart。左右真空分别消去产生和湮灭
+    exponential，中间的 number-conserving exponential 在真空上等于 1，
+    所以前面的 scalar 确实就是 \(\eta_U\)。同一分解还给出
+  </p>
+  <div class="scroll">\[
+    \boxed{\eta_U^2=\det(z)^{-1}} .
+  \]</div>
+  <p>
+    这条式子只能检查 \(\eta_U\) 的平方，不能决定它的正负。
+    生产代码尤其不能用
+    \(\eta_U\leftarrow\sqrt{\det(z)^{-1}}\) 覆盖已经保存的值，因为这会再次
+    丢掉 lift。
+  </p>
+
+  <h3>2.1 两个一眼能看懂的 leaf lift</h3>
+  <p>
+    对一个物理的 number-conserving factor
+    \(\exp(\lambda\hat a^+\hat a)\)，中心化写法是
+  </p>
+  <div class="scroll">\[
+    \exp(\lambda\hat a^+\hat a)
+    =
+    e^{-\lambda/2}
+    \exp[\lambda(\hat a^+\hat a+1/2)] .
+  \]</div>
+  <p>
+    因而 leaf 数据为
+    \(\Xi=-\lambda/2\)、
+    \(M=\operatorname{diag}(e^\lambda,e^{-\lambda})\) 和
+    \(\eta_U=e^{\lambda/2}\)。两项 scalar 相乘后，完整算符的真空矩阵元
+    是 1，正如左边的正规序算符所要求的。
+  </p>
+  <p>
+    再看中心化 rotation
+  </p>
+  <div class="scroll">\[
+    \hat R(\theta)=
+    \exp[-i\theta(\hat a^+\hat a+1/2)],\qquad
+    M_R(\theta)=\operatorname{diag}(e^{-i\theta},e^{i\theta}),
+    \qquad
+    \eta_R(\theta)=e^{-i\theta/2}.
+  \]</div>
+  <p>
+    \(\theta=0\) 和 \(2\pi\) 的 \(M_R\) 都是单位矩阵，但
+    \(\eta_R(2\pi)=-\eta_R(0)\)。程序只要从实际 elementary operator
+    写出这个 leaf lift，符号就已经被保存，不需要回看这个 leaf
+    在 Monte Carlo 历史中怎样变化。
+  </p>
+  <div class="scope">
+    <strong>leaf 原则。</strong>
+    每个 HS factor 的 \(\eta_U\) 必须从该 factor 的实际 Fock-space
+    定义或已验证的解析公式得到，不能由终点 \(M\) 的 principal square
+    root 猜出。常用的 density、phase rotation、two-mode squeezing
+    factors 都有短的闭式公式，可以在程序初始化时形成一张 leaf
+    规则表。
+  </div>
+
+  <h2>3. 两个 lifted Gaussian 算符怎样离散相乘</h2>
+  <p>
+    设 \(\hat U_1\leftrightarrow(M_1,\eta_1)\) 在左，
+    \(\hat U_2\leftrightarrow(M_2,\eta_2)\) 在右。矩阵部分当然是
+    \(M_{12}=M_1M_2\)。关键是 \(\eta_{12}\)。
+  </p>
+  <p>
+    由普通 block multiplication，
   </p>
   <div class="scroll">\[
     \begin{aligned}
-    \frac{d}{dt}\log\det[I-M(t)]
-    &=\operatorname{Tr}\!\left[
-      (I-M)^{-1}\frac{d(I-M)}{dt}\right]\\
-    &=-\operatorname{Tr}\!\left[(I-M)^{-1}\dot M\right].
+      z_{12}
+      &=w_1v_2+z_1z_2\\
+      &=z_1(I-Z_1X_2)z_2 .
     \end{aligned}
   \]</div>
   <p>
-    这里的 \(\log\) 表示沿路径连续延拓的 logarithm，不是在每个
-    \(t\) 独立调用 principal logarithm。代入
-    \(W=e^\xi[\det(I-M)]^{-1/2}\)，得到
+    在 Fock space 中，只有 \(\hat U_1\) 最右侧的 pair-annihilation
+    exponential 与 \(\hat U_2\) 最左侧的 pair-creation exponential
+    会在两个真空之间收缩。直接做这个普通玻色 Gaussian contraction 得到
   </p>
   <div class="scroll">\[
-    \frac{d}{dt}\log W(t)
-    =\dot\xi(t)
-    +\frac12\operatorname{Tr}\!\left[(I-M)^{-1}\dot M\right].
+    \begin{aligned}
+    \langle0|
+      e^{\frac12\hat{\boldsymbol a}^TZ_1\hat{\boldsymbol a}}
+      e^{\frac12(\hat{\boldsymbol a}^{+})^TX_2
+        \hat{\boldsymbol a}^{+}}
+    |0\rangle
+    &=
+    \mathcal C_B(M_1,M_2),\\
+    \mathcal C_B(M_1,M_2)
+    &=
+    \exp\!\left[
+      -\frac12\operatorname{Tr}
+      \operatorname{Log}_0(I-Z_1X_2)
+    \right].
+    \end{aligned}
   \]</div>
   <p>
-    从已知符号的参考点 \(t=0\) 积到新构型 \(t=1\)，便得到沿实际
-    算符路径连续确定的权重。下文把它简称为“路径定支权重”：
+    所以完整的离散乘法规则是
   </p>
   <div class="scroll">\[
-    W(1)=W(0)e^{\xi(1)-\xi(0)}
-    \exp\!\left\{
-      \frac12\int_0^1dt\,
-      \operatorname{Tr}[(I-M)^{-1}\dot M]
-    \right\}.
+    \boxed{
+    (M_1,\eta_1)\circ(M_2,\eta_2)
+    =
+    \left(
+      M_1M_2,\,
+      \eta_1\eta_2\mathcal C_B(M_1,M_2)
+    \right)} .
   \]</div>
   <p>
-    同一结果也可写成终点 principal logarithm 乘一个额外的
-    \(\mathbb Z_2\) 变量：
-  </p>
-  <div class="scroll">\[
-    W=e^\xi\,\sigma_{\rm lift}
-    \exp\!\left[-\frac12
-    \operatorname{Log}_{\rm principal}\det(I-M)\right],
-    \qquad \sigma_{\rm lift}=\pm1 .
-  \]</div>
-  <p>
-    若连续 determinant path 相对 principal argument 多绕原点一圈，
-    连续 logarithm 多出 \(2\pi i\)，上式的 inverse square root
-    就多出 \(e^{-\pi i}=-1\)。所以真正需要记录的是 determinant
-    path 的 winding parity，而不是重新猜测终点平方根。
+    这条规则就是玻色版本与 PfQMC 最接近的地方。输入的两个 lift 已经知道
+    自己处在 double cover 的哪一层；cocycle
+    \(\mathcal C_B\) 负责在乘法时把这层信息传给乘积。
   </p>
 
-  <h2>3. 一个终点矩阵完全相同、权重却不同的检验</h2>
+  <h3>3.1 \(\operatorname{Log}_0\) 在程序里究竟是什么意思</h3>
   <p>
-    数值检验使用两个有 pairing 的玻色模，先施加固定 damping，再让一个
-    local Nambu pair 分别旋转 \(0,2\pi,4\pi\)。三条路径末端的
-    \(M\) 完全相同，终点 determinant 也都为
-    \(4.151838534817697\)。但是 determinant path 的绕数依次为
-    \(0,1,2\)，所以路径定支权重的符号依次为正、负、正，
-    绝对值均为 \(0.4907719947\)。
+    它不是“沿 Monte Carlo proposal 画一条 \(t\)-路径”。在最容易实现且
+    足以作为基线算法的 contraction chart 中，要求
+  </p>
+  <div class="scroll">\[
+    \rho(Z_1X_2)<1 .
+  \]</div>
+  <p>
+    此时
+  </p>
+  <div class="scroll">\[
+    \operatorname{Log}_0(I-Z_1X_2)
+    =
+    -\sum_{n=1}^{\infty}\frac{(Z_1X_2)^n}{n}
+  \]</div>
+  <p>
+    是从单位矩阵出发的唯一解析矩阵 logarithm。数值上可用 complex Schur
+    decomposition 或经过验证的 <code>logm</code>，输入只有本次乘法的
+    两个终点矩阵。这里没有需要随 Markov chain 保存的连续辅助场轨迹。
+  </p>
+  <p>
+    基线实现还应同时检查
+  </p>
+  <div class="scroll">\[
+    {\rm rcond}(z_1),\quad {\rm rcond}(z_2),\quad
+    {\rm rcond}(I-Z_1X_2),\quad \rho(Z_1X_2).
+  \]</div>
+  <div class="warning">
+    若这些检查失败，结论是“当前 factor grouping 或当前 chart 不能安全
+    计算这次乘法”，而不是“改用标量 principal square root 继续”。
+    物理算符仍可能完全正常；此时应重新分组 elementary factors，或切换到
+    另一套 Gaussian chart 并使用已知的 chart-transition lift。一个只实现
+    单 chart 的程序必须报错中止或调用经过验证的 fallback，不能把 chart
+    失败当成 zero weight 而拒绝 proposal，否则会改变 Markov measure。
+  </div>
+
+  <h2>4. 从根节点的 \((M,\eta_U)\) 得到 Fock trace</h2>
+  <p>
+    对中心化 lift，double-cover 符号已经全部进入 \(\eta_U\)。同一个
+    Balian--Brézin chart 中，剩余的 trace factor 只依赖 \(M\)：
+  </p>
+  <div class="scroll">\[
+    \mathcal T(M)=
+    \left[
+      \frac{\det z}
+      {(-1)^N\det(I_{2N}-M)}
+    \right]_{\rm chart}^{1/2}.
+  \]</div>
+  <p>
+    因而辅助场构型的完整权重为
+  </p>
+  <div class="scroll">\[
+    \boxed{
+      W=\operatorname{Tr}_{\rm Fock}\hat U
+      =e^\Xi\eta_U\,\mathcal T(M)} .
+  \]</div>
+  <p>
+    本项目的 paired examples 取偶数 \(N\)，所以 \((-1)^N=1\)。
+    这里保留一般因子，是为了让单模检查也采用同一公式。
+  </p>
+  <p>
+    \(\mathcal T(M)\) 的 square-root orientation 在每个数值 chart
+    中由一个简单、trace-convergent 的对角参考算符固定一次。之后同一
+    chart 内的每个构型都使用这套固定规则，而不是根据上一个 Monte Carlo
+    构型做 phase unwrapping。因为 \(\hat U_0\to-\hat U_0\) 时
+    \(W\) 与 \(\eta_U\) 同时变号，\(\mathcal T=W/(e^\Xi\eta_U)\)
+    本身不携带 double-cover 的二值信息。
+  </p>
+  <p>
+    对单模中心化算符
+    \(e^{\alpha(\hat a^+\hat a+1/2)}\)，
+    \(\eta_U=e^{\alpha/2}\)，公式给出
+  </p>
+  <div class="scroll">\[
+    W=\frac{e^{\alpha/2}}{1-e^\alpha},
+    \qquad \operatorname{Re}\alpha<0 .
+  \]</div>
+  <p>
+    把 \(\alpha\) 改成 \(\alpha+2\pi i\) 后，\(M\) 不变而
+    \(\eta_U\) 和 \(W\) 同时变号。若物理算符本来是正规序的
+    \(e^{\alpha\hat n}\)，还要包含 \(\Xi=-\alpha/2\)；这时
+    \(\alpha\to\alpha+2\pi i\) 引起的两个负号相消，完整物理算符和 trace
+    都不变。这正说明 \(\Xi\) 与 \(\eta_U\) 必须一致更新。
+  </p>
+
+  <h2>5. 最稳妥的基线算法：lifted product tree</h2>
+  <p>
+    先给出一个不追求最小渐近复杂度、但逻辑闭合且容易验证的实现。
+    把有序 imaginary-time product 的每个 elementary Gaussian factor
+    作为一片 leaf。leaf 保存
+  </p>
+  <div class="scroll">\[
+    (M_\ell,\eta_\ell,\Xi_\ell).
+  \]</div>
+  <p>
+    相邻 leaf 用第 3 节的规则合并，形成 balanced binary tree。每个内部
+    节点代表一个连续时间段，并保存该段的
+    \((M_{\rm seg},\eta_{\rm seg},\Xi_{\rm seg})\)。根节点就是完整构型。
+  </p>
+  <pre><code>build_leaf(field):
+    construct the actual elementary Fock operator
+    return (M_leaf, eta_leaf, Xi_leaf)
+
+combine(left, right):
+    X_right = v_right @ inverse(z_right)
+    Z_left  = -inverse(z_left) @ w_left
+    K       = I - Z_left @ X_right
+    check rcond(z_left), rcond(z_right), rcond(K), rho(Z_left @ X_right)
+    log_C   = -0.5 * trace(Log_0(K))
+    return (
+        M_left @ M_right,
+        eta_left * eta_right * exp(log_C),
+        Xi_left + Xi_right
+    )
+
+propose one auxiliary-field change:
+    replace the affected leaf
+    recompute only its O(log L_tau) ancestors
+    evaluate W_new from the candidate root
+    form the full HS/proposal ratio and accept with min(1, abs(R_total))
+    commit candidate nodes only when accepted</code></pre>
+  <p>
+    一次 leaf proposal 只重算 \(O(\log L_\tau)\) 个 tree nodes。
+    若使用 dense \(2N\times2N\) matrices，基线代价是
+    \(O(N^3\log L_\tau)\)；它比成熟的低秩 AFQMC update 慢，但已经是一个
+    可直接实现、完全离散、不会漏掉符号的参考算法。它也很适合作为 fast
+    implementation 的定期独立复算器。
+  </p>
+  <div class="note">
+    大系统不必给每个 time slice 都保存一个 dense tree node。实际程序可按
+    stabilization window 建树：window 内使用普通 local update，window
+    根节点保存 stabilized matrix factors 与 lift；接受若干次更新后再重建。
+  </div>
+
+  <h2>6. Fast sweep：用 lift 选择低秩 ratio 的正确平方根</h2>
+  <p>
+    product tree 解决了“能否不跟踪路径”的问题。要恢复常规 AFQMC
+    的低秩效率，可在 equal-time cut 处把一次 slice change 写成一个已知的
+    relative Gaussian operator \(\hat V\)：
+  </p>
+  <div class="scroll">\[
+    \hat U_0'=\hat V_0\hat U_0,\qquad
+    \mathcal L(\hat V_0)=(V,\eta_V),\qquad
+    M'=VM,\qquad
+    \Xi'=\Xi+\delta\Xi .
+  \]</div>
+  <p>
+    \((V,\eta_V)\) 必须由 old/new leaf 的实际算符定义构造。对常见 onsite
+    density 或 phase HS update，它就是一个 \(2r\) 维的显式 diagonal
+    lift。接受更新后，完整真空振幅按离散乘法更新：
+  </p>
+  <div class="scroll">\[
+    \boxed{
+      \eta_U'=\eta_V\eta_U\,\mathcal C_B(V,M)} .
+  \]</div>
+  <p>
+    设 \(\mathcal T(M)\) 是第 4 节固定 chart 中的 trace factor。本次
+    Gaussian 权重比就是
+  </p>
+  <div class="scroll">\[
+    \boxed{
+    R_W=\frac{W'}{W}
+    =
+    e^{\delta\Xi}\eta_V\mathcal C_B(V,M)
+    \frac{\mathcal T(VM)}{\mathcal T(M)}} .
+  \]</div>
+  <p>
+    右边只用 old endpoint、relative update endpoint 和它们的 lift。
+    没有 \(V(t)\)，也没有沿 proposal path 的积分。把上式平方并使用
+    \(\eta_V^2=\det(z_V)^{-1}\) 后，所有 lift factors 正好合并为熟悉的
+    determinant ratio：
+  </p>
+  <div class="scroll">\[
+    R_W^2
+    =
+    e^{2\delta\Xi}
+    \frac{\det(I-M)}{\det(I-VM)} .
+  \]</div>
+  <p>
+    这条平方关系用于数值检查；真正的 \(R_W\) 必须由前一条 lifted
+    formula 计算。若直接对最后一式调用 principal square root，就又回到了
+    最初的符号歧义。
+  </p>
+
+  <h3>6.1 local determinant 与 Green update</h3>
+  <p>
+    令 \(\widetilde G=(I-M)^{-1}\)。有精确因式分解
+  </p>
+  <div class="scroll">\[
+    I-VM=
+    \left[I+(V-I)(I-\widetilde G)\right](I-M).
+  \]</div>
+  <p>
+    若 relative update 只作用在 \(r\) 个物理 modes 上，可写成
+    \(V-I=EKE^T\)，其中 \(E\) 把 \(2r\) 维 local Nambu space
+    嵌入完整空间。matrix determinant lemma 给出
+  </p>
+  <div class="scroll">\[
+    \frac{\det(I-VM)}{\det(I-M)}
+    =
+    \det P,\qquad
+    P=I_{2r}+K E^T(I-\widetilde G)E .
+  \]</div>
+  <p>
+    因而低秩 calculation 仍然只需要 \(2r\times2r\) determinant。
+    与旧算法的区别是：\(\det P\) 只提供 ratio 的平方和大小，
+    \((V,\eta_V)\) 及 Gaussian cocycle 提供缺失的 sign/phase。
+  </p>
+  <p>
+    cocycle 和 trace factor 也能使用同一个 local support。把旧矩阵写成
+    \(M=\left(\begin{smallmatrix}u&v\\w&z\end{smallmatrix}\right)\)，
+    令 \(X=vz^{-1}\)，并定义
+  </p>
+  <div class="scroll">\[
+    Q=z_V+w_VX .
+  \]</div>
+  <p>
+    从 \(M'=VM\) 的右下 block 直接得到
+  </p>
+  <div class="scroll">\[
+    z'=Qz,\qquad
+    I-Z_VX=z_V^{-1}Q .
+  \]</div>
+  <p>
+    所以 lifted local ratio 可以具体写成
+  </p>
+  <div class="scroll">\[
+    \begin{aligned}
+    \mathcal C_B(V,M)
+      &=\exp\!\left[-\frac12\operatorname{Tr}
+        \operatorname{Log}_0(z_V^{-1}Q)\right],\\
+    \left[\frac{\mathcal T(VM)}{\mathcal T(M)}\right]^2
+      &=\frac{\det Q}{\det P},\\
+    R_W
+      &=e^{\delta\Xi}\eta_V\mathcal C_B(V,M)
+        \left[\frac{\det Q}{\det P}\right]_{\rm chart}^{1/2}.
+    \end{aligned}
+  \]</div>
+  <p>
+    对 local \(V\)，\(z_V-I\) 和 \(w_V\) 都只有 local support，
+    所以 \(z_V^{-1}Q-I\) 与 \(Q-I\) 都是低秩矩阵；它们的 determinant
+    和 logarithm 可用 determinant lemma 或 local Schur decomposition
+    降到 \(2r\) 维。最后一式平方后，
+    \(\eta_V\)、cocycle 与 \(\det Q\) 精确相消，只留下
+    \(e^{2\delta\Xi}/\det P\)。这同时给出实现公式和逐 proposal
+    consistency check。
+  </p>
+  <p>
+    接受 proposal 后，同一个小矩阵还给出
+  </p>
+  <div class="scroll">\[
+    \begin{aligned}
+    C&=I+EKE^T(I-\widetilde G),\\
+    C^{-1}
+    &=I-E\left[I_{2r}+K E^T(I-\widetilde G)E\right]^{-1}
+      K E^T(I-\widetilde G),\\
+    \widetilde G'&=\widetilde G C^{-1}.
+    \end{aligned}
+  \]</div>
+  <p>
+    形成 local block 和更新完整 resolvent 的主要代价仍是
+    \(O(N^2r)\)。生产实现可以让低秩公式处理每个 proposal，再用 lifted
+    product tree 或按顺序重新合并全部 leaf 来周期性校验符号。
+  </p>
+
+  <h2>7. 一次 Metropolis proposal 的完整状态转移</h2>
+  <p>
+    对一般有符号或复相位的模型，Markov state 至少保存
+  </p>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>对象</th><th>作用</th><th>何时更新</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>全部 auxiliary fields</td><td>定义实际 elementary operators</td><td>proposal 接受后</td></tr>
+        <tr><td>\(M\) 或其 stabilized factors</td><td>Nambu propagation 与 Green function</td><td>proposal 接受后</td></tr>
+        <tr><td>\(\eta_U\) 或 \(\log\eta_U\)</td><td>保存 double-cover sign/phase</td><td>按 lifted product rule 更新</td></tr>
+        <tr><td>\(\Xi\)</td><td>正规序与已知 scalar</td><td>加上 \(\delta\Xi\)</td></tr>
+        <tr><td>\(\widetilde G=(I-M)^{-1}\)</td><td>低秩 ratio 与 observables</td><td>Woodbury update 或 stabilized rebuild</td></tr>
+        <tr><td>\(\log|W|\) 与 \(W/|W|\)</td><td>绝对值采样和重加权</td><td>乘以完整 \(R_{\rm total}\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ol>
+    <li>
+      从 proposed auxiliary field 直接构造 new leaf lift，或构造
+      relative lift \((V,\eta_V,\delta\Xi)\)。
+    </li>
+    <li>
+      用 lifted product formula 计算 \(R_W\)，并检查其平方是否等于
+      \(e^{2\delta\Xi}/\det P\)。不一致说明 chart、factor ordering
+      或数值精度有问题。
+    </li>
+    <li>
+      乘上 Gaussian HS density、离散 HS prefactor 以及 proposal
+      probability 的正反向比，得到 \(R_{\rm total}\)。
+    </li>
+    <li>
+      以 \(P_{\rm accept}=\min(1,|R_{\rm total}|)\) 决定是否接受。
+      对已证明 sign-free 的 ensemble，应直接使用其非负物理 ratio；
+      不需要人为加入绝对值修补。
+    </li>
+    <li>
+      只有接受后才提交 \(M,\eta_U,\Xi,\widetilde G\) 与 field。
+      若拒绝，所有 lifted state 保持不变。
+    </li>
+    <li>
+      一般 sign/phase problem 中按
+      \[
+        \langle O\rangle
+        =
+        \frac{\langle (W/|W|)O\rangle_{|W|}}
+        {\langle W/|W|\rangle_{|W|}}
+      \]
+      重加权。lift 使相位无歧义，但不会阻止平均相位随体积或
+      inverse temperature 下降。
+    </li>
+  </ol>
+
+  <h2>8. Pole、chart 边界与长虚时间稳定化</h2>
+  <p>
+    以下三种失败必须分开处理：
+  </p>
+  <ol>
+    <li>
+      <strong>trace pole：</strong>
+      \(\det(I-M)=0\)。这时 bosonic Fock trace 发散，不能当成普通
+      sign flip 跨过，也不能靠换 square-root branch 消除。
+    </li>
+    <li>
+      <strong>当前 Balian--Brézin chart 失效：</strong>
+      \(z\) 奇异或严重病态。算符本身未必奇异，需要换 chart 或重新分组。
+    </li>
+    <li>
+      <strong>当前 Gaussian contraction 不可用：</strong>
+      \(I-Z_1X_2\) 接近奇异，或不在实现所认证的
+      \(\rho(Z_1X_2)<1\) 区域。此时不能把 <code>logm</code> 的任意输出
+      当作正确 cocycle。
+    </li>
+  </ol>
+  <p>
+    长 imaginary-time product 还会产生通常的尺度分离。建议同时使用：
+  </p>
+  <ol>
+    <li>以 QR/SVD 或 UDT factors 保存 \(M\)，不直接累乘极大极小数；</li>
+    <li>以 \(\log|\eta_U|\) 和 \(\arg\eta_U\) 保存真空振幅；</li>
+    <li>每次 combine 后检查 \(|\eta_U^2\det z-1|\)；</li>
+    <li>每个 stabilization window 重建 \(\widetilde G\)；</li>
+    <li>每隔固定 sweep 从 elementary leaf lifts 重建整棵树，并比较
+      lifted weight、低秩累计 weight、Green residual 和 determinant
+      square identity。</li>
+  </ol>
+  <p>
+    这种重建只重放离散的 operator product。它不需要知道 Markov chain
+    依次访问过哪些构型，也不会把 principal square root 写回
+    \(\eta_U\)。
+  </p>
+
+  <h2>9. 端点算法的数值检查</h2>
+  <p>
+    新的 Python/SciPy 检查
+    <a href="analysis/verify_boson_gaussian_lift.py">verify_boson_gaussian_lift.py</a>
+    调用参考实现
+    <a href="analysis/boson_gaussian_lift.py">boson_gaussian_lift.py</a>。
+    它没有构造或积分任何连续 auxiliary-field path。
   </p>
   <div class="scroll">
     <table>
       <thead>
         <tr>
-          <th>local rotation</th><th>determinant 绕数</th>
-          <th>double-cover 符号</th><th>Fock-cutoff 直接求迹误差</th>
+          <th>检查</th><th>参数</th><th>\(\eta_U\)</th>
+          <th>lifted trace / reference</th><th>误差或 residual</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>\(0\)</td><td>0</td><td>\(+1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
-        <tr><td>\(2\pi\)</td><td>1</td><td>\(-1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
-        <tr><td>\(4\pi\)</td><td>2</td><td>\(+1\)</td><td>\(1.51\times10^{-9}\)</td></tr>
+        <tr>
+          <td>two-mode rotation</td><td>\(0\) 圈</td>
+          <td>\(+0.2660669607\)</td>
+          <td>\(+0.4907719947\)</td><td>\(1.51\times10^{-9}\)</td>
+        </tr>
+        <tr>
+          <td>two-mode rotation</td><td>\(1\) 圈</td>
+          <td>\(-0.2660669607\)</td>
+          <td>\(-0.4907719947\)</td><td>\(1.51\times10^{-9}\)</td>
+        </tr>
+        <tr>
+          <td>two-mode rotation</td><td>\(2\) 圈</td>
+          <td>\(+0.2660669607\)</td>
+          <td>\(+0.4907719947\)</td><td>\(1.51\times10^{-9}\)</td>
+        </tr>
+        <tr>
+          <td>two-mode squeeze composition</td><td>\(0.17+0.31\)</td>
+          <td>\(0.8949115265\)</td>
+          <td>exact vacuum amplitude \(0.8949115265\)</td><td>\(<2\times10^{-14}\)</td>
+        </tr>
+        <tr>
+          <td>normal-ordering scalar</td><td>\(\alpha=-0.7\)</td>
+          <td>\(e^{\alpha/2}\)</td>
+          <td>\(1/(1-e^\alpha)=1.9864338636\)</td><td>\(2.22\times10^{-16}\)</td>
+        </tr>
+        <tr>
+          <td>lifted local \(Q/P\) ratio</td><td>squeeze \(0.13\)</td>
+          <td>updated \(\eta_U=0.3233388706\)</td>
+          <td>\(R_W=0.9258595774\)</td><td>Fock ratio error \(4.03\times10^{-9}\)</td>
+        </tr>
       </tbody>
     </table>
   </div>
   <p>
-    三条路径的最小 \(|\det(I-M(t))|\) 都大于 \(3.77\)，因此负号不是
-    穿过 pole 造成的数值伪影。截断 Fock space 的直接矩阵求迹给出同样的
-    \(+,-,+\) 结果。完整数据见
-    <a href="tables/branch_resolved_trace_check.csv">branch_resolved_trace_check.csv</a>，
-    脚本见
-    <a href="analysis/verify_branch_resolved_trace.m">verify_branch_resolved_trace.m</a>。
+    三条 rotation 的终点 \(M\) 在 \(1.9\times10^{-15}\) 内完全相同，
+    但 leaf \(\eta_U=e^{-i\theta/2}\) 直接保存了 \(+,-,+\)。
+    截断 Fock space 的 direct trace 给出同样结果。squeezing 检查中的
+    cocycle 为 \(0.9518479967\)，说明测试确实经过了非平凡 Gaussian
+    contraction，而不是只检查两个独立 factors。最后一行还直接检查了
+    第 6 节的 \(Q/P\) endpoint formula：它与 root lift ratio 的差为
+    \(1.11\times10^{-16}\)，并与 occupation cutoff 16 的 Fock-space
+    ratio 相符。完整数据见
+    <a href="tables/boson_gaussian_lift_check.csv">boson_gaussian_lift_check.csv</a>。
+  </p>
+  <p>
+    原先的连续 determinant-winding 检查仍保留在
+    <a href="analysis/verify_branch_resolved_trace.m">verify_branch_resolved_trace.m</a>
+    和
+    <a href="tables/branch_resolved_trace_check.csv">branch_resolved_trace_check.csv</a>
+    中。它现在的角色是独立验证 \(0,2\pi,4\pi\) 三个 lift，而不是
+    Monte Carlo sampling algorithm。
   </p>
 
-  <h2>4. Local update 不需要重算大 determinant</h2>
-  <p>
-    设旧传播矩阵已经按更新位置分成 \(M_0=LR\)。一次局域更新只作用在
-    \(r\) 个物理 modes，也就是 \(2r\) 维 local Nambu space。令
-    \(E\) 把这个局域空间嵌入完整 Nambu space，令 \(D(t)\) 是从
-    \(D(0)=I\) 连续变到新局域因子的路径。完整更新路径写成
-  </p>
-  <div class="scroll">\[
-    M(t)=L\left[I+E(D(t)-I)E^T\right]R,
-    \qquad M(0)=LR=M_0 .
-  \]</div>
-  <p>
-    旧 Green matrix 与一个 \(2r\times2r\) reduced matrix 为
-  </p>
-  <div class="scroll">\[
-    G=(I-M_0)^{-1},\qquad
-    C=E^TRGLE .
-  \]</div>
-  <p>
-    从
-    \(I-M(t)=I-M_0-LE(D-I)E^TR\) 使用 matrix determinant lemma，
-    得到精确的小矩阵公式
-  </p>
-  <div class="scroll">\[
-    \frac{\det[I-M(t)]}{\det(I-M_0)}
-    =\det\!\left[I_{2r}-(D(t)-I_{2r})C\right].
-  \]</div>
-  <p>
-    所以 determinant path、它是否接近 pole、以及连续 logarithm 的导数
-    都可在 \(2r\) 维空间计算：
-  </p>
-  <div class="scroll">\[
-    \frac{d}{dt}\log
-    \frac{\det[I-M(t)]}{\det(I-M_0)}
-    =
-    -\operatorname{Tr}\!\left[
-      \bigl(I-(D-I)C\bigr)^{-1}\dot D\,C
-    \right].
-  \]</div>
-  <p>
-    令这个小 determinant 在终点的值为 \(z_{\rm end}\)，并对上式积分。
-    数值上用 \(\log|z_{\rm end}|\) 固定连续 logarithm 的实部，用积分的
-    imaginary part 保存没有取模 \(2\pi\) 的全部绕数。若这次局域更新还使
-    scalar 改变 \(\Delta\xi\)，权重比就是
-  </p>
-  <div class="scroll">\[
-    \frac{W_{\rm new}}{W_{\rm old}}
-    =
-    \exp\!\left[
-      \Delta\xi-\frac12
-      \left\{\log|z_{\rm end}|
-      +i\,\operatorname{Im}\!\int_0^1dt\,
-      \frac{d}{dt}\log z(t)\right\}
-    \right].
-  \]</div>
-  <p>
-    接受更新后，完整 \(G\) 也可用 Woodbury identity 精确更新。记
-    \(D(1)-I\) 为终点局域差值，则
-  </p>
-  <div class="scroll">\[
-    \begin{aligned}
-    G_{\rm new}=G
-    +GLE(D(1)-I)
-    \left[I-C(D(1)-I)\right]^{-1}E^TRG .
-    \end{aligned}
-  \]</div>
-  <p>
-    对固定的 \(r\)，形成 \(C\) 和更新完整 \(G\) 的主要代价是
-    \(O(N^2r)\)，路径积分每次只解 \(2r\) 维线性方程。实现文件
-    <a href="analysis/boson_branch_low_rank_update.m">boson_branch_low_rank_update.m</a>
-    已包含 determinant lemma、连续相位积分、Woodbury update、
-    endpoint pole check 与路径最小 determinant 诊断。
-  </p>
-
-  <h2>5. 低秩实现的独立数值检查</h2>
-  <p>
-    <a href="analysis/verify_low_rank_branch_update.m">verify_low_rank_branch_update.m</a>
-    对同一个 \(0,2\pi,4\pi\) 例子只使用 rank-2 local update。结果为：
-  </p>
-  <div class="scroll">
-    <table>
-      <thead>
-        <tr><th>旋转圈数</th><th>连续相位/\(2\pi\)</th>
-        <th>weight ratio</th><th>Green update residual</th>
-        <th>determinant lemma residual</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>0</td><td>0</td><td>\(+1\)</td><td>0</td><td>0</td></tr>
-        <tr><td>1</td><td>1</td><td>\(-1\)</td><td>\(8.4\times10^{-33}\)</td><td>0</td></tr>
-        <tr><td>2</td><td>2</td><td>\(+1\)</td><td>\(1.7\times10^{-32}\)</td><td>0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>
-    这三次更新的终点 \(D(1)=I\)，所以普通 endpoint ratio 全部为 1；
-    只有连续相位保存了中间绕数。完整输出见
-    <a href="tables/low_rank_branch_update_check.csv">low_rank_branch_update_check.csv</a>。
-  </p>
-
-  <h2>6. 放进 Metropolis sampling 的完整步骤</h2>
-  <p>
-    以下算法采样一般有符号或有复相位的 Gaussian 模型。它准确记录符号，
-    但不会神奇地消除平均符号随系统尺寸下降的统计困难。
-  </p>
-  <ol>
-    <li>
-      选择一个能够直接在 Fock space 或从 elementary factors 确定
-      \(W_{\rm ref}>0\) 的参考构型。保存其 \(M,G,\xi\) 以及
-      \(\sigma_{\rm lift}=+1\)。
-    </li>
-    <li>
-      对一次局域辅助场 proposal，使用实际 elementary slice 的连续变化
-      构造 \(D(t)\)。不能用与 operator update 无关的任意闭合路径，因为
-      lift 属于实际有序 operator product。
-    </li>
-    <li>
-      用上一节的小矩阵积分算出完整复权重比
-      \(R_W=W_{\rm new}/W_{\rm old}\)，其中已经包括正规序 scalar
-      \(e^{\Delta\xi}\) 与 double-cover 符号。
-    </li>
-    <li>
-      把 Gaussian HS density、proposal probability 的正反向比和
-      \(R_W\) 合成 \(R_{\rm total}\)。以
-      \[
-        P_{\rm accept}=\min(1,|R_{\rm total}|)
-      \]
-      决定是否接受。
-    </li>
-    <li>
-      若接受，更新 \(M,G,\xi\)，并把已存 phase 乘以
-      \(R_{\rm total}/|R_{\rm total}|\)。对实权重，这一步只更新
-      \(\pm1\)；若 proposal 拒绝，所有状态保持不变。
-    </li>
-    <li>
-      测量时使用标准重加权
-      \[
-        \langle O\rangle
-        =\frac{\langle e^{i\varphi}O\rangle_{|W|}}
-        {\langle e^{i\varphi}\rangle_{|W|}} .
-      \]
-      分母同时给出平均 sign/phase，是算法统计可行性的直接诊断。
-    </li>
-  </ol>
-
-  <h2>7. Pole、数值稳定与周期性重建</h2>
-  <p>
-    若小 determinant
-    \(\det[I-(D(t)-I)C]\) 在路径上为零，则
-    \(\det[I-M(t)]=0\)，玻色 bare trace 在该中间构型发散。此时不能把
-    它当成普通的 sign flip 跨过去。对本文的 pole-free 半群，
-    这种情况由解析不等式排除。在一般模型中，若物理辅助场积分路径本身
-    穿过这个发散点，就必须回到该模型的积分轮廓或正则化定义处理；
-    不能把该步作为有限权重的 Metropolis 更新接受，也不能仅靠改变
-    square-root branch 隐去 divergence。
-  </p>
-  <p>
-    长虚时间乘积会产生极端尺度分离，所以实现同时采用两级校验：
-  </p>
-  <ol>
-    <li>
-      每次 local update 用 reduced determinant 的最小 singular value
-      与 adaptive path subdivision 检查是否接近 pole。
-    </li>
-    <li>
-      经过固定数量的接受更新后，从保存的 elementary factors 使用
-      QR/SVD-stabilized multiplication 重建 \(M,G\)，并从已知 reference
-      沿实际 factor path 重新积分 lift。随后比较累计 phase、determinant
-      ratio 与 Green residual；超过容差的 Markov state 不进入测量。
-    </li>
-  </ol>
-  <p>
-    周期性重建不是用 principal square root 覆盖累计符号；它重放同一条
-    elementary-operator path，所以得到的是对累计 lift 的独立复算。
-  </p>
-
-  <h2>8. 与 PfQMC 的关系</h2>
+  <h2>10. 与 PfQMC 相同的设计原则和关键差别</h2>
   <p>
     Han、Wan、Yao 的
-    <a href="https://arxiv.org/abs/2408.10311">PfQMC</a>
-    处理 fermionic Gaussian operators。其核心关系可写成
-    \[
-      \operatorname{Tr}\hat O=2^N\eta,\qquad
-      2^{2N}\eta^2=\det(I+B),
-    \]
-    并用 Pfaffian product formulas 恢复 determinant square 丢失的
-    Gaussian-operator sign。公开
-    <a href="https://github.com/zyHan2077/PfQMC">PfQMC code</a>
-    在局域更新接受后把权重比的 phase 乘进已存 sign，并周期性从完整
-    operator string 重算；本报告核对的 repository commit 是
-    <code>50b597e7f634298ae5b93aa7afe992405fbdcd5e</code>。
+    <a href="https://arxiv.org/abs/2408.10311">PfQMC 论文</a>
+    对 fermionic Gaussian operator 保存 \((B,\eta)\)，其中
+    \(\operatorname{Tr}\hat O=2^N\eta\)，并用 Pfaffian product rule
+    更新 \(\eta\)。其
+    <a href="https://github.com/zyHan2077/PfQMC/tree/50b597e7f634298ae5b93aa7afe992405fbdcd5e">
+    公开代码 commit 50b597e</a>
+    在 fast update 接受后把 ratio 的 sign/phase 乘进已存 sign，并偶尔从
+    全部 factors 重新计算。
   </p>
   <p>
-    本卷沿用的是同一数值设计原则，而不是直接移植 fermionic Pfaffian
-    公式：更新时保存被 classical matrix representation 丢掉的 lift，
-    用 \(|W|\) 做接受率，用保存的 sign/phase 重加权，并周期性完整复算。
-    玻色问题的区别是权重含 inverse square root，而且
-    \(\det(I-M)=0\) 是发散 pole。因此这里用连续 logarithm 与 reduced
-    determinant path，而不是把 fermionic Pfaffian 公式换一个符号。
+    本卷采用完全相同的数值设计：
+  </p>
+  <ol>
+    <li>不要把 classical propagation matrix 当作完整 Gaussian operator；</li>
+    <li>把丢失的 lift coordinate 作为 Markov state 的一部分；</li>
+    <li>局域 ratio 负责日常 fast update；</li>
+    <li>离散的完整 operator product 负责初始化和周期性校验。</li>
+  </ol>
+  <p>
+    玻色情况有三个不能忽略的差别：
+  </p>
+  <ol>
+    <li>
+      fermionic Fock space 有限，\(\eta\) 可直接取归一化 trace；
+      bosonic elementary factors 的 trace 可能发散，所以这里取始终更局域的
+      vacuum amplitude \(\eta_U\)。
+    </li>
+    <li>
+      Grassmann Gaussian integral 给 Pfaffian；ordinary bosonic Gaussian
+      contraction 给 inverse-square-root determinant。因此玻色 cocycle
+      需要一个经过认证的 analytic chart，而不是一个全局多项式公式。
+    </li>
+    <li>
+      fermionic \(\det(I+B)=0\) 对应 zero weight；bosonic
+      \(\det(I-M)=0\) 对应 pole。后者可能破坏 measure 的可积性。
+    </li>
+  </ol>
+  <p>
+    Gaussian normal form 可追溯到
+    <a href="https://doi.org/10.1007/BF02710281">Balian 与 Brézin</a>；
+    complex contraction domain 的 double-cover semigroup 结构可参见
+    <a href="https://www.numdam.org/articles/10.5802/aif.1182/">
+    Hilgert 对 oscillator semigroup 的构造</a>。这些文献给出数学背景；
+    本卷的重点是把它们翻译成可以检查和实现的 AFQMC 状态更新。
   </p>
 
-  <h2>9. 本卷得到的结论</h2>
+  <h2>11. 结论与适用范围</h2>
   <div class="summary-grid">
     <div class="summary-item established">
-      <strong>符号可唯一计算</strong>
-      只要 elementary operator path 已知且不经过 pole，连续 determinant
-      logarithm 与正规序 scalar 唯一确定真实 Fock trace，不需要指数复杂度
-      枚举 Fock basis。
+      <strong>不再跟踪连续 Monte Carlo 路径</strong>
+      elementary operator 的 lift 在 leaf 处给定，之后只做离散
+      \((M,\eta_U)\) 乘法。proposal 的先后历史不是状态定义的一部分。
     </div>
     <div class="summary-item established">
-      <strong>局域更新所需量均已有封闭公式</strong>
-      determinant ratio、连续绕数、Green matrix 与接受率都可由
-      \(2r\) 维 reduced matrices 更新；Octave rank-2 test 对
-      \(0,2\pi,4\pi\) 给出 \(+,-,+\)。
+      <strong>低秩效率可以保留</strong>
+      local determinant 和 Green update 仍在 \(2r\) 维完成；
+      lift formula 决定 \((\det P)^{-1/2}\) 缺失的 sign/phase。
     </div>
     <div class="summary-item corrected">
-      <strong>与主报告分开</strong>
-      主报告的 sign-free classes 依靠半群、实性与正参考点证明
-      \(\sigma_{\rm lift}=+1\)；本卷用于一般有符号模型中显式采样
-      \(\sigma_{\rm lift}\)，二者不是同一个论证。
+      <strong>不是无条件的全局公式</strong>
+      单-chart 实现必须检查 \(z\) 与 \(I-Z_1X_2\)。失败时需要合法的
+      chart transition 或 factor regrouping，不能退回 principal
+      square root。
+    </div>
+    <div class="summary-item corrected">
+      <strong>不会自动消除 sign problem 或 pole</strong>
+      lift 使逐构型权重无歧义；平均 sign/phase 的统计衰减、
+      trace-class 条件和 bosonic determinant poles 仍需分别处理。
     </div>
   </div>
 </section>
