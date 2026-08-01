@@ -1,119 +1,127 @@
-    <h3 id="group-only-theorems">5.5 五条关系怎样约束实际 Nambu half-power 权重</h3>
+    <h3 id="group-only-theorems">5.5 两条彼此独立的无符号证明路线</h3>
     <p>
-      对一个固定辅助场构型，本节研究的对象是实际有序 Gaussian Fock
-      算符的迹
+      到这里，五条关系的第一项工作已经完成：它们告诉我们哪些类别允许
+
       \[
-        W=\operatorname{Tr}_{\mathcal F}
-        \left(e^{\hat h_L}\cdots e^{\hat h_1}\right),
+        A=A_{\mathrm{group}}+A_{\mathrm{cone}},\qquad
+        \eta A_{\mathrm{group}}+A_{\mathrm{group}}^\dagger\eta=0,
         \qquad
-        \hat h_\ell=\frac12\hat\chi^TgA_\ell\hat\chi .
+        \eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0 .
       \]
-      对任意物理模数 \(N\)，相应的矩阵简写是
-      \([(-1)^N\det(I-M)]^{-1/2}\)（玻色）与
-      \([\det(I+M)]^{1/2}\)（费米），其中
-      \(M=e^{A_L}\cdots e^{A_1}\)，只是这个实际 Fock 迹的矩阵简写。
-      合作者原式省略的 \((-1)^N\) 在偶数 \(N\) 时等于一；一般情形必须保留。
-      只知道终点矩阵 \(M\) 及其 determinant，不能区分相差中央负号的
-      两个 metaplectic 或 Spin lifts。因此下面的正性证明直接作用于
-      有序 Fock 算符，不先把 half-power 平方后再猜它的符号。
+      下面必须把两种不同的无符号证明分开。它们可以作用于同一个模型，
+      但逻辑上谁也不依赖谁。
     </p>
 
-    <h4>先把 \(J_a\mathcal K\) 变成物理反线性对称性</h4>
-    <p>
-      若 \(J_a^TgJ_a=g\)，取 \(U_a=J_a\)；若
-      \(J_a^TgJ_a=-g\)，取 \(U_a=iJ_a\)，并定义
-      \(\Theta_a=U_a\mathcal K\)。这里 \(\mathcal K\) 对系数作复共轭。
-      除保持 canonical relations 外，玻色 Nambu 变换还必须保证
-      creation component 仍是相应 annihilation component 的
-      Hermitian conjugate。若
-      \(\hat\chi^+=\hat\chi^T C\)，这一条件是
-      \[
-        C\overline{U_a}C=U_a .
-      \]
-      它排除了只在矩阵代数上成立、却不能作用于物理 Fock space 的
-      \(J_a\)。在这些条件满足后，五条关系在 Nambu operators 上直接给出
-      \[
-        \Theta_a^2=J_a^2,
-      \]
-      而两条 \(\Theta_a\) 对易还是反对易，要把
-      \(J_1J_2=\pm J_2J_1\) 的符号再乘上
-      \(J_1,J_2\) 各自保持或翻转 \(g\) 的两个符号。
-    </p>
-
-    <h4>只含 \(A_{\mathrm{group}}\) 时的两种完整正性证明</h4>
-    <p>
-      对 \(A_{\mathrm{group}}\)，两条 \(\Theta_a\) 都逐时间片保持
-      \(\hat h_\ell\)。此时有两种由原有两条对称性直接推出
-      \(W\geq0\) 的情形。
-    </p>
-    <ol>
-      <li>
-        两条反线性对称性反对易，且一条平方为 \(+I\)、另一条平方为
-        \(-I\)。令 \(P=\Theta_+\Theta_-\)，则 \(P^2=I\)。
-        \(P=+1\) 与 \(P=-1\) 两边不混合，并由 \(\Theta_+\) 互换。
-        对玻色子以及偶数模费米子，两边各自组成完整 Fock space，因此
-        \[
-          W=\operatorname{Tr}_{+}\widehat{\mathcal U}_{+}\,
-            \operatorname{Tr}_{-}\widehat{\mathcal U}_{-}
-           =\left|\operatorname{Tr}_{+}
-             \widehat{\mathcal U}_{+}\right|^2\geq0 .
-        \]
-        若费米模数为奇数，每边含奇数条 Majorana directions。加入一个完全
-        解耦的辅助复费米模后，扩充系统的 trace 是原 trace 的两倍，而两边
-        都可组成 Fock space；上式于是变为 \(2W=|w_{\rm extended}|^2\)。
-        两种奇偶情形都固定费米 Spin lift 的符号；玻色式固定 metaplectic
-        lift 的符号。
-      </li>
-      <li>
-        两条反线性对称性反对易，并且都平方为 \(-I\)。令
-        \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。若 \(Q\) 的一个本征
-        子空间确实可由满足
-        \([\beta_\mu,\beta_\nu^+]=\delta_{\mu\nu}\) 的 annihilation
-        operators 张成，那么每个 \(\hat h_\ell\) 在这组 particles 中都
-        没有 pairing；任一 \(\Theta_a\) 在这个 particle space 内给出
-        Kramers pairing。权重遂还原为普通的 Kramers determinant，实际
-        Fock 迹非负。费米 CAR 自动允许这样的 particle space；玻色必须
-        逐表示检查上述 commutator matrix 是否正定。
-      </li>
-    </ol>
-    <p>
-      其余对易关系与平方组合，仅靠原有两条对称性不能普适固定实际
-      half-power 权重。它们仍可能因额外的 particle-number symmetry、
-      reflected-square factorization、split-orthogonal subgroup 或第三条
-      物理反线性对称性而成为无符号模型，但这些都是需要逐模型验证的
-      附加结构。
-    </p>
-
-    <h4>非零 \(A_{\mathrm{cone}}\) 进入时间片后</h4>
-    <p>
-      \(A_{\mathrm{cone}}\) 在 \(\Theta_1\) 下仍取正号，在
-      \(\Theta_2\) 下却取负号。因此
-      \[
-        \Theta_1\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
-          \Theta_1^{-1}
-          =\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}}),
-      \]
-      但
-      \[
-        \Theta_2\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
-          \Theta_2^{-1}
-          =\hat h(A_{\mathrm{group}}-A_{\mathrm{cone}}).
-      \]
-      所以 \(\Theta_2\) 一般把当前辅助场构型送到另一个构型，而不是
-      保持同一个 sampled weight；上面的双对称性证明不能继续引用。
-      要得到逐构型非负权重，必须另外建立完整算符的 reflected-square
-      分解、一个由所有时间片共同保持的物理 particle space 与 Kramers
-      symmetry，或另一条对 group 与 cone 方向都取正号的物理反线性
-      对称性。收缩半群与连通正分支是另一套证明，本节不拿它代替上述
-      operator-level 条件。
-    </p>
-
-    <div class="result">
-      <strong>64 类的阅读入口。</strong>
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
-      独立理论卷的 64 类表</a>逐行给出只含
-      \(A_{\mathrm{group}}\) 时的实际 Fock 权重结论，以及非零
-      \(A_{\mathrm{cone}}\) 参与后还缺少的算符条件；机器可读结果见
-      <a href="tables/half_power_symmetry_64_classes.csv">
-      half_power_symmetry_64_classes.csv</a>。
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>证明路线</th><th>从哪里出发</th><th>怎样固定权重的正号</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>收缩半群路线，本卷主线</strong></td>
+            <td>
+              存在非空的严格 \(A_{\mathrm{cone}}\)，并能把实际自由项与
+              HS 时间片选在 \(A_{\mathrm{group}}+A_{\mathrm{cone}}\) 内；
+              相应的每个完整传播 \(M(\phi)\) 都位于同一个与物理 Fock
+              representation 相容的收缩半群内部。
+            </td>
+            <td>
+              严格收缩排除 determinant 的 zero 或 pole；辅助场空间连通，
+              从一个正参考构型连续延伸到任意构型。整个连续分支只能保持
+              同一个正号，不需要从最终的 \(M\) 单独恢复 double-cover
+              符号。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>反线性对称性路线，group-only 的补充筛选</strong></td>
+            <td>
+              严格 \(A_{\mathrm{cone}}\) 为空，收缩半群内部无法由这五条
+              关系构造；在这套五关系 ansatz 内，只能使用
+              \(A_{\mathrm{group}}\)。
+            </td>
+            <td>
+              再检查全部时间片是否共同保持足够多的物理反线性对称性，
+              使实际 bosonic metaplectic 或 fermionic Spin half-power
+              化为共轭模平方或 Kramers determinant。
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <p>
+      因而，“Octave 找到非空 cone”是收缩半群证明的入口，而不是证明的
+      最后一句。每张 strict-cone 类别卡还必须写出实际 Hamiltonian、
+      HS 分解和每个时间片的生成元，逐项确认它们真的满足同一个收缩
+      不等式；若只知道测试矩阵 \(A=-\eta\) 存在，尚不能把任意物理模型
+      自动归入该半群。
+    </p>
+
+    <h4>收缩半群路线为什么不需要逐构型计算 double-cover 符号</h4>
+    <p>
+      设 \(\phi\) 表示全部时空辅助场，\(M(\phi)\) 是相应有序传播矩阵，
+      \(W(\phi)\) 是实际 Fock-space operator trace。矩阵乘法恒等式
+
+      \[
+      \begin{aligned}
+        &(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+        &\quad=M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+        +(M_2^\dagger\eta M_2-\eta)
+      \end{aligned}
+      \]
+      表明满足半负定不等式的传播对乘法封闭；只要完整乘积中有一个严格
+      收缩因子，整个乘积仍满足严格不等式。对玻色子，还要确认这个矩阵
+      半群确实延拓到当前物理 Fock space，并使 operator trace 收敛；
+      第 6.3--6.4 节会把这一步和 \(J_2g\)、\(iJ_2g\) 两种 metric 分开写清楚。
+    </p>
+    <p>
+      在这些条件成立后，严格收缩排除玻色的 \(+1\) pole，也排除费米的
+      \(-1\) zero。若辅助场空间连通，并有一个稳定的零场或自由场构型
+      \(\phi_0\) 满足 \(W(\phi_0)>0\)，则任意 \(\phi\) 都可由一条连续
+      路径连接到 \(\phi_0\)。实际有序 Fock operator 沿这条路径连续，
+      所以它自动携带正确的 metaplectic 或 Spin lift；我们没有在每一点
+      重新对 determinant 开平方。只要完整权重始终为实且不为零，它就
+      不可能从正数变成负数。这就是本卷对 cone 非空类别采用的证明。
+    </p>
+    <div class="note">
+      <strong>这里出现的“权重为实”不要与第二条路线混淆。</strong>
+      note 的条件 \(J_1^TAJ_1=\bar A\)，连同正规序标量满足同一共轭关系，
+      可以保证 \(W(\phi)=\overline{W(\phi)}\)。它只是把连续路径限制在
+      实轴上；正号来自“严格收缩、不经过 zero/pole、连接到正参考点”。
+      反线性对称性路线则不使用这条连续分支论证，而是直接把每个构型的
+      实际 Fock trace 写成模平方或 Kramers-paired determinant。二者是
+      两套不同的正性判据。
+    </div>
+
+    <h4>为什么只在 \(A_{\mathrm{cone}}=\varnothing\) 时启动反线性补充筛选</h4>
+    <p>
+      对 maximal-subgroup generator，两个 \(J_a\) 都可转成逐时间片保持
+      二次算符的候选反线性变换。若 \(J_a^TgJ_a=g\)，取
+      \(U_a=J_a\)；若 \(J_a^TgJ_a=-g\)，取 \(U_a=iJ_a\)，再定义
+      \(\Theta_a=U_a\mathcal K\)。玻色子还必须检查这个矩阵确实保持
+      “creation component 是相应 annihilation component 的 Hermitian
+      conjugate”这一物理关系。满足这些条件后，才可询问两条
+      \(\Theta_a\) 是否构成模平方或 Kramers 正性结构。
+    </p>
+    <p>
+      但是 \(A_{\mathrm{cone}}\) 对两个 \(J_a\) 的作用不同：
+
+      \[
+        U_1^{-1}\overline{A_{\mathrm{cone}}}U_1
+          =A_{\mathrm{cone}},\qquad
+        U_2^{-1}\overline{A_{\mathrm{cone}}}U_2
+          =-A_{\mathrm{cone}}.
+      \]
+      因此非零 cone generator 进入时间片后，第二条变换通常把当前辅助场
+      构型送到另一个构型。它不再是固定该构型权重的对称性。对这些类别，
+      本卷直接使用上面的收缩半群路线，不把只适用于
+      \(A_{\mathrm{group}}\) 的双反线性证明强行套上去。
+    </p>
+    <p>
+      若严格 \(A_{\mathrm{cone}}\) 为空，第一条路线才真正失去入口。
+      第 6.6 节的相应类别卡会就地列出：由该卡具体 \(J_1,J_2\) 得到的
+      物理反线性变换是否足以固定实际 half-power。完整、独立的定理与
+      证明集中在
+      <a href="part_7_determinant_symmetry_groups.html">第 7 卷</a>；
+      本卷只引用最终判据，不重复建立整套理论。
+    </p>

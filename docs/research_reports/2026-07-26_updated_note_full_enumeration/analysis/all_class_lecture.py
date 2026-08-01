@@ -1370,11 +1370,111 @@ def group_only_positivity(
     """
 
 
+def strict_semigroup_positivity(row: dict[str, str]) -> str:
+    """Explain the strict-cone route without invoking A_group TRS theorems."""
+    if row["statistics"] == "boson" and row["metric"] == "J2g":
+        return r"""
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
+              连通正分支，不走双反线性 half-power 定理。</strong>
+              对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+              \(\eta=J_2g\) 与 bosonic particle/hole Fock
+              representation 相容。它的每个完整辅助场传播都满足
+              \[
+                M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+              \]
+            </p>
+            <p>
+              乘法封闭性保证任意多个不对易时间片的有序积仍在同一个
+              strict contraction semigroup 内。物理 oscillator
+              representation 在这个内部给出 trace-class Gaussian
+              operator，因此 bare trace 收敛；严格不等式还排除
+              \(M(\phi)\) 的 \(+1\) 本征值，所以玻色 determinant
+              不会遇到 pole。\(J_1\) 条件使完整权重为实，实辅助场空间
+              连通，稳定零场的权重为正。沿任意辅助场路径，实际有序
+              Fock operator 连续携带同一个 metaplectic lift，且权重既
+              不发散也不经过零。因此所有构型保持同一个正分支。
+            </p>
+            <p>
+              这里没有从最终传播矩阵重新选择平方根，也没有计算一个
+              独立的 double-cover 符号。正号完全由“strict contraction、
+              正参考点、连通路径”固定。第 6.4 节给出含 pairing 与一般
+              不对易时间片乘积的 trace-class 推导。
+            </p>
+          </section>
+        """
+
+    if row["statistics"] == "boson":
+        return r"""
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 的矩阵筛选，metric 为
+              \(\eta=iJ_2g\)。</strong>
+              本卡的 \(A_{\mathrm{group}}\) 与
+              \(A_{\mathrm{cone}}\) 给出了一个可构造的矩阵收缩半群：
+              其中存在使
+              \(\eta A_{\mathrm{cone}}
+              +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
+              这正是 Octave 穷举要寻找的对象，而不是一组 half-power
+              反线性对称性。
+            </p>
+            <p>
+              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
+              与物理 oscillator representation 对齐。第 6.4 节的
+              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
+              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
+              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
+              grand-canonical 连通正分支已经建立。
+            </p>
+            <p>
+              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
+              有限维，完整 character 对每个辅助场构型被显式证明为正；
+              所以它仍是完整的 canonical 无符号模型。这个结论保留了
+              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
+              与“grand-canonical oscillator-semigroup representation
+              已经构造”这两个不同陈述。
+            </p>
+          </section>
+        """
+
+    return r"""
+      <section class="semigroup-positivity">
+        <p class="result">
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
+        </p>
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
+      </section>
+    """
+
+
 def positivity_block(
     row: dict[str, str],
     physical_orbit_rows: list[dict[str, str]],
 ) -> str:
-    has_cone = bool(int(row["strict_interior"]))
+    if int(row["strict_interior"]):
+        return strict_semigroup_positivity(row)
+
     anti_linear_text, theorem_class = group_antilinear_analysis(row)
     group_result = group_only_positivity(
         row,
@@ -1382,48 +1482,17 @@ def positivity_block(
         theorem_class,
         physical_orbit_rows,
     )
-    if has_cone:
-        cone_result = r"""
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-        """
-    else:
-        cone_result = r"""
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
-        """
     return rf"""
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{{\mathrm{{cone}}}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{{\mathrm{{group}}}}\) 的有序时间序列</h4>
         {group_result}
-        {cone_result}
       </section>
     """
 
@@ -2508,22 +2577,35 @@ def atlas_guide() -> str:
         <strong>64 张卡片怎样阅读。</strong>
         每张卡依次给出：最小 \(J_1,J_2\)；满足全部等式的
         \(A_{\mathrm{group}}\)；若存在则给出真正满足严格不等式的
-        \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；该类自身能够
-        证明的正性；最后才是与实际矩阵方向相连的物理模型。
+        \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；然后按 cone
+        是否非空选择正性证明。cone 非空时先研究矩阵收缩半群；其中
+        玻色 \(J_2g\) 与全部费米卡进一步使用相容的 Fock representation
+        和连通正分支，玻色 \(iJ_2g\) 卡则明确改用 fixed-\(N\) character
+        证明实际权重。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
+        反线性正性。
+        最后列出与实际矩阵方向相连的物理模型。
       </div>
       <p>
         图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
-        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。玻色面板中，
-        绿色表示已经找到满足物理 Nambu 共轭关系的 \((+,-)\) 表示，实际权重
-        为两个共轭 bosonic Fock traces 的模平方；黄色专指 B15、B27，它们的四维表示
-        还通过了 commutator matrix 正定性检查，因此可把半幂还原为普通
-        Kramers determinant；红色专指 B12、B32，它们在当前实正交
-        \(J_a\) 设定的任意维数中都不能产生所需物理 annihilation space；
-        灰色表示五条关系本身尚未固定实际 metaplectic half-power。费米面板中，
-        蓝色的 12 类由模平方或物理粒子空间中的 Kramers pairing 直接证明
-        实际 Spin half-power 非负，灰色的 20 类需要再加模型条件。每格的星号
-        只表示严格 \(A_{\mathrm{cone}}\) 存在；它与颜色所表示的纯
-        \(A_{\mathrm{group}}\) 正性是两件不同的判断。
+        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。底色
+        首先显示收缩半群筛选：绿色与蓝色分别表示 strict cone 存在且
+        \(\eta=J_2g\) 或 \(\eta=iJ_2g\)。浅灰表示先由引理1的 trace
+        条件排除的 16 类；在没有被这一步排除的类别中，浅红表示再由
+        引理2的符号翻转条件排除的 8 类。每个统计面板因此一眼可读出
+        \(4+4\) 个 strict-cone 类和 \(16+8\) 个 group-only 类。
+      </p>
+      <p>
+        只有 group-only 格子才叠加深色边框。这个边框表示该格至少存在
+        一组已经验证的物理表示，使原有 \(J_1,J_2\) 能直接证明实际
+        Fock 权重非负；它不是“同一五关系类别的任意表示都自动通过”。
+        玻色侧是
+        B04、B07、B19、B24 的共轭模平方以及 B15、B27 的物理
+        Kramers particle space；费米侧是 F10、F13、F25、F30 的
+        共轭 Majorana 分块。B12、B32 虽有 \((-,-)\) 代数关系，但在
+        当前实正交 \(J_a\) 设定中不能形成正的玻色 particle space，
+        所以不加边框。strict-cone 格子不叠加这种标记，因为它们在本卷
+        中首先由收缩半群证明，而不是由纯 \(A_{\mathrm{group}}\) 的
+        反线性定理证明。
       </p>
     """
 

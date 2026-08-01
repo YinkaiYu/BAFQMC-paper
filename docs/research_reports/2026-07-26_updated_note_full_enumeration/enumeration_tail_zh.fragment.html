@@ -52,42 +52,44 @@
       第 6.6 节已经按统一类别编号逐一列完玻色 32 类与费米 32 类，
       因此这里不再另做一张重复的 64 行表。严格负定
       \(A_{\mathrm{cone}}\) 在玻色、费米中各有 8 类；其余各 24 类只有
-      \(A_{\mathrm{group}}\)。这个 8 与 24 的计数只回答收缩不等式是否
-      允许严格小于零，不是实际 Fock 权重的分类。
+      \(A_{\mathrm{group}}\)。这是本卷的第一分类轴：前者进入收缩半群
+      路线，后者才进入反线性对称性或其他群正性的补充筛选。
     </p>
     <p>
-      若所有时间片都属于 \(A_{\mathrm{group}}\)，两条物理反线性
-      对称性都保持同一个辅助场构型。费米 32 类中有 12 类由原有
-      \(J_1,J_2\) 直接得到实际 Spin half-power 的逐构型非负定理：
-      8 类把 Majorana operators 分成两个互为复共轭的分块：费米模数为偶数
-      时直接得到两个 Fock traces 的模平方，模数为奇数时加入一个解耦辅助模，
-      两倍的原 trace 成为模平方；
-      4 类在由两条对称性共同定义的 particle space 中得到 Kramers
-      pairing；其余 20 类仅靠这两条对称性不能固定实际权重。
+      16 个 strict-cone 类中，八个费米类由有限 Fock space、严格收缩
+      排除 \(-1\) 本征值、实权重和连通正参考点得到逐构型非负结论。
+      四个玻色 \(J_2g\) 类的物理代表与 standard particle/hole
+      oscillator representation 相容；strict contraction 同时给出
+      trace class、无 \(+1\) pole 和连通正分支，所以得到完整的
+      grand-canonical 无符号模型。四个玻色 \(iJ_2g\) 类也确实具有
+      Octave 找到的严格矩阵锥，但该 metric 不能与稳定 Hermitian
+      grand-canonical 零场同时实现；本报告为它们构造的是固定总粒子数
+      的有限维正 character 模型。这个区别在每张相应卡片中就地写明。
     </p>
     <p>
-      玻色侧不能把同一代数计数直接照搬。8 个复共轭子系统类都已在
-      四维找到保持“creation 是相应 annihilation 的 Hermitian
-      conjugate”这一物理关系的表示，并在
-      这些表示中得到 \(W_{\mathrm B}=|w|^2\geq0\)。另有 4 类具备
-      两条反线性变换都平方为 \(-I\) 且彼此反对易：其中 2 类的四维
-      表示的 commutator matrix 通过了正定性检查；
-      另外 2 类在当前 real-orthogonal \(J_a\) 设定的任意维数中都
-      不能把所需本征子空间实现为物理 annihilation space。因此这里不把
-      “具有同样的五个正负号”误写成“所有表示自动无符号”。
+      48 个 strict cone 为空的类别中，才使用原有 \(J_1,J_2\) 做
+      group-only 补充筛选。玻色 B04、B07、B19、B24 的物理表示把
+      Fock space 分成两个互为复共轭的部分，实际权重是模平方；B15、
+      B27 的四维表示给出正的物理 particle space，再由 Kramers pairing
+      证明权重非负。B12、B32 虽有同样的 \((-,-)\) 反线性代数，当前
+      real-orthogonal \(J_a\) 设定在任意维数都不能产生所需的正
+      bosonic particle space。其余 16 个玻色 group-only 类仅靠原有
+      两条变换还不能固定权重。
     </p>
     <p>
-      若非零 \(A_{\mathrm{cone}}\) 进入时间片，\(\Theta_2\) 会把它变成
-      \(-A_{\mathrm{cone}}\)，因而不再保持同一个 fixed-field history。
-      玻色、费米各自 8 个 cone 非空类都不能继续直接引用上述两条
-      symmetry 的证明。某个具体模型仍可由 reflected-square
-      factorization、所有时间片共同保持的 particle space 与 Kramers
-      symmetry、额外物理反线性对称性，或本报告另一部分的收缩半群与
-      连通分支论证得到非负权重；这些附加条件必须逐模型检查。
+      费米的 24 个 group-only 类中，F10、F13、F25、F30 由原有
+      \(J_1,J_2\) 形成反对易的 \((+,-)\) 物理反线性 pair；实际
+      Spin trace 化成共轭 Majorana 分块的模平方。其余 20 类仅凭原有
+      两条变换没有普适正性定理。它们仍可能在加入第三条物理反线性
+      对称性、限制到 split-orthogonal 子群或施加 reflection-positive
+      factorization 后无符号；那是模型的附加结构，不改变本次 strict
+      cone 筛选结果。
     </p>
     <p>
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">独立理论卷的
-      64 类表</a>逐行列出 actual half-power 结论；相同内容的机器可读版为
+      <a href="part_7_determinant_symmetry_groups.html#class-atlas">独立时间反演
+      理论卷的 64 类表</a>专门回答纯 \(A_{\mathrm{group}}\) 序列的 actual
+      half-power 问题，其中也保留 strict-cone 类的 group-boundary
+      交叉性质；这不改变本卷优先使用收缩半群的分类顺序。机器可读版为
       <a href="tables/half_power_symmetry_64_classes.csv">
       half_power_symmetry_64_classes.csv</a>。
     </p>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot the actual half-power A_group atlas as a periodic table."""
+"""Plot strict-cone screening with group-only anti-linear fallbacks."""
 
 from __future__ import annotations
 
@@ -9,13 +9,14 @@ from pathlib import Path
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from matplotlib.patches import Patch
+from matplotlib.patches import Patch, Rectangle
 import numpy as np
 
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FULL_TABLE = ROOT / "tables" / "full_64_class_enumeration.csv"
+HALF_POWER_TABLE = ROOT / "tables" / "half_power_symmetry_64_classes.csv"
 FIGURE_DIR = ROOT / "figures"
 
 ROW_KEYS = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
@@ -31,19 +32,17 @@ COL_KEYS = [
 ]
 
 COLORS = {
-    "not_fixed": "#e1e4e6",
-    "fermion_actual_positive": "#8dbbd8",
-    "boson_modulus_square": "#92c3a0",
-    "boson_polarization_verified": "#e0c16c",
-    "boson_polarization_impossible": "#d99b91",
+    "empty_trace_obstruction": "#e2e5e7",
+    "empty_flip_obstruction": "#efc2b8",
+    "strict_j2g": "#70aa7f",
+    "strict_ij2g": "#6f9fc4",
 }
 
 COLOR_ORDER = [
-    "not_fixed",
-    "fermion_actual_positive",
-    "boson_modulus_square",
-    "boson_polarization_verified",
-    "boson_polarization_impossible",
+    "empty_trace_obstruction",
+    "empty_flip_obstruction",
+    "strict_j2g",
+    "strict_ij2g",
 ]
 
 BOSON_POLARIZATION_VERIFIED = {15, 27}
@@ -95,89 +94,146 @@ def anti_linear_pair_type(row: dict[str, str]) -> str | None:
 
 def classify(
     row: dict[str, str], class_number: int
-) -> tuple[str, str, str]:
-    """Return actual A_group half-power category, label, and cone detail."""
-    pair_type = anti_linear_pair_type(row)
-
+) -> tuple[str, str, bool]:
+    """Return cone category, cell text, and group-only positivity outline."""
     if row["status"] == "strict":
-        cone = (
-            r"cone: strict $J_2g$*"
-            if row["metric"] == "J2g"
-            else r"cone: strict $iJ_2g$*"
+        category = (
+            "strict_j2g" if row["metric"] == "J2g" else "strict_ij2g"
         )
-    else:
-        cone = "cone: none"
-
-    if pair_type is None:
+        metric = r"$J_2g$" if row["metric"] == "J2g" else r"$iJ_2g$"
+        if row["statistics"] == "boson" and row["metric"] == "iJ2g":
+            description = (
+                "strict matrix cone\n"
+                + rf"$\eta={metric[1:-1]}$"
+                + "\nfixed-$N$ weight"
+            )
+        else:
+            description = (
+                "strict cone\n"
+                + rf"$\eta={metric[1:-1]}$"
+                + "\nsemigroup branch"
+            )
         return (
-            "not_fixed",
-            r"$A_{\rm group}$: five relations" "\n" "do not fix the half-power",
-            cone,
+            category,
+            description,
+            False,
         )
 
-    if row["statistics"] == "fermion":
-        mechanism = (
-            r"anticomm. $(+,-)$: conjugate Majorana blocks, $W_{\rm F}\geq0$"
-            if pair_type == "plus_minus"
-            else r"anticomm. $(-,-)$: Kramers polarization"
-        )
-        return (
-            "fermion_actual_positive",
-            r"$A_{\rm group}$: actual $W_{\rm F}\geq0$" "\n" + mechanism,
-            cone,
-        )
-
-    if pair_type == "plus_minus":
-        return (
-            "boson_modulus_square",
-            r"anticomm. $(+,-)$: $W_{\rm B}=|w|^2\geq0$" "\n"
-            r"if the pair is Fock-realizable",
-            cone,
-        )
-
-    if class_number in BOSON_POLARIZATION_VERIFIED:
-        return (
-            "boson_polarization_verified",
-            r"anticomm. $(-,-)$: actual $W_{\rm B}\geq0$" "\n"
-            r"positive polarization verified at $d=4$",
-            cone,
-        )
-
-    if class_number in BOSON_POLARIZATION_IMPOSSIBLE:
-        return (
-            "boson_polarization_impossible",
-            r"anticomm. $(-,-)$: no positive polarization" "\n"
-            r"for real orthogonal $J_a$",
-            cone,
-        )
-
-    raise ValueError(
-        f"unclassified bosonic (-,-) class B{class_number:02d}"
+    pair_type = anti_linear_pair_type(row)
+    category = (
+        "empty_trace_obstruction"
+        if row["status"] == "boundary_only_trace_obstruction"
+        else "empty_flip_obstruction"
     )
+    if row["statistics"] == "fermion" and pair_type == "plus_minus":
+        return (
+            category,
+            "group only\n" + r"$\Theta(+,-)$: $W_{\rm F}\geq0$",
+            True,
+        )
+    if row["statistics"] == "boson" and pair_type == "plus_minus":
+        return category, "group only\n" + r"$\Theta(+,-)$: $W_{\rm B}=|w|^2$", True
+    if (
+        row["statistics"] == "boson"
+        and class_number in BOSON_POLARIZATION_VERIFIED
+    ):
+        return (
+            category,
+            "group only\n" + r"$\Theta(-,-)$: Kramers" + "\nphysical at d=4",
+            True,
+        )
+    if (
+        row["statistics"] == "boson"
+        and class_number in BOSON_POLARIZATION_IMPOSSIBLE
+    ):
+        return (
+            category,
+            "group only\n"
+            + r"$\Theta(-,-)$: no positive"
+            + "\nparticle space",
+            False,
+        )
+    return category, "group only\nno theorem from\noriginal $J_1,J_2$", False
 
 
-def validate_atlas(rows: list[dict[str, str]]) -> None:
-    """Guard the 20 + 8 + 4 classification and the independent cone count."""
+def validate_atlas(
+    rows: list[dict[str, str]],
+    half_power_rows: list[dict[str, str]],
+) -> None:
+    """Guard cone counts and the empty-cone anti-linear fallback counts."""
     for statistics in ("boson", "fermion"):
         selected = [row for row in rows if row["statistics"] == statistics]
-        counts = {None: 0, "plus_minus": 0, "minus_minus": 0}
-        for row in selected:
-            counts[anti_linear_pair_type(row)] += 1
-        expected = {None: 20, "plus_minus": 8, "minus_minus": 4}
-        if counts != expected:
-            raise ValueError(
-                f"unexpected {statistics} A_group classification: {counts}"
+        strict = [row for row in selected if row["status"] == "strict"]
+        empty = [row for row in selected if row["status"] != "strict"]
+        metric_counts = {
+            metric: sum(row["metric"] == metric for row in strict)
+            for metric in ("J2g", "iJ2g")
+        }
+        obstruction_counts = {
+            status: sum(row["status"] == status for row in empty)
+            for status in (
+                "boundary_only_trace_obstruction",
+                "boundary_only_reality_flip",
             )
-        strict_count = sum(row["status"] == "strict" for row in selected)
-        if strict_count != 8:
+        }
+        if metric_counts != {"J2g": 4, "iJ2g": 4}:
             raise ValueError(
-                f"expected 8 strict-cone {statistics} classes, got {strict_count}"
+                f"unexpected {statistics} strict metrics: {metric_counts}"
             )
+        expected_obstructions = {
+            "boundary_only_trace_obstruction": 16,
+            "boundary_only_reality_flip": 8,
+        }
+        if obstruction_counts != expected_obstructions:
+            raise ValueError(
+                f"unexpected {statistics} empty-cone counts: {obstruction_counts}"
+            )
+
+        positives = 0
+        for class_number, row in enumerate(selected, start=1):
+            if row["status"] == "strict":
+                continue
+            _, _, positive = classify(row, class_number)
+            positives += positive
+        expected_positive = 6 if statistics == "boson" else 4
+        if positives != expected_positive:
+            raise ValueError(
+                f"expected {expected_positive} group-only positive {statistics} "
+                f"classes, got {positives}"
+            )
+
+    evidence_positive: dict[str, set[int]] = {"boson": set(), "fermion": set()}
+    for row in half_power_rows:
+        if int(row["strict_cone_exists"]):
+            continue
+        mechanism = row["group_half_power_mechanism"]
+        result = row["group_actual_weight_result"]
+        if row["statistics"] == "fermion" and mechanism in {
+            "conjugate_subsystems",
+            "kramers_polarization",
+        }:
+            evidence_positive["fermion"].add(int(row["class_number"]))
+        if row["statistics"] == "boson" and (
+            r"W_{\rm B}" in result or "已验证为正定" in result
+        ):
+            evidence_positive["boson"].add(int(row["class_number"]))
+
+    plotted_positive: dict[str, set[int]] = {"boson": set(), "fermion": set()}
+    for statistics in ("boson", "fermion"):
+        selected = [row for row in rows if row["statistics"] == statistics]
+        for class_number, row in enumerate(selected, start=1):
+            if row["status"] != "strict" and classify(row, class_number)[2]:
+                plotted_positive[statistics].add(class_number)
+    if plotted_positive != evidence_positive:
+        raise ValueError(
+            "figure outlines disagree with half-power evidence table: "
+            f"plot={plotted_positive}, evidence={evidence_positive}"
+        )
 
 
 def panel_data(
     rows: list[dict[str, str]],
-) -> tuple[np.ndarray, list[list[str]]]:
+) -> tuple[np.ndarray, list[list[str]], np.ndarray]:
     lookup = {
         (
             int(row["s1"]),
@@ -191,23 +247,26 @@ def panel_data(
     color_index = {name: index for index, name in enumerate(COLOR_ORDER)}
     values = np.empty((4, 8), dtype=int)
     labels = [["" for _ in range(8)] for _ in range(4)]
+    outlines = np.zeros((4, 8), dtype=bool)
     for i, (s1, q1) in enumerate(ROW_KEYS):
         for j, (s2, q2, r) in enumerate(COL_KEYS):
             number, row = lookup[(s1, q1, s2, q2, r)]
-            category, positivity, cone_detail = classify(row, number)
+            category, description, outlined = classify(row, number)
             values[i, j] = color_index[category]
+            outlines[i, j] = outlined
             prefix = "B" if row["statistics"] == "boson" else "F"
             dimension = 2 ** int(row["min_qubits"])
             labels[i][j] = (
                 f"{prefix}{number:02d}   d={dimension}\n"
-                f"{positivity}\n{cone_detail}"
+                f"{description}"
             )
-    return values, labels
+    return values, labels, outlines
 
 
 def main() -> None:
     full_rows = load_rows(FULL_TABLE)
-    validate_atlas(full_rows)
+    half_power_rows = load_rows(HALF_POWER_TABLE)
+    validate_atlas(full_rows, half_power_rows)
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
     mpl.rcParams.update(
@@ -226,7 +285,7 @@ def main() -> None:
         selected = [
             row for row in full_rows if row["statistics"] == statistics
         ]
-        values, labels = panel_data(selected)
+        values, labels, outlines = panel_data(selected)
         ax = axes[panel]
         ax.imshow(
             values,
@@ -243,10 +302,21 @@ def main() -> None:
                     labels[row_index][col_index],
                     ha="center",
                     va="center",
-                    fontsize=6.2,
-                    linespacing=1.13,
+                    fontsize=6.8,
+                    linespacing=1.16,
                     color="#172126",
                 )
+                if outlines[row_index, col_index]:
+                    ax.add_patch(
+                        Rectangle(
+                            (col_index - 0.47, row_index - 0.47),
+                            0.94,
+                            0.94,
+                            fill=False,
+                            edgecolor="#174f46",
+                            linewidth=2.5,
+                        )
+                    )
 
         ax.set_xticks(range(8))
         ax.set_xticklabels(
@@ -276,9 +346,9 @@ def main() -> None:
         ax.tick_params(which="major", length=0)
         ax.set_title(
             (
-                r"a  Boson: actual metaplectic half-power on $A_{\rm group}$"
+                r"a  Boson: strict-cone screening; group-only symmetry fallback"
                 if panel == 0
-                else r"b  Fermion: actual Spin half-power on $A_{\rm group}$"
+                else r"b  Fermion: strict-cone screening; group-only symmetry fallback"
             ),
             loc="left",
             fontweight="bold",
@@ -287,24 +357,26 @@ def main() -> None:
 
     legend = [
         Patch(
-            facecolor=COLORS["fermion_actual_positive"],
-            label=r"fermion: conjugate Majorana blocks or Kramers give $W_{\rm F}\geq0$ (12/32)",
+            facecolor=COLORS["strict_j2g"],
+            label=r"strict cone: $\eta=J_2g$ (4/32 per panel)",
         ),
         Patch(
-            facecolor=COLORS["boson_modulus_square"],
-            label=r"boson: $W_{\rm B}=|w|^2$ for physical anticomm. $(+,-)$ pairs (8/32)",
+            facecolor=COLORS["strict_ij2g"],
+            label=r"strict cone: $\eta=iJ_2g$ (4/32 per panel)",
         ),
         Patch(
-            facecolor=COLORS["boson_polarization_verified"],
-            label="boson B15/B27: positive polarization verified at d=4",
+            facecolor=COLORS["empty_trace_obstruction"],
+            label="first screen: cone empty by Lemma 1 (16/32)",
         ),
         Patch(
-            facecolor=COLORS["boson_polarization_impossible"],
-            label=r"boson B12/B32: impossible for real orthogonal $J_a$",
+            facecolor=COLORS["empty_flip_obstruction"],
+            label="second screen: remaining cone empty by Lemma 2 (8/32)",
         ),
         Patch(
-            facecolor=COLORS["not_fixed"],
-            label="remaining 20/32: five relations do not fix the actual half-power",
+            facecolor="none",
+            edgecolor="#174f46",
+            linewidth=2.5,
+            label="outlined group-only cell: anti-linear theorem proves actual weight nonnegative",
         ),
     ]
     figure.legend(
@@ -318,12 +390,10 @@ def main() -> None:
     figure.text(
         0.5,
         0.013,
-        r"Each panel has 8 anticomm. $(+,-)$ classes, 4 anticomm. $(-,-)$ "
-        r"classes, and 20 classes not fixed by the five relations.  "
-        r"$A_{\rm group}$ labels assume both symmetries hold for every complete "
-        r"slice.  * A strict cone is independent (8/32): nonzero "
-        r"$A_{\rm cone}$ is mapped to $-A_{\rm cone}$ by $\Theta_2$, so the same "
-        r"configuration is not preserved and the $A_{\rm group}$ proof does not apply.",
+        r"Primary classification: 8 strict-cone classes and 24 group-only classes per panel.  "
+        r"Anti-linear positivity is tested only for the group-only cells: 6 bosonic and "
+        r"4 fermionic classes have a verified physical representation using their original "
+        r"$J_1,J_2$ pair.  Blue bosonic cells use fixed-$N$ weights.",
         ha="center",
         va="bottom",
         fontsize=8.0,

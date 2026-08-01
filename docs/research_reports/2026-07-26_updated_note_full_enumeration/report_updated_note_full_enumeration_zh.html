@@ -340,7 +340,7 @@
       <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
     </h1>
     <div class="meta">
-      <div>报告日期：2026-08-01</div>
+      <div>报告日期：2026-08-02</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
       <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -8815,125 +8815,133 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       \(J_2\) 保持 \(g\) 时使用 metric \(iJ_2g\)。
     </div>
 
-        <h3 id="group-only-theorems">5.5 五条关系怎样约束实际 Nambu half-power 权重</h3>
+        <h3 id="group-only-theorems">5.5 两条彼此独立的无符号证明路线</h3>
     <p>
-      对一个固定辅助场构型，本节研究的对象是实际有序 Gaussian Fock
-      算符的迹
+      到这里，五条关系的第一项工作已经完成：它们告诉我们哪些类别允许
+
       \[
-        W=\operatorname{Tr}_{\mathcal F}
-        \left(e^{\hat h_L}\cdots e^{\hat h_1}\right),
+        A=A_{\mathrm{group}}+A_{\mathrm{cone}},\qquad
+        \eta A_{\mathrm{group}}+A_{\mathrm{group}}^\dagger\eta=0,
         \qquad
-        \hat h_\ell=\frac12\hat\chi^TgA_\ell\hat\chi .
+        \eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0 .
       \]
-      对任意物理模数 \(N\)，相应的矩阵简写是
-      \([(-1)^N\det(I-M)]^{-1/2}\)（玻色）与
-      \([\det(I+M)]^{1/2}\)（费米），其中
-      \(M=e^{A_L}\cdots e^{A_1}\)，只是这个实际 Fock 迹的矩阵简写。
-      合作者原式省略的 \((-1)^N\) 在偶数 \(N\) 时等于一；一般情形必须保留。
-      只知道终点矩阵 \(M\) 及其 determinant，不能区分相差中央负号的
-      两个 metaplectic 或 Spin lifts。因此下面的正性证明直接作用于
-      有序 Fock 算符，不先把 half-power 平方后再猜它的符号。
+      下面必须把两种不同的无符号证明分开。它们可以作用于同一个模型，
+      但逻辑上谁也不依赖谁。
     </p>
 
-    <h4>先把 \(J_a\mathcal K\) 变成物理反线性对称性</h4>
-    <p>
-      若 \(J_a^TgJ_a=g\)，取 \(U_a=J_a\)；若
-      \(J_a^TgJ_a=-g\)，取 \(U_a=iJ_a\)，并定义
-      \(\Theta_a=U_a\mathcal K\)。这里 \(\mathcal K\) 对系数作复共轭。
-      除保持 canonical relations 外，玻色 Nambu 变换还必须保证
-      creation component 仍是相应 annihilation component 的
-      Hermitian conjugate。若
-      \(\hat\chi^+=\hat\chi^T C\)，这一条件是
-      \[
-        C\overline{U_a}C=U_a .
-      \]
-      它排除了只在矩阵代数上成立、却不能作用于物理 Fock space 的
-      \(J_a\)。在这些条件满足后，五条关系在 Nambu operators 上直接给出
-      \[
-        \Theta_a^2=J_a^2,
-      \]
-      而两条 \(\Theta_a\) 对易还是反对易，要把
-      \(J_1J_2=\pm J_2J_1\) 的符号再乘上
-      \(J_1,J_2\) 各自保持或翻转 \(g\) 的两个符号。
-    </p>
-
-    <h4>只含 \(A_{\mathrm{group}}\) 时的两种完整正性证明</h4>
-    <p>
-      对 \(A_{\mathrm{group}}\)，两条 \(\Theta_a\) 都逐时间片保持
-      \(\hat h_\ell\)。此时有两种由原有两条对称性直接推出
-      \(W\geq0\) 的情形。
-    </p>
-    <ol>
-      <li>
-        两条反线性对称性反对易，且一条平方为 \(+I\)、另一条平方为
-        \(-I\)。令 \(P=\Theta_+\Theta_-\)，则 \(P^2=I\)。
-        \(P=+1\) 与 \(P=-1\) 两边不混合，并由 \(\Theta_+\) 互换。
-        对玻色子以及偶数模费米子，两边各自组成完整 Fock space，因此
-        \[
-          W=\operatorname{Tr}_{+}\widehat{\mathcal U}_{+}\,
-            \operatorname{Tr}_{-}\widehat{\mathcal U}_{-}
-           =\left|\operatorname{Tr}_{+}
-             \widehat{\mathcal U}_{+}\right|^2\geq0 .
-        \]
-        若费米模数为奇数，每边含奇数条 Majorana directions。加入一个完全
-        解耦的辅助复费米模后，扩充系统的 trace 是原 trace 的两倍，而两边
-        都可组成 Fock space；上式于是变为 \(2W=|w_{\rm extended}|^2\)。
-        两种奇偶情形都固定费米 Spin lift 的符号；玻色式固定 metaplectic
-        lift 的符号。
-      </li>
-      <li>
-        两条反线性对称性反对易，并且都平方为 \(-I\)。令
-        \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。若 \(Q\) 的一个本征
-        子空间确实可由满足
-        \([\beta_\mu,\beta_\nu^+]=\delta_{\mu\nu}\) 的 annihilation
-        operators 张成，那么每个 \(\hat h_\ell\) 在这组 particles 中都
-        没有 pairing；任一 \(\Theta_a\) 在这个 particle space 内给出
-        Kramers pairing。权重遂还原为普通的 Kramers determinant，实际
-        Fock 迹非负。费米 CAR 自动允许这样的 particle space；玻色必须
-        逐表示检查上述 commutator matrix 是否正定。
-      </li>
-    </ol>
-    <p>
-      其余对易关系与平方组合，仅靠原有两条对称性不能普适固定实际
-      half-power 权重。它们仍可能因额外的 particle-number symmetry、
-      reflected-square factorization、split-orthogonal subgroup 或第三条
-      物理反线性对称性而成为无符号模型，但这些都是需要逐模型验证的
-      附加结构。
-    </p>
-
-    <h4>非零 \(A_{\mathrm{cone}}\) 进入时间片后</h4>
-    <p>
-      \(A_{\mathrm{cone}}\) 在 \(\Theta_1\) 下仍取正号，在
-      \(\Theta_2\) 下却取负号。因此
-      \[
-        \Theta_1\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
-          \Theta_1^{-1}
-          =\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}}),
-      \]
-      但
-      \[
-        \Theta_2\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
-          \Theta_2^{-1}
-          =\hat h(A_{\mathrm{group}}-A_{\mathrm{cone}}).
-      \]
-      所以 \(\Theta_2\) 一般把当前辅助场构型送到另一个构型，而不是
-      保持同一个 sampled weight；上面的双对称性证明不能继续引用。
-      要得到逐构型非负权重，必须另外建立完整算符的 reflected-square
-      分解、一个由所有时间片共同保持的物理 particle space 与 Kramers
-      symmetry，或另一条对 group 与 cone 方向都取正号的物理反线性
-      对称性。收缩半群与连通正分支是另一套证明，本节不拿它代替上述
-      operator-level 条件。
-    </p>
-
-    <div class="result">
-      <strong>64 类的阅读入口。</strong>
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
-      独立理论卷的 64 类表</a>逐行给出只含
-      \(A_{\mathrm{group}}\) 时的实际 Fock 权重结论，以及非零
-      \(A_{\mathrm{cone}}\) 参与后还缺少的算符条件；机器可读结果见
-      <a href="tables/half_power_symmetry_64_classes.csv">
-      half_power_symmetry_64_classes.csv</a>。
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>证明路线</th><th>从哪里出发</th><th>怎样固定权重的正号</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>收缩半群路线，本卷主线</strong></td>
+            <td>
+              存在非空的严格 \(A_{\mathrm{cone}}\)，并能把实际自由项与
+              HS 时间片选在 \(A_{\mathrm{group}}+A_{\mathrm{cone}}\) 内；
+              相应的每个完整传播 \(M(\phi)\) 都位于同一个与物理 Fock
+              representation 相容的收缩半群内部。
+            </td>
+            <td>
+              严格收缩排除 determinant 的 zero 或 pole；辅助场空间连通，
+              从一个正参考构型连续延伸到任意构型。整个连续分支只能保持
+              同一个正号，不需要从最终的 \(M\) 单独恢复 double-cover
+              符号。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>反线性对称性路线，group-only 的补充筛选</strong></td>
+            <td>
+              严格 \(A_{\mathrm{cone}}\) 为空，收缩半群内部无法由这五条
+              关系构造；在这套五关系 ansatz 内，只能使用
+              \(A_{\mathrm{group}}\)。
+            </td>
+            <td>
+              再检查全部时间片是否共同保持足够多的物理反线性对称性，
+              使实际 bosonic metaplectic 或 fermionic Spin half-power
+              化为共轭模平方或 Kramers determinant。
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <p>
+      因而，“Octave 找到非空 cone”是收缩半群证明的入口，而不是证明的
+      最后一句。每张 strict-cone 类别卡还必须写出实际 Hamiltonian、
+      HS 分解和每个时间片的生成元，逐项确认它们真的满足同一个收缩
+      不等式；若只知道测试矩阵 \(A=-\eta\) 存在，尚不能把任意物理模型
+      自动归入该半群。
+    </p>
+
+    <h4>收缩半群路线为什么不需要逐构型计算 double-cover 符号</h4>
+    <p>
+      设 \(\phi\) 表示全部时空辅助场，\(M(\phi)\) 是相应有序传播矩阵，
+      \(W(\phi)\) 是实际 Fock-space operator trace。矩阵乘法恒等式
+
+      \[
+      \begin{aligned}
+        &(M_1M_2)^\dagger\eta(M_1M_2)-\eta\\
+        &\quad=M_2^\dagger(M_1^\dagger\eta M_1-\eta)M_2
+        +(M_2^\dagger\eta M_2-\eta)
+      \end{aligned}
+      \]
+      表明满足半负定不等式的传播对乘法封闭；只要完整乘积中有一个严格
+      收缩因子，整个乘积仍满足严格不等式。对玻色子，还要确认这个矩阵
+      半群确实延拓到当前物理 Fock space，并使 operator trace 收敛；
+      第 6.3--6.4 节会把这一步和 \(J_2g\)、\(iJ_2g\) 两种 metric 分开写清楚。
+    </p>
+    <p>
+      在这些条件成立后，严格收缩排除玻色的 \(+1\) pole，也排除费米的
+      \(-1\) zero。若辅助场空间连通，并有一个稳定的零场或自由场构型
+      \(\phi_0\) 满足 \(W(\phi_0)>0\)，则任意 \(\phi\) 都可由一条连续
+      路径连接到 \(\phi_0\)。实际有序 Fock operator 沿这条路径连续，
+      所以它自动携带正确的 metaplectic 或 Spin lift；我们没有在每一点
+      重新对 determinant 开平方。只要完整权重始终为实且不为零，它就
+      不可能从正数变成负数。这就是本卷对 cone 非空类别采用的证明。
+    </p>
+    <div class="note">
+      <strong>这里出现的“权重为实”不要与第二条路线混淆。</strong>
+      note 的条件 \(J_1^TAJ_1=\bar A\)，连同正规序标量满足同一共轭关系，
+      可以保证 \(W(\phi)=\overline{W(\phi)}\)。它只是把连续路径限制在
+      实轴上；正号来自“严格收缩、不经过 zero/pole、连接到正参考点”。
+      反线性对称性路线则不使用这条连续分支论证，而是直接把每个构型的
+      实际 Fock trace 写成模平方或 Kramers-paired determinant。二者是
+      两套不同的正性判据。
+    </div>
+
+    <h4>为什么只在 \(A_{\mathrm{cone}}=\varnothing\) 时启动反线性补充筛选</h4>
+    <p>
+      对 maximal-subgroup generator，两个 \(J_a\) 都可转成逐时间片保持
+      二次算符的候选反线性变换。若 \(J_a^TgJ_a=g\)，取
+      \(U_a=J_a\)；若 \(J_a^TgJ_a=-g\)，取 \(U_a=iJ_a\)，再定义
+      \(\Theta_a=U_a\mathcal K\)。玻色子还必须检查这个矩阵确实保持
+      “creation component 是相应 annihilation component 的 Hermitian
+      conjugate”这一物理关系。满足这些条件后，才可询问两条
+      \(\Theta_a\) 是否构成模平方或 Kramers 正性结构。
+    </p>
+    <p>
+      但是 \(A_{\mathrm{cone}}\) 对两个 \(J_a\) 的作用不同：
+
+      \[
+        U_1^{-1}\overline{A_{\mathrm{cone}}}U_1
+          =A_{\mathrm{cone}},\qquad
+        U_2^{-1}\overline{A_{\mathrm{cone}}}U_2
+          =-A_{\mathrm{cone}}.
+      \]
+      因此非零 cone generator 进入时间片后，第二条变换通常把当前辅助场
+      构型送到另一个构型。它不再是固定该构型权重的对称性。对这些类别，
+      本卷直接使用上面的收缩半群路线，不把只适用于
+      \(A_{\mathrm{group}}\) 的双反线性证明强行套上去。
+    </p>
+    <p>
+      若严格 \(A_{\mathrm{cone}}\) 为空，第一条路线才真正失去入口。
+      第 6.6 节的相应类别卡会就地列出：由该卡具体 \(J_1,J_2\) 得到的
+      物理反线性变换是否足以固定实际 half-power。完整、独立的定理与
+      证明集中在
+      <a href="part_7_determinant_symmetry_groups.html">第 7 卷</a>；
+      本卷只引用最终判据，不重复建立整套理论。
+    </p>
 
   </section>
 
@@ -8951,30 +8959,33 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     </p>
 
     <div class="result">
-      <strong>64 类 actual-weight 周期表。</strong>
+      <strong>64 类的第一分类轴是 strict contraction cone。</strong>
       第 6.6 节的类别卡按同一编号列出每类的最小 Nambu 维数、
       \(A_{\mathrm{group}}\)、\(A_{\mathrm{cone}}\) 与物理模型。
-      实际 Spin/metaplectic half-power 的统一判据和逐类结论见
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
-      独立理论卷</a>；机器可读表见
-      <a href="tables/half_power_symmetry_64_classes.csv">
-      half_power_symmetry_64_classes.csv</a>。
+      图 1 和每张卡都先回答 strict \(A_{\mathrm{cone}}\) 是否存在；
+      只有答案为否时，才继续检查原有 \(J_1,J_2\) 能否通过反线性
+      对称性固定实际权重。后者的统一定理集中在
+      <a href="part_7_determinant_symmetry_groups.html">
+      独立时间反演理论卷</a>。
     </div>
 
     <figure>
       <img src="figures/full_64_class_enumeration.png"
-        alt="玻色和费米各三十二类的实际 Nambu 半幂权重周期表；每格同时标出只含 A_group 时的算符级正性结论，以及严格 A_cone 是否存在">
+        alt="玻色和费米各三十二类的 strict contraction cone 周期表；cone 为空的格子另标出原有反线性对称性是否足以证明实际权重非负">
       <figcaption>
-        <strong>图 1｜64 类的实际 half-power 结论。</strong>
-        上、下两块分别为玻色与费米。绿色表示物理可实现的反对易
-        \((+,-)\) 对给出模平方；黄色表示玻色 B15/B27 的四维具体表示
-        的 commutator matrix 已验证为正定；红色表示 B12/B32 在当前实正交
-        \(J_a\) 设定下任意维都不能产生所需物理 annihilation space；
-        蓝色表示费米实际权重已由模平方或 Kramers particle-space 证明为
-        非负；灰色表示五条关系本身不足。星号只标记严格
-        \(A_{\mathrm{cone}}\) 是否存在；一旦使用非零
-        \(A_{\mathrm{cone}}\)，\(\Theta_2\) 不再保持同一个辅助场构型，
-        不能沿用图中只含 \(A_{\mathrm{group}}\) 的证明。
+        <strong>图 1｜64 类的 strict-cone 筛选及 group-only 补充判据。</strong>
+        上、下两块分别为玻色与费米。绿色与蓝色是 strict matrix cone
+        非空的 \(J_2g\) 与 \(iJ_2g\) 类。全部费米格与绿色玻色格可继续
+        使用相容的 Fock representation 和连通正分支；蓝色玻色格只表示
+        矩阵收缩半群已经构造，其本卷物理模型的正性来自 fixed-\(N\)
+        character。浅灰表示先由引理1的 trace 条件排除的 16 类；在没有
+        被这一步排除的类别中，浅红表示再由引理2的符号翻转条件排除的
+        8 类。只有这些 group-only 格子才进一步检查反线性正性；深色
+        边框表示该五关系类别中存在一组已验证的物理表示，使原有
+        \(J_1,J_2\) 给出实际 Fock 权重非负的完整证明，并不表示任意表示
+        都自动通过。玻色有 6 个这样的 group-only 类，费米有 4 个。
+        没有边框不等于必有符号问题，只表示还需额外对称性、
+        reflection-positive factorization 或更小的无符号子群。
       </figcaption>
     </figure>
 
@@ -9555,22 +9566,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <strong>64 张卡片怎样阅读。</strong>
         每张卡依次给出：最小 \(J_1,J_2\)；满足全部等式的
         \(A_{\mathrm{group}}\)；若存在则给出真正满足严格不等式的
-        \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；该类自身能够
-        证明的正性；最后才是与实际矩阵方向相连的物理模型。
+        \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；然后按 cone
+        是否非空选择正性证明。cone 非空时先研究矩阵收缩半群；其中
+        玻色 \(J_2g\) 与全部费米卡进一步使用相容的 Fock representation
+        和连通正分支，玻色 \(iJ_2g\) 卡则明确改用 fixed-\(N\) character
+        证明实际权重。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
+        反线性正性。
+        最后列出与实际矩阵方向相连的物理模型。
       </div>
       <p>
         图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
-        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。玻色面板中，
-        绿色表示已经找到满足物理 Nambu 共轭关系的 \((+,-)\) 表示，实际权重
-        为两个共轭 bosonic Fock traces 的模平方；黄色专指 B15、B27，它们的四维表示
-        还通过了 commutator matrix 正定性检查，因此可把半幂还原为普通
-        Kramers determinant；红色专指 B12、B32，它们在当前实正交
-        \(J_a\) 设定的任意维数中都不能产生所需物理 annihilation space；
-        灰色表示五条关系本身尚未固定实际 metaplectic half-power。费米面板中，
-        蓝色的 12 类由模平方或物理粒子空间中的 Kramers pairing 直接证明
-        实际 Spin half-power 非负，灰色的 20 类需要再加模型条件。每格的星号
-        只表示严格 \(A_{\mathrm{cone}}\) 存在；它与颜色所表示的纯
-        \(A_{\mathrm{group}}\) 正性是两件不同的判断。
+        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。底色
+        首先显示收缩半群筛选：绿色与蓝色分别表示 strict cone 存在且
+        \(\eta=J_2g\) 或 \(\eta=iJ_2g\)。浅灰表示先由引理1的 trace
+        条件排除的 16 类；在没有被这一步排除的类别中，浅红表示再由
+        引理2的符号翻转条件排除的 8 类。每个统计面板因此一眼可读出
+        \(4+4\) 个 strict-cone 类和 \(16+8\) 个 group-only 类。
+      </p>
+      <p>
+        只有 group-only 格子才叠加深色边框。这个边框表示该格至少存在
+        一组已经验证的物理表示，使原有 \(J_1,J_2\) 能直接证明实际
+        Fock 权重非负；它不是“同一五关系类别的任意表示都自动通过”。
+        玻色侧是
+        B04、B07、B19、B24 的共轭模平方以及 B15、B27 的物理
+        Kramers particle space；费米侧是 F10、F13、F25、F30 的
+        共轭 Majorana 分块。B12、B32 虽有 \((-,-)\) 代数关系，但在
+        当前实正交 \(J_a\) 设定中不能形成正的玻色 particle space，
+        所以不加边框。strict-cone 格子不叠加这种标记，因为它们在本卷
+        中首先由收缩半群证明，而不是由纯 \(A_{\mathrm{group}}\) 的
+        反线性定理证明。
       </p>
 
 
@@ -9841,11 +9865,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -9904,16 +9929,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -11800,92 +11815,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes \sigma_x\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes \sigma_x\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=J_1\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_1C=U_1\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes \sigma_z\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes \sigma_z\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=J_2\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_2C=U_2\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易但都平方为 \(+I\)；这组 symmetry 本身没有普适非负定理。
-          </p>
-
-          <p class="scope">
-            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
-            权重的平方根符号。</strong>
-            若为本类构造具体模型，还可另外施加 physical Kramers symmetry
-            或 operator reflection positivity，但那是模型的附加条件，
-            不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 的矩阵筛选，metric 为
+              \(\eta=iJ_2g\)。</strong>
+              本卡的 \(A_{\mathrm{group}}\) 与
+              \(A_{\mathrm{cone}}\) 给出了一个可构造的矩阵收缩半群：
+              其中存在使
+              \(\eta A_{\mathrm{cone}}
+              +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
+              这正是 Octave 穷举要寻找的对象，而不是一组 half-power
+              反线性对称性。
+            </p>
+            <p>
+              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
+              与物理 oscillator representation 对齐。第 6.4 节的
+              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
+              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
+              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
+              grand-canonical 连通正分支已经建立。
+            </p>
+            <p>
+              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
+              有限维，完整 character 对每个辅助场构型被显式证明为正；
+              所以它仍是完整的 canonical 无符号模型。这个结论保留了
+              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
+              与“grand-canonical oscillator-semigroup representation
+              已经构造”这两个不同陈述。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：反射对称双阱阵列中的多轴 squeezing 相</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -12605,11 +12563,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -12668,16 +12627,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -13684,11 +13633,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -13779,16 +13729,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                   group boundary 扩展成 reflection-positive semigroup。
                 </p>
 
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -14328,92 +14268,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=J_1\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_1C=U_1\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=\sigma_x\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=i\sigma_x\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_2C\ne U_2\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_2\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易但都平方为 \(+I\)；这组 symmetry 本身没有普适非负定理。
-          </p>
-
-          <p class="scope">
-            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
-            权重的平方根符号。</strong>
-            若为本类构造具体模型，还可另外施加 physical Kramers symmetry
-            或 operator reflection positivity，但那是模型的附加条件，
-            不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
+              连通正分支，不走双反线性 half-power 定理。</strong>
+              对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+              \(\eta=J_2g\) 与 bosonic particle/hole Fock
+              representation 相容。它的每个完整辅助场传播都满足
+              \[
+                M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+              \]
+            </p>
+            <p>
+              乘法封闭性保证任意多个不对易时间片的有序积仍在同一个
+              strict contraction semigroup 内。物理 oscillator
+              representation 在这个内部给出 trace-class Gaussian
+              operator，因此 bare trace 收敛；严格不等式还排除
+              \(M(\phi)\) 的 \(+1\) 本征值，所以玻色 determinant
+              不会遇到 pole。\(J_1\) 条件使完整权重为实，实辅助场空间
+              连通，稳定零场的权重为正。沿任意辅助场路径，实际有序
+              Fock operator 连续携带同一个 metaplectic lift，且权重既
+              不发散也不经过零。因此所有构型保持同一个正分支。
+            </p>
+            <p>
+              这里没有从最终传播矩阵重新选择平方根，也没有计算一个
+              独立的 double-cover 符号。正号完全由“strict contraction、
+              正参考点、连通路径”固定。第 6.4 节给出含 pairing 与一般
+              不对易时间片乘积的 trace-class 推导。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：反射配对的受阻挫双组分玻色平带</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>稳定的 grand-canonical 玻色 HS 构造</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -16227,11 +16110,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -16290,16 +16174,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -16833,11 +16707,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -16920,16 +16795,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                 只是条件定理，不是本卡的无符号结论。
               </p>
 
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -17462,11 +17327,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -17525,16 +17391,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -18068,11 +17924,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -18131,16 +17988,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -19181,115 +19028,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-              <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=J_1\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_1C=U_1\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes \sigma_x\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes \sigma_x\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=J_2\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_2C=U_2\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-              <p class="result">
-                <strong>一条 symmetry 平方为 \(+I\)、另一条平方为
-                \(-I\) 且二者反对易时，可得到模平方权重。</strong>
-                本卡顶部代表已经通过物理 Nambu 共轭检查。
-                令 \(P=\Theta_1\Theta_2\)，并把平方为 \(+I\) 的那条
-                symmetry 记为 \(\Theta_+\)。由
-                \(P^2=I\)、\([P,\hat h_\ell]=0\) 与
-                \(\Theta_+P\Theta_+^{-1}=-P\)，每个时间片精确分解为
-                \[
-                  \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
-                  \qquad
-                  [\hat h_{\ell,+},\hat h_{m,-}]=0 .
-                \]
-                由于两条 symmetry 已通过 physical Nambu 检查，\(P\) 的
-                两个本征子空间各自包含成套的 annihilation 与 creation
-                operators，并构成两个独立 bosonic Fock sectors。因此
-                \[
-                  W=
-                  \operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                  \operatorname{Tr}_-\widehat{\mathcal U}_-
-                  =
-                  \left|\operatorname{Tr}_+
-                  \widehat{\mathcal U}_+\right|^2\ge0 .
-                \]
-                这个算符恒等式直接固定实际 metaplectic half-power，并允许
-                原 \(b,b^+\) basis 中有 pairing。若
-                1 个物理子轨道的计数为零，这一段
-                只是条件定理，不是本卡的无符号结论。
-              </p>
-
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 的矩阵筛选，metric 为
+              \(\eta=iJ_2g\)。</strong>
+              本卡的 \(A_{\mathrm{group}}\) 与
+              \(A_{\mathrm{cone}}\) 给出了一个可构造的矩阵收缩半群：
+              其中存在使
+              \(\eta A_{\mathrm{cone}}
+              +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
+              这正是 Octave 穷举要寻找的对象，而不是一组 half-power
+              反线性对称性。
+            </p>
+            <p>
+              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
+              与物理 oscillator representation 对齐。第 6.4 节的
+              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
+              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
+              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
+              grand-canonical 连通正分支已经建立。
+            </p>
+            <p>
+              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
+              有限维，完整 character 对每个辅助场构型被显式证明为正；
+              所以它仍是完整的 canonical 无符号模型。这个结论保留了
+              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
+              与“grand-canonical oscillator-semigroup representation
+              已经构造”这两个不同陈述。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数 Josephson 阵列中的自陷、cat 态与量子计量</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -19999,11 +19766,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -20062,16 +19830,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -21338,11 +21096,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -21409,16 +21168,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                     因而五条关系不能固定本类实际 bosonic half-power；这不是
                     “四维内尚未找到”的暂时性结论。
                   </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -21854,115 +21603,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-              <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=J_1\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_1C=U_1\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=\sigma_x\otimes I_2\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=i\sigma_x\otimes I_2\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_2C\ne U_2\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_2\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-              <p class="result">
-                <strong>一条 symmetry 平方为 \(+I\)、另一条平方为
-                \(-I\) 且二者反对易时，可得到模平方权重。</strong>
-                本卡顶部代表没有通过物理 Nambu 共轭检查，不能直接用于下面的 Fock-space 证明；但是卡片末尾列出的 1 个物理子轨道通过了检查，其 Nambu 维数为 4。下面的结论只用于那些物理子轨道。
-                令 \(P=\Theta_1\Theta_2\)，并把平方为 \(+I\) 的那条
-                symmetry 记为 \(\Theta_+\)。由
-                \(P^2=I\)、\([P,\hat h_\ell]=0\) 与
-                \(\Theta_+P\Theta_+^{-1}=-P\)，每个时间片精确分解为
-                \[
-                  \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
-                  \qquad
-                  [\hat h_{\ell,+},\hat h_{m,-}]=0 .
-                \]
-                由于两条 symmetry 已通过 physical Nambu 检查，\(P\) 的
-                两个本征子空间各自包含成套的 annihilation 与 creation
-                operators，并构成两个独立 bosonic Fock sectors。因此
-                \[
-                  W=
-                  \operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                  \operatorname{Tr}_-\widehat{\mathcal U}_-
-                  =
-                  \left|\operatorname{Tr}_+
-                  \widehat{\mathcal U}_+\right|^2\ge0 .
-                \]
-                这个算符恒等式直接固定实际 metaplectic half-power，并允许
-                原 \(b,b^+\) basis 中有 pairing。若
-                1 个物理子轨道的计数为零，这一段
-                只是条件定理，不是本卡的无符号结论。
-              </p>
-
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
+              连通正分支，不走双反线性 half-power 定理。</strong>
+              对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+              \(\eta=J_2g\) 与 bosonic particle/hole Fock
+              representation 相容。它的每个完整辅助场传播都满足
+              \[
+                M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+              \]
+            </p>
+            <p>
+              乘法封闭性保证任意多个不对易时间片的有序积仍在同一个
+              strict contraction semigroup 内。物理 oscillator
+              representation 在这个内部给出 trace-class Gaussian
+              operator，因此 bare trace 收敛；严格不等式还排除
+              \(M(\phi)\) 的 \(+1\) 本征值，所以玻色 determinant
+              不会遇到 pole。\(J_1\) 条件使完整权重为实，实辅助场空间
+              连通，稳定零场的权重为正。沿任意辅助场路径，实际有序
+              Fock operator 连续携带同一个 metaplectic lift，且权重既
+              不发散也不经过零。因此所有构型保持同一个正分支。
+            </p>
+            <p>
+              这里没有从最终传播矩阵重新选择平方根，也没有计算一个
+              独立的 double-cover 符号。正号完全由“strict contraction、
+              正参考点、连通路径”固定。第 6.4 节给出含 pairing 与一般
+              不对易时间片乘积的 trace-class 推导。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：Kramers 玻色双层中的阻挫凝聚与相对密度临界性</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>稳定的 grand-canonical 玻色 HS 构造</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -22680,11 +22349,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -22743,16 +22413,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -23483,11 +23143,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -23586,16 +23247,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                 内积的 physical Bogoliubov transformations。
 
               </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -24128,11 +23779,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -24191,16 +23843,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -24631,92 +24273,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=\sigma_x\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=i\sigma_x\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_1C\ne U_1\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_1\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=J_2\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_2C=U_2\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易但都平方为 \(+I\)；这组 symmetry 本身没有普适非负定理。
-          </p>
-
-          <p class="scope">
-            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
-            权重的平方根符号。</strong>
-            若为本类构造具体模型，还可另外施加 physical Kramers symmetry
-            或 operator reflection positivity，但那是模型的附加条件，
-            不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 的矩阵筛选，metric 为
+              \(\eta=iJ_2g\)。</strong>
+              本卡的 \(A_{\mathrm{group}}\) 与
+              \(A_{\mathrm{cone}}\) 给出了一个可构造的矩阵收缩半群：
+              其中存在使
+              \(\eta A_{\mathrm{cone}}
+              +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
+              这正是 Octave 穷举要寻找的对象，而不是一组 half-power
+              反线性对称性。
+            </p>
+            <p>
+              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
+              与物理 oscillator representation 对齐。第 6.4 节的
+              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
+              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
+              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
+              grand-canonical 连通正分支已经建立。
+            </p>
+            <p>
+              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
+              有限维，完整 character 对每个辅助场构型被显式证明为正；
+              所以它仍是完整的 canonical 无符号模型。这个结论保留了
+              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
+              与“grand-canonical oscillator-semigroup representation
+              已经构造”这两个不同陈述。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：固定粒子数的长程 Josephson 网络与集体临界性</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -26530,11 +26115,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -26593,16 +26179,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -27126,11 +26702,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -27213,16 +26790,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                 只是条件定理，不是本卡的无符号结论。
               </p>
 
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -27745,11 +27312,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -27808,16 +27376,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -28548,11 +28106,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -28611,16 +28170,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -30144,92 +29693,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=\sigma_x\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=i\sigma_x\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_1C\ne U_1\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_1\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=\sigma_z\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=i\sigma_z\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_2C=U_2\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易但都平方为 \(+I\)；这组 symmetry 本身没有普适非负定理。
-          </p>
-
-          <p class="scope">
-            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
-            权重的平方根符号。</strong>
-            若为本类构造具体模型，还可另外施加 physical Kramers symmetry
-            或 operator reflection positivity，但那是模型的附加条件，
-            不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
+              连通正分支，不走双反线性 half-power 定理。</strong>
+              对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+              \(\eta=J_2g\) 与 bosonic particle/hole Fock
+              representation 相容。它的每个完整辅助场传播都满足
+              \[
+                M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+              \]
+            </p>
+            <p>
+              乘法封闭性保证任意多个不对易时间片的有序积仍在同一个
+              strict contraction semigroup 内。物理 oscillator
+              representation 在这个内部给出 trace-class Gaussian
+              operator，因此 bare trace 收敛；严格不等式还排除
+              \(M(\phi)\) 的 \(+1\) 本征值，所以玻色 determinant
+              不会遇到 pole。\(J_1\) 条件使完整权重为实，实辅助场空间
+              连通，稳定零场的权重为正。沿任意辅助场路径，实际有序
+              Fock operator 连续携带同一个 metaplectic lift，且权重既
+              不发散也不经过零。因此所有构型保持同一个正分支。
+            </p>
+            <p>
+              这里没有从最终传播矩阵重新选择平方根，也没有计算一个
+              独立的 double-cover 符号。正号完全由“strict contraction、
+              正参考点、连通路径”固定。第 6.4 节给出含 pairing 与一般
+              不对易时间片乘积的 trace-class 推导。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：受驱动 kagome/三角平带中的相互作用玻色 BdG 相</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>稳定的 grand-canonical 玻色 HS 构造</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -31283,11 +30775,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -31346,16 +30839,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -31879,11 +31362,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -31966,16 +31450,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                 只是条件定理，不是本卡的无符号结论。
               </p>
 
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -32532,115 +32006,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-              <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=\sigma_x\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=i\sigma_x\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_1C\ne U_1\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_1\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes I_2\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes I_2\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=J_2\)。直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 \(C\overline U_2C=U_2\)。所以若 \(b\) 变换为某个 annihilation/creation 线性组合，矩阵的第二半恰好是这个组合的 Hermitian conjugate。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-              <p class="result">
-                <strong>一条 symmetry 平方为 \(+I\)、另一条平方为
-                \(-I\) 且二者反对易时，可得到模平方权重。</strong>
-                本卡顶部代表没有通过物理 Nambu 共轭检查，不能直接用于下面的 Fock-space 证明；但是卡片末尾列出的 1 个物理子轨道通过了检查，其 Nambu 维数为 4。下面的结论只用于那些物理子轨道。
-                令 \(P=\Theta_1\Theta_2\)，并把平方为 \(+I\) 的那条
-                symmetry 记为 \(\Theta_+\)。由
-                \(P^2=I\)、\([P,\hat h_\ell]=0\) 与
-                \(\Theta_+P\Theta_+^{-1}=-P\)，每个时间片精确分解为
-                \[
-                  \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
-                  \qquad
-                  [\hat h_{\ell,+},\hat h_{m,-}]=0 .
-                \]
-                由于两条 symmetry 已通过 physical Nambu 检查，\(P\) 的
-                两个本征子空间各自包含成套的 annihilation 与 creation
-                operators，并构成两个独立 bosonic Fock sectors。因此
-                \[
-                  W=
-                  \operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                  \operatorname{Tr}_-\widehat{\mathcal U}_-
-                  =
-                  \left|\operatorname{Tr}_+
-                  \widehat{\mathcal U}_+\right|^2\ge0 .
-                \]
-                这个算符恒等式直接固定实际 metaplectic half-power，并允许
-                原 \(b,b^+\) basis 中有 pairing。若
-                1 个物理子轨道的计数为零，这一段
-                只是条件定理，不是本卡的无符号结论。
-              </p>
-
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 的矩阵筛选，metric 为
+              \(\eta=iJ_2g\)。</strong>
+              本卡的 \(A_{\mathrm{group}}\) 与
+              \(A_{\mathrm{cone}}\) 给出了一个可构造的矩阵收缩半群：
+              其中存在使
+              \(\eta A_{\mathrm{cone}}
+              +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
+              这正是 Octave 穷举要寻找的对象，而不是一组 half-power
+              反线性对称性。
+            </p>
+            <p>
+              对玻色 grand-canonical Fock trace，还必须把这个矩阵半群
+              与物理 oscillator representation 对齐。第 6.4 节的
+              Hermitian BdG 推导表明，本卡采用的 \(iJ_2g\) 不具有标准
+              particle/hole 取向：稳定的 Hermitian 零场不能同时位于
+              同一个 strict cone。因此这里不能仅凭矩阵不等式宣称
+              grand-canonical 连通正分支已经建立。
+            </p>
+            <p>
+              本卡下方给出的物理实现改在固定总粒子数空间求迹。该空间
+              有限维，完整 character 对每个辅助场构型被显式证明为正；
+              所以它仍是完整的 canonical 无符号模型。这个结论保留了
+              strict-cone 穷举发现，同时清楚区分“矩阵收缩半群已经构造”
+              与“grand-canonical oscillator-semigroup representation
+              已经构造”这两个不同陈述。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：四组分自旋轨道耦合玻色子的集体拓扑与纠缠</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>完整 canonical fixed-\(N\) sign-free 构造；固定粒子数权重是有限阶 character，不使用 grand-canonical determinant 公式；不存在一个来自稳定 Hermitian 二次玻色 Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足同一个 \(\eta=iJ_2g\) 的收缩不等式</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -33378,11 +32772,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -33441,16 +32836,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -33984,11 +33369,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -34076,16 +33462,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                 Kramers symmetry 使 \(\operatorname{Tr}K_\ell\) 为实数，
                 所以前因子严格为正。本卡和 note Case 1 一样，两条反线性变换都平方为 \(-I\) 且彼此反对易；其具体 \(Q\) 由本卡上方的 \(J_1,J_2\) 决定。
               </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -34618,11 +33994,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -34681,16 +34058,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -35087,11 +34454,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -35150,16 +34518,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -35717,115 +35075,35 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
-        </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-              <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=\sigma_x\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=i\sigma_x\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_1C\ne U_1\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_1\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=\sigma_x\otimes \sigma_x\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=i\sigma_x\otimes \sigma_x\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 \(C\overline U_2C\ne U_2\)。因此这张卡顶部的代表只在暂时把 creation 与 annihilation 看成独立分量时保持 canonical matrix，不能把 \(\Theta_2\) 当作物理玻色 Fock 空间上的 antiunitary。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-              <p class="result">
-                <strong>一条 symmetry 平方为 \(+I\)、另一条平方为
-                \(-I\) 且二者反对易时，可得到模平方权重。</strong>
-                本卡顶部代表没有通过物理 Nambu 共轭检查，不能直接用于下面的 Fock-space 证明；但是卡片末尾列出的 1 个物理子轨道通过了检查，其 Nambu 维数为 4。下面的结论只用于那些物理子轨道。
-                令 \(P=\Theta_1\Theta_2\)，并把平方为 \(+I\) 的那条
-                symmetry 记为 \(\Theta_+\)。由
-                \(P^2=I\)、\([P,\hat h_\ell]=0\) 与
-                \(\Theta_+P\Theta_+^{-1}=-P\)，每个时间片精确分解为
-                \[
-                  \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
-                  \qquad
-                  [\hat h_{\ell,+},\hat h_{m,-}]=0 .
-                \]
-                由于两条 symmetry 已通过 physical Nambu 检查，\(P\) 的
-                两个本征子空间各自包含成套的 annihilation 与 creation
-                operators，并构成两个独立 bosonic Fock sectors。因此
-                \[
-                  W=
-                  \operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                  \operatorname{Tr}_-\widehat{\mathcal U}_-
-                  =
-                  \left|\operatorname{Tr}_+
-                  \widehat{\mathcal U}_+\right|^2\ge0 .
-                \]
-                这个算符恒等式直接固定实际 metaplectic half-power，并允许
-                原 \(b,b^+\) basis 中有 pairing。若
-                1 个物理子轨道的计数为零，这一段
-                只是条件定理，不是本卡的无符号结论。
-              </p>
-
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
-      </section>
+          <section class="semigroup-positivity">
+            <p class="result">
+              <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
+              连通正分支，不走双反线性 half-power 定理。</strong>
+              对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+              \(\eta=J_2g\) 与 bosonic particle/hole Fock
+              representation 相容。它的每个完整辅助场传播都满足
+              \[
+                M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+              \]
+            </p>
+            <p>
+              乘法封闭性保证任意多个不对易时间片的有序积仍在同一个
+              strict contraction semigroup 内。物理 oscillator
+              representation 在这个内部给出 trace-class Gaussian
+              operator，因此 bare trace 收敛；严格不等式还排除
+              \(M(\phi)\) 的 \(+1\) 本征值，所以玻色 determinant
+              不会遇到 pole。\(J_1\) 条件使完整权重为实，实辅助场空间
+              连通，稳定零场的权重为正。沿任意辅助场路径，实际有序
+              Fock operator 连续携带同一个 metaplectic lift，且权重既
+              不发散也不经过零。因此所有构型保持同一个正分支。
+            </p>
+            <p>
+              这里没有从最终传播矩阵重新选择平方根，也没有计算一个
+              独立的 double-cover 符号。正号完全由“strict contraction、
+              正参考点、连通路径”固定。第 6.4 节给出含 pairing 与一般
+              不对易时间片乘积的 trace-class 推导。
+            </p>
+          </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：全阻挫格子上的玻色 loop-current 相互作用模型</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>稳定的 grand-canonical 玻色 HS 构造</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
         <p>
@@ -36548,11 +35826,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -36611,16 +35890,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
             不是本五条关系已经推出的结论。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -37314,11 +36583,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -37385,16 +36655,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
                     因而五条关系不能固定本类实际 bosonic half-power；这不是
                     “四维内尚未找到”的暂时性结论。
                   </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -37797,11 +37057,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -37916,16 +37177,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             代表不能代表整个类别。这一 split-\(O\) 结果是已有
             split-orthogonal/semigroup 定理在统一 Nambu 五关系框架中的
             嵌入；新的作用是让它与同类其余 \(A\) 方向直接比较。
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -42967,11 +42218,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -43033,16 +42285,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -43420,11 +42662,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -43486,16 +42729,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -44043,114 +43276,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes \sigma_x\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes \sigma_x\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=J_1\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes i\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=J_2\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(P=\Theta_1\Theta_2\)，则
-              \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
-              模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
-              模，所以
-              \[
-                W_{\mathrm F}
-                =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                 \operatorname{Tr}_-\widehat{\mathcal U}_-
-                =\left|\operatorname{Tr}_+
-                 \widehat{\mathcal U}_+\right|^2\ge0 .
-              \]
-              若物理复费米模数为奇数，每个分块含奇数条 Majorana
-              directions，不能单独定义普通 Fock trace。此时加入一个完全
-              解耦的辅助复费米模，并把它的两条 Majoranas 分到两边；扩充后
-              系统的 trace 是原 trace 的两倍，而且
-              \[
-                2W_{\mathrm F}
-                  =\left|\operatorname{Tr}_{+,\mathrm{extended}}
-                    \widehat{\mathcal U}_{+,\mathrm{extended}}\right|^2\ge0.
-              \]
-              因而奇数模与偶数模都得到实际 \(W_{\mathrm F}\ge0\)。这是
-              operator-level factorization，不要求粒子数守恒，也不丢失
-              fermion Spin double-cover 的符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：reflection-protected 高阶拓扑超导体的相互作用角态</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -44609,11 +43759,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -44675,16 +43826,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -45269,11 +44410,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -45335,16 +44477,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -45952,114 +45084,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=J_1\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=ii\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(P=\Theta_1\Theta_2\)，则
-              \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
-              模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
-              模，所以
-              \[
-                W_{\mathrm F}
-                =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                 \operatorname{Tr}_-\widehat{\mathcal U}_-
-                =\left|\operatorname{Tr}_+
-                 \widehat{\mathcal U}_+\right|^2\ge0 .
-              \]
-              若物理复费米模数为奇数，每个分块含奇数条 Majorana
-              directions，不能单独定义普通 Fock trace。此时加入一个完全
-              解耦的辅助复费米模，并把它的两条 Majoranas 分到两边；扩充后
-              系统的 trace 是原 trace 的两倍，而且
-              \[
-                2W_{\mathrm F}
-                  =\left|\operatorname{Tr}_{+,\mathrm{extended}}
-                    \widehat{\mathcal U}_{+,\mathrm{extended}}\right|^2\ge0.
-              \]
-              因而奇数模与偶数模都得到实际 \(W_{\mathrm F}\ge0\)。这是
-              operator-level factorization，不要求粒子数守恒，也不丢失
-              fermion Spin double-cover 的符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：Majorana-reflection 多轨道 BdG 平带与相互作用边界态</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -46839,11 +45888,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -46905,16 +45955,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -47488,11 +46528,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -47554,16 +46595,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -48077,11 +47108,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -48163,16 +47195,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
               operator-level factorization，不要求粒子数守恒，也不丢失
               fermion Spin double-cover 的符号。
 
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -48543,11 +47565,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -48609,16 +47632,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -49245,109 +48258,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes I_2\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=J_1\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes i\sigma_y\otimes \sigma_x\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes i\sigma_y\otimes \sigma_x\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=J_2\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者的乘积确定物理 annihilation subspace，再在其中证明 Kramers eigenvalue pairing。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            两条都平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
-              \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
-              其中任一 \(\Theta_a\) 平方为 \(-I\)。若
-              \(\mathcal B=\prod_\ell e^{K_\ell}\) 是该 annihilation
-              subspace 上的传播矩阵，Kramers pairing 给出
-              \[
-                \det(I+\mathcal B)=
-                \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
-                \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
-              \]
-              同一 symmetry 使每个 \(\operatorname{Tr}K_\ell\) 为实数，
-              因而实际 half-power 已精确还原为
-              \[
-                W_{\mathrm F}
-                  =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
-                    \det(I+\mathcal B)\ge0 .
-              \]
-              conserved particle structure 由 \(Q\) 定义，所以原 Nambu
-              basis 仍可含 pairing；这里没有遗留 Spin square-root 符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：Kramers 多轨道超导岛阵列与 moiré 窄带配对</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -49612,11 +48547,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -49698,16 +48634,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
               operator-level factorization，不要求粒子数守恒，也不丢失
               fermion Spin double-cover 的符号。
 
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -50062,11 +48988,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -50128,16 +49055,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -50549,109 +49466,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=I_2\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=J_1\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=i\sigma_y\otimes I_2\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=ii\sigma_y\otimes I_2\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者的乘积确定物理 annihilation subspace，再在其中证明 Kramers eigenvalue pairing。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            两条都平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
-              \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
-              其中任一 \(\Theta_a\) 平方为 \(-I\)。若
-              \(\mathcal B=\prod_\ell e^{K_\ell}\) 是该 annihilation
-              subspace 上的传播矩阵，Kramers pairing 给出
-              \[
-                \det(I+\mathcal B)=
-                \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
-                \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
-              \]
-              同一 symmetry 使每个 \(\operatorname{Tr}K_\ell\) 为实数，
-              因而实际 half-power 已精确还原为
-              \[
-                W_{\mathrm F}
-                  =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
-                    \det(I+\mathcal B)\ge0 .
-              \]
-              conserved particle structure 由 \(Q\) 定义，所以原 Nambu
-              basis 仍可含 pairing；这里没有遗留 Spin square-root 符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：Kramers 拓扑超导平带中的集体配对涨落</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -51116,11 +49955,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -51182,16 +50022,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -51568,11 +50398,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -51634,16 +50465,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -52228,11 +51049,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -52294,16 +51116,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -52911,114 +51723,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=i\sigma_y\otimes i\sigma_y\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=ii\sigma_y\otimes i\sigma_y\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes i\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=J_2\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(P=\Theta_1\Theta_2\)，则
-              \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
-              模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
-              模，所以
-              \[
-                W_{\mathrm F}
-                =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                 \operatorname{Tr}_-\widehat{\mathcal U}_-
-                =\left|\operatorname{Tr}_+
-                 \widehat{\mathcal U}_+\right|^2\ge0 .
-              \]
-              若物理复费米模数为奇数，每个分块含奇数条 Majorana
-              directions，不能单独定义普通 Fock trace。此时加入一个完全
-              解耦的辅助复费米模，并把它的两条 Majoranas 分到两边；扩充后
-              系统的 trace 是原 trace 的两倍，而且
-              \[
-                2W_{\mathrm F}
-                  =\left|\operatorname{Tr}_{+,\mathrm{extended}}
-                    \widehat{\mathcal U}_{+,\mathrm{extended}}\right|^2\ge0.
-              \]
-              因而奇数模与偶数模都得到实际 \(W_{\mathrm F}\ge0\)。这是
-              operator-level factorization，不要求粒子数守恒，也不丢失
-              fermion Spin double-cover 的符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：相互作用 proximitized Dirac/Chern 格点的 parity 临界性</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -53480,11 +52209,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -53546,16 +52276,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -53932,11 +52652,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -53998,16 +52719,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -54691,11 +53402,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -54757,16 +53469,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -55143,11 +53845,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -55209,16 +53912,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -55623,114 +54316,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=\sigma_z\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=i\sigma_z\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=ii\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；第 7 卷第 3 节从实际有序算符证明这种组合产生两个互为复共轭的 bosonic Fock 或 fermionic Majorana 分块。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(P=\Theta_1\Theta_2\)，则
-              \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
-              模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
-              模，所以
-              \[
-                W_{\mathrm F}
-                =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
-                 \operatorname{Tr}_-\widehat{\mathcal U}_-
-                =\left|\operatorname{Tr}_+
-                 \widehat{\mathcal U}_+\right|^2\ge0 .
-              \]
-              若物理复费米模数为奇数，每个分块含奇数条 Majorana
-              directions，不能单独定义普通 Fock trace。此时加入一个完全
-              解耦的辅助复费米模，并把它的两条 Majoranas 分到两边；扩充后
-              系统的 trace 是原 trace 的两倍，而且
-              \[
-                2W_{\mathrm F}
-                  =\left|\operatorname{Tr}_{+,\mathrm{extended}}
-                    \widehat{\mathcal U}_{+,\mathrm{extended}}\right|^2\ge0.
-              \]
-              因而奇数模与偶数模都得到实际 \(W_{\mathrm F}\ge0\)。这是
-              operator-level factorization，不要求粒子数守恒，也不丢失
-              fermion Spin double-cover 的符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：阻挫 Dirac/平带费米子的 loop-current 相互作用</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -56520,11 +55130,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -56606,16 +55217,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
               operator-level factorization，不要求粒子数守恒，也不丢失
               fermion Spin double-cover 的符号。
 
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -57186,11 +55787,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -57252,16 +55854,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -57869,109 +56461,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=i\sigma_y\otimes I_2\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=ii\sigma_y\otimes I_2\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=I_2\otimes i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=I_2\otimes i\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=J_2\)。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者的乘积确定物理 annihilation subspace，再在其中证明 Kramers eigenvalue pairing。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            两条都平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
-              \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
-              其中任一 \(\Theta_a\) 平方为 \(-I\)。若
-              \(\mathcal B=\prod_\ell e^{K_\ell}\) 是该 annihilation
-              subspace 上的传播矩阵，Kramers pairing 给出
-              \[
-                \det(I+\mathcal B)=
-                \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
-                \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
-              \]
-              同一 symmetry 使每个 \(\operatorname{Tr}K_\ell\) 为实数，
-              因而实际 half-power 已精确还原为
-              \[
-                W_{\mathrm F}
-                  =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
-                    \det(I+\mathcal B)\ge0 .
-              \]
-              conserved particle structure 由 \(Q\) 定义，所以原 Nambu
-              basis 仍可含 pairing；这里没有遗留 Spin square-root 符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：磁性涨落与拓扑配对竞争的超导格点模型</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -58429,11 +56943,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -58495,16 +57010,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -58875,11 +57380,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -58941,16 +57447,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -59321,11 +57817,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -59407,16 +57904,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
               operator-level factorization，不要求粒子数守恒，也不丢失
               fermion Spin double-cover 的符号。
 
-          </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
           </p>
 
       </section>
@@ -59975,11 +58462,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <section class="half-power-positivity">
-        <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
+        <p class="scope">
+          <strong>本卡的 strict \(A_{\mathrm{cone}}\) 为空，不能用
+          本卷的收缩半群内部证明。</strong>
+          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          时间反演与反线性对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
 
@@ -60041,16 +58529,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         anti-linear constraints；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
-
-
-          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
-          <p>
-            本类没有同时满足本卡全部矩阵等式与
-            \(\eta A_{{\mathrm{{cone}}}}
-            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
-            的非零生成元。因此本卡没有可供使用的严格
-            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
-          </p>
 
       </section>
 
@@ -60762,109 +59240,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       </p>
 
 
-      <section class="half-power-positivity">
+      <section class="semigroup-positivity">
         <p class="result">
-          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
-          完整的算符级证明见
-          <a href="part_7_determinant_symmetry_groups.html">
-          Nambu half-power 对称性理论卷</a>。
+          <strong>本卡通过 strict cone 筛选，并由费米收缩半群固定
+          全部辅助场权重的非负号。</strong>
+          对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
+          每个完整构型都满足
+          \[
+            M(\phi)^\dagger\eta M(\phi)-\eta<0 .
+          \]
+          这个不等式对时间片乘法封闭，并排除 \(M(\phi)\) 的
+          \(-1\) 本征值；因此实际 fermionic Spin trace 不会经过零。
         </p>
-        <h4>只含 \(A_{\mathrm{group}}\) 的有序时间序列</h4>
-
-          <h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>
-
-          <ul class="relation-analysis">
-              <li>
-                原始矩阵 \(J_1=i\sigma_y\otimes I_2\) 满足
-                \[
-                  J_1^TgJ_1
-                    =-g,\qquad
-                  J_1^T\overline{B_{\mathrm{group}}}J_1
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_1=ii\sigma_y\otimes I_2\) 和
-                \(\Theta_1=U_1\mathcal K\) 后，
-                \[
-                  U_1^TgU_1=g,\qquad
-                  U_1^T\overline{B_{\mathrm{group}}}U_1
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_1^2=-I.
-                \]
-                \(U_1=iJ_1\)；左右两个 \(i\) 抵消 \(J_1\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_1^TgU_1=g\) 已同时保证 \(C\overline U_1C=U_1\)。
-              </li>
-
-              <li>
-                原始矩阵 \(J_2=\sigma_z\otimes i\sigma_y\) 满足
-                \[
-                  J_2^TgJ_2
-                    =-g,\qquad
-                  J_2^T\overline{B_{\mathrm{group}}}J_2
-                    =-B_{\mathrm{group}} .
-                \]
-                定义 \(U_2=i\sigma_z\otimes i\sigma_y\) 和
-                \(\Theta_2=U_2\mathcal K\) 后，
-                \[
-                  U_2^TgU_2=g,\qquad
-                  U_2^T\overline{B_{\mathrm{group}}}U_2
-                  =B_{\mathrm{group}},\qquad
-                  \Theta_2^2=-I.
-                \]
-                \(U_2=iJ_2\)；左右两个 \(i\) 抵消 \(J_2\) 翻转 \(g\) 与 \(B\) 的负号。费米 Nambu 共轭矩阵就是 \(C=g\)；上式的 \(U_2^TgU_2=g\) 已同时保证 \(C\overline U_2C=U_2\)。
-              </li>
-            </ul>
-          <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
-            \[
-              \Theta_1\Theta_2=-\Theta_2\Theta_1.
-            \]
-            二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者的乘积确定物理 annihilation subspace，再在其中证明 Kramers eigenvalue pairing。
-          </p>
-
-          <p class="result">
-            <strong>本类虽然只有 maximal subgroup，但
-            两条都平方为 \(-I\) 且二者反对易，所以已有完整的费米无符号证明。</strong>
-
-              令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
-              \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
-              其中任一 \(\Theta_a\) 平方为 \(-I\)。若
-              \(\mathcal B=\prod_\ell e^{K_\ell}\) 是该 annihilation
-              subspace 上的传播矩阵，Kramers pairing 给出
-              \[
-                \det(I+\mathcal B)=
-                \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
-                \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
-              \]
-              同一 symmetry 使每个 \(\operatorname{Tr}K_\ell\) 为实数，
-              因而实际 half-power 已精确还原为
-              \[
-                W_{\mathrm F}
-                  =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
-                    \det(I+\mathcal B)\ge0 .
-              \]
-              conserved particle structure 由 \(Q\) 定义，所以原 Nambu
-              basis 仍可含 pairing；这里没有遗留 Spin square-root 符号。
-
-          </p>
-
-
-          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
-          <p>
-            本类存在满足严格收缩不等式的
-            \(A_{{\mathrm{{cone}}}}\)。它满足
-            \[
-              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
-                =A_{{\mathrm{{cone}}}},\qquad
-              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
-                =-A_{{\mathrm{{cone}}}}.
-            \]
-            因而第二条反线性变换把同一时间片中的 cone generator
-            变成其相反数，不再保持该 fixed-field configuration。上面的
-            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
-            cone direction，实际权重正性必须由本卡的 contraction theorem、
-            operator reflection positivity，或另一条同时保持 group 与 cone
-            generators 的物理反线性对称性来证明。
-          </p>
-
+        <p>
+          费米 Fock space 有限维，所以没有玻色 bare-trace 收敛问题。
+          \(J_1\) 条件使权重为实；连通辅助场空间中的每个构型都可连到
+          一个正参考构型。实际有序 Fock operator 沿路径连续，自动保留
+          正确的 Spin lift。权重既不为零，就不能改变符号。只有等号边界
+          的构型可由 \(e^{\epsilon A_{\mathrm{cone}}}\)、
+          \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
+        </p>
+        <p>
+          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
+          路线。
+        </p>
       </section>
 
           <section class="model-example"><p class="model-title"><strong>物理模型：相互作用拓扑超导体中的 parity 与 pair-density-wave 转变</strong></p><p class="model-scope"><strong>已经证明的结论：</strong>费米物理 HS slice；按标准传播矩阵 \(e^A\) 条件检验</p><p class="small">卡片顶部的 \(P\)-\(K_P\) 表属于该类的最小 Pauli 代表。下面的物理模型有时采用同一五条关系的另一组适配 \(J_1,J_2\)，以便让 particle/hole、轨道和格点指标具有直接物理意义。两组代表不能按 Pauli word 逐字比较。下方折叠栏中的最小 HS building block 已经用其自身列出的 \(J_1,J_2,g,\eta\) 重新检验，数值残差记录在 <a href="tables/physical_hs_slice_checks.csv">physical_hs_slice_checks.csv</a>；上面的格点推广则按本卡 \(P\)-\(K_P\) 表逐项选取方向，新增任意 hopping、pairing 或 form factor 时仍必须保持同一张表的全部条件。</p>
@@ -61604,42 +60004,44 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
       第 6.6 节已经按统一类别编号逐一列完玻色 32 类与费米 32 类，
       因此这里不再另做一张重复的 64 行表。严格负定
       \(A_{\mathrm{cone}}\) 在玻色、费米中各有 8 类；其余各 24 类只有
-      \(A_{\mathrm{group}}\)。这个 8 与 24 的计数只回答收缩不等式是否
-      允许严格小于零，不是实际 Fock 权重的分类。
+      \(A_{\mathrm{group}}\)。这是本卷的第一分类轴：前者进入收缩半群
+      路线，后者才进入反线性对称性或其他群正性的补充筛选。
     </p>
     <p>
-      若所有时间片都属于 \(A_{\mathrm{group}}\)，两条物理反线性
-      对称性都保持同一个辅助场构型。费米 32 类中有 12 类由原有
-      \(J_1,J_2\) 直接得到实际 Spin half-power 的逐构型非负定理：
-      8 类把 Majorana operators 分成两个互为复共轭的分块：费米模数为偶数
-      时直接得到两个 Fock traces 的模平方，模数为奇数时加入一个解耦辅助模，
-      两倍的原 trace 成为模平方；
-      4 类在由两条对称性共同定义的 particle space 中得到 Kramers
-      pairing；其余 20 类仅靠这两条对称性不能固定实际权重。
+      16 个 strict-cone 类中，八个费米类由有限 Fock space、严格收缩
+      排除 \(-1\) 本征值、实权重和连通正参考点得到逐构型非负结论。
+      四个玻色 \(J_2g\) 类的物理代表与 standard particle/hole
+      oscillator representation 相容；strict contraction 同时给出
+      trace class、无 \(+1\) pole 和连通正分支，所以得到完整的
+      grand-canonical 无符号模型。四个玻色 \(iJ_2g\) 类也确实具有
+      Octave 找到的严格矩阵锥，但该 metric 不能与稳定 Hermitian
+      grand-canonical 零场同时实现；本报告为它们构造的是固定总粒子数
+      的有限维正 character 模型。这个区别在每张相应卡片中就地写明。
     </p>
     <p>
-      玻色侧不能把同一代数计数直接照搬。8 个复共轭子系统类都已在
-      四维找到保持“creation 是相应 annihilation 的 Hermitian
-      conjugate”这一物理关系的表示，并在
-      这些表示中得到 \(W_{\mathrm B}=|w|^2\geq0\)。另有 4 类具备
-      两条反线性变换都平方为 \(-I\) 且彼此反对易：其中 2 类的四维
-      表示的 commutator matrix 通过了正定性检查；
-      另外 2 类在当前 real-orthogonal \(J_a\) 设定的任意维数中都
-      不能把所需本征子空间实现为物理 annihilation space。因此这里不把
-      “具有同样的五个正负号”误写成“所有表示自动无符号”。
+      48 个 strict cone 为空的类别中，才使用原有 \(J_1,J_2\) 做
+      group-only 补充筛选。玻色 B04、B07、B19、B24 的物理表示把
+      Fock space 分成两个互为复共轭的部分，实际权重是模平方；B15、
+      B27 的四维表示给出正的物理 particle space，再由 Kramers pairing
+      证明权重非负。B12、B32 虽有同样的 \((-,-)\) 反线性代数，当前
+      real-orthogonal \(J_a\) 设定在任意维数都不能产生所需的正
+      bosonic particle space。其余 16 个玻色 group-only 类仅靠原有
+      两条变换还不能固定权重。
     </p>
     <p>
-      若非零 \(A_{\mathrm{cone}}\) 进入时间片，\(\Theta_2\) 会把它变成
-      \(-A_{\mathrm{cone}}\)，因而不再保持同一个 fixed-field history。
-      玻色、费米各自 8 个 cone 非空类都不能继续直接引用上述两条
-      symmetry 的证明。某个具体模型仍可由 reflected-square
-      factorization、所有时间片共同保持的 particle space 与 Kramers
-      symmetry、额外物理反线性对称性，或本报告另一部分的收缩半群与
-      连通分支论证得到非负权重；这些附加条件必须逐模型检查。
+      费米的 24 个 group-only 类中，F10、F13、F25、F30 由原有
+      \(J_1,J_2\) 形成反对易的 \((+,-)\) 物理反线性 pair；实际
+      Spin trace 化成共轭 Majorana 分块的模平方。其余 20 类仅凭原有
+      两条变换没有普适正性定理。它们仍可能在加入第三条物理反线性
+      对称性、限制到 split-orthogonal 子群或施加 reflection-positive
+      factorization 后无符号；那是模型的附加结构，不改变本次 strict
+      cone 筛选结果。
     </p>
     <p>
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">独立理论卷的
-      64 类表</a>逐行列出 actual half-power 结论；相同内容的机器可读版为
+      <a href="part_7_determinant_symmetry_groups.html#class-atlas">独立时间反演
+      理论卷的 64 类表</a>专门回答纯 \(A_{\mathrm{group}}\) 序列的 actual
+      half-power 问题，其中也保留 strict-cone 类的 group-boundary
+      交叉性质；这不改变本卷优先使用收缩半群的分类顺序。机器可读版为
       <a href="tables/half_power_symmetry_64_classes.csv">
       half_power_symmetry_64_classes.csv</a>。
     </p>
@@ -62629,9 +61031,9 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="tables/comment_pair_checks.csv">comment_pair_checks.csv</a></td><td>第一节 Comment 所列配对的数值检查</td></tr>
           <tr><td><a href="tables/half_power_symmetry_64_classes.csv">half_power_symmetry_64_classes.csv</a></td><td>玻色、费米各 32 类只含 \(A_{\mathrm{group}}\) 时的实际 Spin/metaplectic half-power 结论，以及非零 \(A_{\mathrm{cone}}\) 参与后缺少的算符条件</td></tr>
           <tr><td><a href="analysis/build_half_power_symmetry_atlas.py">build_half_power_symmetry_atlas.py</a></td><td>从 64 类矩阵关系与低维物理表示表重建 actual half-power 表，并逐项验证 B15/B27 对应本征子空间的 commutator matrix 为正定</td></tr>
-          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 actual-weight 64 类周期表</td></tr>
+          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 strict-cone 主分类与 group-only 反线性补充周期表</td></tr>
           <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 的矢量版本</td></tr>
-          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论与 64 类逐项表</td></tr>
+          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论、反线性周期表、paired 模型与 64 类逐项表</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米 Cases 1、3、5、6 的单模、无配对与有配对反例，以及 Case 4 在等号条件下的 \(SU(2)\) 权重零点诊断</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>上述精确反例、连续 zero crossing、随机扫描与 Case 4 诊断的 Octave 日志</td></tr>
           <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十一个较快的 MathJax 阅读分卷</td></tr>

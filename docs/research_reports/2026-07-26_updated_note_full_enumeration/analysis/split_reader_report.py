@@ -82,7 +82,8 @@ def build_index(source: BeautifulSoup) -> None:
               从解析判据与 Octave 算法依次讲到 64 类穷举，逐类展开
               \(A\) 的最终约束、maximal subgroup 与 invariant cone。
               每张类别卡片都就地给出一个厄米相互作用格点模型，并分开写明
-              实际 Nambu half-power 权重与收缩不等式两条证明路线。
+              strict cone 非空时的收缩半群证明；只有 cone 为空时才补充
+              反线性对称性或更小无符号子群的判据。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>
@@ -105,10 +106,12 @@ def build_index(source: BeautifulSoup) -> None:
               下的单向 contraction semigroup。
             </div>
             <div class="summary-item established">
-              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu 半幂权重的对称性正性</a></strong>
+              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重的反线性对称性正性</a></strong>
               从实际有序 Gaussian 算符出发，证明共轭 Majorana/Fock 分块与
               Kramers 粒子空间怎样固定 Spin/metaplectic half-power；
-              随后把算符级判据逐项应用到玻色、费米各 32 类关系。
+              给出玻色、费米统一的反线性对称性周期表，检验 main.tex 的
+              paired benchmark，并构造一个 \((+,-)\) 保护的厄米 paired
+              玻色模型；最后把判据应用到玻色、费米各 32 类关系。
             </div>
             <div class="summary-item corrected">
               <strong><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></strong>
@@ -252,12 +255,13 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
         "<!doctype html><html><body><main></main></body></html>", "html.parser"
     )
     page.html.insert(0, clone(source.head))
-    page.title.string = "玻色、费米统一的 Nambu 半幂权重正性"
+    page.title.string = "玻色、费米统一的 Nambu half-power 反线性正性"
     header = fragment.find("header", recursive=False)
     section_ids = [
         "half-power-symmetry",
         "two-antilinear-theorems",
         "known-theories-unified",
+        "anti-linear-periodic-table",
         "j-relations-half-power",
     ]
     sections = [
@@ -266,7 +270,7 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
     ]
     if header is None or any(section is None for section in sections):
         raise RuntimeError(
-            "Half-power fragment needs one header and four ordered sections"
+            "Half-power fragment needs one header and five ordered sections"
         )
     nav_items = [
         ("report_index.html", "分卷入口"),
@@ -315,7 +319,7 @@ def main() -> None:
             common_index,
             ("part_2_physical_mapping.html", "上一卷：物理对应"),
             ("part_4_implications.html", "下一卷：文章影响与结论"),
-            ("part_7_determinant_symmetry_groups.html", "Nambu 半幂权重正性"),
+            ("part_7_determinant_symmetry_groups.html", "Nambu half-power 反线性正性"),
         ],
     )
     build_section_page(
@@ -328,7 +332,7 @@ def main() -> None:
             ("part_3_enumeration_models.html", "上一卷：分类与模型讲义"),
             ("part_5_branch_sampling.html", "独立算法卷：符号追踪与采样"),
             ("part_6_case12_semigroups.html", "独立理论卷：Case 1/2 半群"),
-            ("part_7_determinant_symmetry_groups.html", "独立理论卷：Nambu 半幂权重"),
+            ("part_7_determinant_symmetry_groups.html", "独立理论卷：Nambu half-power 权重"),
             (
                 "report_updated_note_full_enumeration_zh.html",
                 "单文件完整版",

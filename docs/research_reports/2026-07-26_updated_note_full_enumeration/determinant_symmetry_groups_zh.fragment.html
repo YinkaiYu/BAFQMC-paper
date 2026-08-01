@@ -1,10 +1,10 @@
 <header>
   <h1>
-    <span class="report-title">Nambu Gaussian 半幂权重的对称性正性</span>
-    <span class="report-file">玻色、费米统一的算符级定理与 64 类 \(J_1,J_2\) 检查</span>
+    <span class="report-title">Nambu Gaussian half-power 权重的反线性对称性正性</span>
+    <span class="report-file">玻色、费米统一的 time-reversal 定理、周期表与 64 类 \(J_1,J_2\) 检查</span>
   </h1>
   <div class="meta">
-    <div>报告日期：2026-08-01</div>
+    <div>报告日期：2026-08-02</div>
     <div>研究对象：\(\hat h=\frac{1}{2}\hat\chi^TgA\hat\chi\) 与实际有序 Gaussian 算符</div>
     <div>本卷判定：玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 与费米 \([\det(I+M)]^{1/2}\) 的实际 Fock-space representative 是否非负</div>
     <div>本卷范围：只研究 symmetry/group 怎样固定实际 half-power 的符号</div>
@@ -898,7 +898,7 @@
     Kramers pairing”。
   </p>
 
-  <h3>5.5 多条反线性对称性：不拼接表格的统一检查法</h3>
+  <h3>5.5 多条反线性对称性：先取闭包，再检查实际 Fock 分块</h3>
   <p>
     对任意多条 physical anti-linear symmetries，不必预先假定它们全部
     彼此反对易。先把任意两条相乘，得到与每个 \(\hat h_\ell\) 对易的线性
@@ -916,26 +916,24 @@
   <p>
     若每个 subsystem 都通过其中一项，完整实际 trace 就由各个非负 factors
     组成；若仍有 subsystem 不通过，则现有 symmetry algebra 本身没有完成
-    half-power 正性证明，还需要模型的额外结构。这是一套直接作用于实际
-    Fock operators 的充分条件检查，而不是把任意 symmetry algebra 强行
-    归入某张既有表格。它同时适用于 commuting 与 anticommuting
-    symmetries。常见的
-    pairwise-anticommuting 情形可立即化简：两条时，\((+,-)\) 与
-    \((-,-)\) 分别落入第 3、4 节；\((+,+)\) 没有普适正性。三条时，除
-    \((+,+,+)\) 外都已含上述基本 pair。四条全为 \(+\) 时，例如把后三条
-    相乘得到新的 anti-linear transformation，平方为
+    half-power 正性证明，还需要模型的额外结构。
   </p>
-  <div class="scroll">\[
-    (\Theta_2\Theta_3\Theta_4)^2
-      =(-1)^{3(3-1)/2}I=-I,
-  \]</div>
   <p>
-    而它与 \(\Theta_1^2=+I\) 反对易，故又回到第 3 节。更多条彼此反对易的
-    symmetry 也按同一步骤寻找一个基本 pair。对不满足两两反对易关系的
-    一般情形，则使用上一段的 subsystem 检查。这从实际 Fock trace 出发
-    组织了 anti-linear symmetry classification，而证明对象始终是
-    玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 与费米
-    \([\det(I+M)]^{1/2}\) 的实际 representative。
+    还要把给定对称性生成的所有<strong>奇数个反线性变换的乘积</strong>
+    一并纳入检查。奇数个反线性变换的乘积仍是反线性的；只要每一条都逐层
+    保持 \(\hat h_\ell\)，其乘积也逐层保持 \(\hat h_\ell\)。因此，原始
+    列表中也许没有 \((+,-)\) pair，闭包中却可能自动生成一个。反过来，
+    不能给某条 \(\Theta\) 随意乘 \(i\) 来改变平方或对易号：
+    \(U\mapsto iU\) 会把 \(U^TgU=g\) 变成 \(-g\)，也会破坏
+    \(C\overline UC=U\)，所以只有实的整体正负号是无害重定义。
+  </p>
+  <p>
+    若闭包中出现一对彼此反对易的 \((+,-)\)，第 3 节立即证明玻色、
+    费米实际权重非负；若只出现 \((-,-)\)，费米使用第 4 节，玻色还要
+    检查乘积对称性的本征空间是否真是一组正的 annihilation operators。
+    若闭包中仍没有这两种 pair，就回到上面的逐块检查。这个规则同时覆盖
+    原始反线性变换彼此对易或反对易的情形；下一节只对最常见的“两两
+    反对易”子类给出一张可直接查阅的周期表。
   </p>
 
   <h3>5.6 split-orthogonal determinant theorem 只在消去 Nambu doubling 后使用</h3>
@@ -1086,10 +1084,548 @@
 </section>
 
 
-<section id="j-relations-half-power">
-  <h2>6. 把统一定理代回 note 的五条 \(J_1,J_2\) 关系</h2>
+<section id="anti-linear-periodic-table">
+  <h2>6. 玻色、费米统一的反线性对称性周期表</h2>
 
-  <h3>6.1 五条关系还不是两条物理反线性对称性</h3>
+  <h3>6.1 周期表的前提与读法</h3>
+  <p>
+    本节先研究一个范围明确、又足够常用的子问题：同一组反线性对称性
+    逐时间片成立，而且它们两两反对易。每一条都必须是第 2 节定义的
+    <em>physical</em> 反线性变换，而不只是传播矩阵的一条谱对称性：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \Theta_a&=U_a\mathcal K,\\
+    U_a^TgU_a&=g,\\
+    C\overline{U_a}C&=U_a,\\
+    U_a^{-1}\overline{A_\ell}U_a&=A_\ell,\\
+    \Theta_a^2=U_a\overline{U_a}&=\pm I,\\
+    U_a\overline{U_b}&=-U_b\overline{U_a}\qquad(a\ne b).
+  \end{aligned}
+  \]</div>
+  <p>
+    第二式保持 bosonic commutators 或 fermionic anticommutators；第三式
+    保证变换后的 creation operators 仍是相应 annihilation operators 的
+    Hermitian conjugates；第四式要求每一个 sampled slice 都保持同一条
+    对称性。最后一式才是两条<strong>反线性</strong>变换的反对易关系：
+    它含有复共轭，不能用 \(U_aU_b=-U_bU_a\) 代替。
+  </p>
+  <p>
+    表中的“非负”指实际 bosonic metaplectic 或 fermionic Spin Fock
+    trace 非负，不只是根号内 determinant 非负。玻色栏写“trace 存在时”
+    是因为本卷只研究符号；无限维玻色求迹是否收敛仍由具体稳定性或
+    收缩半群条件决定。任何没有包含在
+    \(\frac12\hat\chi^TgA_\ell\hat\chi\) 中的普通 scalar factor，也必须
+    在全部时间片相乘后另行证明为非负实数。
+  </p>
+
+  <h3>6.2 周期表</h3>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>两两反对易的生成对称性数目</th>
+          <th>各条对称性平方的正负号</th>
+          <th>闭包中负责正性的基本 pair</th>
+          <th>费米实际 half-power</th>
+          <th>玻色实际 half-power</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>无</td><td>无</td><td>无通用保证</td><td>无通用保证</td></tr>
+        <tr><td>1</td><td>\(+\)</td><td>无</td><td>无通用保证</td><td>一般 paired 情形无通用保证</td></tr>
+        <tr><td>1</td><td>\(-\)</td><td>无</td><td>无通用保证；第 1.3 节的 \(2\cos x\) 是显式反例</td><td>一般 paired 情形无通用保证；若物理 particle space 已预先给定、且每个时间片都保持该 annihilation subspace，可另用普通 Kramers determinant</td></tr>
+        <tr><td>2</td><td>\(+,+\)</td><td>无</td><td>无通用保证</td><td>无通用保证</td></tr>
+        <tr><td>2</td><td>\(+,-\)</td><td>共轭分块</td><td><strong>非负</strong></td><td><strong>trace 存在时非负</strong></td></tr>
+        <tr><td>2</td><td>\(-,-\)</td><td>particle space 加 Kramers pairing</td><td><strong>非负</strong></td><td><strong>有条件非负：</strong>两条对称性的乘积必须定义一组正的物理 annihilation operators</td></tr>
+        <tr><td>3</td><td>\(+,+,+\)</td><td>没有 \((+,-)\) 或 \((-,-)\) seed</td><td>无通用保证</td><td>无通用保证</td></tr>
+        <tr><td>3</td><td>\(+,+,-\)</td><td>显式 \((+,-)\)</td><td><strong>非负</strong></td><td><strong>trace 存在时非负</strong></td></tr>
+        <tr><td>3</td><td>\(+,-,-\)</td><td>显式 \((+,-)\)，也含 \((-,-)\)</td><td><strong>非负</strong></td><td><strong>trace 存在时非负：</strong>直接用 \((+,-)\)，无需 particle-space 检查</td></tr>
+        <tr><td>3</td><td>\(-,-,-\)</td><td>只有 \((-,-)\) seed</td><td><strong>非负</strong></td><td><strong>有条件非负：</strong>至少一个 pair 的乘积必须定义正的物理 annihilation space</td></tr>
+        <tr><td>\(n\ge4\)</td><td>任意正负组合</td><td>显式或由三条生成元的乘积生成 \((+,-)\)</td><td><strong>非负</strong></td><td><strong>trace 存在时非负</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <strong>“无通用保证”不是“已经证明必有符号问题”。</strong>
+    它只表示表头列出的最小反线性假设本身没有触发第 3、4 节的实际
+    half-power 定理。一个具体模型仍可能因预先给定的 particle space、
+    reflection positivity、split-orthogonal subgroup、收缩半群或额外
+    对称性而无符号。费米栏的否定格与
+    <a href="https://arxiv.org/abs/1601.05780">Li、Jiang 与 Yao 的
+    Majorana-time-reversal 分类</a>一致；玻色栏是本卷由实际 Fock
+    half-power 定理得到的充分条件表，不把尚未触发定理的格子冒充必要性
+    反例。
+  </div>
+
+  <h3>6.3 为什么四条及以上总能生成 \((+,-)\)</h3>
+  <p>
+    先证明奇数乘积的平方。设
+    \(\Theta_1,\ldots,\Theta_m\) 两两反对易，且
+    \(\Theta_a^2=p_aI\)，其中 \(p_a=+1\) 或 \(-1\)。把右边一串
+    \(\Theta_1\cdots\Theta_m\) 逐个移过左边一串，使相同的
+    \(\Theta_a\) 相邻，一共需要
+    \(m(m-1)/2\) 次交换。每次交换给出一个负号，所以
+  </p>
+  <div class="scroll">\[
+    (\Theta_1\Theta_2\cdots\Theta_m)^2
+      =(-1)^{m(m-1)/2}\prod_{a=1}^{m}p_a\,I.
+  \]</div>
+  <p>
+    当 \(m\) 为奇数时，这个乘积仍是反线性的，并且仍保持每个
+    \(\hat h_\ell\)。它也仍是 physical Fock-space transformation：
+    每个因子都保持 canonical relations，并把 creation operators 变成
+    变换后 annihilation operators 的 Hermitian conjugates；连续复合这些
+    实际算符不会破坏两项性质。奇数次复合留下反线性，偶数次复合得到
+    线性。因此这里新生成的 \(S\) 满足第 2 节的全部物理条件，而不只是
+    一个形式上的矩阵乘积。现在任取四条生成元。若四条中本来就同时有正平方
+    与负平方，任取一正一负已经得到 \((+,-)\)。只剩两种情况。
+  </p>
+  <ol>
+    <li>
+      四条全为正平方。令
+      \(S=\Theta_2\Theta_3\Theta_4\)，上式给
+      \(S^2=(-1)^3I=-I\)。把 \(\Theta_1\) 移过组成 \(S\) 的三条
+      生成元会得到三次负号，因此
+      \(\Theta_1S=-S\Theta_1\)。
+      \(\Theta_1^2=+I\) 与 \(S^2=-I\) 正好组成 \((+,-)\)。
+    </li>
+    <li>
+      四条全为负平方。同一个 \(S\) 满足
+      \[
+        S^2=(-1)^3(-1)^3I=+I,
+      \]
+      并且仍与平方为 \(-I\) 的 \(\Theta_1\) 反对易，所以又得到
+      \((+,-)\)。
+    </li>
+  </ol>
+  <p>
+    任意 \(n\ge4\) 的集合取其中四条即可，所以两种统计都由第 3 节的
+    共轭分块定理固定实际 lift。三条全负时容易产生一个误判：三重乘积
+    的平方确实为 \(+I\)，但它移过任一原生成元时只需有效交换两次，
+    因而与每一条原生成元<strong>对易</strong>，不能生成 \((+,-)\)。
+    所以玻色 \((-,-,-)\) 仍必须逐 pair 检查正的 particle space。
+  </p>
+
+  <h3>6.4 main.tex 的 paired benchmark 能否改用这张周期表证明</h3>
+  <p>
+    先写出一个固定辅助场 slice 的相关部分。把
+    \(\arg\Delta\) 记作 pairing coefficient 的固定相位，并暂时省略
+    格点指标，main.tex 的 \(U_2\) density decoupling 给出
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \hat h_\ell={}&
+      \hat b^+ D_\ell\hat b
+      +\hat c^+\overline{D_\ell}\hat c\\
+      &+\delta\,\hat b^+\hat c^+
+      +\overline\delta\,\hat b\hat c,
+      \qquad \arg\delta=\arg\Delta .
+  \end{aligned}
+  \]</div>
+  <p>
+    \(D_\ell\) 包含相同的实 hopping、化学势以及 \(b,c\) 互为复共轭的
+    \(\pm i\) relative-density HS potentials。若 \(U_1\) channel 也存在，
+    它只给两个 flavors 同时增加同一个实 potential，不改变下面的检查。
+  </p>
+  <p>这个 slice 确实有两条很自然的 physical 反线性对称性：</p>
+  <div class="scroll">\[
+  \begin{array}{c|cc|c}
+     &\Theta\hat b\Theta^{-1}&\Theta\hat c\Theta^{-1}&\Theta^2\\ \hline
+    \Theta_+
+      &e^{-i\arg\Delta}\hat c
+      &e^{-i\arg\Delta}\hat b&+I\\
+    \Theta_-
+      &e^{i(\pi/2-\arg\Delta)}\hat c
+      &-e^{i(\pi/2-\arg\Delta)}\hat b&-I
+  \end{array}
+  \]</div>
+  <p>
+    逐项检查 pairing 项可以看出相因子不是任取的。对 \(\Theta_+\)，
+    anti-linearity 先把 \(\delta\) 变成 \(\overline\delta\)，两个 creation
+    operators 各给一个 \(e^{i\arg\Delta}\)，所以
+  </p>
+  <div class="scroll">\[
+    \delta\,\hat b^+\hat c^+
+      \longmapsto
+    \overline\delta\,e^{2i\arg\Delta}
+      \hat c^+\hat b^+
+      =\delta\,\hat b^+\hat c^+.
+  \]</div>
+  <p>
+    对 \(\Theta_-\)，两个 operator phases 的乘积多一个负号，但
+    \(e^{-2i(\pi/2-\arg\Delta)}=-e^{2i\arg\Delta}\)，两个负号抵消，
+    结果仍是原 pairing 项。normal blocks 由 complex conjugation 和
+    \(b\leftrightarrow c\) 交换保持；relative-density HS 项则由
+    \(i\mapsto-i\) 与
+    \(\hat n_b-\hat n_c\mapsto-(\hat n_b-\hat n_c)\) 两次反号保持。
+  </p>
+  <p>
+    问题出在两条对称性的<strong>相对关系</strong>。在 flavor
+    annihilation space，它们的矩阵部分可写成
+  </p>
+  <div class="scroll">\[
+    U_+=e^{-i\arg\Delta}\sigma_x,\qquad
+    U_-=e^{i(\pi/2-\arg\Delta)}i\sigma_y.
+  \]</div>
+  <p>必须按反线性复合相乘，直接得到</p>
+  <div class="scroll">\[
+    U_+\overline{U_-}
+      =U_-\overline{U_+}=i\sigma_z,\qquad
+    \boxed{\Theta_+\Theta_-=\Theta_-\Theta_+.}
+  \]</div>
+  <p>
+    所以它不是周期表的反对易 \((+,-)\) 类。乘积 \(i\sigma_z\) 的
+    \(+i\) Nambu eigenspace 由 \(\hat b\) 与 \(\hat c^+\) 张成；
+    它们的 commutator matrix 是
+  </p>
+  <div class="scroll">\[
+    \begin{pmatrix}
+      [\hat b,\hat b^+]&0\\
+      0&[\hat c^+,\hat c]
+    \end{pmatrix}
+    =\begin{pmatrix}1&0\\0&-1\end{pmatrix},
+  \]</div>
+  <p>
+    不是正定矩阵，因而也不能把这个 eigenspace 当作新的 bosonic
+    annihilation space 来消去 Nambu square root。
+  </p>
+  <p>
+    对 generic \(D_\ell\)，这不是漏掉了另一条简单的 flavor time
+    reversal。下面把这一点逐式算出。令 flavor-only 反线性变换为
+    \(\Theta=U\mathcal K\)。relative-density HS 项正比于
+    \(i\varphi_\ell(\hat n_b-\hat n_c)\)。因为 \(\mathcal K\) 把 \(i\)
+    变成 \(-i\)，保持任意实数 \(\varphi_\ell\) 所对应的同一个时间片要求
+  </p>
+  <div class="scroll">\[
+    U^\dagger\sigma_zU=-\sigma_z .
+  \]</div>
+  <p>
+    这条式子要求 \(U\) 把 \(\sigma_z=+1\) 与 \(\sigma_z=-1\) 的两个
+    flavor 子空间互换。再使用 \(U^\dagger U=I\)，一般形式只能是
+  </p>
+  <div class="scroll">\[
+    U=\begin{pmatrix}0&u\\v&0\end{pmatrix},
+    \qquad |u|=|v|=1 .
+  \]</div>
+  <p>
+    反线性变换的平方不是 \(U^2\)，而是
+  </p>
+  <div class="scroll">\[
+    \Theta^2=U\overline U
+      =\begin{pmatrix}u\overline v&0\\0&v\overline u\end{pmatrix}.
+  \]</div>
+  <p>
+    因此 \(\Theta^2=+I\) 给出 \(u=v\)，而
+    \(\Theta^2=-I\) 给出 \(u=-v\)，这里已经吸收了一个无关的整体实负号。
+    最后检查 pairing。写
+    \(\delta=|\delta|e^{i\arg\Delta}\)。creation pairing 在变换下成为
+  </p>
+  <div class="scroll">\[
+    \delta\,\hat b^+\hat c^+
+      \longmapsto
+    \overline\delta\,\overline{uv}\,\hat b^+\hat c^+ .
+  \]</div>
+  <p>
+    与原式相等要求
+    \(uv=e^{-2i\arg\Delta}\)。与刚才的 \(u=\pm v\) 联立，分别得到
+  </p>
+  <div class="scroll">\[
+  \begin{array}{c|cc}
+    \Theta^2&u&v\\ \hline
+    +I&e^{-i\arg\Delta}&e^{-i\arg\Delta}\\
+    -I&e^{i(\pi/2-\arg\Delta)}&-e^{i(\pi/2-\arg\Delta)}
+  \end{array}
+  \]</div>
+  <p>
+    这正是上面 \(\Theta_+\) 与 \(\Theta_-\) 的两组相位，只差一个无关的
+    整体实负号。因此，所有 flavor-only 候选都已经检查完。
+  </p>
+  <p>
+    还需说明为什么对 generic 模型族不必再猜一个混合 annihilation 与
+    creation 的 Bogoliubov antiunitary。要求同一条对称性在化学势取一个
+    开区间内都成立；比较两个不同化学势的 slice，二者相减便要求
+  </p>
+  <div class="scroll">\[
+    \Theta(\hat n_b+\hat n_c)\Theta^{-1}
+      =\hat n_b+\hat n_c .
+  \]</div>
+  <p>
+    把最一般的线性像写成
+    \(\Theta\hat{\boldsymbol a}\Theta^{-1}
+      =X\hat{\boldsymbol a}+Y\hat{\boldsymbol a}^{+T}\)，其中
+    \(\hat{\boldsymbol a}=(\hat b,\hat c)^T\)。利用
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    [\hat n_b+\hat n_c,\hat{\boldsymbol a}]&=-\hat{\boldsymbol a},\\
+    [\hat n_b+\hat n_c,\hat{\boldsymbol a}^{+T}]
+      &=+\hat{\boldsymbol a}^{+T},
+  \end{aligned}
+  \]</div>
+  <p>
+    左边的 number-operator invariance 要求变换后的 annihilation
+    operators 仍满足 commutator \(-1\)。代入上式得到
+    \(-X\hat{\boldsymbol a}+Y\hat{\boldsymbol a}^{+T}
+      =-X\hat{\boldsymbol a}-Y\hat{\boldsymbol a}^{+T}\)，所以
+    \(Y=0\)。于是 generic 模型族的 Bogoliubov 候选自动退化为刚才已经
+    穷尽的 flavor-only 候选。某个固定、精细调节的化学势点仍可能出现
+    增强对称性，但不能作为整个 benchmark 参数族的证明。
+  </p>
+  <div class="result">
+    <strong>对 main.tex paired benchmark 的结论。</strong>
+    它目前不能由本节“两两反对易反线性对称性”的周期表重新证明无符号；
+    两条自然对称性一正一负却彼此对易。这个模型仍有两套已经完成的独立
+    证明：正的跨 flavor pairing 给出 operator reflection positivity；
+    对文中实际 paired benchmark 使用的 \(U_1=0\) 参数线，稳定自由衰减
+    与 \(U_2\) relative-density phase factors 又使完整传播位于
+    Case 7 的严格收缩半群内，由连通正分支同时得到无符号与无 pole。
+    若打开无界实 Gaussian 的 \(U_1\) total-density field，这条场方向
+    一般不对所有正负场值保持同一个收缩不等式；RP 证明仍成立，但不能
+    沿用这里的 Case 7 semigroup 证明。
+  </div>
+
+  <h3>6.5 一个真正由 \((+,-)\) time-reversal pair 保护的厄米 paired 玻色模型</h3>
+  <p>
+    要让含 pairing 的模型直接落入周期表，可以让两个完整 bosonic BdG
+    copies 互为复共轭，而 pairing 留在每个 copy 内部。令
+    \(\hat b_i,\hat c_i\) 是两个 bosonic flavors，取
+    \(K=K^\dagger\)、\(\Delta=\Delta^T\)，并定义
+  </p>
+  <p>
+    这一步与 main.tex 的跨 flavor 项
+    \(\hat b_i^+\hat c_i^++\hat b_i\hat c_i\) 不同：这里的 anomalous
+    terms 分别是 \(\hat b_i^+\hat b_j^+\) 与
+    \(\hat c_i^+\hat c_j^+\)，两份完整 BdG Hamiltonian 再由反线性变换
+    互换。正是这个改变使一正一负的两条反线性对称性彼此反对易。
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \hat H_0={}&
+      \sum_{ij}\left(
+        \hat b_i^+ K_{ij}\hat b_j
+        +\hat c_i^+\overline{K_{ij}}\hat c_j
+      \right)\\
+      &+\frac12\sum_{ij}\left(
+        \Delta_{ij}\hat b_i^+\hat b_j^+
+        +\overline{\Delta_{ij}}\hat c_i^+\hat c_j^+
+        +\mathrm{h.c.}\right),\\
+    \hat H={}&\hat H_0+\frac{U}{2}\sum_i
+      (\hat n_{b,i}-\hat n_{c,i})^2,\qquad U&gt;0.
+  \end{aligned}
+  \]</div>
+  <p>
+    这是一个普通 Hermitian Hamiltonian。若写
+    \(K=\kappa I+T\)，条件
+    \(\kappa&gt;\|T\|+\|\Delta\|\) 是一个简单的充分稳定条件：
+    对任意复向量 \(z\)，逐项使用矩阵 operator norm 得到
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    z^\dagger Kz+\operatorname{Re}(z^\dagger\Delta\overline z)
+      &\geq \kappa\|z\|^2-|z^\dagger Tz|
+        -|z^\dagger\Delta\overline z|\\
+      &\geq
+        \bigl(\kappa-\|T\|-\|\Delta\|\bigr)\|z\|^2&gt;0 .
+  \end{aligned}
+  \]</div>
+  <p>
+    因此每个 copy 的 bosonic BdG quadratic form 都有正的稳定余量。
+    相互作用本身也是非负算符，所以不会破坏 Hamiltonian 的下界。
+  </p>
+  <p>
+    repulsive relative-density interaction 使用实 Gaussian field
+    \(\varphi_{i\ell}\) 作如下精确 HS 分解：
+  </p>
+  <div class="scroll">\[
+    e^{-\Delta\tau\frac U2(\hat n_{b,i}-\hat n_{c,i})^2}
+      =\int_{-\infty}^{\infty}\frac{d\varphi_{i\ell}}{\sqrt{2\pi}}
+       e^{-\varphi_{i\ell}^2/2}
+       e^{\,i\sqrt{\Delta\tau U}\,\varphi_{i\ell}
+       (\hat n_{b,i}-\hat n_{c,i})}.
+  \]</div>
+  <p>
+    每个 fixed-field slice 同时保持
+  </p>
+  <div class="scroll">\[
+  \begin{array}{c|cc|c}
+     &\Theta\hat b_i\Theta^{-1}&\Theta\hat c_i\Theta^{-1}&\Theta^2\\ \hline
+    \Theta_+&\hat c_i&\hat b_i&+I\\
+    \Theta_-&\hat c_i&-\hat b_i&-I.
+  \end{array}
+  \]</div>
+  <p>
+    anti-linearity 把 \(K,\Delta\) 变成 \(\overline K,\overline\Delta\)，
+    恰好与 flavor exchange 一起交换两个 copies；对 HS 项，
+    \(i\mapsto-i\) 与
+    \(\hat n_b-\hat n_c\mapsto-(\hat n_b-\hat n_c)\) 再次抵消。
+    两条变换的矩阵部分是 \(\sigma_x\) 与 \(i\sigma_y\)，所以
+  </p>
+  <div class="scroll">\[
+    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+  \]</div>
+  <p>
+    这正是周期表的 \((+,-)\) 格。每个 copy 内允许任意
+    number-conserving 和 pairing blocks，但两个 copies 之间不混合；
+    第 3 节的实际算符分解因此给出
+  </p>
+  <div class="scroll">\[
+    W_{\rm B}(\varphi)
+      =\operatorname{Tr}_{+}\widehat{\mathcal U}_{+}(\varphi)\,
+       \overline{\operatorname{Tr}_{+}
+       \widehat{\mathcal U}_{+}(\varphi)}
+      =\left|\operatorname{Tr}_{+}
+       \widehat{\mathcal U}_{+}(\varphi)\right|^2\ge0.
+  \]</div>
+  <div class="note">
+    <strong>下面只检查玻色求迹确实存在，不参与上面的符号选支。</strong>
+    在有限 simulation lattice 上，正的 BdG 稳定余量给出一组严格为正的
+    quasiparticle energies，所以
+    \(e^{-\Delta\tau\hat H_{0,+}}\) 是 trace-class operator；这里
+    \(\hat H_{0,+}\) 表示上式中只含 \(\hat b,\hat b^+\) 的第一份
+    quadratic Hamiltonian。所谓 trace class，是指它的 singular values
+    之和有限；对正的热传播
+    这等价于普通 Fock trace
+    \(\prod_\nu(1-e^{-\Delta\tau\epsilon_\nu})^{-1}\) 有限。
+    令
+    \(V_\ell=\exp[i\sqrt{\Delta\tau U}\sum_i
+      \varphi_{i\ell}\hat n_{b,i}]\)，则 \(V_\ell\) 是 unitary，
+    \(\|V_\ell\|=1\)。Schatten norm 的乘法不等式逐次给出
+    \[
+      \left\|
+      e^{-\Delta\tau\hat H_{0,+}}V_L\cdots
+      e^{-\Delta\tau\hat H_{0,+}}V_1
+      \right\|_1
+      \leq
+      \left\|e^{-\Delta\tau\hat H_{0,+}}\right\|_1
+      \left\|e^{-\Delta\tau\hat H_{0,+}}\right\|^{L-1}
+      &lt;\infty .
+    \]
+    因而每个 copy 的 grand-canonical bare trace 确实有限；另一 copy
+    在对应 occupation basis 中是它的复共轭。正号仍由前一段的
+    \(W_{\rm B}=|\operatorname{Tr}_{+}\widehat{\mathcal U}_{+}|^2\)
+    直接给出，而不是由 trace-class 条件选择平方根。
+  </div>
+  <p>
+    该构造不是把 pairing 关掉后再使用普通 determinant，而是在完整 Nambu
+    Fock space 中直接固定 metaplectic half-power。
+  </p>
+  <p>
+    物理上可以把 \(K\) 取成 triangular 或 kagome frustrated hopping，
+    并让两个 copies 携带互为复共轭的 Peierls phases。单组分玻色 pairing
+    matrix 必须满足 \(\Delta^T=\Delta\)，所以这里不能照搬费米
+    \(p+ip\) 的奇宇称配对。一个明确选择是 triangular lattice 上的
+    chiral \(d+id\) 配对：若三条无向最近邻键的角度为
+    \(\theta_m=0,\pi/3,2\pi/3\)，取
+    \[
+      \Delta_{i,i+\delta_m}
+       =\Delta_{i+\delta_m,i}
+       =\Delta_0e^{2i\theta_m}.
+    \]
+    另一个 copy 自动具有相反 chirality。这个“helical bosonic BdG”
+    模型可用于研究相互作用怎样改变
+    成对边界模、pair-density-wave、relative-density order 与边界凝聚。
+    它提供了一个明确的、含相互作用和显式 pairing 的 bosonic
+    time-reversal-positive AFQMC 候选，而不是只给一个形式上的两模例子。
+  </p>
+
+  <h3>6.6 费米 paired 模型为何已自然落入同一张表</h3>
+  <p>
+    费米侧不需要粒子数守恒。以下把一个已经实际模拟过的模型完整写出，
+    而不只说“取两份 \(p\)-wave copies”。在 square lattice 上令
+    \(\sigma=\uparrow,\downarrow\)，并取 \(t,\mu,\Delta\) 为实数：
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \hat H_0={}&
+      \sum_{\langle ij\rangle,\sigma}
+      \left[-t\,\hat c_{i\sigma}^+\hat c_{j\sigma}
+      +\Delta_{ij,\sigma}
+       \hat c_{i\sigma}^+\hat c_{j\sigma}^+
+      +\mathrm{h.c.}\right]
+      -\mu\sum_{i,\sigma}\hat n_{i\sigma},\\
+    \hat H_I={}&
+      -U\sum_i
+      \left(\hat n_{i\uparrow}-\frac12\right)
+      \left(\hat n_{i\downarrow}-\frac12\right),
+      \qquad U&gt;0 .
+  \end{aligned}
+  \]</div>
+  <p>
+    对有向最近邻键，pairing amplitudes 取
+  </p>
+  <div class="scroll">\[
+    \Delta_{i,i+\hat x,\sigma}=\Delta,\qquad
+    \Delta_{i,i+\hat y,\sigma}
+      =i\,s_\sigma\Delta,\qquad
+    s_\uparrow=+1,\quad s_\downarrow=-1,
+  \]</div>
+  <p>
+    反向键由费米反对称性固定。于是 spin-up 是 \(p+ip\)，spin-down 是
+    \(p-ip\)，两者形成 helical topological superconductor。把 interaction
+    写成上面的 particle-hole symmetric 形式只相对
+    \(-U\hat n_\uparrow\hat n_\downarrow\) 改变化学势与常数；它的离散
+    density-channel HS identity 是
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    &e^{\Delta\tau U
+      (\hat n_{i\uparrow}-1/2)(\hat n_{i\downarrow}-1/2)}\\
+    &\quad=
+      \frac12e^{-\Delta\tau U/4}
+      \sum_{s_{i\ell}=\pm1}
+      e^{\lambda s_{i\ell}
+      (\hat n_{i\uparrow}+\hat n_{i\downarrow}-1)},
+      \qquad
+      \cosh\lambda=e^{\Delta\tau U/2}.
+  \end{aligned}
+  \]</div>
+  <p>
+    这个等式可在四个 onsite occupation states 上逐项核对。空态与双占据
+    态的左边都是 \(e^{\Delta\tau U/4}\)；右边把两个辅助场值相加后是
+    \(e^{-\Delta\tau U/4}\cosh\lambda=e^{\Delta\tau U/4}\)。
+    两个单占据态的指数中
+    \(\hat n_\uparrow+\hat n_\downarrow-1=0\)，左右两边都等于
+    \(e^{-\Delta\tau U/4}\)。
+  </p>
+  <p>
+    现在在 spinor
+    \((\hat c_\uparrow,\hat c_\downarrow)^T\) 上定义
+  </p>
+  <div class="scroll">\[
+    \Theta_+=\sigma_x\mathcal K,\qquad
+    \Theta_-=i\sigma_y\mathcal K .
+  \]</div>
+  <p>
+    两条变换都交换 \(\uparrow,\downarrow\)，而 \(\mathcal K\) 同时把
+    \(i\) 变成 \(-i\)，所以 \(p+ip\) 与 \(p-ip\) pairing 逐项互换；
+    hopping、chemical potential 与 HS 后的 total-density potential
+    也逐项不变。它们的平方和相对关系直接算成
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+    \Theta_+^2&=\sigma_x\overline{\sigma_x}=+I,\\
+    \Theta_-^2&=(i\sigma_y)\overline{(i\sigma_y)}=-I,\\
+    \sigma_x\overline{(i\sigma_y)}
+      &=-\,i\sigma_y\overline{\sigma_x}.
+  \end{aligned}
+  \]</div>
+  <p>
+    因而每个 fixed-field slice 都落在周期表的 \((+,-)\) 格。即使
+    pairing 破坏 complex-fermion particle number，实际 Spin trace
+    仍由第 3 节的共轭 Majorana 分块定理固定为非负。
+    <a href="https://arxiv.org/abs/1601.05780">Li、Jiang 与 Yao</a>
+    用这一模型研究了相互作用驱动的 topological-superconductor 相变；
+    本卷在同一 Nambu operator framework 中重写了逐层检查，并把相同
+    \((+,-)\) 定理同时推广到上一节的 bosonic metaplectic half-power。
+  </p>
+</section>
+
+
+<section id="j-relations-half-power">
+  <h2>7. 把统一定理代回 note 的五条 \(J_1,J_2\) 关系</h2>
+
+  <h3>7.1 五条关系还不是两条物理反线性对称性</h3>
   <p>
     note 枚举的每一类都指定
   </p>
@@ -1138,7 +1674,7 @@
     满足。
   </p>
 
-  <h3>6.2 \(i\) 相因子会改变两条 \(\Theta\) 的相对对易号</h3>
+  <h3>7.2 \(i\) 相因子会改变两条 \(\Theta\) 的相对对易号</h3>
   <p>
     不能直接把 \(J_1J_2=\pm J_2J_1\) 的正负号抄给
     \(\Theta_1,\Theta_2\)，因为反线性变换经过普通复数 \(i\) 时会把它
@@ -1173,7 +1709,7 @@
     note 最后一式表面的 commutator 或 anticommutator。
   </p>
 
-  <h3>6.3 只含 \(A_{\mathrm{group}}\) 时，两条 symmetry 都逐层成立</h3>
+  <h3>7.3 只含 \(A_{\mathrm{group}}\) 时，两条 symmetry 都逐层成立</h3>
   <p>
     maximal-subgroup generator 满足
   </p>
@@ -1207,7 +1743,7 @@
     <li>其余组合不能仅凭这五条关系固定实际 Nambu half-power。具体模型仍可增加 RP、一个确定的 particle-number-conserving subspace、split-orthogonal subgroup 或第三条 anti-linear symmetry。</li>
   </ul>
 
-  <h3>6.4 \(A_{\mathrm{cone}}\) 参与时，第二条变换不再保持同一构型</h3>
+  <h3>7.4 \(A_{\mathrm{cone}}\) 参与时，第二条变换不再保持同一构型</h3>
   <p>
     invariant-cone direction 使用另一组等式：
   </p>
@@ -1273,7 +1809,7 @@
     不是五条矩阵等式本身已经包含的 symmetry/group 结论。
   </p>
 
-  <h3 id="class-atlas">6.5 64 类的实际 half-power 结果表</h3>
+  <h3 id="class-atlas">7.5 64 类的实际 half-power 结果表</h3>
   <p>
     下表每一行合并相同五条关系下的一个玻色类和一个费米类，共覆盖
     \(32+32=64\) 类。表中只报告实际
@@ -1286,11 +1822,11 @@
     的 Fock-space theorem。“需物理检查”只出现在玻色侧，因为还必须确认
     \(C\overline U_aC=U_a\)，并在两条平方都为 \(-I\) 时检查第 4.2 节的
     commutator matrix。表中 cone 一栏则逐类说明严格 cone 是否存在；一旦
-    实际使用 \(A_{\rm cone}\)，第 6.4 节的结论适用于每一行。
+    实际使用 \(A_{\rm cone}\)，第 7.4 节的结论适用于每一行。
   </p>
   {{HALF_POWER_64_TABLE}}
 
-  <h3>6.6 计数怎样读，不能怎样读</h3>
+  <h3>7.6 计数怎样读，不能怎样读</h3>
   <p>
     对只含 \(A_{\rm group}\) 的费米 histories，32 类中有 12 类由原来的
     两条 \(J\) 直接给出实际权重正性：8 类在转换相因子后形成反对易的
@@ -1356,20 +1892,22 @@
     cone 非空的 8 个玻色类与 8 个费米类仍是 contraction-semigroup 研究
     的重要结果，但那条证明路线使用不等式和 semigroup character，而不是
     本卷的 fixed-configuration symmetry/group theorem。把它们在表中标出，
-    是为了说明第 6.4 节究竟影响哪些具体类，不能据此把 contraction
+    是为了说明第 7.4 节究竟影响哪些具体类，不能据此把 contraction
     argument 当作本卷 symmetry/group theorem 的结论。
   </p>
 
-  <h2>7. 本卷结论</h2>
+  <h2>8. 本卷结论</h2>
   <ol>
     <li>Nambu AFQMC 的正性对象是实际玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 或费米 \([\det(I+M)]^{1/2}\)；终点 \(M\) 及其所有谱对称性都不能单独选择 double-cover sheet。</li>
     <li>逐层成立的反对易 \((+,-)\) 物理反线性对称性把实际 Fock trace 化为共轭分解：玻色和偶数模费米为模平方，奇数模费米的两倍在加入一个解耦辅助模后为模平方；两种统计都允许 pairing。</li>
     <li>逐层成立的反对易 \((-,-)\) 对称性构造物理 annihilation space，把 Nambu half-power 精确还原为普通 determinant；玻色必须额外验证 commutator matrix 正定，费米自动满足。</li>
+    <li>对两两反对易的反线性对称性，0--3 条的逐项结果已列成玻色、费米并排周期表；四条及以上无论平方符号怎样组合，闭包中都能生成反对易 \((+,-)\) pair，因此直接进入实际 Fock 模平方定理。</li>
     <li>粒子数守恒的玻色 TRS、两类费米 Majorana-time-reversal positivity、算符 reflection positivity 与 split-orthogonal theorem，分别通过“共轭 Majorana/Fock 分块”“恢复物理粒子空间”或“reflected squares”来固定 Nambu double-cover 的符号。</li>
+    <li>main.tex 的 paired benchmark 有一条平方为正和一条平方为负的自然反线性对称性，但二者彼此对易，不能由该周期表证明；它的无符号性由 RP 路线保证，而文中实际使用的 \(U_1=0\) 参数线还可由 Case 7 strict-contraction 路线独立保证。本卷另给出的两份共轭 bosonic BdG copies 加 repulsive relative-density interaction，则逐层实现反对易 \((+,-)\)，形成一个显式、厄米且含 pairing 的 time-reversal-positive 模型。</li>
     <li>在 \(A_{\rm group}\) 上两条 \(J\) 都保持同一个辅助场构型；在 \(A_{\rm cone}\) 上第二条会翻转 generator，因而五条等式本身不能把只含 \(A_{\rm group}\) 时的双对称性证明延伸到含有 \(A_{\rm cone}\) 的有序历史。</li>
   </ol>
 
-  <h2>8. 参考资料与可复现入口</h2>
+  <h2>9. 参考资料与可复现入口</h2>
   <ul>
     <li><a href="https://arxiv.org/abs/1601.05780">Li, Jiang, and Yao, Majorana-time-reversal symmetries</a>：费米两种基本 anti-linear symmetry classes；本卷已在统一 \(\hat\chi\) framework 中重证实际 trace theorem。</li>
     <li><a href="https://arxiv.org/abs/1506.05349">Wang et al., Split orthogonal group</a>：number-conserving fermion ordinary determinant theorem；第 5.6 节说明其进入 Nambu framework 的必要前提。</li>

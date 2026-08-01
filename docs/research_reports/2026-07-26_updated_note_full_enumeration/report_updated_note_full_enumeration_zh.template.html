@@ -340,7 +340,7 @@
       <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
     </h1>
     <div class="meta">
-      <div>报告日期：2026-08-01</div>
+      <div>报告日期：2026-08-02</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
       <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -3299,30 +3299,33 @@
     </p>
 
     <div class="result">
-      <strong>64 类 actual-weight 周期表。</strong>
+      <strong>64 类的第一分类轴是 strict contraction cone。</strong>
       第 6.6 节的类别卡按同一编号列出每类的最小 Nambu 维数、
       \(A_{\mathrm{group}}\)、\(A_{\mathrm{cone}}\) 与物理模型。
-      实际 Spin/metaplectic half-power 的统一判据和逐类结论见
-      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
-      独立理论卷</a>；机器可读表见
-      <a href="tables/half_power_symmetry_64_classes.csv">
-      half_power_symmetry_64_classes.csv</a>。
+      图 1 和每张卡都先回答 strict \(A_{\mathrm{cone}}\) 是否存在；
+      只有答案为否时，才继续检查原有 \(J_1,J_2\) 能否通过反线性
+      对称性固定实际权重。后者的统一定理集中在
+      <a href="part_7_determinant_symmetry_groups.html">
+      独立时间反演理论卷</a>。
     </div>
 
     <figure>
       <img src="figures/full_64_class_enumeration.png"
-        alt="玻色和费米各三十二类的实际 Nambu 半幂权重周期表；每格同时标出只含 A_group 时的算符级正性结论，以及严格 A_cone 是否存在">
+        alt="玻色和费米各三十二类的 strict contraction cone 周期表；cone 为空的格子另标出原有反线性对称性是否足以证明实际权重非负">
       <figcaption>
-        <strong>图 1｜64 类的实际 half-power 结论。</strong>
-        上、下两块分别为玻色与费米。绿色表示物理可实现的反对易
-        \((+,-)\) 对给出模平方；黄色表示玻色 B15/B27 的四维具体表示
-        的 commutator matrix 已验证为正定；红色表示 B12/B32 在当前实正交
-        \(J_a\) 设定下任意维都不能产生所需物理 annihilation space；
-        蓝色表示费米实际权重已由模平方或 Kramers particle-space 证明为
-        非负；灰色表示五条关系本身不足。星号只标记严格
-        \(A_{\mathrm{cone}}\) 是否存在；一旦使用非零
-        \(A_{\mathrm{cone}}\)，\(\Theta_2\) 不再保持同一个辅助场构型，
-        不能沿用图中只含 \(A_{\mathrm{group}}\) 的证明。
+        <strong>图 1｜64 类的 strict-cone 筛选及 group-only 补充判据。</strong>
+        上、下两块分别为玻色与费米。绿色与蓝色是 strict matrix cone
+        非空的 \(J_2g\) 与 \(iJ_2g\) 类。全部费米格与绿色玻色格可继续
+        使用相容的 Fock representation 和连通正分支；蓝色玻色格只表示
+        矩阵收缩半群已经构造，其本卷物理模型的正性来自 fixed-\(N\)
+        character。浅灰表示先由引理1的 trace 条件排除的 16 类；在没有
+        被这一步排除的类别中，浅红表示再由引理2的符号翻转条件排除的
+        8 类。只有这些 group-only 格子才进一步检查反线性正性；深色
+        边框表示该五关系类别中存在一组已验证的物理表示，使原有
+        \(J_1,J_2\) 给出实际 Fock 权重非负的完整证明，并不表示任意表示
+        都自动通过。玻色有 6 个这样的 group-only 类，费米有 4 个。
+        没有边框不等于必有符号问题，只表示还需额外对称性、
+        reflection-positive factorization 或更小的无符号子群。
       </figcaption>
     </figure>
 
@@ -4862,9 +4865,9 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="tables/comment_pair_checks.csv">comment_pair_checks.csv</a></td><td>第一节 Comment 所列配对的数值检查</td></tr>
           <tr><td><a href="tables/half_power_symmetry_64_classes.csv">half_power_symmetry_64_classes.csv</a></td><td>玻色、费米各 32 类只含 \(A_{\mathrm{group}}\) 时的实际 Spin/metaplectic half-power 结论，以及非零 \(A_{\mathrm{cone}}\) 参与后缺少的算符条件</td></tr>
           <tr><td><a href="analysis/build_half_power_symmetry_atlas.py">build_half_power_symmetry_atlas.py</a></td><td>从 64 类矩阵关系与低维物理表示表重建 actual half-power 表，并逐项验证 B15/B27 对应本征子空间的 commutator matrix 为正定</td></tr>
-          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 actual-weight 64 类周期表</td></tr>
+          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 strict-cone 主分类与 group-only 反线性补充周期表</td></tr>
           <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 的矢量版本</td></tr>
-          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论与 64 类逐项表</td></tr>
+          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论、反线性周期表、paired 模型与 64 类逐项表</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米 Cases 1、3、5、6 的单模、无配对与有配对反例，以及 Case 4 在等号条件下的 \(SU(2)\) 权重零点诊断</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>上述精确反例、连续 zero crossing、随机扫描与 Case 4 诊断的 Octave 日志</td></tr>
           <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十一个较快的 MathJax 阅读分卷</td></tr>
