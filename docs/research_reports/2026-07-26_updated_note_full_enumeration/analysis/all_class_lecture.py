@@ -62,6 +62,14 @@ COEFFICIENT_CONDITIONS = {
 
 BOSON_TRS_CLASS = "s1+_q1-_s2-_q2-_r+"
 BOSON_RP_CLASS = "s1+_q1+_s2+_q2-_r-"
+BOSON_KRAMERS_IMPOSSIBLE = {
+    "s1+_q1-_s2+_q2-_r-",
+    "s1-_q1-_s2-_q2-_r-",
+}
+BOSON_KRAMERS_VERIFIED = {
+    BOSON_TRS_CLASS,
+    "s1-_q1-_s2+_q2-_r+",
+}
 
 # These programs are used only for group-only cards whose five relations do not
 # yet prove positivity.  The formulas in each card still choose their generators
@@ -858,8 +866,8 @@ def physical_kernel_block(row: dict[str, str]) -> str:
             &{group_j1}&{group_j2}
         """
         consequence = (
-            r"本类没有 \(A_{\mathrm{cone}}\)，因此这里只列实际存在的 "
-            "group kernel，不再展示被不等式排除的形式候选。"
+            r"本类没有满足严格负定不等式的 \(A_{\mathrm{cone}}\)，"
+            r"所以这里只列实际存在的 group kernel。"
         )
     return rf"""
       <h4>把矩阵条件翻译回二次 Hamiltonian kernel \(B=gA\)</h4>
@@ -886,7 +894,7 @@ def physical_kernel_block(row: dict[str, str]) -> str:
 def generalized_antilinear_is_physical(
     row: dict[str, str],
 ) -> tuple[bool, tuple[bool, bool]]:
-    """Check whether U_a K preserves the Nambu adjoint relation."""
+    """Check whether transformed creation operators remain conjugates."""
     dimension = 2 ** int(row["n"])
     exchange = np.kron(
         PAULI_NUMPY["X"], np.eye(dimension // 2, dtype=complex)
@@ -940,15 +948,17 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
                 r"直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 还得到 "
                 r"\(C\overline U_" + str(index)
                 + r"C=U_" + str(index)
-                + r"\)，所以这条变换保持 \(b^+\) 与 \(b\) 的 "
-                r"Hermitian-conjugate relation"
+                + r"\)。所以若 \(b\) 变换为某个 annihilation/creation "
+                r"线性组合，矩阵的第二半恰好是这个组合的 Hermitian "
+                r"conjugate"
             )
         else:
             physical_check = (
                 r"但是直接代入 \(C=\sigma_x^{\rm Nambu}\otimes I\) 得到 "
                 r"\(C\overline U_" + str(index)
                 + r"C\ne U_" + str(index)
-                + r"\)。因此这张卡顶部的代表只实现复化 CCR，不能把 "
+                + r"\)。因此这张卡顶部的代表只在暂时把 creation 与 "
+                r"annihilation 看成独立分量时保持 canonical matrix，不能把 "
                 r"\(\Theta_" + str(index)
                 + r"\) 当作物理玻色 Fock 空间上的 antiunitary"
             )
@@ -979,17 +989,17 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
     )
     if generalized_mutual == -1:
         if sorted((int(row["q1"]), int(row["q2"]))) == [-1, 1]:
-            theorem_class = "Majorana"
+            theorem_class = "conjugate_subsystems"
             theorem_text = (
                 r"二者反对易，且一个平方为 \(+I\)、另一个平方为 \(-I\)；"
-                r"第 5.5 节将直接证明这种组合产生两个互为复共轭的 "
-                r"Fock factors"
+                r"第 7 卷第 3 节从实际有序算符证明这种组合产生两个"
+                r"互为复共轭的 bosonic Fock 或 fermionic Majorana 分块"
             )
         elif int(row["q1"]) == int(row["q2"]) == -1:
-            theorem_class = "Kramers"
+            theorem_class = "kramers_polarization"
             theorem_text = (
-                r"二者反对易且都平方为 \(-I\)；第 5.5 节将直接证明 "
-                r"这种组合在适当的物理 annihilation subspace 中产生 "
+                r"二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者"
+                r"的乘积确定物理 annihilation subspace，再在其中证明 "
                 r"Kramers eigenvalue pairing"
             )
         else:
@@ -1012,7 +1022,7 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
         rf"""
           <ul class="relation-analysis">{"".join(items)}</ul>
           <p>
-            对本卡两条实际 generalized anti-linear transformations，
+            对本卡由矩阵关系得到的两条候选反线性变换，
             \[
               \Theta_1\Theta_2={mutual_rhs}.
             \]
@@ -1033,14 +1043,12 @@ def has_stable_number_conserving_direction(row: dict[str, str]) -> bool:
 
 def group_only_positivity(
     row: dict[str, str],
-    maximal: dict[str, str],
     anti_linear_text: str,
     theorem_class: str,
     physical_orbit_rows: list[dict[str, str]],
 ) -> str:
     heading = (
-        r"<h4>由本卡 \(J_1,J_2\) 直接得到的 generalized "
-        r"anti-linear algebra</h4>"
+        r"<h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>"
     )
     if row["statistics"] == "boson":
         displayed_physical, _ = generalized_antilinear_is_physical(row)
@@ -1049,11 +1057,18 @@ def group_only_positivity(
                 "本卡顶部代表已经通过物理 Nambu 共轭检查。"
             )
         elif physical_orbit_rows:
+            physical_dimensions = ", ".join(
+                str(value)
+                for value in sorted(
+                    {int(item["matrix_dimension"]) for item in physical_orbit_rows}
+                )
+            )
             physical_gate = (
                 "本卡顶部代表没有通过物理 Nambu 共轭检查，不能直接用于"
                 "下面的 Fock-space 证明；但是卡片末尾列出的 "
-                f"{len(physical_orbit_rows)} 个二维或四维物理子轨道通过了"
-                "检查。下面的结论只用于那些物理子轨道。"
+                f"{len(physical_orbit_rows)} 个物理子轨道通过了检查，"
+                f"其 Nambu 维数为 {physical_dimensions}。"
+                "下面的结论只用于那些物理子轨道。"
             )
         else:
             physical_gate = (
@@ -1061,7 +1076,7 @@ def group_only_positivity(
                 "下面的代数关系在这两个维数内不能提升成玻色 Fock-space "
                 "正性定理。"
             )
-        if theorem_class == "Majorana":
+        if theorem_class == "conjugate_subsystems":
             special = (
                 r"""
                 <p>
@@ -1091,9 +1106,9 @@ def group_only_positivity(
                   \qquad
                   [\hat h_{{\ell,+}},\hat h_{{m,-}}]=0 .
                 \]
-                若这两个 \(P\) 子空间在物理 CCR Fock space 中实现为两个
-                独立 bosonic sectors，而且完整 Gaussian product 是
-                trace class，则
+                由于两条 symmetry 已通过 physical Nambu 检查，\(P\) 的
+                两个本征子空间各自包含成套的 annihilation 与 creation
+                operators，并构成两个独立 bosonic Fock sectors。因此
                 \[
                   W=
                   \operatorname{{Tr}}_+\widehat{{\mathcal U}}_+\,
@@ -1102,33 +1117,57 @@ def group_only_positivity(
                   \left|\operatorname{{Tr}}_+
                   \widehat{{\mathcal U}}_+\right|^2\ge0 .
                 \]
-                这里的 trace-class 假设确保两个无限占据数求和真正绝对收敛；
-                模平方证明允许原 \(b,b^+\) basis 中有 pairing。若
+                这个算符恒等式直接固定实际 metaplectic half-power，并允许
+                原 \(b,b^+\) basis 中有 pairing。若
                 {len(physical_orbit_rows)} 个物理子轨道的计数为零，这一段
                 只是条件定理，不是本卡的无符号结论。
               </p>
               {special}
             """
-        if theorem_class == "Kramers":
+        if theorem_class == "kramers_polarization":
+            if row["class_id"] in BOSON_KRAMERS_IMPOSSIBLE:
+                return rf"""
+                  {heading}
+                  {anti_linear_text}
+                  <p class="scope">
+                    <strong>两条反线性变换都平方为 \(-I\) 且彼此反对易，
+                    但当前实正交 \(J_a\) 设定在任意
+                    维都不能把它提升成物理玻色粒子空间。</strong>
+                    令 \(Q=\Theta_1\Theta_2\)。物理 annihilation space
+                    要求
+                    \[
+                      Q=\pm i\operatorname{{diag}}(I,-I).
+                    \]
+                    本类的两个 \(J_a\) 同时保持 \(g\) 或同时翻转 \(g\)，
+                    所以 \(Q=J_1J_2\) 是实矩阵，不可能等于上面的纯虚矩阵。
+                    因而五条关系不能固定本类实际 bosonic half-power；这不是
+                    “四维内尚未找到”的暂时性结论。
+                  </p>
+                """
             special = (
                 r"""
                 这组五条关系正是 note 的 bosonic time-reversal Case 1。
-                在 note 限定的 real orthogonal \(J_a\) ansatz 中，
-                physical-adjoint condition 进一步推出
-                \([\Sigma,U_a]=0\)。正 CCR condition 随即迫使
-                \(Q=i\Sigma\)（差一个可由 \(J_a\to-J_a\) 调整的整体
-                符号），所以 \([A_\ell,\Sigma]=0\)：它正好恢复
+                在 note 限定的 real orthogonal \(J_a\) 设定中，
+                “creation 仍是相应 annihilation 的 Hermitian conjugate”
+                这一物理条件迫使
+                \(Q=\pm i\operatorname{diag}(I,-I)\)，所以每个 \(A_\ell\)
+                都保持原 particle/hole blocks：它正好恢复
                 main.tex 的 particle-number-conserving Kramers 构造，
                 不能在这次 32 类穷举内宣称同时覆盖 pairing。要允许
-                pairing，必须把 \(U_a\) 扩展为非 Euclidean-orthogonal
-                的 physical Bogoliubov transformations。
+                pairing，必须把 \(U_a\) 扩展为不要求保持普通 Euclidean
+                内积的 physical Bogoliubov transformations。
                 """
                 if row["class_id"] == BOSON_TRS_CLASS
                 else (
-                    r"本卡与 note Case 1 具有同一个 generalized Kramers "
-                    r"代数；其具体 \(Q\) 由本卡上方的 \(J_1,J_2\) 决定。"
+                    r"本卡和 note Case 1 一样，两条反线性变换都平方为 "
+                    r"\(-I\) 且彼此反对易；其具体 \(Q\) 由本卡上方的 "
+                    r"\(J_1,J_2\) 决定。"
                 )
             )
+            if row["class_id"] not in BOSON_KRAMERS_VERIFIED:
+                raise AssertionError(
+                    "Unexpected physical bosonic Kramers-polarization class"
+                )
             return rf"""
               {heading}
               {anti_linear_text}
@@ -1140,8 +1179,8 @@ def group_only_positivity(
                 令 \(Q=\Theta_1\Theta_2\)。由
                 \(Q^2=-I\) 和 \([Q,\hat h_\ell]=0\)，先检查
                 \[
-                  \Sigma=-gC=\operatorname{{diag}}(I,-I),\qquad
-                  \left.\Sigma\right|_{{\ker(Q-iI)}}>0 .
+                  v_\mu^+\operatorname{{diag}}(I,-I)v_\nu
+                    =\delta_{{\mu\nu}},\qquad Qv_\mu=iv_\mu .
                 \]
                 若正的是 \(-i\) 子空间，只需把一条 \(J_a\) 整体变号，
                 便可交换 \(+i\) 与 \(-i\)。这个正定条件表示该子空间中的
@@ -1150,19 +1189,19 @@ def group_only_positivity(
                 quadratures。对一般 physical Bogoliubov symmetry，这会
                 定义一组 emergent particles；但对本报告实际枚举的实正交
                 \(J_a\)，它会退化成原来的 annihilation block。若
-                \(M=\prod_\ell e^{{K_\ell}}\) 是该子空间上的传播，
+                \(\mathcal B=\prod_\ell e^{{K_\ell}}\) 是该子空间上的传播，
                 \[
-                  \det(I-M)=
+                  \det(I-\mathcal B)=
                   \prod_{{\lambda\notin\mathbb R}}|1-\lambda|^2
-                  \prod_{{r\in\mathbb R}}(1-r)^{{2m_r}}>0 .
+                  \prod_{{r\in\mathbb R}}(1-r)^{{2m_r}}\ge0 .
                 \]
-                对 nonnormal \(M\)，有限单粒子维数下保证 Fock operator
-                为 trace class 的直接条件是
-                \(\sigma_{{\max}}(M)<1\)。在这个收敛区域，
+                实际 Nambu half-power 已先由物理 particle/hole
+                decomposition 还原为
                 \[
                   W_{{\mathrm B}}
                   =\frac{{\exp[\frac12\sum_\ell
-                  \operatorname{{Tr}}K_\ell]}}{{\det(I-M)}}>0 .
+                  \operatorname{{Tr}}K_\ell]}}
+                  {{\det(I-\mathcal B)}}\ge0 .
                 \]
                 Kramers symmetry 使 \(\operatorname{{Tr}}K_\ell\) 为实数，
                 所以前因子严格为正。{special}
@@ -1172,25 +1211,25 @@ def group_only_positivity(
           {heading}
           {anti_linear_text}
           <p class="scope">
-            <strong>本卡两条 generalized anti-linear symmetries 本身没有
-            普适的 group-product 正性定理。</strong>
-            这不是说本类不存在无符号子模型。可继续在上方明确列出的
-            \(A_{{\mathrm{{group}}}}\) 内加入第三条反线性 symmetry、
-            reflection-positive block condition，或限制到另一个具有
-            determinant-sign theorem 的连通子群；每一种附加条件都必须
-            重新作用在本卡的具体 \(P\otimes K_P\) 系数上。
+            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
+            权重的平方根符号。</strong>
+            若为本类构造具体模型，还可另外施加 physical Kramers symmetry
+            或 operator reflection positivity，但那是模型的附加条件，
+            不是本五条关系已经推出的结论。
           </p>
         """
 
-    if theorem_class in ("Majorana", "Kramers"):
-        if theorem_class == "Majorana":
+    if theorem_class in ("conjugate_subsystems", "kramers_polarization"):
+        if theorem_class == "conjugate_subsystems":
             theorem_description = (
                 r"一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易"
             )
             proof = r"""
               令 \(P=\Theta_1\Theta_2\)，则
               \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分，所以
+              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
+              模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
+              模，所以
               \[
                 W_{\mathrm F}
                 =\operatorname{Tr}_+\widehat{\mathcal U}_+\,
@@ -1198,8 +1237,18 @@ def group_only_positivity(
                 =\left|\operatorname{Tr}_+
                  \widehat{\mathcal U}_+\right|^2\ge0 .
               \]
-              这是 operator-level factorization，不要求粒子数守恒，也不
-              丢失 fermion Spin double-cover 的符号。
+              若物理复费米模数为奇数，每个分块含奇数条 Majorana
+              directions，不能单独定义普通 Fock trace。此时加入一个完全
+              解耦的辅助复费米模，并把它的两条 Majoranas 分到两边；扩充后
+              系统的 trace 是原 trace 的两倍，而且
+              \[
+                2W_{\mathrm F}
+                  =\left|\operatorname{Tr}_{+,\mathrm{extended}}
+                    \widehat{\mathcal U}_{+,\mathrm{extended}}\right|^2\ge0.
+              \]
+              因而奇数模与偶数模都得到实际 \(W_{\mathrm F}\ge0\)。这是
+              operator-level factorization，不要求粒子数守恒，也不丢失
+              fermion Spin double-cover 的符号。
             """
         else:
             theorem_description = (
@@ -1208,15 +1257,23 @@ def group_only_positivity(
             proof = r"""
               令 \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。
               \(Q\) 的 \(+i\) 子空间定义 emergent conserved fermions，
-              其中任一 \(\Theta_a\) 平方为 \(-I\)。若 \(M\) 是该子空间
-              的传播矩阵，Kramers pairing 给出
+              其中任一 \(\Theta_a\) 平方为 \(-I\)。若
+              \(\mathcal B=\prod_\ell e^{K_\ell}\) 是该 annihilation
+              subspace 上的传播矩阵，Kramers pairing 给出
               \[
-                \det(I+M)=
+                \det(I+\mathcal B)=
                 \prod_{\lambda\notin\mathbb R}|1+\lambda|^2
                 \prod_{r\in\mathbb R}(1+r)^{{2m_r}}\ge0 .
               \]
-              conserved charge 由 \(Q\) 定义，所以原 Nambu basis 仍可
-              含 pairing。
+              同一 symmetry 使每个 \(\operatorname{Tr}K_\ell\) 为实数，
+              因而实际 half-power 已精确还原为
+              \[
+                W_{\mathrm F}
+                  =e^{-\frac12\sum_\ell\operatorname{Tr}K_\ell}
+                    \det(I+\mathcal B)\ge0 .
+              \]
+              conserved particle structure 由 \(Q\) 定义，所以原 Nambu
+              basis 仍可含 pairing；这里没有遗留 Spin square-root 符号。
             """
         return rf"""
           {heading}
@@ -1234,8 +1291,9 @@ def group_only_positivity(
           {heading}
           {anti_linear_text}
           <p>
-            两条 commuting \(T^+\) symmetries 对任意
-            \(A_{{\mathrm{{group}}}}\) 没有普适 MTR 定理。不过，本类至少
+            两条平方为 \(+I\) 且彼此对易的反线性对称性，对任意
+            \(A_{{\mathrm{{group}}}}\) 没有普适的双反线性对称性正性定理。
+            不过，本类至少
             含有下面两个可以直接证明的无符号子群；它们都来自本类实际
             \(J_1,J_2\) 约束，而不是额外套用 Kramers 条件。
           </p>
@@ -1297,33 +1355,13 @@ def group_only_positivity(
           </p>
         """
 
-    negative_count = int(maximal["random_negative_count"])
-    subgroup_dimension = int(maximal["maximal_subgroup_dimension"])
-    if negative_count:
-        numerical_check = rf"""
-          本卡顶部代表的完整 group 基底已经随机组成 600 组有序乘积，
-          其中 {negative_count} 组 Fock trace 为负，最小值为
-          \({float(maximal["random_min_real_weight"]):.6g}\)。一个负例已经
-          排除“五条关系保证整个 group 非负”。
-        """
-    elif subgroup_dimension == 0:
-        numerical_check = r"""
-          卡片顶部的最小代表在不添加重复空间时只有恒等传播；卡片末尾的
-          四维表示表显示本类还可能有非平凡 group directions，必须逐个
-          表示继续检查，不能把这个平凡正值外推为正性定理。
-        """
-    else:
-        numerical_check = r"""
-          600 组随机乘积没有发现负值，但随机抽样不能证明整个连续 group
-          非负；本卡只采用已经证明的反线性代数结论。
-        """
     return rf"""
       {heading}
       {anti_linear_text}
       <p class="scope">
-        <strong>本卡不属于第 5.5 节两个普适费米
-        generalized-TRS 正性类。</strong>
-        {numerical_check}
+        <strong>本卡的两条 anti-linear symmetries 不形成
+        \((+,-)\) 或 \((-,-)\) 反对易 pair，所以五条关系本身不能固定
+        实际 Nambu half-power。</strong>
         仍可在本卡的 \(P\otimes K_P\) 表内施加更强的
         split-orthogonal、reflection-positive 或额外
         anti-linear constraints；这些是本类的无符号子空间，而不是对
@@ -1332,208 +1370,62 @@ def group_only_positivity(
     """
 
 
-def third_symmetry_extension(
-    row: dict[str, str],
-    physical_orbit_rows: list[dict[str, str]],
-) -> str:
-    dimension = 2 ** int(row["n"])
-    j1 = pauli_word_tex(row["J1_word"])
-    j2 = pauli_word_tex(row["J2_word"])
-    j1_extension = (
-        rf"{j1}\otimes\sigma_z"
-        if int(row["s1"]) == 1
-        else rf"{j1}\otimes I_2"
-    )
-    pair_type = (
-        r"\(\Theta_1'^2=+I,\Theta_3^2=-I\)"
-        if int(row["q1"]) == 1
-        else r"\(\Theta_1'^2=\Theta_3^2=-I\)"
-    )
-    if row["statistics"] == "fermion":
-        conclusion = rf"""
-          费米 Fock space 有限维，而且 \(C=g\)，所以这些矩阵自动满足
-          物理 adjoint condition。{pair_type} 与
-          \(\Theta_1'\Theta_3=-\Theta_3\Theta_1'\) 正好是第 5.5 节已经
-          证明的两种基本无符号 pair 之一。因此，<strong>本类任意
-          满足物理 Hermiticity 与 HS 条件的
-          \(A_{{\mathrm{{group}}}}\) 模型都有一个只增加二重 flavor
-          的无符号 realization</strong>。这不是说原来未加
-          flavor 的整个 maximal subgroup 已经非负；它是一个逐项保持
-          原 \(A\) 方向的构造性嵌入。
-        """
-    elif physical_orbit_rows:
-        conclusion = rf"""
-          本卡末尾有 {len(physical_orbit_rows)} 个二维或四维物理子轨道；
-          从其中任意一个出发，上述二重 flavor 构造仍保持
-          \(C=\sigma_x^{{\rm Nambu}}\otimes I\)。若
-          \(J_1^2=+I\)，两个 \(P=\pm1\) Fock factors 在完整传播
-          trace class 时给出模平方。若 \(J_1^2=-I\)，还必须检查
-          \(Q=\Theta_1'\Theta_3\) 的 \(+i\) 子空间具有正 CCR norm；
-          在 note 的实正交 \(J\) ansatz 中，这个条件会使该
-          Kramers realization 回到 particle-number-conserving
-          subspace。因而这里给出的是逐卡可执行的玻色筛选，不把
-          algebraic doubling 自动写成含 pairing 的无符号定理。
-        """
-    else:
-        conclusion = r"""
-          本类在二维、四维内没有同时保持 \(g\) 与物理 Nambu 共轭关系
-          的表示，所以这一步目前只完成代数嵌入。要得到玻色 Hamiltonian，
-          必须先在更高维数找到满足
-          \(C\overline U_aC=U_a\) 的物理表示，再做同样的 trace-class
-          与正 CCR subspace 检查。
-        """
-    return rf"""
-      <details class="basis-audit extra-symmetry-construction">
-        <summary>本类怎样加入第三条 symmetry，而不丢掉原来的
-        \(A_{{\mathrm{{group}}}}\) 方向</summary>
-        <p>
-          <a href="#third-symmetry-completion">第 5.5 节的统一构造</a>
-          已经逐式证明这个提升保持 canonical condition、原来的两个
-          group 等式和每一个 \(A_{{\mathrm{{group}}}}\) 独立方向。
-          对本卡顶部的具体代表，所需矩阵就是
-          \[
-            g'=g\otimes I_2,\qquad
-            J_1'={j1_extension},\qquad
-            J_2'={j2}\otimes I_2,\qquad
-            J_3=I_{{{dimension}}}\otimes(i\sigma_y).
-          \]
-          若玻色顶部代表没有通过物理 Nambu 共轭检查，就把这里的
-          \(J_1,J_2\) 换成本卡末尾任一物理子轨道列出的具体矩阵。
-        </p>
-        <p>
-          对本卡任意 \(A=A_{{\mathrm{{group}}}}\)，对应的扩大后生成元为
-          \[
-            A'=
-            \frac{{A+\overline A}}{{2}}\otimes I_2+
-            \frac{{A-\overline A}}{{2}}\otimes\sigma_z .
-          \]
-          它的两个 flavor blocks 分别是 \(A\) 与 \(\overline A\)，因而
-          本卡表中任何粒子数守恒或 pairing coefficient 都没有被删掉。
-          新增反线性对称性满足
-          \(\Theta_3^2=-I\) 和
-          \(\Theta_1'\Theta_3=-\Theta_3\Theta_1'\)，所以本卡具体落入
-          {pair_type}。
-        </p>
-        <p>{conclusion}</p>
-      </details>
-    """
-
-
 def positivity_block(
     row: dict[str, str],
-    maximal: dict[str, str],
     physical_orbit_rows: list[dict[str, str]],
 ) -> str:
-    if int(row["strict_interior"]):
-        if row["statistics"] == "boson" and row["metric"] == "J2g":
-            return r"""
-              <p class="result">
-                <strong>本类的矩阵生成元形成收缩半群；下方物理代表给出
-                grand-canonical 无符号构造。</strong>
-                \(A_{\mathrm{group}}\) 满足
-                \(\eta A_{\mathrm{group}}
-                +A_{\mathrm{group}}^\dagger\eta=0\)，所以它沿着
-                \(\eta\)-长度不变的方向传播；\(A_{\mathrm{cone}}\) 满足
-                \(\eta A_{\mathrm{cone}}
-                +A_{\mathrm{cone}}^\dagger\eta<0\)，所以它使这个长度
-                严格减小。由
-                \[
-                  e^{A_{\mathrm{group}}^\dagger}\eta
-                  e^{A_{\mathrm{group}}}=\eta,\qquad
-                  e^{A_{\mathrm{cone}}^\dagger}\eta
-                  e^{A_{\mathrm{cone}}}<\eta
-                \]
-                可见，同一 \(J_1,J_2,\eta\) 下这些时间片的有序乘积仍是
-                \(\eta\)-收缩矩阵。
-              </p>
-              <p>
-                对玻色问题还要把这个矩阵陈述与物理 Fock 空间中的求迹
-                对应起来。单凭任意 Hermitian \(\eta\) 下的严格不等式，
-                不能推出物理玻色求迹收敛；\(\eta\) 还必须与
-                \((b,b^+)^T\) 的 oscillator representation 相容。
-                下方模型没有省略这一步：它采用同一五条关系的物理适配
-                代表，使 \(J_2g\) 成为标准 particle/hole signature，
-                并含有稳定的厄米自由项。于是每个辅助场构型的 Gaussian
-                演化算符都可求迹，传播矩阵不会遇到 bare-trace pole。
-                辅助场空间连通，再以零场构型的正权重固定平方根分支，
-                得到整个构型空间的非负权重。
-              </p>
-            """
-
-        if row["statistics"] == "boson" and row["metric"] == "iJ2g":
-            return r"""
-              <p class="result">
-                <strong>本类确实有严格的 \(iJ_2g\)-收缩矩阵锥；下方模型
-                的无符号结论采用 canonical fixed-\(N\) 求迹。</strong>
-                对本卡的 \(A_{\mathrm{group}}\) 与
-                \(A_{\mathrm{cone}}\)，有序传播矩阵保持
-                \[
-                  \eta=iJ_2g,\qquad
-                  \eta A_{\mathrm{group}}
-                  +A_{\mathrm{group}}^\dagger\eta=0,\qquad
-                  \eta A_{\mathrm{cone}}
-                  +A_{\mathrm{cone}}^\dagger\eta<0 .
-                \]
-                这完整证明了矩阵层面的收缩半群结构。
-              </p>
-              <p>
-                这里不能把“矩阵严格收缩”直接改写成
-                grand-canonical 玻色 Fock trace 收敛。例如最小见证
-                \(A_{\mathrm{cone}}=-\eta\) 虽满足上面的负定不等式，
-                在物理 \((b,b^+)^T\) representation 中却可能只生成
-                unitary 演化，高占据数求和并不衰减。下方模型因此固定
-                总粒子数 \(N\)，使用
-                \[
-                  W_N(\phi)=
-                  \operatorname{Tr}_{\mathcal H_N}\hat U(\phi).
-                \]
-                对有限格点，\(\mathcal H_N\) 是有限维空间，求迹必定有限；
-                报告再对每个所列模型的 block character 单独证明
-                \(W_N(\phi)\geq0\)。所以这里给出的 canonical 无符号结论
-                是完整结论，并未借用不成立的 grand-canonical
-                trace-class 推论。
-              </p>
-            """
-
-        base = r"""
-          <p class="result">
-            <strong>本类由费米收缩半群给出无符号区域。</strong>
-            \(A_{\mathrm{group}}\) 产生保持 \(\eta\) 的可逆运动，
-            \(A_{\mathrm{cone}}\) 产生真正压入半群内部的运动。任意时间片
-            只要由这两类允许方向组成并保持同一 \(J_1,J_2,\eta\)，有序
-            乘积仍在同一半群中。相应的费米 Gaussian character
-            非负，因此每个辅助场构型的权重非负。费米 Fock space
-            本来有限维；与玻色情形不同，这里不需要用严格不等式来压低
-            任意大的玻色占据数，也没有 bare-trace 收敛问题。
-          </p>
-        """
-        if row["statistics"] == "fermion" and int(
-            maximal["maximal_subgroup_sign_guaranteed"]
-        ):
-            anti_linear_text, theorem_class = group_antilinear_analysis(row)
-            base += rf"""
-              <details class="basis-audit">
-                <summary>等号边界的 generalized {theorem_class} 正性</summary>
-                {anti_linear_text}
-                <p>
-                  因此纯 \(A_{{\mathrm{{group}}}}\) 时间片已经满足
-                  <a href="#group-only-theorems">第 5.5 节</a>的直接
-                  Nambu/Fock 正性证明；加入
-                  \(A_{{\mathrm{{cone}}}}\) 后还可同时使用收缩半群论证。
-                </p>
-              </details>
-            """
-        return base
-
+    has_cone = bool(int(row["strict_interior"]))
     anti_linear_text, theorem_class = group_antilinear_analysis(row)
-    base = group_only_positivity(
+    group_result = group_only_positivity(
         row,
-        maximal,
         anti_linear_text,
         theorem_class,
         physical_orbit_rows,
     )
-    return base + third_symmetry_extension(row, physical_orbit_rows)
+    if has_cone:
+        cone_result = r"""
+          <h4>使用非零 \(A_{{\mathrm{{cone}}}}\) 的时间片</h4>
+          <p>
+            本类存在满足严格收缩不等式的
+            \(A_{{\mathrm{{cone}}}}\)。它满足
+            \[
+              U_1^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_1
+                =A_{{\mathrm{{cone}}}},\qquad
+              U_2^{{-1}}\overline{{A_{{\mathrm{{cone}}}}}}U_2
+                =-A_{{\mathrm{{cone}}}}.
+            \]
+            因而第二条反线性变换把同一时间片中的 cone generator
+            变成其相反数，不再保持该 fixed-field configuration。上面的
+            两-symmetry Fock theorem 不能继续引用。若具体模型使用这个
+            cone direction，实际权重正性必须由本卡的 contraction theorem、
+            operator reflection positivity，或另一条同时保持 group 与 cone
+            generators 的物理反线性对称性来证明。
+          </p>
+        """
+    else:
+        cone_result = r"""
+          <h4>\(A_{{\mathrm{{cone}}}}\) 的结论</h4>
+          <p>
+            本类没有同时满足本卡全部矩阵等式与
+            \(\eta A_{{\mathrm{{cone}}}}
+            +A_{{\mathrm{{cone}}}}^\dagger\eta<0\)
+            的非零生成元。因此本卡没有可供使用的严格
+            \(A_{{\mathrm{{cone}}}}\)，无需再对它套用权重正性证明。
+          </p>
+        """
+    return rf"""
+      <section class="half-power-positivity">
+        <p class="result">
+          <strong>本卡判断的是实际 Nambu half-power 权重。</strong>
+          完整的算符级证明见
+          <a href="part_7_determinant_symmetry_groups.html">
+          Nambu half-power 对称性理论卷</a>。
+        </p>
+        <h4>只含 \(A_{{\mathrm{{group}}}}\) 的有序时间序列</h4>
+        {group_result}
+        {cone_result}
+      </section>
+    """
 
 
 def strict_model_key(row: dict[str, str]) -> str:
@@ -2176,10 +2068,16 @@ def orbit_sheet(
     if physical_suborbit:
         orbit_id = orbit["physical_orbit_id"]
         orbit_kind = "玻色物理表示子轨道"
+        j1_under_c = sign_rhs(row["s1"], r"J_1")
+        j2_under_c = sign_rhs(row["s2"], r"J_2")
+        physical_u1 = r"J_1" if int(row["s1"]) == 1 else r"iJ_1"
+        physical_u2 = r"J_2" if int(row["s2"]) == 1 else r"iJ_2"
         physicality = (
             r"本轨道的每个代表都满足 "
-            r"\(CJ_1C=s_1J_1,\ CJ_2C=s_2J_2\)，"
-            r"所以 \(U_a=J_a\) 或 \(iJ_a\) 真正保持 "
+            rf"\(CJ_1C={j1_under_c},\ CJ_2C={j2_under_c}\)。"
+            rf"因此具体应取 \(U_1={physical_u1}\)、"
+            rf"\(U_2={physical_u2}\)；它们满足 "
+            r"\(C\overline U_aC=U_a\)，从而保持 "
             r"\(\chi^\dagger=\chi^TC\)"
         )
     else:
@@ -2191,7 +2089,7 @@ def orbit_sheet(
             if row["statistics"] == "boson"
             else (
                 r"费米情形 \(C=g\)，所以保持 \(g\) 已同时保持物理 "
-                r"creation/annihilation adjoint relation"
+                r"creation 是相应 annihilation 的 Hermitian conjugate"
             )
         )
     group_formula = orbit_sum_formula(
@@ -2403,7 +2301,8 @@ def low_dimensional_representation_block(
           \(\sum_\alpha P_\alpha\otimes K_\alpha\) 的任意重复空间解、
           每个 \(K_\alpha\) 的转置与复共轭条件、具体二次算符，以及
           代入该轨道实际 \(\eta\) 后的 cone 不等式。玻色轨道还逐项标明
-          反线性变换是否保持物理 creation/annihilation adjoint relation。
+          反线性变换后，creation component 是否仍是相应 annihilation
+          component 的 Hermitian conjugate。
         </p>
     """ + "".join(blocks) + physical_section + r"""
       </details>
@@ -2421,29 +2320,16 @@ def case_card(
     statistic_name = "玻色" if row["statistics"] == "boson" else "费米"
     dimension = 2 ** int(row["n"])
     if int(row["strict_interior"]):
+        metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
         cone_label = (
             rf"\(A_{{\mathrm{{cone}}}}\neq\varnothing\)，"
-            rf"metric={row['metric']}"
+            rf"\(\eta={metric}\)"
         )
     else:
-        _, theorem_class = group_antilinear_analysis(row)
-        if theorem_class == "Majorana":
-            cone_label = (
-                "group-only；一条反线性 symmetry 平方为 +I、"
-                "一条平方为 -I，并且二者反对易"
-            )
-        elif theorem_class == "Kramers":
-            cone_label = (
-                "group-only；两条反线性 symmetries 都平方为 -I，"
-                "并且二者反对易"
-            )
-        elif (
-            row["statistics"] == "fermion"
-            and row["class_id"] == "s1+_q1+_s2+_q2+_r+"
-        ):
-            cone_label = "group-only；含 split-orthogonal 无符号子群"
-        else:
-            cone_label = "group-only；需要更强的子群或对称条件"
+        cone_label = (
+            r"严格 \(A_{\mathrm{cone}}=\varnothing\)；"
+            r"满足第二条负号关系的生成元只能落在收缩不等式的等号边界"
+        )
     card_id = f"class-{row['statistics']}-{number:02d}"
     return rf"""
       <details class="all-class-card" id="{card_id}">
@@ -2464,7 +2350,7 @@ def case_card(
           {group_block(row)}
           {cone_block(row, full)}
           {physical_kernel_block(row)}
-          {positivity_block(row, maximal, physical_orbit_rows)}
+          {positivity_block(row, physical_orbit_rows)}
           {physical_model(row, maximal, number)}
           {number_conserving_block(row)}
           {low_dimensional_representation_block(
@@ -2479,7 +2365,7 @@ def representation_answer() -> str:
     return r"""
       <h4>为什么每一类还要继续枚举二维和四维表示</h4>
       <p>
-        “某一五符号类别有没有严格收缩方向”只由
+        “由五条正负关系定义的某一类别有没有严格收缩方向”只由
         <a href="#lemma-1">引理1</a>和
         <a href="#lemma-2">引理2</a>决定。这两个证明只用
         \(J_1,J_2\) 的五个正负号，完全没有使用某个 Pauli word。
@@ -2619,7 +2505,7 @@ def minimal_dimension_proof() -> str:
 def atlas_guide() -> str:
     return r"""
       <div class="note">
-        <strong>64 张卡片不再与另一个“16 类清单”重复。</strong>
+        <strong>64 张卡片怎样阅读。</strong>
         每张卡依次给出：最小 \(J_1,J_2\)；满足全部等式的
         \(A_{\mathrm{group}}\)；若存在则给出真正满足严格不等式的
         \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；该类自身能够
@@ -2627,15 +2513,17 @@ def atlas_guide() -> str:
       </div>
       <p>
         图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
-        编号一致；\(d=2,4,8\) 是最小 Nambu 维数；C(J) 与 C(iJ)
-        表示两种 metric 下的严格 contraction cone；Kdet(N) 表示该卡
-        明确列出的 particle-number-conserving 子空间具有 Kramers
-        eigenvalue pairing；RP 表示 reflection positivity，MTR 表示
-        两条 generalized anti-linear symmetries 已落入费米无符号类，
-        G 表示五条关系本身目前只给出 maximal subgroup，必须继续查看
-        卡片中的附加条件。格子底部同时
-        标出空 cone 是由<a href="#lemma-1">引理1</a>还是
-        <a href="#lemma-2">引理2</a>排除。
+        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。玻色面板中，
+        绿色表示已经找到满足物理 Nambu 共轭关系的 \((+,-)\) 表示，实际权重
+        为两个共轭 bosonic Fock traces 的模平方；黄色专指 B15、B27，它们的四维表示
+        还通过了 commutator matrix 正定性检查，因此可把半幂还原为普通
+        Kramers determinant；红色专指 B12、B32，它们在当前实正交
+        \(J_a\) 设定的任意维数中都不能产生所需物理 annihilation space；
+        灰色表示五条关系本身尚未固定实际 metaplectic half-power。费米面板中，
+        蓝色的 12 类由模平方或物理粒子空间中的 Kramers pairing 直接证明
+        实际 Spin half-power 非负，灰色的 20 类需要再加模型条件。每格的星号
+        只表示严格 \(A_{\mathrm{cone}}\) 存在；它与颜色所表示的纯
+        \(A_{\mathrm{group}}\) 正性是两件不同的判断。
       </p>
     """
 
@@ -2738,12 +2626,14 @@ def build_all_class_lecture() -> str:
         r"""
         <p class="small">
           机器可读结果：
-          <a href="tables/full_64_class_enumeration.csv">五符号、metric、
+          <a href="tables/full_64_class_enumeration.csv">五条正负关系、metric、
           最小维数与两个阻碍判据</a>；
           <a href="tables/tensor_block_structures.csv">每类
           \(P\otimes K_P\) 的完整等式解</a>；
-          <a href="tables/maximal_subgroup_structures.csv">费米 MTR
-          分类与数值抽样复核</a>；
+          <a href="tables/maximal_subgroup_structures.csv">每类
+          maximal-subgroup 线性空间与数值残差</a>；
+          <a href="tables/half_power_symmetry_64_classes.csv">64 类实际
+          Spin/metaplectic half-power 的算符级正性结论</a>；
           <a href="tables/nonpauli_realization_dependence.csv">同类不等价
           表示的维数对照</a>；
           <a href="tables/real_representation_orbits_le4.csv">二维与四维

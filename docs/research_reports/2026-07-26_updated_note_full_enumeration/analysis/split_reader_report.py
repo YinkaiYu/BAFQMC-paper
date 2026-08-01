@@ -13,6 +13,12 @@ REPORT_DIR = Path(__file__).resolve().parents[1]
 SOURCE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
 BRANCH_FRAGMENT_PATH = REPORT_DIR / "branch_sign_sampling_zh.fragment.html"
 CASE12_FRAGMENT_PATH = REPORT_DIR / "case12_semigroups_zh.fragment.html"
+DETERMINANT_SYMMETRY_FRAGMENT_PATH = (
+    REPORT_DIR / "determinant_symmetry_groups_zh.fragment.html"
+)
+HALF_POWER_SYMMETRY_TABLE_PATH = (
+    REPORT_DIR / "half_power_symmetry_64_table.fragment.html"
+)
 
 
 def clone(tag: Tag) -> Tag:
@@ -75,9 +81,8 @@ def build_index(source: BeautifulSoup) -> None:
               <strong><a href="part_3_enumeration_models.html">第 3 卷：分类、生成元与模型讲义</a></strong>
               从解析判据与 Octave 算法依次讲到 64 类穷举，逐类展开
               \(A\) 的最终约束、maximal subgroup 与 invariant cone。
-              每张类别卡片都就地给出一个厄米相互作用格点模型，并明确
-              区分“原有两条反线性对称已经足够”与“模型还使用附加
-              physical Kramers/RP 条件”这两种证明。
+              每张类别卡片都就地给出一个厄米相互作用格点模型，并分开写明
+              实际 Nambu half-power 权重与收缩不等式两条证明路线。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>
@@ -98,6 +103,12 @@ def build_index(source: BeautifulSoup) -> None:
               全部 reflection-positive generators 不可能共同服从同一个
               固定 contraction metric，因而不能改写成固定 Nambu metric
               下的单向 contraction semigroup。
+            </div>
+            <div class="summary-item established">
+              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu 半幂权重的对称性正性</a></strong>
+              从实际有序 Gaussian 算符出发，证明共轭 Majorana/Fock 分块与
+              Kramers 粒子空间怎样固定 Spin/metaplectic half-power；
+              随后把算符级判据逐项应用到玻色、费米各 32 类关系。
             </div>
             <div class="summary-item corrected">
               <strong><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></strong>
@@ -230,6 +241,48 @@ def build_case12_page(source: BeautifulSoup) -> None:
     write_page(REPORT_DIR / "part_6_case12_semigroups.html", page)
 
 
+def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
+    fragment_text = DETERMINANT_SYMMETRY_FRAGMENT_PATH.read_text(encoding="utf-8")
+    table_text = HALF_POWER_SYMMETRY_TABLE_PATH.read_text(encoding="utf-8")
+    marker = "{{HALF_POWER_64_TABLE}}"
+    if fragment_text.count(marker) != 1:
+        raise RuntimeError("Half-power fragment needs exactly one table marker")
+    fragment = BeautifulSoup(fragment_text.replace(marker, table_text), "html.parser")
+    page = BeautifulSoup(
+        "<!doctype html><html><body><main></main></body></html>", "html.parser"
+    )
+    page.html.insert(0, clone(source.head))
+    page.title.string = "玻色、费米统一的 Nambu 半幂权重正性"
+    header = fragment.find("header", recursive=False)
+    section_ids = [
+        "half-power-symmetry",
+        "two-antilinear-theorems",
+        "known-theories-unified",
+        "j-relations-half-power",
+    ]
+    sections = [
+        fragment.find("section", id=section_id, recursive=False)
+        for section_id in section_ids
+    ]
+    if header is None or any(section is None for section in sections):
+        raise RuntimeError(
+            "Half-power fragment needs one header and four ordered sections"
+        )
+    nav_items = [
+        ("report_index.html", "分卷入口"),
+        ("part_3_enumeration_models.html", "返回 64 类生成元讲义"),
+        ("part_5_branch_sampling.html", "double-cover 算法卷"),
+        ("part_6_case12_semigroups.html", "Case 1/2 半群证明"),
+    ]
+    page.main.append(clone(header))
+    page.main.append(navigation(nav_items))
+    for section in sections:
+        assert section is not None
+        page.main.append(clone(section))
+    page.main.append(navigation(nav_items))
+    write_page(REPORT_DIR / "part_7_determinant_symmetry_groups.html", page)
+
+
 def main() -> None:
     source = BeautifulSoup(SOURCE_PATH.read_text(encoding="utf-8"), "html.parser")
     build_index(source)
@@ -262,6 +315,7 @@ def main() -> None:
             common_index,
             ("part_2_physical_mapping.html", "上一卷：物理对应"),
             ("part_4_implications.html", "下一卷：文章影响与结论"),
+            ("part_7_determinant_symmetry_groups.html", "Nambu 半幂权重正性"),
         ],
     )
     build_section_page(
@@ -274,6 +328,7 @@ def main() -> None:
             ("part_3_enumeration_models.html", "上一卷：分类与模型讲义"),
             ("part_5_branch_sampling.html", "独立算法卷：符号追踪与采样"),
             ("part_6_case12_semigroups.html", "独立理论卷：Case 1/2 半群"),
+            ("part_7_determinant_symmetry_groups.html", "独立理论卷：Nambu 半幂权重"),
             (
                 "report_updated_note_full_enumeration_zh.html",
                 "单文件完整版",
@@ -282,7 +337,8 @@ def main() -> None:
     )
     build_branch_page(source)
     build_case12_page(source)
-    print("Wrote report_index.html and 10 split report volumes.")
+    build_determinant_symmetry_page(source)
+    print("Wrote report_index.html and 11 split report volumes.")
 
 
 if __name__ == "__main__":

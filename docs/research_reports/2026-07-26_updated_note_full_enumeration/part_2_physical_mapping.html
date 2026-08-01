@@ -336,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-29</div>
+<div>报告日期：2026-08-01</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -366,8 +366,8 @@
       M=e^{A_1}e^{A_2}\cdots e^{A_L}.
     \]</div>
 <p>
-      玻色与费米的 determinant expressions 分别包含
-      \(\det(I-M)\) 与 \(\det(I+M)\)。因此，物理问题“每个辅助场构型的
+      玻色与费米的 half-power expressions 分别包含
+      \((-1)^N\det(I-M)\) 与 \(\det(I+M)\)。因此，物理问题“每个辅助场构型的
       weight 是否非负”可以改写成两个矩阵问题：
     </p>
 <ol>
@@ -382,7 +382,7 @@
     </p>
 <p>
       同时还要记住，玻色问题比 determinant 的符号多两层：Fock trace
-      是否收敛，以及 \(\det(I-M)^{-1/2}\) 的两个平方根符号中，
+      是否收敛，以及 \([(-1)^N\det(I-M)]^{-1/2}\) 的两个平方根符号中，
       哪一个由实际 Fock operator 的 trace 沿连续辅助场路径选定。
       因此本报告始终把下面三个问题分开：
     </p>
@@ -700,7 +700,7 @@
         \]
         这里 \(\|\hat U\|_1=\Tr\sqrt{\hat U^\dagger\hat U}\)。
         实际有序二次算符乘积与 projective metaplectic
-        representative 之间若相差一个有限的正常序 scalar，
+        representative 之间若相差一个有限的正规序 scalar，
         trace norm 只乘这个 scalar 的绝对值，仍然有限。
         因此一般路线是：
       </p>
@@ -745,8 +745,9 @@
           A'=T^{-1}AT,\qquad
           \eta_{\rm physical}'=T^\dagger\eta_0T .
         \]
-        这里 \(T\) 只是在同一个 quadratic operator 中更换坐标；物理
-        adjoint relation 也必须随 \(\hat\chi\) 一起变换。逐项相乘得到
+        这里 \(T\) 只是在同一个 quadratic operator 中更换坐标；
+        “creation component 是相应 annihilation component 的 Hermitian
+        conjugate”这一物理关系也必须随 \(\hat\chi\) 一起变换。逐项相乘得到
         \[
         \begin{aligned}
           g'A'+A'^Tg'
@@ -776,8 +777,8 @@
 <strong>这给出了“不限于对角度规”的精确含义。</strong>
         任意合法坐标、任意 pairing、任意不对易时间片乘积都包括在内。
         但不能只把不等式里的 \(\eta_0\) 换成另一矩阵，同时仍把
-        \(\hat\chi\) 当作原来的 \((a,a^+)\)、仍用原来的 adjoint
-        relation。后一操作改变了半群与物理 Fock norm 的对应关系，
+        \(\hat\chi\) 当作原来的 \((a,a^+)\)、仍要求第二半分量是第一半
+        分量的 Hermitian conjugate。后一操作改变了半群与物理 Fock norm 的对应关系，
         不是换坐标。
       </div>
 <p>
@@ -810,7 +811,7 @@
           M^\dagger\eta_0M-\eta_0&lt;0,
         \]
         而 \(\hat{\mathcal U}\) 是实际有序 quadratic-operator product
-        在物理 Fock space 中的 Gaussian representative，并保留正常序
+        在物理 Fock space 中的 Gaussian representative，并保留正规序
         产生的有限 scalar factor，那么 Neeb 的 trace-class result 给出
         \[
           \Tr_{\rm Fock}
@@ -895,7 +896,7 @@
         \qquad \epsilon_j&gt;0 ,
       \]</div>
 <p>
-        其中另行记录的正常序标量不影响下面的收敛性。完整 Gaussian
+        其中另行记录的正规序标量不影响下面的收敛性。完整 Gaussian
         operator 因而具有
         \[
           \hat{\mathcal U}
@@ -955,8 +956,10 @@
           =\frac{i}{2}\left(\hat a^2+\hat a^{+2}\right).
         \]
         \(\hat a^2+\hat a^{+2}\) 是 Hermitian operator，因此
-        \(\hat h\) 是 anti-Hermitian，\(e^{\hat h}\) 是 unitary squeezing
-        operator。无限维 Fock space 上 unitary operator 的全部 singular
+        \(\hat h\) 是 anti-Hermitian，\(e^{\hat h}\) 是一个由
+        \(\hat a^2\) 与 \(\hat a^{+2}\) 生成、会混合 annihilation 与
+        creation operators 的 unitary Gaussian operator（通常称为
+        squeezing operator）。无限维 Fock space 上 unitary operator 的全部 singular
         values 都等于 \(1\)，故
         \[
           \Tr_{\rm Fock}\sqrt{e^{\hat h^\dagger}e^{\hat h}}
@@ -1162,7 +1165,7 @@
         \]
         与负定性矛盾。因此 \(M\) 没有单位圆本征值，特别没有
         \(\lambda=+1\)。玻色 trace 公式中的
-        \(\det(I-M)^{-1/2}\) 没有 pole，也不等于零。
+        \([(-1)^N\det(I-M)]^{-1/2}\) 没有 pole，也不等于零。
       </p>
 <h4>第五步：沿实际辅助场路径固定 Fock trace 的分支</h4>
 <p>
@@ -1691,7 +1694,7 @@
     </p>
 <h4>为什么不是更多或更少的式子</h4>
 <p>
-      在合作者选定的离散 ansatz 内，每个 \(J\) 各有两个需要记录的性质：
+      在合作者选定的离散设定内，每个 \(J\) 各有两个需要记录的性质：
       它对 \(g\) 的作用与它的平方；两个 \(J\) 之间再有一个相对关系。
       因而是 \(2+2+1=5\) 个二选一，共 \(2^5=32\) 类。
       \(K\) 已固定为 complex conjugation，orthogonality 已作为前提，
@@ -1700,7 +1703,7 @@
 <div class="warning">
 <strong>“32 类完整”有明确范围。</strong>
       它表示在“real orthogonal \(J_1,J_2\)、各自只保持或翻转 \(g\)、
-      二者只对易或反对易”的 ansatz 内没有漏项。它不是所有可能
+      二者只对易或反对易”的设定内没有漏项。它不是所有可能
       anti-linear symmetries、所有可能 Hermitian metrics 或所有
       sign-problem-free mechanisms 的普适分类。
     </div>

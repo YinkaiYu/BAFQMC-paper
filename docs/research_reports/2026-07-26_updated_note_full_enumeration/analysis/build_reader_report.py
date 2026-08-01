@@ -20,6 +20,9 @@ TEMPLATE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.template.h
 OUTPUT_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
 CANONICAL_FRAGMENT_PATH = REPORT_DIR / "canonical_afqmc_algorithm_zh.fragment.html"
 ENUMERATION_TAIL_PATH = REPORT_DIR / "enumeration_tail_zh.fragment.html"
+DETERMINANT_SYMMETRY_BRIDGE_PATH = (
+    REPORT_DIR / "determinant_symmetry_bridge_zh.fragment.html"
+)
 
 
 @dataclass(frozen=True)
@@ -72,12 +75,19 @@ SEGMENTS = [
         """,
         r"""
         <p>矩阵恒等式的物理作用是把 many-body operator calculation 化成有限维矩阵计算。
-        若 \(M=e^{A_1}\cdots e^{A_k}\)，原式的上下号应分开读：</p>
+        若 \(M=e^{A_1}\cdots e^{A_k}\)，原式的上下号应分开读。这里还要就地
+        修正原文漏掉的一个玻色奇偶因子：</p>
         <div class="scroll">\[
-          p_{\rm boson}=\det(I-M)^{-1/2},\qquad
-          p_{\rm fermion}=\det(I+M)^{1/2}.
+          p_{\rm boson}=\bigl[(-1)^N\det(I-M)\bigr]_{\rm op}^{-1/2},\qquad
+          p_{\rm fermion}=\bigl[\det(I+M)\bigr]_{\rm op}^{1/2}.
         \]</div>
-        <p>平方根还需要指定连续分支；玻色式还要求 Fock trace 收敛，即不能碰到
+        <p>一个物理 boson mode 对应一对倒数本征值
+        \(\lambda,\lambda^{-1}\)，而
+        \((1-\lambda)(1-\lambda^{-1})=-(1-\lambda)^2/\lambda\)。因此
+        \(N\) 个物理 boson modes 总共产生 \((-1)^N\)。原文公式仅在 \(N\)
+        为偶数时保持原样；这也是当前文章的 paired trace 公式明确限制到偶数
+        \(N\) 的原因。下标 “op” 表示平方根由实际有序 Fock operator 固定，
+        不是取任意 principal root。平方根还需要指定连续分支；玻色式还要求 Fock trace 收敛，即不能碰到
         \(\det(I-M)=0\) 的 pole。这个公式也说明后面所有 semigroup 条件最终必须控制
         \(e^A\) 及其乘积，而不只是二次型系数 \(gA\)。</p>
         """,
@@ -1685,7 +1695,7 @@ SEGMENTS = [
           特别不可能有 \(\lambda=1\)。</li>
           <li><strong>weight 是 real number。</strong>
           \(J_1K\) 交换 \(b,c\) 并复共轭，逐时间片保持 generator family；
-          正实的 Gaussian HS factor 与正常序 scalar 不另添 complex phase。</li>
+          正实的 Gaussian HS factor 与正规序 scalar 不另添 complex phase。</li>
           <li><strong>real weight 的符号不变。</strong>
           连续 HS configuration space 含零场点。零场 thermal trace 为正；
           weight 又处处有限、非零且连续，所以不能在不先经过零或 pole 的情况下
@@ -2770,16 +2780,26 @@ def main() -> None:
     all_class_lecture = build_all_class_lecture()
     canonical_algorithm = CANONICAL_FRAGMENT_PATH.read_text(encoding="utf-8")
     enumeration_tail = ENUMERATION_TAIL_PATH.read_text(encoding="utf-8")
+    determinant_symmetry_bridge = DETERMINANT_SYMMETRY_BRIDGE_PATH.read_text(
+        encoding="utf-8"
+    )
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     if template.count("{{NOTE_WALKTHROUGH}}") != 1:
         raise RuntimeError("Template must contain exactly one note walkthrough marker")
     if template.count("{{ENUMERATION_TAIL}}") != 1:
         raise RuntimeError("Template must contain exactly one enumeration-tail marker")
+    if template.count("{{DETERMINANT_SYMMETRY_BRIDGE}}") != 1:
+        raise RuntimeError(
+            "Template must contain exactly one determinant-symmetry bridge marker"
+        )
     if enumeration_tail.count("{{ALL_CLASS_STRUCTURES}}") != 1:
         raise RuntimeError("Enumeration tail must contain one all-class marker")
     if enumeration_tail.count("{{CANONICAL_ALGORITHM}}") != 1:
         raise RuntimeError("Enumeration tail must contain one canonical marker")
     output = template.replace("{{NOTE_WALKTHROUGH}}", walkthrough)
+    output = output.replace(
+        "{{DETERMINANT_SYMMETRY_BRIDGE}}", determinant_symmetry_bridge
+    )
     output = output.replace("{{ENUMERATION_TAIL}}", enumeration_tail)
     output = output.replace("{{ALL_CLASS_STRUCTURES}}", all_class_lecture)
     output = output.replace("{{CANONICAL_ALGORITHM}}", canonical_algorithm)

@@ -336,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-29</div>
+<div>报告日期：2026-08-01</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -361,8 +361,10 @@
       \(g\) 记录 canonical commutation 或 anticommutation relations。
       第二个等式只保证 \(A_\ell\) 是合法的 bosonic symplectic 或
       fermionic orthogonal generator。真正进入固定场权重的是全部时间片的
-      乘积 \(M\)：玻色公式含 \(\det(I-M)^{-1/2}\)，费米公式含
-      \(\det(I+M)^{1/2}\)。
+      乘积 \(M\)：对 \(N\) 个物理 boson modes，玻色公式含
+      \([(-1)^N\det(I-M)]^{-1/2}\)；费米公式含
+      \([\det(I+M)]^{1/2}\)。方括号所代表的平方根符号由实际有序 Fock
+      算符固定。合作者原式省略的 \((-1)^N\) 只在偶数 \(N\) 时等于一。
     </p>
 <p>
       因而 note 的核心问题不是“写出两个满足五条离散关系的矩阵”本身，而是：
@@ -558,7 +560,7 @@
 <p>
       每个 \(J\) 各有两个需要记录的性质：它保持还是翻转 \(g\)，以及它的
       平方是 \(+I\) 还是 \(-I\)；两者之间再有对易或反对易这一项。
-      所以在这个 ansatz 内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
+      所以在这个设定内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
       类。real orthogonality 是所有类别的共同前提，没有重复计入。
       这五条只说明“哪一种 \(J_1,J_2\) geometry”；每一类是否真的存在
       使 \(\eta A+A^\dagger\eta&lt;0\) 的生成元 \(A\)，仍要另外解

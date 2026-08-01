@@ -336,7 +336,7 @@
 <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
 </h1>
 <div class="meta">
-<div>报告日期：2026-07-29</div>
+<div>报告日期：2026-08-01</div>
 <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
 <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -415,12 +415,19 @@ e^{A_{k}}\right)^{\mp1/2}.\]</span></p>
 <div class="explanation">
 <div class="annotation-label">讲解与补全</div>
 <p>矩阵恒等式的物理作用是把 many-body operator calculation 化成有限维矩阵计算。
-        若 \(M=e^{A_1}\cdots e^{A_k}\)，原式的上下号应分开读：</p>
+        若 \(M=e^{A_1}\cdots e^{A_k}\)，原式的上下号应分开读。这里还要就地
+        修正原文漏掉的一个玻色奇偶因子：</p>
 <div class="scroll">\[
-          p_{\rm boson}=\det(I-M)^{-1/2},\qquad
-          p_{\rm fermion}=\det(I+M)^{1/2}.
+          p_{\rm boson}=\bigl[(-1)^N\det(I-M)\bigr]_{\rm op}^{-1/2},\qquad
+          p_{\rm fermion}=\bigl[\det(I+M)\bigr]_{\rm op}^{1/2}.
         \]</div>
-<p>平方根还需要指定连续分支；玻色式还要求 Fock trace 收敛，即不能碰到
+<p>一个物理 boson mode 对应一对倒数本征值
+        \(\lambda,\lambda^{-1}\)，而
+        \((1-\lambda)(1-\lambda^{-1})=-(1-\lambda)^2/\lambda\)。因此
+        \(N\) 个物理 boson modes 总共产生 \((-1)^N\)。原文公式仅在 \(N\)
+        为偶数时保持原样；这也是当前文章的 paired trace 公式明确限制到偶数
+        \(N\) 的原因。下标 “op” 表示平方根由实际有序 Fock operator 固定，
+        不是取任意 principal root。平方根还需要指定连续分支；玻色式还要求 Fock trace 收敛，即不能碰到
         \(\det(I-M)=0\) 的 pole。这个公式也说明后面所有 semigroup 条件最终必须控制
         \(e^A\) 及其乘积，而不只是二次型系数 \(gA\)。</p>
 </div>
@@ -2395,7 +2402,7 @@ contraction means “physical”.</p>
           特别不可能有 \(\lambda=1\)。</li>
 <li><strong>weight 是 real number。</strong>
           \(J_1K\) 交换 \(b,c\) 并复共轭，逐时间片保持 generator family；
-          正实的 Gaussian HS factor 与正常序 scalar 不另添 complex phase。</li>
+          正实的 Gaussian HS factor 与正规序 scalar 不另添 complex phase。</li>
 <li><strong>real weight 的符号不变。</strong>
           连续 HS configuration space 含零场点。零场 thermal trace 为正；
           weight 又处处有限、非零且连续，所以不能在不先经过零或 pole 的情况下

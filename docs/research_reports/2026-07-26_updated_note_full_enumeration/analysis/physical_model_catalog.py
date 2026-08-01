@@ -306,9 +306,11 @@ MODEL_CATALOG: dict[str, dict[str, str]] = {
           \hat H=-2\Omega S_y-2U S_x^2,
           \qquad \Omega>0,\quad U>0
         \]
-        这是 collective-spin LMG/Josephson model。它与
-        \(B\)-\(iJ_2g\)-\(s_1-\)-\(q_1+\) 使用同一个物理
-        Hamiltonian，但本类选择
+        这是 collective-spin LMG/Josephson model。它与满足
+        \[
+          \eta=iJ_2g,\qquad J_1^TgJ_1=-g,\qquad J_1^2=I
+        \]
+        的另一玻色类别使用同一个物理 Hamiltonian，但本类选择
         \(J_1=I_{\rm Nambu}\otimes\sigma_x\)，所以
         \(J_1^TgJ_1=g\)。同一模型同时具有两组允许的
         \(J_1\) structures，说明四类标签不是互斥的物理相。
@@ -1332,7 +1334,7 @@ def render_physical_model(class_name: str) -> str:
         mode_count = 1 if class_name == "B-J2g-s1-q1+" else 2
         scalar_note = rf"""
         <p class="small">
-        <strong>正常序标量因子。</strong>
+        <strong>正规序标量因子。</strong>
         这里有 \(m={mode_count}\) 个玻色模，且
         \[
           \hat h(A_0)=-\kappa\Delta\tau(\hat N+m/2).

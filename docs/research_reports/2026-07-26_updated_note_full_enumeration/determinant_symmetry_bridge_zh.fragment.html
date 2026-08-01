@@ -1,0 +1,119 @@
+    <h3 id="group-only-theorems">5.5 五条关系怎样约束实际 Nambu half-power 权重</h3>
+    <p>
+      对一个固定辅助场构型，本节研究的对象是实际有序 Gaussian Fock
+      算符的迹
+      \[
+        W=\operatorname{Tr}_{\mathcal F}
+        \left(e^{\hat h_L}\cdots e^{\hat h_1}\right),
+        \qquad
+        \hat h_\ell=\frac12\hat\chi^TgA_\ell\hat\chi .
+      \]
+      对任意物理模数 \(N\)，相应的矩阵简写是
+      \([(-1)^N\det(I-M)]^{-1/2}\)（玻色）与
+      \([\det(I+M)]^{1/2}\)（费米），其中
+      \(M=e^{A_L}\cdots e^{A_1}\)，只是这个实际 Fock 迹的矩阵简写。
+      合作者原式省略的 \((-1)^N\) 在偶数 \(N\) 时等于一；一般情形必须保留。
+      只知道终点矩阵 \(M\) 及其 determinant，不能区分相差中央负号的
+      两个 metaplectic 或 Spin lifts。因此下面的正性证明直接作用于
+      有序 Fock 算符，不先把 half-power 平方后再猜它的符号。
+    </p>
+
+    <h4>先把 \(J_a\mathcal K\) 变成物理反线性对称性</h4>
+    <p>
+      若 \(J_a^TgJ_a=g\)，取 \(U_a=J_a\)；若
+      \(J_a^TgJ_a=-g\)，取 \(U_a=iJ_a\)，并定义
+      \(\Theta_a=U_a\mathcal K\)。这里 \(\mathcal K\) 对系数作复共轭。
+      除保持 canonical relations 外，玻色 Nambu 变换还必须保证
+      creation component 仍是相应 annihilation component 的
+      Hermitian conjugate。若
+      \(\hat\chi^+=\hat\chi^T C\)，这一条件是
+      \[
+        C\overline{U_a}C=U_a .
+      \]
+      它排除了只在矩阵代数上成立、却不能作用于物理 Fock space 的
+      \(J_a\)。在这些条件满足后，五条关系在 Nambu operators 上直接给出
+      \[
+        \Theta_a^2=J_a^2,
+      \]
+      而两条 \(\Theta_a\) 对易还是反对易，要把
+      \(J_1J_2=\pm J_2J_1\) 的符号再乘上
+      \(J_1,J_2\) 各自保持或翻转 \(g\) 的两个符号。
+    </p>
+
+    <h4>只含 \(A_{\mathrm{group}}\) 时的两种完整正性证明</h4>
+    <p>
+      对 \(A_{\mathrm{group}}\)，两条 \(\Theta_a\) 都逐时间片保持
+      \(\hat h_\ell\)。此时有两种由原有两条对称性直接推出
+      \(W\geq0\) 的情形。
+    </p>
+    <ol>
+      <li>
+        两条反线性对称性反对易，且一条平方为 \(+I\)、另一条平方为
+        \(-I\)。令 \(P=\Theta_+\Theta_-\)，则 \(P^2=I\)。
+        \(P=+1\) 与 \(P=-1\) 两边不混合，并由 \(\Theta_+\) 互换。
+        对玻色子以及偶数模费米子，两边各自组成完整 Fock space，因此
+        \[
+          W=\operatorname{Tr}_{+}\widehat{\mathcal U}_{+}\,
+            \operatorname{Tr}_{-}\widehat{\mathcal U}_{-}
+           =\left|\operatorname{Tr}_{+}
+             \widehat{\mathcal U}_{+}\right|^2\geq0 .
+        \]
+        若费米模数为奇数，每边含奇数条 Majorana directions。加入一个完全
+        解耦的辅助复费米模后，扩充系统的 trace 是原 trace 的两倍，而两边
+        都可组成 Fock space；上式于是变为 \(2W=|w_{\rm extended}|^2\)。
+        两种奇偶情形都固定费米 Spin lift 的符号；玻色式固定 metaplectic
+        lift 的符号。
+      </li>
+      <li>
+        两条反线性对称性反对易，并且都平方为 \(-I\)。令
+        \(Q=\Theta_1\Theta_2\)，则 \(Q^2=-I\)。若 \(Q\) 的一个本征
+        子空间确实可由满足
+        \([\beta_\mu,\beta_\nu^+]=\delta_{\mu\nu}\) 的 annihilation
+        operators 张成，那么每个 \(\hat h_\ell\) 在这组 particles 中都
+        没有 pairing；任一 \(\Theta_a\) 在这个 particle space 内给出
+        Kramers pairing。权重遂还原为普通的 Kramers determinant，实际
+        Fock 迹非负。费米 CAR 自动允许这样的 particle space；玻色必须
+        逐表示检查上述 commutator matrix 是否正定。
+      </li>
+    </ol>
+    <p>
+      其余对易关系与平方组合，仅靠原有两条对称性不能普适固定实际
+      half-power 权重。它们仍可能因额外的 particle-number symmetry、
+      reflected-square factorization、split-orthogonal subgroup 或第三条
+      物理反线性对称性而成为无符号模型，但这些都是需要逐模型验证的
+      附加结构。
+    </p>
+
+    <h4>非零 \(A_{\mathrm{cone}}\) 进入时间片后</h4>
+    <p>
+      \(A_{\mathrm{cone}}\) 在 \(\Theta_1\) 下仍取正号，在
+      \(\Theta_2\) 下却取负号。因此
+      \[
+        \Theta_1\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
+          \Theta_1^{-1}
+          =\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}}),
+      \]
+      但
+      \[
+        \Theta_2\hat h(A_{\mathrm{group}}+A_{\mathrm{cone}})
+          \Theta_2^{-1}
+          =\hat h(A_{\mathrm{group}}-A_{\mathrm{cone}}).
+      \]
+      所以 \(\Theta_2\) 一般把当前辅助场构型送到另一个构型，而不是
+      保持同一个 sampled weight；上面的双对称性证明不能继续引用。
+      要得到逐构型非负权重，必须另外建立完整算符的 reflected-square
+      分解、一个由所有时间片共同保持的物理 particle space 与 Kramers
+      symmetry，或另一条对 group 与 cone 方向都取正号的物理反线性
+      对称性。收缩半群与连通正分支是另一套证明，本节不拿它代替上述
+      operator-level 条件。
+    </p>
+
+    <div class="result">
+      <strong>64 类的阅读入口。</strong>
+      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
+      独立理论卷的 64 类表</a>逐行给出只含
+      \(A_{\mathrm{group}}\) 时的实际 Fock 权重结论，以及非零
+      \(A_{\mathrm{cone}}\) 参与后还缺少的算符条件；机器可读结果见
+      <a href="tables/half_power_symmetry_64_classes.csv">
+      half_power_symmetry_64_classes.csv</a>。
+    </div>

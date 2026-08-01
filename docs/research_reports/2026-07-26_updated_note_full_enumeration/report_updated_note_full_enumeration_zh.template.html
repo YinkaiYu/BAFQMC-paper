@@ -340,7 +340,7 @@
       <span class="report-title">逐段解读、物理对应与玻色、费米完整穷举</span>
     </h1>
     <div class="meta">
-      <div>报告日期：2026-07-29</div>
+      <div>报告日期：2026-08-01</div>
       <div>审读对象：<a href="../../../experts/ToYinkaiYu-20260726.tex">experts/ToYinkaiYu-20260726.tex</a></div>
       <div>补充来源：<a href="../../../experts/RPBAFQMC.tex">experts/RPBAFQMC.tex</a>；
         <a href="../../../experts/SGNH.tex">experts/SGNH.tex</a></div>
@@ -392,8 +392,10 @@
       \(g\) 记录 canonical commutation 或 anticommutation relations。
       第二个等式只保证 \(A_\ell\) 是合法的 bosonic symplectic 或
       fermionic orthogonal generator。真正进入固定场权重的是全部时间片的
-      乘积 \(M\)：玻色公式含 \(\det(I-M)^{-1/2}\)，费米公式含
-      \(\det(I+M)^{1/2}\)。
+      乘积 \(M\)：对 \(N\) 个物理 boson modes，玻色公式含
+      \([(-1)^N\det(I-M)]^{-1/2}\)；费米公式含
+      \([\det(I+M)]^{1/2}\)。方括号所代表的平方根符号由实际有序 Fock
+      算符固定。合作者原式省略的 \((-1)^N\) 只在偶数 \(N\) 时等于一。
     </p>
     <p>
       因而 note 的核心问题不是“写出两个满足五条离散关系的矩阵”本身，而是：
@@ -591,7 +593,7 @@
     <p>
       每个 \(J\) 各有两个需要记录的性质：它保持还是翻转 \(g\)，以及它的
       平方是 \(+I\) 还是 \(-I\)；两者之间再有对易或反对易这一项。
-      所以在这个 ansatz 内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
+      所以在这个设定内是 \(2+2+1=5\) 个二选一，共 \(2^5=32\)
       类。real orthogonality 是所有类别的共同前提，没有重复计入。
       这五条只说明“哪一种 \(J_1,J_2\) geometry”；每一类是否真的存在
       使 \(\eta A+A^\dagger\eta<0\) 的生成元 \(A\)，仍要另外解
@@ -740,8 +742,8 @@
       M=e^{A_1}e^{A_2}\cdots e^{A_L}.
     \]</div>
     <p>
-      玻色与费米的 determinant expressions 分别包含
-      \(\det(I-M)\) 与 \(\det(I+M)\)。因此，物理问题“每个辅助场构型的
+      玻色与费米的 half-power expressions 分别包含
+      \((-1)^N\det(I-M)\) 与 \(\det(I+M)\)。因此，物理问题“每个辅助场构型的
       weight 是否非负”可以改写成两个矩阵问题：
     </p>
     <ol>
@@ -756,7 +758,7 @@
     </p>
     <p>
       同时还要记住，玻色问题比 determinant 的符号多两层：Fock trace
-      是否收敛，以及 \(\det(I-M)^{-1/2}\) 的两个平方根符号中，
+      是否收敛，以及 \([(-1)^N\det(I-M)]^{-1/2}\) 的两个平方根符号中，
       哪一个由实际 Fock operator 的 trace 沿连续辅助场路径选定。
       因此本报告始终把下面三个问题分开：
     </p>
@@ -1079,7 +1081,7 @@
         \]
         这里 \(\|\hat U\|_1=\Tr\sqrt{\hat U^\dagger\hat U}\)。
         实际有序二次算符乘积与 projective metaplectic
-        representative 之间若相差一个有限的正常序 scalar，
+        representative 之间若相差一个有限的正规序 scalar，
         trace norm 只乘这个 scalar 的绝对值，仍然有限。
         因此一般路线是：
       </p>
@@ -1125,8 +1127,9 @@
           A'=T^{-1}AT,\qquad
           \eta_{\rm physical}'=T^\dagger\eta_0T .
         \]
-        这里 \(T\) 只是在同一个 quadratic operator 中更换坐标；物理
-        adjoint relation 也必须随 \(\hat\chi\) 一起变换。逐项相乘得到
+        这里 \(T\) 只是在同一个 quadratic operator 中更换坐标；
+        “creation component 是相应 annihilation component 的 Hermitian
+        conjugate”这一物理关系也必须随 \(\hat\chi\) 一起变换。逐项相乘得到
         \[
         \begin{aligned}
           g'A'+A'^Tg'
@@ -1156,8 +1159,8 @@
         <strong>这给出了“不限于对角度规”的精确含义。</strong>
         任意合法坐标、任意 pairing、任意不对易时间片乘积都包括在内。
         但不能只把不等式里的 \(\eta_0\) 换成另一矩阵，同时仍把
-        \(\hat\chi\) 当作原来的 \((a,a^+)\)、仍用原来的 adjoint
-        relation。后一操作改变了半群与物理 Fock norm 的对应关系，
+        \(\hat\chi\) 当作原来的 \((a,a^+)\)、仍要求第二半分量是第一半
+        分量的 Hermitian conjugate。后一操作改变了半群与物理 Fock norm 的对应关系，
         不是换坐标。
       </div>
       <p>
@@ -1190,7 +1193,7 @@
           M^\dagger\eta_0M-\eta_0<0,
         \]
         而 \(\hat{\mathcal U}\) 是实际有序 quadratic-operator product
-        在物理 Fock space 中的 Gaussian representative，并保留正常序
+        在物理 Fock space 中的 Gaussian representative，并保留正规序
         产生的有限 scalar factor，那么 Neeb 的 trace-class result 给出
         \[
           \Tr_{\rm Fock}
@@ -1276,7 +1279,7 @@
         \qquad \epsilon_j>0 ,
       \]</div>
       <p>
-        其中另行记录的正常序标量不影响下面的收敛性。完整 Gaussian
+        其中另行记录的正规序标量不影响下面的收敛性。完整 Gaussian
         operator 因而具有
         \[
           \hat{\mathcal U}
@@ -1336,8 +1339,10 @@
           =\frac{i}{2}\left(\hat a^2+\hat a^{+2}\right).
         \]
         \(\hat a^2+\hat a^{+2}\) 是 Hermitian operator，因此
-        \(\hat h\) 是 anti-Hermitian，\(e^{\hat h}\) 是 unitary squeezing
-        operator。无限维 Fock space 上 unitary operator 的全部 singular
+        \(\hat h\) 是 anti-Hermitian，\(e^{\hat h}\) 是一个由
+        \(\hat a^2\) 与 \(\hat a^{+2}\) 生成、会混合 annihilation 与
+        creation operators 的 unitary Gaussian operator（通常称为
+        squeezing operator）。无限维 Fock space 上 unitary operator 的全部 singular
         values 都等于 \(1\)，故
         \[
           \Tr_{\rm Fock}\sqrt{e^{\hat h^\dagger}e^{\hat h}}
@@ -1544,7 +1549,7 @@
         \]
         与负定性矛盾。因此 \(M\) 没有单位圆本征值，特别没有
         \(\lambda=+1\)。玻色 trace 公式中的
-        \(\det(I-M)^{-1/2}\) 没有 pole，也不等于零。
+        \([(-1)^N\det(I-M)]^{-1/2}\) 没有 pole，也不等于零。
       </p>
 
       <h4>第五步：沿实际辅助场路径固定 Fock trace 的分支</h4>
@@ -2087,7 +2092,7 @@
 
     <h4>为什么不是更多或更少的式子</h4>
     <p>
-      在合作者选定的离散 ansatz 内，每个 \(J\) 各有两个需要记录的性质：
+      在合作者选定的离散设定内，每个 \(J\) 各有两个需要记录的性质：
       它对 \(g\) 的作用与它的平方；两个 \(J\) 之间再有一个相对关系。
       因而是 \(2+2+1=5\) 个二选一，共 \(2^5=32\) 类。
       \(K\) 已固定为 complex conjugation，orthogonality 已作为前提，
@@ -2096,7 +2101,7 @@
     <div class="warning">
       <strong>“32 类完整”有明确范围。</strong>
       它表示在“real orthogonal \(J_1,J_2\)、各自只保持或翻转 \(g\)、
-      二者只对易或反对易”的 ansatz 内没有漏项。它不是所有可能
+      二者只对易或反对易”的设定内没有漏项。它不是所有可能
       anti-linear symmetries、所有可能 Hermitian metrics 或所有
       sign-problem-free mechanisms 的普适分类。
     </div>
@@ -3265,7 +3270,7 @@
       未必是稳定或厄米的物理自由项。
     </p>
     <div class="result">
-      <strong>note 所选 ansatz 内的完整传播判据。</strong>
+      <strong>note 所选矩阵设定内的完整传播判据。</strong>
       这里把 metric 限定为由 real orthogonal \(J_2\) 构造的
       \(J_2g\) 或 \(iJ_2g\)，并将实性变换限定为 note 的
       \(J_1^TAJ_1=\bar A\)。在这个范围内，
@@ -3277,783 +3282,7 @@
       \(J_2\) 保持 \(g\) 时使用 metric \(iJ_2g\)。
     </div>
 
-    <h3 id="group-only-theorems">5.5 当 \(A_{\mathrm{cone}}\) 为空：怎样继续判定 \(A_{\mathrm{group}}\) 的权重</h3>
-    <p>
-      <a href="#lemma-1">引理1</a>和<a href="#lemma-2">引理2</a>
-      只判断是否存在
-      \(\eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0\)。
-      即使这个不等式无解，满足全部等式的
-      \(A_{\mathrm{group}}\) 仍然存在。它们的权重
-      \[
-        W=\operatorname{Tr}_{\mathrm{Fock}}
-        \left(e^{\hat h(A_L)}\cdots e^{\hat h(A_1)}\right)
-      \]
-      是否非负，必须由另一个直接作用于 Fock trace 的论证决定。本小节
-      先把 \(J_1,J_2\) 翻译为物理二次算符的反线性对称性，再分别证明
-      两种反线性配对机制以及两个费米矩阵群子类。费米证明允许原来的
-      \(c,c^+\) 表象含 pairing；玻色证明还要检查 note 的正交
-      \(J_a\) 是否真的容许这种推广。
-    </p>
-
-    <h4>第一步：从 \(J_a\) 得到保持二次算符的反线性对称性</h4>
-    <p>
-      对每个时间片，写
-      \[
-        B_\ell=gA_\ell,\qquad
-        \hat h(A_\ell)=\frac12\hat\chi^TB_\ell\hat\chi .
-      \]
-      玻色时 \(B_\ell^T=B_\ell\)，费米时
-      \(B_\ell^T=-B_\ell\)。在 maximal subgroup 中，
-      \(J_a\) 对 \(A_\ell\) 满足
-      \[
-        J_a^TA_\ell J_a=\overline A_\ell,\qquad a=1,2 .
-      \]
-      但是 \(J_a\) 不一定直接保持 \(B_\ell\)，因为它还可能翻转
-      \(g\)。因此定义
-    </p>
-    <div class="scroll">\[
-      U_a=
-      \begin{cases}
-        J_a,&J_a^TgJ_a=g,\\[2pt]
-        iJ_a,&J_a^TgJ_a=-g,
-      \end{cases}
-      \qquad
-      \Theta_a=U_a\mathcal K ,
-    \]</div>
-    <p>
-      其中 \(\mathcal K\) 对复系数作复共轭。这里的 \(i\) 不是可以
-      任意调节的相位，而是为了补偿 \(J_a\) 对 \(g\) 的负号。具体地，
-    </p>
-    <div class="scroll">\[
-      \begin{aligned}
-      J_a^T\overline B_\ell J_a
-      &=J_a^Tg\,\overline A_\ell J_a\\
-      &=(J_a^TgJ_a)
-        (J_a^T\overline A_\ell J_a)\\
-      &=
-      \begin{cases}
-        B_\ell,&J_a^TgJ_a=g,\\
-        -B_\ell,&J_a^TgJ_a=-g.
-      \end{cases}
-      \end{aligned}
-    \]</div>
-    <p>
-      第二行只是在两个因子之间插入 \(J_aJ_a^T=I\)；第三行使用
-      \(J_a^T\overline A_\ell J_a=A_\ell\)。在第二种情形中，
-      \(U_a=iJ_a\) 的两个 \(i\) 再给一个负号。两种情形于是统一为
-    </p>
-    <div class="scroll">\[
-      \boxed{
-      U_a^TgU_a=g,\qquad
-      U_a^T\overline B_\ell U_a=B_\ell,\qquad
-      \Theta_a^2=U_a\overline U_a=J_a^2 .}
-    \]</div>
-    <p>
-      前两个等式分别表示 \(\Theta_a\) 保持正则对易或反对易关系，
-      并保持每一个二次算符。第三个等式说明，五条关系中的
-      \(J_a^2=\pm I\) 正好成为反线性对称性的平方。
-    </p>
-
-    <p>
-      对玻色子还不能停在这三个等式。物理 Nambu 向量
-      \(\hat\chi=(b,b^+)^T\) 同时满足 adjoint relation
-      \[
-        \hat\chi^+=\hat\chi^TC,\qquad
-        C=\sigma_x^{\mathrm{Nambu}}\otimes I .
-      \]
-      若 \(\Theta_a\hat\chi\Theta_a^{-1}=U_a\hat\chi\) 真能由玻色
-      Fock 空间上的 antiunitary operator 实现，变换前后取 adjoint
-      必须给出同一个结果：
-    </p>
-    <div class="scroll">\[
-      (U_a\hat\chi)^+
-      =\hat\chi^TCU_a^\dagger
-      \stackrel{!}{=}
-      \hat\chi^TU_a^TC .
-    \]</div>
-    <p>
-      这等价于
-    </p>
-    <div class="scroll">\[
-      \boxed{C\,\overline U_a\,C=U_a .}
-    \]</div>
-    <p>
-      费米 Nambu convention 中 \(g=C\)。由于 \(U_a\) 是 unitary，
-      \(U_a^TCU_a=C\) 已经推出上式，所以费米侧不需要再加一条条件。
-      玻色侧 \(g=-i\sigma_y^{\mathrm{Nambu}}\otimes I\) 与
-      \(C=\sigma_x^{\mathrm{Nambu}}\otimes I\) 不同；保持 \(g\) 只说明
-      \(U_a\) 是 complex canonical transformation，并不自动说明它保持
-      creation 与 annihilation 的物理 adjoint relation。因此，后面的
-      玻色定理都明确把 \(C\overline U_aC=U_a\) 作为假设。
-    </p>
-    <p>
-      note 还假设 \(J_a\) 为 real orthogonal matrix，所以这里的
-      \(U_a\) 同时满足 \(U_a^\dagger U_a=I\)。把
-      \(C\overline U_aC=U_a\) 代入
-      \(U_a^TgU_a=g\) 的复共轭式，可得
-      \[
-      \begin{aligned}
-        U_a^\dagger g\overline U_a&=g,\\
-        U_a^\dagger g C U_a C&=g,\\
-        U_a^\dagger\Sigma U_a&=\Sigma,
-        \qquad \Sigma=-gC=\operatorname{diag}(I,-I).
-      \end{aligned}
-      \]
-      再与 \(U_a^\dagger U_a=I\) 合并，得到
-      \[
-        \boxed{[\Sigma,U_a]=0.}
-      \]
-      因此，在 note 当前的正交 \(J_a\) ansatz 内，任何可物理实现的
-      玻色 \(\Theta_a\) 都不会混合原来的 annihilation 与 creation
-      blocks。这条结论稍后会限制玻色 Kramers 类，但不会排除
-      \((+,-)\) 模平方类中每个独立 block 内的 pairing。
-    </p>
-    <details class="basis-audit">
-      <summary>一个具体例子：相同五条关系可以有物理或非物理的玻色表示</summary>
-      <p>
-        取
-        \[
-          g=-i\sigma_y^{\mathrm{Nambu}}\otimes I,\qquad
-          J_1=I_{\mathrm{Nambu}}\otimes i\sigma_y .
-        \]
-        若选
-        \(J_2=\sigma_x^{\mathrm{Nambu}}\otimes i\sigma_y\)，则
-        \(U_1=J_1,\ U_2=iJ_2\)，并且
-        \(C\overline U_2C=-U_2\)。这组矩阵满足五条代数关系，却不能把
-        \(\Theta_2\) 当作物理玻色 Fock 空间上的 antiunitary symmetry。
-        此时
-        \(\Theta_1\Theta_2=i\sigma_x^{\mathrm{Nambu}}\otimes I\)，
-        它的 \(+i\) eigenspace 由 \((v,v)^T\) 组成，对应
-        \(v^T(b+b^+)\) 这一类 quadrature operators，而不是一组彼此
-        独立的 annihilation operators。
-      </p>
-      <p>
-        保持同一组五条正负号，改取
-        \(J_2=\sigma_z^{\mathrm{Nambu}}\otimes i\sigma_y\)，便有
-        \(C\overline U_2C=U_2\)，而且
-        \(\Theta_1\Theta_2=i\sigma_z^{\mathrm{Nambu}}\otimes I\)。
-        它的 \(+i\) eigenspace 由 \((v,0)^T\) 组成，正是原来的
-        annihilation block。
-        这个例子说明：五条关系决定反线性代数的类型；玻色物理实现还要
-        检查 \(C\)。
-      </p>
-    </details>
-
-    <p>
-      \(\Theta_1,\Theta_2\) 彼此对易还是反对易，也不能只看
-      \(J_1J_2=\pm J_2J_1\)。若恰有一个 \(J_a\) 翻转 \(g\)，
-      \(\mathcal K\) 会把相应 \(U_a=iJ_a\) 中的 \(i\) 变为 \(-i\)，
-      所以相对符号还会翻转：
-    </p>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr><th>\(J_1,J_2\) 对 \(g\) 的作用</th>
-          <th>\(J_1,J_2\) 的关系</th><th>\(\Theta_1,\Theta_2\) 的关系</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>二者都保持 \(g\)，或二者都翻转 \(g\)</td>
-          <td>对易</td><td>对易</td></tr>
-          <tr><td>二者都保持 \(g\)，或二者都翻转 \(g\)</td>
-          <td>反对易</td><td>反对易</td></tr>
-          <tr><td>恰有一个翻转 \(g\)</td>
-          <td>对易</td><td>反对易</td></tr>
-          <tr><td>恰有一个翻转 \(g\)</td>
-          <td>反对易</td><td>对易</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h4>第二步：两条反对易对称性怎样使 Fock trace 非负</h4>
-    <p>
-      费米侧下面两个证明都允许每个 \(A_\ell\) 在原来的 Nambu basis
-      中含有 pairing。玻色侧要再检查物理 Nambu 共轭关系和 Fock trace
-      收敛：\((+,-)\) 模平方分解可以保留各 sector 内的 pairing；
-      \((-,-)\) Kramers 证明对一般 physical Bogoliubov transformations
-      也可以含 pairing，但在 note 实际穷举的 real orthogonal
-      \(J_a\) 范围内会退化为粒子数守恒。以下两种证明共同使用的代数条件
-      是所有时间片保持同一组 \(\Theta_1,\Theta_2\)；玻色侧的附加条件会在
-      对应证明中逐项写明。
-    </p>
-
-    <details class="basis-audit">
-      <summary><strong>\(\Theta_+^2=+I,\ \Theta_-^2=-I\)：
-      两个互为复共轭的 Fock factors</strong></summary>
-      <p>
-        假设
-        \(\Theta_+\Theta_-=-\Theta_-\Theta_+\)，并定义线性正则变换
-        \[
-          P=\Theta_+\Theta_- .
-        \]
-        由反对易关系可逐项算得
-        \[
-          P^2
-          =\Theta_+\Theta_-\Theta_+\Theta_-
-          =-\Theta_+^2\Theta_-^2=I .
-        \]
-        因为两个 \(\Theta\) 都保持每个 \(\hat h(A_\ell)\)，\(P\)
-        也保持它。用 \(P^TgP=g\) 与
-        \(P^TB_\ell P=B_\ell\) 消去 \(B_\ell=gA_\ell\)，得到
-        \[
-          P^{-1}A_\ell P=A_\ell .
-        \]
-        因此每个时间片分别保持 \(P=+1\) 与 \(P=-1\) eigenspaces。
-      </p>
-      <p>
-        这两个 eigenspaces 各自是完整的 canonical subspace。若
-        \(Pv=v\)、\(Pw=-w\)，则
-        \[
-          v^Tgw=(Pv)^Tg(Pw)=-v^Tgw=0 .
-        \]
-        两个空间彼此 \(g\)-orthogonal；由于 \(g\) 在全部 Nambu
-        空间上可逆，它在每个 eigenspace 上也可逆。另一方面，
-        \(\Theta_+P=-P\Theta_+\)，所以 \(\Theta_+\) 把两个空间互换，
-        并把一个空间中所有系数复共轭为另一个空间中的系数。
-      </p>
-      <p>
-        二次算符因此分成作用于两个 canonical subsystems 的偶算符，
-        \[
-          \widehat{\mathcal U}
-          =\widehat{\mathcal U}_+\widehat{\mathcal U}_-,
-          \qquad
-          \operatorname{Tr}_{-}\widehat{\mathcal U}_{-}
-          =\overline{\operatorname{Tr}_{+}
-          \widehat{\mathcal U}_{+}} .
-        \]
-        对费米 Fock space，有限格点时两个 trace 都是有限和，于是
-        \[
-          \boxed{
-          W=
-          \operatorname{Tr}_{+}\widehat{\mathcal U}_{+}\,
-          \operatorname{Tr}_{-}\widehat{\mathcal U}_{-}
-          =
-          \left|\operatorname{Tr}_{+}
-          \widehat{\mathcal U}_{+}\right|^2\ge0 .}
-        \]
-        若两个 \(P\) eigenspaces 各含奇数个 self-adjoint fermion
-        generators，可添加一个完全解耦、生成元恒为零的 spectator
-        fermion，使两个空间各增加一个 generator。原权重只乘一个正的
-        常数 \(2\)，而两个空间都变成通常的偶维 Fock factors；因此
-        奇偶性不会改变上述符号结论。
-      </p>
-      <p>
-        对玻色子，还要使用上一段的
-        \(C\overline U_\pm C=U_\pm\)。此时 \(P\) 的两个实本征值空间
-        各自包含成对的 annihilation 与 creation operators，因而 Fock
-        space 才能分解为上式的两个 bosonic factors。此外，
-        \(\widehat{\mathcal U}_\pm\) 必须是 trace class；这里的
-        trace class 是指
-        \(\operatorname{Tr}\sqrt{\widehat{\mathcal U}_\pm^\dagger
-        \widehat{\mathcal U}_\pm}<\infty\)，也就是对任意高的玻色占据数
-        取绝对值后仍可求和。满足这两项以后，同一个模平方等式就是玻色
-        group-only 的非负证明。
-      </p>
-    </details>
-
-    <details class="basis-audit">
-      <summary><strong>\(\Theta_1^2=\Theta_2^2=-I\)：
-      广义 Kramers 配对</strong></summary>
-      <p>
-        现在令
-        \[
-          Q=\Theta_1\Theta_2,\qquad
-          \Theta_1\Theta_2=-\Theta_2\Theta_1 .
-        \]
-        同样逐项相乘得到
-        \[
-          Q^2=-\Theta_1^2\Theta_2^2=-I .
-        \]
-        \(Q\) 是保持 \(g\) 的线性正则变换，也保持每个时间片。其
-        \(+i\) 与 \(-i\) eigenspaces 记为 \(L_+\) 与 \(L_-\)。
-        若 \(v,w\in L_+\)，则
-        \[
-          v^Tgw=(Qv)^Tg(Qw)=i^2v^Tgw=-v^Tgw=0 .
-        \]
-        所以 \(L_+\) 内部的 canonical pairing 为零；\(L_-\) 同理，
-        而 \(g\) 把 \(L_+\) 与 \(L_-\) 配成一对。所有 \(A_\ell\)
-        与 \(Q\) 对易，因此它们不混合两个空间。
-      </p>
-      <p>
-        \(\Theta_1\) 反线性且与 \(Q\) 反对易。若 \(Qv=iv\)，那么
-        \[
-          Q(\Theta_1v)
-          =-\Theta_1(Qv)
-          =-\Theta_1(iv)
-          =i\Theta_1v .
-        \]
-        因而 \(\Theta_1\) 在 \(L_+\) 内作用，并且
-        \(\Theta_1^2=-I\)。这就是直接在 Nambu 空间得到的 Kramers
-        antiunitary；推导没有引入另一套算符基底。
-      </p>
-      <p>
-        取 \(L_+\) 为 annihilation-operator space。每个生成元便具有
-        \[
-          A_\ell=
-          \begin{pmatrix}
-          K_\ell&0\\[2pt]0&-K_\ell^T
-          \end{pmatrix},
-          \qquad
-          M=e^{K_L}\cdots e^{K_1}.
-        \]
-        费米二次算符正规序后为
-        \[
-          \hat h_{\mathrm F}(A_\ell)
-          =c^+K_\ell c-\frac12\Tr K_\ell ,
-        \]
-        所以完整而非只差一个未定义常数的权重是
-        \[
-          W_{\mathrm F}
-          =
-          \exp\!\left[-\frac12\sum_\ell\Tr K_\ell\right]
-          \det(I+M).
-        \]
-        \(\Theta_1\) 使 \(\Tr K_\ell\) 为实数，所以指数因子严格为正。
-        它还使 \(M\) 的非实本征值成 \(\lambda,\bar\lambda\) 对，
-        实本征值按特征多项式计数的次数为偶数。因此
-        \[
-          \boxed{
-          W_{\mathrm F}
-          =
-          e^{-\frac12\sum_\ell\Tr K_\ell}
-          \prod_{\operatorname{Im}\lambda>0}|1+\lambda|^2
-          \prod_{r\in\mathbb R}(1+r)^{2m_r}\ge0 .}
-        \]
-        有限格点费米 Fock space 有限维，所以这里不需要额外的收敛假设。
-      </p>
-      <p>
-        玻色侧必须进一步确认 \(L_+\) 是物理的正 CCR polarization。
-        在本报告的 Nambu 顺序中定义
-        \[
-          \Sigma=-gC
-          =\operatorname{diag}(I,-I).
-        \]
-        条件
-        \[
-          \boxed{v^\dagger\Sigma v>0
-          \quad\text{对任意 }0\ne v\in L_+}
-        \]
-        时，可以在 \(L_+\) 中选取满足
-        \(v_\mu^\dagger\Sigma v_\nu=\delta_{\mu\nu}\) 的基底。
-        把这些 \(v_\mu\) 与它们的 physical-adjoint partners
-        \(C\overline v_\mu\in L_-\) 合在一起，便得到一个物理
-        Bogoliubov transformation。变换后的 \(\beta_\mu\) 与
-        \(\beta_\mu^+\) 满足
-        \([\beta_\mu,\beta_\nu^+]=\delta_{\mu\nu}\)；若正定的是
-        \(L_-\)，只需交换 \(Q\) 的符号。所有时间片在这些物理
-        Bogoliubov operators \(\beta,\beta^+\) 下守恒粒子数。
-      </p>
-      <p>
-        对一般的物理 bosonic antiunitary transformations，上面的
-        \(L_+\) 可以是由 squeezing 得到的新 polarization，此时原来的
-        \(b,b^+\) 表象可以含 pairing。但是 note 当前把 \(J_a\) 限定为
-        real orthogonal matrices。上一段已经证明，此时
-        \([\Sigma,Q]=0\)。由 \(C\overline Q C=Q\)，对
-        \(Qv=iv\) 有
-        \[
-          Q(C\overline v)=C\,\overline{Qv}
-          =-iC\overline v .
-        \]
-        因此 physical adjoint 把 \(L_+\) 一一映到
-        \(L_-\)，两个空间各占 Nambu 空间的一半。由于
-        \(\dim L_+\) 恰好等于
-        \(\Sigma=+1\) 空间的维数，而
-        \(\Sigma|_{L_+}>0\) 排除了 \(L_+\) 中任何
-        \(\Sigma=-1\) 向量，所以
-        \[
-          L_+=\ker(\Sigma-I),\qquad Q=i\Sigma .
-        \]
-        又因为 \([A_\ell,Q]=0\)，便有
-        \([A_\ell,\Sigma]=0\)：每个 \(A_\ell\) 在原来的物理 Nambu
-        表象中已经 particle-number conserving。因此，下面的玻色
-        Kramers trace 公式本身对一般正 polarization 成立；但在本次
-        32 类正交 \(J_a\) 穷举中，它只恢复粒子数守恒的 Kramers
-        情形。若要系统覆盖含 pairing 的玻色 Kramers 类，必须把
-        \(J_a\) 的搜索空间扩展到保持 \(g\) 与 \(C\)、但不要求
-        \(U^\dagger U=I\) 的 physical Bogoliubov transformations。
-      </p>
-      <p>
-        玻色正规序给出相反的常数号：
-        \[
-          \hat h_{\mathrm B}(A_\ell)
-          =\beta^+K_\ell\beta+\frac12\Tr K_\ell ,
-          \qquad
-          W_{\mathrm B}
-          =
-          \frac{\exp[\frac12\sum_\ell\Tr K_\ell]}
-          {\det(I-M)} .
-        \]
-        同一条 Kramers symmetry 仍保证
-        \(\Tr K_\ell\in\mathbb R\)，因此分子严格为正。
-        若 \(M\) 的最大 singular value 小于 \(1\)，则
-        \[
-          \operatorname{Tr}
-          \sqrt{\widehat{\mathcal U}^{\dagger}\widehat{\mathcal U}}
-          =
-          \frac{\exp[\frac12\sum_\ell\Tr K_\ell]}
-          {\det(I-\sqrt{M^\dagger M})}<\infty .
-        \]
-        这既证明 Gaussian operator 是 trace class，也排除了
-        \(\det(I-M)=0\) 的 pole。再用相同的 Kramers pairing，
-        \[
-          \boxed{
-          W_{\mathrm B}
-          =
-          e^{\frac12\sum_\ell\Tr K_\ell}
-          \prod_{\operatorname{Im}\lambda>0}
-          |1-\lambda|^{-2}
-          \prod_{r\in\mathbb R}(1-r)^{-2m_r}>0 .}
-        \]
-        这里必须控制 singular values，而不只控制 eigenvalues，因为有序
-        时间片乘积一般不是 normal matrix。
-      </p>
-    </details>
-
-    <p>
-      对费米子，上述 \((+,-)\) 模平方类与 \((-,-)\) Kramers 类正是
-      <a href="https://arxiv.org/abs/1601.05780">Li、Jiang 与 Yao</a>
-      证明的两个基本 Majorana-time-reversal positivity classes。
-      上面的推导把同一结论直接写成 \(g,A,J_1,J_2\) 与物理 Nambu
-      Fock trace 的语言，并且明确容许 pairing。对玻色子，反线性代数
-      相同还不够；必须同时满足物理 adjoint、上述 Fock factorization
-      或正 CCR polarization，以及 trace-class 条件。这是玻色与费米
-      不能机械等同的地方。
-    </p>
-
-    <h4>第三步：多于两条反线性对称性时怎样使用周期表</h4>
-    <p>
-      为了与上述文献逐项对应，记 \(T^+\) 为平方 \(+I\) 的反线性
-      对称性，\(T^-\) 为平方 \(-I\) 的反线性对称性，并要求同一集合内
-      不同的 \(T\) 两两反对易。每个 \(J_a\) 必须先按本节开头的规则
-      变为 \(T_a=U_a\mathcal K\)，不能直接把 \(J_a^2\) 与
-      \(J_1J_2\) 的符号抄入表中。
-    </p>
-    <div class="scroll">
-      <table>
-        <thead>
-          <tr><th>两两反对易的反线性对称性数目</th>
-          <th>费米权重必定非负的类别</th>
-          <th>仅靠所列对称性仍可能出现负权重的类别</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>0</td><td>无</td><td>没有反线性对称性</td></tr>
-          <tr><td>1</td><td>无</td><td>\(\{T_1^+\}\)、\(\{T_1^-\}\)</td></tr>
-          <tr><td>2</td>
-          <td>\(\{T_1^+,T_2^-\}\)、\(\{T_1^-,T_2^-\}\)</td>
-          <td>\(\{T_1^+,T_2^+\}\)</td></tr>
-          <tr><td>3</td>
-          <td>\(\{T_1^+,T_2^+,T_3^-\}\)、
-          \(\{T_1^+,T_2^-,T_3^-\}\)、
-          \(\{T_1^-,T_2^-,T_3^-\}\)</td>
-          <td>\(\{T_1^+,T_2^+,T_3^+\}\)</td></tr>
-          <tr><td>4 或更多</td><td>全部</td><td>无</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      这张表不是经验归纳。额外的反线性对称性可以相乘出刚才已经证明的
-      基本类。例如四条 \(T^+\) 中，
-      \(T_2^+T_3^+T_4^+\) 仍是反线性的，平方为 \(-I\)，并与
-      \(T_1^+\) 反对易，所以四正号类含有一个 \((+,-)\) 子类。
-      其他表中标为非负的高对称类别也可用同样方法约化到
-      \((+,-)\) 或 \((-,-)\)。因此，在只假设这些两两反对易
-      symmetries、不加入其他矩阵条件的费米分类中，这张表给出文献已经
-      证明的完整结果。玻色侧可以沿用这张表寻找候选反线性代数，但每次
-      约化后仍须检查 \(C\)、正 CCR
-      polarization 或 Fock factorization，以及 trace class。
-    </p>
-
-    <h4 id="third-symmetry-completion">第四步：增加一个二重 flavor，
-    怎样保留原来全部 \(A_{\mathrm{group}}\) 方向</h4>
-    <p>
-      上面的周期表说明，两条原始反线性对称性不一定已经属于
-      \((+,-)\) 或 \((-,-)\) 类。这里给出一个对每个五符号类都能逐式
-      检查的构造。它不删除原来任何 \(A_{\mathrm{group}}\) 方向，只增加
-      一个二重 flavor 和第三条反线性对称性。
-    </p>
-    <p>
-      在原 Nambu 空间之外张量一个二维 flavor，定义
-    </p>
-    <div class="scroll">\[
-      g'=g\otimes I_2,\qquad
-      J_2'=J_2\otimes I_2,\qquad
-      J_3=I\otimes(i\sigma_y),
-    \]</div>
-    <p>
-      并根据 \(J_1\) 对 \(g\) 的作用取
-    </p>
-    <div class="scroll">\[
-      J_1'=
-      \begin{cases}
-        J_1\otimes\sigma_z,&J_1^TgJ_1=g,\\[2pt]
-        J_1\otimes I_2,&J_1^TgJ_1=-g.
-      \end{cases}
-    \]</div>
-    <p>
-      给定原来任意一个 \(A=A_{\mathrm{group}}\)，在扩大后的空间中取
-      \[
-        \boxed{
-        A'=\frac{A+\overline A}{2}\otimes I_2+
-           \frac{A-\overline A}{2}\otimes\sigma_z .}
-      \]
-      这个映射是单射：在 \(\sigma_z=+1\) 的 flavor block 中得到
-      \(A\)，在 \(\sigma_z=-1\) 的 block 中得到 \(\overline A\)，所以
-      原来每一个独立 \(A\) 方向都被保留下来。
-    </p>
-    <p>
-      现在逐项检查 group 等式。由
-      \(J_a^TAJ_a=\overline A\) 及其复共轭式，
-      \[
-      \begin{aligned}
-        J_a^T\frac{A+\overline A}{2}J_a
-          &=\frac{A+\overline A}{2},\\
-        J_a^T\frac{A-\overline A}{2}J_a
-          &=-\frac{A-\overline A}{2}.
-      \end{aligned}
-      \]
-      因而 \(J_1'\) 与 \(J_2'\) 都把 \(A'\) 变为
-      \(\overline{A'}\)。这里 \(\sigma_z^TI_2\sigma_z=I_2\) 与
-      \(\sigma_z^T\sigma_z\sigma_z=\sigma_z\)，所以
-      \(J_1^TgJ_1=g\) 时额外的 \(\sigma_z\) 不改变这两个等式。
-      另一方面，
-      \[
-        (i\sigma_y)^TI_2(i\sigma_y)=I_2,\qquad
-        (i\sigma_y)^T\sigma_z(i\sigma_y)=-\sigma_z ,
-      \]
-      直接给出
-      \[
-        J_3^TA'J_3=\overline{A'}.
-      \]
-      原来的 canonical condition 也逐块保留：
-      \[
-        g'A'+A'^Tg'=0 .
-      \]
-    </p>
-    <p>
-      最后把三条矩阵变换按本节开头的规则写成
-      \(\Theta_a'=U_a'\mathcal K\)。第三条满足
-      \[
-        J_3^Tg'J_3=g',\qquad \Theta_3^2=J_3^2=-I .
-      \]
-      若 \(J_1^TgJ_1=g\)，\(U_1'=J_1\otimes\sigma_z\)，而
-      \(\sigma_z(i\sigma_y)=-(i\sigma_y)\sigma_z\)。若
-      \(J_1^TgJ_1=-g\)，则
-      \(U_1'=iJ_1\otimes I_2\)，复共轭会把其中的 \(i\) 变号。
-      两种情况下都得到
-      \[
-        \boxed{\Theta_1'\Theta_3=-\Theta_3\Theta_1'.}
-      \]
-      同时 \((\Theta_1')^2=J_1^2\)。所以
-      \(J_1^2=+I\) 时得到 \((+,-)\) 类，
-      \(J_1^2=-I\) 时得到 \((-,-)\) 类。
-    </p>
-    <div class="result">
-      <strong>费米结论。</strong>
-      费米 Nambu 空间中 \(C=g\)，上述三条变换自动保持 physical
-      adjoint relation；Fock space 又是有限维。因此，每个原始
-      正测度 HS 构造，只要每个时间片的生成元都位于
-      \(A_{\mathrm{group}}\)，就有一个让两个 flavor 共用同一辅助场的
-      无符号实现；这个实现只增加二重 flavor，而且没有丢掉任何原始
-      \(A\) 方向。这里新得到的是五关系类别与完整 \(A\) 解空间的构造性
-      嵌入；最终使用的正性原理仍是已经证明的 \((+,-)\) 或
-      \((-,-)\) 定理。
-    </div>
-    <div class="scope">
-      <strong>玻色结论。</strong>
-      对已经满足 \(C\overline U_aC=U_a\) 的物理玻色表示，同一 tensor
-      construction 也保持 physical adjoint relation。不过
-      \((+,-)\) 类还要证明两个 bosonic Fock factors 都是 trace class；
-      \((-,-)\) 类还要检查 \(Q\) 的一个 eigenspace 具有正 CCR norm，
-      并在 note 的 real-orthogonal 范围内回到粒子数守恒子空间。
-      因此这是一条逐类可执行的玻色筛选法，不是忽略 Fock 表示条件的自动
-      正性结论。
-    </div>
-
-    <h4>第五步：全正号费米类中的 compact \(SO\) 与 split \(O\) 子群</h4>
-    <p>
-      两条反线性对称性彼此对易时，五条关系本身不属于上面的两个基本
-      类。不过，某些 \(A_{\mathrm{group}}\) 子空间仍可由传播矩阵所属的
-      连通群证明非负。下面给出两个彼此不同的例子；它们证明的是明确写出
-      的子空间，而不是全正号类别中的任意 pairing direction。
-    </p>
-
-    <p><strong>compact \(SO(m)\) 子空间。</strong>
-      取
-      \[
-        g=C=\sigma_x^{\mathrm{Nambu}}\otimes I_m,\qquad
-        J_1=I,\qquad
-        J_2=\sigma_x^{\mathrm{Nambu}}\otimes I_m .
-      \]
-      三者对应五个正号。先限制到 particle-number-conserving generators
-      \[
-        A_\ell=
-        \begin{pmatrix}k_\ell&0\\0&-k_\ell^T\end{pmatrix},
-        \qquad k_\ell=\overline k_\ell .
-      \]
-      \(J_2^TA_\ell J_2=A_\ell\) 逐块给出
-      \(-k_\ell^T=k_\ell\)。因此
-      \[
-        k_\ell\in\mathfrak{so}(m),\qquad
-        M=e^{k_L}\cdots e^{k_1}\in SO(m).
-      \]
-      \(\Tr k_\ell=0\)，所以正规序指数因子等于 \(1\)。\(SO(m)\)
-      矩阵的非实本征值成 \(e^{i\theta},e^{-i\theta}\) 对；由于
-      \(\det M=1\)，本征值 \(-1\) 出现偶数次。于是
-      若 \(-1\) 是 \(M\) 的本征值，则偶数个 \((1-1)\) 因子使权重为
-      零；否则
-      \[
-        \boxed{
-        W_{\mathrm F}=\det(I+M)
-        =2^{m_+}\prod_{0<\theta<\pi}
-        |1+e^{i\theta}|^2>0 .}
-      \]
-      这里 \(m_+\) 是本征值 \(+1\) 的个数。因此两种情形合起来总有
-      \(W_{\mathrm F}\ge0\)。
-      物理上，实反对称 \(k_\ell\) 可由 Hermitian bond-current
-      \(-i\,c^+k_\ell c\) 产生。例如正的 current-square interaction
-      做 Gaussian HS 分解后，每个切片出现
-      \(e^{\,c^+k_\ell c}\)，正好落在这个 compact 子群。
-    </p>
-
-    <p><strong>split \(O(n,n)\) 子空间。</strong>
-      令单粒子空间含两个各有 \(n\) 维的部分，并取
-    </p>
-    <div class="scroll">\[
-      g=C=\sigma_x^{\mathrm{Nambu}}\otimes I_{2n},\qquad
-      J_1=I,\qquad
-      J_2=\sigma_x^{\mathrm{Nambu}}\otimes\Gamma,\qquad
-      \Gamma=\operatorname{diag}(I_n,-I_n).
-    \]</div>
-    <p>
-      仍限制到
-      \[
-        A_\ell=
-        \begin{pmatrix}a_\ell&0\\0&-a_\ell^T\end{pmatrix},
-        \qquad a_\ell=\overline a_\ell .
-      \]
-      把 \(J_2^TA_\ell J_2=A_\ell\) 完整相乘，
-    </p>
-    <div class="scroll">\[
-      J_2^TA_\ell J_2
-      =
-      \begin{pmatrix}
-      -\Gamma a_\ell^T\Gamma&0\\
-      0&\Gamma a_\ell\Gamma
-      \end{pmatrix}
-      =
-      \begin{pmatrix}a_\ell&0\\0&-a_\ell^T\end{pmatrix},
-    \]</div>
-    <p>
-      得到
-      \[
-        a_\ell^T\Gamma+\Gamma a_\ell=0 .
-      \]
-      取 trace 可见
-      \(\Tr a_\ell=\Tr a_\ell^T=-\Tr a_\ell=0\)，所以正规序因子仍为
-      \(1\)。每个 \(e^{a_\ell}\) 从恒等矩阵连续出发，属于
-      \(O(n,n)\) 的 identity component \(O^{++}(n,n)\)；任意有序乘积
-      \(M=e^{a_L}\cdots e^{a_1}\) 仍在这个子群。这里
-      \(O(n,n)\) 由
-      \[
-        M^T\Gamma M=\Gamma
-      \]
-      定义。若按 \(\Gamma=+1,-1\) 分块写
-      \(M=\left(\begin{smallmatrix}M_{11}&M_{12}\\
-      M_{21}&M_{22}\end{smallmatrix}\right)\)，四个连通分支由
-      \(\det M_{11}\) 与 \(\det M_{22}\) 的正负区分；
-      \(O^{++}(n,n)\) 就是两个 determinant 都为正、并含恒等矩阵的
-      分支。
-      <a href="https://arxiv.org/abs/1506.05349">split-orthogonal
-      determinant theorem</a> 的完整符号陈述是
-      \[
-        \det(I+M)=
-        \begin{cases}
-          \ge0,&M\in O^{++}(n,n),\\
-          \le0,&M\in O^{--}(n,n),\\
-          =0,&M\in O^{+-}(n,n)\ \text{或}\ O^{-+}(n,n).
-        \end{cases}
-      \]
-      本报告的每个因子都从恒等矩阵连续生成，所以只进入第一行，因而
-      给出
-      \[
-        \boxed{W_{\mathrm F}=\det(I+M)\ge0 .}
-      \]
-      当 \(a_\ell=a_\ell^T\) 时，上式要求 \(a_\ell\) 只连接
-      \(\Gamma=+1\) 与 \(\Gamma=-1\) 两部分，正是 bipartite hopping
-      的结构；允许非对称 \(a_\ell\) 时，这个子群还比 Hermitian
-      hopping 更大。
-    </p>
-
-    <p>
-      三条文献线索在这里承担不同工作。
-      <a href="https://arxiv.org/abs/1601.05780">arXiv:1601.05780</a>
-      给出两两反对易 antiunitary symmetries 的费米周期表；
-      <a href="https://arxiv.org/abs/1506.05349">arXiv:1506.05349</a>
-      给出 \(O^{++}(n,n)\) 上 \(\det(I+M)\ge0\) 的群论定理；
-      <a href="https://arxiv.org/abs/1712.09412">arXiv:1712.09412</a>
-      进一步把 nonnegative Fock traces 组织为 matrix semigroups。
-      本报告的 \(A_{\mathrm{group}}\) 是保持等式的 Lie-algebra
-      directions，\(A_{\mathrm{cone}}\) 是满足耗散不等式的 directions；
-      上面的统一 Nambu 写法说明这些已知机制怎样嵌入同一组
-      \(g,A,J_1,J_2\) 关系。它不把已知的费米定理重新宣称为新的
-      determinant theorem；新的研究问题是玻色物理实现条件以及尚未被
-      这些子群覆盖的卡片。
-    </p>
-
-    <p>
-      <a href="https://terrytao.wordpress.com/2015/05/03/the-standard-branch-of-the-matrix-logarithm/">
-      standard branch of the matrix logarithm</a> 可作为局部检查工具：
-      当 \(M\) 的谱避开非正实轴时，principal
-      \(\operatorname{Log}M\) 唯一，并保持复共轭、转置与相似变换关系。
-      但 group-only 的全局符号不能只靠它证明。第一，传播乘积的谱可能
-      穿过 principal-log branch cut；第二，即使每个因子都有 principal
-      log，一般也有
-      \[
-        \operatorname{Log}(M_1M_2)
-        \ne\operatorname{Log}M_1+\operatorname{Log}M_2;
-      \]
-      第三，同一个 canonical matrix 在 Spin 或 metaplectic
-      double cover 中有两个相差负号的 Fock-space lifts，而矩阵对数
-      不保存这个 lift。所以上面的非负性来自模平方、Kramers pairing、
-      \(SO(m)\) 或 \(O^{++}(n,n)\) 的直接定理，不来自一个全局
-      logarithm ansatz。
-    </p>
-
-    <h4>把判据放回玻色 32 类与费米 32 类</h4>
-    <p>
-      24 个玻色 group-only 代数类中，按本节的 \(U_a\) 规则转换后，
-      有 4 类具有反对易的 \((+,-)\) 代数，另有 4 类具有反对易的
-      \((-,-)\) 代数。这个计数只说明五条关系的类型；每个具体表示仍要
-      检查 \(C\overline U_aC=U_a\)。对通过该检查的表示，
-      \((+,-)\) 类再检查两个 Fock factors 是否成立，
-      \((-,-)\) 类再检查 \(Q\) 的 eigenspace 是否为正 CCR
-      polarization；两者最后都要检查 trace class。note 的 bosonic
-      reflection-positivity Case 2 落在前一种代数中。若加入跨反射两侧
-      的相互作用，还要另外要求 reflected-square coefficient matrix
-      半正定。note 的 bosonic time-reversal Case 1 落在后一种代数中；
-      在正交 \(J_a\) ansatz 内，通过 physical adjoint 与正
-      polarization 检查的表示会恢复粒子数守恒 Kramers 定理。若把
-      反线性变换扩展为一般的 physical Bogoliubov transformations，
-      本节的同一条 Nambu 证明才进一步容许原表象含 pairing；这后一类
-      不属于当前 32 类正交矩阵穷举的完备性范围。
-    </p>
-    <p>
-      24 个费米 group-only 类中，有 4 类直接具有
-      \((+,-)\) 模平方机制。五条关系全为正号的类别虽然不由两条
-      antiunitary symmetries 单独保证非负，却含有上面明确证明的
-      compact \(SO(m)\) 与 split \(O(n,n)\) 子空间。其余 20 类的原始
-      两条对称性没有普适结论，但<a href="#third-symmetry-completion">
-      第四步</a>给出一个统一的二重 flavor completion：它逐项保留原
-      \(A_{\mathrm{group}}\) 解空间，并添加第三条 symmetry，使扩大后的
-      模型进入 \((+,-)\) 或 \((-,-)\) 类。这里的研究顺序是：先由
-      五条关系得到允许的生成元，再对原始 group 或明确扩大的物理模型
-      证明权重；不能从“cone 为空”直接推成“有符号问题”。
-    </p>
-    <p class="small">
-      <a href="https://github.com/QuantumBFS/quantum.harness/issues/121">
-      Sign-problem free hunter #121</a> 提供了相关费米判据的文献索引；
-      本小节使用的是上面逐式写出的 Nambu/Fock 证明与三篇原始论文中的
-      定理。
-    </p>
+    {{DETERMINANT_SYMMETRY_BRIDGE}}
   </section>
 
   <section id="enumeration">
@@ -4062,33 +3291,38 @@
       本节把“穷举”分成三层：先完整枚举五条离散 relations，再判断
       是否存在使 \(\eta A+A^\dagger\eta<0\) 的生成元，最后对全部
       64 类求出 maximal-subgroup 生成元，并对 16 个非空 cone 类同时
-      求出 invariant-cone 生成元。二维与四维还继续枚举同一五符号类别的
+      求出 invariant-cone 生成元。二维与四维还继续枚举由同一组五条
+      正负关系定义的类别中
       全部不等价实正交表示。这样可以看清程序究竟检验了什么，也不会把
       一个 Pauli representative 误当成该类全部 \(A\) 方向，更不会把
       矩阵分类直接当成已经完成的 physical sign-free model。
     </p>
 
+    <div class="result">
+      <strong>64 类 actual-weight 周期表。</strong>
+      第 6.6 节的类别卡按同一编号列出每类的最小 Nambu 维数、
+      \(A_{\mathrm{group}}\)、\(A_{\mathrm{cone}}\) 与物理模型。
+      实际 Spin/metaplectic half-power 的统一判据和逐类结论见
+      <a href="part_7_determinant_symmetry_groups.html#class-atlas">
+      独立理论卷</a>；机器可读表见
+      <a href="tables/half_power_symmetry_64_classes.csv">
+      half_power_symmetry_64_classes.csv</a>。
+    </div>
+
     <figure>
       <img src="figures/full_64_class_enumeration.png"
-           alt="玻色和费米各32类的周期表，每格标出类别编号、最小Nambu维数、正性结论与空锥原因">
+        alt="玻色和费米各三十二类的实际 Nambu 半幂权重周期表；每格同时标出只含 A_group 时的算符级正性结论，以及严格 A_cone 是否存在">
       <figcaption>
-        <strong>图 1｜64 类 \(J_1,J_2\) 周期表。</strong>
-        每一行直接写出 \(J_1^TgJ_1\) 与 \(J_1^2\) 的右边；每一列
-        直接写出 \(J_2^TgJ_2\)、\(J_2^2\)，以及 \(J_1,J_2\)
-        对易或反对易。每格的 B/F 编号与第 6.6 节类别卡编号一致；
-        \(d\) 是最小 Nambu 维数。C(J) 与 C(iJ) 分别表示
-        \(\eta=J_2g\) 与 \(\eta=iJ_2g\) 的严格
-        \(A_{\mathrm{cone}}\) 非空。\(\Theta(+,-)\) 与
-        \(\Theta(-,-)\) 分别表示两条反线性 symmetries 的平方及其
-        反对易关系已经落入第 5.5 节的两个基本正性定理；玻色格中的
-        \(p\) 是二维、四维内通过 physical-adjoint 检查的表示子轨道数。
-        RP 表示还满足 reflection-positivity 的 reflected-square
-        condition；SO/split-O 表示费米全正类中的两个直接无符号子群。
-        G;\(+\Theta_3\) 表示原两条 symmetry 只给出
-        \(A_{\mathrm{group}}\)，但卡片给出了增加二重 flavor 和第三条
-        symmetry、同时逐项保留原 \(A_{\mathrm{group}}\) 方向的构造。
-        空锥格子同时链接到<a href="#lemma-1">引理1</a>或
-        <a href="#lemma-2">引理2</a>。
+        <strong>图 1｜64 类的实际 half-power 结论。</strong>
+        上、下两块分别为玻色与费米。绿色表示物理可实现的反对易
+        \((+,-)\) 对给出模平方；黄色表示玻色 B15/B27 的四维具体表示
+        的 commutator matrix 已验证为正定；红色表示 B12/B32 在当前实正交
+        \(J_a\) 设定下任意维都不能产生所需物理 annihilation space；
+        蓝色表示费米实际权重已由模平方或 Kramers particle-space 证明为
+        非负；灰色表示五条关系本身不足。星号只标记严格
+        \(A_{\mathrm{cone}}\) 是否存在；一旦使用非零
+        \(A_{\mathrm{cone}}\)，\(\Theta_2\) 不再保持同一个辅助场构型，
+        不能沿用图中只含 \(A_{\mathrm{group}}\) 的证明。
       </figcaption>
     </figure>
 
@@ -4111,7 +3345,8 @@
       P_j\in\{I,\sigma_x,i\sigma_y,\sigma_z\}.
     \]</div>
     <p>
-      第一遍 Pauli-word 搜索的目的只是为每个五符号类找到一个尽量小、
+      第一遍 Pauli-word 搜索的目的只是为每个由五条正负关系定义的类别
+      找到一个尽量小、
       方便在卡片顶部阅读的代表。代码直接相乘并读取下面五个正负号；
       \(J_1\) 或 \(J_2\) 可以是单位阵：
     </p>
@@ -4138,7 +3373,7 @@
     </p>
     <p>
       为什么 signed-permutation 搜索在二维、四维是完备的，而不是又一
-      个 ansatz？由五条关系，任何乘积都能整理为
+      个表示？由五条关系，任何乘积都能整理为
       \[
         \pm g^aJ_1^bJ_2^c,\qquad a,b,c\in\{0,1\},
       \]
@@ -4170,12 +3405,16 @@
       对玻色子还要另做一次物理分类。记
       \(C=\sigma_x^{\rm Nambu}\otimes I\)。只有满足
       \[
-        CJ_aC=s_aJ_a,\qquad
-        J_a^TgJ_a=s_ag
+      \begin{array}{c|cc}
+        &J_a^TgJ_a&CJ_aC\\ \hline
+        J_a\text{ 保持 }g&g&J_a\\
+        J_a\text{ 翻转 }g&-g&-J_a
+      \end{array}
       \]
       的实 \(J_a\)，其 \(U_a=J_a\) 或 \(iJ_a\) 才满足
-      \(C\overline U_aC=U_a\)，从而保持 \(b^+\) 与 \(b\) 的物理
-      adjoint relation。物理等价矩阵 \(S\) 还必须满足 \(S^TCS=C\)。
+      \(C\overline U_aC=U_a\)，从而保证变换后的 creation component
+      仍是相应 annihilation component 的 Hermitian conjugate。物理等价
+      矩阵 \(S\) 还必须满足 \(S^TCS=C\)。
       这个更细的分类得到二维 4 个、四维 40 个玻色物理子轨道；第 6.6
       节在每张玻色卡末尾把它们与仅保持 \(g\) 的代数轨道分开列出。
     </p>
@@ -4472,8 +3711,9 @@
     </p>
     <p>
       上述推导不要求度规在所有坐标中都写成对角形式。若
-      \(\hat\chi=T\hat\chi'\) 是保持 bosonic commutators 和物理 adjoint
-      relation 的 canonical change of variables，并由 Fock-space
+      \(\hat\chi=T\hat\chi'\) 是保持 bosonic commutators、并保持“creation
+      component 是相应 annihilation component 的 Hermitian conjugate”这一
+      物理关系的 canonical change of variables，并由 Fock-space
       unitary \(\hat W\) 实现，则
       \[
       \begin{aligned}
@@ -4520,7 +3760,8 @@
     <div class="warning">
       \(J_2g\) 或 \(iJ_2g\) 是从五条矩阵关系得到的 Hermitian metric，
       但它未必自动满足上一段的 Fock-representation 条件。这个区别不能
-      省略。例如 unitary squeezing operator
+      省略。例如下列会混合 \(a\) 与 \(a^+\) 的 unitary Gaussian
+      operator（通常称为 squeezing operator）
       \[
         \hat S(r)=
         \exp\!\left[\frac r2(a^2-a^{+2})\right]
@@ -4534,7 +3775,8 @@
         \begin{pmatrix}\cosh r&\sinh r\\
         \sinh r&\cosh r\end{pmatrix}.
       \]
-      若在保持原 commutator matrix 与 adjoint relation 不变的同时，
+      若在保持原 commutator matrix，以及“creation 是相应 annihilation
+      的 Hermitian conjugate”这一关系不变的同时，
       单独选取 \(\eta=-\sigma_x\)，则在
       \(\sigma_x\) 的 \(+1,-1\) eigenvectors 上可直接算得
       \[
@@ -4544,8 +3786,8 @@
         \qquad(r>0).
       \]
       矩阵不等式是严格的，Fock operator 却不是 trace class；问题正是
-      这个 \(\eta\) 没有随 commutator matrix 与物理 adjoint relation
-      一起由合法坐标变换得到。因而对新的
+      这个 \(\eta\) 没有随 commutator matrix，以及上述
+      creation/annihilation 共轭关系一起由合法坐标变换得到。因而对新的
       \(J_2g\) 或 \(iJ_2g\)，必须逐类建立上述 representation
       extension，不能仅由负定矩阵不等式跳到 bare-trace 收敛。
     </div>
@@ -5037,10 +4279,10 @@
       realization 可以表述为新的 canonical fixed-\(N\) sign-free
       models。一般含 pairing 的解析 no-go 排除的是“同一个稳定 Hermitian
       零场生成元同时位于 \(\eta=iJ_2g\) 的半负定 cone”这一更具体的
-      grand-canonical 方案，不能据此排除该五符号类别的 maximal
-      subgroup 中另加第三条 anti-linear symmetry 或
+      grand-canonical 方案，不能据此排除该五条关系对应的 maximal
+      subgroup 中具有其他 anti-linear symmetry 或
       reflection-positive coupling 的子类。这样的子类必须逐个验证物理
-      Nambu 实现和 bare-trace 收敛，不能由五符号标签自动推出。</li>
+      Nambu 实现和 bare-trace 收敛，不能只由五条正负关系自动推出。</li>
       <li>Case 1 的 Kramers propagation 与 Case 2 的 reflected-square
       propagation 都属于对乘法封闭、且相关 Fock operators 的迹有限并
       非负的集合；前者不是必然的
@@ -5050,12 +4292,15 @@
       <li>double-cover 算法能够在一般有符号模型中精确追踪丢失的
       \(\mathbb Z_2\) lift；它是一套采样与诊断工具，不应与本文依赖
       连通性的无符号定理混写成同一个证明。</li>
-      <li>64 类的补充筛选说明：即使某类没有 invariant-cone 负定方向，
-      它仍可能在 maximal subgroup 内由两条原有 anti-linear symmetries、
-      新增第三条 symmetry、RP coupling 或特殊 determinant-positive
-      subgroup 保证正权重。这个观察适合放入 SM 作为“不同正性机制可以在
-      同一五符号标签中重叠”的说明，不应把 64 个标签宣传成 64 种新的
-      无符号原理。</li>
+      <li>64 类的 actual-weight 筛选说明：若所有时间片都属于
+      \(A_{\mathrm{group}}\)，费米有 12 类由原有两条反线性对称性
+      直接得到逐构型非负的实际 Spin 权重；玻色有 8 个复共轭分块类
+      已找到物理低维表示，另有 2 个 Kramers 类的四维表示通过
+      commutator matrix 正定性检查。非零 \(A_{\mathrm{cone}}\) 进入时间片后，
+      \(\Theta_2\) 不再保持同一个构型，必须另用 reflected-square、
+      共同 particle space、额外对称性或收缩半群证明。逐类结论见
+      <a href="tables/half_power_symmetry_64_classes.csv">
+      half_power_symmetry_64_classes.csv</a>。</li>
     </ul>
 
     <h3>9.4 现在不应写入文章的表述</h3>
@@ -5085,9 +4330,12 @@
       <div class="summary-item established">
         <strong>五条式子的地位</strong>
         它们分别记录 \(J_1,J_2\) 对 \(g\) 的作用、各自的平方以及二者的
-        对易关系，是 \(2+2+1\) 个离散分类标签。真正限制 propagation 的仍是
-        \(J_1^TAJ_1=\bar A\) 与 \(\eta A+A^\dagger\eta\leq0\)；
-        五条关系本身不是无符号定理。
+        对易关系，是 \(2+2+1\) 个离散分类标签。把它们与
+        \(J_1^TAJ_1=\bar A\)、\(J_2^TAJ_2=\pm\bar A\) 一起使用时，
+        可以判断两条物理反线性对称性是否在同一 fixed-field history 上
+        形成复共轭 Majorana/Fock 分块或 Kramers particle space。真正的结论是
+        实际有序 Fock 算符的迹是否非负，而不是把 half-power 平方后只看
+        根号内的矩阵表达式。
       </div>
       <div class="summary-item established">
         <strong>Yinkai's Case 7 的当前作用</strong>
@@ -5114,17 +4362,26 @@
         \(A_{\mathrm{cone}}\) 方向和代入实际 \(\eta\) 后的负定条件。
       </div>
       <div class="summary-item established">
-        <strong>费米 group-only 部分</strong>
-        直接在统一 Nambu 空间定义
-        \(U_a=J_a\) 或 \(iJ_a\)、\(\Theta_a=U_a\mathcal K\) 后，
-        32 类中有 12 类由两条反线性对称性得到一般正性证明：8 类同时
-        有非空 cone，另 4 类只有 maximal subgroup。剩余 20 类的两条
-        原始对称性本身没有普适正性定理。对这 20 类，报告给出一个
-        二重 flavor 构造：它逐项保留原来每个
-        \(A_{\mathrm{group}}\) 方向，并添加第三条平方为 \(-I\) 的
-        反线性对称性，从而把模型嵌入已经证明的 \((+,-)\) 或
-        \((-,-)\) 正性类。这是保留原解空间的构造，不是把原来未扩充的
-        maximal subgroup 误判为整体非负。
+        <strong>只含 \(A_{\mathrm{group}}\) 的实际权重</strong>
+        费米 32 类中有 12 类由原有两条反线性对称性直接得到实际
+        Spin half-power 的逐构型非负证明：8 类为复共轭 Majorana 分块；
+        偶数模时直接得到模平方，奇数模时加入一个解耦辅助模后，两倍的原
+        trace 成为模平方。另 4 类为物理 particle space 中的 Kramers pairing。
+        玻色的 8 个模平方类均已找到四维物理表示；4 个 Kramers
+        矩阵关系类中，2 个四维表示的 commutator matrix 已验证为正定，另外 2 个在
+        当前 real-orthogonal \(J_a\) 设定的任意维数中都不能产生所需
+        annihilation space。其余类别需要额外算符结构。
+      </div>
+      <div class="summary-item established">
+        <strong>加入 \(A_{\mathrm{cone}}\) 后</strong>
+        非零 \(A_{\mathrm{cone}}\) 在 \(\Theta_2\) 下变号，因此
+        \(\Theta_2\) 一般把当前辅助场构型送到另一个构型；原来的双
+        symmetry half-power 定理随即失去一个前提。逐构型正性必须另由
+        reflected-square factorization、共同 particle space 与 Kramers
+        symmetry、额外物理反线性对称性，或收缩半群的连通分支论证给出。
+        逐类结果见
+        <a href="tables/half_power_symmetry_64_classes.csv">
+        half_power_symmetry_64_classes.csv</a>。
       </div>
       <div class="summary-item established">
         <strong>零场收敛、传播矩阵的负定条件与连续性</strong>
@@ -5145,15 +4402,10 @@
         Hamiltonian 的零场生成元，使 grand-canonical 迹收敛并同时满足
         同一个 \(\eta=iJ_2g\) 收缩不等式。
         第 6.6 节的每张类别卡都先给出该类实际
-        \(J_1,J_2,\eta,A_{\mathrm{group}},A_{\mathrm{cone}}\)，再判断
-        哪一种正性证明可以使用。费米 24 个 group-only 类中，4 类直接
-        满足双对称定理，其余 20 类有上述保留全部 group 方向的二重
-        flavor 嵌入；全正号类还单独包含 compact \(SO(m)\) 与 split
-        \(O(n,n)\) 无符号子群。玻色 24 个 group-only 类中有 8 类具备
-        两条反线性对称性的正确代数，其中 6 类已在二维或四维找到物理
-        Nambu 表示；其余情况在卡片中明确保留物理 adjoint、正 CCR
-        subspace 与 trace-class 检查，不把纯矩阵代数自动写成玻色
-        Fock-space 定理。
+        \(J_1,J_2,\eta,A_{\mathrm{group}},A_{\mathrm{cone}}\)，再写明
+        原有两条对称性是否已经固定实际 Nambu half-power；若没有，则列出
+        该模型还需满足的 Kramers、RP、canonical character 或
+        contraction-semigroup 条件。
       </div>
       <div class="summary-item corrected">
         <strong>Comment</strong>
@@ -5184,15 +4436,15 @@
       Hamiltonian、又满足同一个 \(\eta=iJ_2g\) 收缩不等式的
       grand-canonical 零场；因此依赖这个 invariant cone 的直接物理落点
       是本报告已经证明的 canonical fixed-\(N\) collective-boson models。
-      这并不排除同一五符号类别中的 maximal-subgroup 方向再加第三条
-      反线性对称性、reflection-positive coupling，或限制到另一个具有
-      determinant-sign theorem 的子群。报告已经把这些选择逐卡作用到
-      明确的 \(A\) 空间。费米侧尤其不能只数 8 个负定类别：统一 Nambu
-      证明给出 12 个由原有两条对称性直接保证非负的类，其中 4 个只使用
-      maximal subgroup；其余 20 个 group-only 类则有保留原
-      \(A_{\mathrm{group}}\) 的二重 flavor 嵌入。玻色侧还必须逐项通过
-      物理 Nambu 共轭、正 CCR subspace 和 trace 收敛三道检查，所以不沿用
-      费米计数作自动外推。
+      这并不排除由同一组五条正负关系定义的类别中，maximal-subgroup
+      方向还有其他
+      Fock-weight 正性机制。只含 \(A_{\mathrm{group}}\) 时，费米已有
+      12 类由原始两条 symmetry 直接固定实际 Spin half-power；玻色已有
+      8 个模平方类的物理低维表示，并有 2 个 Kramers 类的四维表示通过
+      commutator matrix 正定性检查。其余类别只有在加入额外物理算符结构后才能
+      得出无符号结论。非零 \(A_{\mathrm{cone}}\) 参与时，\(\Theta_2\)
+      不再保持同一个辅助场构型，必须改用逐模型的 RP、Kramers、额外
+      symmetry 或收缩半群证明。
     </p>
 
     <h3>这次穷举究竟发现了什么</h3>
@@ -5212,13 +4464,14 @@
             <td>玻色 \(10+50\) 个代数轨道、费米 \(16+73\) 个代数轨道；
             玻色再按物理 Nambu 共轭关系分成 \(4+40\) 个物理子轨道</td>
             <td>每个轨道分别列出全部 \(A_{\mathrm{group}}\) 与
-            \(A_{\mathrm{cone}}\) 独立方向。同一五符号类别换表示不会改变
+            \(A_{\mathrm{cone}}\) 独立方向。由同一组五条正负关系定义的
+            类别换表示不会改变
             cone 是否为空，却会改变具体允许哪些 Hamiltonian coefficients</td>
           </tr>
           <tr>
             <td>玻色：存在负定生成元</td>
             <td>恰有 8 类；\(J_2^2=I\)，同号作用于 \(g\) 时反对易，异号时对易</td>
-            <td>这是 note 的 real-\(J_1,J_2\)、\(J_2\)-induced-metric ansatz 内的必要且充分分类；不穷尽任意 metric 或其他 positivity mechanisms</td>
+            <td>这是 note 所用 real-\(J_1,J_2\) 与 \(J_2\)-induced metric 设定内的必要且充分分类；不穷尽任意 metric 或其他 positivity mechanisms</td>
           </tr>
           <tr>
             <td>合作者已手算的部分</td>
@@ -5240,8 +4493,8 @@
               同一个 \(iJ_2g\) invariant cone 的 grand-canonical
               realization，但四类都已有完整 canonical fixed-\(N\)
               sign-free Hamiltonian；它们的 maximal subgroup 中还可继续
-              施加第 5.5 节列出的 anti-linear 或 reflection-positive
-              条件，但需逐模型验证
+              检查复共轭 Majorana/Fock 分块、物理 Kramers particle space 或
+              reflection-positive factorization，但需逐模型验证
             </td>
           </tr>
           <tr>
@@ -5250,32 +4503,32 @@
             \(\Tr(\eta A+A^\dagger\eta)=0\)；另 8 类满足
             \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
             =-(\eta A+A^\dagger\eta)\)。在两种情况下，半负定条件都只能取等号</td>
-            <td>不存在使 \(\eta A+A^\dagger\eta<0\) 的生成元。8 类的两条
-            generalized anti-linear symmetries 形成 \((+,-)\) 或
-            \((-,-)\) 正性代数，其中 6 类已在 \(d\le4\) 找到物理玻色表示；
-            另外 16 类必须在本卡实际 \(A_{\mathrm{group}}\) 内增加第三条
-            symmetry、RP coupling 或更强子群。所有玻色结论还要独立检查
-            Fock trace 收敛</td>
+            <td>不存在使 \(\eta A+A^\dagger\eta<0\) 的生成元，并不等于
+            该类必有符号问题。把全部 32 类都限制到
+            \(A_{\mathrm{group}}\) 后，应直接检查实际 Fock 对称性：8 个
+            模平方类已找到物理低维表示，2 个 Kramers 类的四维表示也通过
+            commutator matrix 正定性检查；其他表示或类别仍需额外
+            particle-number、RP 或第三条 symmetry 条件</td>
           </tr>
           <tr>
-            <td>费米：负定类别与 maximal-subgroup 正性合并计数</td>
+            <td>费米：负定类别与实际 Spin 权重</td>
             <td>
               恰有 8 类允许负定生成元，要求 \(J_2^2=-I\)。note 已展开的
               \(J_2^TgJ_2=-g\) 分支包含 4 个允许负定生成元的
               \(J_2g\) 类；
               完整穷举另补出 4 个满足 \(J_2^TgJ_2=g\) 的
-              \(iJ_2g\) 类，它们同样允许负定生成元。除此以外还有
-              4 个 \(J_2^2=+I\) 的类别，虽然半负定条件只能取等号，
-              但 \((+,-)\) 双反线性对称定理仍保证权重非负；
-              所以一般无符号的费米类别总数是 12
+              \(iJ_2g\) 类，它们同样允许负定生成元。只含
+              \(A_{\mathrm{group}}\) 时，原有两条物理反线性对称性在
+              12 类中直接固定实际 Spin half-power
             </td>
             <td>
-              8 个负定类和 4 个等号类都已逐类给出厄米模型。
-              12 个标签分别由 \((+,-)\) Fock-factorization 与
-              \((-,-)\) Kramers pairing 证明。其余 20 个 group-only
-              类的原始两条对称性没有普适结论，但二重 flavor 加第三条
-              symmetry 的显式构造保留了每个原始 \(A_{\mathrm{group}}\)
-              方向
+              8 类把 Majorana operators 分成两个互为复共轭的分块：偶数模
+              直接给出模平方，奇数模加入一个解耦辅助模后，两倍的原 trace
+              成为模平方；4 类由
+              particle space 中的 Kramers pairing 给出普通 determinant；
+              其余 20 类不能仅凭原有两条 symmetry 宣称逐构型非负。
+              非零 \(A_{\mathrm{cone}}\) 参与时还会破坏第二条逐构型
+              symmetry，必须补充其他算符条件
             </td>
           </tr>
         </tbody>
@@ -5283,20 +4536,17 @@
     </div>
     <p>
       generalized TRS 与 operator-level reflection positivity 不应塞进
-      上述“8 个允许负定生成元的类别”的计数。它们使用不同的
-      positivity mechanism；
+      上述“8 个允许负定生成元的类别”的计数。它们回答不同问题；
       尤其 bosonic RP 即使不存在这样的负定生成元，仍能在 bare trace 有限时由
       reflected squares 保证 nonnegative。反过来，一旦 real、continuous、
       single-valued weight 已在收缩半群内部的连通区域中定义，
       \(M^\dagger\eta M-\eta<0\) 与一个 positive reference
       的确足以固定全域正号。为了不把“没有 invariant-cone 负定方向”
       误读成“没有无符号模型”，第 6.6 节对每类自己的
-      \(J_1,J_2\) 和完整 \(A_{\mathrm{group}}\) 空间逐项检查两条原始
-      generalized anti-linear symmetries；在它们不足时，再明确写出第三条
-      symmetry 或可证明正性的具体子群。费米 Fock space 有限维，因而这条
-      group-only 研究不需要玻色式的占据数收敛条件。玻色侧则把
-      physical-adjoint compatibility、正 CCR subspace 和 trace class
-      列为定理条件，并只在这些条件真正成立时下结论。
+      \(J_1,J_2\) 与完整 \(A_{\mathrm{group}}\) 空间检查第 5.5 节的
+      operator-level 模平方或 Kramers 条件。非零
+      \(A_{\mathrm{cone}}\) 参与后，再明确列出缺少的逐构型对称性与可用的
+      RP、额外 symmetry 或收缩半群证明。
     </p>
 
     <h3>建议给合作者的回复</h3>
@@ -5321,22 +4571,35 @@
       \(J_2^2=I\)，费米必须有 \(J_2^2=-I\)。
       \(J_1,J_2\) 对 \(g\) 同号作用时必须反对易，
       异号作用时必须对易；\(J_1^2=\pm I\) 都可以。
-      负定方向的计数不是费米无符号类别的最终计数。直接在统一 Nambu
-      空间令 \(U_a=J_a\)（若 \(J_a\) 保持 \(g\)）或
+      负定方向的计数不是实际 Fock 权重的分类。Nambu half-power 的符号
+      必须由完整有序 Fock 算符及其物理对称性决定，不能只由传播矩阵
+      终点决定。
+      <br><br>
+      在统一 Nambu 空间令 \(U_a=J_a\)（若 \(J_a\) 保持 \(g\)）或
       \(U_a=iJ_a\)（若 \(J_a\) 翻转 \(g\)），再定义
       \(\Theta_a=U_a\mathcal K\)，可以不换 basis 地算出
       \[
-        \Theta_a^2=J_a^2,\qquad
-        \Theta_1\Theta_2
-        =(s_1s_2r)\Theta_2\Theta_1 .
+        \Theta_a^2=U_a\overline{U_a}=J_a^2,\qquad
+        \Theta_1\Theta_2=U_1\overline{U_2},\qquad
+        \Theta_2\Theta_1=U_2\overline{U_1}.
       \]
-      8 个负定类均落入 \((+,-)\) Fock-factorization 或
+      把该类别中已经写明的
+      \(J_1^TgJ_1=\pm g\)、\(J_2^TgJ_2=\pm g\) 与
+      \(J_1J_2=\pm J_2J_1\) 直接代入上式，就得到两条反线性对称性
+      在该类别中对易还是反对易，不需要另外定义三个正负号简称。
+      8 个负定类的 \(A_{\mathrm{group}}\) 部分均落入
+      \((+,-)\) Fock-factorization 或
       \((-,-)\) Kramers-pairing 类；此外还有 4 个
       \(J_2^2=+I\) 的 group-only 类属于 \((+,-)\) 类。因此费米共有
-      12 类能从原有两条反线性对称性得到一般逐构型非负定理。
+      12 类能从原有两条反线性对称性直接得到实际 Fock 权重的逐构型
+      非负定理。若非零 \(A_{\mathrm{cone}}\) 进入时间片，\(\Theta_2\)
+      会把它变成相反数，不再保持同一个构型；这时必须另加逐构型的
+      reflected-square、共同 particle space、额外 symmetry 或收缩半群
+      条件。
       <br><br>
-      对其余 20 个费米 group-only 类，我没有再把同一个现成模型套进每张
-      卡，而是给出一个保留原 \(A_{\rm group}\) 解空间的构造。增加一个
+      对其余 20 个尚未由原始两条对称性固定 Fock-lift 符号的费米
+      group-only 类，我另外给出一个保留原 \(A_{\rm group}\) 解空间的
+      Fock-weight 正构造。增加一个
       二重 flavor，取
       \[
         g'=g\otimes I_2,\qquad
@@ -5359,9 +4622,13 @@
       实现。这个结论保留了原来所有 \(A\) 方向，却不声称未增加 flavor
       的整个 group 已经非负。
       玻色侧可以使用同一代数构造，但必须另外检查
-      \(C\bar U_aC=U_a\)、正 CCR subspace 和 trace class；二维、四维
-      物理子轨道已经逐类列出，不满足这些条件的纯代数表示没有被写成
-      玻色无符号定理。
+      \(C\bar U_aC=U_a\)，即变换后的 creation half 确实是
+      annihilation half 的 Hermitian conjugate；还要检查所选粒子子空间
+      满足 \([\beta_\mu,\beta_\nu^+]=\delta_{\mu\nu}\)，而不是只由
+      Hermitian quadrature operators（例如 \(b+b^+\) 与
+      \(i(b^+-b)\)）张成，并检查玻色求迹绝对收敛。二维、四维
+      物理子轨道已经逐类列出；不满足这些条件的纯代数表示没有被写成
+      玻色 Fock-weight 无符号定理。
       <br><br>
       玻色方面，你手算的 Cases 5--8，也就是 metric 为 \(J_2g\) 的四类，
       全部通过；你标为 Failed 的其他 contraction cases 也与穷举一致。
@@ -5412,7 +4679,7 @@
       grand-canonical 公式 \(1/\sqrt{\det(I-\mathcal M)}\)；因此这里
       根本没有 grand-canonical determinant pole。它们不是 ordinary
       grand-canonical <em>contraction-cone</em> realizations；但同一个
-      五符号标签仍可在 maximal subgroup 中再加第三条 generalized
+      五条关系对应的 maximal subgroup 中仍可存在额外 generalized
       anti-linear symmetry、reflection-positive coupling，或限制到
       已证明行列式非负的子群；每一种选择都要使用该卡列出的具体
       \(A_{\rm group}\) 重新检查。
@@ -5437,8 +4704,8 @@
       半负定条件的生成元都只能满足等号。
       <br><br>
       为避免把 Nambu 标签误当成新机制，我直接从每一行的
-      \(J_a^TgJ_a=s_ag\) 定义
-      \(U_a=J_a\) 或 \(iJ_a\)，并在同一 Nambu/Fock 空间计算
+      \(J_a^TgJ_a=g\) 或 \(-g\) 出发：前者定义
+      \(U_a=J_a\)，后者定义 \(U_a=iJ_a\)，并在同一 Nambu/Fock 空间计算
       \(\Theta_a=U_a\mathcal K\) 的平方与相对对易关系。结果是 12 个
       正性类只落入两种已知基本机制：\((+,-)\)
       Fock-factorization 与 \((-,-)\) Kramers pairing。四个新增
@@ -5469,7 +4736,7 @@
       同一个 \(\eta=iJ_2g\) invariant cone，原因已由一般 BdG
       principal-block 证明确定；依赖该 cone 的模型因此改在 fixed-\(N\)
       sector 中由 character 公式逐构型给出。在 maximal subgroup 中
-      另加第三条 anti-linear symmetry 或 reflection-positive coupling
+      具有额外 anti-linear symmetry 或 reflection-positive coupling
       的 grand-canonical 子类不受这个 no-go 约束，但仍须逐模型检查物理
       Nambu 实现与 bare-trace 收敛。
       <br><br>
@@ -5497,7 +4764,10 @@
 /home/yyk/conda/bin/conda run -n bafqmc-octave octave --quiet \
   --eval "addpath('docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis'); enumerate_real_representations_le4"
 
-/home/yyk/conda/envs/notebook/bin/python \
+python3 \
+  docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/build_half_power_symmetry_atlas.py
+
+python3 \
   docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/plot_full_enumeration.py
 
 /home/yyk/conda/bin/mamba run -n bafqmc-octave octave --no-gui --quiet \
@@ -5569,7 +4839,7 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="tables/positive_completion_representatives.csv">positive_completion_representatives.csv</a></td><td>64 类的 \(J_1,J_2,\eta,A_0,A_{\rm HS}\)、Kramers matrix 与三组 residuals</td></tr>
           <tr><td><a href="analysis/scan_pauli_realizations.m">scan_pauli_realizations.m</a></td><td>扫描不同 Pauli representatives，核对负定方向是否依赖代表以及生成元空间维数</td></tr>
           <tr><td><a href="tables/pauli_realization_scan.csv">pauli_realization_scan.csv</a></td><td>8568 组 Pauli realizations 的分类与残差汇总</td></tr>
-          <tr><td><a href="analysis/verify_nonpauli_realization_dependence.m">verify_nonpauli_realization_dependence.m</a></td><td>构造同一五符号类别、同一矩阵维数但共同本征子空间重数不同的非 Pauli 代表</td></tr>
+          <tr><td><a href="analysis/verify_nonpauli_realization_dependence.m">verify_nonpauli_realization_dependence.m</a></td><td>构造五条正负关系相同、矩阵维数也相同，但共同本征子空间维数不同的非 Pauli 代表</td></tr>
           <tr><td><a href="tables/nonpauli_realization_dependence.csv">nonpauli_realization_dependence.csv</a></td><td>说明五个符号决定负定方向是否存在，却不唯一决定全部 \(A\) 空间维数的显式反例</td></tr>
           <tr><td><a href="analysis/physical_model_catalog.py">physical_model_catalog.py</a></td><td>为 16 个允许负定生成元的传播类别逐类给出 Hamiltonian、HS 分解、有序时间片生成元 \(A_0,A_{\rm HS}(\phi)\)、物理适用范围与必要 caveat</td></tr>
           <tr><td><a href="analysis/test_physical_hs_constructions.m">test_physical_hs_constructions.m</a></td><td>连续 Gaussian、bounded discrete 以及 pairing/density HS slice 的逐场值矩阵检查</td></tr>
@@ -5590,11 +4860,14 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="part_6_case12_semigroups.html">part_6_case12_semigroups.html</a></td><td>Case 1 Kramers 与 Case 2 reflected-square 半群证明，以及完整 RP 生成元集合不能由一个固定 Nambu metric 给出收缩证明的结论</td></tr>
           <tr><td><a href="tables/updated_note_hand_comparison.csv">updated_note_hand_comparison.csv</a></td><td>note 手算标签与 propagation contraction 分类对照</td></tr>
           <tr><td><a href="tables/comment_pair_checks.csv">comment_pair_checks.csv</a></td><td>第一节 Comment 所列配对的数值检查</td></tr>
-          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>分类图生成程序</td></tr>
-          <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 矢量版本</td></tr>
+          <tr><td><a href="tables/half_power_symmetry_64_classes.csv">half_power_symmetry_64_classes.csv</a></td><td>玻色、费米各 32 类只含 \(A_{\mathrm{group}}\) 时的实际 Spin/metaplectic half-power 结论，以及非零 \(A_{\mathrm{cone}}\) 参与后缺少的算符条件</td></tr>
+          <tr><td><a href="analysis/build_half_power_symmetry_atlas.py">build_half_power_symmetry_atlas.py</a></td><td>从 64 类矩阵关系与低维物理表示表重建 actual half-power 表，并逐项验证 B15/B27 对应本征子空间的 commutator matrix 为正定</td></tr>
+          <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 actual-weight 64 类周期表</td></tr>
+          <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 的矢量版本</td></tr>
+          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论与 64 类逐项表</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米 Cases 1、3、5、6 的单模、无配对与有配对反例，以及 Case 4 在等号条件下的 \(SU(2)\) 权重零点诊断</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>上述精确反例、连续 zero crossing、随机扫描与 Case 4 诊断的 Octave 日志</td></tr>
-          <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十个较快的 MathJax 阅读分卷</td></tr>
+          <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十一个较快的 MathJax 阅读分卷</td></tr>
           <tr><td><a href="report_index.html">report_index.html</a></td><td>分卷报告的统一入口；推荐从这里顺序阅读</td></tr>
           <tr><td><a href="analysis/octave_environment_explicit.txt">octave_environment_explicit.txt</a></td><td>Octave environment package record</td></tr>
         </tbody>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot the 64-class atlas as an annotated periodic table."""
+"""Plot the actual half-power A_group atlas as a periodic table."""
 
 from __future__ import annotations
 
@@ -16,14 +16,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FULL_TABLE = ROOT / "tables" / "full_64_class_enumeration.csv"
-MAXIMAL_TABLE = ROOT / "tables" / "maximal_subgroup_structures.csv"
-PHYSICAL_BOSON_TABLE = (
-    ROOT / "tables" / "bosonic_physical_representation_suborbits_le4.csv"
-)
 FIGURE_DIR = ROOT / "figures"
-
-BOSON_TRS_CLASS = "s1+_q1-_s2-_q2-_r+"
-BOSON_RP_CLASS = "s1+_q1+_s2+_q2-_r-"
 
 ROW_KEYS = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 COL_KEYS = [
@@ -38,24 +31,23 @@ COL_KEYS = [
 ]
 
 COLORS = {
-    "group_trace": "#e2e5e7",
-    "group_flip": "#efc2b8",
-    "cone_j2g": "#70aa7f",
-    "cone_ij2g": "#6f9fc4",
-    "trs": "#e3bf61",
-    "rp": "#d99a62",
-    "mtr": "#d8b56f",
+    "not_fixed": "#e1e4e6",
+    "fermion_actual_positive": "#8dbbd8",
+    "boson_modulus_square": "#92c3a0",
+    "boson_polarization_verified": "#e0c16c",
+    "boson_polarization_impossible": "#d99b91",
 }
 
 COLOR_ORDER = [
-    "group_trace",
-    "group_flip",
-    "cone_j2g",
-    "cone_ij2g",
-    "trs",
-    "rp",
-    "mtr",
+    "not_fixed",
+    "fermion_actual_positive",
+    "boson_modulus_square",
+    "boson_polarization_verified",
+    "boson_polarization_impossible",
 ]
+
+BOSON_POLARIZATION_VERIFIED = {15, 27}
+BOSON_POLARIZATION_IMPOSSIBLE = {12, 32}
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
@@ -84,77 +76,107 @@ def column_label(values: tuple[int, int, int]) -> str:
 
 
 def anti_linear_pair_type(row: dict[str, str]) -> str | None:
-    mutual = int(row["r"]) * int(row["s1"]) * int(row["s2"])
-    squares = sorted((int(row["q1"]), int(row["q2"])))
-    if mutual == -1 and squares == [-1, 1]:
-        return "Θ(+,-)"
-    if (
-        mutual == -1
-        and int(row["q1"]) == -1
-        and int(row["q2"]) == -1
-    ):
-        return "Θ(-,-)"
+    """Classify the two A_group anti-linear symmetries."""
+    q1 = int(row["q1"])
+    q2 = int(row["q2"])
+    s1 = int(row["s1"])
+    s2 = int(row["s2"])
+    # The induced anti-linear maps anticommute when r*s1*s2 = -1.
+    anti_linear_mutual = int(row["r"]) * s1 * s2
+
+    if anti_linear_mutual != -1:
+        return None
+    if sorted((q1, q2)) == [-1, 1]:
+        return "plus_minus"
+    if q1 == -1 and q2 == -1:
+        return "minus_minus"
     return None
 
 
 def classify(
-    row: dict[str, str],
-    maximal: dict[tuple[str, str], dict[str, str]],
-    physical_boson_counts: dict[str, int],
+    row: dict[str, str], class_number: int
 ) -> tuple[str, str, str]:
-    """Return color category, positivity label, cone detail."""
-    if row["status"] == "strict":
-        cone = "C(J)" if row["metric"] == "J2g" else "C(iJ)"
-        if (
-            row["statistics"] == "fermion"
-            and int(
-                maximal[(row["statistics"], row["class_id"])][
-                    "maximal_subgroup_sign_guaranteed"
-                ]
-            )
-        ):
-            cone += "+Θ"
-        color = "cone_j2g" if row["metric"] == "J2g" else "cone_ij2g"
-        return color, cone, "strict cone"
-
-    obstruction = (
-        "cone: Lemma 1"
-        if row["status"] == "boundary_only_trace_obstruction"
-        else "cone: Lemma 2"
-    )
-    if row["statistics"] == "boson" and row["class_id"] == BOSON_RP_CLASS:
-        count = physical_boson_counts.get(row["class_id"], 0)
-        return "rp", f"Θ(+,-)+RP; p={count}", obstruction
+    """Return actual A_group half-power category, label, and cone detail."""
     pair_type = anti_linear_pair_type(row)
-    if row["statistics"] == "boson" and pair_type is not None:
-        count = physical_boson_counts.get(row["class_id"], 0)
-        return "trs", f"{pair_type}; p={count}", obstruction
-    if (
-        row["statistics"] == "fermion"
-        and int(
-            maximal[(row["statistics"], row["class_id"])][
-                "maximal_subgroup_sign_guaranteed"
-            ]
+
+    if row["status"] == "strict":
+        cone = (
+            r"cone: strict $J_2g$*"
+            if row["metric"] == "J2g"
+            else r"cone: strict $iJ_2g$*"
         )
-    ):
-        return "mtr", pair_type or "Θ-pair", obstruction
-    if (
-        row["statistics"] == "fermion"
-        and row["class_id"] == "s1+_q1+_s2+_q2+_r+"
-    ):
-        return "mtr", "SO / split-O", obstruction
-    color = (
-        "group_trace"
-        if row["status"] == "boundary_only_trace_obstruction"
-        else "group_flip"
+    else:
+        cone = "cone: none"
+
+    if pair_type is None:
+        return (
+            "not_fixed",
+            r"$A_{\rm group}$: five relations" "\n" "do not fix the half-power",
+            cone,
+        )
+
+    if row["statistics"] == "fermion":
+        mechanism = (
+            r"anticomm. $(+,-)$: conjugate Majorana blocks, $W_{\rm F}\geq0$"
+            if pair_type == "plus_minus"
+            else r"anticomm. $(-,-)$: Kramers polarization"
+        )
+        return (
+            "fermion_actual_positive",
+            r"$A_{\rm group}$: actual $W_{\rm F}\geq0$" "\n" + mechanism,
+            cone,
+        )
+
+    if pair_type == "plus_minus":
+        return (
+            "boson_modulus_square",
+            r"anticomm. $(+,-)$: $W_{\rm B}=|w|^2\geq0$" "\n"
+            r"if the pair is Fock-realizable",
+            cone,
+        )
+
+    if class_number in BOSON_POLARIZATION_VERIFIED:
+        return (
+            "boson_polarization_verified",
+            r"anticomm. $(-,-)$: actual $W_{\rm B}\geq0$" "\n"
+            r"positive polarization verified at $d=4$",
+            cone,
+        )
+
+    if class_number in BOSON_POLARIZATION_IMPOSSIBLE:
+        return (
+            "boson_polarization_impossible",
+            r"anticomm. $(-,-)$: no positive polarization" "\n"
+            r"for real orthogonal $J_a$",
+            cone,
+        )
+
+    raise ValueError(
+        f"unclassified bosonic (-,-) class B{class_number:02d}"
     )
-    return color, "G; +Θ3", obstruction
+
+
+def validate_atlas(rows: list[dict[str, str]]) -> None:
+    """Guard the 20 + 8 + 4 classification and the independent cone count."""
+    for statistics in ("boson", "fermion"):
+        selected = [row for row in rows if row["statistics"] == statistics]
+        counts = {None: 0, "plus_minus": 0, "minus_minus": 0}
+        for row in selected:
+            counts[anti_linear_pair_type(row)] += 1
+        expected = {None: 20, "plus_minus": 8, "minus_minus": 4}
+        if counts != expected:
+            raise ValueError(
+                f"unexpected {statistics} A_group classification: {counts}"
+            )
+        strict_count = sum(row["status"] == "strict" for row in selected)
+        if strict_count != 8:
+            raise ValueError(
+                f"expected 8 strict-cone {statistics} classes, got {strict_count}"
+            )
 
 
 def panel_data(
     rows: list[dict[str, str]],
-    maximal: dict[tuple[str, str], dict[str, str]],
-    physical_boson_counts: dict[str, int],
 ) -> tuple[np.ndarray, list[list[str]]]:
     lookup = {
         (
@@ -163,21 +185,18 @@ def panel_data(
             int(row["s2"]),
             int(row["q2"]),
             int(row["r"]),
-        ): row
-        for row in rows
+        ): (class_number, row)
+        for class_number, row in enumerate(rows, start=1)
     }
     color_index = {name: index for index, name in enumerate(COLOR_ORDER)}
     values = np.empty((4, 8), dtype=int)
     labels = [["" for _ in range(8)] for _ in range(4)]
     for i, (s1, q1) in enumerate(ROW_KEYS):
         for j, (s2, q2, r) in enumerate(COL_KEYS):
-            row = lookup[(s1, q1, s2, q2, r)]
-            category, positivity, cone_detail = classify(
-                row, maximal, physical_boson_counts
-            )
+            number, row = lookup[(s1, q1, s2, q2, r)]
+            category, positivity, cone_detail = classify(row, number)
             values[i, j] = color_index[category]
             prefix = "B" if row["statistics"] == "boson" else "F"
-            number = rows.index(row) + 1
             dimension = 2 ** int(row["min_qubits"])
             labels[i][j] = (
                 f"{prefix}{number:02d}   d={dimension}\n"
@@ -188,15 +207,7 @@ def panel_data(
 
 def main() -> None:
     full_rows = load_rows(FULL_TABLE)
-    maximal_rows = {
-        (row["statistics"], row["class_id"]): row
-        for row in load_rows(MAXIMAL_TABLE)
-    }
-    physical_boson_counts: dict[str, int] = {}
-    for row in load_rows(PHYSICAL_BOSON_TABLE):
-        physical_boson_counts[row["class_id"]] = (
-            physical_boson_counts.get(row["class_id"], 0) + 1
-        )
+    validate_atlas(full_rows)
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
     mpl.rcParams.update(
@@ -209,15 +220,13 @@ def main() -> None:
         }
     )
     cmap = ListedColormap([COLORS[name] for name in COLOR_ORDER])
-    figure, axes = plt.subplots(2, 1, figsize=(13.2, 8.7))
+    figure, axes = plt.subplots(2, 1, figsize=(15.3, 10.1))
 
     for panel, statistics in enumerate(("boson", "fermion")):
         selected = [
             row for row in full_rows if row["statistics"] == statistics
         ]
-        values, labels = panel_data(
-            selected, maximal_rows, physical_boson_counts
-        )
+        values, labels = panel_data(selected)
         ax = axes[panel]
         ax.imshow(
             values,
@@ -234,8 +243,8 @@ def main() -> None:
                     labels[row_index][col_index],
                     ha="center",
                     va="center",
-                    fontsize=7.2,
-                    linespacing=1.22,
+                    fontsize=6.2,
+                    linespacing=1.13,
                     color="#172126",
                 )
 
@@ -266,43 +275,64 @@ def main() -> None:
         ax.tick_params(which="minor", bottom=False, left=False)
         ax.tick_params(which="major", length=0)
         ax.set_title(
-            ("a  Boson" if panel == 0 else "b  Fermion"),
+            (
+                r"a  Boson: actual metaplectic half-power on $A_{\rm group}$"
+                if panel == 0
+                else r"b  Fermion: actual Spin half-power on $A_{\rm group}$"
+            ),
             loc="left",
             fontweight="bold",
             pad=7,
         )
 
     legend = [
-        Patch(facecolor=COLORS["cone_j2g"], label=r"strict cone, $\eta=J_2g$"),
-        Patch(facecolor=COLORS["cone_ij2g"], label=r"strict cone, $\eta=iJ_2g$"),
         Patch(
-            facecolor=COLORS["trs"],
-            label="bosonic physical anti-linear pair (p = low-d physical orbits)",
+            facecolor=COLORS["fermion_actual_positive"],
+            label=r"fermion: conjugate Majorana blocks or Kramers give $W_{\rm F}\geq0$ (12/32)",
         ),
         Patch(
-            facecolor=COLORS["rp"],
-            label="bosonic reflected-factor class plus RP condition",
+            facecolor=COLORS["boson_modulus_square"],
+            label=r"boson: $W_{\rm B}=|w|^2$ for physical anticomm. $(+,-)$ pairs (8/32)",
         ),
         Patch(
-            facecolor=COLORS["mtr"],
-            label="fermionic anti-linear, compact-SO, or split-O theorem",
+            facecolor=COLORS["boson_polarization_verified"],
+            label="boson B15/B27: positive polarization verified at d=4",
         ),
-        Patch(facecolor=COLORS["group_trace"], label=r"group only; $\mathrm{Tr}H=0$"),
-        Patch(facecolor=COLORS["group_flip"], label=r"group only; $J_1$ flips $H$"),
+        Patch(
+            facecolor=COLORS["boson_polarization_impossible"],
+            label=r"boson B12/B32: impossible for real orthogonal $J_a$",
+        ),
+        Patch(
+            facecolor=COLORS["not_fixed"],
+            label="remaining 20/32: five relations do not fix the actual half-power",
+        ),
     ]
     figure.legend(
         handles=legend,
         loc="lower center",
-        ncol=4,
+        ncol=3,
         frameon=False,
-        bbox_to_anchor=(0.5, 0.005),
-        fontsize=8.4,
+        bbox_to_anchor=(0.5, 0.052),
+        fontsize=8.1,
+    )
+    figure.text(
+        0.5,
+        0.013,
+        r"Each panel has 8 anticomm. $(+,-)$ classes, 4 anticomm. $(-,-)$ "
+        r"classes, and 20 classes not fixed by the five relations.  "
+        r"$A_{\rm group}$ labels assume both symmetries hold for every complete "
+        r"slice.  * A strict cone is independent (8/32): nonzero "
+        r"$A_{\rm cone}$ is mapped to $-A_{\rm cone}$ by $\Theta_2$, so the same "
+        r"configuration is not preserved and the $A_{\rm group}$ proof does not apply.",
+        ha="center",
+        va="bottom",
+        fontsize=8.0,
     )
     figure.subplots_adjust(
         left=0.115,
         right=0.99,
         top=0.94,
-        bottom=0.13,
+        bottom=0.17,
         hspace=0.62,
     )
 

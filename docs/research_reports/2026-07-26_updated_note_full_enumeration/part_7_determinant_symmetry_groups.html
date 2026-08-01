@@ -1,0 +1,1718 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="data:," rel="icon"/>
+<title>玻色、费米统一的 Nambu 半幂权重正性</title>
+<style>
+    :root {
+      --ink: #202428;
+      --muted: #59636c;
+      --line: #d5dce1;
+      --soft: #f5f7f8;
+      --blue: #236b8e;
+      --blue-bg: #edf6fa;
+      --green: #26734d;
+      --green-bg: #eef8f1;
+      --red: #a23b2a;
+      --red-bg: #fff2ed;
+      --gold: #855b12;
+      --gold-bg: #fff8e5;
+      --violet: #66558d;
+      --violet-bg: #f5f1fb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; max-width: 100%; overflow-x: hidden; }
+    body {
+      color: var(--ink);
+      background: #fff;
+      font: 16px/1.74 system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    }
+    main {
+      width: min(1120px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 38px 0 68px;
+    }
+    header { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    h1 {
+      margin: 0 0 12px;
+      max-width: 1020px;
+      font-size: 33px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    h1 .report-file {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 6px;
+    }
+    h1 .report-title { display: block; }
+    h2 {
+      margin: 45px 0 14px;
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 29px 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 15px 0 8px;
+      font-size: 15px;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+    p { margin: 9px 0; }
+    ul, ol { margin: 9px 0 9px 24px; padding: 0; }
+    li { margin: 7px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      padding: 1px 4px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--soft);
+      font: 0.91em/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+    pre {
+      margin: 12px 0 18px;
+      padding: 13px 15px;
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      background: #f7f8f9;
+      font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .meta {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .lead { margin: 23px 0 18px; font-size: 17px; }
+    .toc {
+      columns: 2;
+      column-gap: 44px;
+      margin: 18px 0 25px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .toc a { display: block; break-inside: avoid; padding: 3px 0; }
+    .result, .warning, .scope, .note, .correction {
+      margin: 17px 0;
+      padding: 12px 15px;
+      border-left: 4px solid var(--blue);
+      background: var(--blue-bg);
+    }
+    .result { border-left-color: var(--green); background: var(--green-bg); }
+    .warning { border-left-color: var(--red); background: var(--red-bg); }
+    .scope { border-left-color: var(--gold); background: var(--gold-bg); }
+    .correction { border-left-color: var(--violet); background: var(--violet-bg); }
+    .note { color: #34404a; background: var(--soft); }
+    .source-quote {
+      margin: 14px 0;
+      padding: 13px 16px;
+      border-left: 4px solid #7b8790;
+      background: #f7f8f9;
+      color: #303940;
+    }
+    .source-quote p { margin: 6px 0; }
+    .quote-explain {
+      margin: 18px 0 24px;
+      padding-bottom: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .walkthrough-block {
+      margin: 28px 0 38px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-group {
+      margin: 34px 0 8px;
+      padding: 10px 0;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 17px;
+    }
+    .case-index {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      margin: 18px 0 28px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-index strong, .case-index a { display: block; }
+    .case-index strong { margin-bottom: 5px; }
+    .case-index a { padding: 2px 0; font-size: 14px; }
+    .case-sheet {
+      margin: 0 0 34px;
+      padding: 5px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-sheet h4 { margin-top: 18px; font-size: 17px; }
+    .model-example {
+      margin: 22px 0 17px;
+      padding: 15px 0 4px;
+      border-top: 1px solid var(--line);
+    }
+    .model-title { margin: 0 0 7px; font-size: 16px; }
+    .model-scope {
+      margin: 0 0 13px;
+      padding: 8px 11px;
+      border-left: 3px solid var(--gold);
+      background: var(--gold-bg);
+      color: #4b4131;
+      font-size: 14px;
+    }
+    .model-example mjx-container[display="true"] {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    .model-example mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 4px;
+    }
+    details.basis-audit {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    details.basis-audit summary { cursor: pointer; font-weight: 650; }
+    details.note-original {
+      margin: 13px 0 15px;
+      border: 1px solid #bfc9d0;
+      background: #fff;
+    }
+    details.note-original summary {
+      padding: 11px 14px;
+      cursor: pointer;
+      color: #36434c;
+      background: var(--soft);
+      font-weight: 650;
+    }
+    .note-source {
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      color: #2b3339;
+      overflow-x: auto;
+    }
+    .note-source > :first-child { margin-top: 0; }
+    .note-source > :last-child { margin-bottom: 0; }
+    .note-source h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .explanation {
+      margin: 12px 0;
+      padding: 12px 15px;
+    }
+    .explanation {
+      border-left: 4px solid var(--green);
+      background: var(--green-bg);
+    }
+    .annotation-label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 750;
+      color: #39464f;
+    }
+    .scroll { max-width: 100%; overflow-x: auto; margin: 12px 0 17px; }
+    .scroll mjx-container[display="true"],
+    .scroll mjx-container[display="true"] > mjx-math {
+      max-width: none !important;
+      overflow: visible !important;
+    }
+    figure { margin: 24px 0 32px; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: #39434d;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: var(--soft); font-weight: 650; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .yes { color: var(--green); font-weight: 650; }
+    .no { color: var(--red); font-weight: 650; }
+    .partial { color: var(--gold); font-weight: 650; }
+    .small { color: var(--muted); font-size: 13px; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 28px;
+    }
+    .summary-item {
+      padding: 13px 0 13px 13px;
+      border-left: 4px solid var(--line);
+    }
+    .summary-item strong { display: block; margin-bottom: 4px; }
+    .summary-item.established { border-left-color: var(--green); }
+    .summary-item.corrected { border-left-color: var(--violet); }
+    .summary-item.refuted { border-left-color: var(--red); }
+    .summary-item.open { border-left-color: var(--gold); }
+    mjx-container { max-width: 100%; }
+    mjx-container:not([display="true"]) {
+      display: inline-block;
+      max-width: none;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      vertical-align: middle;
+    }
+    mjx-container[display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+    mjx-container[display="true"] > mjx-math {
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @media (max-width: 820px) {
+      main { width: min(100vw - 22px, 1120px); padding-top: 25px; }
+      h1 { font-size: 25px; }
+      h2 { font-size: 21px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .case-index { grid-template-columns: 1fr; }
+      .toc { columns: 1; }
+      table { font-size: 13px; }
+      .note-source, .explanation { padding: 11px 12px; }
+    }
+  </style>
+<script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        macros: { Tr: '\\operatorname{Tr}' }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+<script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head><body><main><header>
+<h1>
+<span class="report-title">Nambu Gaussian 半幂权重的对称性正性</span>
+<span class="report-file">玻色、费米统一的算符级定理与 64 类 \(J_1,J_2\) 检查</span>
+</h1>
+<div class="meta">
+<div>报告日期：2026-08-01</div>
+<div>研究对象：\(\hat h=\frac{1}{2}\hat\chi^TgA\hat\chi\) 与实际有序 Gaussian 算符</div>
+<div>本卷判定：玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 与费米 \([\det(I+M)]^{1/2}\) 的实际 Fock-space representative 是否非负</div>
+<div>本卷范围：只研究 symmetry/group 怎样固定实际 half-power 的符号</div>
+</div>
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_5_branch_sampling.html">double-cover 算法卷</a><a href="part_6_case12_semigroups.html">Case 1/2 半群证明</a></nav><section id="half-power-symmetry">
+<h2>1. 先把真正需要证明的对象写清楚</h2>
+<h3>1.1 同一个玻色、费米 Nambu 起点</h3>
+<p>
+    对每个固定的辅助场构型，Trotter 与 Hubbard--Stratonovich 分解给出
+    一串二次算符。本卷沿用 note 的写法
+  </p>
+<div class="scroll">\[
+    \hat h_\ell=\frac{1}{2}\hat\chi^TgA_\ell\hat\chi,
+    \qquad gA_\ell+A_\ell^Tg=0,
+    \qquad
+    \widehat{\mathcal U}=e^{\hat h_L}\cdots e^{\hat h_1}.
+  \]</div>
+<p>
+    对 \(N\) 个物理模，
+    \(\hat\chi=(a_1,\ldots,a_N,a_1^+,\ldots,a_N^+)^T\)。玻色与费米的
+    区别放在矩阵 \(g\) 中：
+  </p>
+<div class="scroll">\[
+    g_{\rm B}=\begin{pmatrix}0&amp;-I_N\\ I_N&amp;0\end{pmatrix},
+    \qquad
+    g_{\rm F}=\begin{pmatrix}0&amp;I_N\\ I_N&amp;0\end{pmatrix}.
+  \]</div>
+<p>
+    玻色情形使用普通 commutator，费米情形使用 canonical
+    anticommutator。逐项把 \(\hat h_\ell\) 与 \(\hat\chi\) 交换，都得到
+  </p>
+<div class="scroll">\[
+    [\hat h_\ell,\hat\chi]=-A_\ell\hat\chi,
+    \qquad
+    \hat\chi e^{\hat h_\ell}
+      =e^{\hat h_\ell}e^{A_\ell}\hat\chi.
+  \]</div>
+<p>
+    因而完整算符在 Nambu operators 上诱导的有限维矩阵是
+  </p>
+<div class="scroll">\[
+    \hat\chi\widehat{\mathcal U}
+      =\widehat{\mathcal U}M\hat\chi,
+    \qquad
+    M=e^{A_L}\cdots e^{A_1},
+    \qquad M^TgM=g.
+  \]</div>
+<p>
+    最后一个等式来自 \(gA_\ell+A_\ell^Tg=0\)，不要求不同时间片彼此
+    对易。到这里为止，玻色和费米只在 \(g\) 是反对称还是对称这一点上
+    不同。
+  </p>
+<h3>1.2 权重不是根号内的 determinant</h3>
+<p>
+    note 写出的固定构型权重是
+  </p>
+<div class="scroll">\[
+    \boxed{
+    W_{\rm B}=\operatorname{Tr}_{\rm B}\widehat{\mathcal U}
+      =\bigl[(-1)^N\det(I-M)\bigr]_{\widehat{\mathcal U}}^{-1/2}},
+    \qquad
+    \boxed{
+    W_{\rm F}=\operatorname{Tr}_{\rm F}\widehat{\mathcal U}
+      =\bigl[\det(I+M)\bigr]_{\widehat{\mathcal U}}^{1/2}}.
+  \]</div>
+<p>
+    这里 \(N\) 是物理 boson modes 的数目。合作者原式以及常用的简写
+    \(\det(I-M)^{-1/2}\) 隐含了 \(N\) 为偶数；若要把玻色、费米框架写到
+    任意 \(N\)，玻色式必须保留 \((-1)^N\)。原因可从任意一对倒数 Nambu
+    本征值直接看出：
+  </p>
+<div class="scroll">\[
+    (1-\lambda)(1-\lambda^{-1})
+      =-\frac{(1-\lambda)^2}{\lambda}.
+  \]</div>
+<p>
+    一个物理 boson mode 对应一对 \(\lambda,\lambda^{-1}\)，所以 \(N\) 对
+    本征值总共给出 \((-1)^N\)。单模稳定例子尤其直观：取
+    \(M=\operatorname{diag}(e^{-\beta},e^{\beta})\)、\(\beta&gt;0\)，则
+    \(\det(I-M)&lt;0\)，而实际热迹显然为正；乘上 \((-1)^N=-1\) 后根号内才为
+    正数。
+  </p>
+<p>
+    方括号的下标不是新物理量，只是在提醒读者：平方根取哪一个符号由
+    左边那个实际有序算符 \(\widehat{\mathcal U}\) 决定。若只把
+    \((-1)^N\det(I-M)\) 或 \(\det(I+M)\) 证明为非负，我们只知道了
+  </p>
+<div class="scroll">\[
+    W_{\rm B}^{2}=(-1)^N\det(I-M)^{-1},
+    \qquad
+    W_{\rm F}^{2}=\det(I+M),
+  \]</div>
+<p>
+    还没有区分 \(W\) 与 \(-W\)。本卷的目标是直接证明左边的实际
+    \(W\geq0\)，而不是停在这两个平方上。
+  </p>
+<div class="note">
+<strong>关于正规序常数。</strong>
+    note 的公式把二次算符完全写成
+    \(\frac{1}{2}\hat\chi^TgA\hat\chi\)。若具体 HS 分解另有一个普通 scalar
+    factor，它对 \(M\) 不可见，却会直接乘到 \(W\) 上。因此它不能从证明中
+    丢掉。若它来自指数中的实数常数 \(\xi_\ell\)，相应因子
+    \(e^{\xi_\ell}&gt;0\)；若它来自两个被反线性变换交换的子系统，则必须把两边
+    的共轭因子一起保留，乘积才是模平方。若某个额外 factor 既没有包含在
+    \(\hat h_\ell\) 中，也没有参加这种共轭配对，就必须另行验证所有时间片的
+    总乘积为非负实数。后面的公式均按 note 已经把正规序常数包含在
+    \(\frac12\hat\chi^TgA\hat\chi\) 中的 convention 书写。
+  </div>
+<h3>1.3 为什么终点 \(M\) 永远不可能单独决定平方根符号</h3>
+<p>
+    二次玻色算符在 Fock space 中给出 symplectic matrix 的
+    metaplectic lift；二次费米算符给出 orthogonal matrix 的 Spin lift。
+    “lift”在这里的具体意思很简单：
+    \(\widehat{\mathcal U}\) 与 \(-\widehat{\mathcal U}\) 对
+    \(\hat\chi\) 的共轭作用完全相同，所以二者投影到同一个 \(M\)，但
+    Fock trace 恰好相差一个负号。这就是所谓 double cover，不需要读者
+    预先知道群表示论。
+  </p>
+<p>
+    一个单复费米模已经在本卷的 Nambu convention 中给出完整反例。取实数
+    \(x\)，并令
+  </p>
+<div class="scroll">\[
+    \hat\chi=\begin{pmatrix}c\\c^+\end{pmatrix},
+    \qquad g=C=\sigma_x,
+    \qquad
+    A_x=\begin{pmatrix}-2ix&amp;0\\0&amp;2ix\end{pmatrix}.
+  \]</div>
+<p>
+    先检查它是合法 fermionic Nambu generator：
+  </p>
+<div class="scroll">\[
+    gA_x+A_x^Tg=0.
+  \]</div>
+<p>
+    定义 \(\Theta=U\mathcal K\)，其中 \(U=-\sigma_y\)。这里
+    \(\sigma_y=\begin{pmatrix}0&amp;-i\\i&amp;0\end{pmatrix}\)。不用省略任何
+    physical condition，逐项有
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    U\overline U&amp;=-I,\\
+    U^TgU&amp;=g,\\
+    C\overline U C&amp;=U,\\
+    U^{-1}\overline{A_x}U&amp;=A_x.
+  \end{aligned}
+  \]</div>
+<p>
+    所以这不只是作用在 \(M\) 上的形式矩阵关系；它是第 2 节意义下逐 generator
+    成立、可在 Fock space 实现且平方为 \(-I\) 的反线性对称性。实际二次
+    算符为
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \hat h_x
+      &amp;=\frac{1}{2}\hat\chi^TgA_x\hat\chi\\
+      &amp;=ix\,cc^+-ix\,c^+c\\
+      &amp;=-2ix\left(c^+c-\frac{1}{2}\right).
+  \end{aligned}
+  \]</div>
+<p>
+    空态和占据态上的 \(e^{\hat h_x}\) 本征值分别为 \(e^{ix}\) 与
+    \(e^{-ix}\)，故直接求迹得到
+  </p>
+<div class="scroll">\[
+    W_{\rm F}(x)=2\cos x.
+  \]</div>
+<p>另一方面，\(M=e^{A_x}\)，所以</p>
+<div class="scroll">\[
+    \det(I+M)
+      =(1+e^{-2ix})(1+e^{2ix})=4\cos^2x.
+  \]</div>
+<p>
+    在 \(\pi/2&lt;x&lt;\pi\) 时，根号里面严格为正，实际权重却严格为负；
+    在 \(x=\pi\) 时甚至有 \(M=I\)、\(\det(I+M)=4\)，而实际 trace 是
+    \(-2\)。所以单条 physical \(\Theta^2=-I\) 仍不能选出 Spin half-root
+    的符号。
+  </p>
+<p>
+    玻色侧也有同样的两层 lift。单模绕相空间原点旋转 \(2\pi\) 时，
+    \(e^{-2\pi i(a^+a+1/2)}=-I\) 在 Nambu space 中却投影为单位矩阵。
+    因而任何只检查终点 \(M\)、其本征值或 \(M\) 的反线性对称性的规则，
+    都不可能区分这个算符与 \(+I\)。这不是数值选错 principal square
+    root，而是 \(M\) 本来就少保存了一位 \(\mathbb Z_2\) 信息。
+  </p>
+<h3>1.4 一个真正的正性定理必须多做哪一步</h3>
+<p>
+    上面的反例把任务说得很明确。下文不会再从 \(M\) 的谱出发猜平方根，
+    而要求反线性变换逐层作用在实际二次算符上，并完成下面两种事情之一：
+  </p>
+<ol>
+<li>把实际算符分成两个互为 complex conjugate 的独立部分，使玻色和偶数模费米 trace 直接成为 \(|w|^2\)，奇数模费米则在加入一个解耦辅助模后成为正数乘以 \(|w|^2\)；</li>
+<li>由对称性确定一组真正的 annihilation operators，使 Nambu 半幂公式还原为未加平方根的普通 determinant，再对这个 determinant 做 Kramers 或矩阵群证明。</li>
+</ol>
+<p>
+    这两个机制都使用实际算符，因此会同时固定 Spin 或 metaplectic lift。
+    它们分别在第 3、4 节完整证明。
+  </p>
+<h2>2. 什么才是作用在物理 Nambu 算符上的反线性对称性</h2>
+<h3>2.1 三条条件各自负责什么</h3>
+<p>
+    在选定 Nambu basis 中，用 \(\mathcal K\) 表示对普通复数 coefficient
+    作 complex conjugation，并写
+  </p>
+<div class="scroll">\[
+    \Theta=U\mathcal K,
+    \qquad
+    \widehat\Theta\hat\chi\widehat\Theta^{-1}=U\hat\chi.
+  \]</div>
+<p>
+    下文写 \(\Theta^2=U\overline U=\pm I\) 时，正负号指的是它在 Nambu
+    operator column 上连续作用两次的结果。Fock-space antiunitary
+    \(\widehat\Theta\) 平方后还可能得到粒子数 parity；两者不能混写。
+  </p>
+<p>
+    要把它用于实际 Fock 权重，不能只写 \(\Theta^2=\pm I\)。需要依次检查：
+  </p>
+<div class="scroll">\[
+    \boxed{U^TgU=g},
+    \qquad
+    \boxed{C\overline U C=U},
+    \qquad
+    \boxed{U^{-1}\overline{A_\ell}U=A_\ell\quad\text{对每个时间片成立}},
+  \]</div>
+<p>其中</p>
+<div class="scroll">\[
+    C=\begin{pmatrix}0&amp;I_N\\I_N&amp;0\end{pmatrix},
+    \qquad
+    \hat\chi^+=\hat\chi^T C.
+  \]</div>
+<ul>
+<li>第一式保证变换后的 operators 仍满足原来的 canonical commutation 或 anticommutation relations；</li>
+<li>第二式保证变换后的 creation component 确实是相应 annihilation component 的 Hermitian conjugate；</li>
+<li>第三式保证同一个固定辅助场构型中的每一层 \(\hat h_\ell\) 都在该反线性变换下不变。</li>
+</ul>
+<h3>2.2 第二式不是额外的数学装饰</h3>
+<p>
+    从 \(\hat\chi^+=\hat\chi^TC\) 可直接推出它。变换后的 column 是
+    \(U\hat\chi\)。先取 Hermitian conjugate 得
+  </p>
+<div class="scroll">\[
+    (U\hat\chi)^+=\hat\chi^T C U^+.
+  \]</div>
+<p>
+    若它仍是同一 column 按原 Nambu 规则得到的 conjugate，也必须等于
+  </p>
+<div class="scroll">\[
+    (U\hat\chi)^TC=\hat\chi^T U^T C.
+  \]</div>
+<p>
+    比较两式，得到 \(CU^+=U^TC\)。转置并作 complex conjugation，
+    正好是 \(C\overline U C=U\)。如果这条式子失败，某个所谓
+    “annihilation operator”变换后的下半部分并不是其 Hermitian
+    conjugate；它只是把 \(a\) 与 \(a^+\) 当作互不相关的矩阵分量来变换，
+    不能提升为 Fock-space antiunitary。
+  </p>
+<p>
+    对 note 的费米矩阵，这项检查是自动的：此时 \(C=g_{\rm F}\)，而
+    \(U\) 是 unitary，\(U^Tg_{\rm F}U=g_{\rm F}\) 已经等价于上式。
+    对玻色则 \(C\ne g_{\rm B}\)，所以它是一条必须另外检查的物理条件。
+  </p>
+<h3>2.3 第三式如何等价于二次算符不变</h3>
+<p>反线性变换会同时 complex-conjugate coefficient，因此</p>
+<div class="scroll">\[
+  \begin{aligned}
+    \widehat\Theta\hat h_\ell\widehat\Theta^{-1}
+      &amp;=\frac{1}{2}(U\hat\chi)^Tg\overline{A_\ell}(U\hat\chi)\\
+      &amp;=\frac{1}{2}\hat\chi^T
+        U^Tg\overline{A_\ell}U\hat\chi\\
+      &amp;=\frac{1}{2}\hat\chi^Tg
+        U^{-1}\overline{A_\ell}U\hat\chi.
+  \end{aligned}
+  \]</div>
+<p>
+    第二行到第三行使用 \(U^TgU=g\)，即 \(U^Tg=gU^{-1}\)。于是
+    \(U^{-1}\overline{A_\ell}U=A_\ell\) 恰好说明
+    \(\widehat\Theta\hat h_\ell\widehat\Theta^{-1}=\hat h_\ell\)。
+    这项逐层条件比“最终 \(M\) 具有某个对称性”更强，也正是下文能够
+    控制实际 lift 的原因。
+  </p>
+</section><section id="two-antilinear-theorems">
+<h2>3. 第一条统一定理：两个共轭的 bosonic Fock 或 fermionic Majorana 分块</h2>
+<h3>3.1 对称性假设</h3>
+<p>
+    假设每个时间片同时具有两条第 2 节定义的物理反线性对称性，分别记为
+    \(\Theta_+\) 与 \(\Theta_-\)，并且
+  </p>
+<div class="scroll">\[
+    \Theta_+^2=+I,
+    \qquad
+    \Theta_-^2=-I,
+    \qquad
+    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+  \]</div>
+<p>
+    “物理”在这里不是一句省略语，而是说两条变换各自都满足第 2.1 节的
+    canonical condition、Hermitian-conjugate condition 和逐层不变条件。
+    如果时间片另外带有 scalar factor，还要按第 1.2 节把它纳入共轭分解，
+    或独立证明其总乘积为非负实数。玻色 Fock space 是无限维的，所以下面的 trace 等式都理解为在
+    trace 存在的构型上成立；本节只解决符号，不重复讨论收敛域。
+    下面不引用外部分类表，直接从这些条件求出实际 trace。
+  </p>
+<h3>3.2 两条反线性变换的乘积把系统分成两半</h3>
+<p>
+    设两条反线性变换的矩阵部分分别为 \(U_+\) 与 \(U_-\)。它们的乘积
+    是普通线性变换；在 Nambu operator column 上的矩阵为
+  </p>
+<div class="scroll">\[
+    P=U_+\overline{U_-},
+    \qquad
+    (\Theta_+\Theta_-)x=Px.
+  \]</div>
+<p>
+    利用二者反对易以及平方的正负号，逐步得到
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    P^2
+      &amp;=\Theta_+\Theta_-\Theta_+\Theta_-\\
+      &amp;=-\Theta_+^2\Theta_-^2\\
+      &amp;=-\,(+I)(-I)=I.
+  \end{aligned}
+  \]</div>
+<p>
+    因而 \(P\) 的本征值只有 \(+1\) 与 \(-1\)。两条 \(\Theta\) 都保持
+    每个 \(\hat h_\ell\)，所以它们的乘积也保持每一层。写成生成元矩阵的
+    等式就是
+  </p>
+<div class="scroll">\[
+    P^{-1}A_\ell P=A_\ell.
+  \]</div>
+<p>
+    此外，\(\Theta_+\) 会交换 \(P\) 的两个本征子空间。直接计算为
+  </p>
+<div class="scroll">\[
+    \Theta_+P=\Theta_-,
+    \qquad
+    P\Theta_+=-\Theta_-,
+    \qquad
+    \Theta_+P=-P\Theta_+.
+  \]</div>
+<h3>3.3 玻色分块与费米 Majorana 分块分别是什么</h3>
+<p>
+    作为两个 physical antiunitary 的乘积，\(P\) 保持 \(g\)，也与
+    Hermitian conjugation 相容。因此，\(P\) 的每个本征子空间都连同其中
+    operators 的 Hermitian conjugates 一起出现。再取
+    \(Px=x\) 与 \(Py=-y\)。canonical relation 给出
+  </p>
+<div class="scroll">\[
+    x^Tgy=(Px)^Tg(Py)=x^Tg(-y)=-x^Tgy,
+  \]</div>
+<p>
+    因此 \(x^Tgy=0\)：正、负本征子空间在 canonical bilinear form 下
+    不互相配对。由于整个 \(g\) 非退化，\(g\) 限制到每一个子空间也都
+    非退化；否则某个非零向量会与两个子空间中的所有向量都正交，和
+    \(g\) 非退化矛盾。
+  </p>
+<p>
+    对玻色子，\(g\) 在每一半都是非退化反对称矩阵，所以每一半的维数必为
+    偶数。可在每一半选择成对的 canonical position 和 momentum，再组成
+    annihilation 与 creation operators；玻色情形因而确实得到两个彼此独立的
+    bosonic Fock spaces。
+  </p>
+<p>
+    对费米子，\(g\) 是对称矩阵。每一半首先给出的是一组 Majorana
+    operators，而不一定已经是一组普通复费米 annihilation/creation pairs。
+    设原系统有 \(N\) 个复费米模，则 \(P=+1\) 与 \(P=-1\) 两边各含
+    \(N\) 条 Majorana directions。若 \(N\) 为偶数，每边的 Majoranas 可以
+    两两组成 \(N/2\) 个复费米模，于是也得到两个普通 Fock spaces。若 \(N\)
+    为奇数，每边都剩一条无法单独组成复费米模的 Majorana direction；此时
+    不能直接写成两个普通 Fock traces。
+  </p>
+<p>
+    无论 \(N\) 的奇偶，属于两边的二次费米算符都含偶数个 Majoranas，因而
+    彼此对易。这保证下面的有序算符仍可分成两边；需要区分的只是最后怎样
+    对每边取迹。
+  </p>
+<h3>3.4 有序积怎样给出非负权重</h3>
+<p>
+    因为 \(P^{-1}A_\ell P=A_\ell\)，生成元在 \(P=+1\) 与 \(P=-1\)
+    子空间之间没有非零 matrix block。上一小节又已证明 \(g\) 在两个
+    子空间之间没有交叉 block，所以二次算符可以写成
+  </p>
+<div class="scroll">\[
+    \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-},
+    \qquad
+    [\hat h_{\ell,+},\hat h_{m,-}]=0
+    \quad\text{对任意 }\ell,m.
+  \]</div>
+<p>
+    \(\Theta_+\) 交换两个子系统，又保持完整 \(\hat h_\ell\)，所以
+  </p>
+<div class="scroll">\[
+    \hat h_{\ell,-}
+      =\widehat\Theta_+\hat h_{\ell,+}
+       \widehat\Theta_+^{-1}.
+  \]</div>
+<p>
+    如果该层的正规序常数是实数，将它的一半放进 \(\hat h_{\ell,+}\)，另一半
+    放进 \(\hat h_{\ell,-}\)，上式仍然成立且两部分互为反线性伙伴。若
+    scalar 原本就是两个子系统各自携带的共轭常数，则保留原来的两项即可。现在
+    保持原来的时间次序，只把跨子系统、因而彼此对易的 factors 移到一起：
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \widehat{\mathcal U}
+      &amp;=\prod_{\ell=L}^{1}
+        e^{\hat h_{\ell,+}+\hat h_{\ell,-}}\\
+      &amp;=\left(\prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right)
+        \left(\prod_{\ell=L}^{1}e^{\hat h_{\ell,-}}\right).
+  \end{aligned}
+  \]</div>
+<p>
+    对玻色子，以及 \(N\) 为偶数的费米子，第一括号与第二括号分别作用在
+    两个独立 Fock spaces。反线性变换使第二个 trace 成为第一个 trace
+    的 complex conjugate，故
+  </p>
+<div class="scroll">\[
+    \boxed{
+    W=\operatorname{Tr}\widehat{\mathcal U}
+      =\left(\operatorname{Tr}_{+}
+        \prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right)
+       \overline{\left(\operatorname{Tr}_{+}
+        \prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right)}
+      =\left|\operatorname{Tr}_{+}
+        \prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right|^2\geq0.}
+  \]</div>
+<p>
+    若费米模数 \(N\) 为奇数，加入一个完全解耦的辅助复费米模，并把它的两条
+    Majorana operators 分别放到 \(P=+1\) 与 \(P=-1\) 两边。两边现在各有
+    \(N+1\) 条 Majoranas，因而都可组成普通 Fock space。辅助模上的算符是
+    identity。为避免省略辅助模上的 symmetry，明确把这两条 Majoranas 记为
+    \(\gamma_+\) 与 \(\gamma_-\)，并定义
+  </p>
+<div class="scroll">\[
+  \begin{array}{c|cc}
+     &amp;\gamma_+&amp;\gamma_-\\ \hline
+    \Theta_+&amp;\gamma_-&amp;\gamma_+\\
+    \Theta_-&amp;\gamma_-&amp;-\gamma_+
+  \end{array}
+  \]</div>
+<p>
+    逐项作用两次可见 \(\Theta_+^2=+I\)、\(\Theta_-^2=-I\)；交换作用次序
+    会多出负号，所以两者仍然反对易。并且
+    \(P\gamma_+=+\gamma_+\)、\(P\gamma_-=-\gamma_-\)，正好各补到一边。
+    扩充后的两条变换因此仍满足本节的全部假设。由于辅助模上的 Gaussian
+    算符是 identity，扩充后系统的 trace 等于原 trace 的两倍。对扩充后的系统
+    应用上面的模平方分解，得到
+  </p>
+<div class="scroll">\[
+    2W_{\rm F}
+      =\left|\operatorname{Tr}_{+,\,\mathrm{extended}}
+        \prod_{\ell=L}^{1}e^{\hat h_{\ell,+}}\right|^2,
+    \qquad
+    W_{\rm F}\geq0.
+  \]</div>
+<p>
+    除以二只去掉辅助复费米模的两维 Hilbert space。这个构造没有改变原系统
+    的任何 generator，也没有使用连续选支。因而费米 \(N\) 为奇数时，正性
+    仍然由算符级的共轭分解固定，只是原 trace 本身不是两个普通 Fock traces
+    的无系数模平方。
+  </p>
+<p>
+    以上等式都直接作用在实际 Fock operator 上，不先计算玻色
+    \((-1)^N\det(I-M)\) 或费米 \(\det(I+M)\)，所以没有留下平方根取正号
+    还是负号的问题。
+  </p>
+<div class="result">
+<strong>第一条统一定理。</strong>
+    若每个时间片同时具有一条平方为 \(+I\) 和一条平方为 \(-I\) 的物理
+    反线性对称性，并且两条对称性彼此反对易，那么实际有序 Fock trace
+    由两个共轭分块固定。玻色子和偶数模费米子的 trace 精确为模平方；
+    奇数模费米子在加入一个解耦辅助模后，两倍的原 trace 精确为模平方。
+    因而费米权重对每个构型都非负；玻色权重在 trace 存在的构型上非负。
+    这个结论直接固定玻色
+    \([(-1)^N\det(I-M)]^{-1/2}\) 与费米 \([\det(I+M)]^{1/2}\) 的实际符号。
+  </div>
+<h3>3.5 这条定理允许 pairing，但不允许任意跨两半 coupling</h3>
+<p>
+    每个 \(\hat h_{\ell,+}\) 内部可以同时含 number-conserving 与 pairing
+    terms，\(\hat h_{\ell,-}\) 是其反线性伙伴，所以定理不依赖原粒子数
+    守恒。这里禁止的是连接 \(P=+1\) 与 \(P=-1\) 子系统的 bilinear；
+    那样的项不与 \(P\) 对易，也就不满足本节两条反线性对称性。
+    第 5.2 节会说明 reflection positivity 怎样在保持实际 trace 非负的
+    同时加入一类跨反射 coupling。
+  </p>
+<h2>4. 第二条统一定理：由两条对称性确定物理粒子空间</h2>
+<h3>4.1 两条平方为 \(-I\) 的反线性对称性产生什么</h3>
+<p>现在假设每个时间片同时满足</p>
+<div class="scroll">\[
+    \Theta_1^2=\Theta_2^2=-I,
+    \qquad
+    \Theta_1\Theta_2=-\Theta_2\Theta_1.
+  \]</div>
+<p>
+    设两条反线性变换的矩阵部分为 \(U_1,U_2\)。它们在 Nambu operator
+    column 上产生线性矩阵
+  </p>
+<div class="scroll">\[
+    Q=U_1\overline{U_2},
+    \qquad
+    (\Theta_1\Theta_2)x=Qx.
+  \]</div>
+<p>同样逐步计算：</p>
+<div class="scroll">\[
+  \begin{aligned}
+    (\Theta_1\Theta_2)^2
+      &amp;=\Theta_1\Theta_2\Theta_1\Theta_2
+       =-\Theta_1^2\Theta_2^2=-I,\\
+    Q^{-1}A_\ell Q&amp;=A_\ell.
+  \end{aligned}
+  \]</div>
+<p>
+    因而 \(Q\) 的本征值为 \(+i\) 与 \(-i\)。它们不是随意的两个 blocks：
+    由于 \(Q\) 同时保持 canonical relation 与 Hermitian conjugation，
+    \(+i\) 子空间中一个 operator 的 Hermitian conjugate 位于 \(-i\)
+    子空间。若其中一个子空间可以选作 annihilation operators，另一半便
+    自动是相应的 creation operators。费米子一定可以这样选；玻色子需要
+    下一小节的额外检查。
+  </p>
+<h3>4.2 玻色子为什么还要检查正的 commutator</h3>
+<p>
+    对费米子，任意线性组合 \(\beta=v^+\hat\chi\) 都满足
+    \(\{\beta,\beta^+\}=v^+v\)。这里出现的是 coefficient vector 的普通
+    正定内积，而不是正负号混合的矩阵。\(Q\) 的同一本征子空间又因为
+    \(Q^Tg_{\rm F}Q=g_{\rm F}\) 而满足
+  </p>
+<div class="scroll">\[
+    v_i^Tg_{\rm F}v_j
+      =(Qv_i)^Tg_{\rm F}(Qv_j)
+      =i^2v_i^Tg_{\rm F}v_j
+      =-v_i^Tg_{\rm F}v_j=0,
+    \qquad \{\beta_i,\beta_j\}=0.
+  \]</div>
+<p>
+    所以选取其中任一半维本征子空间并按
+    \(v_i^+v_j=\delta_{ij}\) 正交归一化，就得到一组 fermionic
+    annihilation operators；另一个本征子空间由 Hermitian conjugation
+    给出相应 creation operators。玻色子则不同：
+    bosonic commutator 在 annihilation 与 creation directions 上分别为正、
+    负，所以必须先判断选中的本征子空间究竟对应哪一种方向。
+  </p>
+<p>
+    因而玻色侧必须做一个可以直接计算的检查。设 \(v_1,\ldots,v_N\) 是
+    \(Qv_j=iv_j\) 的一组 basis vectors，并定义相应的 operators
+  </p>
+<div class="scroll">\[
+    \beta_j=v_j^+
+      \begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}\hat\chi.
+  \]</div>
+<p>
+    由 \([\hat\chi,\hat\chi^+]=\operatorname{diag}(I_N,-I_N)\) 直接计算，
+  </p>
+<div class="scroll">\[
+    [\beta_i,\beta_j^+]
+      =v_i^+\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}v_j.
+  \]</div>
+<p>
+    同一组 operators 还必须彼此对易。把 \(\beta_j\) 的定义代入，并用
+    \([\hat\chi,\hat\chi^T]=-g_{\rm B}\)，得到
+  </p>
+<div class="scroll">\[
+    [\beta_i,\beta_j]
+      =v_i^+g_{\rm B}\overline{v_j}
+      =\overline{v_i^Tg_{\rm B}v_j}=0.
+  \]</div>
+<p>
+    最后一个等号不是额外假设，而是由
+    \(Q^Tg_{\rm B}Q=g_{\rm B}\) 与 \(Qv_i=iv_i\) 推出：
+  </p>
+<div class="scroll">\[
+    v_i^Tg_{\rm B}v_j
+      =(Qv_i)^Tg_{\rm B}(Qv_j)
+      =i^2v_i^Tg_{\rm B}v_j
+      =-v_i^Tg_{\rm B}v_j=0.
+  \]</div>
+<p>
+    如果右边的 \(N\times N\) Hermitian matrix 为正定，就能重新线性组合
+    这些 \(v_j\)，使
+  </p>
+<div class="scroll">\[
+    v_i^+\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}v_j=\delta_{ij}.
+  \]</div>
+<p>
+    此时 \(\beta_j\) 才是一组物理 bosonic annihilation operators。如果
+    这个 Hermitian matrix 为负定，则应改选 \(Q=-i\) 的本征子空间；它的
+    commutator matrix 为正定。如果矩阵既有正本征值又有负本征值，那么任一
+    整个 \(Q\) 本征子空间都不能同时作为一组 annihilation operators。
+  </p>
+<p>
+    在这里不需要另列“有零本征值”的可能。物理变换还保持
+    \([\hat\chi,\hat\chi^+]=\operatorname{diag}(I_N,-I_N)\)，所以
+    \(Q^+\operatorname{diag}(I_N,-I_N)Q=\operatorname{diag}(I_N,-I_N)\)。
+    若 \(Qv=iv\)、\(Qw=-iw\)，则
+  </p>
+<div class="scroll">\[
+    v^+\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}w
+      =(Qv)^+\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}(Qw)
+      =(-i)(-i)
+        v^+\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}w,
+  \]</div>
+<p>
+    右边等于左边的相反数，所以两个本征子空间在这个 Hermitian form 下彼此
+    正交。总 form 非退化，故它限制到每个本征子空间后仍非退化。相应的
+    commutator matrix 因而没有零本征值，只可能正定、负定或同时含正负
+    本征值。
+  </p>
+<h3>4.3 \(Q\) 把一般 Nambu 二次型化为 number-conserving 形式</h3>
+<p>
+    因为 \(Q^{-1}A_\ell Q=A_\ell\)，\(A_\ell\) 分别保持 \(Q\) 的两个
+    本征子空间。因此 \(\hat h_\ell\) 不会把选作 annihilation operators
+    的子空间连接到其 Hermitian-conjugate creation subspace。
+    在刚刚确定的 \((\beta,\beta^+)\) basis 中，每一层必为
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \hat h_{\ell,{\rm B}}
+      &amp;=\beta^+K_\ell\beta+\frac{1}{2}\operatorname{Tr}K_\ell,\\
+    \hat h_{\ell,{\rm F}}
+      &amp;=\beta^+K_\ell\beta-\frac{1}{2}\operatorname{Tr}K_\ell.
+  \end{aligned}
+  \]</div>
+<p>
+    两行中 \(\frac{1}{2}\operatorname{Tr}K_\ell\) 的符号不同，直接来自把
+    \(\frac{1}{2}\hat\chi^TgA_\ell\hat\chi\) 正规排序：玻色使用
+    \(\beta\beta^+=I+\beta^+\beta\)，费米使用
+    \(\beta\beta^+=I-\beta^+\beta\)。这里没有丢掉 Nambu 二次型原有的
+    constant。
+  </p>
+<p>令</p>
+<div class="scroll">\[
+    \mathcal B=e^{K_L}\cdots e^{K_1}.
+  \]</div>
+<p>
+    现在可以在真正的 annihilation single-particle space 上使用普通
+    occupation-number trace，而不是 Nambu square root：
+  </p>
+<div class="scroll">\[
+    \boxed{
+    W_{\rm B}
+      =\frac{\exp[\frac{1}{2}\sum_\ell\operatorname{Tr}K_\ell]}
+             {\det(I-\mathcal B)}},
+    \qquad
+    \boxed{
+    W_{\rm F}
+      =\exp[-\frac{1}{2}\sum_\ell\operatorname{Tr}K_\ell]
+             \det(I+\mathcal B)}.
+  \]</div>
+<p>
+    这两个等式就是本节解决 square-root ambiguity 的关键。Nambu doubling
+    仍可作为计算 representation 使用，但实际权重已经被还原成一个不带
+    平方根的 determinant；Spin 或 metaplectic sheet 不再需要猜测。
+  </p>
+<h3>4.4 剩下的一条反线性对称性给出 Kramers 配对</h3>
+<p>
+    \(\Theta_1\) 虽然与 \(Q\) 反对易，却会保持 \(Q=+i\) 子空间。若
+    \(Qv=iv\)，考虑到 \(\Theta_1\) 是反线性的，
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    Q(\Theta_1v)
+      &amp;=-\Theta_1(Qv)
+       =-\Theta_1(iv)
+       =i\Theta_1v.
+  \end{aligned}
+  \]</div>
+<p>
+    所以它在 \(\beta\) annihilation space 内仍是一条平方为 \(-I\) 的
+    antiunitary，并与每个 \(K_\ell\)、从而与 \(\mathcal B\) 对易。
+  </p>
+<p>
+    对任意实本征值 \(\lambda\)，\(\mathcal B\) 的整个 generalized
+    eigenspace \(\mathcal E_\lambda\) 在 \(\Theta_1\) 下不变。这里需要的
+    不只是每个 eigenvector 有一个伙伴，还要证明包括 Jordan chains 在内的
+    代数重数为偶数。设 \(\dim\mathcal E_\lambda=d\)，在这个子空间任取一组
+    basis，把 \(\Theta_1\) 写成 \(X\mathcal K\)。条件
+    \(\Theta_1^2=-I\) 就是
+  </p>
+<div class="scroll">\[
+    X\overline X=-I_d.
+  \]</div>
+<p>两边取 determinant 得</p>
+<div class="scroll">\[
+    |\det X|^2=(-1)^d.
+  \]</div>
+<p>
+    左边严格为正，因此 \(d\) 必须是偶数。对非实本征值，\(\Theta_1\)
+    把 \(\mathcal E_\lambda\) 一一映到
+    \(\mathcal E_{\overline\lambda}\)，所以二者维数相同。下面两个乘积
+    分别遍历互不相同的实本征值，以及虚部为正的非实本征值：
+  </p>
+<div class="scroll">\[
+    \det(I\mp\mathcal B)
+      =\prod_{\lambda\in\mathbb R}
+          (1\mp\lambda)^{\dim\mathcal E_\lambda}
+        \prod_{\operatorname{Im}\lambda&gt;0}
+          |1\mp\lambda|^{2\dim\mathcal E_\lambda}
+      \geq0.
+  \]</div>
+<p>
+    同一 symmetry 还给出
+    \(\operatorname{Tr}K_\ell=\overline{\operatorname{Tr}K_\ell}\)，
+    所以上一小节的 exponential prefactor 是实正数。费米公式因而直接给出
+    \(W_{\rm F}\geq0\)；玻色公式在实际 trace 有定义时给出
+    \(W_{\rm B}&gt;0\)。这里证明的是实际权重的符号，不展开玻色求迹的收敛
+    条件。
+  </p>
+<div class="result">
+<strong>第二条统一定理。</strong>
+    两条彼此反对易、各自平方为 \(-I\) 的物理反线性对称性，若其乘积的
+    \(+i\) 或 \(-i\) 子空间之一确实是一组物理 annihilation operators，
+    则把一般 Nambu half-power 精确还原为普通 determinant；其中一条
+    symmetry 随后用
+    Kramers 配对证明实际权重非负。费米侧的物理粒子空间自动存在；玻色侧
+    必须通过第 4.2 节的 commutator matrix 检查。这里和第一条定理一样，
+    \(\frac12\hat\chi^TgA_\ell\hat\chi\) 已包含的正规序常数会给出上面写出的
+    实正 exponential prefactor；若 HS 分解另乘了任何不包含在 \(A_\ell\)
+    中的 scalar factor，它在全部时间片上的乘积还必须另行证明为非负实数。
+  </div>
+<h3>4.5 “至少两条”是 generic paired 问题的充分结构，不是逻辑上的必要条件</h3>
+<p>
+    第 1.3 节已经严格证明：在没有预先给定 particle structure 的一般
+    paired fermion Nambu 问题中，单条 \(\Theta^2=-I\) 不够。两条
+    anti-linear symmetries 的作用不是把同一 Kramers degeneracy重复两遍，
+    而是它们的乘积 \(Q\) 先从 Nambu space 内部构造出物理 annihilation
+    subspace。
+  </p>
+<p>
+    但若模型一开始就明确 particle-number conserving，annihilation space
+    已经给定，那么不再需要第二条 symmetry 来构造它；一条平方为 \(-I\)
+    的 Kramers antiunitary 就足够。这正是 main.tex 的玻色 TRS 定理，
+    也是普通 determinantal fermion QMC 中熟悉的 Kramers criterion。
+  </p>
+</section><section id="known-theories-unified">
+<h2>5. 同一框架怎样包含 TRS、Majorana positivity、RP 与 split orthogonal group</h2>
+<h3>5.1 统一点不是某一种谱配对，而是三种固定实际 half-power 的办法</h3>
+<p>
+    前两节的证明揭示了一个比“有几条 time-reversal symmetries”更直接的
+    组织方式。一般 Nambu Gaussian weight 要避免平方根符号不定，至少要有
+    下列一种算符级结构：
+  </p>
+<ol>
+<li><strong>共轭分块：</strong>实际算符分成被反线性变换互换的两半；玻色和偶数模费米 trace 是 \(|w|^2\)，奇数模费米可加一个解耦辅助模完成同一证明。</li>
+<li><strong>确定的物理粒子空间：</strong>对称性给出一组 annihilation operators，Nambu half-power 还原为普通 determinant，再用 Kramers pairing 或矩阵群固定其符号。</li>
+<li><strong>reflected squares：</strong>完整 Gaussian operator 本身是若干 \(X\theta(X)\) 的正系数组合，trace 直接成为若干模平方之和。</li>
+</ol>
+<p>
+    这三项是本卷统一框架的主体。反线性对称性的数量只是实现这些结构的
+    一种方式；单纯给 \(M\) 添加更多谱对称性并不能替代它们。
+  </p>
+<h3>5.2 Reflection positivity 直接解决实际 trace，而不是先解决 determinant</h3>
+<p>
+    把物理 Hilbert space 写成相互反射的左右两部分。令 \(\theta\) 既交换
+    左右 operators，又 complex-conjugate 普通 coefficient。对只作用在
+    左半边的 operators \(X_\alpha\)，考虑
+  </p>
+<div class="scroll">\[
+    \widehat{\mathcal U}
+      =\sum_{\alpha,\beta}G_{\alpha\beta}
+        X_\alpha\,\theta(X_\beta),
+    \qquad G=G^+\geq0.
+  \]</div>
+<p>
+    \(G\geq0\) 的具体含义是存在一个普通矩阵 \(L\)，使
+    \(G_{\alpha\beta}=\sum_\mu L_{\mu\alpha}
+      \overline{L_{\mu\beta}}\)。定义
+    \(Y_\mu=\sum_\alpha L_{\mu\alpha}X_\alpha\)，上式便成为
+  </p>
+<div class="scroll">\[
+    \widehat{\mathcal U}=\sum_\mu Y_\mu\theta(Y_\mu).
+  \]</div>
+<p>
+    左右 trace 分解，并且右半边是左半边的 complex conjugate，因此
+  </p>
+<div class="scroll">\[
+    \boxed{
+      \operatorname{Tr}\widehat{\mathcal U}
+      =\sum_\mu\operatorname{Tr}_{L}Y_\mu\,
+        \overline{\operatorname{Tr}_{L}Y_\mu}
+      =\sum_\mu|\operatorname{Tr}_{L}Y_\mu|^2\geq0.}
+  \]</div>
+<p>
+    这里默认左右算符确实按普通 tensor product 分解。玻色算符自动满足；
+    对费米算符，本式用于偶宇称 operators，此时左右 factors 彼此对易，
+    不会在交换次序时产生额外负号。二次 Gaussian operators 正属于这个
+    偶宇称代数。
+  </p>
+<p>
+    这条等式直接选定实际 metaplectic 或 Spin representative。它比
+    “Hamiltonian 具有 reflection symmetry”强：后者只说左右系数有关联，
+    并没有要求跨反射 coupling matrix \(G\) 为 positive semidefinite。
+  </p>
+<p>
+    main.tex 使用的 exponential form 也落在同一结构中。若每层 generator
+    可写成
+  </p>
+<div class="scroll">\[
+    \hat h_\ell
+      =\hat H_{\ell,L}+\theta(\hat H_{\ell,L})
+       +\sum_{\alpha,\beta}G^{(\ell)}_{\alpha\beta}
+        O_{\ell,\alpha}\theta(O_{\ell,\beta}),
+    \qquad G^{(\ell)}\geq0,
+  \]</div>
+<p>
+    其中 \(\hat H_{\ell,L}\) 与 \(O_{\ell,\alpha}\) 只作用在左半边；费米
+    情形要求它们具有偶宇称。左右两项彼此对易，因此
+    \(e^{\hat H_{\ell,L}+\theta(\hat H_{\ell,L})}
+      =e^{\hat H_{\ell,L}}\theta(e^{\hat H_{\ell,L}})\)，已经是一个
+    reflected square。再把正半定矩阵 \(G^{(\ell)}\) 作上面同样的分解，
+    跨反射项就是若干 \(Y_\mu\theta(Y_\mu)\) 之和。其 exponential 的
+    power series 每一项都有正系数；相邻 reflected squares 相乘时，左边
+    operators 按原次序相乘，右边得到相同乘积的反射，所以仍是 reflected
+    square。最后用 Trotter product
+  </p>
+<div class="scroll">\[
+    e^{X+Y}=\lim_{n\to\infty}(e^{X/n}e^{Y/n})^n
+  \]</div>
+<p>
+    即知每个 \(e^{\hat h_\ell}\) 以及完整有序乘积都保持 reflected-square
+    form。因此 RP 能允许一类跨左右 sectors 的 pairing/coupling；第 3 节
+    的简单共轭分块正是 \(G=0\) 的边界情形。
+  </p>
+<h3>5.3 main.tex 的粒子数守恒玻色 time-reversal symmetry</h3>
+<p>
+    main.tex 从一开始就在 annihilation space 写每层
+    \(\hat h_\ell=a^+K_\ell a\)。因此第 4 节最费力构造的物理粒子空间已经
+    由模型给定，Nambu doubling 可以完全取消，固定构型权重就是
+  </p>
+<div class="scroll">\[
+    W_{\rm B}=\det(I-\mathcal B)^{-1},
+    \qquad \mathcal B=e^{K_L}\cdots e^{K_1}.
+  \]</div>
+<p>
+    若 annihilation space 上有一条 \(\Theta^2=-I\) 且逐层保持
+    \(K_\ell\)，第 4.4 节的 Kramers argument 原封不动给出
+    \(\det(I-\mathcal B)\geq0\)，所以实际 inverse determinant 非负。
+    这里一条 anti-linear symmetry 已经足够，因为普通 determinant 没有
+    double-cover square root。
+  </p>
+<p>
+    这也解释了为什么不能把同一句话直接外推到任意 paired bosonic
+    Nambu matrix。物理 Kramers transformation 在 bosonic Fock space 上
+    两次作用通常是 \((-1)^{\hat N}\)：奇数粒子 sector 有 Kramers pairing，
+    偶数粒子 sector 并没有因此获得同样的双重简并。粒子数守恒时我们先
+    把权重化为普通 determinant，才只需使用 one-particle Kramers pairing；
+    paired 情形若没有第 3、4 或 5.2 节的额外结构，不能跳过 lift。
+  </p>
+<h3>5.4 费米 Majorana-time-reversal positivity 在统一框架中的位置</h3>
+<p>
+<a href="https://arxiv.org/abs/1601.05780">Majorana-time-reversal
+    classification</a> 的两种基本无符号类，在这里不需要改用另一套
+    \(T\) 记号，也不需要把证明委托给文献：
+  </p>
+<ul>
+<li>一条 \(\Theta_+^2=+I\) 与一条 \(\Theta_-^2=-I\) 彼此反对易，就是第 3 节的共轭分块定理；它允许原 Nambu basis 中存在 pairing，并对奇数条 Majorana directions 的分块显式使用解耦辅助模。</li>
+<li>两条 \(\Theta_1^2=\Theta_2^2=-I\) 彼此反对易，就是第 4 节的物理粒子空间加 Kramers theorem；费米侧的 annihilation/creation decomposition 自动合法。</li>
+</ul>
+<p>
+    文献把前者称为 Majorana class、后者称为 Kramers class。我们的统一
+    表述把名称放在证明之后：真正负责正性的分别是“两个共轭
+    Majorana/Fock 分块给出的模平方”和“先消去 Nambu square root，再做
+    Kramers pairing”。
+  </p>
+<h3>5.5 多条反线性对称性：不拼接表格的统一检查法</h3>
+<p>
+    对任意多条 physical anti-linear symmetries，不必预先假定它们全部
+    彼此反对易。先把任意两条相乘，得到与每个 \(\hat h_\ell\) 对易的线性
+    canonical transformations。用这些线性变换分块时，不能把一个 block
+    只因矩阵上不再混合就称为物理子系统：还要把被 Hermitian conjugation
+    互换的 blocks 合在一起，并确认 \(g\) 在合并后的空间中非退化。完成这两步
+    后，每一块才各自包含完整的 annihilation 与 creation operators。随后逐块
+    检查：
+  </p>
+<ol>
+<li>它是否被某条反线性对称性与另一个 subsystem 交换，从而组成模平方；</li>
+<li>它是否与自己的 Hermitian-conjugate subsystem 组成确定的粒子空间，并在 annihilation half 上保留一条平方为 \(-I\) 的 symmetry；</li>
+<li>若存在跨 subsystem coupling，完整 operator 是否满足第 5.2 节的 positive reflected-square condition。</li>
+</ol>
+<p>
+    若每个 subsystem 都通过其中一项，完整实际 trace 就由各个非负 factors
+    组成；若仍有 subsystem 不通过，则现有 symmetry algebra 本身没有完成
+    half-power 正性证明，还需要模型的额外结构。这是一套直接作用于实际
+    Fock operators 的充分条件检查，而不是把任意 symmetry algebra 强行
+    归入某张既有表格。它同时适用于 commuting 与 anticommuting
+    symmetries。常见的
+    pairwise-anticommuting 情形可立即化简：两条时，\((+,-)\) 与
+    \((-,-)\) 分别落入第 3、4 节；\((+,+)\) 没有普适正性。三条时，除
+    \((+,+,+)\) 外都已含上述基本 pair。四条全为 \(+\) 时，例如把后三条
+    相乘得到新的 anti-linear transformation，平方为
+  </p>
+<div class="scroll">\[
+    (\Theta_2\Theta_3\Theta_4)^2
+      =(-1)^{3(3-1)/2}I=-I,
+  \]</div>
+<p>
+    而它与 \(\Theta_1^2=+I\) 反对易，故又回到第 3 节。更多条彼此反对易的
+    symmetry 也按同一步骤寻找一个基本 pair。对不满足两两反对易关系的
+    一般情形，则使用上一段的 subsystem 检查。这从实际 Fock trace 出发
+    组织了 anti-linear symmetry classification，而证明对象始终是
+    玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 与费米
+    \([\det(I+M)]^{1/2}\) 的实际 representative。
+  </p>
+<h3>5.6 split-orthogonal determinant theorem 只在消去 Nambu doubling 后使用</h3>
+<p>
+<a href="https://arxiv.org/abs/1506.05349">split-orthogonal
+    theorem</a> 的正确入口是第 4.3 节的普通 fermion determinant。
+    假设物理 annihilation space 已经确定，每个实矩阵 \(K_\ell\) 满足
+  </p>
+<div class="scroll">\[
+    \eta_{\rm split}=\begin{pmatrix}I_n&amp;0\\0&amp;-I_n\end{pmatrix},
+    \qquad
+    K_\ell^T\eta_{\rm split}+\eta_{\rm split}K_\ell=0.
+  \]</div>
+<p>
+    指数化后，\(\mathcal B=e^{K_L}\cdots e^{K_1}\) 保持同一个 indefinite
+    bilinear form，并且从单位矩阵沿实际指数路径连续得到。
+    下面直接证明 \(\det(I+\mathcal B)\geq0\)。
+  </p>
+<details>
+<summary>展开自包含证明</summary>
+<p>
+      由保持度规的等式得到
+      \(\mathcal B^{-1}=\eta_{\rm split}\mathcal B^T\eta_{\rm split}\)。
+      因而本征值连同代数重数在
+      \(\lambda\mapsto\lambda^{-1}\) 下封闭；矩阵为实数又保证
+      \(\lambda\mapsto\overline\lambda\)。先把所有负实 eigenvalues 的
+      generalized eigenspaces 合在一起。其余 eigenvalues 若为正实数，
+      \(1+\lambda&gt;0\)；若不为实数，则与 \(\overline\lambda\) 一起贡献
+      \(|1+\lambda|^2&gt;0\)。所以 determinant 的符号只可能来自负实
+      eigenvalues。
+    </p>
+<p>
+      还要检查这两个 spectral sectors 都继承非退化度规。对普通
+      eigenvectors，若 \(\mathcal Bx=\lambda x\)、
+      \(\mathcal By=\mu y\)，则
+    </p>
+<div class="scroll">\[
+      x^T\eta_{\rm split}y
+        =(\mathcal Bx)^T\eta_{\rm split}(\mathcal By)
+        =\lambda\mu\,x^T\eta_{\rm split}y.
+    \]</div>
+<p>
+      所以只有 \(\lambda\mu=1\) 时两者才可能有非零配对。对 generalized
+      eigenvectors，从每条 Jordan chain 的末端向前重复同一个等式，得到
+      相同结论。负实数的 reciprocal 仍是负实数，因此负实 spectral
+      subspace 与其余 subspace 彼此正交；完整度规非退化随即保证度规在
+      两个 subspaces 上分别非退化。
+    </p>
+<p>
+      这里还需要“\(\mathcal B\) 从单位矩阵连续得到”这一条件。一个保持
+      \(\eta_{\rm split}\) 的矩阵会把任意 \(n\) 维正定子空间映到另一个
+      \(n\) 维正定子空间。把映像投影到原来的正定坐标后，所得
+      \(n\times n\) 矩阵不可能奇异：否则某个正范数向量会被映到没有正
+      分量的向量，与度规保持矛盾。沿着从 \(I\) 出发的连续路径，这个
+      determinant 的符号因而始终为正。下面只用这个具体的“正方向
+      determinant 保持正号”事实。
+    </p>
+<p>
+      负实 spectral subspace 的补空间没有位于负实轴上的 eigenvalue。
+      在这个补空间可取标准 matrix logarithm：对每个 eigenvalue 选择虚部
+      位于 \((-\pi,\pi)\) 的 logarithm，并在 generalized eigenspace 上用
+      有限 Taylor expansion 定义。恒等式
+      \(\log\overline z=\overline{\log z}\) 与
+      \(\log(z^{-1})=-\log z\) 保证这个 matrix logarithm 为实数，并满足
+      与 \(K_\ell\) 相同的 split-orthogonal Lie-algebra equation。因此该
+      补空间上的 restriction 本身就是一个 exponential，可以连续缩回
+      单位矩阵；它在正方向上的 determinant 为正。完整 \(\mathcal B\) 的
+      正方向 determinant 也为正，所以剩下的负实 spectral subspace 同样
+      必须贡献正号。
+    </p>
+<p>
+      如果负实 spectrum 含 \(-1\)，那么
+      \(\det(I+\mathcal B)=0\)，结论已经成立。以下设它不含 \(-1\)，并把
+      负实 spectral subspace 分成 eigenvalues 位于
+      \((-\infty,-1)\) 与 \((-1,0)\) 的两部分，分别记为
+      \(\mathcal V_{(-\infty,-1)}\) 与 \(\mathcal V_{(-1,0)}\)。根据上一段的
+      reciprocal pairing，这两个子空间各自内部的度规为零，度规只在它们
+      之间作非退化配对；二者维数必须相同。选取互为对偶的 bases 后，若
+      \(\mathcal B_{(-\infty,-1)}\) 表示第一个子空间上的 restriction，
+      第二个子空间上的 restriction 就是
+      \(\mathcal B_{(-\infty,-1)}^{*-1}\)。这里星号只表示对偶映射，在这组
+      bases 中就是普通 transpose。负实 subspace 对 determinant 的贡献为
+    </p>
+<div class="scroll">\[
+    \begin{aligned}
+      &amp;\det\!\left(I+\mathcal B_{(-\infty,-1)}\right)
+       \det\!\left(I+\mathcal B_{(-\infty,-1)}^{*-1}\right)\\
+      &amp;\qquad=
+       \det\!\left(\mathcal B_{(-\infty,-1)}\right)^{-1}
+       \det\!\left(I+\mathcal B_{(-\infty,-1)}\right)^2.
+    \end{aligned}
+    \]</div>
+<p>
+      最后只需确定
+      \(\det\mathcal B_{(-\infty,-1)}\) 的符号。在负实 spectral subspace
+      中，互为对偶的 vectors \(v\oplus v\) 组成一个最大正定子空间。
+      把 \(\mathcal B(v\oplus v)\) 投影回这个正定子空间，所得矩阵为
+      \(\frac{1}{2}[\mathcal B_{(-\infty,-1)}+
+        \mathcal B_{(-\infty,-1)}^{*-1}]\)。正因子
+      \(2^{-\dim\mathcal V_{(-\infty,-1)}}\) 不改变 determinant 的符号。
+      上一段已经证明负实 spectral
+      subspace 在正方向上的 determinant 为正，因此
+    </p>
+<div class="scroll">\[
+      \det\!\left(
+        \mathcal B_{(-\infty,-1)}+
+        \mathcal B_{(-\infty,-1)}^{*-1}
+      \right)&gt;0.
+    \]</div>
+<p>另一方面，</p>
+<div class="scroll">\[
+    \begin{aligned}
+      &amp;\det\!\left(
+        \mathcal B_{(-\infty,-1)}+
+        \mathcal B_{(-\infty,-1)}^{*-1}
+      \right)\\
+      &amp;\quad=
+      \det\mathcal B_{(-\infty,-1)}\,
+      \det\!\left(
+        I+\mathcal B_{(-\infty,-1)}^{-1}
+             \mathcal B_{(-\infty,-1)}^{*-1}
+      \right).
+    \end{aligned}
+    \]</div>
+<p>
+      第二个 determinant 严格为正，因为括号中的第二项在实对偶 basis 中
+      就是
+      \((\mathcal B_{(-\infty,-1)}^T
+         \mathcal B_{(-\infty,-1)})^{-1}\)，为正定矩阵。因此
+      \(\det\mathcal B_{(-\infty,-1)}&gt;0\)。代回前一个平方公式，负实
+      subspace 的贡献非负；再乘上其余 subspace 的正贡献，最终得到
+    </p>
+<div class="scroll">\[
+      \det(I+\mathcal B)\geq0.
+    \]</div>
+</details>
+<p>
+    此外，对生成元等式左乘 \(\eta_{\rm split}\) 再取 trace，得到
+    \(2\operatorname{Tr}K_\ell=0\)。因此第 4.3 节的正规序 prefactor 恰为
+    一，实际 fermion weight 就是 \(\det(I+\mathcal B)\geq0\)。若只给一个
+    任意的 Nambu orthogonal matrix，而没有先确定 physical annihilation space，
+    这个 theorem 仍不能选择 Spin half-root：在一个度规为正定的二维
+    subspace 内做
+    \(2\pi\) rotation，终点矩阵回到 \(I\)，Spin lift 却可到 \(-I\)。
+    原 split-orthogonal AFQMC 没有这个问题，正是因为它从一开始就在
+    number-conserving complex-fermion space 使用普通 determinant。
+  </p>
+</section><section id="j-relations-half-power">
+<h2>6. 把统一定理代回 note 的五条 \(J_1,J_2\) 关系</h2>
+<h3>6.1 五条关系还不是两条物理反线性对称性</h3>
+<p>
+    note 枚举的每一类都指定
+  </p>
+<div class="scroll">\[
+  \begin{gathered}
+    J_1^TgJ_1=\pm g,\qquad J_1^2=\pm I,\\
+    J_2^TgJ_2=\pm g,\qquad J_2^2=\pm I,\\
+    J_1J_2=\pm J_2J_1,
+  \end{gathered}
+  \]</div>
+<p>
+    其中 \(J_1,J_2\) 都是实正交矩阵。若某个 \(J_a\) 保持 \(g\)，定义
+    \(U_a=J_a\)；若它把 \(g\) 变成 \(-g\)，定义 \(U_a=iJ_a\)：
+  </p>
+<div class="scroll">\[
+    U_a=
+    \begin{cases}
+      J_a,&amp;J_a^TgJ_a=g,\\
+      iJ_a,&amp;J_a^TgJ_a=-g.
+    \end{cases}
+    \qquad \Theta_a=U_a\mathcal K.
+  \]</div>
+<p>
+    这样选择相因子的理由可直接算出。第一种情况显然有
+    \(U_a^TgU_a=g\)；第二种情况则有
+  </p>
+<div class="scroll">\[
+    (iJ_a)^Tg(iJ_a)
+      =-J_a^TgJ_a=-(-g)=g.
+  \]</div>
+<p>
+    所以两种情况下 \(U_a\) 都是 canonical transformation。由于
+    \(J_a\) 为实数，\(\Theta_a\) 的平方也都恰好保留 note 的第二个正负号：
+  </p>
+<div class="scroll">\[
+    U_a\overline U_a
+      =\begin{cases}
+        J_a^2,&amp;U_a=J_a,\\
+        (iJ_a)(-iJ_a)=J_a^2,&amp;U_a=iJ_a.
+       \end{cases}
+  \]</div>
+<p>
+    但是玻色侧还必须另外代入 \(C\overline U_aC=U_a\)。五条关系只涉及
+    \(g\)，没有涉及 \(C\)，所以不能自动完成这项 physical Fock-space
+    检查。费米侧 \(C=g_{\rm F}\)，这项检查由 canonical relation 自动
+    满足。
+  </p>
+<h3>6.2 \(i\) 相因子会改变两条 \(\Theta\) 的相对对易号</h3>
+<p>
+    不能直接把 \(J_1J_2=\pm J_2J_1\) 的正负号抄给
+    \(\Theta_1,\Theta_2\)，因为反线性变换经过普通复数 \(i\) 时会把它
+    变成 \(-i\)。逐项相乘为
+  </p>
+<div class="scroll">\[
+    \Theta_1\Theta_2=U_1\overline U_2,
+    \qquad
+    \Theta_2\Theta_1=U_2\overline U_1.
+  \]</div>
+<p>因此有一条便于逐类使用、但不引入新符号的规则：</p>
+<ul>
+<li>若 \(J_1,J_2\) 同时保持 \(g\)，或同时翻转 \(g\)，则 \(\Theta_1,\Theta_2\) 的对易号与 \(J_1,J_2\) 相同；</li>
+<li>若一个 \(J_a\) 保持 \(g\)、另一个翻转 \(g\)，则 \(\Theta_1,\Theta_2\) 的对易号与 \(J_1,J_2\) 相反。</li>
+</ul>
+<p>
+    例如，若 \(J_1^TgJ_1=g\)、\(J_2^TgJ_2=-g\) 且
+    \(J_1J_2=J_2J_1\)，则 \(U_1=J_1,U_2=iJ_2\)，并有
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    \Theta_1\Theta_2
+      &amp;=J_1\overline{iJ_2}=-iJ_1J_2,\\
+    \Theta_2\Theta_1
+      &amp;=iJ_2\overline{J_1}=iJ_2J_1,
+  \end{aligned}
+  \qquad
+  \Theta_1\Theta_2=-\Theta_2\Theta_1.
+  \]</div>
+<p>
+    64 类中能否使用第 3、4 节，必须按这条转换后的对易号判断，而不是只看
+    note 最后一式表面的 commutator 或 anticommutator。
+  </p>
+<h3>6.3 只含 \(A_{\mathrm{group}}\) 时，两条 symmetry 都逐层成立</h3>
+<p>
+    maximal-subgroup generator 满足
+  </p>
+<div class="scroll">\[
+    J_1^TA_{\rm group}J_1=\overline{A_{\rm group}},
+    \qquad
+    J_2^TA_{\rm group}J_2=\overline{A_{\rm group}}.
+  \]</div>
+<p>
+    因为 \(J_a\) 为实正交矩阵，第一式作 complex conjugation 后成为
+  </p>
+<div class="scroll">\[
+    J_a^T\overline{A_{\rm group}}J_a=A_{\rm group}.
+  \]</div>
+<p>
+    将 \(J_a\) 换成 \(U_a=J_a\) 或 \(iJ_a\) 时，左右相因子正好抵消，
+    所以
+  </p>
+<div class="scroll">\[
+    U_a^{-1}\overline{A_{\rm group}}U_a=A_{\rm group},
+    \qquad a=1,2.
+  \]</div>
+<p>
+    这就是第 2.3 节的逐层不变条件。因此，若玻色 physical condition 也
+    通过，\(A_{\rm group}\) 的每个有序历史确实同时拥有两条 Fock-space
+    anti-linear symmetries。此时分类非常直接：
+  </p>
+<ul>
+<li>转换后的两条 \(\Theta\) 反对易，且二者平方一正一负：使用第 3 节，实际权重为模平方；</li>
+<li>转换后的两条 \(\Theta\) 反对易，且二者都平方为 \(-I\)：使用第 4 节；玻色还要检查 \(+i\) 或 \(-i\) eigenspace 之一的 commutator matrix 为正；</li>
+<li>其余组合不能仅凭这五条关系固定实际 Nambu half-power。具体模型仍可增加 RP、一个确定的 particle-number-conserving subspace、split-orthogonal subgroup 或第三条 anti-linear symmetry。</li>
+</ul>
+<h3>6.4 \(A_{\mathrm{cone}}\) 参与时，第二条变换不再保持同一构型</h3>
+<p>
+    invariant-cone direction 使用另一组等式：
+  </p>
+<div class="scroll">\[
+    J_1^TA_{\rm cone}J_1=\overline{A_{\rm cone}},
+    \qquad
+    J_2^TA_{\rm cone}J_2=-\overline{A_{\rm cone}}.
+  \]</div>
+<p>
+    第一条仍给
+    \(U_1^{-1}\overline{A_{\rm cone}}U_1=A_{\rm cone}\)。第二条则无论
+    \(J_2\) 保持还是翻转 \(g\)，都给
+  </p>
+<div class="scroll">\[
+    \boxed{
+    U_2^{-1}\overline{A_{\rm cone}}U_2=-A_{\rm cone}},
+    \qquad
+    \boxed{
+    \widehat\Theta_2\hat h(A_{\rm cone})
+       \widehat\Theta_2^{-1}=-\hat h(A_{\rm cone})}.
+  \]</div>
+<p>
+    因此一个一般时间片
+    \(\hat h_\ell=\hat h(A_{{\rm group},\ell})+
+      \hat h(A_{{\rm cone},\ell})\) 被映为
+  </p>
+<div class="scroll">\[
+    \widehat\Theta_2\hat h_\ell\widehat\Theta_2^{-1}
+      =\hat h(A_{{\rm group},\ell})
+       -\hat h(A_{{\rm cone},\ell}),
+  \]</div>
+<p>
+    不是原来的 \(\hat h_\ell\)。若单独看 cone factor，\(\Theta_2\) 把
+    \(e^{\hat h(A_{{\rm cone},\ell})}\) 变成
+    \(e^{-\hat h(A_{{\rm cone},\ell})}\)。对只含 cone generators 的多层
+    有序积，
+  </p>
+<div class="scroll">\[
+    \widehat\Theta_2
+      \left(e^{\hat h(A_{{\rm cone},L})}\cdots
+            e^{\hat h(A_{{\rm cone},1})}\right)
+      \widehat\Theta_2^{-1}
+      =e^{-\hat h(A_{{\rm cone},L})}\cdots
+       e^{-\hat h(A_{{\rm cone},1})},
+  \]</div>
+<p>
+    而原乘积的 inverse 是
+    \(e^{-\hat h(A_{{\rm cone},1})}\cdots
+      e^{-\hat h(A_{{\rm cone},L})}\)。非对易时间片下二者连次序都不相同。
+    所以 \(A_{\rm cone}\) 参与后，不能把 \(\Theta_2\) 当作同一
+    fixed-field history 的第二条 time-reversal symmetry。
+  </p>
+<p>
+    若 \(A_{\rm cone}\) 与一个实 HS field \(\phi\) 成正比，\(\Theta_2\)
+    至多把构型 \(\phi\) 送到另一个构型 \(-\phi\)。当 HS measure 与所有
+    scalar factors 也按同一变换对应时，这可以给出
+    \(W(-\phi)=\overline{W(\phi)}\) 的成对关系，却不能推出每个
+    \(W(\phi)\geq0\)。要在 cone 非空的类别中证明实际权重非负，需要增加
+    一条对完整 fixed-field operator 有效的证明。例如可以使用
+    contraction-semigroup theorem、证明具体 HS operator 满足第 5.2 节的
+    reflected-square condition、找到所有时间片共同保持的 particle space 与
+    Kramers symmetry，或加入第三条保持同一构型的反线性对称性。这些条件都
+    不是五条矩阵等式本身已经包含的 symmetry/group 结论。
+  </p>
+<h3 id="class-atlas">6.5 64 类的实际 half-power 结果表</h3>
+<p>
+    下表每一行合并相同五条关系下的一个玻色类和一个费米类，共覆盖
+    \(32+32=64\) 类。表中只报告实际
+    玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 与费米
+    \([\det(I+M)]^{1/2}\) representative 的结论。表格的“已证明”只在
+    实际 Fock weight 已经由算符级定理固定时使用。
+  </p>
+<p>
+    “已证明”表示五条关系在 \(A_{\rm group}\) 上直接触发第 3 或第 4 节
+    的 Fock-space theorem。“需物理检查”只出现在玻色侧，因为还必须确认
+    \(C\overline U_aC=U_a\)，并在两条平方都为 \(-I\) 时检查第 4.2 节的
+    commutator matrix。表中 cone 一栏则逐类说明严格 cone 是否存在；一旦
+    实际使用 \(A_{\rm cone}\)，第 6.4 节的结论适用于每一行。
+  </p>
+<div class="scroll half-power-atlas-table">
+<table>
+<thead>
+<tr>
+<th class="num">编号</th>
+<th>五条矩阵关系</th>
+<th>玻色：只含 \(A_{\rm group}\) 的实际权重</th>
+<th>玻色：\(A_{\rm cone}\)</th>
+<th>费米：只含 \(A_{\rm group}\) 的实际权重</th>
+<th>费米：\(A_{\rm cone}\)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="num">01</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-01">玻色 01</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-01">费米 01</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">02</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-02">玻色 02</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-02">费米 02</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">03</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-03">玻色 03</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-03">费米 03</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">04</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-04">玻色 04</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-04">费米 04</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">05</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-05">玻色 05</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-05">费米 05</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">06</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-06">玻色 06</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-06">费米 06</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">07</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-07">玻色 07</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-07">费米 07</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">08</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-08">玻色 08</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-08">费米 08</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">09</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-09">玻色 09</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-09">费米 09</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">10</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-10">玻色 10</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-10">费米 10</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">11</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-11">玻色 11</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-11">费米 11</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">12</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-12">玻色 12</a><br/><span class="no">两条反线性变换都平方为负一并彼此反对易，但当前实正交 \(J_a\) 设定在任意维都不能给出物理 annihilation space</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-12">费米 12</a><br/><span class="yes">物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">13</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-13">玻色 13</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-13">费米 13</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">14</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-14">玻色 14</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-14">费米 14</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">15</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-15">玻色 15</a><br/><span class="yes">四维具体表示的 commutator matrix 已验证为正定；该表示中 \(W_{\rm B}\geq0\)，更高维仍须逐表示检查</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-15">费米 15</a><br/><span class="yes">物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">16</td><td>\(\begin{gathered}J_1^TgJ_1=g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-16">玻色 16</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-16">费米 16</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">17</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-17">玻色 17</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-17">费米 17</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">18</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-18">玻色 18</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-18">费米 18</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">19</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-19">玻色 19</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-19">费米 19</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">20</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-20">玻色 20</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-20">费米 20</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">21</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-21">玻色 21</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-21">费米 21</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">22</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-22">玻色 22</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-22">费米 22</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">23</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-23">玻色 23</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-23">费米 23</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">24</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-24">玻色 24</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-24">费米 24</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">25</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-25">玻色 25</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-25">费米 25</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">26</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-26">玻色 26</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-26">费米 26</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">27</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-27">玻色 27</a><br/><span class="yes">四维具体表示的 commutator matrix 已验证为正定；该表示中 \(W_{\rm B}\geq0\)，更高维仍须逐表示检查</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-27">费米 27</a><br/><span class="yes">物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+<tr><td class="num">28</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-28">玻色 28</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-28">费米 28</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">29</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-29">玻色 29</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-29">费米 29</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">30</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-30">玻色 30</a><br/><span class="yes">已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td><td><a href="part_3_enumeration_models.html#class-fermion-30">费米 30</a><br/><span class="yes">共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">31</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-31">玻色 31</a><br/><span class="partial">五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-31">费米 31</a><br/><span class="partial">五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性</span></td><td>严格 \(A_{\rm cone}\) 无解</td></tr>
+<tr><td class="num">32</td><td>\(\begin{gathered}J_1^TgJ_1=-g,\quad J_1^2=-I;\\J_2^TgJ_2=-g,\quad J_2^2=-I;\\J_1J_2=-J_2J_1\end{gathered}\)</td><td><a href="part_3_enumeration_models.html#class-boson-32">玻色 32</a><br/><span class="no">两条反线性变换都平方为负一并彼此反对易，但当前实正交 \(J_a\) 设定在任意维都不能给出物理 annihilation space</span></td><td>严格 \(A_{\rm cone}\) 无解</td><td><a href="part_3_enumeration_models.html#class-fermion-32">费米 32</a><br/><span class="yes">物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\)</span></td><td>严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型</td></tr>
+</tbody>
+</table>
+</div>
+<h3>6.6 计数怎样读，不能怎样读</h3>
+<p>
+    对只含 \(A_{\rm group}\) 的费米 histories，32 类中有 12 类由原来的
+    两条 \(J\) 直接给出实际权重正性：8 类在转换相因子后形成反对易的
+    \((+,-)\) pair，并按物理费米模数的奇偶使用第 3.4 节的直接模平方或
+    解耦辅助模证明；4 类形成反对易的 \((-,-)\) pair。其余 20 类不是说
+    “一定有符号问题”，而是五条关系没有给出一个对整个允许
+    \(A_{\rm group}\) space 都成立的 half-power theorem；第 5.5 节列出的
+    额外 symmetry、固定粒子空间、split-orthogonal subgroup 和 RP 都可
+    继续筛出无符号子类。
+  </p>
+<p>
+    玻色侧按五条矩阵关系也筛出 8 个 \((+,-)\) 类和 4 个 \((-,-)\) 类，
+    但不能把这个计数直接写成 12 个无符号玻色类。8 个 \((+,-)\) 类要先让两条
+    \(U_a\mathcal K\) 都通过 \(C\overline U_aC=U_a\) 的检查，之后第 3 节才
+    给出含 pairing 的模平方 theorem；4 个 \((-,-)\) 类还要让
+    \(Q=\Theta_1\Theta_2\) 的一个 eigenspace 对应的 commutator matrix
+    真正正定。表格把这两个额外检查就地写出，避免再次把抽象 matrix
+    symmetry 当成实际 metaplectic lift 的结论。
+  </p>
+<p>
+    对四个 \((-,-)\) 类还可以在当前实正交 \(J_a\) 的设定内把
+    结论再推进一步，而不是停在“尚未找到代表”。由
+    \(\hat\chi^+=\hat\chi^TC\) 定义 \(C\)，并注意
+  </p>
+<div class="scroll">\[
+    -g_{\rm B}C=
+      \begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}.
+  \]</div>
+<p>
+    对一个同时满足物理 Nambu 共轭关系的实正交 \(J\)，由 \(J^TJ=I\) 可把
+    \(J^TgJ=\pm g\) 改写成 \(gJ=\pm Jg\)；physical condition 同时给
+    \(CJ=\pm JC\)，而且两式取同一个正负号。把两种可能分别写开：
+  </p>
+<div class="scroll">\[
+  \begin{aligned}
+    gJ=Jg,\quad CJ=JC
+      &amp;\;\Longrightarrow\;J(-gC)=-gCJ=(-gC)J,\\
+    gJ=-Jg,\quad CJ=-JC
+      &amp;\;\Longrightarrow\;J(-gC)=gJC=-gCJ=(-gC)J.
+  \end{aligned}
+  \]</div>
+<p>
+    因而 \(Q=U_1\overline U_2\) 也与这个 particle/hole grading 对易。
+    若 \(Q=+i\) eigenspace 恰好是全部 annihilation directions，那么
+    \(Q\) 在 particle block 上必须为 \(+iI_N\)，在 hole block 上必须为
+    \(-iI_N\)，即
+  </p>
+<div class="scroll">\[
+    Q= i\begin{pmatrix}I_N&amp;0\\0&amp;-I_N\end{pmatrix}
+    \quad\text{或其整体相反数}.
+  \]</div>
+<p>
+    玻色 12、32 中，\(J_1,J_2\) 对 \(g\) 同时保持或同时翻转，故
+    \(Q=J_1J_2\) 是实矩阵，不可能等于右边这个纯虚矩阵；所以在当前
+    实正交 \(J\) 的设定内，任意维数都不能通过第 4.2 节的物理
+    annihilation-space test。玻色 15、27 中恰有一个 \(J_a\) 翻转 \(g\)，
+    \(Q\) 是 \(i\) 乘实矩阵；穷举找到的四维 physical representatives
+    分别给出上式的两个整体符号，因而确实通过。更高维 direct sums 若混合
+    两种取向仍会失败，所以表中仍坚持“逐表示检查”，没有把四维成功例子
+    外推成只由五个正负号保证的结论。
+  </p>
+<p>
+    cone 非空的 8 个玻色类与 8 个费米类仍是 contraction-semigroup 研究
+    的重要结果，但那条证明路线使用不等式和 semigroup character，而不是
+    本卷的 fixed-configuration symmetry/group theorem。把它们在表中标出，
+    是为了说明第 6.4 节究竟影响哪些具体类，不能据此把 contraction
+    argument 当作本卷 symmetry/group theorem 的结论。
+  </p>
+<h2>7. 本卷结论</h2>
+<ol>
+<li>Nambu AFQMC 的正性对象是实际玻色 \([(-1)^N\det(I-M)]^{-1/2}\) 或费米 \([\det(I+M)]^{1/2}\)；终点 \(M\) 及其所有谱对称性都不能单独选择 double-cover sheet。</li>
+<li>逐层成立的反对易 \((+,-)\) 物理反线性对称性把实际 Fock trace 化为共轭分解：玻色和偶数模费米为模平方，奇数模费米的两倍在加入一个解耦辅助模后为模平方；两种统计都允许 pairing。</li>
+<li>逐层成立的反对易 \((-,-)\) 对称性构造物理 annihilation space，把 Nambu half-power 精确还原为普通 determinant；玻色必须额外验证 commutator matrix 正定，费米自动满足。</li>
+<li>粒子数守恒的玻色 TRS、两类费米 Majorana-time-reversal positivity、算符 reflection positivity 与 split-orthogonal theorem，分别通过“共轭 Majorana/Fock 分块”“恢复物理粒子空间”或“reflected squares”来固定 Nambu double-cover 的符号。</li>
+<li>在 \(A_{\rm group}\) 上两条 \(J\) 都保持同一个辅助场构型；在 \(A_{\rm cone}\) 上第二条会翻转 generator，因而五条等式本身不能把只含 \(A_{\rm group}\) 时的双对称性证明延伸到含有 \(A_{\rm cone}\) 的有序历史。</li>
+</ol>
+<h2>8. 参考资料与可复现入口</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/1601.05780">Li, Jiang, and Yao, Majorana-time-reversal symmetries</a>：费米两种基本 anti-linear symmetry classes；本卷已在统一 \(\hat\chi\) framework 中重证实际 trace theorem。</li>
+<li><a href="https://arxiv.org/abs/1506.05349">Wang et al., Split orthogonal group</a>：number-conserving fermion ordinary determinant theorem；第 5.6 节说明其进入 Nambu framework 的必要前提。</li>
+<li><a href="https://terrytao.wordpress.com/2015/05/03/the-standard-branch-of-the-matrix-logarithm/">Tao, The standard branch of the matrix logarithm</a>：split-orthogonal determinant theorem 的矩阵对数证明路线；第 5.6 节已把所需步骤展开。</li>
+<li><a href="https://arxiv.org/abs/2409.11628">Guaita, Hackl, and Quella, Gaussian unitary representations</a>：bosonic metaplectic 与 fermionic Spin double covers 的系统讨论。</li>
+<li><a href="part_5_branch_sampling.html">第 5 卷：lifted double-cover 符号追踪</a>：当模型没有本卷的正性结构时，怎样显式保存 \(M\) 遗失的那一位符号并进行采样。</li>
+<li><a href="part_3_enumeration_models.html">第 3 卷：64 类生成元与模型</a>：每一类的 \(A_{\rm group}\)、\(A_{\rm cone}\) 结构和物理 Hamiltonian。</li>
+</ul>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_5_branch_sampling.html">double-cover 算法卷</a><a href="part_6_case12_semigroups.html">Case 1/2 半群证明</a></nav></main></body></html>
