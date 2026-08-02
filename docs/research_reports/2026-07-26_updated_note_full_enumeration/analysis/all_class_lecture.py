@@ -62,13 +62,11 @@ COEFFICIENT_CONDITIONS = {
 
 BOSON_TRS_CLASS = "s1+_q1-_s2-_q2-_r+"
 BOSON_RP_CLASS = "s1+_q1+_s2+_q2-_r-"
-BOSON_KRAMERS_IMPOSSIBLE = {
-    "s1+_q1-_s2+_q2-_r-",
-    "s1-_q1-_s2-_q2-_r-",
-}
-BOSON_KRAMERS_VERIFIED = {
-    BOSON_TRS_CLASS,
-    "s1-_q1-_s2+_q2-_r+",
+BOSON_KRAMERS_MIN_DIMENSION = {
+    "s1+_q1-_s2+_q2-_r-": 8,
+    BOSON_TRS_CLASS: 4,
+    "s1-_q1-_s2+_q2-_r+": 4,
+    "s1-_q1-_s2-_q2-_r-": 8,
 }
 
 # These programs are used only for group-only cards whose five relations do not
@@ -915,7 +913,7 @@ def generalized_antilinear_is_physical(
 
 
 def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
-    """Write the generalized anti-linear algebra directly in Nambu space."""
+    """Write the generalized time-reversal algebra directly in Nambu space."""
     items: list[str] = []
     _, physical_checks = generalized_antilinear_is_physical(row)
     for index in (1, 2):
@@ -960,7 +958,7 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
                 + r"\)。因此这张卡顶部的代表只在暂时把 creation 与 "
                 r"annihilation 看成独立分量时保持 canonical matrix，不能把 "
                 r"\(\Theta_" + str(index)
-                + r"\) 当作物理玻色 Fock 空间上的 antiunitary"
+                + r"\) 当作物理玻色 Fock 空间上的反幺正时间反演"
             )
         items.append(
             rf"""
@@ -996,11 +994,11 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
                 r"互为复共轭的 bosonic Fock 或 fermionic Majorana 分块"
             )
         elif int(row["q1"]) == int(row["q2"]) == -1:
-            theorem_class = "kramers_polarization"
+            theorem_class = "kramers_pair"
             theorem_text = (
-                r"二者反对易且都平方为 \(-I\)；第 7 卷第 4 节先由二者"
-                r"的乘积确定物理 annihilation subspace，再在其中证明 "
-                r"Kramers eigenvalue pairing"
+                r"二者反对易且都平方为 \(-I\)；只要两者还满足物理 Nambu "
+                r"条件 \(C\overline U_aC=U_a\)，第 7 卷第 4 节的 "
+                r"Kramers 时间反演定理便直接证明实际 half-power 非负"
             )
         else:
             theorem_class = "none"
@@ -1022,7 +1020,7 @@ def group_antilinear_analysis(row: dict[str, str]) -> tuple[str, str]:
         rf"""
           <ul class="relation-analysis">{"".join(items)}</ul>
           <p>
-            对本卡由矩阵关系得到的两条候选反线性变换，
+            对本卡由矩阵关系得到的两条候选时间反演变换，
             \[
               \Theta_1\Theta_2={mutual_rhs}.
             \]
@@ -1048,7 +1046,7 @@ def group_only_positivity(
     physical_orbit_rows: list[dict[str, str]],
 ) -> str:
     heading = (
-        r"<h4>由本卡 \(J_1,J_2\) 得到的两条候选反线性变换</h4>"
+        r"<h4>由本卡 \(J_1,J_2\) 得到的两条候选时间反演变换</h4>"
     )
     if row["statistics"] == "boson":
         displayed_physical, _ = generalized_antilinear_is_physical(row)
@@ -1124,94 +1122,118 @@ def group_only_positivity(
               </p>
               {special}
             """
-        if theorem_class == "kramers_polarization":
-            if row["class_id"] in BOSON_KRAMERS_IMPOSSIBLE:
-                return rf"""
-                  {heading}
-                  {anti_linear_text}
-                  <p class="scope">
-                    <strong>两条反线性变换都平方为 \(-I\) 且彼此反对易，
-                    但当前实正交 \(J_a\) 设定在任意
-                    维都不能把它提升成物理玻色粒子空间。</strong>
-                    令 \(Q=\Theta_1\Theta_2\)。物理 annihilation space
-                    要求
+        if theorem_class == "kramers_pair":
+            minimum_dimension = BOSON_KRAMERS_MIN_DIMENSION[row["class_id"]]
+            if minimum_dimension == 8:
+                outer = (
+                    r"I_2^{\rm Nambu}"
+                    if int(row["s1"]) == 1
+                    else r"z^{\rm Nambu}"
+                )
+                physical_representation = rf"""
+                  <p>
+                    二维和四维的完整枚举没有本类的物理表示，但这并不构成
+                    任意维数的 no-go。八维反例可显式写成
                     \[
-                      Q=\pm i\operatorname{{diag}}(I,-I).
+                      \epsilon=\begin{{pmatrix}}0&1\\-1&0\end{{pmatrix}},
+                      \qquad z=\begin{{pmatrix}}1&0\\0&-1\end{{pmatrix}},
+                      \qquad
+                      u_1=\epsilon\otimes I_2,\quad
+                      u_2=z\otimes\epsilon,
                     \]
-                    本类的两个 \(J_a\) 同时保持 \(g\) 或同时翻转 \(g\)，
-                    所以 \(Q=J_1J_2\) 是实矩阵，不可能等于上面的纯虚矩阵。
-                    因而五条关系不能固定本类实际 bosonic half-power；这不是
-                    “四维内尚未找到”的暂时性结论。
+                    \[
+                      J_1={outer}\otimes u_1,\qquad
+                      J_2={outer}\otimes u_2.
+                    \]
+                    按本卡的 \(s_a\) 取
+                    \(U_a=J_a\) 或 \(U_a=iJ_a\)，直接相乘可验证
+                    \[
+                      U_a^TgU_a=g,\quad C\overline U_aC=U_a,\quad
+                      U_a\overline U_a=-I,\quad
+                      U_1\overline U_2=-U_2\overline U_1.
+                    \]
+                    对这两个八维表示，\(Q=U_1\overline U_2\) 的 \(+i\)
+                    子空间为四维，而且
+                    \[
+                      \operatorname{{spec}}
+                      \left(\eta_0|_{{V_+}}\right)=\{{-1,-1,+1,+1\}}.
+                    \]
+                    它恰好展示了旧判据漏掉的情形：限制矩阵并非正定，但
+                    负方向数 \(n_-=2\) 是偶数，所以 Kramers 公式中的
+                    \((-1)^{{n_-}}\) 仍等于 \(+1\)。
+                    因而本类的最小物理 Nambu 维数是 8，而不是“任意维都
+                    不可能”。
+                  </p>
+                """
+            else:
+                physical_representation = rf"""
+                  <p>
+                    {physical_gate}二维完整枚举没有物理表示，四维子轨道
+                    已给出具体矩阵，因此本类的最小物理 Nambu 维数是
+                    {minimum_dimension}。
                   </p>
                 """
             special = (
                 r"""
-                这组五条关系正是 note 的 bosonic time-reversal Case 1。
-                在 note 限定的 real orthogonal \(J_a\) 设定中，
-                “creation 仍是相应 annihilation 的 Hermitian conjugate”
-                这一物理条件迫使
-                \(Q=\pm i\operatorname{diag}(I,-I)\)，所以每个 \(A_\ell\)
-                都保持原 particle/hole blocks：它正好恢复
-                main.tex 的 particle-number-conserving Kramers 构造，
-                不能在这次 32 类穷举内宣称同时覆盖 pairing。要允许
-                pairing，必须把 \(U_a\) 扩展为不要求保持普通 Euclidean
-                内积的 physical Bogoliubov transformations。
+                本卡正是 note 的 bosonic time-reversal Case 1。main.tex
+                的 particle-number-conserving Kramers 证明是它在普通
+                annihilation basis 中的一种实现；上面的推导只使用物理
+                Nambu 条件与两条时间反演关系，所以也允许逐层
+                \(A_{\mathrm{group}}\) 含有 pairing。
                 """
                 if row["class_id"] == BOSON_TRS_CLASS
                 else (
-                    r"本卡和 note Case 1 一样，两条反线性变换都平方为 "
-                    r"\(-I\) 且彼此反对易；其具体 \(Q\) 由本卡上方的 "
-                    r"\(J_1,J_2\) 决定。"
+                    r"本卡与 note Case 1 具有同一个 \((-,-)\) 时间反演代数；"
+                    r"区别只在 \(J_a\) 对 \(g\) 的原始作用以及实现它所需的"
+                    rf"最小 Nambu 维数 {minimum_dimension}。"
                 )
             )
-            if row["class_id"] not in BOSON_KRAMERS_VERIFIED:
-                raise AssertionError(
-                    "Unexpected physical bosonic Kramers-polarization class"
-                )
             return rf"""
               {heading}
               {anti_linear_text}
               <p class="result">
-                <strong>两条 symmetry 都平方为 \(-I\) 且反对易时，
-                可在它们共同定义的物理粒子空间中使用 Kramers
-                eigenvalue pairing。</strong>
-                {physical_gate}
-                令 \(Q=\Theta_1\Theta_2\)。由
-                \(Q^2=-I\) 和 \([Q,\hat h_\ell]=0\)，先检查
+                <strong>两条物理时间反演对称性都平方为 \(-I\) 且彼此
+                反对易，已经足以证明玻色 half-power 权重非负；不需要再
+                要求某个子空间上的 commutator matrix 正定。</strong>
+              </p>
+              {physical_representation}
+              <p>
+                令
                 \[
-                  v_\mu^+\operatorname{{diag}}(I,-I)v_\nu
-                    =\delta_{{\mu\nu}},\qquad Qv_\mu=iv_\mu .
+                  Q=U_1\overline U_2,\qquad
+                  V_+=\ker(Q-iI),\qquad
+                  K_\ell=A_\ell|_{{V_+}},\qquad
+                  \mathcal B=\prod_\ell e^{{K_\ell}} .
                 \]
-                若正的是 \(-i\) 子空间，只需把一条 \(J_a\) 整体变号，
-                便可交换 \(+i\) 与 \(-i\)。这个正定条件表示该子空间中的
-                operators 确实满足
-                \([b_\mu,b_\nu^+]=\delta_{{\mu\nu}}\)，而不是零范数
-                quadratures。对一般 physical Bogoliubov symmetry，这会
-                定义一组 emergent particles；但对本报告实际枚举的实正交
-                \(J_a\)，它会退化成原来的 annihilation block。若
-                \(\mathcal B=\prod_\ell e^{{K_\ell}}\) 是该子空间上的传播，
+                再令 \(n_-\) 为物理 Nambu commutator matrix
+                \(\eta_0=\operatorname{{diag}}(I,-I)\) 限制在 \(V_+\)
+                后的负本征值数。收敛区域内的 Fock trace，以及收敛区域外
+                与它唯一相接的亚纯延拓，都可写成
                 \[
-                  \det(I-\mathcal B)=
-                  \prod_{{\lambda\notin\mathbb R}}|1-\lambda|^2
-                  \prod_{{r\in\mathbb R}}(1-r)^{{2m_r}}\ge0 .
-                \]
-                实际 Nambu half-power 已先由物理 particle/hole
-                decomposition 还原为
-                \[
-                  W_{{\mathrm B}}
-                  =\frac{{\exp[\frac12\sum_\ell
+                  W_{{\mathrm B}}^{{\rm an}}
+                  =(-1)^{{n_-}}
+                  \frac{{\exp[\frac12\sum_\ell
                   \operatorname{{Tr}}K_\ell]}}
-                  {{\det(I-\mathcal B)}}\ge0 .
+                  {{\det(I-\mathcal B)}} .
                 \]
-                Kramers symmetry 使 \(\operatorname{{Tr}}K_\ell\) 为实数，
-                所以前因子严格为正。{special}
+                \(\Theta_1\) 保持 \(V_+\) 和 \(\eta_0\)，并满足
+                \(\Theta_1^2=-I\)。因此 \(V_+\) 中每个负方向都有线性
+                独立、同样为负的 Kramers partner，故 \(n_-\) 必为偶数。
+                同一时间反演还使 \(\operatorname{{Tr}}K_\ell\) 为实数，
+                并使 \(\det(I-\mathcal B)\ge0\)。所以除
+                \(\det(I-\mathcal B)=0\) 的 pole 外，
+                \[
+                  \boxed{{W_{{\mathrm B}}^{{\rm an}}>0}} .
+                \]
+                这里没有选择 square-root branch；Kramers 偶重数已经把
+                可能的符号成对抵消。{special}
               </p>
             """
         return rf"""
           {heading}
           {anti_linear_text}
           <p class="scope">
-            <strong>本卡原始两条反线性对称性尚未单独固定实际玻色 Fock
+            <strong>本卡原始两条时间反演对称性尚未单独固定实际玻色 Fock
             权重的平方根符号。</strong>
             若为本类构造具体模型，还可另外施加 physical Kramers symmetry
             或 operator reflection positivity，但那是模型的附加条件，
@@ -1219,7 +1241,7 @@ def group_only_positivity(
           </p>
         """
 
-    if theorem_class in ("conjugate_subsystems", "kramers_polarization"):
+    if theorem_class in ("conjugate_subsystems", "kramers_pair"):
         if theorem_class == "conjugate_subsystems":
             theorem_description = (
                 r"一条平方为 \(+I\)、一条平方为 \(-I\) 且二者反对易"
@@ -1227,7 +1249,7 @@ def group_only_positivity(
             proof = r"""
               令 \(P=\Theta_1\Theta_2\)，则
               \(P^2=I\) 且 \(P\) 的两个本征子空间不混合。
-              平方为 \(+I\) 的反线性 symmetry 交换两部分。若物理复费米
+              平方为 \(+I\) 的时间反演对称性交换两部分。若物理复费米
               模数为偶数，每边的 Majorana operators 都可两两组成普通复费米
               模，所以
               \[
@@ -1291,8 +1313,8 @@ def group_only_positivity(
           {heading}
           {anti_linear_text}
           <p>
-            两条平方为 \(+I\) 且彼此对易的反线性对称性，对任意
-            \(A_{{\mathrm{{group}}}}\) 没有普适的双反线性对称性正性定理。
+            两条平方为 \(+I\) 且彼此对易的时间反演对称性，对任意
+            \(A_{{\mathrm{{group}}}}\) 没有普适的双时间反演正性定理。
             不过，本类至少
             含有下面两个可以直接证明的无符号子群；它们都来自本类实际
             \(J_1,J_2\) 约束，而不是额外套用 Kramers 条件。
@@ -1359,12 +1381,12 @@ def group_only_positivity(
       {heading}
       {anti_linear_text}
       <p class="scope">
-        <strong>本卡的两条 anti-linear symmetries 不形成
+        <strong>本卡的两条时间反演对称性不形成
         \((+,-)\) 或 \((-,-)\) 反对易 pair，所以五条关系本身不能固定
         实际 Nambu half-power。</strong>
         仍可在本卡的 \(P\otimes K_P\) 表内施加更强的
         split-orthogonal、reflection-positive 或额外
-        anti-linear constraints；这些是本类的无符号子空间，而不是对
+        时间反演约束；这些是本类的无符号子空间，而不是对
         整个 maximal subgroup 的结论。
       </p>
     """
@@ -1377,7 +1399,7 @@ def strict_semigroup_positivity(row: dict[str, str]) -> str:
           <section class="semigroup-positivity">
             <p class="result">
               <strong>本卡通过 strict cone 筛选；正性证明走收缩半群与
-              连通正分支，不走双反线性 half-power 定理。</strong>
+              连通正分支，不走双时间反演 half-power 定理。</strong>
               对本卡下方明确构造、并已逐时间片核对收缩不等式的物理模型，
               \(\eta=J_2g\) 与 bosonic particle/hole Fock
               representation 相容。它的每个完整辅助场传播都满足
@@ -1417,7 +1439,7 @@ def strict_semigroup_positivity(row: dict[str, str]) -> str:
               \(\eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0\) 的方向。
               这正是 Octave 穷举要寻找的对象，而不是一组 half-power
-              反线性对称性。
+              时间反演对称性。
             </p>
             <p>
               对实正交 \(J_2\)，第 6.4 节的一般 Hermitian BdG 推导证明：
@@ -1461,7 +1483,7 @@ def strict_semigroup_positivity(row: dict[str, str]) -> str:
           \(\epsilon\to0^+\) 从内部逼近，因此其权重是非负极限。
         </p>
         <p>
-          这条证明不需要判断本卡的两条候选反线性变换是否构成
+          这条证明不需要判断本卡的两条候选时间反演变换是否构成
           \((+,-)\) 或 \((-,-)\) pair；那是第 7 卷研究的另一条正性
           路线。
         </p>
@@ -1488,9 +1510,9 @@ def positivity_block(
         <p class="scope">
           <strong>本卡的 strict \(A_{{\mathrm{{cone}}}}\) 为空，不能用
           本卷的收缩半群内部证明。</strong>
-          因而下面才启动独立的反线性对称性补充筛选。完整的算符级定理见
+          因而下面才启动独立的时间反演对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          时间反演与反线性对称性理论卷</a>。
+          时间反演对称性理论卷</a>。
         </p>
         <h4>只含 \(A_{{\mathrm{{group}}}}\) 的有序时间序列</h4>
         {group_result}
@@ -2131,9 +2153,9 @@ def orbit_sheet(
     group_terms = parse_orbit_terms(orbit["group_terms"])
     cone_terms = parse_orbit_terms(orbit["cone_terms"])
     independence = (
-        "两条反线性约束彼此独立"
+        "两条时间反演约束彼此独立"
         if int(orbit["distinct_J1_J2"])
-        else r"\(J_1=J_2\)，所以这里只提供一条独立反线性约束"
+        else r"\(J_1=J_2\)，所以这里只提供一条独立时间反演约束"
     )
     if physical_suborbit:
         orbit_id = orbit["physical_orbit_id"]
@@ -2322,7 +2344,7 @@ def low_dimensional_representation_block(
                   \chi^\dagger=\chi^TC .
                 \]
                 因此下面每一个 \(J_1,J_2\) 都能提升为物理 Fock 空间的
-                generalized anti-linear transformation；列出的
+                generalized time-reversal transformation；列出的
                 \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 才可直接
                 用于构造玻色 Hamiltonian。
               </p>
@@ -2363,7 +2385,7 @@ def low_dimensional_representation_block(
             J_a'=S^{-1}J_aS
           \]
           的显式换基矩阵核对等价性。这里同时保留
-          \(J_1=J_2\) 的轨道：它只有一条独立反线性约束，却允许更大的
+          \(J_1=J_2\) 的轨道：它只有一条独立时间反演约束，却允许更大的
           \(A\) 空间，删除它反而会漏掉模型。
         </p>
         <p>
@@ -2371,7 +2393,7 @@ def low_dimensional_representation_block(
           \(\sum_\alpha P_\alpha\otimes K_\alpha\) 的任意重复空间解、
           每个 \(K_\alpha\) 的转置与复共轭条件、具体二次算符，以及
           代入该轨道实际 \(\eta\) 后的 cone 不等式。玻色轨道还逐项标明
-          反线性变换后，creation component 是否仍是相应 annihilation
+          时间反演变换后，creation component 是否仍是相应 annihilation
           component 的 Hermitian conjugate。
         </p>
     """ + "".join(blocks) + physical_section + r"""
@@ -2405,16 +2427,17 @@ def case_card(
       <details class="all-class-card" id="{card_id}">
         <summary>
           {statistic_name} {number:02d}：{summary_relations(row)}；
-          最小 Nambu 维数 {dimension}；{cone_label}
+          五条关系的最小代数表示维数 {dimension}；{cone_label}
         </summary>
         <div class="all-class-body tex2jax_ignore">
-          <h4>五条关系与本卡采用的最小代表</h4>
+          <h4>五条关系与本卡采用的最小代数代表</h4>
           {relation_block(row, dimension)}
           <p>
-            Pauli word 的第一个因子始终是 Nambu particle/hole 空间。
-            若总维数为 2，就只有一个 annihilation mode，并没有隐藏的
-            内部 flavor。后续因子才是这个最小代表真正需要的内部空间；
-            \(K_P\) 则作用在额外的 \(m\) 维格点、轨道或 flavor
+            Pauli word 按 Nambu particle/hole 因子在前的顺序书写。
+            这里的“最小”首先只指五条实矩阵关系；玻色情形还必须在后文
+            检查 \(C\overline U_aC=U_a\)，通过后才能把该维数解释为真正
+            的物理 Nambu 维数。后续 Pauli 因子是这个代数代表需要的内部
+            空间；\(K_P\) 则作用在额外的 \(m\) 维格点、轨道或 flavor
             重复空间。
           </p>
           {group_block(row)}
@@ -2506,12 +2529,13 @@ def representation_answer() -> str:
 
 def minimal_dimension_proof() -> str:
     return r"""
-      <h4>最小维数怎样读：2、4、8 分别意味着什么</h4>
+      <h4>五条代数关系的最小维数怎样读</h4>
       <p>
-        维数 2 的 Nambu spinor 是 \((a,a^+)^T\)，只含一个物理模。
-        维数 4 才需要两个 annihilation modes；维数 8 需要四个。
-        因此卡片写“最小维数 2”时，后面的模型不会为了统一格式再强行
-        加一个内部 \(\sigma\) 自由度。
+        下表先只问实正交矩阵 \(g,J_1,J_2\) 实现五条关系需要多大维数。
+        若玻色代表还通过 \(C\overline U_aC=U_a\)，维数 2 才可解释为
+        \((a,a^+)^T\) 的一个物理模，维数 4 对应两个模，维数 8 对应
+        四个模。B12、B32 正好说明两种维数不能混写：五条代数关系四维
+        已有解，但物理 Nambu 表示到八维才首次出现。
       </p>
       <div class="scroll">
         <table>
@@ -2584,12 +2608,15 @@ def atlas_guide() -> str:
         和连通正分支；玻色 \(iJ_2g\) 卡当前给出的无界场模型用
         fixed-\(N\) character 证明实际权重，并不排除其他具有统一传播界的
         grand-canonical 实现。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
-        反线性正性。
+        时间反演正性。
         最后列出与实际矩阵方向相连的物理模型。
       </div>
       <p>
         图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
-        编号一致，\(d=2,4,8\) 是该组五条关系的最小 Nambu 维数。底色
+        编号一致，\(d_{\rm alg}=2,4,8\) 是该组五条关系的最小实正交
+        代数表示维数；它不自动等于玻色物理 Nambu 维数。B12、B32 格内
+        另标 \(d_{\rm N}=8\)，就是因为其四维代数代表未通过物理
+        \(C\overline U_aC=U_a\) 检查。底色
         首先显示收缩半群筛选：绿色与蓝色分别表示 strict cone 存在且
         \(\eta=J_2g\) 或 \(\eta=iJ_2g\)。浅灰表示先由引理1的 trace
         条件排除的 16 类；在没有被这一步排除的类别中，浅红表示再由
@@ -2600,14 +2627,13 @@ def atlas_guide() -> str:
         只有 group-only 格子才叠加深色边框。这个边框表示该格至少存在
         一组已经验证的物理表示，使原有 \(J_1,J_2\) 能直接证明实际
         Fock 权重非负；它不是“同一五关系类别的任意表示都自动通过”。
-        玻色侧是
-        B04、B07、B19、B24 的共轭模平方以及 B15、B27 的物理
-        Kramers particle space；费米侧是 F10、F13、F25、F30 的
-        共轭 Majorana 分块。B12、B32 虽有 \((-,-)\) 代数关系，但在
-        当前实正交 \(J_a\) 设定中不能形成正的玻色 particle space，
-        所以不加边框。strict-cone 格子不叠加这种标记，因为它们在本卷
+        玻色侧是 B04、B07、B19、B24 的共轭模平方，以及 B12、B15、
+        B27、B32 的 Kramers 时间反演类。后四类不需要额外的正定性
+        条件；B15、B27 有四维物理表示，B12、B32 的
+        最小物理 Nambu 维数为 8。费米侧是 F10、F13、F25、F30 的
+        共轭 Majorana 分块。strict-cone 格子不叠加这种标记，因为它们在本卷
         中首先由收缩半群证明，而不是由纯 \(A_{\mathrm{group}}\) 的
-        反线性定理证明。
+        时间反演定理证明。
       </p>
     """
 

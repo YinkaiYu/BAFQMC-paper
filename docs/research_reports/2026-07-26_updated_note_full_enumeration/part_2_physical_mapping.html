@@ -272,6 +272,25 @@
       text-align: left;
     }
     th { background: var(--soft); font-weight: 650; }
+    .trs-periodic-wrap { margin-top: 9px; }
+    .trs-periodic-table { min-width: 700px; table-layout: fixed; }
+    .trs-periodic-table th {
+      border-color: #547a8d;
+      background: #285f78;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .trs-periodic-table th:first-child,
+    .trs-periodic-table td:first-child {
+      width: 18%;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+    }
+    .trs-periodic-table tbody tr:nth-child(even) { background: #eef5f8; }
+    .trs-periodic-table tbody tr.trs-seed { background: #dcecf3; }
+    .trs-periodic-table td { padding: 10px 12px; vertical-align: middle; }
     td.num, th.num { text-align: right; white-space: nowrap; }
     .yes { color: var(--green); font-weight: 650; }
     .no { color: var(--red); font-weight: 650; }

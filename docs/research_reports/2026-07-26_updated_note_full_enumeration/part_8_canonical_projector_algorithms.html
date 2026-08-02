@@ -272,6 +272,25 @@
       text-align: left;
     }
     th { background: var(--soft); font-weight: 650; }
+    .trs-periodic-wrap { margin-top: 9px; }
+    .trs-periodic-table { min-width: 700px; table-layout: fixed; }
+    .trs-periodic-table th {
+      border-color: #547a8d;
+      background: #285f78;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .trs-periodic-table th:first-child,
+    .trs-periodic-table td:first-child {
+      width: 18%;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+    }
+    .trs-periodic-table tbody tr:nth-child(even) { background: #eef5f8; }
+    .trs-periodic-table tbody tr.trs-seed { background: #dcecf3; }
+    .trs-periodic-table td { padding: 10px 12px; vertical-align: middle; }
     td.num, th.num { text-align: right; white-space: nowrap; }
     .yes { color: var(--green); font-weight: 650; }
     .no { color: var(--red); font-weight: 650; }
@@ -344,7 +363,7 @@
     两种算法都保持粒子数，但一个在完整固定-\(N\) Hilbert space 求迹，
     另一个从指定 trial state 做开边界虚时间投影，二者的正性证明不能互相替代。
   </p>
-</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">反线性对称性理论卷</a></nav><section id="canonical-projector-algorithms">
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">时间反演对称性理论卷</a></nav><section id="canonical-projector-algorithms">
 <h2 id="ensemble-choice">1. \(iJ_2g\) 为什么在当前模型中使用固定粒子数</h2>
 <h3>1.1 先分开三个问题</h3>
 <p>
@@ -1161,4 +1180,4 @@ W_N = w[N]</code></pre>
     <a href="https://arxiv.org/abs/2010.09813">canonical AFQMC</a> 与
     <a href="https://arxiv.org/abs/2212.08654">稳定递推方案</a>。
   </p>
-</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">反线性对称性理论卷</a></nav></main></body></html>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">返回 64 类生成元讲义</a><a href="part_7_determinant_symmetry_groups.html">时间反演对称性理论卷</a></nav></main></body></html>

@@ -17,8 +17,12 @@ PHYSICAL_BOSON_PATH = (
 OUTPUT_PATH = REPORT_DIR / "tables" / "half_power_symmetry_64_classes.csv"
 HTML_PATH = REPORT_DIR / "half_power_symmetry_64_table.fragment.html"
 
-BOSON_POLARIZATION_VERIFIED = {15, 27}
-BOSON_POLARIZATION_IMPOSSIBLE = {12, 32}
+BOSON_KRAMERS_MIN_DIMENSION = {
+    "s1+_q1-_s2+_q2-_r-": 8,
+    "s1+_q1-_s2-_q2-_r+": 4,
+    "s1-_q1-_s2+_q2-_r+": 4,
+    "s1-_q1-_s2-_q2-_r-": 8,
+}
 
 
 def signed_permutation_matrix(text: str) -> np.ndarray:
@@ -30,37 +34,98 @@ def signed_permutation_matrix(text: str) -> np.ndarray:
     return matrix
 
 
-def boson_matrices(dimension: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def boson_matrices(dimension: int) -> tuple[np.ndarray, np.ndarray]:
     modes = dimension // 2
     identity = np.eye(modes, dtype=complex)
     zero = np.zeros_like(identity)
     g = np.block([[zero, -identity], [identity, zero]])
     conjugation = np.block([[zero, identity], [identity, zero]])
-    commutator = np.block([[identity, zero], [zero, -identity]])
-    return g, conjugation, commutator
+    return g, conjugation
 
 
-def positive_polarization_exists(
+def validate_boson_physical_pair(
+    relation: dict[str, str],
     first: np.ndarray,
     second: np.ndarray,
-    first_g_sign: int,
-    second_g_sign: int,
-) -> bool:
-    """Check whether one Q eigenspace has positive bosonic commutator."""
-    _, _, commutator = boson_matrices(first.shape[0])
-    first_u = first if first_g_sign == 1 else 1j * first
-    second_u = second if second_g_sign == 1 else 1j * second
+) -> tuple[np.ndarray, np.ndarray]:
+    """Verify the five signs and the physical Nambu condition for one pair."""
+    dimension = first.shape[0]
+    assert first.shape == second.shape == (dimension, dimension)
+    g, conjugation = boson_matrices(dimension)
+    identity = np.eye(dimension, dtype=complex)
+    generalized: list[np.ndarray] = []
+    for index, matrix in enumerate((first, second), start=1):
+        g_sign = int(relation[f"s{index}"])
+        square_sign = int(relation[f"q{index}"])
+        transformed = matrix if g_sign == 1 else 1j * matrix
+        assert np.allclose(matrix.T @ matrix, identity)
+        assert np.allclose(matrix.T @ g @ matrix, g_sign * g)
+        assert np.allclose(matrix @ matrix, square_sign * identity)
+        assert np.allclose(transformed.T @ g @ transformed, g)
+        assert np.allclose(
+            conjugation @ transformed.conj() @ conjugation,
+            transformed,
+        )
+        assert np.allclose(
+            transformed @ transformed.conj(), square_sign * identity
+        )
+        generalized.append(transformed)
+    expected_raw_mutual = int(relation["r"])
+    assert np.allclose(
+        first @ second, expected_raw_mutual * second @ first
+    )
+    expected_generalized_mutual = (
+        expected_raw_mutual * int(relation["s1"]) * int(relation["s2"])
+    )
+    assert np.allclose(
+        generalized[0] @ generalized[1].conj(),
+        expected_generalized_mutual
+        * generalized[1]
+        @ generalized[0].conj(),
+    )
+    return generalized[0], generalized[1]
+
+
+def kramers_negative_count(
+    first_u: np.ndarray, second_u: np.ndarray
+) -> int:
+    """Count negative commutator directions in ker(U1 bar(U2)-iI)."""
+    dimension = first_u.shape[0]
     product = first_u @ second_u.conj()
-    for eigenvalue in (1j, -1j):
-        _, singular_values, right = np.linalg.svd(product - eigenvalue * np.eye(len(product)))
-        vectors = right.conj().T[:, singular_values < 1e-9]
-        if vectors.shape[1] != first.shape[0] // 2:
-            continue
-        restricted = vectors.conj().T @ commutator @ vectors
-        eigenvalues = np.linalg.eigvalsh((restricted + restricted.conj().T) / 2)
-        if np.min(eigenvalues) > 1e-8:
-            return True
-    return False
+    _, singular_values, right = np.linalg.svd(
+        product - 1j * np.eye(dimension)
+    )
+    vectors = right.conj().T[:, singular_values < 1e-9]
+    assert vectors.shape == (dimension, dimension // 2)
+    eta_zero = np.diag(
+        [1.0] * (dimension // 2) + [-1.0] * (dimension // 2)
+    )
+    restricted = vectors.conj().T @ eta_zero @ vectors
+    eigenvalues = np.linalg.eigvalsh(
+        (restricted + restricted.conj().T) / 2
+    )
+    assert np.min(np.abs(eigenvalues)) > 1e-8
+    return int(np.sum(eigenvalues < 0))
+
+
+def explicit_eight_dimensional_kramers_pairs(
+) -> dict[str, tuple[np.ndarray, np.ndarray]]:
+    """Physical dimension-eight representatives for B12 and B32."""
+    identity = np.eye(2, dtype=complex)
+    epsilon = np.array([[0, 1], [-1, 0]], dtype=complex)
+    z = np.diag([1, -1]).astype(complex)
+    first_internal = np.kron(epsilon, identity)
+    second_internal = np.kron(z, epsilon)
+    return {
+        "s1+_q1-_s2+_q2-_r-": (
+            np.kron(identity, first_internal),
+            np.kron(identity, second_internal),
+        ),
+        "s1-_q1-_s2-_q2-_r-": (
+            np.kron(z, first_internal),
+            np.kron(z, second_internal),
+        ),
+    }
 
 
 def validate_boson_physical_representations(
@@ -71,55 +136,36 @@ def validate_boson_physical_representations(
     with PHYSICAL_BOSON_PATH.open(newline="", encoding="utf-8") as handle:
         physical_rows = list(csv.DictReader(handle))
     physical_classes: set[str] = set()
-    positive_polarization_classes: set[str] = set()
+    physical_dimensions: dict[str, set[int]] = {}
     for physical in physical_rows:
         relation = by_class[physical["class_id"]]
         dimension = int(physical["matrix_dimension"])
         first = signed_permutation_matrix(physical["representative_J1"])
         second = signed_permutation_matrix(physical["representative_J2"])
-        g, conjugation, _ = boson_matrices(dimension)
-        identity = np.eye(dimension, dtype=complex)
-        generalized: list[np.ndarray] = []
-        for index, matrix in enumerate((first, second), start=1):
-            g_sign = int(relation[f"s{index}"])
-            square_sign = int(relation[f"q{index}"])
-            transformed = matrix if g_sign == 1 else 1j * matrix
-            assert np.allclose(transformed.T @ g @ transformed, g)
-            assert np.allclose(
-                conjugation @ transformed.conj() @ conjugation,
-                transformed,
-            )
-            assert np.allclose(
-                transformed @ transformed.conj(), square_sign * identity
-            )
-            generalized.append(transformed)
-        expected_mutual = (
-            int(relation["r"]) * int(relation["s1"]) * int(relation["s2"])
+        generalized = validate_boson_physical_pair(
+            relation, first, second
         )
-        assert np.allclose(
-            generalized[0] @ generalized[1].conj(),
-            expected_mutual * generalized[1] @ generalized[0].conj(),
-        )
+        if mechanism(relation) == "kramers_pair":
+            assert kramers_negative_count(*generalized) % 2 == 0
         physical_classes.add(physical["class_id"])
-        if positive_polarization_exists(
-            first,
-            second,
-            int(relation["s1"]),
-            int(relation["s2"]),
-        ):
-            positive_polarization_classes.add(physical["class_id"])
+        physical_dimensions.setdefault(physical["class_id"], set()).add(
+            dimension
+        )
+
+    for class_id, pair in explicit_eight_dimensional_kramers_pairs().items():
+        generalized = validate_boson_physical_pair(
+            by_class[class_id], *pair
+        )
+        assert kramers_negative_count(*generalized) == 2
+        physical_classes.add(class_id)
+        physical_dimensions.setdefault(class_id, set()).add(8)
 
     for row in boson_rows:
         if mechanism(row) == "conjugate_subsystems":
             assert row["class_id"] in physical_classes
-    verified_ids = {
-        boson_rows[number - 1]["class_id"] for number in BOSON_POLARIZATION_VERIFIED
-    }
-    impossible_ids = {
-        boson_rows[number - 1]["class_id"] for number in BOSON_POLARIZATION_IMPOSSIBLE
-    }
-    assert verified_ids <= positive_polarization_classes
-    assert impossible_ids.isdisjoint(physical_classes)
+    assert set(BOSON_KRAMERS_MIN_DIMENSION) <= physical_classes
+    for class_id, expected_dimension in BOSON_KRAMERS_MIN_DIMENSION.items():
+        assert min(physical_dimensions[class_id]) == expected_dimension
 
 
 def relation_html(row: dict[str, str]) -> str:
@@ -143,11 +189,13 @@ def mechanism(row: dict[str, str]) -> str:
     if relative == -1 and sorted(squares) == [-1, 1]:
         return "conjugate_subsystems"
     if relative == -1 and squares == (-1, -1):
-        return "kramers_polarization"
+        return "kramers_pair"
     return "not_fixed"
 
 
-def boson_status(class_number: int, mechanism_name: str) -> tuple[str, str]:
+def boson_status(
+    row: dict[str, str], mechanism_name: str
+) -> tuple[str, str]:
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
@@ -155,24 +203,19 @@ def boson_status(class_number: int, mechanism_name: str) -> tuple[str, str]:
             r"对通过 \(C\overline U_aC=U_a\) 检查的表示，"
             r"\(W_{\rm B}=|w|^2\geq0\)",
         )
-    if mechanism_name == "kramers_polarization":
-        if class_number in BOSON_POLARIZATION_VERIFIED:
-            return (
-                "yes",
-                "四维具体表示的 commutator matrix 已验证为正定；"
-                r"该表示中 \(W_{\rm B}\geq0\)，更高维仍须逐表示检查",
-            )
-        if class_number in BOSON_POLARIZATION_IMPOSSIBLE:
-            return (
-                "no",
-                "两条反线性变换都平方为负一并彼此反对易，但当前实正交 "
-                r"\(J_a\) 设定在任意维都不能给出物理 annihilation space",
-            )
-        raise AssertionError("Unexpected bosonic Kramers class")
+    if mechanism_name == "kramers_pair":
+        dimension = BOSON_KRAMERS_MIN_DIMENSION[row["class_id"]]
+        return (
+            "yes",
+            rf"已找到最小 Nambu 维数为 {dimension} 的物理表示；"
+            r"对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且"
+            r"平方为 \(-I\) 的时间反演对称性直接给出 "
+            r"\(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件",
+        )
     return (
         "partial",
         "五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、"
-        "reflected-square 结构或额外反线性对称性",
+        "reflected-square 结构或额外时间反演对称性",
     )
 
 
@@ -184,17 +227,17 @@ def fermion_status(mechanism_name: str) -> tuple[str, str]:
             "奇数模加入一个解耦辅助模后，原权重为模平方的一半；"
             r"两种情形均有 \(W_{\rm F}\geq0\)",
         )
-    if mechanism_name == "kramers_polarization":
+    if mechanism_name == "kramers_pair":
         return (
             "yes",
-            "物理粒子空间加 Kramers theorem："
+            "Kramers 时间反演定理："
             r"\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}"
             r"\det(I+\mathcal B)\geq0\)",
         )
     return (
         "partial",
         "五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、"
-        "reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性",
+        "reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性",
     )
 
 
@@ -223,7 +266,7 @@ def build_html(rows: list[dict[str, str]]) -> str:
         assert boson["class_id"] == fermion["class_id"]
         name = mechanism(boson)
         assert name == mechanism(fermion)
-        boson_css, boson_text = boson_status(number, name)
+        boson_css, boson_text = boson_status(boson, name)
         fermion_css, fermion_text = fermion_status(name)
         body.append(
             "<tr>"
@@ -270,7 +313,7 @@ def main() -> None:
         counters[statistics] += 1
         name = mechanism(row)
         if statistics == "boson":
-            _, actual = boson_status(counters[statistics], name)
+            _, actual = boson_status(row, name)
         else:
             _, actual = fermion_status(name)
         output_rows.append(
@@ -286,7 +329,11 @@ def main() -> None:
         )
 
     with OUTPUT_PATH.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(output_rows[0]))
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=list(output_rows[0]),
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(output_rows)
     HTML_PATH.write_text(build_html(rows), encoding="utf-8")

@@ -272,6 +272,25 @@
       text-align: left;
     }
     th { background: var(--soft); font-weight: 650; }
+    .trs-periodic-wrap { margin-top: 9px; }
+    .trs-periodic-table { min-width: 700px; table-layout: fixed; }
+    .trs-periodic-table th {
+      border-color: #547a8d;
+      background: #285f78;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .trs-periodic-table th:first-child,
+    .trs-periodic-table td:first-child {
+      width: 18%;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 700;
+    }
+    .trs-periodic-table tbody tr:nth-child(even) { background: #eef5f8; }
+    .trs-periodic-table tbody tr.trs-seed { background: #dcecf3; }
+    .trs-periodic-table td { padding: 10px 12px; vertical-align: middle; }
     td.num, th.num { text-align: right; white-space: nowrap; }
     .yes { color: var(--green); font-weight: 650; }
     .no { color: var(--red); font-weight: 650; }
@@ -419,10 +438,11 @@
       \(\mathbb Z_2\) lift；它是一套采样与诊断工具，不应与本文依赖
       连通性的无符号定理混写成同一个证明。</li>
 <li>64 类的 actual-weight 筛选说明：若所有时间片都属于
-      \(A_{\mathrm{group}}\)，费米有 12 类由原有两条反线性对称性
+      \(A_{\mathrm{group}}\)，费米有 12 类由原有两条时间反演对称性
       直接得到逐构型非负的实际 Spin 权重；玻色有 8 个复共轭分块类
-      已找到物理低维表示，另有 2 个 Kramers 类的四维表示通过
-      commutator matrix 正定性检查。非零 \(A_{\mathrm{cone}}\) 进入时间片后，
+      已找到物理低维表示，另有 4 个 Kramers 矩阵关系类具有物理表示。
+      其中 B15、B27 的最小物理 Nambu 维数为 4，B12、B32 为 8；四类
+      都不需要额外的正定性条件。非零 \(A_{\mathrm{cone}}\) 进入时间片后，
       \(\Theta_2\) 不再保持同一个构型，必须另用 reflected-square、
       共同 particle space、额外对称性或收缩半群证明。逐类结论见
       <a href="tables/half_power_symmetry_64_classes.csv">
@@ -455,10 +475,10 @@
         它们分别记录 \(J_1,J_2\) 对 \(g\) 的作用、各自的平方以及二者的
         对易关系，是 \(2+2+1\) 个离散分类标签。把它们与
         \(J_1^TAJ_1=\bar A\)、\(J_2^TAJ_2=\pm\bar A\) 一起使用时，
-        可以判断两条物理反线性对称性是否在同一 fixed-field history 上
-        形成复共轭 Majorana/Fock 分块或 Kramers particle space。真正的结论是
-        实际有序 Fock 算符的迹是否非负，而不是把 half-power 平方后只看
-        根号内的矩阵表达式。
+        可以判断两条物理时间反演对称性是否在同一 fixed-field history 上
+        形成复共轭 Majorana/Fock 分块或 Kramers pair。真正的结论是
+        有限维 half-power 权重是否非负；在 bare trace 收敛区它等于 Fock
+        trace，在收敛区外则指同一个显式公式的亚纯延拓。
       </div>
 <div class="summary-item established">
 <strong>Yinkai's Case 7 的当前作用</strong>
@@ -491,9 +511,10 @@
         偶数模时直接得到模平方，奇数模时加入一个解耦辅助模后，两倍的原
         trace 成为模平方。另 4 类为物理 particle space 中的 Kramers pairing。
         玻色的 8 个模平方类均已找到四维物理表示；4 个 Kramers
-        矩阵关系类中，2 个四维表示的 commutator matrix 已验证为正定，另外 2 个在
-        当前 real-orthogonal \(J_a\) 设定的任意维数中都不能产生所需
-        annihilation space。其余类别需要额外算符结构。
+        矩阵关系类也都已找到物理表示，其中 B15、B27 的最小物理 Nambu
+        维数为 4，B12、B32 为 8。两条物理时间反演对称性平方为 \(-I\)
+        并彼此反对易时，Kramers 偶重数直接消除 half-power 符号，不需要
+        另加 commutator matrix 正定条件。其余类别需要额外算符结构。
       </div>
 <div class="summary-item established">
 <strong>加入 \(A_{\mathrm{cone}}\) 后</strong>
@@ -563,8 +584,9 @@
       方向还有其他
       Fock-weight 正性机制。只含 \(A_{\mathrm{group}}\) 时，费米已有
       12 类由原始两条 symmetry 直接固定实际 Spin half-power；玻色已有
-      8 个模平方类的物理低维表示，并有 2 个 Kramers 类的四维表示通过
-      commutator matrix 正定性检查。其余类别只有在加入额外物理算符结构后才能
+      8 个模平方类的物理低维表示，并有 4 个 Kramers 类的物理表示。
+      后四类中，B15、B27 的最小物理 Nambu 维数为 4，B12、B32 为 8，
+      且不需要额外正定性条件。其余类别只有在加入额外物理算符结构后才能
       得出无符号结论。非零 \(A_{\mathrm{cone}}\) 参与时，\(\Theta_2\)
       不再保持同一个辅助场构型，必须改用逐模型的 RP、Kramers、额外
       symmetry 或收缩半群证明。
@@ -615,7 +637,7 @@
               同一个 \(iJ_2g\) invariant cone 的 grand-canonical
               realization，但四类都已有完整 canonical fixed-\(N\)
               sign-free Hamiltonian；它们的 maximal subgroup 中还可继续
-              检查复共轭 Majorana/Fock 分块、物理 Kramers particle space 或
+              检查复共轭 Majorana/Fock 分块、物理 Kramers 时间反演 pair 或
               reflection-positive factorization，但需逐模型验证
             </td>
 </tr>
@@ -628,8 +650,9 @@
 <td>不存在使 \(\eta A+A^\dagger\eta&lt;0\) 的生成元，并不等于
             该类必有符号问题。把全部 32 类都限制到
             \(A_{\mathrm{group}}\) 后，应直接检查实际 Fock 对称性：8 个
-            模平方类已找到物理低维表示，2 个 Kramers 类的四维表示也通过
-            commutator matrix 正定性检查；其他表示或类别仍需额外
+            模平方类已找到物理低维表示，4 个 Kramers 类也都找到物理
+            表示；其中 B15、B27 的最小物理 Nambu 维数为 4，B12、B32
+            为 8，而且 Kramers 定理不要求额外正定性条件。其他类别仍需额外
             particle-number、RP 或第三条 symmetry 条件</td>
 </tr>
 <tr>

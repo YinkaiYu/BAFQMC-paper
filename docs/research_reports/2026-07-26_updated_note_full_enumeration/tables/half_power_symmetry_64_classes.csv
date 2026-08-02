@@ -1,65 +1,65 @@
 statistics,class_number,class_id,group_half_power_mechanism,group_actual_weight_result,strict_cone_exists,cone_actual_weight_result
-boson,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+boson,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,4,s1+_q1+_s2+_q2-_r-,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),0,严格 \(A_{\rm cone}\) 无解
-boson,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+boson,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,7,s1+_q1+_s2-_q2-_r+,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),0,严格 \(A_{\rm cone}\) 无解
-boson,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,10,s1+_q1-_s2+_q2+_r-,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,12,s1+_q1-_s2+_q2-_r-,kramers_polarization,两条反线性变换都平方为负一并彼此反对易，但当前实正交 \(J_a\) 设定在任意维都不能给出物理 annihilation space,0,严格 \(A_{\rm cone}\) 无解
+boson,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,12,s1+_q1-_s2+_q2-_r-,kramers_pair,已找到最小 Nambu 维数为 8 的物理表示；对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且平方为 \(-I\) 的时间反演对称性直接给出 \(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件,0,严格 \(A_{\rm cone}\) 无解
 boson,13,s1+_q1-_s2-_q2+_r+,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,15,s1+_q1-_s2-_q2-_r+,kramers_polarization,四维具体表示的 commutator matrix 已验证为正定；该表示中 \(W_{\rm B}\geq0\)，更高维仍须逐表示检查,0,严格 \(A_{\rm cone}\) 无解
-boson,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,15,s1+_q1-_s2-_q2-_r+,kramers_pair,已找到最小 Nambu 维数为 4 的物理表示；对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且平方为 \(-I\) 的时间反演对称性直接给出 \(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件,0,严格 \(A_{\rm cone}\) 无解
+boson,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+boson,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,19,s1-_q1+_s2+_q2-_r+,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),0,严格 \(A_{\rm cone}\) 无解
-boson,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+boson,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,24,s1-_q1+_s2-_q2-_r-,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),0,严格 \(A_{\rm cone}\) 无解
 boson,25,s1-_q1-_s2+_q2+_r+,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,27,s1-_q1-_s2+_q2-_r+,kramers_polarization,四维具体表示的 commutator matrix 已验证为正定；该表示中 \(W_{\rm B}\geq0\)，更高维仍须逐表示检查,0,严格 \(A_{\rm cone}\) 无解
-boson,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,27,s1-_q1-_s2+_q2-_r+,kramers_pair,已找到最小 Nambu 维数为 4 的物理表示；对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且平方为 \(-I\) 的时间反演对称性直接给出 \(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件,0,严格 \(A_{\rm cone}\) 无解
+boson,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 boson,30,s1-_q1-_s2-_q2+_r-,conjugate_subsystems,已找到四维、满足物理 Nambu 共轭关系的具体表示；对通过 \(C\overline U_aC=U_a\) 检查的表示，\(W_{\rm B}=|w|^2\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-boson,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-boson,32,s1-_q1-_s2-_q2-_r-,kramers_polarization,两条反线性变换都平方为负一并彼此反对易，但当前实正交 \(J_a\) 设定在任意维都不能给出物理 annihilation space,0,严格 \(A_{\rm cone}\) 无解
-fermion,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、reflected-square 结构或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+boson,32,s1-_q1-_s2-_q2-_r-,kramers_pair,已找到最小 Nambu 维数为 8 的物理表示；对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且平方为 \(-I\) 的时间反演对称性直接给出 \(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件,0,严格 \(A_{\rm cone}\) 无解
+fermion,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,4,s1+_q1+_s2+_q2-_r-,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-fermion,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,7,s1+_q1+_s2-_q2-_r+,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-fermion,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,10,s1+_q1-_s2+_q2+_r-,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),0,严格 \(A_{\rm cone}\) 无解
-fermion,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,12,s1+_q1-_s2+_q2-_r-,kramers_polarization,物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+fermion,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,12,s1+_q1-_s2+_q2-_r-,kramers_pair,Kramers 时间反演定理：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
 fermion,13,s1+_q1-_s2-_q2+_r+,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),0,严格 \(A_{\rm cone}\) 无解
-fermion,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,15,s1+_q1-_s2-_q2-_r+,kramers_polarization,物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-fermion,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,15,s1+_q1-_s2-_q2-_r+,kramers_pair,Kramers 时间反演定理：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+fermion,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,19,s1-_q1+_s2+_q2-_r+,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-fermion,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,24,s1-_q1+_s2-_q2-_r-,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
 fermion,25,s1-_q1-_s2+_q2+_r+,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),0,严格 \(A_{\rm cone}\) 无解
-fermion,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,27,s1-_q1-_s2+_q2-_r+,kramers_polarization,物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
-fermion,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,27,s1-_q1-_s2+_q2-_r+,kramers_pair,Kramers 时间反演定理：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+fermion,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
 fermion,30,s1-_q1-_s2-_q2+_r-,conjugate_subsystems,共轭 Majorana 分块定理：偶数模时权重为模平方；奇数模加入一个解耦辅助模后，原权重为模平方的一半；两种情形均有 \(W_{\rm F}\geq0\),0,严格 \(A_{\rm cone}\) 无解
-fermion,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外反线性对称性,0,严格 \(A_{\rm cone}\) 无解
-fermion,32,s1-_q1-_s2-_q2-_r-,kramers_polarization,物理粒子空间加 Kramers theorem：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型
+fermion,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性,0,严格 \(A_{\rm cone}\) 无解
+fermion,32,s1-_q1-_s2-_q2-_r-,kramers_pair,Kramers 时间反演定理：\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}\det(I+\mathcal B)\geq0\),1,严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot strict-cone screening with group-only anti-linear fallbacks."""
+"""Plot strict-cone screening with group-only time-reversal fallbacks."""
 
 from __future__ import annotations
 
@@ -45,8 +45,7 @@ COLOR_ORDER = [
     "strict_ij2g",
 ]
 
-BOSON_POLARIZATION_VERIFIED = {15, 27}
-BOSON_POLARIZATION_IMPOSSIBLE = {12, 32}
+BOSON_KRAMERS_MIN_DIMENSION = {12: 8, 15: 4, 27: 4, 32: 8}
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
@@ -74,16 +73,16 @@ def column_label(values: tuple[int, int, int]) -> str:
     )
 
 
-def anti_linear_pair_type(row: dict[str, str]) -> str | None:
-    """Classify the two A_group anti-linear symmetries."""
+def time_reversal_pair_type(row: dict[str, str]) -> str | None:
+    """Classify the two A_group time-reversal symmetries."""
     q1 = int(row["q1"])
     q2 = int(row["q2"])
     s1 = int(row["s1"])
     s2 = int(row["s2"])
-    # The induced anti-linear maps anticommute when r*s1*s2 = -1.
-    anti_linear_mutual = int(row["r"]) * s1 * s2
+    # The induced time-reversal maps anticommute when r*s1*s2 = -1.
+    time_reversal_mutual = int(row["r"]) * s1 * s2
 
-    if anti_linear_mutual != -1:
+    if time_reversal_mutual != -1:
         return None
     if sorted((q1, q2)) == [-1, 1]:
         return "plus_minus"
@@ -119,7 +118,7 @@ def classify(
             False,
         )
 
-    pair_type = anti_linear_pair_type(row)
+    pair_type = time_reversal_pair_type(row)
     category = (
         "empty_trace_obstruction"
         if row["status"] == "boundary_only_trace_obstruction"
@@ -133,25 +132,15 @@ def classify(
         )
     if row["statistics"] == "boson" and pair_type == "plus_minus":
         return category, "group only\n" + r"$\Theta(+,-)$: $W_{\rm B}=|w|^2$", True
-    if (
-        row["statistics"] == "boson"
-        and class_number in BOSON_POLARIZATION_VERIFIED
-    ):
-        return (
-            category,
-            "group only\n" + r"$\Theta(-,-)$: Kramers" + "\nphysical at d=4",
-            True,
-        )
-    if (
-        row["statistics"] == "boson"
-        and class_number in BOSON_POLARIZATION_IMPOSSIBLE
-    ):
+    if row["statistics"] == "boson" and pair_type == "minus_minus":
+        dimension = BOSON_KRAMERS_MIN_DIMENSION[class_number]
         return (
             category,
             "group only\n"
-            + r"$\Theta(-,-)$: no positive"
-            + "\nparticle space",
-            False,
+            + r"$\Theta(-,-)$: Kramers"
+            + "\n"
+            + rf"physical $d_{{\rm N}}={dimension}$",
+            True,
         )
     return category, "group only\nno theorem from\noriginal $J_1,J_2$", False
 
@@ -160,7 +149,7 @@ def validate_atlas(
     rows: list[dict[str, str]],
     half_power_rows: list[dict[str, str]],
 ) -> None:
-    """Guard cone counts and the empty-cone anti-linear fallback counts."""
+    """Guard cone counts and the empty-cone time-reversal fallback counts."""
     for statistics in ("boson", "fermion"):
         selected = [row for row in rows if row["statistics"] == statistics]
         strict = [row for row in selected if row["status"] == "strict"]
@@ -195,7 +184,7 @@ def validate_atlas(
                 continue
             _, _, positive = classify(row, class_number)
             positives += positive
-        expected_positive = 6 if statistics == "boson" else 4
+        expected_positive = 8 if statistics == "boson" else 4
         if positives != expected_positive:
             raise ValueError(
                 f"expected {expected_positive} group-only positive {statistics} "
@@ -210,12 +199,13 @@ def validate_atlas(
         result = row["group_actual_weight_result"]
         if row["statistics"] == "fermion" and mechanism in {
             "conjugate_subsystems",
-            "kramers_polarization",
+            "kramers_pair",
         }:
             evidence_positive["fermion"].add(int(row["class_number"]))
-        if row["statistics"] == "boson" and (
-            r"W_{\rm B}" in result or "已验证为正定" in result
-        ):
+        if row["statistics"] == "boson" and mechanism in {
+            "conjugate_subsystems",
+            "kramers_pair",
+        } and r"W_{\rm B}" in result:
             evidence_positive["boson"].add(int(row["class_number"]))
 
     plotted_positive: dict[str, set[int]] = {"boson": set(), "fermion": set()}
@@ -257,8 +247,10 @@ def panel_data(
             prefix = "B" if row["statistics"] == "boson" else "F"
             dimension = 2 ** int(row["min_qubits"])
             labels[i][j] = (
-                f"{prefix}{number:02d}   d={dimension}\n"
-                f"{description}"
+                f"{prefix}{number:02d}   "
+                + rf"$d_{{\rm alg}}={dimension}$"
+                + "\n"
+                + description
             )
     return values, labels, outlines
 
@@ -346,9 +338,9 @@ def main() -> None:
         ax.tick_params(which="major", length=0)
         ax.set_title(
             (
-                r"a  Boson: strict-cone screening; group-only symmetry fallback"
+                r"a  Boson: strict-cone screening; group-only time-reversal fallback"
                 if panel == 0
-                else r"b  Fermion: strict-cone screening; group-only symmetry fallback"
+                else r"b  Fermion: strict-cone screening; group-only time-reversal fallback"
             ),
             loc="left",
             fontweight="bold",
@@ -376,7 +368,10 @@ def main() -> None:
             facecolor="none",
             edgecolor="#174f46",
             linewidth=2.5,
-            label="outlined group-only cell: anti-linear theorem proves actual weight nonnegative",
+            label=(
+                "outlined group-only cell: time-reversal theorem proves "
+                "the weight nonnegative"
+            ),
         ),
     ]
     figure.legend(
@@ -391,7 +386,7 @@ def main() -> None:
         0.5,
         0.013,
         r"Primary classification: 8 strict-cone classes and 24 group-only classes per panel.  "
-        r"Anti-linear positivity is tested only for the group-only cells: 6 bosonic and "
+        r"Time-reversal positivity is tested only for the group-only cells: 8 bosonic and "
         r"4 fermionic classes have a verified physical representation using their original "
         r"$J_1,J_2$ pair.  Blue bosonic cells use fixed-$N$ weights.",
         ha="center",

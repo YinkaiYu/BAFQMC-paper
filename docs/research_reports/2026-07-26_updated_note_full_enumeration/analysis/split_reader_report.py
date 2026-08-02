@@ -89,7 +89,7 @@ def build_index(source: BeautifulSoup) -> None:
               \(A\) 的最终约束、maximal subgroup 与 invariant cone。
               每张类别卡片都就地给出一个厄米相互作用格点模型，并分开写明
               strict cone 非空时的收缩半群证明；只有 cone 为空时才补充
-              反线性对称性或更小无符号子群的判据。
+              时间反演对称性或更小无符号子群的判据。
             </div>
             <div class="summary-item established">
               <strong><a href="part_4_implications.html">第 4 卷：文章影响与结论</a></strong>
@@ -112,10 +112,10 @@ def build_index(source: BeautifulSoup) -> None:
               下的单向 contraction semigroup。
             </div>
             <div class="summary-item established">
-              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重的反线性对称性正性</a></strong>
+              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重的时间反演正性</a></strong>
               从实际有序 Gaussian 算符出发，证明共轭 Majorana/Fock 分块与
               Kramers 粒子空间怎样固定 Spin/metaplectic half-power；
-              给出玻色、费米统一的反线性对称性周期表，检验 main.tex 的
+              给出玻色、费米统一的时间反演对称性周期表，检验 main.tex 的
               paired benchmark，并构造一个 \((+,-)\) 保护的厄米 paired
               玻色模型；最后把判据应用到玻色、费米各 32 类关系。
             </div>
@@ -268,7 +268,7 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
         "<!doctype html><html><body><main></main></body></html>", "html.parser"
     )
     page.html.insert(0, clone(source.head))
-    page.title.string = "玻色、费米统一的 Nambu half-power 反线性正性"
+    page.title.string = "玻色、费米统一的 Nambu half-power 时间反演正性"
     header = fragment.find("header", recursive=False)
     section_ids = [
         "half-power-symmetry",
@@ -327,7 +327,7 @@ def build_canonical_algorithm_page(source: BeautifulSoup) -> None:
     nav_items = [
         ("report_index.html", "分卷入口"),
         ("part_3_enumeration_models.html", "返回 64 类生成元讲义"),
-        ("part_7_determinant_symmetry_groups.html", "反线性对称性理论卷"),
+        ("part_7_determinant_symmetry_groups.html", "时间反演对称性理论卷"),
     ]
     page.main.append(clone(header))
     page.main.append(navigation(nav_items))
@@ -368,7 +368,7 @@ def main() -> None:
             common_index,
             ("part_2_physical_mapping.html", "上一卷：物理对应"),
             ("part_4_implications.html", "下一卷：文章影响与结论"),
-            ("part_7_determinant_symmetry_groups.html", "Nambu half-power 反线性正性"),
+            ("part_7_determinant_symmetry_groups.html", "Nambu half-power 时间反演正性"),
             ("part_8_canonical_projector_algorithms.html", "固定粒子数算法"),
         ],
     )
