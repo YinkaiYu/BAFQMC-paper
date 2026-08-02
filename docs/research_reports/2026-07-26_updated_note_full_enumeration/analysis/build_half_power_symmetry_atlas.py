@@ -199,23 +199,20 @@ def boson_status(
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
-            "已找到四维、满足物理 Nambu 共轭关系的具体表示；"
-            r"对通过 \(C\overline U_aC=U_a\) 检查的表示，"
-            r"\(W_{\rm B}=|w|^2\geq0\)",
+            "已证明（物理表示已验证）："
+            r"\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\)",
         )
     if mechanism_name == "kramers_pair":
         dimension = BOSON_KRAMERS_MIN_DIMENSION[row["class_id"]]
         return (
             "yes",
-            rf"已找到最小 Nambu 维数为 {dimension} 的物理表示；"
-            r"对任何满足 \(C\overline U_aC=U_a\) 的表示，两条彼此反对易且"
-            r"平方为 \(-I\) 的时间反演对称性直接给出 "
-            r"\(W_{\rm B}^{\rm an}\geq0\)，不需要额外的正定性条件",
+            rf"已证明（最小物理 Nambu 维数 {dimension}）："
+            r"\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\)",
         )
     return (
         "partial",
-        "五条关系不足以固定实际 metaplectic half-power；需增加物理粒子空间、"
-        "reflected-square 结构或额外时间反演对称性",
+        r"五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、"
+        "可直接定号的普通行列式结构或额外时间反演",
     )
 
 
@@ -223,31 +220,26 @@ def fermion_status(mechanism_name: str) -> tuple[str, str]:
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
-            "共轭 Majorana 分块定理：偶数模时权重为模平方；"
-            "奇数模加入一个解耦辅助模后，原权重为模平方的一半；"
-            r"两种情形均有 \(W_{\rm F}\geq0\)",
+            "已证明（共轭分块）："
+            r"\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\)",
         )
     if mechanism_name == "kramers_pair":
         return (
             "yes",
-            "Kramers 时间反演定理："
-            r"\(W_{\rm F}=e^{-\sum_\ell\operatorname{Tr}K_\ell/2}"
-            r"\det(I+\mathcal B)\geq0\)",
+            "已证明（Kramers 配对）："
+            r"\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\)",
         )
     return (
         "partial",
-        "五条关系不足以固定实际 Spin half-power；需增加物理粒子空间、"
-        "reflected-square 结构、split-orthogonal subgroup 或额外时间反演对称性",
+        r"五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、"
+        "可直接定号的普通行列式结构或额外时间反演",
     )
 
 
 def cone_status(row: dict[str, str]) -> str:
     if not int(row["strict_interior"]):
-        return r"严格 \(A_{\rm cone}\) 无解"
-    return (
-        r"严格 \(A_{\rm cone}\) 有解；使用非零 \(A_{\rm cone}\) 时，"
-        r"\(\Theta_2\) 把它变为 \(-A_{\rm cone}\)，不再保持同一构型"
-    )
+        return r"生成元层面：strict cone 为空"
+    return r"生成元层面：strict cone 非空（收缩半群路线）"
 
 
 def span(css_class: str, text: str) -> str:

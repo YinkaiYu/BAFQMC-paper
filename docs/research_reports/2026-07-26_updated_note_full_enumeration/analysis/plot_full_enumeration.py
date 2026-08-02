@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot strict-cone screening with group-only time-reversal fallbacks."""
+"""Plot the 64-class semigroup screen and group-only time-reversal fallback."""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from pathlib import Path
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
+from matplotlib import font_manager
 from matplotlib.patches import Patch, Rectangle
 import numpy as np
 
@@ -32,20 +33,12 @@ COL_KEYS = [
 ]
 
 COLORS = {
-    "empty_trace_obstruction": "#e2e5e7",
-    "empty_flip_obstruction": "#efc2b8",
-    "strict_j2g": "#70aa7f",
-    "strict_ij2g": "#6f9fc4",
+    "group_only": "#eceff1",
+    "strict_j2g": "#8fc49b",
+    "strict_ij2g": "#91bdd8",
 }
-
-COLOR_ORDER = [
-    "empty_trace_obstruction",
-    "empty_flip_obstruction",
-    "strict_j2g",
-    "strict_ij2g",
-]
-
-BOSON_KRAMERS_MIN_DIMENSION = {12: 8, 15: 4, 27: 4, 32: 8}
+COLOR_ORDER = ["group_only", "strict_j2g", "strict_ij2g"]
+TRS_COLOR = "#7b3f00"
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
@@ -53,33 +46,55 @@ def load_rows(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def register_cjk_font() -> str:
+    """Register a local CJK font because Matplotlib may ignore TTC files."""
+    candidates = (
+        Path("/mnt/c/Windows/Fonts/msyh.ttc"),
+        Path("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"),
+    )
+    for path in candidates:
+        if path.exists():
+            font_manager.fontManager.addfont(path)
+            return font_manager.FontProperties(fname=path).get_name()
+    raise RuntimeError("a CJK font is required to render the Chinese atlas labels")
+
+
+def signed_symbol(sign: int, positive: str) -> str:
+    return positive if sign == 1 else "-" + positive
+
+
 def row_label(values: tuple[int, int]) -> str:
     g_sign, square_sign = values
-    return (
-        ("g" if g_sign == 1 else "-g")
-        + ", "
-        + ("I" if square_sign == 1 else "-I")
+    return "\n".join(
+        (
+            rf"$J_1^{{T}}gJ_1={signed_symbol(g_sign, 'g')}$",
+            rf"$J_1^2={signed_symbol(square_sign, 'I')}$",
+        )
     )
 
 
 def column_label(values: tuple[int, int, int]) -> str:
     g_sign, square_sign, mutual_sign = values
+    mutual_relation = (
+        r"$J_1J_2=J_2J_1$"
+        if mutual_sign == 1
+        else r"$J_1J_2=-J_2J_1$"
+    )
     return "\n".join(
         (
-            "g" if g_sign == 1 else "-g",
-            "I" if square_sign == 1 else "-I",
-            "comm." if mutual_sign == 1 else "anti.",
+            rf"$J_2^{{T}}gJ_2={signed_symbol(g_sign, 'g')}$",
+            rf"$J_2^2={signed_symbol(square_sign, 'I')}$",
+            mutual_relation,
         )
     )
 
 
 def time_reversal_pair_type(row: dict[str, str]) -> str | None:
-    """Classify the two A_group time-reversal symmetries."""
+    """Read the two induced time-reversal squares and mutual relation."""
     q1 = int(row["q1"])
     q2 = int(row["q2"])
     s1 = int(row["s1"])
     s2 = int(row["s2"])
-    # The induced time-reversal maps anticommute when r*s1*s2 = -1.
     time_reversal_mutual = int(row["r"]) * s1 * s2
 
     if time_reversal_mutual != -1:
@@ -91,138 +106,118 @@ def time_reversal_pair_type(row: dict[str, str]) -> str | None:
     return None
 
 
-def classify(
-    row: dict[str, str], class_number: int
-) -> tuple[str, str, bool]:
-    """Return cone category, cell text, and group-only positivity outline."""
-    if row["status"] == "strict":
-        category = (
-            "strict_j2g" if row["metric"] == "J2g" else "strict_ij2g"
-        )
-        metric = r"$J_2g$" if row["metric"] == "J2g" else r"$iJ_2g$"
-        if row["statistics"] == "boson" and row["metric"] == "iJ2g":
-            description = (
-                "strict matrix cone\n"
-                + rf"$\eta={metric[1:-1]}$"
-                + "\nfixed-$N$ weight"
-            )
-        else:
-            description = (
-                "strict cone\n"
-                + rf"$\eta={metric[1:-1]}$"
-                + "\nsemigroup branch"
-            )
-        return (
-            category,
-            description,
-            False,
-        )
+def mechanism_to_trs(mechanism: str) -> str | None:
+    if mechanism == "conjugate_subsystems":
+        return "plus_minus"
+    if mechanism == "kramers_pair":
+        return "minus_minus"
+    return None
 
-    pair_type = time_reversal_pair_type(row)
-    category = (
-        "empty_trace_obstruction"
-        if row["status"] == "boundary_only_trace_obstruction"
-        else "empty_flip_obstruction"
-    )
-    if row["statistics"] == "fermion" and pair_type == "plus_minus":
-        return (
-            category,
-            "group only\n" + r"$\Theta(+,-)$: $W_{\rm F}\geq0$",
-            True,
-        )
-    if row["statistics"] == "boson" and pair_type == "plus_minus":
-        return category, "group only\n" + r"$\Theta(+,-)$: $W_{\rm B}=|w|^2$", True
-    if row["statistics"] == "boson" and pair_type == "minus_minus":
-        dimension = BOSON_KRAMERS_MIN_DIMENSION[class_number]
-        return (
-            category,
-            "group only\n"
-            + r"$\Theta(-,-)$: Kramers"
-            + "\n"
-            + rf"physical $d_{{\rm N}}={dimension}$",
-            True,
-        )
-    return category, "group only\nno theorem from\noriginal $J_1,J_2$", False
+
+def classify(row: dict[str, str]) -> tuple[str, str]:
+    if row["status"] == "strict":
+        if row["metric"] == "J2g":
+            category = "strict_j2g"
+            text = "\u6536\u7f29\u534a\u7fa4\n" + r"$\eta=J_2g$"
+        else:
+            category = "strict_ij2g"
+            text = "\u6536\u7f29\u534a\u7fa4\n" + r"$\eta=iJ_2g$"
+    else:
+        category = "group_only"
+        text = "\u53ea\u6709\u6700\u5927\u5b50\u7fa4"
+    return category, text
 
 
 def validate_atlas(
     rows: list[dict[str, str]],
     half_power_rows: list[dict[str, str]],
-) -> None:
-    """Guard cone counts and the empty-cone time-reversal fallback counts."""
+) -> dict[tuple[str, int], str | None]:
+    """Check the enumeration counts before reducing them to a visual atlas."""
+    if len(rows) != 64 or len(half_power_rows) != 64:
+        raise ValueError(
+            "the two source tables must each contain exactly 64 rows"
+        )
+
+    trs_lookup: dict[tuple[str, str], str | None] = {}
+    for row in half_power_rows:
+        key = (row["statistics"], row["class_id"])
+        if key in trs_lookup:
+            raise ValueError(f"duplicate half-power class: {key}")
+        trs_lookup[key] = mechanism_to_trs(row["group_half_power_mechanism"])
+
     for statistics in ("boson", "fermion"):
         selected = [row for row in rows if row["statistics"] == statistics]
+        if len(selected) != 32:
+            raise ValueError(f"expected 32 {statistics} classes")
+
         strict = [row for row in selected if row["status"] == "strict"]
-        empty = [row for row in selected if row["status"] != "strict"]
+        group_only = [row for row in selected if row["status"] != "strict"]
         metric_counts = {
             metric: sum(row["metric"] == metric for row in strict)
             for metric in ("J2g", "iJ2g")
         }
+        if metric_counts != {"J2g": 4, "iJ2g": 4}:
+            raise ValueError(
+                f"unexpected {statistics} semigroup metrics: {metric_counts}"
+            )
+        if len(group_only) != 24:
+            raise ValueError(
+                f"expected 24 group-only {statistics} classes, "
+                f"got {len(group_only)}"
+            )
+
+        # These obstruction counts remain useful data checks even though the
+        # simplified figure deliberately does not display their derivation.
         obstruction_counts = {
-            status: sum(row["status"] == status for row in empty)
+            status: sum(row["status"] == status for row in group_only)
             for status in (
                 "boundary_only_trace_obstruction",
                 "boundary_only_reality_flip",
             )
         }
-        if metric_counts != {"J2g": 4, "iJ2g": 4}:
-            raise ValueError(
-                f"unexpected {statistics} strict metrics: {metric_counts}"
-            )
         expected_obstructions = {
             "boundary_only_trace_obstruction": 16,
             "boundary_only_reality_flip": 8,
         }
         if obstruction_counts != expected_obstructions:
             raise ValueError(
-                f"unexpected {statistics} empty-cone counts: {obstruction_counts}"
+                f"unexpected {statistics} empty-cone counts: "
+                f"{obstruction_counts}"
             )
 
-        positives = 0
-        for class_number, row in enumerate(selected, start=1):
-            if row["status"] == "strict":
-                continue
-            _, _, positive = classify(row, class_number)
-            positives += positive
-        expected_positive = 8 if statistics == "boson" else 4
-        if positives != expected_positive:
+        trs_counts = {"plus_minus": 0, "minus_minus": 0}
+        group_only_trs = 0
+        for row in selected:
+            key = (statistics, row["class_id"])
+            if key not in trs_lookup:
+                raise ValueError(f"missing half-power class: {key}")
+            trs_type = trs_lookup[key]
+            if trs_type is not None:
+                trs_counts[trs_type] += 1
+                group_only_trs += row["status"] != "strict"
+            if trs_type != time_reversal_pair_type(row):
+                raise ValueError(
+                    "time-reversal label disagrees with the five relations: "
+                    f"{key}, table={trs_type}, relations="
+                    f"{time_reversal_pair_type(row)}"
+                )
+        if trs_counts != {"plus_minus": 8, "minus_minus": 4}:
             raise ValueError(
-                f"expected {expected_positive} group-only positive {statistics} "
-                f"classes, got {positives}"
+                f"unexpected {statistics} TRS counts: {trs_counts}"
+            )
+        expected_group_only_trs = 8 if statistics == "boson" else 4
+        if group_only_trs != expected_group_only_trs:
+            raise ValueError(
+                f"unexpected {statistics} group-only TRS count: "
+                f"{group_only_trs}"
             )
 
-    evidence_positive: dict[str, set[int]] = {"boson": set(), "fermion": set()}
-    for row in half_power_rows:
-        if int(row["strict_cone_exists"]):
-            continue
-        mechanism = row["group_half_power_mechanism"]
-        result = row["group_actual_weight_result"]
-        if row["statistics"] == "fermion" and mechanism in {
-            "conjugate_subsystems",
-            "kramers_pair",
-        }:
-            evidence_positive["fermion"].add(int(row["class_number"]))
-        if row["statistics"] == "boson" and mechanism in {
-            "conjugate_subsystems",
-            "kramers_pair",
-        } and r"W_{\rm B}" in result:
-            evidence_positive["boson"].add(int(row["class_number"]))
-
-    plotted_positive: dict[str, set[int]] = {"boson": set(), "fermion": set()}
-    for statistics in ("boson", "fermion"):
-        selected = [row for row in rows if row["statistics"] == statistics]
-        for class_number, row in enumerate(selected, start=1):
-            if row["status"] != "strict" and classify(row, class_number)[2]:
-                plotted_positive[statistics].add(class_number)
-    if plotted_positive != evidence_positive:
-        raise ValueError(
-            "figure outlines disagree with half-power evidence table: "
-            f"plot={plotted_positive}, evidence={evidence_positive}"
-        )
+    return trs_lookup
 
 
 def panel_data(
     rows: list[dict[str, str]],
+    trs_lookup: dict[tuple[str, str], str | None],
 ) -> tuple[np.ndarray, list[list[str]], np.ndarray]:
     lookup = {
         (
@@ -231,26 +226,22 @@ def panel_data(
             int(row["s2"]),
             int(row["q2"]),
             int(row["r"]),
-        ): (class_number, row)
-        for class_number, row in enumerate(rows, start=1)
+        ): row
+        for row in rows
     }
     color_index = {name: index for index, name in enumerate(COLOR_ORDER)}
     values = np.empty((4, 8), dtype=int)
     labels = [["" for _ in range(8)] for _ in range(4)]
     outlines = np.zeros((4, 8), dtype=bool)
-    for i, (s1, q1) in enumerate(ROW_KEYS):
-        for j, (s2, q2, r) in enumerate(COL_KEYS):
-            number, row = lookup[(s1, q1, s2, q2, r)]
-            category, description, outlined = classify(row, number)
-            values[i, j] = color_index[category]
-            outlines[i, j] = outlined
-            prefix = "B" if row["statistics"] == "boson" else "F"
-            dimension = 2 ** int(row["min_qubits"])
-            labels[i][j] = (
-                f"{prefix}{number:02d}   "
-                + rf"$d_{{\rm alg}}={dimension}$"
-                + "\n"
-                + description
+    for row_index, (s1, q1) in enumerate(ROW_KEYS):
+        for column_index, (s2, q2, r) in enumerate(COL_KEYS):
+            row = lookup[(s1, q1, s2, q2, r)]
+            trs_type = trs_lookup[(row["statistics"], row["class_id"])]
+            category, text = classify(row)
+            values[row_index, column_index] = color_index[category]
+            labels[row_index][column_index] = text
+            outlines[row_index, column_index] = (
+                trs_type is not None and row["status"] != "strict"
             )
     return values, labels, outlines
 
@@ -258,26 +249,27 @@ def panel_data(
 def main() -> None:
     full_rows = load_rows(FULL_TABLE)
     half_power_rows = load_rows(HALF_POWER_TABLE)
-    validate_atlas(full_rows, half_power_rows)
+    trs_lookup = validate_atlas(full_rows, half_power_rows)
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
+    cjk_font = register_cjk_font()
 
     mpl.rcParams.update(
         {
-            "font.family": "DejaVu Sans",
-            "font.size": 9,
-            "axes.linewidth": 0.8,
+            "font.family": cjk_font,
+            "font.size": 12,
+            "axes.linewidth": 1.0,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
         }
     )
     cmap = ListedColormap([COLORS[name] for name in COLOR_ORDER])
-    figure, axes = plt.subplots(2, 1, figsize=(15.3, 10.1))
+    figure, axes = plt.subplots(2, 1, figsize=(19.5, 10.8))
 
     for panel, statistics in enumerate(("boson", "fermion")):
         selected = [
             row for row in full_rows if row["statistics"] == statistics
         ]
-        values, labels, outlines = panel_data(selected)
+        values, labels, outlines = panel_data(selected, trs_lookup)
         ax = axes[panel]
         ax.imshow(
             values,
@@ -287,118 +279,92 @@ def main() -> None:
             aspect="auto",
         )
         for row_index in range(4):
-            for col_index in range(8):
+            for column_index in range(8):
                 ax.text(
-                    col_index,
+                    column_index,
                     row_index,
-                    labels[row_index][col_index],
+                    labels[row_index][column_index],
                     ha="center",
                     va="center",
-                    fontsize=6.8,
-                    linespacing=1.16,
+                    fontsize=17.0,
+                    fontweight="medium",
+                    linespacing=1.18,
                     color="#172126",
                 )
-                if outlines[row_index, col_index]:
+                if outlines[row_index, column_index]:
                     ax.add_patch(
                         Rectangle(
-                            (col_index - 0.47, row_index - 0.47),
-                            0.94,
-                            0.94,
+                            (column_index - 0.465, row_index - 0.455),
+                            0.93,
+                            0.91,
                             fill=False,
-                            edgecolor="#174f46",
-                            linewidth=2.5,
+                            edgecolor=TRS_COLOR,
+                            linewidth=3.2,
                         )
                     )
 
         ax.set_xticks(range(8))
         ax.set_xticklabels(
             [column_label(values) for values in COL_KEYS],
-            fontsize=7.5,
-            linespacing=1.05,
+            fontsize=15.0,
+            linespacing=1.15,
         )
         ax.xaxis.set_ticks_position("top")
-        ax.xaxis.set_label_position("top")
-        ax.set_xlabel(
-            r"columns: $J_2^TgJ_2$, $J_2^2$, and "
-            r"$J_1,J_2$ commuting (comm.) or anticommuting (anti.)",
-            labelpad=8,
-        )
         ax.set_yticks(range(4))
         ax.set_yticklabels(
-            [row_label(values) for values in ROW_KEYS], fontsize=8
-        )
-        ax.set_ylabel(
-            r"rows: $J_1^TgJ_1$, $J_1^2$",
-            labelpad=8,
+            [row_label(values) for values in ROW_KEYS],
+            fontsize=16.0,
+            linespacing=1.18,
         )
         ax.set_xticks(np.arange(-0.5, 8, 1), minor=True)
         ax.set_yticks(np.arange(-0.5, 4, 1), minor=True)
-        ax.grid(which="minor", color="white", linewidth=1.5)
+        ax.grid(which="minor", color="white", linewidth=1.7)
         ax.tick_params(which="minor", bottom=False, left=False)
-        ax.tick_params(which="major", length=0)
+        ax.tick_params(which="major", length=0, pad=9)
         ax.set_title(
-            (
-                r"a  Boson: strict-cone screening; group-only time-reversal fallback"
-                if panel == 0
-                else r"b  Fermion: strict-cone screening; group-only time-reversal fallback"
-            ),
+            "a  \u73bb\u8272\u5b50" if panel == 0 else "b  \u8d39\u7c73\u5b50",
             loc="left",
+            fontsize=18,
             fontweight="bold",
-            pad=7,
+            pad=12,
         )
 
     legend = [
         Patch(
             facecolor=COLORS["strict_j2g"],
-            label=r"strict cone: $\eta=J_2g$ (4/32 per panel)",
+            label="\u6536\u7f29\u534a\u7fa4  " + r"$\eta=J_2g$",
         ),
         Patch(
             facecolor=COLORS["strict_ij2g"],
-            label=r"strict cone: $\eta=iJ_2g$ (4/32 per panel)",
+            label="\u6536\u7f29\u534a\u7fa4  " + r"$\eta=iJ_2g$",
         ),
         Patch(
-            facecolor=COLORS["empty_trace_obstruction"],
-            label="first screen: cone empty by Lemma 1 (16/32)",
-        ),
-        Patch(
-            facecolor=COLORS["empty_flip_obstruction"],
-            label="second screen: remaining cone empty by Lemma 2 (8/32)",
+            facecolor=COLORS["group_only"],
+            label="\u53ea\u6709\u6700\u5927\u5b50\u7fa4",
         ),
         Patch(
             facecolor="none",
-            edgecolor="#174f46",
-            linewidth=2.5,
-            label=(
-                "outlined group-only cell: time-reversal theorem proves "
-                "the weight nonnegative"
-            ),
+            edgecolor=TRS_COLOR,
+            linewidth=3.2,
+            label="\u7070\u683c\u7c97\u8fb9\u6846\uff1a\u65f6\u95f4\u53cd\u6f14\u5bf9\u79f0\u6027\u8bc1\u660e\u6743\u91cd\u975e\u8d1f",
         ),
     ]
     figure.legend(
         handles=legend,
         loc="lower center",
-        ncol=3,
+        ncol=4,
         frameon=False,
-        bbox_to_anchor=(0.5, 0.052),
-        fontsize=8.1,
-    )
-    figure.text(
-        0.5,
-        0.013,
-        r"Primary classification: 8 strict-cone classes and 24 group-only classes per panel.  "
-        r"Time-reversal positivity is tested only for the group-only cells: 8 bosonic and "
-        r"4 fermionic classes have a verified physical representation using their original "
-        r"$J_1,J_2$ pair.  Blue bosonic cells use fixed-$N$ weights.",
-        ha="center",
-        va="bottom",
-        fontsize=8.0,
+        bbox_to_anchor=(0.5, 0.018),
+        fontsize=14.5,
+        handlelength=2.2,
+        columnspacing=2.4,
     )
     figure.subplots_adjust(
-        left=0.115,
-        right=0.99,
-        top=0.94,
-        bottom=0.17,
-        hspace=0.62,
+        left=0.145,
+        right=0.992,
+        top=0.91,
+        bottom=0.105,
+        hspace=0.68,
     )
 
     for suffix in ("pdf", "png"):

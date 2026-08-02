@@ -17,6 +17,9 @@ REPORT_DIR = Path(__file__).resolve().parents[1]
 TENSOR_PATH = REPORT_DIR / "tables" / "tensor_block_structures.csv"
 MAXIMAL_PATH = REPORT_DIR / "tables" / "maximal_subgroup_structures.csv"
 FULL_PATH = REPORT_DIR / "tables" / "full_64_class_enumeration.csv"
+HALF_POWER_PATH = (
+    REPORT_DIR / "tables" / "half_power_symmetry_64_classes.csv"
+)
 LOW_DIMENSIONAL_REPRESENTATIONS_PATH = (
     REPORT_DIR / "tables" / "real_representation_orbits_le4.csv"
 )
@@ -383,7 +386,20 @@ def pauli_matrix_decomposition(matrix: np.ndarray) -> tuple[complex, str]:
 
 
 def phased_pauli_tex(coefficient: complex, word: str) -> str:
-    body = pauli_word_tex(word)
+    # ``Y`` denotes the real matrix i sigma_y in the enumeration basis.  Eta
+    # and eta A are usually clearer in the conventional complex Pauli basis.
+    coefficient *= 1j ** word.count("Y")
+    coefficient = min(
+        (complex(1), complex(-1), complex(1j), complex(-1j)),
+        key=lambda allowed: abs(coefficient - allowed),
+    )
+    conventional = {
+        "I": "I_2",
+        "X": r"\sigma_x",
+        "Y": r"\sigma_y",
+        "Z": r"\sigma_z",
+    }
+    body = r"\otimes ".join(conventional[letter] for letter in word)
     prefixes = {
         complex(1): "",
         complex(-1): "-",
@@ -626,7 +642,8 @@ def coefficient_table(
         if compact:
             rows.append(
                 rf"<tr><td>\({pauli_word_tex(word)}\)</td>"
-                rf"<td>\({transpose},\ {conjugation}\)</td></tr>"
+                rf"<td>\({transpose},\ {conjugation}\)</td>"
+                rf"<td>{operator}</td></tr>"
             )
         else:
             rows.append(
@@ -637,7 +654,10 @@ def coefficient_table(
                 rf"</td></tr>"
             )
     if compact:
-        heading = r"<tr><th>\(P\)</th><th>\(K_P\) 的完整条件</th></tr>"
+        heading = (
+            r"<tr><th>\(P\)</th><th>\(K_P\) 的完整条件</th>"
+            r"<th>\(\hat h(P\otimes K_P)\)</th></tr>"
+        )
     else:
         heading = (
             r"<tr><th>\(P\)</th><th>转置</th><th>复共轭</th>"
@@ -1512,7 +1532,7 @@ def positivity_block(
           本卷的收缩半群内部证明。</strong>
           因而下面才启动独立的时间反演对称性补充筛选。完整的算符级定理见
           <a href="part_7_determinant_symmetry_groups.html">
-          时间反演对称性理论卷</a>。
+          Gaussian 权重的对称性正性理论卷</a>。
         </p>
         <h4>只含 \(A_{{\mathrm{{group}}}}\) 的有序时间序列</h4>
         {group_result}
@@ -2401,54 +2421,284 @@ def low_dimensional_representation_block(
     """
 
 
-def case_card(
-    row: dict[str, str],
-    maximal: dict[str, str],
-    full: dict[str, str],
-    orbit_rows: list[dict[str, str]],
-    physical_orbit_rows: list[dict[str, str]],
-    number: int,
+def compact_representative_block(row: dict[str, str]) -> str:
+    """Render the chosen Pauli representative without repeating the five signs."""
+    metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
+    _, explicit_metric = metric_matrix_and_tex(row)
+    return rf"""
+      <div class="scroll compact-representative">\[
+        J_1={pauli_word_tex(row["J1_word"])},\qquad
+        J_2={pauli_word_tex(row["J2_word"])},\qquad
+        \eta={metric}={explicit_metric}.
+      \]</div>
+    """
+
+
+def compact_group_block(row: dict[str, str]) -> str:
+    return rf"""
+      <section class="compact-generator">
+        <h4>最大子群生成元</h4>
+        <div class="scroll">\[
+          \begin{{gathered}}
+            gA_{{\mathrm{{group}}}}+A_{{\mathrm{{group}}}}^Tg=0,\\
+            J_1^TA_{{\mathrm{{group}}}}J_1
+              =\overline{{A_{{\mathrm{{group}}}}}},\qquad
+            J_2^TA_{{\mathrm{{group}}}}J_2
+              =\overline{{A_{{\mathrm{{group}}}}}},\\
+            \eta A_{{\mathrm{{group}}}}
+              +A_{{\mathrm{{group}}}}^\dagger\eta=0.
+          \end{{gathered}}
+        \]</div>
+        {sum_formula(r"A_{\mathrm{group}}", row["maximal_terms"])}
+        {coefficient_table(
+            row["maximal_terms"], row["statistics"], compact=True
+        )}
+      </section>
+    """
+
+
+def compact_cone_block(
+    row: dict[str, str], full: dict[str, str]
 ) -> str:
-    statistic_name = "玻色" if row["statistics"] == "boson" else "费米"
-    dimension = 2 ** int(row["n"])
+    if not int(row["strict_interior"]):
+        lemma_id = (
+            "lemma-1"
+            if full["status"] == "boundary_only_trace_obstruction"
+            else "lemma-2"
+        )
+        lemma_number = "1" if lemma_id == "lemma-1" else "2"
+        return rf"""
+          <section class="compact-generator">
+            <h4>收缩锥生成元</h4>
+            <p class="scope">
+              <a href="#{lemma_id}">引理{lemma_number}</a>给出
+              \[
+                \boxed{{\nexists\,A_{{\mathrm{{cone}}}}:\quad
+                \eta A_{{\mathrm{{cone}}}}
+                +A_{{\mathrm{{cone}}}}^\dagger\eta<0}}.
+              \]
+            </p>
+          </section>
+        """
+
+    _, explicit_metric = metric_matrix_and_tex(row)
+    return rf"""
+      <section class="compact-generator">
+        <h4>收缩锥生成元</h4>
+        <div class="scroll">\[
+          \begin{{gathered}}
+            gA_{{\mathrm{{cone}}}}+A_{{\mathrm{{cone}}}}^Tg=0,\\
+            J_1^TA_{{\mathrm{{cone}}}}J_1
+              =\overline{{A_{{\mathrm{{cone}}}}}},\qquad
+            J_2^TA_{{\mathrm{{cone}}}}J_2
+              =-\overline{{A_{{\mathrm{{cone}}}}}},\\
+            \eta A_{{\mathrm{{cone}}}}
+              -A_{{\mathrm{{cone}}}}^\dagger\eta=0,\qquad
+            \eta A_{{\mathrm{{cone}}}}
+              +A_{{\mathrm{{cone}}}}^\dagger\eta<0.
+          \end{{gathered}}
+        \]</div>
+        {sum_formula(r"A_{\mathrm{cone}}", row["cone_linear_terms"])}
+        {coefficient_table(
+            row["cone_linear_terms"], row["statistics"], compact=True
+        )}
+        <div class="scroll">\[
+          \eta={explicit_metric},\qquad
+          \boxed{{\eta A_{{\mathrm{{cone}}}}
+          ={explicit_eta_product(row, row["cone_linear_terms"])}<0}}.
+        \]</div>
+      </section>
+    """
+
+
+def compact_orbit_terms_table(
+    terms: list[tuple[str, np.ndarray]],
+) -> str:
+    if not terms:
+        return "<p>没有非零方向。</p>"
+    rows: list[str] = []
+    for index, (coefficient_type, matrix) in enumerate(terms, 1):
+        transpose, conjugation = COEFFICIENT_CONDITIONS[coefficient_type]
+        rows.append(
+            rf"<tr><td>\(P_{index}={integer_matrix_tex(matrix)}\)</td>"
+            rf"<td>\({transpose.replace('K_P', f'K_{index}')},\ "
+            rf"{conjugation.replace('K_P', f'K_{index}')}\)</td></tr>"
+        )
+    return (
+        '<div class="scroll"><table class="coefficient-table">'
+        r"<thead><tr><th>\(P_\alpha\)</th>"
+        r"<th>\(K_\alpha\) 的条件</th></tr></thead><tbody>"
+        + "".join(rows)
+        + "</tbody></table></div>"
+    )
+
+
+def compact_orbit_sheet(
+    row: dict[str, str],
+    orbit: dict[str, str],
+) -> str:
+    first = signed_permutation_matrix(orbit["representative_J1"])
+    second = signed_permutation_matrix(orbit["representative_J2"])
+    eta = phased_matrix_tex(
+        orbit["eta_phase"], parse_integer_matrix(orbit["eta_matrix"])
+    )
+    group_terms = parse_orbit_terms(orbit["group_terms"])
+    cone_terms = parse_orbit_terms(orbit["cone_terms"])
+    if int(row["strict_interior"]):
+        cone = rf"""
+          <h6>\(A_{{\mathrm{{cone}}}}\)</h6>
+          {orbit_sum_formula(r"A_{\mathrm{cone}}", cone_terms)}
+          {compact_orbit_terms_table(cone_terms)}
+          <div class="scroll">\[
+            \boxed{{\eta A_{{\mathrm{{cone}}}}
+              ={orbit_cone_lmi(orbit, cone_terms)}<0}}.
+          \]</div>
+        """
+    else:
+        cone = r"""
+          <h6>\(A_{\mathrm{cone}}\)</h6>
+          <p>严格不等式 \(\eta A_{\mathrm{cone}}<0\) 没有解。</p>
+        """
+    return rf"""
+      <section class="orbit-sheet compact-orbit-sheet">
+        <div class="scroll">\[
+          J_1={integer_matrix_tex(first)},\qquad
+          J_2={integer_matrix_tex(second)},\qquad
+          \eta={eta}.
+        \]</div>
+        <h6>\(A_{{\mathrm{{group}}}}\)</h6>
+        {orbit_sum_formula(r"A_{\mathrm{group}}", group_terms)}
+        {compact_orbit_terms_table(group_terms)}
+        {cone}
+      </section>
+    """
+
+
+def compact_low_dimensional_block(
+    row: dict[str, str],
+    orbit_rows: list[dict[str, str]],
+) -> str:
+    blocks: list[str] = []
+    for dimension in (2, 4):
+        rows = [
+            orbit
+            for orbit in orbit_rows
+            if int(orbit["matrix_dimension"]) == dimension
+        ]
+        blocks.append(rf"<h5>{dimension} 维</h5>")
+        if rows:
+            blocks.extend(compact_orbit_sheet(row, orbit) for orbit in rows)
+        else:
+            blocks.append("<p>没有这种维数的实正交表示。</p>")
+    return r"""
+      <details class="basis-audit low-dimensional-representations">
+        <summary>二维和四维的全部不等价表示</summary>
+        <p class="small">
+          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
+          \(g\) 的实正交换基者只列一次。
+        </p>
+    """ + "".join(blocks) + "</details>"
+
+
+def compact_positivity_result(
+    row: dict[str, str], symmetry: dict[str, str]
+) -> str:
+    statements: list[str] = []
     if int(row["strict_interior"]):
         metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
-        cone_label = (
-            rf"\(A_{{\mathrm{{cone}}}}\neq\varnothing\)，"
-            rf"\(\eta={metric}\)"
+        statements.append(
+            rf"<strong>收缩半群：</strong>\(A_{{\mathrm{{cone}}}}\) 非空，"
+            rf"度规为 \(\eta={metric}\)。\(A_{{\mathrm{{group}}}}\) "
+            r"给出等号方向，满足 \(\eta A_{\mathrm{cone}}<0\) 的方向"
+            r"把传播送入收缩半群。"
         )
     else:
-        cone_label = (
-            r"严格 \(A_{\mathrm{cone}}=\varnothing\)；"
-            r"满足第二条负号关系的生成元只能落在收缩不等式的等号边界"
+        statements.append(
+            r"<strong>只有最大子群：</strong>"
+            r"\(A_{\mathrm{cone}}\) 为空，不能由本卷的收缩半群路线定号。"
         )
+
+    if int(row["strict_interior"]):
+        return '<div class="compact-status"><p>' + statements[0] + "</p></div>"
+
+    mechanism = symmetry["group_half_power_mechanism"]
+    if mechanism == "conjugate_subsystems":
+        sign = "-" if row["statistics"] == "boson" else "+"
+        power = "^{-1}" if row["statistics"] == "boson" else ""
+        physical = (
+            "在满足物理 Nambu 共轭条件的表示中，"
+            if row["statistics"] == "boson"
+            else ""
+        )
+        statements.append(
+            rf"<strong>时间反演正性：</strong>{physical}"
+            r"两条时间反演对称性把传播分成 \(M_+\) 与"
+            r" \(\overline{M_+}\) 两块，"
+            rf"\(W=|\det(I{sign}M_+)|{power}\ge0\)。"
+            r"这条结论作用于上面 \(A_{\mathrm{group}}\) 的逐层序列。"
+        )
+    elif mechanism == "kramers_pair":
+        formula = (
+            r"W=\sqrt{\det M_+}/\det(I-M_+)>0"
+            if row["statistics"] == "boson"
+            else r"W=\det(I+M_+)/\sqrt{\det M_+}\ge0"
+        )
+        physical = (
+            "在满足物理 Nambu 共轭条件的表示中，"
+            if row["statistics"] == "boson"
+            else ""
+        )
+        statements.append(
+            rf"<strong>时间反演正性：</strong>{physical}"
+            r"两条平方为 \(-I\) 且彼此反对易的时间反演对称性给出 "
+            rf"Kramers 配对；\(M_+\) 是一个独立分块上的传播矩阵，"
+            rf"\({formula}\)。"
+            r"这条结论作用于上面 \(A_{\mathrm{group}}\) 的逐层序列。"
+        )
+    elif not int(row["strict_interior"]):
+        statements.append(
+            r"<strong>时间反演筛选：</strong>这五条关系本身尚不足以证明"
+            r"全部 \(A_{\mathrm{group}}\) 序列的权重非负。"
+        )
+    return '<div class="compact-status"><p>' + "</p><p>".join(
+        statements
+    ) + "</p></div>"
+
+
+def compact_summary_relations(row: dict[str, str]) -> str:
+    mutual = (
+        r"J_1J_2=J_2J_1"
+        if int(row["r"]) == 1
+        else r"J_1J_2=-J_2J_1"
+    )
+    return rf"""
+      <span class="compact-relations">
+        <span>\(J_1^TgJ_1={sign_rhs(row["s1"], "g")}\)</span>
+        <span>\(J_1^2={sign_rhs(row["q1"], "I")}\)</span>
+        <span>\(J_2^TgJ_2={sign_rhs(row["s2"], "g")}\)</span>
+        <span>\(J_2^2={sign_rhs(row["q2"], "I")}\)</span>
+        <span>\({mutual}\)</span>
+      </span>
+    """
+
+
+def case_card(
+    row: dict[str, str],
+    full: dict[str, str],
+    orbit_rows: list[dict[str, str]],
+    number: int,
+    symmetry: dict[str, str],
+) -> str:
     card_id = f"class-{row['statistics']}-{number:02d}"
     return rf"""
       <details class="all-class-card" id="{card_id}">
-        <summary>
-          {statistic_name} {number:02d}：{summary_relations(row)}；
-          五条关系的最小代数表示维数 {dimension}；{cone_label}
-        </summary>
+        <summary>{compact_summary_relations(row)}</summary>
         <div class="all-class-body tex2jax_ignore">
-          <h4>五条关系与本卡采用的最小代数代表</h4>
-          {relation_block(row, dimension)}
-          <p>
-            Pauli word 按 Nambu particle/hole 因子在前的顺序书写。
-            这里的“最小”首先只指五条实矩阵关系；玻色情形还必须在后文
-            检查 \(C\overline U_aC=U_a\)，通过后才能把该维数解释为真正
-            的物理 Nambu 维数。后续 Pauli 因子是这个代数代表需要的内部
-            空间；\(K_P\) 则作用在额外的 \(m\) 维格点、轨道或 flavor
-            重复空间。
-          </p>
-          {group_block(row)}
-          {cone_block(row, full)}
-          {physical_kernel_block(row)}
-          {positivity_block(row, physical_orbit_rows)}
-          {physical_model(row, maximal, number)}
-          {number_conserving_block(row)}
-          {low_dimensional_representation_block(
-              row, orbit_rows, physical_orbit_rows, full
-          )}
+          {compact_representative_block(row)}
+          {compact_positivity_result(row, symmetry)}
+          {compact_group_block(row)}
+          {compact_cone_block(row, full)}
+          {compact_low_dimensional_block(row, orbit_rows)}
         </div>
       </details>
     """
@@ -2598,43 +2848,48 @@ def minimal_dimension_proof() -> str:
 
 def atlas_guide() -> str:
     return r"""
+      <style>
+        details.all-class-card > summary {
+          font-size: 1.08rem;
+          line-height: 1.75;
+          padding: 0.7rem 0.8rem;
+        }
+        .compact-relations {
+          display: inline-flex;
+          flex-wrap: wrap;
+          gap: 0.2rem 1rem;
+          vertical-align: top;
+        }
+        .compact-relations > span { white-space: nowrap; }
+        .compact-representative { font-size: 1.02rem; }
+        .compact-status {
+          border-left: 4px solid #2f6f57;
+          padding: 0.15rem 0.8rem;
+          margin: 0.8rem 0 1rem;
+        }
+        .compact-status p { margin: 0.45rem 0; }
+        .compact-generator { margin: 1rem 0 1.25rem; }
+        .compact-generator h4 { margin-bottom: 0.35rem; }
+        .compact-generator .coefficient-table,
+        .compact-orbit-sheet .coefficient-table { font-size: 1rem; }
+        .compact-orbit-sheet {
+          border-top: 1px solid #c9d0cc;
+          padding-top: 0.7rem;
+          margin-top: 0.9rem;
+        }
+        .compact-orbit-sheet h6 {
+          font-size: 1rem;
+          margin: 0.55rem 0 0.1rem;
+        }
+      </style>
       <div class="note">
-        <strong>64 张卡片怎样阅读。</strong>
-        每张卡依次给出：最小 \(J_1,J_2\)；满足全部等式的
-        \(A_{\mathrm{group}}\)；若存在则给出真正满足严格不等式的
-        \(A_{\mathrm{cone}}\)；\(B=gA\) 的物理对称性；然后按 cone
-        是否非空选择正性证明。cone 非空时先研究矩阵收缩半群；其中
-        玻色 \(J_2g\) 与全部费米卡进一步使用相容的 Fock representation
-        和连通正分支；玻色 \(iJ_2g\) 卡当前给出的无界场模型用
-        fixed-\(N\) character 证明实际权重，并不排除其他具有统一传播界的
-        grand-canonical 实现。cone 为空的卡片才检查原有 \(J_1,J_2\) 能否给出
-        时间反演正性。
-        最后列出与实际矩阵方向相连的物理模型。
+        <strong>64 类的阅读顺序。</strong>
+        先看五条关系，再看 \(A_{\mathrm{cone}}\) 是否非空。非空者形成
+        以所列 \(\eta\) 为度规的收缩半群；为空者只有最大子群。随后一行
+        单独说明原有两条时间反演对称性是否还能证明
+        \(A_{\mathrm{group}}\) 序列非负。展开卡片即可查到完整的
+        \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 解。
       </div>
-      <p>
-        图 1 是这些卡片的目录式“周期表”。每格的 B/F 编号与下方卡片
-        编号一致，\(d_{\rm alg}=2,4,8\) 是该组五条关系的最小实正交
-        代数表示维数；它不自动等于玻色物理 Nambu 维数。B12、B32 格内
-        另标 \(d_{\rm N}=8\)，就是因为其四维代数代表未通过物理
-        \(C\overline U_aC=U_a\) 检查。底色
-        首先显示收缩半群筛选：绿色与蓝色分别表示 strict cone 存在且
-        \(\eta=J_2g\) 或 \(\eta=iJ_2g\)。浅灰表示先由引理1的 trace
-        条件排除的 16 类；在没有被这一步排除的类别中，浅红表示再由
-        引理2的符号翻转条件排除的 8 类。每个统计面板因此一眼可读出
-        \(4+4\) 个 strict-cone 类和 \(16+8\) 个 group-only 类。
-      </p>
-      <p>
-        只有 group-only 格子才叠加深色边框。这个边框表示该格至少存在
-        一组已经验证的物理表示，使原有 \(J_1,J_2\) 能直接证明实际
-        Fock 权重非负；它不是“同一五关系类别的任意表示都自动通过”。
-        玻色侧是 B04、B07、B19、B24 的共轭模平方，以及 B12、B15、
-        B27、B32 的 Kramers 时间反演类。后四类不需要额外的正定性
-        条件；B15、B27 有四维物理表示，B12、B32 的
-        最小物理 Nambu 维数为 8。费米侧是 F10、F13、F25、F30 的
-        共轭 Majorana 分块。strict-cone 格子不叠加这种标记，因为它们在本卷
-        中首先由收缩半群证明，而不是由纯 \(A_{\mathrm{group}}\) 的
-        时间反演定理证明。
-      </p>
     """
 
 
@@ -2679,6 +2934,10 @@ def build_all_class_lecture() -> str:
         (row["statistics"], row["class_id"]): row
         for row in csv.DictReader(FULL_PATH.open(encoding="utf-8"))
     }
+    symmetry_rows = {
+        (row["statistics"], row["class_id"]): row
+        for row in csv.DictReader(HALF_POWER_PATH.open(encoding="utf-8"))
+    }
     orbit_rows_by_class: dict[
         tuple[str, str], list[dict[str, str]]
     ] = {}
@@ -2688,25 +2947,18 @@ def build_all_class_lecture() -> str:
         orbit_rows_by_class.setdefault(
             (orbit["statistics"], orbit["class_id"]), []
         ).append(orbit)
-    physical_orbit_rows_by_class: dict[
-        tuple[str, str], list[dict[str, str]]
-    ] = {}
-    for orbit in csv.DictReader(
-        BOSON_PHYSICAL_REPRESENTATIONS_PATH.open(encoding="utf-8")
-    ):
-        physical_orbit_rows_by_class.setdefault(
-            (orbit["statistics"], orbit["class_id"]), []
-        ).append(orbit)
     if not (
-        len(tensor_rows) == len(maximal_rows) == len(full_rows) == 64
+        len(tensor_rows)
+        == len(maximal_rows)
+        == len(full_rows)
+        == len(symmetry_rows)
+        == 64
     ):
         raise RuntimeError("Expected 64 rows in every classification table")
 
     blocks = [
         atlas_guide(),
         lazy_mathjax_script(),
-        representation_answer(),
-        minimal_dimension_proof(),
     ]
     for statistic, title in (
         ("boson", "玻色 32 类"),
@@ -2722,11 +2974,10 @@ def build_all_class_lecture() -> str:
             blocks.append(
                 case_card(
                     row,
-                    maximal_rows[key],
                     full_rows[key],
                     orbit_rows_by_class.get(key, []),
-                    physical_orbit_rows_by_class.get(key, []),
                     number,
+                    symmetry_rows[key],
                 )
             )
         if number != 32:
@@ -2736,12 +2987,12 @@ def build_all_class_lecture() -> str:
         r"""
         <p class="small">
           机器可读结果：
-          <a href="tables/full_64_class_enumeration.csv">五条正负关系、metric、
+          <a href="tables/full_64_class_enumeration.csv">五条正负关系、度规、
           最小维数与两个阻碍判据</a>；
           <a href="tables/tensor_block_structures.csv">每类
           \(P\otimes K_P\) 的完整等式解</a>；
           <a href="tables/maximal_subgroup_structures.csv">每类
-          maximal-subgroup 线性空间与数值残差</a>；
+          最大子群线性空间与数值残差</a>；
           <a href="tables/half_power_symmetry_64_classes.csv">64 类实际
           Spin/metaplectic half-power 的算符级正性结论</a>；
           <a href="tables/nonpauli_realization_dependence.csv">同类不等价

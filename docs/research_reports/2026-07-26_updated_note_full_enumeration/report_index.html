@@ -253,6 +253,7 @@
       border: 1px solid var(--line);
       background: #fff;
     }
+    figure.periodic-table { max-width: 100%; overflow-x: auto; }
     figcaption {
       margin-top: 8px;
       color: #39434d;
@@ -337,6 +338,10 @@
       .case-index { grid-template-columns: 1fr; }
       .toc { columns: 1; }
       table { font-size: 13px; }
+      figure.periodic-table img {
+        width: 1120px;
+        max-width: none;
+      }
       .note-source, .explanation { padding: 11px 12px; }
     }
   </style>
@@ -421,12 +426,10 @@
               下的单向 contraction semigroup。
             </div>
 <div class="summary-item established">
-<strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重的时间反演正性</a></strong>
-              从实际有序 Gaussian 算符出发，证明共轭 Majorana/Fock 分块与
-              Kramers 粒子空间怎样固定 Spin/metaplectic half-power；
-              给出玻色、费米统一的时间反演对称性周期表，检验 main.tex 的
-              paired benchmark，并构造一个 \((+,-)\) 保护的厄米 paired
-              玻色模型；最后把判据应用到玻色、费米各 32 类关系。
+<strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Gaussian AFQMC 权重的对称性正性</a></strong>
+              先以 reflected squares 与 ordinary determinant reduction
+              建立超越时间反演的统一判据，再简洁证明两类双时间反演定理、
+              玻色/费米周期表、paired 模型与 64 类 \(J_1,J_2\) 结论。
             </div>
 <div class="summary-item established">
 <strong><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数有限温与零温投影</a></strong>

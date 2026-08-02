@@ -112,12 +112,10 @@ def build_index(source: BeautifulSoup) -> None:
               下的单向 contraction semigroup。
             </div>
             <div class="summary-item established">
-              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重的时间反演正性</a></strong>
-              从实际有序 Gaussian 算符出发，证明共轭 Majorana/Fock 分块与
-              Kramers 粒子空间怎样固定 Spin/metaplectic half-power；
-              给出玻色、费米统一的时间反演对称性周期表，检验 main.tex 的
-              paired benchmark，并构造一个 \((+,-)\) 保护的厄米 paired
-              玻色模型；最后把判据应用到玻色、费米各 32 类关系。
+              <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Gaussian AFQMC 权重的对称性正性</a></strong>
+              先以 reflected squares 与 ordinary determinant reduction
+              建立超越时间反演的统一判据，再简洁证明两类双时间反演定理、
+              玻色/费米周期表、paired 模型与 64 类 \(J_1,J_2\) 结论。
             </div>
             <div class="summary-item established">
               <strong><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数有限温与零温投影</a></strong>
@@ -268,14 +266,18 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
         "<!doctype html><html><body><main></main></body></html>", "html.parser"
     )
     page.html.insert(0, clone(source.head))
-    page.title.string = "玻色、费米统一的 Nambu half-power 时间反演正性"
+    page.title.string = "Gaussian AFQMC 权重的对称性正性"
     header = fragment.find("header", recursive=False)
     section_ids = [
         "half-power-symmetry",
-        "two-antilinear-theorems",
-        "known-theories-unified",
-        "anti-linear-periodic-table",
+        "general-symmetry-positivity",
+        "physical-time-reversal",
+        "two-time-reversal-theorems",
+        "known-positive-structures",
+        "time-reversal-periodic-table",
+        "paired-applications",
         "j-relations-half-power",
+        "symmetry-positivity-conclusion",
     ]
     sections = [
         fragment.find("section", id=section_id, recursive=False)
@@ -283,7 +285,7 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
     ]
     if header is None or any(section is None for section in sections):
         raise RuntimeError(
-            "Half-power fragment needs one header and five ordered sections"
+            "Symmetry-positivity fragment is missing an ordered section"
         )
     nav_items = [
         ("report_index.html", "分卷入口"),
@@ -327,7 +329,7 @@ def build_canonical_algorithm_page(source: BeautifulSoup) -> None:
     nav_items = [
         ("report_index.html", "分卷入口"),
         ("part_3_enumeration_models.html", "返回 64 类生成元讲义"),
-        ("part_7_determinant_symmetry_groups.html", "时间反演对称性理论卷"),
+        ("part_7_determinant_symmetry_groups.html", "对称性正性理论卷"),
     ]
     page.main.append(clone(header))
     page.main.append(navigation(nav_items))
@@ -368,7 +370,7 @@ def main() -> None:
             common_index,
             ("part_2_physical_mapping.html", "上一卷：物理对应"),
             ("part_4_implications.html", "下一卷：文章影响与结论"),
-            ("part_7_determinant_symmetry_groups.html", "Nambu half-power 时间反演正性"),
+            ("part_7_determinant_symmetry_groups.html", "Gaussian 权重的对称性正性"),
             ("part_8_canonical_projector_algorithms.html", "固定粒子数算法"),
         ],
     )
@@ -382,7 +384,7 @@ def main() -> None:
             ("part_3_enumeration_models.html", "上一卷：分类与模型讲义"),
             ("part_5_branch_sampling.html", "独立算法卷：符号追踪与采样"),
             ("part_6_case12_semigroups.html", "独立理论卷：Case 1/2 半群"),
-            ("part_7_determinant_symmetry_groups.html", "独立理论卷：Nambu half-power 权重"),
+            ("part_7_determinant_symmetry_groups.html", "独立理论卷：Gaussian 权重的对称性正性"),
             ("part_8_canonical_projector_algorithms.html", "独立算法卷：固定粒子数"),
             (
                 "report_updated_note_full_enumeration_zh.html",

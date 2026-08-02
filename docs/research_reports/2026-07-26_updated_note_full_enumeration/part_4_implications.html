@@ -253,6 +253,7 @@
       border: 1px solid var(--line);
       background: #fff;
     }
+    figure.periodic-table { max-width: 100%; overflow-x: auto; }
     figcaption {
       margin-top: 8px;
       color: #39434d;
@@ -337,6 +338,10 @@
       .case-index { grid-template-columns: 1fr; }
       .toc { columns: 1; }
       table { font-size: 13px; }
+      figure.periodic-table img {
+        width: 1120px;
+        max-width: none;
+      }
       .note-source, .explanation { padding: 11px 12px; }
     }
   </style>
@@ -367,7 +372,7 @@
 <div>note 覆盖：正文第 22--1824 行，连续 42 个阅读单元，原文无删节</div>
 <div>计算环境：GNU Octave 10.3.0；玻色 32 类 + 费米 32 类</div>
 </div>
-</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">上一卷：分类与模型讲义</a><a href="part_5_branch_sampling.html">独立算法卷：符号追踪与采样</a><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 半群</a><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重</a><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数</a><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></nav><section id="paper">
+</header><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">上一卷：分类与模型讲义</a><a href="part_5_branch_sampling.html">独立算法卷：符号追踪与采样</a><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 半群</a><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Gaussian 权重的对称性正性</a><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数</a><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></nav><section id="paper">
 <h2>9. 对文章的影响</h2>
 <p>
       当前文章的主线是 bosonic AFQMC：time-reversal symmetry 通过
@@ -1005,7 +1010,7 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
 <tr><td><a href="analysis/build_half_power_symmetry_atlas.py">build_half_power_symmetry_atlas.py</a></td><td>从 64 类矩阵关系与低维物理表示表重建 actual half-power 表，并逐项验证 B15/B27 对应本征子空间的 commutator matrix 为正定</td></tr>
 <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 strict-cone 主分类与 group-only 反线性补充周期表</td></tr>
 <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 的矢量版本</td></tr>
-<tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论、反线性周期表、paired 模型与 64 类逐项表</td></tr>
+<tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>超越时间反演的 Gaussian Fock-weight 对称性理论、玻色/费米周期表、paired 模型与 64 类逐项表</td></tr>
 <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米 Cases 1、3、5、6 的单模、无配对与有配对反例，以及 Case 4 在等号条件下的 \(SU(2)\) 权重零点诊断</td></tr>
 <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>上述精确反例、连续 zero crossing、随机扫描与 Case 4 诊断的 Octave 日志</td></tr>
 <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十一个较快的 MathJax 阅读分卷</td></tr>
@@ -1028,4 +1033,4 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
       <a href="https://arxiv.org/abs/2408.10311">PfQMC</a> 及其
       <a href="https://github.com/zyHan2077/PfQMC">公开代码</a>。
     </p>
-</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">上一卷：分类与模型讲义</a><a href="part_5_branch_sampling.html">独立算法卷：符号追踪与采样</a><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 半群</a><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Nambu half-power 权重</a><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数</a><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></nav></main></body></html>
+</section><nav aria-label="分卷导航" class="toc"><a href="report_index.html">分卷入口</a><a href="part_3_enumeration_models.html">上一卷：分类与模型讲义</a><a href="part_5_branch_sampling.html">独立算法卷：符号追踪与采样</a><a href="part_6_case12_semigroups.html">独立理论卷：Case 1/2 半群</a><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Gaussian 权重的对称性正性</a><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数</a><a href="report_updated_note_full_enumeration_zh.html">单文件完整版</a></nav></main></body></html>

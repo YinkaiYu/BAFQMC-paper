@@ -254,6 +254,7 @@
       border: 1px solid var(--line);
       background: #fff;
     }
+    figure.periodic-table { max-width: 100%; overflow-x: auto; }
     figcaption {
       margin-top: 8px;
       color: #39434d;
@@ -338,6 +339,10 @@
       .case-index { grid-template-columns: 1fr; }
       .toc { columns: 1; }
       table { font-size: 13px; }
+      figure.periodic-table img {
+        width: 1120px;
+        max-width: none;
+      }
       .note-source, .explanation { padding: 11px 12px; }
     }
   </style>
@@ -3314,291 +3319,188 @@
   <section id="enumeration">
     <h2>6. Octave 穷举、生成元与物理实现</h2>
     <p>
-      本节把“穷举”分成三层：先完整枚举五条离散 relations，再判断
-      是否存在使 \(\eta A+A^\dagger\eta<0\) 的生成元，最后对全部
-      64 类求出 maximal-subgroup 生成元，并对 16 个非空 cone 类同时
-      求出 invariant-cone 生成元。二维与四维还继续枚举由同一组五条
-      正负关系定义的类别中
-      全部不等价实正交表示。这样可以看清程序究竟检验了什么，也不会把
-      一个 Pauli representative 误当成该类全部 \(A\) 方向，更不会把
-      矩阵分类直接当成已经完成的 physical sign-free model。
+      穷举的任务可以直接说成一句话：在玻色与费米各 \(2^5=32\) 组
+      \(J_1,J_2\) 关系中，先找出哪些关系允许
+      \(\eta A+A^\dagger\eta<0\)，再求出这些收缩半群允许的
+      \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\)。若
+      \(A_{\mathrm{cone}}\) 不存在，就保留 \(A_{\mathrm{group}}\)，并另行
+      检查它能否由时间反演对称性证明权重非负。最后才把矩阵解翻译成
+      Hamiltonian 中允许出现的二次项。
     </p>
 
-    <div class="result">
-      <strong>64 类的第一分类轴是 strict contraction cone。</strong>
-      第 6.6 节的类别卡按同一编号列出每类的最小 Nambu 维数、
-      \(A_{\mathrm{group}}\)、\(A_{\mathrm{cone}}\) 与物理模型。
-      图 1 和每张卡都先回答 strict \(A_{\mathrm{cone}}\) 是否存在；
-      只有答案为否时，才继续检查原有 \(J_1,J_2\) 能否通过时间反演
-      对称性固定实际权重。后者的统一定理集中在
-      <a href="part_7_determinant_symmetry_groups.html">
-      独立时间反演理论卷</a>。
-    </div>
-
-    <figure>
+    <figure class="periodic-table">
       <img src="figures/full_64_class_enumeration.png"
-        alt="玻色和费米各三十二类的 strict contraction cone 周期表；cone 为空的格子另标出原有时间反演对称性是否足以证明实际权重非负">
+        alt="玻色和费米各三十二类中，收缩半群、最大子群和时间反演正性的周期表">
       <figcaption>
-        <strong>图 1｜64 类的 strict-cone 筛选及 group-only 补充判据。</strong>
-        上、下两块分别为玻色与费米。绿色与蓝色是 strict matrix cone
-        非空的 \(J_2g\) 与 \(iJ_2g\) 类。全部费米格与绿色玻色格可继续
-        使用相容的 Fock representation 和连通正分支；蓝色玻色格只表示
-        矩阵收缩半群已经构造，其本卷物理模型的正性来自 fixed-\(N\)
-        character。浅灰表示先由引理1的 trace 条件排除的 16 类；在没有
-        被这一步排除的类别中，浅红表示再由引理2的符号翻转条件排除的
-        8 类。只有这些 group-only 格子才进一步检查时间反演正性；深色
-        边框表示该五关系类别中存在一组已验证的物理表示，使原有
-        \(J_1,J_2\) 给出实际 Fock 权重非负的完整证明，并不表示任意表示
-        都自动通过。玻色有 8 个这样的 group-only 类，费米有 4 个。
-        格内 \(d_{\rm alg}\) 是五条关系的最小实正交代数表示维数；
-        Kramers 格另列的 \(d_{\rm N}\) 才是已找到的最小物理 Nambu 维数。
-        没有边框不等于必有符号问题，只表示还需额外对称性、
-        reflection-positive factorization 或更小的无符号子群。
+        <strong>图 1｜64 类的筛选结果。</strong>
+        每一格由左侧两条 \(J_1\) 关系和上方三条 \(J_2\) 关系唯一确定。
+        绿色、蓝色分别表示存在度规
+        \(\eta=J_2g\)、\(\eta=iJ_2g\) 的收缩半群；灰色表示
+        \(A_{\mathrm{cone}}\) 为空，只剩最大子群。灰格中的粗框表示同一组
+        \(J_1,J_2\) 还可组成足以证明最大子群序列权重非负的时间反演对称性。
       </figcaption>
     </figure>
 
-    <h3>6.1 程序怎样逐项生成全部 32 类</h3>
+    <h3>6.1 穷举流程</h3>
     <p>
-      程序不是随机抽样。它先固定与 note 相同的 canonical matrices：
+      玻色与费米分别使用 note 中的
     </p>
     <div class="scroll">\[
       g_{\rm boson}=-(i\sigma_y)\otimes I,\qquad
       g_{\rm fermion}=\sigma_x\otimes I.
     \]</div>
     <p>
-      代码中的字母 <code>Y</code> 始终表示实矩阵
-      \(i\sigma_y=\left(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\right)\)，
-      不是通常含复数元素的 \(\sigma_y\)。对一个、两个、三个
-      \(2\times2\) factors，程序依次生成所有
+      对每一种统计，五条关系右边各有一个可独立选择的正负号：
     </p>
     <div class="scroll">\[
-      P_1\otimes P_2\otimes\cdots,\qquad
-      P_j\in\{I,\sigma_x,i\sigma_y,\sigma_z\}.
+      \boxed{
+      \begin{gathered}
+      J_1^TgJ_1=\pm g,\qquad J_1^2=\pm I,\\
+      J_2^TgJ_2=\pm g,\qquad J_2^2=\pm I,\qquad
+      J_1J_2=\pm J_2J_1 .
+      \end{gathered}}
     \]</div>
     <p>
-      第一遍 Pauli-word 搜索的目的只是为每个由五条正负关系定义的类别
-      找到一个尽量小、
-      方便在卡片顶部阅读的代表。代码直接相乘并读取下面五个正负号；
-      \(J_1\) 或 \(J_2\) 可以是单位阵：
+      因而总数是
+      \(2\times2^5=64\)：玻色 32 类，费米 32 类。程序对每一类依次完成
+      下列四步；这四步就是后面每张类别卡的阅读顺序。
     </p>
-    <div class="scroll">\[
-      J_1^TgJ_1=\pm g,\quad J_1^2=\pm I,\quad
-      J_2^TgJ_2=\pm g,\quad J_2^2=\pm I,\quad
-      J_1J_2=\pm J_2J_1.
-    \]</div>
-    <p>
-      五个正负号按固定顺序映射到一个五位 binary index。某一 index
-      第一次出现时保存当前 \(J_1,J_2\)；随后继续搜索，直到检查完三个
-      factors。玻色与费米各 32 个 index 都至少找到一对 representatives。
-      这一步只决定卡片顶部的最小代表，<strong>不用于声称同类允许的
-      \(A\) 已经枚举完</strong>。
-    </p>
-    <p>
-      第二遍才是二维、四维的完整实正交表示枚举。程序生成全部
-      signed-permutation matrices：每一列恰有一个 \(+1\) 或 \(-1\)，
-      其余元素为零。随后保留满足
-      \(J_a^2=\pm I\)、\(J_a^TgJ_a=\pm g\) 以及
-      \(J_1J_2=\pm J_2J_1\) 的全部有序 pairs；这里包括
-      \(J_1=\pm J_2\)，因为即使只有一条不同的 symmetry，它仍可能允许
-      与两条独立 symmetry 不同的 \(A\) 空间。
-    </p>
-    <p>
-      为什么 signed-permutation 搜索在二维、四维是完备的，而不是又一
-      个表示？由五条关系，任何乘积都能整理为
-      \[
-        \pm g^aJ_1^bJ_2^c,\qquad a,b,c\in\{0,1\},
-      \]
-      所以这些矩阵生成的有限群至多有 16 个元素。其实正交表示可分成
-      互相正交的小块；这些小块对应的实矩阵代数只有
-      \(\mathbb R,\mathbb C,M_2(\mathbb R),\mathbb H\) 与
-      \(M_2(\mathbb C)\) 几种，而每种都可由
-      \(I,\sigma_x,i\sigma_y,\sigma_z\) 的 signed-permutation blocks
-      实现。枚举所有 signed permutations 及其直和因此覆盖二维、四维
-      的所有实正交表示；原来的单-Pauli-word 搜索会漏掉某些可约直和。
-    </p>
-    <p>
-      程序用八个整数
-      \[
-        \operatorname{Tr}(g^aJ_1^bJ_2^c),
-        \qquad a,b,c\in\{0,1\},
-      \]
-      作为有限群表示的 character，并用显式实正交矩阵 \(S\) 再检查
-      \[
-        S^TgS=g,\qquad
-        S^{-1}J_1S=J_1',\qquad
-        S^{-1}J_2S=J_2' .
-      \]
-      这样合并后，含 \(J_1=\pm J_2\) 的代数轨道数为玻色
-      \(10+50\)、费米 \(16+73\)，合计 149；要求两条 symmetry 不同
-      时则合计 128。
-    </p>
-    <p>
-      对玻色子还要另做一次物理分类。记
-      \(C=\sigma_x^{\rm Nambu}\otimes I\)。只有满足
-      \[
-      \begin{array}{c|cc}
-        &J_a^TgJ_a&CJ_aC\\ \hline
-        J_a\text{ 保持 }g&g&J_a\\
-        J_a\text{ 翻转 }g&-g&-J_a
-      \end{array}
-      \]
-      的实 \(J_a\)，其 \(U_a=J_a\) 或 \(iJ_a\) 才满足
-      \(C\overline U_aC=U_a\)，从而保证变换后的 creation component
-      仍是相应 annihilation component 的 Hermitian conjugate。物理等价
-      矩阵 \(S\) 还必须满足 \(S^TCS=C\)。
-      这个更细的分类得到二维 4 个、四维 40 个玻色物理子轨道；第 6.6
-      节在每张玻色卡末尾把它们与仅保持 \(g\) 的代数轨道分开列出。
-    </p>
-
-    <h3>6.2 每一行具体做了哪些检查</h3>
-    <ol>
+    <ol class="flow-list">
       <li>
-        重新计算五条关系的 Frobenius-norm residual，防止 class index
-        与保存的 matrices 不一致。
+        <strong>找 \(J_1,J_2\) 代表。</strong>
+        从 \(I,\sigma_x,i\sigma_y,\sigma_z\) 的 Kronecker products 中找出
+        满足该格五条关系的一组尽量小的实正交矩阵。
       </li>
       <li>
-        根据 \(J_2\) 对 \(g\) 的作用和 \(J_2^2\)，构造
-        \(\eta=J_2g\) 或 \(iJ_2g\)，再验证
-        \(\eta^\dagger=\eta\) 与 \(\eta^2=I\)。
+        <strong>筛选收缩半群。</strong>
+        构造 Hermitian 度规 \(\eta=J_2g\) 或 \(iJ_2g\)，判断是否存在
+        \(A_{\mathrm{cone}}\) 使
+        \(\eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0\)。
       </li>
       <li>
-        用第 5 节的解析判据判断是否存在负定解：玻色必须
-        \(J_2^2=I\)，费米必须 \(J_2^2=-I\)；两个 \(J\) 对 \(g\)
-        同号作用时必须反对易，异号作用时必须对易。
+        <strong>求全部生成元方向。</strong>
+        解出该代表允许的整个 \(A_{\mathrm{group}}\) 线性空间；若上一
+        步通过，再解出 \(A_{\mathrm{cone}}\) 的等式解空间，以及这个
+        解空间中满足负定条件的锥。
       </li>
       <li>
-        对每个允许类取测试矩阵 \(A=-\eta\)，逐项验证
-        \(gA+A^Tg=0\)、
-        \(J_1^TAJ_1=\bar A\)，以及
-        \(\eta A+A^\dagger\eta=-2I<0\)。
-      </li>
-      <li>
-        对不存在负定生成元的类别不伪造一个数值 “Failed”。程序记录
-        两种可直接复核的等式：要么
-        \(\Tr(\eta A+A^\dagger\eta)=0\)，使半负定矩阵只能为零；
-        要么
-        \[
-        J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
-        =-(\eta A+A^\dagger\eta),
-        \]
-        使 \(\eta A+A^\dagger\eta\le0\) 同时推出
-        \(\eta A+A^\dagger\eta\ge0\)，因此也只能为零。
+        <strong>翻译成物理项。</strong>
+        把每个 Pauli-tensor 方向代入
+        \(\hat h=\tfrac12\chi^TgA\chi\)，直接写出允许的 hopping、density、
+        pairing 或其他二次算符；对只有最大子群的类，再检查时间反演正性。
       </li>
     </ol>
+
+    <h3>6.2 程序怎样求 \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\)</h3>
     <p>
-      另一个脚本对全部 64 类使用各自的最小
-      \(J_1,J_2\)，再扫描矩阵空间的完整实 basis
-      \(\{P,iP\}\)。一个 basis element 只有同时满足
+      对固定的 \(J_1,J_2\)，Octave 把一般复矩阵展开在完整实基底上，
     </p>
     <div class="scroll">\[
-      gA+A^Tg=0,\qquad J_1^TAJ_1=\bar A
+      A=\sum_\alpha x_\alpha E_\alpha
+        +i\sum_\alpha y_\alpha E_\alpha,
+      \qquad x_\alpha,y_\alpha\in\mathbb R,
     \]</div>
     <p>
-      才继续分类。若
-      \(\eta A+A^\dagger\eta=0\)，它属于完全保持 \(\eta\) 的
-      maximal-subgroup 生成元空间。若
-      \(\eta A-A^\dagger\eta=0\)，则 \(\eta A\) 是 Hermitian matrix；
-      这些 \(A\) 先形成一个线性空间，再对其线性组合施加
-      \(\eta A\le0\)，才得到 note 所称的 invariant cone。因此第 6.6
-      节不只给出一个 \(A\)，而是列出所选 \(J_1,J_2\) 下所有允许的
-      maximal-subgroup 生成元和 invariant-cone 生成元。
-    </p>
-
-    <h3>6.3 矩阵穷举的结果怎样推出完整权重结论</h3>
-    <p>
-      穷举首先检查：在同时满足
-      \[
-        gA+A^Tg=0,\qquad J_1^TAJ_1=\bar A,\qquad
-        \eta A+A^\dagger\eta\le0
-      \]
-      的生成元中，是否存在使最后一个不等式严格成立的 \(A\)。
-      这个矩阵结论能否进一步推出完整 Fock 权重非负，必须分别讨论
-      费米、玻色 \(J_2g\) 和玻色 \(iJ_2g\) 三种情形。
+      再把下列矩阵等式拆成关于实系数 \(x_\alpha,y_\alpha\) 的齐次线性
+      方程，并求出全部线性解。两列共同的前两式保证 \(A\) 确实生成
+      玻色 canonical transformation 或费米 quadratic transformation，
+      并满足 \(J_1\) 给出的反线性条件。
     </p>
     <div class="scroll">
       <table>
         <thead>
-          <tr><th>类别</th><th>结合负定生成元及各统计情形的附加条件后得到的权重结论</th></tr>
+          <tr><th>最大子群生成元</th><th>收缩锥生成元</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>费米的 8 个存在负定生成元的类别</td>
             <td>
-              费米 Fock space 有限，不存在玻色高占据态引起的 trace
-              发散。若传播矩阵满足
-              \(M^\dagger\eta M-\eta<0\)，它没有 \(-1\) 本征值；
-              \(J_1\) 使 trace 为实，连续性和一个已知正的参考传播矩阵
-              固定其正号。对于只满足
-              \(M^\dagger\eta M-\eta\le0\) 的传播矩阵，先乘
-              \(e^{\epsilon A_0}\)，其中
-              \(\eta A_0+A_0^\dagger\eta<0\)，再令
-              \(\epsilon\to0^+\)，其权重是正权重的非负极限。因此这
-              8 类给出完整的 sign-free contraction semigroup。
+              \[
+              \begin{aligned}
+              gA_{\mathrm{group}}+A_{\mathrm{group}}^Tg&=0,\\
+              J_1^TA_{\mathrm{group}}J_1&=\bar A_{\mathrm{group}},\\
+              J_2^TA_{\mathrm{group}}J_2&=\bar A_{\mathrm{group}},\\
+              \eta A_{\mathrm{group}}
+                +A_{\mathrm{group}}^\dagger\eta&=0.
+              \end{aligned}
+              \]
             </td>
-          </tr>
-          <tr>
-            <td>玻色 note 原有的 4 个 \(J_2g\) 类，即 Cases 5--8</td>
             <td>
-              这里的 metric 与物理 Nambu particle/hole 结构相容。对
-              第 6.6 节统一图谱中的相应 HS 模型，每个时间片满足半负定条件，
-              每个完整构型又至少含一个满足严格不等式的固定自由传播因子，
-              所以 \(M^\dagger\eta M-\eta<0\)。对应 Fock operator 是
-              trace class，也就是对所有玻色占据数取绝对值后求和仍收敛；
-              bare trace 因而有限，并且不存在 \(+1\) pole。\(J_1\)
-              使权重为实，实辅助场空间连通，零场玻色迹有限且为正，
-              所以这四个模型的全部辅助场权重严格为正。
-            </td>
-          </tr>
-          <tr>
-            <td>新增玻色 4 个 \(iJ_2g\) 类</td>
-            <td>
-              一般 Hermitian BdG 证明表明：不存在一个来自稳定
-              Hermitian 二次玻色 Hamiltonian 的零场生成元，使
-              grand-canonical 迹收敛并同时满足同一个
-              \(\eta=iJ_2g\) 的收缩不等式。另一方面，第 6.6 节为四类
-              都给出 number-conserving fixed-\(N\) Hamiltonian。
-              one-particle eigenvalues 始终为正的 reciprocal pairs，
-              所以 fixed-\(N\) symmetric-power character 对每个辅助场
-              构型严格为正。这四个具体模型得到完整 canonical sign-free
-              结论。若其他实现能给出统一传播范数上界，足够负的化学势
-              仍可能产生 grand-canonical 正权重。
+              \[
+              \begin{aligned}
+              gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg&=0,\\
+              J_1^TA_{\mathrm{cone}}J_1&=\bar A_{\mathrm{cone}},\\
+              J_2^TA_{\mathrm{cone}}J_2&=-\bar A_{\mathrm{cone}},\\
+              \eta A_{\mathrm{cone}}
+                -A_{\mathrm{cone}}^\dagger\eta&=0,\\
+              \eta A_{\mathrm{cone}}
+                +A_{\mathrm{cone}}^\dagger\eta&<0.
+              \end{aligned}
+              \]
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <p>
-      “一个 microscopic Hamiltonian 是否经某个 HS identity 落入上述
-      半群”仍是模型归属问题，不是 semigroup theorem 自己能够替代的输入。
-      本报告已经对第 6.6 节列出的每个模型逐项给出
-      \(A_0,A_{\rm HS}(\phi)\) 并核对；所以对 boson \(J_2g\) 四类和
-      \(iJ_2g\) 四类以及 fermion 八类，都不再把这个检查留给以后。
+      每列关于 \(\eta\) 的等式都可由 canonical condition、\(J_2\)
+      关系和 \(\eta\) 的定义推出；表中仍把它写出，是为了让“最大子群”
+      和“收缩锥”的含义可以直接看见，而不是把它当作额外的独立筛选条件。
+      对右列，这个等式说明 \(\eta A_{\mathrm{cone}}\) 是 Hermitian 矩阵，
+      所以最后一式就是 \(\eta A_{\mathrm{cone}}<0\)。程序求出等式的全部
+      线性解，再把最后这个负定条件原样保留。若该类允许
+      \(A_{\mathrm{cone}}\)，代入 \(A=-\eta\) 会得到
+      \(\eta A+A^\dagger\eta=-2I<0\)，从而直接验证负定区域确实非空；
+      若该类不允许，引理1或引理2会证明负定解不存在，而不是只报告一次
+      数值搜索失败。
     </p>
-    <div class="result">
-      <strong>这些条件怎样直接推出整个辅助场域的权重恒正。</strong>
-      设辅助场构型空间连通；每个构型的完整 \(M(\phi)\) 都在同一个
-      收缩半群内部的同一连通区域；\(J_1\) 条件连同
-      正规序标量因子的反线性条件使完整 operator weight
-      \(W(\phi)\) 为实；\(W(\phi)\) 是连续、单值函数；并且至少有一个
-      参考构型 \(\phi_0\) 满足 \(W(\phi_0)>0\)。若另一个构型权重为负，
-      沿连接两点的连续路径，介值定理要求中间某点 \(W=0\)。
-      玻色 inverse determinant 的连续平方根若要改变正负号，也必须经过
-      determinant 为零的 pole，或者不再是单值连续函数。
-      \(M^\dagger\eta M-\eta<0\) 已排除相应的 \(-1\) 或
-      \(+1\) eigenvalue，
-      因而这种改变不可能发生。所以整个连通辅助场域中的权重都保持正号。
-      通常的连续 Gaussian field space \(\mathbb R^{N_\phi}\) 满足这里的
-      连通和单连通要求；零场 free configuration 常可作为正参考点。
+
+    <details class="basis-audit">
+    <summary><strong>代表矩阵会不会漏掉同一类中的其他 \(A\) 方向？</strong></summary>
+    <p>
+      图 1 只判断某一组五条关系是否允许收缩锥；在同一类别内更换等价的
+      \(J_1,J_2\) 只会把 \(A\) 作相同的换基，因此不会改变
+      “\(A_{\mathrm{cone}}\) 是否存在”。但是，不同维数或不同直和表示会
+      改变允许的 \(A\) 方向数。为此，程序还枚举了二维、四维所有每行
+      每列恰有一个 \(\pm1\) 的实正交表示，并在每张类别卡的折叠表中列出
+      各表示的完整线性解。玻色还额外检查这些矩阵是否保持
+      physical Nambu 共轭关系；因此类别卡顶部的最小代表用于给出最清楚的
+      公式，折叠表负责保存不超过四维的其他独立方向。
+    </p>
+    </details>
+
+    <h3>6.3 如何从矩阵解读到无符号 Hamiltonian</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>穷举结果</th><th>下一步</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>存在 \(A_{\mathrm{cone}}\)</td>
+            <td>
+              使用 \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 构造每个
+              时间片，使完整传播矩阵留在同一个收缩半群中；再检查所选
+              玻色或费米 Fock 表示、HS 分解和正参考构型。这样由无极点的
+              连通正分支证明整个辅助场域权重非负。
+            </td>
+          </tr>
+          <tr>
+            <td>不存在 \(A_{\mathrm{cone}}\)</td>
+            <td>
+              这套 \(J_1,J_2\) 关系只能给出 \(A_{\mathrm{group}}\)。此时不再
+              使用收缩半群证明，而是检查允许的 \(A\) 是否同时保持两条
+              合适的时间反演对称性，使 Fock 权重直接成为共轭两部分之积
+              或 Kramers 成对因子的乘积。完整定理见
+              <a href="part_7_determinant_symmetry_groups.html">时间反演正性卷</a>。
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <p>
-      因此一旦上述条件成立，不需要逐个辅助场再算符号。对本报告的
-      boson \(J_2g\) 四个具体模型，这些条件已经逐项成立。对 fermion
-      八类，有限 Fock space、严格收缩时权重不为零，以及
-      \(e^{\epsilon A_0}\) 在 \(\epsilon\to0^+\) 时给出的非负极限，
-      共同给出同样的全域非负结论。当前 bosonic \(iJ_2g\)
-      四个无界场模型不满足这一 grand-canonical 前提；后文只排除
-      稳定 Hermitian 零场位于同一严格锥的方案，并在 fixed-\(N\)
-      sector 中用正 character 证明当前模型。
+      第 6.6 节随后逐类给出：五条关系、代表 \(J_1,J_2\)、
+      \(A_{\mathrm{group}}\) 的 Pauli-tensor 展开、非空时
+      \(A_{\mathrm{cone}}\) 的展开与负定条件，以及这些方向对应的具体
+      二次算符。这样，读者可以从矩阵条件直接看到某个自由项或 HS 场项
+      是否属于该类，而不必从长段文字中反推 \(A\) 的结构。
     </p>
 
     <details class="basis-audit long-proof" id="bare-trace-proof">
@@ -3955,28 +3857,35 @@
     </p>
     </details>
 
-    <h3>6.5 计数与残差</h3>
+    <h3>6.5 穷举计数</h3>
     <div class="scroll">
       <table>
         <thead>
           <tr>
-            <th>统计</th><th class="num">找到 Pauli representatives</th>
-            <th class="num">允许负定生成元的类别</th><th class="num">metric \(J_2g\)</th>
-            <th class="num">metric \(iJ_2g\)</th><th class="num">trace 为零</th>
-            <th class="num">满足
-            \(J_1^T\overline{(\eta A+A^\dagger\eta)}J_1
-            =-(\eta A+A^\dagger\eta)\)</th>
+            <th>统计</th>
+            <th class="num">总类别</th>
+            <th class="num">\(\eta=J_2g\) 的收缩半群</th>
+            <th class="num">\(\eta=iJ_2g\) 的收缩半群</th>
+            <th class="num">只有最大子群</th>
+            <th class="num">其中由原有 \(J_1,J_2\) 得到时间反演正性</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>玻色</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
-          <tr><td>费米</td><td class="num">32/32</td><td class="num yes">8</td><td class="num">4</td><td class="num">4</td><td class="num">16</td><td class="num">8</td></tr>
+          <tr>
+            <td>玻色</td><td class="num">32</td><td class="num yes">4</td>
+            <td class="num yes">4</td><td class="num">24</td><td class="num">8</td>
+          </tr>
+          <tr>
+            <td>费米</td><td class="num">32</td><td class="num yes">4</td>
+            <td class="num yes">4</td><td class="num">24</td><td class="num">4</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <p>
-      16 个 cone 非空类的代数 residuals 都为机器精度下的零；具体
-      \(A\) 结构和物理模型统一列在下一节。
+      每一行都满足
+      \(4+4+24=32\)。全部矩阵等式的 residual 在机器精度下为零；
+      下一节不再重复计数，而是直接列生成元公式。
     </p>
 
     {{ENUMERATION_TAIL}}
@@ -4952,7 +4861,7 @@ python3 docs/research_reports/2026-07-26_updated_note_full_enumeration/analysis/
           <tr><td><a href="analysis/build_half_power_symmetry_atlas.py">build_half_power_symmetry_atlas.py</a></td><td>从 64 类矩阵关系与低维物理表示表重建 actual half-power 表，并逐项验证 B15/B27 对应本征子空间的 commutator matrix 为正定</td></tr>
           <tr><td><a href="analysis/plot_full_enumeration.py">plot_full_enumeration.py</a></td><td>生成图 1 的 strict-cone 主分类与 group-only 反线性补充周期表</td></tr>
           <tr><td><a href="figures/full_64_class_enumeration.pdf">full_64_class_enumeration.pdf</a></td><td>图 1 的矢量版本</td></tr>
-          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>玻色、费米统一的 actual Gaussian Fock-weight 对称性理论、反线性周期表、paired 模型与 64 类逐项表</td></tr>
+          <tr><td><a href="part_7_determinant_symmetry_groups.html">part_7_determinant_symmetry_groups.html</a></td><td>超越时间反演的 Gaussian Fock-weight 对称性理论、玻色/费米周期表、paired 模型与 64 类逐项表</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.m">test_fermion_cases.m</a></td><td>费米 Cases 1、3、5、6 的单模、无配对与有配对反例，以及 Case 4 在等号条件下的 \(SU(2)\) 权重零点诊断</td></tr>
           <tr><td><a href="analysis/test_fermion_cases.log">test_fermion_cases.log</a></td><td>上述精确反例、连续 zero crossing、随机扫描与 Case 4 诊断的 Octave 日志</td></tr>
           <tr><td><a href="analysis/split_reader_report.py">split_reader_report.py</a></td><td>把单文件完整版拆成入口页和十一个较快的 MathJax 阅读分卷</td></tr>
