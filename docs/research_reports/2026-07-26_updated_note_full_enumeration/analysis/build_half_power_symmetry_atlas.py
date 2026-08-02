@@ -24,6 +24,21 @@ BOSON_KRAMERS_MIN_DIMENSION = {
     "s1-_q1-_s2-_q2-_r-": 8,
 }
 
+NEW_REDUCED_SO_SUBSPACES = {
+    "boson": {
+        "s1+_q1+_s2+_q2+_r+",
+        "s1+_q1+_s2+_q2+_r-",
+    },
+    "fermion": {
+        "s1+_q1+_s2+_q2+_r-",
+        "s1+_q1+_s2+_q2-_r+",
+        "s1+_q1+_s2-_q2+_r+",
+        "s1+_q1-_s2+_q2+_r+",
+        "s1+_q1-_s2-_q2+_r-",
+        "s1-_q1+_s2+_q2+_r+",
+    },
+}
+
 
 def signed_permutation_matrix(text: str) -> np.ndarray:
     """Decode the one-based signed-permutation notation used by the CSV files."""
@@ -211,12 +226,17 @@ def boson_status(
         )
     return (
         "partial",
-        r"五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、"
-        "可直接定号的普通行列式结构或额外时间反演",
+        (
+            r"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间"
+            if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["boson"]
+            else r"整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间"
+        ),
     )
 
 
-def fermion_status(mechanism_name: str) -> tuple[str, str]:
+def fermion_status(
+    row: dict[str, str], mechanism_name: str
+) -> tuple[str, str]:
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
@@ -231,8 +251,11 @@ def fermion_status(mechanism_name: str) -> tuple[str, str]:
         )
     return (
         "partial",
-        r"五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、"
-        "可直接定号的普通行列式结构或额外时间反演",
+        (
+            r"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间"
+            if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["fermion"]
+            else r"整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间"
+        ),
     )
 
 
@@ -259,17 +282,14 @@ def build_html(rows: list[dict[str, str]]) -> str:
         name = mechanism(boson)
         assert name == mechanism(fermion)
         boson_css, boson_text = boson_status(boson, name)
-        fermion_css, fermion_text = fermion_status(name)
+        fermion_css, fermion_text = fermion_status(fermion, name)
         body.append(
             "<tr>"
-            f'<td class="num">{number:02d}</td>'
             f"<td>{relation_html(boson)}</td>"
             f'<td><a href="part_3_enumeration_models.html#class-boson-{number:02d}">'
             f"玻色 {number:02d}</a><br>{span(boson_css, boson_text)}</td>"
-            f"<td>{cone_status(boson)}</td>"
             f'<td><a href="part_3_enumeration_models.html#class-fermion-{number:02d}">'
             f"费米 {number:02d}</a><br>{span(fermion_css, fermion_text)}</td>"
-            f"<td>{cone_status(fermion)}</td>"
             "</tr>"
         )
     return r"""
@@ -277,12 +297,9 @@ def build_html(rows: list[dict[str, str]]) -> str:
   <table>
     <thead>
       <tr>
-        <th class="num">编号</th>
         <th>五条矩阵关系</th>
-        <th>玻色：只含 \(A_{\rm group}\) 的实际权重</th>
-        <th>玻色：\(A_{\rm cone}\)</th>
-        <th>费米：只含 \(A_{\rm group}\) 的实际权重</th>
-        <th>费米：\(A_{\rm cone}\)</th>
+        <th>玻色 \(A_{\rm group}\) 的实际权重</th>
+        <th>费米 \(A_{\rm group}\) 的实际权重</th>
       </tr>
     </thead>
     <tbody>
@@ -307,7 +324,7 @@ def main() -> None:
         if statistics == "boson":
             _, actual = boson_status(row, name)
         else:
-            _, actual = fermion_status(name)
+            _, actual = fermion_status(row, name)
         output_rows.append(
             {
                 "statistics": statistics,

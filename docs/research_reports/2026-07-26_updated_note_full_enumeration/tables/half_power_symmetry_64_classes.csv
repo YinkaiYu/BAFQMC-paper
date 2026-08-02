@@ -1,65 +1,65 @@
 statistics,class_number,class_id,group_half_power_mechanism,group_actual_weight_result,strict_cone_exists,cone_actual_weight_result
-boson,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,1,生成元层面：strict cone 非空（收缩半群路线）
-boson,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,1,s1+_q1+_s2+_q2+_r+,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
+boson,2,s1+_q1+_s2+_q2+_r-,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",1,生成元层面：strict cone 非空（收缩半群路线）
+boson,3,s1+_q1+_s2+_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,4,s1+_q1+_s2+_q2-_r-,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),0,生成元层面：strict cone 为空
-boson,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,1,生成元层面：strict cone 非空（收缩半群路线）
-boson,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,5,s1+_q1+_s2-_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,1,生成元层面：strict cone 非空（收缩半群路线）
+boson,6,s1+_q1+_s2-_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,7,s1+_q1+_s2-_q2-_r+,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),0,生成元层面：strict cone 为空
-boson,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,8,s1+_q1+_s2-_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+boson,9,s1+_q1-_s2+_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,10,s1+_q1-_s2+_q2+_r-,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),1,生成元层面：strict cone 非空（收缩半群路线）
-boson,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,11,s1+_q1-_s2+_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,12,s1+_q1-_s2+_q2-_r-,kramers_pair,已证明（最小物理 Nambu 维数 8）：\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\),0,生成元层面：strict cone 为空
 boson,13,s1+_q1-_s2-_q2+_r+,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),1,生成元层面：strict cone 非空（收缩半群路线）
-boson,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,14,s1+_q1-_s2-_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,15,s1+_q1-_s2-_q2-_r+,kramers_pair,已证明（最小物理 Nambu 维数 4）：\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\),0,生成元层面：strict cone 为空
-boson,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,1,生成元层面：strict cone 非空（收缩半群路线）
-boson,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,16,s1+_q1-_s2-_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+boson,17,s1-_q1+_s2+_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,1,生成元层面：strict cone 非空（收缩半群路线）
+boson,18,s1-_q1+_s2+_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,19,s1-_q1+_s2+_q2-_r+,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),0,生成元层面：strict cone 为空
-boson,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,1,生成元层面：strict cone 非空（收缩半群路线）
-boson,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,20,s1-_q1+_s2+_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+boson,21,s1-_q1+_s2-_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+boson,22,s1-_q1+_s2-_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,1,生成元层面：strict cone 非空（收缩半群路线）
+boson,23,s1-_q1+_s2-_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,24,s1-_q1+_s2-_q2-_r-,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),0,生成元层面：strict cone 为空
 boson,25,s1-_q1-_s2+_q2+_r+,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),1,生成元层面：strict cone 非空（收缩半群路线）
-boson,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,26,s1-_q1-_s2+_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,27,s1-_q1-_s2+_q2-_r+,kramers_pair,已证明（最小物理 Nambu 维数 4）：\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\),0,生成元层面：strict cone 为空
-boson,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-boson,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,28,s1-_q1-_s2+_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+boson,29,s1-_q1-_s2-_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,30,s1-_q1-_s2-_q2+_r-,conjugate_subsystems,已证明（物理表示已验证）：\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\),1,生成元层面：strict cone 非空（收缩半群路线）
-boson,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm B}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+boson,31,s1-_q1-_s2-_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 boson,32,s1-_q1-_s2-_q2-_r-,kramers_pair,已证明（最小物理 Nambu 维数 8）：\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\),0,生成元层面：strict cone 为空
-fermion,1,s1+_q1+_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,2,s1+_q1+_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,3,s1+_q1+_s2+_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,1,s1+_q1+_s2+_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,2,s1+_q1+_s2+_q2+_r-,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
+fermion,3,s1+_q1+_s2+_q2-_r+,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
 fermion,4,s1+_q1+_s2+_q2-_r-,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
-fermion,5,s1+_q1+_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,6,s1+_q1+_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,5,s1+_q1+_s2-_q2+_r+,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
+fermion,6,s1+_q1+_s2-_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,7,s1+_q1+_s2-_q2-_r+,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
-fermion,8,s1+_q1+_s2-_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,9,s1+_q1-_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,8,s1+_q1+_s2-_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,9,s1+_q1-_s2+_q2+_r+,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
 fermion,10,s1+_q1-_s2+_q2+_r-,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),0,生成元层面：strict cone 为空
-fermion,11,s1+_q1-_s2+_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,11,s1+_q1-_s2+_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,12,s1+_q1-_s2+_q2-_r-,kramers_pair,已证明（Kramers 配对）：\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
 fermion,13,s1+_q1-_s2-_q2+_r+,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),0,生成元层面：strict cone 为空
-fermion,14,s1+_q1-_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,14,s1+_q1-_s2-_q2+_r-,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
 fermion,15,s1+_q1-_s2-_q2-_r+,kramers_pair,已证明（Kramers 配对）：\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
-fermion,16,s1+_q1-_s2-_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,17,s1-_q1+_s2+_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,18,s1-_q1+_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,16,s1+_q1-_s2-_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,17,s1-_q1+_s2+_q2+_r+,not_fixed,"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间",0,生成元层面：strict cone 为空
+fermion,18,s1-_q1+_s2+_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,19,s1-_q1+_s2+_q2-_r+,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
-fermion,20,s1-_q1+_s2+_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,21,s1-_q1+_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,22,s1-_q1+_s2-_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,23,s1-_q1+_s2-_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,20,s1-_q1+_s2+_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,21,s1-_q1+_s2-_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,22,s1-_q1+_s2-_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,23,s1-_q1+_s2-_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,24,s1-_q1+_s2-_q2-_r-,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
 fermion,25,s1-_q1-_s2+_q2+_r+,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),0,生成元层面：strict cone 为空
-fermion,26,s1-_q1-_s2+_q2+_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,26,s1-_q1-_s2+_q2+_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,27,s1-_q1-_s2+_q2-_r+,kramers_pair,已证明（Kramers 配对）：\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
-fermion,28,s1-_q1-_s2+_q2-_r-,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
-fermion,29,s1-_q1-_s2-_q2+_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,28,s1-_q1-_s2+_q2-_r-,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
+fermion,29,s1-_q1-_s2-_q2+_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,30,s1-_q1-_s2-_q2+_r-,conjugate_subsystems,已证明（共轭分块）：\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\),0,生成元层面：strict cone 为空
-fermion,31,s1-_q1-_s2-_q2-_r+,not_fixed,五条关系不足以给 \(W_{\rm F}\) 定号；需增加 reflected-square、可直接定号的普通行列式结构或额外时间反演,0,生成元层面：strict cone 为空
+fermion,31,s1-_q1-_s2-_q2-_r+,not_fixed,整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间,0,生成元层面：strict cone 为空
 fermion,32,s1-_q1-_s2-_q2-_r-,kramers_pair,已证明（Kramers 配对）：\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\),1,生成元层面：strict cone 非空（收缩半群路线）
