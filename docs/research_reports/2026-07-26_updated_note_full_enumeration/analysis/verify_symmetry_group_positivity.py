@@ -123,7 +123,7 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
     fermion_g = sigma_x
     fermion_c = sigma_x
     fermion_a = -2j * x * sigma_z
-    fermion_u = 1j * sigma_z
+    fermion_u = -sigma_y
     fermion_residual = max(
         np.linalg.norm(fermion_a.T @ fermion_g + fermion_g @ fermion_a),
         np.linalg.norm(fermion_u.T @ fermion_g @ fermion_u - fermion_g),
@@ -132,7 +132,10 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
         ),
         np.linalg.norm(
             np.linalg.solve(fermion_u, fermion_a.conj()) @ fermion_u
-            + fermion_a
+            - fermion_a
+        ),
+        np.linalg.norm(
+            fermion_u @ fermion_u.conj() + np.eye(2)
         ),
     )
     fermion_weight = 2.0 * np.cos(x)
@@ -140,39 +143,40 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
     assert fermion_weight < 0
     rows.append(
         {
-            "check": "fermion_physical_antisymmetry",
+            "check": "fermion_single_negative_TR_not_positive",
             "samples": "exact",
             "result": "pass",
             "diagnostic_1": f"weight={fermion_weight:.12e}",
-            "diagnostic_2": "U_inverse_barA_U_equals_minus_A",
+            "diagnostic_2": "U_inverse_barA_U_equals_A",
             "maximum_residual": f"{fermion_residual:.12e}",
         }
     )
 
     boson_g = -1j * sigma_y
     boson_c = sigma_x
-    boson_a = 2j * x * sigma_z
-    boson_u = 1j * sigma_z
+    boson_a = x * boson_g
+    boson_u = np.eye(2, dtype=complex)
+    boson_product = expm(boson_a)
+    boson_radicand = -np.linalg.det(np.eye(2) - boson_product)
     boson_residual = max(
         np.linalg.norm(boson_a.T @ boson_g + boson_g @ boson_a),
         np.linalg.norm(boson_u.T @ boson_g @ boson_u - boson_g),
         np.linalg.norm(boson_c @ boson_u.conj() @ boson_c - boson_u),
         np.linalg.norm(
             np.linalg.solve(boson_u, boson_a.conj()) @ boson_u
-            + boson_a
+            - boson_a
         ),
+        abs(boson_radicand + 4.0 * np.sin(x / 2.0) ** 2),
     )
-    boson_weight = np.exp(1j * x) / (1.0 - np.exp(2j * x))
     assert boson_residual < TOLERANCE
-    assert abs(boson_weight.real) < TOLERANCE
-    assert abs(boson_weight.imag) > 0.1
+    assert boson_radicand.real < 0
     rows.append(
         {
-            "check": "boson_physical_antisymmetry",
+            "check": "boson_single_positive_TR_not_positive",
             "samples": "exact",
             "result": "pass",
-            "diagnostic_1": f"weight={boson_weight.real:.6e}{boson_weight.imag:+.6e}j",
-            "diagnostic_2": "weight_not_real",
+            "diagnostic_1": f"radicand={boson_radicand.real:.12e}",
+            "diagnostic_2": "analytic_weight_is_imaginary",
             "maximum_residual": f"{boson_residual:.12e}",
         }
     )

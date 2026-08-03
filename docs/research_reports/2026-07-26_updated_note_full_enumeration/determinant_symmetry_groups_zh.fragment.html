@@ -4,7 +4,7 @@
     <span class="report-file">玻色、费米统一的物理图像，符号问题周期表与 \(J_1,J_2\) 检查</span>
   </h1>
   <div class="meta">
-    <div>报告日期：2026-08-03</div>
+    <div>报告日期：2026-08-04</div>
     <div>研究对象：固定辅助场构型下的 \(\hat h_\ell=\frac12\hat\chi^TgA_\ell\hat\chi\)</div>
     <div>核心问题：哪些逐时间片时间反演对称性保证 many-body trace 非负</div>
     <div>本卷只讨论对称性定号；收缩半群与 reflection positivity 分别见其他分卷</div>
@@ -64,12 +64,11 @@
   </p>
   <div class="scroll">\[
   \boxed{
-  p_{\rm B}=\bigl[(-1)^N\det(I-M)\bigr]_{\rm operator}^{-1/2},\qquad
-  p_{\rm F}=\bigl[\det(I+M)\bigr]_{\rm operator}^{1/2}.}
+  p_{\rm B}=\bigl[(-1)^N\det(I-M)\bigr]^{-1/2},\qquad
+  p_{\rm F}=\bigl[\det(I+M)\bigr]^{1/2}.}
   \]</div>
   <p>
-    下标 “operator” 只是提醒：这个平方根来自左边确定的算符 trace，不是数值程序
-    随意选取的复平方根。这个公式可以逐模看懂。保持 commutator 或
+    平方根由左边的算符 trace 确定。这个公式可以逐模看懂。保持 commutator 或
     anticommutator 的一体传播，其本征值以
     \(\lambda,\lambda^{-1}\) 出现；一个费米模的两个占据态给
     \(e^{-x/2}(1+e^x)\)，一个玻色模的全部占据态给
@@ -219,12 +218,9 @@
   \qquad
   p_{\rm F}=\left|\det\!\left[I+M\big|_{P=+1}\right]\right|\geq0.
   \]</div>
-  <p>
-    这里没有把“产生算符和湮灭算符”称作 pairing。每个 \(P\) 部分本身是一套
-    完整的物理自由度；\(\Theta_+\) 交换的是这两套物理自由度。
-  </p>
+  <p>每个 \(P\) 部分本身是一套完整的物理自由度，\(\Theta_+\) 交换这两套自由度。</p>
 
-  <h3>2.3 \(\{-,-\}\)：去掉 Nambu 重复以后出现 Kramers 简并</h3>
+  <h3>2.3 \(\{-,-\}\)：\(Q\) 产生守恒荷，再回到 Kramers determinant</h3>
   <p>现在取</p>
   <div class="scroll">\[
   \Theta_1^2=\Theta_2^2=-I,\qquad
@@ -232,9 +228,26 @@
   \qquad Q=\Theta_1\Theta_2.
   \]</div>
   <p>
-    这次 \(Q^2=-I\)。取满足 \(Qv=iv\) 的 \(N\) 个独立一体算符，
-    它们的 Hermitian conjugates 自动位于 \(Q=-i\) 的另一半。
-    由于 \([Q,A_\ell]=0\)，每个时间片都只在这 \(N\) 个独立算符之间传播。
+    这次 \(Q^2=-I\)，所以 \(iQ\) 的本征值为 \(\pm1\)。它定义二次守恒荷
+  </p>
+  <div class="scroll">\[
+  \widehat{\mathcal Q}=\frac12\hat\chi^Tg(iQ)\hat\chi .
+  \]</div>
+  <p>
+    二次算符的对易子与矩阵对易子一一对应，而 \([Q,A_\ell]=0\)，因此
+  </p>
+  <div class="scroll">\[
+  [\widehat{\mathcal Q},\hat h_\ell]
+  =\frac12\hat\chi^Tg[iQ,A_\ell]\hat\chi=0.
+  \]</div>
+  <p>
+    每个时间片都守恒 \(\widehat{\mathcal Q}\)。把满足 \(Qv=iv\) 的 \(N\) 个
+    线性组合记为 \(\hat d_1,\ldots,\hat d_N\)。它们具有相同的 \(iQ\)
+    本征值，Hermitian conjugates 位于
+    \(Q=-i\) 的另一半。于是 \(Q\) 把 \(2N\) 维 Nambu 写法重新组织成一套
+    \(N\) 维的守恒荷空间及其 Hermitian conjugate。这正是
+    Majorana Kramers class 中“先由两条时间反演产生 charge conservation，
+    再使用通常 Kramers 条件”的物理步骤。
   </p>
   <p>
     一个看似反常但关键的事实是：\(\Theta_1\) 与 \(Q\) 反对易，却仍把
@@ -247,44 +260,85 @@
   Q(\Theta_1v)=-\Theta_1(Qv)=-\Theta_1(iv)=i\Theta_1v.
   \]</div>
   <p>
-    所以 \(\Theta_1^2=-I\) 在这套独立算符内部成为通常的 Kramers 时间反演。
-    若 \(M_{+i}\) 表示完整传播矩阵在 \(Q=+i\) 这套算符上的作用，那么每个
-    非实本征值 \(\lambda\) 都有 \(\overline\lambda\)，每个实本征值至少出现两次：
+    所以 \(\Theta_1^2=-I\) 在这个守恒荷空间内成为通常的 Kramers 时间反演。
+    若 \(M|_{Q=+i}\) 表示完整传播矩阵在这个空间上的作用，那么每个
+    非实本征值 \(\lambda\) 都有 \(\overline\lambda\)，每个实本征值至少出现两次。
+    在下面两个乘积中，每一对只计一次：
   </p>
   <div class="scroll">\[
-  \det(I\mp M_{+i})=
-  \prod_{\lambda\notin\mathbb R}|1\mp\lambda|^2
-  \prod_{r\in\mathbb R}(1\mp r)^2\geq0.
+  \det\!\left(I\mp M|_{Q=+i}\right)=
+  \prod_{\text{每对非实 }\lambda,\overline\lambda}|1\mp\lambda|^2
+  \prod_{\text{每对实 Kramers 本征值 }\lambda}(1\mp\lambda)^2\geq0.
   \]</div>
   <p>
-    为了把这条普通行列式与原始 Nambu trace 对上，令
-    \(A_\ell^{(+i)}\) 表示第 \(\ell\) 层在同一套独立算符上的矩阵。
-    直接对这些独立算符求 Gaussian trace 得到
+    同一条 Kramers 关系还说明每个
+    \(\operatorname{Tr}(A_\ell|_{Q=+i})\) 都是实数。因为时间反演在
+    \(Q=+i\) 空间内把 \(A_\ell\) 变成自身，取 trace 后得到
+  </p>
+  <div class="scroll">\[
+  \overline{\operatorname{Tr}(A_\ell|_{Q=+i})}
+  =\operatorname{Tr}(A_\ell|_{Q=+i}).
+  \]</div>
+  <p>因此下面 trace 公式中的指数因子是正实数。</p>
+  <p>
+    对费米子，可以把 \(\hat d_1,\ldots,\hat d_N\) 选成新的湮灭算符。
+    这是因为完整 Nambu anticommutator matrix 是 \(I_{2N}\)，而 \(Q\) 保持它；
+    所以 \(Q=+i\) 空间内的 anticommutator 仍是正定的，可以把这 \(N\) 个组合
+    正交归一化成普通费米湮灭算符。除去不影响对易关系的常数和整体正负号，
+    守恒荷就是
+  </p>
+  <div class="scroll">\[
+  \widehat{\mathcal Q}=\sum_{\mu=1}^{N}\hat d_\mu^+\hat d_\mu+\text{常数}.
+  \]</div>
+  <p>
+    因为每个 \(\hat h_\ell\) 都与这个粒子数对易，它不再含
+    \(\hat d_\mu\hat d_\nu\) 或 \(\hat d_\mu^+\hat d_\nu^+\) 项。于是通常的
+    粒子数守恒 trace 公式给出
   </p>
   <div class="scroll">\[
   p_{\rm F}=
-  e^{-\frac12\sum_\ell\operatorname{Tr}A_\ell^{(+i)}}
-  \det(I+M_{+i}),
-  \]</div>
-  <div class="scroll">\[
-  p_{\rm B}=(-1)^{n_-}
-  e^{\frac12\sum_\ell\operatorname{Tr}A_\ell^{(+i)}}
-  \det(I-M_{+i})^{-1}.
+  \exp\!\left[-\frac12\sum_\ell
+  \operatorname{Tr}\!\left(A_\ell|_{Q=+i}\right)\right]
+  \det\!\left(I+M|_{Q=+i}\right)\geq0.
   \]</div>
   <p>
-    玻色式中的 \(n_-\) 有很直接的含义：在选出的 \(Q=+i\) 算符中，有些组合
-    更像产生算符而不是湮灭算符，即其 commutator
-    \([x,x^+]<0\)；\(n_-\) 就是这类方向的数目。每把一个这样的 \(x\)
-    换成正常湮灭算符 \(x^+\)，单模 trace 会多出一个负号。
-  </p>
-  <p>
-    Kramers 时间反演保持 commutator 的正负号，并把每个 \(x\) 变成一个与它
-    线性独立的 \(\Theta_1x\)。所以所有 \([x,x^+]<0\) 的方向也是两个两个出现，
-    \(n_-\) 为偶数。与此同时
-    \(\operatorname{Tr}A_\ell^{(+i)}\) 为实数，指数因子为正。由此得到
+    玻色子的区别来自 Nambu commutator。完整 commutator matrix 及其在 \(Q\)
+    作用下的变换为
   </p>
   <div class="scroll">\[
-  \boxed{p_{\rm F}\geq0,\qquad p_{\rm B}>0\ \text{（除玻色 pole 外）}.}
+  [\hat\chi,\hat\chi^+]=-gC=\operatorname{diag}(I_N,-I_N),\qquad
+  Q^+(-gC)Q=-gC.
+  \]</div>
+  <p>
+    第二式来自两条时间反演都保持 commutator。它还说明 \(Q=+i\) 与 \(Q=-i\)
+    两个空间在这个 commutator matrix 下彼此正交。完整矩阵 \(-gC\) 没有零
+    本征值，所以它限制到任一空间后也没有零本征值；因此不会留下像
+    \(\hat b+\hat b^+\) 那样与自身 Hermitian conjugate 对易的组合。作一次保持
+    \(Q\) 的换基后，
+    \(\hat d_1,\ldots,\hat d_N\) 与其 Hermitian conjugates 的 commutator
+    matrix 可以写成两个对角 blocks：
+  </p>
+  <div class="scroll">\[
+  [\hat d_\mu,\hat d_\nu^+]
+  =\begin{pmatrix}I&0\\0&-I\end{pmatrix}_{\mu\nu}.
+  \]</div>
+  <p>
+    上面的负 block 表示：在这个 block 中，真正的玻色湮灭算符是 \(\hat d_\mu^+\)。
+    每交换一次 \(\hat d_\mu\leftrightarrow\hat d_\mu^+\)，单模 trace 多出一个
+    负号。\(\Theta_1^2=-I\) 保持两个 commutator blocks，并在每个 block 内产生
+    Kramers 双重简并，所以负 block 的维数必为偶数，所有额外负号相乘为 \(+1\)。
+    两个 blocks 都允许为空。五条关系并不固定负 block 的具体维数：最小
+    \(N=2\) 表示中，B15 的 commutator matrix 是 \(I_2\)，B27 的则是
+    \(-I_2\)。对称性固定的是负 block 维数为偶数。
+  </p>
+  <div class="scroll">\[
+  \boxed{
+  p_{\rm B}=
+  \frac{\displaystyle
+  \exp\!\left[\frac12\sum_\ell
+  \operatorname{Tr}\!\left(A_\ell|_{Q=+i}\right)\right]}
+  {\det\!\left(I-M|_{Q=+i}\right)}>0
+  \quad\text{（除玻色 pole 外）}.}
   \]</div>
 
   <h3>2.4 为什么只有一条时间反演时，上述 Nambu 结论不成立</h3>
@@ -298,20 +352,47 @@
   <p>最小费米例已经说明这一点。取</p>
   <div class="scroll">\[
   g=C=\sigma_x,\qquad U=-\sigma_y,\qquad
-  A=\operatorname{diag}(-2ix,2ix).
+  A=\operatorname{diag}(-2ix,2ix),\qquad x\in\mathbb R.
   \]</div>
   <p>
-    \(\Theta=U\mathcal K\) 满足第 1.2 节的三条物理条件，并且
-    \(\Theta^2=-I\)，但对应的算符 trace 是
+    这组矩阵满足
   </p>
   <div class="scroll">\[
-  \widehat{\mathcal U}(x)=e^{2ix(n-1/2)},\qquad
+  U^TgU=g,\qquad C\overline UC=U,\qquad
+  U^{-1}\overline AU=A,\qquad U\overline U=-I.
+  \]</div>
+  <p>
+    因而 \(\Theta=U\mathcal K\) 是平方为 \(-I\) 的时间反演。对应的算符
+    evolution 和 trace 是
+  </p>
+  <div class="scroll">\[
+  \hat n=\hat c^+\hat c,\qquad
+  \widehat{\mathcal U}(x)=e^{-2ix(\hat n-1/2)},\qquad
   p_{\rm F}(x)=2\cos x.
   \]</div>
   <p>
     它具有一条平方为 \(-I\) 的 Nambu 时间反演，但在
     \(\pi/2&lt;x&lt;\pi\) 时权重为负。第二条反对易时间反演的作用正是产生
     \(P\) 或 \(Q\)，补上 Nambu 表示中缺失的物理分解。
+  </p>
+  <p>
+    玻色也有同样直接的单时间反演反例。取一个玻色模
+  </p>
+  <div class="scroll">\[
+  g=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+  C=\sigma_x,\qquad U=I_2,\qquad A=xg,\qquad 0&lt;x&lt;2\pi.
+  \]</div>
+  <p>
+    此时 \(\Theta=\mathcal K\) 平方为 \(+I\)，并保持该时间片；对应二次算符为
+    \(\hat h=-x(\hat b^2+\hat b^{+2})/2\)。然而
+  </p>
+  <div class="scroll">\[
+  M=e^{xg},\qquad
+  (-1)^1\det(I-M)=-4\sin^2\!\frac{x}{2}&lt;0.
+  \]</div>
+  <p>
+    所以解析延拓定义的玻色权重是纯虚数。一条平方为 \(+I\) 的时间反演同样不能
+    单独给 Nambu Gaussian 权重定号。
   </p>
 </section>
 
@@ -328,8 +409,15 @@
 
   <h3>3.2 \(\{+,+,+\}\)：为什么玻色非负而费米不能保证</h3>
   <p>
+    前两条时间反演仍先产生第 2.3 节的守恒荷。第三条时间反演随后约束这个
+    守恒荷空间中的 commutator matrix 和每个时间片传播。玻色 commutator
+    是反对称的，约束最后产生一个具有相同数目正、负本征值的实对称矩阵；费米
+    anticommutator 是对称的，同一步却产生实反对称矩阵。这一差别决定了本格中
+    玻色与费米的不同结论。
+  </p>
+  <p>
     取三条两两反对易且平方均为 \(+I\) 的时间反演。可以选取一组基，使第一条
-    只做复共轭：
+    只做复共轭。另两条与它反对易，所以其矩阵部分必为纯虚数，可以写成
   </p>
   <div class="scroll">\[
   \Theta_1=\mathcal K,\qquad
@@ -337,106 +425,192 @@
   \Theta_3=iR_3\mathcal K,
   \]</div>
   <p>
-    其中 \(R_2,R_3\) 是实矩阵。三条对称性逐时间片成立意味着
+    其中 \(R_2,R_3\) 是实矩阵。把第 1.2 节的三条物理条件和三条时间反演
+    彼此反对易逐项代入，得到
   </p>
   <div class="scroll">\[
+  \begin{gathered}
   \overline{A_\ell}=A_\ell,\qquad
-  [R_2,A_\ell]=[R_3,A_\ell]=0,qquad
-  R_2R_3=-R_3R_2,qquad
-  R_j^TgR_j=-g.
+  [R_2,A_\ell]=[R_3,A_\ell]=0,\qquad
+  R_2R_3=-R_3R_2,\\
+  R_j^2=I,\qquad R_j^TgR_j=-g,\qquad CR_jC=-R_j,
+  \qquad j=2,3.
+  \end{gathered}
   \]</div>
   <p>
     前两条时间反演的乘积
-    \(Q=\Theta_1\Theta_2=-iR_2\) 满足 \(Q^2=-I\)，仍然先从 Nambu
-    表示中选出 \(Q=+i\) 的一套独立算符。因为 \(A_\ell\) 为实矩阵，
-    这一套算符上的传播矩阵也可写成实矩阵。第三条时间反演还规定了这些实算符
-    怎样分成正、负通道。把它写成
+    \(Q=\Theta_1\Theta_2=-iR_2\) 满足 \(Q^2=-I\)，并像第 2.3 节一样
+    产生守恒荷。以下只在 \(Q=+i\) 的 \(N\) 维守恒荷空间工作。
+    \(\Theta_1=\mathcal K\) 使每个时间片矩阵及完整传播矩阵在这个空间中均为实数。
+    第三条时间反演给出
   </p>
   <div class="scroll">\[
-  G=\left.(gR_3)\right|_{Q=+i}.
+  \eta=\left.(gR_3)\right|_{Q=+i}.
   \]</div>
   <p>
-    \(G\) 不是额外假设，也不是为了套用某个群论定理而引入的“度规”；它由第三条
-    时间反演和原有的 commutator/anticommutator 矩阵 \(g\) 直接决定。
-    每个时间片都满足
+    这个限制没有零本征值。事实上，五条矩阵关系直接给出
   </p>
   <div class="scroll">\[
-  \left(A_\ell^{(+i)}\right)^T G+G A_\ell^{(+i)}=0,
-  \qquad M_{+i}^TGM_{+i}=G.
+  Q^T(gR_3)Q=-gR_3.
   \]</div>
   <p>
-    玻色与费米的差别现在只来自 \(g^T\) 的符号。玻色
-    \(g^T=-g\) 给 \(G^T=G\)，所以 \(G\) 是实对称矩阵；费米
-    \(g^T=g\) 给 \(G^T=-G\)，所以 \(G\) 是实反对称矩阵。这一处统计差别
-    决定了 \(\{+,+,+\}\) 这一格的不同结论。
+    因为 \(+i\) 与 \(-i\) 相乘为 \(+1\)，上式使两个不同 \(Q\) 空间之间的
+    \(gR_3\) 矩阵元全部为零。完整 \(gR_3\) 可逆，所以两个对角
+    blocks 都可逆，特别是上面定义的 \(\eta\) 可逆。
   </p>
+  <p>
+    先计算 \(\eta\) 的转置。由
+    \(R_3^TgR_3=-g\) 与 \(R_3^2=I\) 得
+    \(R_3^Tg=-gR_3\)。所以玻色与费米分别有
+  </p>
+  <div class="scroll">\[
+  \begin{array}{lll}
+  \text{玻色：}&g^T=-g,&(gR_3)^T=-R_3^Tg=gR_3,\\[2pt]
+  \text{费米：}&g^T= g,&(gR_3)^T= R_3^Tg=-gR_3.
+  \end{array}
+  \]</div>
+  <p>
+    因而玻色的 \(\eta\) 是实对称矩阵，费米的 \(\eta\) 是实反对称矩阵。
+    再利用 \(gA_\ell+A_\ell^Tg=0\) 与 \([R_3,A_\ell]=0\)，逐项得到
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+  \left(A_\ell|_{Q=+i}\right)^T\eta
+  +\eta\left(A_\ell|_{Q=+i}\right)
+  &=\left.\left(A_\ell^TgR_3+gR_3A_\ell\right)\right|_{Q=+i}\\
+  &=\left.\left(-gA_\ell R_3+gR_3A_\ell\right)\right|_{Q=+i}=0.
+  \end{aligned}
+  \]</div>
 
-  <h4>玻色：第三条时间反演把正、负通道一一对应</h4>
+  <h4>玻色：三条时间反演直接产生 split-orthogonal 结构</h4>
   <p>
-    对玻色，\(G\) 的本征值可以分为正、负两类。把选出的独立算符写成列向量
-    \(\hat x\)，其 commutator matrix 为
-    \(H_{\mu\nu}=[\hat x_\mu,\hat x_\nu^+]\)。第三条时间反演与 Hermitian
-    conjugation 的相容关系给出
+    对玻色，\(\eta^T=\eta\)，而完整 Nambu commutator matrix 是
+    \(-gC=\operatorname{diag}(I_N,-I_N)\)。由
+    \(CR_2C=-R_2\) 和 \(R_2R_3=-R_3R_2\) 可得 \(CR_3\) 与 \(Q=-iR_2\)
+    对易，所以 \(CR_3\) 的作用不会离开 \(Q=+i\) 空间。再使用
+    \(CgC=-g\)、\(CR_3C=-R_3\) 及 \(R_3^Tg=-gR_3\)，直接算得
   </p>
   <div class="scroll">\[
-  \left[(CR_3)|_{Q=+i}\right]^T G
-  \left[(CR_3)|_{Q=+i}\right]=-G,
+  \begin{aligned}
+  (CR_3)^T(gR_3)(CR_3)
+  &=R_3^TCgR_3CR_3=-gR_3,\\
+  (CR_3)^T(-gC)(CR_3)
+  &=R_3^TC(-gC)CR_3=gC.
+  \end{aligned}
+  \]</div>
+  <p>
+    这两行分别把 \(\eta=gR_3\) 和 commutator matrix \(-gC\) 变成各自的
+    相反数。因此它们在 \(Q=+i\) 的 \(N\) 维空间内都有相同数目的正、负
+    本征值，故 \(N\) 必为偶数。对 commutator matrix，这个结论具体写成
+  </p>
+  <div class="scroll">\[
+  [\hat d_\mu,\hat d_\nu^+]
+  \sim\operatorname{diag}\!\left(I_{N/2},-I_{N/2}\right).
+  \]</div>
+  <p>
+    对 \(\eta\) 另作一次实换基后可以直接取
+  </p>
+  <div class="scroll">\[
+  \eta=\operatorname{diag}\!\left(I_{N/2},-I_{N/2}\right).
+  \]</div>
+  <p>
+    上一条生成元等式保证每层传播 \(e^{A_\ell|_{Q=+i}}\) 保持 \(\eta\)，因为
+  </p>
+  <div class="scroll">\[
+  \frac{d}{dt}\left[e^{t(A_\ell|_{Q=+i})^T}\eta
+  e^{tA_\ell|_{Q=+i}}\right]
+  =e^{t(A_\ell|_{Q=+i})^T}
+  \left[\left(A_\ell|_{Q=+i}\right)^T\eta
+  +\eta\left(A_\ell|_{Q=+i}\right)\right]
+  e^{tA_\ell|_{Q=+i}}=0.
+  \]</div>
+  <p>
+    在 \(t=0\) 时左边为 \(\eta\)，所以
+    \([e^{A_\ell|_{Q=+i}}]^T\eta e^{A_\ell|_{Q=+i}}=\eta\)。完整传播为
+  </p>
+  <div class="scroll">\[
+  M|_{Q=+i}
+  =e^{A_1|_{Q=+i}}e^{A_2|_{Q=+i}}\cdots e^{A_k|_{Q=+i}}
+  \]</div>
+  <p>
+    也保持 \(\eta\)。把每层写成
+    \(e^{tA_\ell|_{Q=+i}}\) 便得到一条从单位矩阵 \(t=0\) 到实际传播
+    \(t=1\) 的连续路径，而且路径上的每个矩阵都保持 \(\eta\)。这正是
+    split orthogonal group 的单位连通部分 \(SO_0(N/2,N/2)\)。
+  </p>
+  <p>
+    split-orthogonal determinant theorem 因而直接给出
+  </p>
+  <div class="scroll">\[
+  \det\!\left(I+M|_{Q=+i}\right)\geq0,
   \qquad
-  \left[(CR_3)|_{Q=+i}\right]^+ H
-  \left[(CR_3)|_{Q=+i}\right]=-H.
+  (-1)^{N/2}\det\!\left(I-M|_{Q=+i}\right)\geq0.
   \]</div>
   <p>
-    第一式把 \(G\) 的每个正通道变成负通道，第二式对物理 commutator 的正、负
-    方向做同样的事。因此独立算符的数目必为 \(2m\)，\(G\) 有
-    \(m\) 个正方向和 \(m\) 个负方向，而第 2.3 节中的 \(n_-=m\)。
-  </p>
-  <p>
-    现在只需确定 \(\det(I-M_{+i})\) 的符号。由于 \(M_{+i}\) 是实矩阵并保持
-    \(G\)，其本征值以
-    \(\lambda,\lambda^{-1},\overline\lambda,\overline\lambda^{-1}\)
-    组合出现。每一层 \(e^{A_\ell^{(+i)}}\) 都可连续缩回单位矩阵。在这样的
-    连续变化中，正、负通道各自的取向都不会翻转；每出现一组负实倒数本征值，
-    两种取向会同时翻转一次，所以这类本征值组只能出现偶数次。于是
-    \(\det(I+M_{+i})\geq0\)。在不改变任何行列式符号的实换基后，可以把
-    \(G\) 写成 \(\operatorname{diag}(I_m,-I_m)\)。再令
+    第二条式子正是玻色 trace 所需的符号。上面的 commutator block 有
+    \(N/2\) 个负方向，每个方向在改写为标准玻色湮灭算符时贡献一个负号，
+    合计也是 \((-1)^{N/2}\)。生成元等式还给出
   </p>
   <div class="scroll">\[
-  X=G(I-M_{+i})(I+M_{+i})^{-1}.
+  \begin{aligned}
+  0
+  &=\operatorname{Tr}\!\left[
+  \eta^{-1}\left(A_\ell|_{Q=+i}\right)^T\eta
+  +A_\ell|_{Q=+i}\right]\\
+  &=2\operatorname{Tr}\!\left(A_\ell|_{Q=+i}\right).
+  \end{aligned}
   \]</div>
   <p>
-    把 \(M_{+i}^TGM_{+i}=G\) 代入可直接得到 \(X^T=-X\)。实反对称
-    \(2m\) 维矩阵的行列式是 Pfaffian 的平方，因此
+    所以第 2.3 节 trace 公式中的指数因子等于 1。行列式带来的
+    \((-1)^{N/2}\) 与重新识别玻色湮灭算符产生的 \((-1)^{N/2}\)
+    相消，最后得到
   </p>
   <div class="scroll">\[
-  (-1)^m\frac{\det(I-M_{+i})}{\det(I+M_{+i})}
-  =\operatorname{Pf}(X)^2\geq0.
-  \]</div>
-  <p>
-    这条等式先在 \(\det(I+M_{+i})\neq0\) 时成立；等于零的点由连续极限得到。结合
-    \(\det(I+M_{+i})\geq0\)，便有
-  </p>
-  <div class="scroll">\[
-  (-1)^m\det(I-M_{+i})\geq0.
-  \]</div>
-  <p>
-    第 2.3 节的玻色 trace 恰好还带 \((-1)^{n_-}=(-1)^m\)，两个符号抵消：
-  </p>
-  <div class="scroll">\[
-  \boxed{p_{\rm B}=\frac{(-1)^m}{\det(I-M_{+i})}>0
+  \boxed{
+  p_{\rm B}=
+  \frac{(-1)^{N/2}}
+  {\det\!\left(I-M|_{Q=+i}\right)}>0
   \quad\text{（除 pole 外）}.}
   \]</div>
-  <p>
-    这段证明没有要求先把 \(G\) 写成对角矩阵。任何没有零本征值的实对称
-    \(G\) 都可以使用；写成 \(\operatorname{diag}(I_m,-I_m)\) 只是一种换基，
-    用来直观看出正、负通道各有多少个。
-  </p>
+  <details>
+    <summary><strong>为什么 split-orthogonal determinant theorem 给出这两个符号</strong></summary>
+    <div>
+      <p>
+        对实矩阵 \(M\)，等式 \(M^T\eta M=\eta\) 使实本征值按
+        \(\lambda,\lambda^{-1}\) 成对出现，非实本征值再连同复共轭组成四个一组。
+        非实四元组对 \(\det(I+M)\) 的贡献是绝对值平方。一个负实倒数对的贡献
+        \((1+\lambda)(1+\lambda^{-1})\) 为负；但在
+        \(SO_0(N/2,N/2)\) 中，负实倒数对只能成双出现，否则正、负两个子空间的
+        取向会相对单位矩阵翻转。故 \(\det(I+M)\geq0\)。
+        已知 \(\det(I+M)\) 的符号以后，可以通过二者之比求
+        \(\det(I-M)\) 的符号。由 \(M^T\eta M=\eta\) 直接得到
+      </p>
+      <div class="scroll">\[
+      \left[\eta(I-M)(I+M)^{-1}\right]^T
+      =-\eta(I-M)(I+M)^{-1}.
+      \]</div>
+      <p>
+        方括号内是实反对称矩阵。它的行列式是 Pfaffian 的平方，故
+      </p>
+      <div class="scroll">\[
+      (-1)^{N/2}\frac{\det(I-M)}{\det(I+M)}
+      =\operatorname{Pf}\!\left[\eta(I-M)(I+M)^{-1}\right]^2\geq0.
+      \]</div>
+      <p>
+        左边的 \((-1)^{N/2}\) 就是 \(\det\eta\)。结合第一条不等式便得到
+        \((-1)^{N/2}\det(I-M)\geq0\)。当 \(\det(I+M)=0\) 时由连续极限得到
+        同样结论。这里把两个行列式之比写成一个 Pfaffian 平方，是为了直接读出
+        所需的符号。
+      </p>
+    </div>
+  </details>
 
-  <h4>费米：同样三条对称性只产生实反对称结构</h4>
+  <h4>费米：\(\eta\) 为反对称矩阵，不能使用上述 determinant theorem</h4>
   <p>
-    对费米，\(G^T=-G\)。实反对称 \(G\) 只会把 Nambu 自由度两个两个联系起来，
-    并不把它们分成正、负通道，因而没有上面的
-    \((-1)^m\det(I-M_{+i})\) 符号约束。更重要的是，这不是证明技巧不够；
-    确实存在同时满足三条全正时间反演而权重为负的构型。一个两个复费米模的例子是
+    对费米，刚才已经算出 \(\eta^T=-\eta\)。它没有
+    \(\operatorname{diag}(I,-I)\) 的正、负方向，传播也不属于 split orthogonal
+    group，所以玻色证明的关键不等式在这里不存在。三条全正时间反演本身确实允许
+    负权重。一个两个复费米模的构型是
   </p>
   <div class="scroll">\[
   \begin{gathered}
@@ -451,9 +625,8 @@
   \]</div>
   <p>
     三条 \(\Theta_a=U_a\mathcal K\) 都平方为 \(+I\)、两两反对易，并保持
-    \(A_1,A_2\)。因此费米 \(\{+,+,+\}\) 不能仅凭这三条对称性保证非负。
-    物理上，玻色 commutator 的反对称性与第三条时间反演相乘后产生了可区分的
-    正、负通道；费米 anticommutator 的对称性经过同样操作只产生反对称结构。
+    \(A_1,A_2\)，但 \(p_{\rm F}<0\)。因此费米 \(\{+,+,+\}\) 这一格不能
+    由三条时间反演保证非负。
   </p>
 
   <h3>3.3 四条及以上为什么全部非负</h3>
@@ -475,44 +648,10 @@
   </p>
 </section>
 
-<section id="real-positive-negative-channels">
-  <h2>4. 多个对称性还能产生更一般的实正、负通道</h2>
-  <p>
-    第 3.2 节的 \(\{+,+,+\}\) 是一个更一般矩阵结构的特例。若若干对称性的
-    乘积先产生 \(Q^2=-I\)，从 Nambu 表示中选出 \(Q=+i\) 的独立算符；又使
-    这些算符上的每个 \(A_\ell^{(+i)}\) 为实矩阵，并保持某个实对称矩阵
-    \(G\)，即
-  </p>
-  <div class="scroll">\[
-  \left(A_\ell^{(+i)}\right)^TG+GA_\ell^{(+i)}=0,
-  \qquad G^T=G,
-  \]</div>
-  <p>
-    那么换基后 \(G\) 可以有 \(p\) 个正方向和 \(q\) 个负方向。这里不要求
-    \(p=q\)，也不要求最初写下的 \(G\) 是对角矩阵。沿用上一节的本征值和
-    Pfaffian 推导，可得
-  </p>
-  <div class="scroll">\[
-  \boxed{\det(I+M_{+i})\geq0,\qquad
-  (-1)^q\det(I-M_{+i})\geq0.}
-  \]</div>
-  <p>
-    因而费米权重非负。玻色还要检查选出的独立算符中
-    \([x,x^+]<0\) 的数目 \(n_-\)：当 \(n_-\) 与 \(q\) 同为奇数或同为偶数时，
-    两个符号抵消，非 pole 权重为正。这就是本卷用于筛选 64 类中额外无符号
-    子空间的条件。
-  </p>
-  <p>
-    文献中的 split-orthogonal determinant theorem 对应费米、\(p=q\) 的一个
-    特例。本卷的逻辑方向相反：我们先从具体时间反演或其他物理对称性的乘积得到
-    \(Q\) 和 \(G\)，再检查它们是否给权重定号；无需先假定传播属于某个命名的群。
-  </p>
-</section>
-
 <section id="paired-physical-models">
-  <h2>5. 与已有无符号条件及含 pairing 模型的关系</h2>
+  <h2>4. 与已有无符号条件及含 pairing 模型的关系</h2>
 
-  <h3>5.1 已有理论在本框架中的位置</h3>
+  <h3>4.1 已有理论在本框架中的位置</h3>
   <div class="scroll">
     <table>
       <thead><tr><th>已有结果</th><th>本卷中的物理解释</th></tr></thead>
@@ -527,13 +666,13 @@
         </tr>
         <tr>
           <td>split-orthogonal determinant theorem</td>
-          <td>它是第 4 节实正、负通道数相等时的费米特例，而不是本卷组织时间反演分类所必需的出发点。</td>
+          <td>玻色 \(\{+,+,+\}\) 在守恒荷空间中正好产生 \(SO_0(N/2,N/2)\)，第 3.2 节直接使用该 theorem 给 \(\det(I-M)\) 定号。</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <h3>5.2 pairing 项并不妨碍时间反演定号</h3>
+  <h3>4.2 pairing 项并不妨碍时间反演定号</h3>
   <p>
     pairing 项使湮灭算符与产生算符在传播中混合，因此粒子数守恒问题中预先给定的
     单粒子空间不再存在。双时间反演产生的 \(P\) 或 \(Q\) 恰好完成新的物理分解，
@@ -596,7 +735,7 @@
     时间片，所以这个破坏粒子数守恒的费米模型也逐构型无符号。
   </p>
 
-  <h3>5.3 main.tex 的 paired benchmark</h3>
+  <h3>4.3 main.tex 的 paired benchmark</h3>
   <p>该 benchmark 的两条自然时间反演在 flavor space 可写为</p>
   <div class="scroll">\[
   \Theta_+=e^{-i\varphi}\sigma_x\mathcal K,\qquad
@@ -612,9 +751,9 @@
 </section>
 
 <section id="j-relations-symmetry-weight">
-  <h2>6. 回到 note 的五条 \(J_1,J_2\) 关系</h2>
+  <h2>5. 回到 note 的五条 \(J_1,J_2\) 关系</h2>
 
-  <h3>6.1 五条关系怎样变成物理时间反演</h3>
+  <h3>5.1 五条关系怎样变成物理时间反演</h3>
   <p>note 枚举的是</p>
   <div class="scroll">\[
   \begin{gathered}
@@ -630,7 +769,7 @@
     \((U_a\mathcal K)^2=J_a^2\)。随后还要逐项检查
   </p>
   <div class="scroll">\[
-  C\overline{U_a}C=U_a,qquad
+  C\overline{U_a}C=U_a,\qquad
   U_a^{-1}\overline{A_\ell}U_a=A_\ell,
   \]</div>
   <p>
@@ -646,14 +785,14 @@
     用这条规则即可把 32 种五符号组合直接放入第 1.3 节的周期表。
   </p>
 
-  <h3>6.2 \(A_{\rm group}\) 与 \(A_{\rm cone}\) 使用两条独立证明路线</h3>
+  <h3>5.2 \(A_{\rm group}\) 与 \(A_{\rm cone}\) 使用两条独立证明路线</h3>
   <p>对最大子群方向，note 使用</p>
   <div class="scroll">\[
   J_1^TA_{\rm group}J_1=\overline{A_{\rm group}},\qquad
   J_2^TA_{\rm group}J_2=\overline{A_{\rm group}}.
   \]</div>
   <p>
-    当第 6.1 节的物理条件也成立时，两条时间反演逐层保持同一构型，可以直接应用
+    当第 5.1 节的物理条件也成立时，两条时间反演逐层保持同一构型，可以直接应用
     本卷的周期表。对收缩方向，第二式改为
   </p>
   <div class="scroll">\[
@@ -667,37 +806,11 @@
     子空间能否由时间反演直接定号。这两条路线互相补充，不能互相替代。
   </p>
 
-  <h3>6.3 64 类中的额外实正、负通道子空间</h3>
-  <p>
-    对玻色 32 类和费米 32 类逐项检查后，没有一个完整
-    \(A_{\rm group}\) 空间自动满足第 4 节的实正、负通道条件。原因很具体：
-    若要求额外线性对称性与该类允许的<strong>每一个</strong>
-    \(A_{\rm group}\) 对易，可用的独立矩阵彼此对易；而构造第 4 节的
-    \(Q\) 及交换其 \(\pm i\) 部分的另一个线性对称性，需要两者反对易。
-  </p>
-  <p>
-    对具体物理模型施加额外限制以后，仍可得到新的无符号子空间。除去已经由双时间
-    反演覆盖的类别，筛选得到玻色 B01、B02，以及费米 F02、F03、F05、F09、
-    F14、F17。它们都可写成
-  </p>
-  <div class="scroll">\[
-  \left(A_\ell^{(+i)}\right)^T\Gamma
-  +\Gamma A_\ell^{(+i)}=0,
-  \qquad
-  \Gamma^T=\Gamma,
-  \]</div>
-  <p>
-    其中 \(\Gamma\) 可以是任意没有零本征值的实对称矩阵，并不要求预先对角。
-    费米六类由第 4 节立即非负。玻色 B01、B02 的最小物理表示使每个负通道
-    出现两份，因此 \(n_-\) 与负通道数的奇偶性自动相同，非 pole 权重为正。
-    完整的 \(J_1,J_2\) 代表和生成元结构见第 3 卷；这里不重复大段矩阵表。
-  </p>
-
-  <h3 id="class-atlas">6.4 五条关系的逐类时间反演结果</h3>
+  <h3 id="class-atlas">5.3 五条关系的逐类时间反演结果</h3>
   <p>
     下表只回答对称性定号问题。绿色行给出整个 \(A_{\rm group}\) 类已经证明的
-    机制；其余行表示五条关系尚不足以给整个类定号，其中仍可包含第 6.3 节的
-    无符号模型子空间。收缩半群、\(A_{\rm cone}\) 及每类 Hamiltonian 结构见
+    机制；其余行表示五条关系尚不足以给整个类定号。收缩半群、
+    \(A_{\rm cone}\) 及每类 Hamiltonian 结构见
     <a href="part_3_enumeration_models.html">第 3 卷</a>。
   </p>
   <details>
@@ -707,24 +820,23 @@
 </section>
 
 <section id="symmetry-positivity-conclusion">
-  <h2>7. 结论</h2>
+  <h2>6. 结论</h2>
   <ol>
     <li>固定辅助场构型的时间反演必须保持 commutator 或 anticommutator、Hermitian conjugation 和每一个时间片。满足这些条件时，正性证明与 bare trace 的收敛区域无关。</li>
     <li>反对易 \(\{+,-\}\) 产生 \(P^2=I\)，把系统分成两个互为复共轭的完整物理部分；反对易 \(\{-,-\}\) 产生 \(Q^2=-I\)，先消除 Nambu 重复，再给出 Kramers 简并。</li>
-    <li>玻色 \(\{+,+,+\}\) 中，第三条时间反演在独立算符空间产生实对称的正、负通道结构，行列式符号与玻色 commutator 的符号恰好抵消。费米对应结构为实反对称矩阵，存在负权重反例。</li>
+    <li>玻色 \(\{+,+,+\}\) 中，两条时间反演先产生守恒荷，第三条使传播属于 \(SO_0(N/2,N/2)\)。split-orthogonal determinant theorem 给出的 \((-1)^{N/2}\) 与 \(N/2\) 个负 commutator blocks 的符号相消。费米在同一步得到的是反对称矩阵，并且存在负权重反例。</li>
     <li>含 pairing 的模型同样可以由双时间反演保证非负；\(P\) 或 \(Q\) 取代了粒子数守恒时预先给定的湮灭算符空间。</li>
     <li>note 的五条 \(J_1,J_2\) 关系只有在补充 Hermitian conjugation 相容性与逐时间片不变性后，才能转为物理时间反演。\(A_{\rm cone}\) 的定号仍属于独立的收缩半群路线。</li>
   </ol>
 </section>
 
 <section id="symmetry-positivity-references">
-  <h2>8. 参考资料与可复现入口</h2>
+  <h2>7. 参考资料与可复现入口</h2>
   <ul>
     <li><a href="https://arxiv.org/abs/1601.05780">Li, Jiang, and Yao, Majorana-Time-Reversal Symmetries</a>：反对易时间反演分类及费米 Majorana、Kramers 两类。</li>
     <li><a href="https://arxiv.org/abs/cond-mat/0407272">Wu and Zhang, Sufficient condition for absence of the sign problem</a>：粒子数守恒一体空间中的 Kramers determinant 证明。</li>
-    <li><a href="https://arxiv.org/abs/1506.05349">Wang et al., Split Orthogonal Group</a>：第 4 节取正、负方向数相等时的费米特例。</li>
+    <li><a href="https://arxiv.org/abs/1506.05349">Wang et al., Split Orthogonal Group</a>：第 3.2 节玻色 \(\{+,+,+\}\) determinant 证明所用的矩阵结构。</li>
     <li><a href="analysis/verify_symmetry_group_positivity.py">verify_symmetry_group_positivity.py</a> 与 <a href="tables/symmetry_group_positivity_checks.csv">数值检查表</a>：多时间片随机矩阵、三条全正费米反例及单时间反演反例。</li>
-    <li><a href="analysis/screen_reduced_so_subspaces.py">screen_reduced_so_subspaces.py</a> 与 <a href="tables/reduced_so_subspace_screen.csv">64 类筛选表</a>：完整类别与受限实正、负通道子空间的检查。</li>
     <li><a href="part_3_enumeration_models.html">第 3 卷：64 类生成元、收缩半群与物理模型</a>。</li>
     <li><a href="part_5_branch_sampling.html">第 5 卷：不能由纯对称性定号时的 double-cover 符号追踪</a>。</li>
   </ul>

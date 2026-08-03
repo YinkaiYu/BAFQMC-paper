@@ -273,7 +273,6 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
         "configuration-weight-and-trs",
         "two-basic-time-reversal-classes",
         "three-or-more-time-reversals",
-        "real-positive-negative-channels",
         "paired-physical-models",
         "j-relations-symmetry-weight",
         "symmetry-positivity-conclusion",

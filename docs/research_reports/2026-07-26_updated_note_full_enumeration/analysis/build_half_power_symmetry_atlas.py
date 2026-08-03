@@ -24,22 +24,6 @@ BOSON_KRAMERS_MIN_DIMENSION = {
     "s1-_q1-_s2-_q2-_r-": 8,
 }
 
-NEW_REDUCED_SO_SUBSPACES = {
-    "boson": {
-        "s1+_q1+_s2+_q2+_r+",
-        "s1+_q1+_s2+_q2+_r-",
-    },
-    "fermion": {
-        "s1+_q1+_s2+_q2+_r-",
-        "s1+_q1+_s2+_q2-_r+",
-        "s1+_q1+_s2-_q2+_r+",
-        "s1+_q1-_s2+_q2+_r+",
-        "s1+_q1-_s2-_q2+_r-",
-        "s1-_q1+_s2+_q2+_r+",
-    },
-}
-
-
 def signed_permutation_matrix(text: str) -> np.ndarray:
     """Decode the one-based signed-permutation notation used by the CSV files."""
     entries = [int(value) for value in text.strip("[]").split()]
@@ -226,11 +210,7 @@ def boson_status(
         )
     return (
         "partial",
-        (
-            r"整类未定号；含第 6.3 节新增的实正、负通道子空间"
-            if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["boson"]
-            else r"五条关系不足以给整个 \(A_{\rm group}\) 定号"
-        ),
+        r"五条关系不足以给整个 \(A_{\rm group}\) 定号",
     )
 
 
@@ -250,11 +230,7 @@ def fermion_status(
         )
     return (
         "partial",
-        (
-            r"整类未定号；含第 6.3 节新增的实正、负通道子空间"
-            if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["fermion"]
-            else r"五条关系不足以给整个 \(A_{\rm group}\) 定号"
-        ),
+        r"五条关系不足以给整个 \(A_{\rm group}\) 定号",
     )
 
 

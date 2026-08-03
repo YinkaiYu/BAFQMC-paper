@@ -22,6 +22,6 @@ check,samples,result,diagnostic_1,diagnostic_2,maximum_residual
 "SO0(4,3)",400,pass,minimum_det_I_plus_B=1.812866232035e-02,odd_dimension_max_abs=2.620200617178e-11,1.182853786559e-11
 "SO0(4,4)",400,pass,minimum_det_I_plus_B=1.181158334831e-02,minimum=2.357737059869e-02,2.477661971349e-10
 symplectic_not_positive,exact,pass,det_I_plus_B=-5.000000000000e-01,expected_negative,0.000000000000e+00
-fermion_physical_antisymmetry,exact,pass,weight=-1.414213562373e+00,U_inverse_barA_U_equals_minus_A,0.000000000000e+00
-boson_physical_antisymmetry,exact,pass,weight=0.000000e+00+7.071068e-01j,weight_not_real,0.000000000000e+00
+fermion_single_negative_TR_not_positive,exact,pass,weight=-1.414213562373e+00,U_inverse_barA_U_equals_A,0.000000000000e+00
+boson_single_positive_TR_not_positive,exact,pass,radicand=-3.414213562373e+00,analytic_weight_is_imaginary,0.000000000000e+00
 fermion_three_positive_TR,exact,pass,weight=-5.103380112619e-01,radicand_residual=2.220446049250e-16,2.220446049250e-16
