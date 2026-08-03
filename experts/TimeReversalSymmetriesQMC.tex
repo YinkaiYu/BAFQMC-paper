@@ -52,7 +52,7 @@
 \date{\today}
 
 \begin{abstract}
-Auxiliary-field quantum Monte Carlo reduces an interacting problem to a statistical sum over products of Gaussian many-body operators.  We classify when mutually anticommuting time-reversal symmetries make every such bosonic or fermionic configuration weight nonnegative, including quadratic propagators with pairing terms.  Two elementary classes protect both statistics.  A \(\{+,-\}\) pair separates the evolution into two complex-conjugate sectors that each contain complete annihilation--creation pairs.  A \(\{-,-\}\) pair selects one operator from every Nambu-conjugate pair and enforces Kramers degeneracy among the selected operators.  Three positive-square symmetries reveal a statistical distinction: they guarantee a positive bosonic weight but allow negative fermionic weights.  Four or more anticommuting time-reversal symmetries always generate a sign-free pair.  These results give a unified time-reversal periodic table for bosonic and fermionic quantum Monte Carlo and yield sign-problem-free interacting boson models with anomalous propagation.
+Auxiliary-field quantum Monte Carlo reduces an interacting problem to a statistical sum over products of Gaussian many-body operators.  We classify when mutually anticommuting time-reversal symmetries make every bosonic or fermionic configuration weight nonnegative, including propagators with pairing terms.  Each time reversal squares to \(+I\) or \(-I\), and braces list these signs.  The Majorana class \(\{+,-\}\), containing one symmetry of each square, separates the evolution into complex-conjugate sectors.  The Kramers class \(\{-,-\}\) selects one operator from every Nambu-conjugate pair and imposes Kramers degeneracy.  Both classes protect bosonic and fermionic weights.  The bosonic split-orthogonal class \(\{+,+,+\}\) provides a third mechanism, while the same symmetry set permits negative fermionic weights.  Four or more anticommuting time reversals always generate a Majorana or Kramers pair.  The resulting periodic table unifies time-reversal criteria for both statistics and guides sign-free interacting boson models with anomalous propagation.
 \end{abstract}
 
 \maketitle
@@ -172,27 +172,32 @@ Consider a set of time reversals that all satisfy Eq.~\eqref{eq:physical_TR_cond
     \qquad (a\ne b).
     \label{eq:anticommuting_TR}
 \end{equation}
-The braces in Table~\ref{tab:periodic_table} record the squares of a sign-free set.  For example, \(\{+,-\}\) means one positive-square and one negative-square time reversal.  The fermionic column recovers the Majorana-time-reversal classification~\cite{li2016prl}.  The bosonic column contains one additional three-symmetry class.
+The two fundamental sign-free sets are the Majorana class \(\{+,-\}\) and the Kramers class \(\{-,-\}\) introduced for Majorana fermions in Ref.~\cite{li2016prl}.  We use the same names for their bosonic extensions because the symmetry algebra and positivity mechanisms are unchanged.  The additional bosonic \(\{+,+,+\}\) set realizes the determinant structure of the split orthogonal group~\cite{wang2015prl}, and we call it the split-orthogonal class.
 
 \begin{center}
     \refstepcounter{table}\label{tab:periodic_table}
+    \begin{minipage}{0.96\linewidth}
     \small
     \textbf{TABLE \thetable.}\enspace
-    Time-reversal periodic table for general Nambu evolution, with no separate assumption of particle-number conservation.  Every listed time reversal preserves each auxiliary-field slice, and the time reversals anticommute pairwise.  The entries guarantee \(p_{\rm B}>0\) away from bosonic poles or \(p_{\rm F}\geq0\).  ``None'' means that the number and squares of the time reversals alone give no guarantee; additional conserved quantities or model-specific structure may still ensure positivity.
-    \par\vspace{0.5\baselineskip}
+    Time-reversal periodic table for bosonic and fermionic Gaussian weights with quadratic evolution that may contain pairing terms.  Every auxiliary-field slice preserves the listed set of pairwise anticommuting antiunitary symmetries.  Each sign records \(\Theta_a^2=\pm I\), so \(\{+,-\}\) contains one symmetry of each square.  The entries list all sets sufficient for \(p_{\rm B}>0\) away from bosonic poles or \(p_{\rm F}\geq0\).  ``All'' covers every assignment of squares.  ``None'' means that these time-reversal symmetries alone do not fix the sign.  The Majorana \(\{+,-\}\) and Kramers \(\{-,-\}\) names follow Ref.~\cite{li2016prl}.  The additional bosonic \(\{+,+,+\}\) entry is the split-orthogonal class, named after the determinant mechanism of Ref.~\cite{wang2015prl}.
+    \par\vspace{0.7\baselineskip}
+    \centering
     \begin{ruledtabular}
     \begin{tabular}{cll}
-        Number & \multicolumn{1}{c}{Bosons} & \multicolumn{1}{c}{Fermions} \\
+        Number of symmetries & \multicolumn{1}{c}{Bosons} & \multicolumn{1}{c}{Fermions} \\
         \hline
-        0 or 1 & none & none \\
-        2 & \(\{+,-\},\{-,-\}\) & \(\{+,-\},\{-,-\}\) \\
-        3 & all & all except \(\{+,+,+\}\) \\
-        \(\geq4\) & all & all
+        0 or 1 & None & None \\
+        2 & Majorana \(\{+,-\}\), Kramers \(\{-,-\}\)
+          & Majorana \(\{+,-\}\), Kramers \(\{-,-\}\) \\
+        3 & All
+          & \(\{+,+,-\},\{+,-,-\},\{-,-,-\}\) \\
+        \(\geq4\) & All & All
     \end{tabular}
     \end{ruledtabular}
+    \end{minipage}
 \end{center}
 
-Two elementary mechanisms generate the table.  A \(\{+,-\}\) pair divides the Nambu operators into two sectors.  Each sector contains annihilation operators together with their Hermitian-conjugate creation operators, and the two sector weights are complex conjugates.  A \(\{-,-\}\) pair defines a conserved one-body charge, selects one operator from every Nambu-conjugate pair, and leaves Kramers time reversal among the selected operators.  Three positive-square symmetries generate a third mechanism for bosons.  These statements fix the complete Fock-space weights rather than only the determinants under the square roots in Eq.~\eqref{eq:nambu_trace}.
+Three physical mechanisms generate the table.  The Majorana class divides the Nambu operators into two sectors.  Each sector contains annihilation operators together with their Hermitian-conjugate creation operators, and the two sector weights are complex conjugates.  The Kramers class defines a conserved one-body charge, selects one operator from every Nambu-conjugate pair, and leaves Kramers time reversal among the selected operators.  The split-orthogonal class supplies the third bosonic mechanism.  These statements fix the complete Fock-space weights rather than only the determinants under the square roots in Eq.~\eqref{eq:nambu_trace}.
 
 The unlisted two-symmetry class already has a one-mode bosonic counterexample.  Let \(\hat\chi=(\hat b,\hat b^+)^\trans\), \(g=-\ii\sigma_y\), and \(C=\sigma_x\).  The two time reversals
 \begin{equation}
@@ -215,7 +220,7 @@ For \(\kappa<0\), the ordinary trace converges and equals \(\ee^{\kappa/2}/(1-\e
     =-\frac{1}{2\sinh(\kappa/2)}<0.
     \label{eq:boson_pp_counter_weight}
 \end{equation}
-The occupation-number sum diverges at \(\kappa>0\), while the continued Gaussian weight defined above is finite and negative, with \(\det(I-M)\ne0\).  Thus two positive-square time reversals alone do not fix the bosonic sign.  A fermionic counterexample with three positive-square symmetries will be given below.
+The occupation-number sum diverges at \(\kappa>0\), while the continued Gaussian weight defined above is finite and negative, with \(\det(I-M)\ne0\).  Thus the bosonic \(\{+,+\}\) set does not fix the sign.  A fermionic counterexample for the \(\{+,+,+\}\) set will be given below.
 
 A single negative-square time reversal is likewise insufficient for general bosonic Nambu evolution.  For two bosonic flavors, let the first Pauli matrix act in Nambu space and the second in flavor space, and take
 \begin{equation}
@@ -239,9 +244,9 @@ Their continued weights are identical.  For either single flavor, Eq.~\eqref{eq:
 \end{equation}
 These excluded values are precisely the determinant poles.
 
-\section{Two elementary sign-free classes}
+\section{Majorana and Kramers classes}
 
-\subsection{The \texorpdfstring{\(\{+,-\}\)}{\{+,-\}} class}
+\subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 
 Let
 \begin{equation}
@@ -303,7 +308,7 @@ Equivalently,
     p_{\rm F}=\left|\det\!\left(I+M\big|_{P=+1}\right)\right|\geq0.
     \label{eq:majorana_determinants}
 \end{equation}
-\subsection{The \texorpdfstring{\(\{-,-\}\)}{\{-,-\}} class}
+\subsection{Kramers class \texorpdfstring{\(\{-,-\}\)}{\{-,-\}}}
 
 Now take
 \begin{equation}
@@ -472,11 +477,11 @@ This is the Nambu-space form of the Kramers positivity mechanism~\cite{li2016prl
 
 For a particle-number-conserving problem, the annihilation-operator space is already an independent \(N\)-dimensional space.  A single negative-square time reversal then produces Eq.~\eqref{eq:Kramers_eigenvalues} directly, which is the familiar Kramers criterion for determinant quantum Monte Carlo~\cite{wu2005prb}.  The second time reversal in Eq.~\eqref{eq:kramers_class} supplies this independent space when pairing mixes annihilation and creation operators.
 
-\section{Three time-reversal symmetries}
+\section{Three time reversals and the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} distinction}
 
 Three sign patterns already contain one of the elementary pairs.  The classes \(\{+,+,-\}\) and \(\{+,-,-\}\) contain a \(\{+,-\}\) pair, while \(\{-,-,-\}\) contains a \(\{-,-\}\) pair.  They are sign-problem-free for both bosons and fermions.  The remaining class \(\{+,+,+\}\) distinguishes the two statistics.
 
-\subsection{Bosons with three positive-square symmetries}
+\subsection{Bosonic split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
 For bosons, a positive-square time reversal defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
 \begin{equation}
@@ -485,7 +490,7 @@ For bosons, a positive-square time reversal defines a real set of canonical Namb
     \ii(\hat d-\widehat\Theta_1\hat d\widehat\Theta_1^{-1}).
     \label{eq:Theta1_real_operators}
 \end{equation}
-Both combinations are fixed by \(\Theta_1\).  They span the full Nambu space over the real numbers.  Since \(\Theta_1\) preserves bosonic commutators and Hermitian conjugation, these operators can be normalized in canonical conjugate pairs while staying inside this real span.  In the resulting basis, three positive-square time reversals have the form
+Both combinations are fixed by \(\Theta_1\).  They span the full Nambu space over the real numbers.  Since \(\Theta_1\) preserves bosonic commutators and Hermitian conjugation, these operators can be normalized in canonical conjugate pairs while staying inside this real span.  In the resulting basis, the three symmetries of the \(\{+,+,+\}\) class have the form
 \begin{equation}
     \Theta_1=\mc K,
     \qquad
@@ -575,14 +580,14 @@ After a real change of basis, take
     \eta=\diag(I_{N/2},-I_{N/2}).
     \label{eq:eta_diagonal}
 \end{equation}
-Equation~\eqref{eq:eta_generator_relation} implies
+The two diagonal blocks of \(\eta\) label equal sets of positive and negative channels.  Equation~\eqref{eq:eta_generator_relation} implies
 \begin{equation}
     M_{+\ii}^\trans\eta M_{+\ii}=\eta,
     \qquad
     \Tr A_{\ell,+\ii}=0.
     \label{eq:eta_propagation}
 \end{equation}
-Each factor \(\ee^{A_{\ell,+\ii}}\) is connected to the identity through \(\ee^{tA_{\ell,+\ii}}\) while preserving \(\eta\).  A real product with these properties obeys the determinant inequality~\cite{wang2015prl}
+Real matrices satisfying the first relation form the split orthogonal group \(O(N/2,N/2)\).  Each factor \(\ee^{A_{\ell,+\ii}}\) can be reached continuously from the identity along \(\ee^{tA_{\ell,+\ii}}\) while preserving \(\eta\).  The ordered product therefore lies in the same connected part of the group as the identity.  The split-orthogonal determinant theorem~\cite{wang2015prl} gives
 \begin{equation}
     \det(I_N+M_{+\ii})\geq0.
     \label{eq:plus_determinant_positive}
@@ -616,11 +621,11 @@ Finally, Eqs.~\eqref{eq:boson_reduced_weight}, \eqref{eq:Nminus_half}, and~\eqre
     }
     \label{eq:boson_three_plus_weight}
 \end{equation}
-away from bosonic poles.  Three positive-square time reversals therefore protect the full bosonic Gaussian weight.
+away from bosonic poles.  The bosonic split-orthogonal class \(\{+,+,+\}\) therefore protects the full Gaussian weight.
 
-\subsection{Fermions with three positive-square symmetries}
+\subsection{Fermionic \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
 
-Three positive-square time reversals do not protect a general fermionic Nambu evolution.  A two-mode counterexample makes the difference explicit.  Let the first Pauli matrix act in Nambu space and the second in flavor space, and choose
+The fermionic \(\{+,+,+\}\) class does not protect a general Nambu evolution.  A two-mode counterexample makes the difference explicit.  Let the first Pauli matrix act in Nambu space and the second in flavor space, and choose
 \begin{gather}
     g=C=\sigma_x\otimes I_2,
     \qquad
@@ -648,7 +653,7 @@ The Pauli algebra gives, for \(a\ne b\) and \(\ell=1,2\),
 \end{gathered}
     \label{eq:fermion_counter_checks}
 \end{equation}
-Thus \(\Theta_a=U_a\mc K\) are three physical, pairwise anticommuting, positive-square time reversals of both slices.  In Fock space,
+Thus \(\Theta_a=U_a\mc K\) are three physical, pairwise anticommuting time reversals of both slices, and every one squares to \(+I\).  In Fock space,
 \begin{equation}
     \hat h_1=\pi(\hat c_1\hat c_2+\hat c_1^+\hat c_2^+),
     \qquad
@@ -686,7 +691,7 @@ The square of \(\widetilde\Theta\) is opposite to that of \(\Theta_1\), so the g
 
 The time-reversal criteria act on every fixed auxiliary-field slice and therefore remain effective when the quadratic evolution contains pairing terms.  The following Hermitian interacting models illustrate the \(\{+,-\}\) and \(\{+,+,+\}\) classes.
 
-\subsection{Conjugate bosonic Bogoliubov copies in the \texorpdfstring{\(\{+,-\}\)}{\{+,-\}} class}
+\subsection{Conjugate Bogoliubov copies: Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 
 Place two bosonic flavors \(\hat b_i\) and \(\hat c_i\) on each site and consider
 \begin{align}
@@ -762,7 +767,7 @@ At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and ar
 \end{equation}
 The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\).  Equation~\eqref{eq:conjugate_BdG_weight} makes interaction-driven transitions between paired, density-imbalanced, and phase-coherent bosonic states accessible to auxiliary-field simulation on frustrated lattices.
 
-\subsection{Odd-parity interflavor pairing in the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
+\subsection{Odd-parity interflavor pairing: split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
 Choose one orientation \(i\to j\) for every nearest-neighbor bond and define
 \begin{align}
@@ -837,7 +842,7 @@ With generic nonzero hopping, pairing, and two independently fluctuating bond ch
 
 \section{Summary}
 
-Mutually anticommuting time reversals determine the sign of general bosonic and fermionic Gaussian quantum Monte Carlo weights through three physical mechanisms.  The \(\{+,-\}\) class cancels phases between conjugate sectors.  The \(\{-,-\}\) class selects one operator from every Nambu-conjugate pair and enforces Kramers degeneracy among them.  The bosonic \(\{+,+,+\}\) class produces a real propagation that preserves a symmetric matrix with equally many positive and negative directions, which fixes the remaining determinant sign.  This last mechanism has no fermionic counterpart, as demonstrated by the explicit negative two-mode trace in Eq.~\eqref{eq:fermion_three_plus_negative}.  Four time reversals always generate a \(\{+,-\}\) pair.
+Mutually anticommuting time reversals determine the sign of general bosonic and fermionic Gaussian quantum Monte Carlo weights through three physical mechanisms.  The Majorana class \(\{+,-\}\) cancels phases between conjugate sectors.  The Kramers class \(\{-,-\}\) selects one operator from every Nambu-conjugate pair and enforces Kramers degeneracy among them.  The bosonic split-orthogonal class \(\{+,+,+\}\) produces a real propagation that preserves a symmetric matrix with equally many positive and negative directions, which fixes the remaining determinant sign.  This last mechanism has no fermionic counterpart, as demonstrated by the explicit negative two-mode trace in Eq.~\eqref{eq:fermion_three_plus_negative}.  Four time reversals always generate a Majorana pair.
 
 The resulting periodic table applies directly to anomalous Gaussian evolution.  Pairing terms therefore fit naturally within time-reversal-protected auxiliary-field simulations.  The two bosonic models above show how the symmetry algebra can guide Hubbard--Stratonovich design and open sign-problem-free routes to interacting paired phases on frustrated lattices.
 
