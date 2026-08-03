@@ -481,7 +481,7 @@
 <tbody>
 <tr><td>0 或 1</td><td>没有一个类别仅凭这些条件即可保证</td><td>没有一个类别仅凭这些条件即可保证</td></tr>
 <tr class="trs-seed"><td>2</td><td>\(\{+,-\}\)，\(\{-,-\}\)</td><td>\(\{+,-\}\)，\(\{-,-\}\)</td></tr>
-<tr class="trs-seed"><td>3</td><td>\(\{+,+,+\}\)，\(\{+,+,-\}\)，\(\{+,-,-\}\)，\(\{-,-,-\}\)</td><td>\(\{+,+,-\}\)，\(\{+,-,-\}\)，\(\{-,-,-\}\)</td></tr>
+<tr class="trs-seed"><td>3</td><td>全部</td><td>\(\{+,+,-\}\)，\(\{+,-,-\}\)，\(\{-,-,-\}\)</td></tr>
 <tr><td>4 条及以上</td><td>全部</td><td>全部</td></tr>
 </tbody>
 </table>
@@ -678,17 +678,16 @@
     每交换一次 \(\hat d_\mu\leftrightarrow\hat d_\mu^+\)，单模 trace 多出一个
     负号。\(\Theta_1^2=-I\) 保持两个 commutator blocks，并在每个 block 内产生
     Kramers 双重简并，所以负 block 的维数必为偶数，所有额外负号相乘为 \(+1\)。
-    两个 blocks 都允许为空。五条关系并不固定负 block 的具体维数：最小
-    \(N=2\) 表示中，B15 的 commutator matrix 是 \(I_2\)，B27 的则是
-    \(-I_2\)。对称性固定的是负 block 维数为偶数。
+    两个 blocks 都允许为空。即使同样取最小的 \(N=2\)，不同表示也可以分别给出
+    commutator matrix \(I_2\) 或 \(-I_2\)。两条时间反演固定的是负 block
+    维数为偶数，并不固定它究竟是 0 还是 2。
   </p>
 <div class="scroll">\[
   \boxed{
   p_{\rm B}=
-  \frac{\displaystyle
   \exp\!\left[\frac12\sum_\ell
-  \operatorname{Tr}\!\left(A_\ell|_{Q=+i}\right)\right]}
-  {\det\!\left(I-M|_{Q=+i}\right)}&gt;0
+  \operatorname{Tr}\!\left(A_\ell|_{Q=+i}\right)\right]
+  \det\!\left(I-M|_{Q=+i}\right)^{-1}&gt;0
   \quad\text{（除玻色 pole 外）}.}
   \]</div>
 <h3>2.4 为什么只有一条时间反演时，上述 Nambu 结论不成立</h3>
@@ -880,19 +879,31 @@
 <p>
     也保持 \(\eta\)。把每层写成
     \(e^{tA_\ell|_{Q=+i}}\) 便得到一条从单位矩阵 \(t=0\) 到实际传播
-    \(t=1\) 的连续路径，而且路径上的每个矩阵都保持 \(\eta\)。这正是
-    split orthogonal group 的单位连通部分 \(SO_0(N/2,N/2)\)。
+    \(t=1\) 的连续路径，而且路径上的每个矩阵都保持 \(\eta\)。满足
+    \(M^T\eta M=\eta\) 的实矩阵组成 \(O(N/2,N/2)\)。这里 \(\eta\) 的正、负
+    blocks 大小相同，因此称为 split orthogonal group；上面的连续路径进一步说明
+    实际传播位于它与单位矩阵相连的部分 \(SO_0(N/2,N/2)\)。
   </p>
 <p>
-    split-orthogonal determinant theorem 因而直接给出
+    split-orthogonal determinant theorem 来自
+    <a href="https://doi.org/10.1103/PhysRevLett.115.250601">Wang、Liu、Iazzi、
+    Troyer 与 Harcos, Phys. Rev. Lett. <strong>115</strong>, 250601 (2015)</a>；
+    该文附录说明其数学证明由 Harcos 与 Tao 完成。原定理中与这里直接相关的结论是
   </p>
 <div class="scroll">\[
-  \det\!\left(I+M|_{Q=+i}\right)\geq0,
-  \qquad
+  M|_{Q=+i}\in SO_0(N/2,N/2)
+  \quad\Longrightarrow\quad
+  \det\!\left(I+M|_{Q=+i}\right)\geq0.
+  \]</div>
+<p>
+    原论文把这条矩阵结论用于费米权重。本报告的玻色权重需要
+    \(\det(I-M)\)；把上述定理与紧接着给出的 Pfaffian 等式结合，得到
+  </p>
+<div class="scroll">\[
   (-1)^{N/2}\det\!\left(I-M|_{Q=+i}\right)\geq0.
   \]</div>
 <p>
-    第二条式子正是玻色 trace 所需的符号。上面的 commutator block 有
+    这正是玻色 trace 所需的符号。上面的 commutator block 有
     \(N/2\) 个负方向，每个方向在改写为标准玻色湮灭算符时贡献一个负号，
     合计也是 \((-1)^{N/2}\)。生成元等式还给出
   </p>
@@ -912,9 +923,8 @@
   </p>
 <div class="scroll">\[
   \boxed{
-  p_{\rm B}=
-  \frac{(-1)^{N/2}}
-  {\det\!\left(I-M|_{Q=+i}\right)}&gt;0
+  p_{\rm B}=(-1)^{N/2}
+  \det\!\left(I-M|_{Q=+i}\right)^{-1}&gt;0
   \quad\text{（除 pole 外）}.}
   \]</div>
 <details>
@@ -972,6 +982,24 @@
     \(A_1,A_2\)，但 \(p_{\rm F}&lt;0\)。因此费米 \(\{+,+,+\}\) 这一格不能
     由三条时间反演保证非负。
   </p>
+<h4>其他时间反演类别与 split orthogonal group 的关系</h4>
+<p>
+    split-orthogonal 证明需要在同一套独立一体算符上同时得到三件事：传播矩阵是
+    实矩阵、存在实对称且可逆的 \(\eta\)，并且 \(M^T\eta M=\eta\)。不同时间反演
+    类别提供的结构并不相同：
+  </p>
+<ul>
+<li>\(\{+,-\}\) 产生 \(P=\pm1\) 两个完整物理部分。单独一个部分的传播可以是一般复矩阵；正性来自两部分的 trace 互为复共轭。</li>
+<li>\(\{-,-\}\) 产生守恒荷 \(Q\)，剩下的负平方时间反演在同一守恒荷空间内形成 Kramers 双重简并。两条对称性没有给出实对称的 \(\eta\)。</li>
+<li>玻色 \(\{+,+,+\}\) 同时给出实传播和实对称 \(\eta\)，所以自然落入 split orthogonal group；费米的同一步给出实反对称 \(\eta\)，因此不能使用该定理。</li>
+</ul>
+<p>
+    \(\{+,+,-\}\)、\(\{+,-,-\}\) 与 \(\{-,-,-\}\) 已分别包含
+    \(\{+,-\}\) 或 \(\{-,-\}\)，所以正性由前两种机制直接得到。某个具体表示
+    还可能额外保持实对称矩阵，从而也允许正交群证明；仅凭时间反演平方的三个符号
+    并不固定这个额外矩阵及其正、负 blocks。因而这些格与 split-orthogonal
+    情形可以重叠，但不能全部等同为同一个 split orthogonal group 条件。
+  </p>
 <h3>3.3 四条及以上为什么全部非负</h3>
 <p>
     若四条时间反演中同时出现正平方和负平方，直接选出一对
@@ -1006,7 +1034,7 @@
 </tr>
 <tr>
 <td>split-orthogonal determinant theorem</td>
-<td>玻色 \(\{+,+,+\}\) 在守恒荷空间中正好产生 \(SO_0(N/2,N/2)\)，第 3.2 节直接使用该 theorem 给 \(\det(I-M)\) 定号。</td>
+<td>玻色 \(\{+,+,+\}\) 在守恒荷空间中产生 \(SO_0(N/2,N/2)\)。原定理给 \(\det(I+M)\) 定号，再由第 3.2 节的 Pfaffian 等式得到玻色所需的 \(\det(I-M)\) 符号。</td>
 </tr>
 </tbody>
 </table>
@@ -1201,7 +1229,7 @@
 <ol>
 <li>固定辅助场构型的时间反演必须保持 commutator 或 anticommutator、Hermitian conjugation 和每一个时间片。满足这些条件时，正性证明与 bare trace 的收敛区域无关。</li>
 <li>反对易 \(\{+,-\}\) 产生 \(P^2=I\)，把系统分成两个互为复共轭的完整物理部分；反对易 \(\{-,-\}\) 产生 \(Q^2=-I\)，先消除 Nambu 重复，再给出 Kramers 简并。</li>
-<li>玻色 \(\{+,+,+\}\) 中，两条时间反演先产生守恒荷，第三条使传播属于 \(SO_0(N/2,N/2)\)。split-orthogonal determinant theorem 给出的 \((-1)^{N/2}\) 与 \(N/2\) 个负 commutator blocks 的符号相消。费米在同一步得到的是反对称矩阵，并且存在负权重反例。</li>
+<li>玻色 \(\{+,+,+\}\) 中，两条时间反演先产生守恒荷，第三条使传播属于 \(SO_0(N/2,N/2)\)。split-orthogonal determinant theorem 与 Pfaffian 等式共同给出的 \((-1)^{N/2}\)，和 \(N/2\) 个负 commutator blocks 的符号相消。费米在同一步得到的是反对称矩阵，并且存在负权重反例。</li>
 <li>含 pairing 的模型同样可以由双时间反演保证非负；\(P\) 或 \(Q\) 取代了粒子数守恒时预先给定的湮灭算符空间。</li>
 <li>note 的五条 \(J_1,J_2\) 关系只有在补充 Hermitian conjugation 相容性与逐时间片不变性后，才能转为物理时间反演。\(A_{\rm cone}\) 的定号仍属于独立的收缩半群路线。</li>
 </ol>
@@ -1210,7 +1238,7 @@
 <ul>
 <li><a href="https://arxiv.org/abs/1601.05780">Li, Jiang, and Yao, Majorana-Time-Reversal Symmetries</a>：反对易时间反演分类及费米 Majorana、Kramers 两类。</li>
 <li><a href="https://arxiv.org/abs/cond-mat/0407272">Wu and Zhang, Sufficient condition for absence of the sign problem</a>：粒子数守恒一体空间中的 Kramers determinant 证明。</li>
-<li><a href="https://arxiv.org/abs/1506.05349">Wang et al., Split Orthogonal Group</a>：第 3.2 节玻色 \(\{+,+,+\}\) determinant 证明所用的矩阵结构。</li>
+<li><a href="https://doi.org/10.1103/PhysRevLett.115.250601">Wang, Liu, Iazzi, Troyer, and Harcos, Phys. Rev. Lett. 115, 250601 (2015)</a>：split orthogonal group 的 determinant theorem；原文附录记录了 Harcos 与 Tao 给出的数学证明。本卷把该矩阵定理用于玻色 \(\{+,+,+\}\) 的守恒荷空间。</li>
 <li><a href="analysis/verify_symmetry_group_positivity.py">verify_symmetry_group_positivity.py</a> 与 <a href="tables/symmetry_group_positivity_checks.csv">数值检查表</a>：多时间片随机矩阵、三条全正费米反例及单时间反演反例。</li>
 <li><a href="part_3_enumeration_models.html">第 3 卷：64 类生成元、收缩半群与物理模型</a>。</li>
 <li><a href="part_5_branch_sampling.html">第 5 卷：不能由纯对称性定号时的 double-cover 符号追踪</a>。</li>
