@@ -454,6 +454,8 @@ def main() -> None:
             "statistics": statistics,
             "class_number": class_number,
             "class_id": row["class_id"],
+            "strict_interior": full["strict_interior"],
+            "semigroup_status": full["status"],
             "base_nambu_dimension": 2 ** int(row["n"]),
             "J1_word": row["J1_word"],
             "J2_word": row["J2_word"],

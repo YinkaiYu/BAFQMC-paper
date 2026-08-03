@@ -40,6 +40,35 @@ def random_so_product(
     return eta, product
 
 
+def random_one_sided_product(
+    positive: int,
+    negative: int,
+    rng: np.random.Generator,
+    layers: int = 4,
+) -> tuple[np.ndarray, np.ndarray, float]:
+    dimension = positive + negative
+    eta = np.diag([1.0] * positive + [-1.0] * negative)
+    product = np.eye(dimension)
+    minimum_generator_eigenvalue = np.inf
+    for _ in range(layers):
+        trial = rng.normal(scale=0.18, size=(dimension, dimension))
+        positive_matrix = trial.T @ trial
+        antisymmetric = rng.normal(
+            scale=0.18, size=(dimension, dimension)
+        )
+        antisymmetric -= antisymmetric.T
+        generator = eta @ (antisymmetric + 0.5 * positive_matrix)
+        generator_inequality = (
+            generator.T @ eta + eta @ generator
+        )
+        minimum_generator_eigenvalue = min(
+            minimum_generator_eigenvalue,
+            float(np.linalg.eigvalsh(generator_inequality).min()),
+        )
+        product = expm(generator) @ product
+    return eta, product, minimum_generator_eigenvalue
+
+
 def orthogonal_group_checks() -> list[dict[str, str]]:
     rng = np.random.default_rng(20260803)
     rows: list[dict[str, str]] = []
@@ -89,6 +118,112 @@ def orthogonal_group_checks() -> list[dict[str, str]]:
                 }
             )
     return rows
+
+
+def one_sided_semigroup_checks() -> list[dict[str, str]]:
+    rng = np.random.default_rng(20260804)
+    rows: list[dict[str, str]] = []
+    for positive in range(4):
+        for negative in range(4):
+            dimension = positive + negative
+            if dimension < 2:
+                continue
+            minimum_plus = np.inf
+            minimum_semigroup_eigenvalue = np.inf
+            minimum_generator_eigenvalue = np.inf
+            for _ in range(240):
+                eta, product, generator_eigenvalue = (
+                    random_one_sided_product(positive, negative, rng)
+                )
+                plus = float(np.linalg.det(np.eye(dimension) + product).real)
+                semigroup_difference = product.T @ eta @ product - eta
+                minimum_plus = min(minimum_plus, plus)
+                minimum_semigroup_eigenvalue = min(
+                    minimum_semigroup_eigenvalue,
+                    float(np.linalg.eigvalsh(semigroup_difference).min()),
+                )
+                minimum_generator_eigenvalue = min(
+                    minimum_generator_eigenvalue, generator_eigenvalue
+                )
+            assert minimum_generator_eigenvalue > -TOLERANCE
+            assert minimum_semigroup_eigenvalue > -2.0e-8
+            assert minimum_plus > -TOLERANCE
+            rows.append(
+                {
+                    "check": f"one_sided_semigroup({positive},{negative})",
+                    "samples": "240",
+                    "result": "pass",
+                    "diagnostic_1": f"minimum_det_I_plus_B={minimum_plus:.12e}",
+                    "diagnostic_2": (
+                        "minimum_semigroup_eigenvalue="
+                        f"{minimum_semigroup_eigenvalue:.12e}"
+                    ),
+                    "maximum_residual": (
+                        f"{max(0.0, -minimum_generator_eigenvalue):.12e}"
+                    ),
+                }
+            )
+    return rows
+
+
+def fermion_fock_operators() -> list[np.ndarray]:
+    identity = np.eye(2, dtype=complex)
+    sigma_z = np.diag([1, -1]).astype(complex)
+    annihilation = np.array([[0, 1], [0, 0]], dtype=complex)
+    first = np.kron(annihilation, identity)
+    second = np.kron(sigma_z, annihilation)
+    return [first, second, first.conj().T, second.conj().T]
+
+
+def fock_generator(
+    fermion_g: np.ndarray,
+    generator: np.ndarray,
+    operators: list[np.ndarray],
+) -> np.ndarray:
+    coefficient = fermion_g @ generator
+    result = np.zeros_like(operators[0])
+    for row, first in enumerate(operators):
+        for column, second in enumerate(operators):
+            result += (
+                0.5
+                * coefficient[row, column]
+                * first
+                @ second
+            )
+    return result
+
+
+def pfaffian_4x4(matrix: np.ndarray) -> complex:
+    assert matrix.shape == (4, 4)
+    assert np.linalg.norm(matrix + matrix.T) < TOLERANCE
+    return (
+        matrix[0, 1] * matrix[2, 3]
+        - matrix[0, 2] * matrix[1, 3]
+        + matrix[0, 3] * matrix[1, 2]
+    )
+
+
+def pfaffian_small(matrix: np.ndarray) -> complex:
+    """Recursive Pfaffian for the small exact checks below."""
+    dimension = matrix.shape[0]
+    assert matrix.shape == (dimension, dimension)
+    assert dimension % 2 == 0
+    assert np.linalg.norm(matrix + matrix.T) < TOLERANCE
+    if dimension == 0:
+        return 1.0 + 0.0j
+    value = 0.0 + 0.0j
+    for column in range(1, dimension):
+        reduced = np.delete(
+            np.delete(matrix, [0, column], axis=0),
+            [0, column],
+            axis=1,
+        )
+        value += (
+            (-1) ** (column + 1)
+            * matrix[0, column]
+            * pfaffian_small(reduced)
+        )
+    return value
 
 
 def exact_counterexample_checks() -> list[dict[str, str]]:
@@ -149,6 +284,180 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
             "diagnostic_1": f"weight={fermion_weight:.12e}",
             "diagnostic_2": "U_inverse_barA_U_equals_A",
             "maximum_residual": f"{fermion_residual:.12e}",
+        }
+    )
+
+    majorana_change = np.array(
+        [[1.0, 1.0], [-1.0j, 1.0j]], dtype=complex
+    )
+    majorana_generator = (
+        majorana_change
+        @ fermion_a
+        @ np.linalg.inv(majorana_change)
+    )
+    majorana_product = expm(majorana_generator)
+    majorana_residual = max(
+        np.linalg.norm(majorana_generator.imag),
+        np.linalg.norm(
+            majorana_product.T @ majorana_product - np.eye(2)
+        ),
+        abs(
+            np.linalg.det(np.eye(2) + majorana_product)
+            - fermion_weight**2
+        ),
+    )
+    assert majorana_residual < TOLERANCE
+    assert fermion_weight < 0
+    rows.append(
+        {
+            "check": "full_nambu_SO2_does_not_fix_lift_sign",
+            "samples": "exact",
+            "result": "pass",
+            "diagnostic_1": (
+                "det_I_plus_M="
+                f"{np.linalg.det(np.eye(2) + majorana_product).real:.12e}"
+            ),
+            "diagnostic_2": f"fock_trace={fermion_weight:.12e}",
+            "maximum_residual": f"{majorana_residual:.12e}",
+        }
+    )
+
+    closed_angle = np.pi
+    closed_generator = np.array(
+        [[0.0, 2.0 * closed_angle], [-2.0 * closed_angle, 0.0]]
+    )
+    closed_rotation = expm(closed_generator)
+    split_product = np.block(
+        [
+            [closed_rotation, np.zeros((2, 2))],
+            [np.zeros((2, 2)), np.eye(2)],
+        ]
+    )
+    split_eta = np.diag([1.0, 1.0, -1.0, -1.0])
+    split_fock_trace = 4.0 * np.cos(closed_angle)
+    split_radicand = np.linalg.det(np.eye(4) + split_product)
+    split_residual = max(
+        np.linalg.norm(split_product - np.eye(4)),
+        np.linalg.norm(
+            split_product.T @ split_eta @ split_product - split_eta
+        ),
+        abs(split_radicand - split_fock_trace**2),
+    )
+    assert split_residual < 2.0e-8
+    assert split_fock_trace < 0
+    rows.append(
+        {
+            "check": "full_nambu_SO22_same_M_opposite_lift",
+            "samples": "exact",
+            "result": "pass",
+            "diagnostic_1": (
+                f"det_I_plus_M={split_radicand:.12e};M_equals_I"
+            ),
+            "diagnostic_2": f"fock_trace={split_fock_trace:.12e}",
+            "maximum_residual": f"{split_residual:.12e}",
+        }
+    )
+
+    first_angle = 1.0
+    second_angle = 1.2
+
+    def rotation(angle: float) -> np.ndarray:
+        return np.array(
+            [
+                [np.cos(2.0 * angle), np.sin(2.0 * angle)],
+                [-np.sin(2.0 * angle), np.cos(2.0 * angle)],
+            ]
+        )
+
+    first_rotation = rotation(first_angle)
+    second_rotation = rotation(second_angle)
+    first_green = (
+        2.0 * np.linalg.inv(np.eye(2) + first_rotation) - np.eye(2)
+    )
+    second_green = (
+        2.0 * np.linalg.inv(np.eye(2) + second_rotation) - np.eye(2)
+    )
+    product_pfaffian = pfaffian_4x4(
+        np.block(
+            [
+                [first_green, -np.eye(2)],
+                [np.eye(2), second_green],
+            ]
+        )
+    )
+    lifted_product_trace = (
+        -2.0
+        * np.cos(first_angle)
+        * np.cos(second_angle)
+        * product_pfaffian
+    )
+    expected_product_trace = 2.0 * np.cos(
+        first_angle + second_angle
+    )
+    product_residual = max(
+        abs(lifted_product_trace - expected_product_trace),
+        abs(
+            expected_product_trace**2
+            - np.linalg.det(
+                np.eye(2) + first_rotation @ second_rotation
+            )
+        ),
+    )
+    assert product_residual < TOLERANCE
+    assert expected_product_trace < 0
+    rows.append(
+        {
+            "check": "fermion_lifted_pfaffian_product_sign",
+            "samples": "exact",
+            "result": "pass",
+            "diagnostic_1": (
+                f"pfaffian_trace={lifted_product_trace.real:.12e}"
+            ),
+            "diagnostic_2": (
+                f"direct_fock_trace={expected_product_trace:.12e}"
+            ),
+            "maximum_residual": f"{product_residual:.12e}",
+        }
+    )
+
+    slice_angles = [np.pi / 4.0] * 4
+    slice_count = len(slice_angles)
+    spacetime_matrix = np.zeros(
+        (2 * slice_count, 2 * slice_count), dtype=float
+    )
+    slice_trace_product = 1.0
+    majorana_form = np.array([[0.0, -1.0], [1.0, 0.0]])
+    for row, angle in enumerate(slice_angles):
+        row_slice = slice(2 * row, 2 * row + 2)
+        spacetime_matrix[row_slice, row_slice] = (
+            np.tan(angle) * majorana_form
+        )
+        slice_trace_product *= np.cos(angle)
+        for column in range(row + 1, slice_count):
+            column_slice = slice(2 * column, 2 * column + 2)
+            block = ((-1) ** (column - row)) * np.eye(2)
+            spacetime_matrix[row_slice, column_slice] = block
+            spacetime_matrix[column_slice, row_slice] = -block
+    spacetime_trace = (
+        (-1) ** (slice_count // 2)
+        * 2.0
+        * slice_trace_product
+        * pfaffian_small(spacetime_matrix)
+    )
+    expected_closed_loop_trace = -2.0
+    spacetime_residual = max(
+        np.linalg.norm(spacetime_matrix + spacetime_matrix.T),
+        abs(spacetime_trace - expected_closed_loop_trace),
+    )
+    assert spacetime_residual < TOLERANCE
+    rows.append(
+        {
+            "check": "fermion_spacetime_pfaffian_closed_loop",
+            "samples": "exact",
+            "result": "pass",
+            "diagnostic_1": f"pfaffian_trace={spacetime_trace.real:.12e}",
+            "diagnostic_2": "four_positive_slices_total_lift_negative",
+            "maximum_residual": f"{spacetime_residual:.12e}",
         }
     )
 
@@ -232,7 +541,30 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
     radicand_residual = abs(
         np.linalg.det(np.eye(4) + product) - expected_weight**2
     )
-    maximum_residual = max(residuals + [radicand_residual])
+    fock_operators = fermion_fock_operators()
+    fock_generators = [
+        fock_generator(fermion_g, generator, fock_operators)
+        for generator in generators
+    ]
+    fock_weight = np.trace(
+        expm(fock_generators[0]) @ expm(fock_generators[1])
+    )
+    expected_first_exponential = np.diag([-1, 1, 1, -1])
+    expected_second_exponential = np.diag(
+        [np.exp(-x), 1, 1, np.exp(x)]
+    )
+    fock_residual = max(
+        abs(fock_weight - expected_weight),
+        np.linalg.norm(
+            expm(fock_generators[0]) - expected_first_exponential
+        ),
+        np.linalg.norm(
+            expm(fock_generators[1]) - expected_second_exponential
+        ),
+    )
+    maximum_residual = max(
+        residuals + [radicand_residual, float(fock_residual)]
+    )
     assert maximum_residual < 3.0e-9
     assert expected_weight < 0
     rows.append(
@@ -241,7 +573,10 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
             "samples": "exact",
             "result": "pass",
             "diagnostic_1": f"weight={expected_weight:.12e}",
-            "diagnostic_2": f"radicand_residual={radicand_residual:.12e}",
+            "diagnostic_2": (
+                f"fock_trace={fock_weight.real:.12e};"
+                f"radicand_residual={radicand_residual:.12e}"
+            ),
             "maximum_residual": f"{maximum_residual:.12e}",
         }
     )
@@ -249,7 +584,11 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
 
 
 def main() -> None:
-    rows = orthogonal_group_checks() + exact_counterexample_checks()
+    rows = (
+        orthogonal_group_checks()
+        + one_sided_semigroup_checks()
+        + exact_counterexample_checks()
+    )
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT_PATH.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(

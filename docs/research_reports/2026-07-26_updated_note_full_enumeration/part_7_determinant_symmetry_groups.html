@@ -749,6 +749,393 @@
     所以解析延拓定义的玻色权重是纯虚数。一条平方为 \(+I\) 的时间反演同样不能
     单独给 Nambu Gaussian 权重定号。
   </p>
+<h3 id="full-nambu-split-orthogonal">2.5 完整 Nambu 空间可以直接使用正交群条件</h3>
+<p>
+    split-orthogonal determinant theorem 本身并不要求先删去 Nambu 分量。
+    只要在某组基底中传播矩阵为实矩阵，并保持一个实对称、可逆的
+    \(\eta\)，条件就是
+  </p>
+<div class="scroll">\[
+  M^T\eta M=\eta,
+  \qquad M\ \text{与单位矩阵连续相连},
+  \]</div>
+<p>
+    就可以直接在完整的 \(2N\) 维 Nambu 空间应用正交群定理，得到
+    \(\det(I+M)\geq0\)。问题在于，费米 Fock-space 权重满足
+  </p>
+<div class="scroll">\[
+  p_{\rm F}^{\,2}=\det(I+M).
+  \]</div>
+<p>
+    因此这个结论只给出 \(|p_{\rm F}|\)，没有给出 \(p_{\rm F}\) 的正负号。
+    原因不是 Nambu 写法多写了一倍矩阵元，而是从 Fock-space Gaussian 算符
+    到 Nambu 传播矩阵的映射是二对一的：\(\widehat{\mathcal U}\) 与
+    \(-\widehat{\mathcal U}\) 对所有 Nambu 算符产生完全相同的线性变换。
+  </p>
+<p>
+    第 2.4 节的单模例子可以把这个区别完整算出来。改用两个 Majorana 算符
+  </p>
+<div class="scroll">\[
+  \hat\gamma_1=\hat c+\hat c^+,
+  \qquad
+  \hat\gamma_2=-i(\hat c-\hat c^+),
+  \]</div>
+<p>
+    对应的 Nambu 传播就成为二维实旋转
+  </p>
+<div class="scroll">\[
+  M_\gamma(x)=
+  \begin{pmatrix}
+  \cos(2x)&amp;\sin(2x)\\
+  -\sin(2x)&amp;\cos(2x)
+  \end{pmatrix}\in SO(2),
+  \qquad
+  \det(I+M_\gamma)=4\cos^2x.
+  \]</div>
+<p>
+    但是同一个 Gaussian 算符的 Fock trace 是 \(2\cos x\)，在
+    \(\pi/2&lt;x&lt;\pi\) 为负。若希望正、负方向数目相等，可再加入一个完全
+    不传播的费米模：
+  </p>
+<div class="scroll">\[
+  \widetilde M(x)=\operatorname{diag}(M_\gamma(x),I_2),
+  \qquad
+  \widetilde\eta=\operatorname{diag}(I_2,-I_2).
+  \]</div>
+<p>
+    这时 \(\widetilde M(x)\in SO_0(2,2)\)，而
+  </p>
+<div class="scroll">\[
+  \det(I+\widetilde M)=16\cos^2x,
+  \qquad
+  \operatorname{Tr}_{\rm Fock}\widehat{\mathcal U}(x)=4\cos x.
+  \]</div>
+<p>
+    更强的反例出现在 \(x=\pi\)：此时
+    \(\widetilde M(\pi)=I_4\)，但沿着上述旋转从单位算符连续提升到 Fock
+    空间后，终点是 \(-I\)，其 trace 为 \(-4\)。也就是说，连最终传播矩阵
+    都完全相同，Fock 算符仍可能相差一个负号。因而不存在一个只读取
+    \(M\in SO_0(p,q)\) 就能为整个最大子群确定 Fock-space 整体号的定理。
+    这里下标 0 表示与单位矩阵连续相连的那一部分。
+  </p>
+<h3 id="lifted-split-orthogonal">2.6 能直接计算 Fock-space 整体号的加强版</h3>
+<p>
+    不约化 Nambu 空间时，正确的加强不是再找一个只依赖 \(M\) 的平方根公式，
+    而是把 Fock-space lift 一起保存。对 \(N\) 个费米模，把一个实际
+    Gaussian 算符记为 \(\widehat{\mathcal U}\)，并定义
+  </p>
+<div class="scroll">\[
+  \zeta=2^{-N}\operatorname{Tr}\widehat{\mathcal U}.
+  \]</div>
+<p>
+    当 trace 非零时，完整数据是 \((M,\zeta)\)，而不是单独的 \(M\)。
+    二者满足
+  </p>
+<div class="scroll">\[
+  \boxed{2^{2N}\zeta^2=\det(I+M).}
+  \]</div>
+<p>
+    这个等式仍保留普通 determinant theorem 的全部信息；额外保存的
+    \(\zeta\) 正好区分同一个 \(M\) 上的两个 Fock 算符。它还可以完全离散地
+    随时间片相乘。若 \((M_1,\zeta_1)\) 与 \((M_2,\zeta_2)\) 表示两个
+    Gaussian 算符，并令
+  </p>
+<div class="scroll">\[
+  G_j=2(I+M_j)^{-1}-I\qquad(j=1,2),
+  \]</div>
+<p>则它们乘积的整体号由下面的 Pfaffian 唯一确定：</p>
+<div class="scroll">\[
+  \boxed{
+  \zeta_{12}=(-1)^N\zeta_1\zeta_2
+  \operatorname{Pf}
+  \begin{pmatrix}
+  G_1&amp;-I\\ I&amp;G_2
+  \end{pmatrix},
+  \qquad M_{12}=M_1M_2.}
+  \]</div>
+<details class="basis-audit">
+<summary><strong>展开 Pfaffian 乘法式的三步推导</strong></summary>
+<div>
+<p>
+        第一步，把 Majorana 算符的有序乘积换成同样次序的 Grassmann 变量。
+        Grassmann 变量彼此反对易，但不是算符。任意偶宇称 fermionic Gaussian
+        算符都可写成
+      </p>
+<div class="scroll">\[
+      \omega_{\boldsymbol\theta}(\widehat{\mathcal U}_j)
+      =\zeta_j\,
+      \exp\!\left(-\frac12
+      \boldsymbol\theta^T G_j\boldsymbol\theta\right).
+      \]</div>
+<p>
+        这个 Grassmann Gaussian 的常数项就是 \(\zeta_j\)：除单位算符外，
+        任何非平凡 Majorana 单项式的 Fock trace 都为零，而单位算符的 trace
+        是 \(2^N\)，所以
+        \(\operatorname{Tr}\widehat{\mathcal U}_j=2^N\zeta_j\)。
+      </p>
+<p>
+        第二步，在
+        \(\widehat{\mathcal U}_1\widehat{\mathcal U}_2\) 中间插入 fermionic
+        coherent-state 的单位分解。相邻 coherent states 的 overlap 给出
+        两个非对角单位矩阵。把两套各有 \(2N\) 个 Grassmann 变量合并后，
+        乘积的常数项为
+      </p>
+<div class="scroll">\[
+      \zeta_{12}=(-1)^N\zeta_1\zeta_2
+      \int d^{4N}\boldsymbol\xi\,
+      \exp\!\left[
+      \frac12\boldsymbol\xi^T
+      \begin{pmatrix}G_1&amp;-I\\ I&amp;G_2\end{pmatrix}
+      \boldsymbol\xi\right].
+      \]</div>
+<p>
+        \((-1)^N\) 来自把积分变量重新排成统一的次序。Grassmann Gaussian
+        积分的定义正是
+      </p>
+<div class="scroll">\[
+      \int d^{4N}\boldsymbol\xi\,
+      e^{\boldsymbol\xi^TX\boldsymbol\xi/2}
+      =\operatorname{Pf}(X),
+      \qquad X^T=-X.
+      \]</div>
+<p>
+        代入上一式便得到正文的 Pfaffian 乘法式。因为这是一个多项式，输入的
+        两个原始 Gaussian 算符一旦给定，输出符号也随之唯一给定。
+      </p>
+<p>
+        第三步检查它与 Nambu determinant 完全一致。由
+        \(G_j=(I-M_j)(I+M_j)^{-1}\) 直接作 block determinant，可得
+      </p>
+<div class="scroll">\[
+      \det\begin{pmatrix}G_1&amp;-I\\ I&amp;G_2\end{pmatrix}
+      =
+      \frac{2^{2N}\det(I+M_1M_2)}
+      {\det(I+M_1)\det(I+M_2)}.
+      \]</div>
+<p>
+        再使用 \(\operatorname{Pf}(X)^2=\det X\) 以及
+        \(2^{2N}\zeta_j^2=\det(I+M_j)\)，立即得到
+      </p>
+<div class="scroll">\[
+      2^{2N}\zeta_{12}^2=\det(I+M_1M_2).
+      \]</div>
+<p>
+        所以 Pfaffian 乘法没有改变 determinant 的绝对值；它只补回 determinant
+        平方后丢失的正负号。
+      </p>
+</div>
+</details>
+<p>
+    这里 Pfaffian 是反对称矩阵的有限阶多项式，满足
+    \(\operatorname{Pf}(X)^2=\det X\)，所以没有平方根分支选择。
+    这条乘法式可由两个 Grassmann Gaussian 的积分直接得到；平方以后便退回
+    \(2^{2N}\zeta_{12}^2=\det(I+M_{12})\)。因此它是普通
+    split-orthogonal determinant theorem 与 Fock-space lift 的结合：
+    普通定理证明根号内非负，Pfaffian 乘法再给出实际取正根还是负根。
+    若某个中间乘积恰有零 trace，\(G_j\) 不存在，逐片乘法式就会遇到除以零。
+    这不是物理权重的含糊性。下面的全时空公式不形成任何中间乘积，因此可以
+    直接越过这种零点。
+  </p>
+<details class="basis-audit">
+<summary><strong>展开不依赖中间乘积的全时空 Pfaffian</strong></summary>
+<div>
+<p>
+        在 Majorana 基底中，把第 \(\ell\) 个实际 Fock-space 时间片写成
+      </p>
+<div class="scroll">\[
+      \widehat{\mathcal U}_\ell=
+      \exp\!\left(-\frac14\boldsymbol\gamma^T
+      H_\ell\boldsymbol\gamma\right),
+      \qquad H_\ell^T=-H_\ell .
+      \]</div>
+<p>
+        它的 Nambu 传播矩阵是 \(M_\ell=e^{-H_\ell}\)。这个写法只是把
+        原来的 \(A_\ell\) 换到 Majorana 基底后再取负号：这样
+        \(e^{-H_\ell}\) 正好就是原约定中的 \(e^{A_\ell}\)。它没有增加新的
+        对称性条件。
+        单片归一化 trace 可直接算成
+      </p>
+<div class="scroll">\[
+      \zeta_\ell=(-1)^N\operatorname{Pf}
+      \begin{pmatrix}
+      \sqrt2\sinh(H_\ell/4)&amp;-I\\
+      I&amp;\sqrt2\sinh(H_\ell/4)
+      \end{pmatrix},
+      \qquad
+      \operatorname{Tr}\widehat{\mathcal U}_\ell=2^N\zeta_\ell .
+      \]</div>
+<p>
+        设时间片数 \(k\) 为偶数，并令
+        \(G_\ell=\tanh(H_\ell/2)\)。整个 Fock-space trace 一次性等于
+      </p>
+<div class="scroll">\[
+      \boxed{
+      \operatorname{Tr}\!\left(
+      \widehat{\mathcal U}_1\cdots\widehat{\mathcal U}_k\right)
+      =(-1)^{Nk/2}2^N
+      \left(\prod_{\ell=1}^{k}\zeta_\ell\right)
+      \operatorname{Pf}
+      \begin{pmatrix}
+      G_1&amp;-I&amp;I&amp;\cdots&amp;-I\\
+      I&amp;G_2&amp;-I&amp;\cdots&amp;I\\
+      -I&amp;I&amp;G_3&amp;\ddots&amp;-I\\
+      \vdots&amp;\vdots&amp;\ddots&amp;\ddots&amp;-I\\
+      I&amp;-I&amp;I&amp;I&amp;G_k
+      \end{pmatrix}.}
+      \]</div>
+<p>
+        上式第 \(r\) 行、第 \(s\) 列的非对角 block（\(r&lt;s\)）是
+        \((-1)^{s-r}I\)，下三角部分由整个矩阵反对称唯一确定。若原本有奇数个
+        时间片，补一个单位算符即可；它不改变权重。
+      </p>
+<p>
+        这个公式来自把全部 \(2Nk\) 个 Grassmann 变量一次积分掉。它的每个
+        矩阵元都由实际时间片决定，最后只计算一个 Pfaffian，因此既没有平方根，
+        也没有中间整体号。若某个单片本身使 \(G_\ell\) 发散，把同一个指数精确
+        写成
+      </p>
+<div class="scroll">\[
+      e^{-\boldsymbol\gamma^TH_\ell\boldsymbol\gamma/4}
+      =\left[
+      e^{-\boldsymbol\gamma^TH_\ell\boldsymbol\gamma/(4r)}
+      \right]^r .
+      \]</div>
+<p>
+        总能选择足够大的整数 \(r\)，使细分后每片的
+        \(I+e^{-H_\ell/r}\) 可逆。这个操作保持原算符及其 lift 完全不变，
+        所以全时空公式对任意有限的 Gaussian 时间片序列都适用，不要求物理路径
+        避开零权重点。零权重由 Pfaffian 直接给出 0；负权重也直接给出负数。
+      </p>
+<p>
+        例如把第 2.5 节的闭合旋转分成四片，每片取 \(x=\pi/4\)。四个单片
+        trace 都为正，传播矩阵的乘积是 \(I_2\)，但上式给出
+        \(2\cos\pi=-2\)。它因此能区分同一个终点矩阵上的两个 Fock lifts。
+      </p>
+</div>
+</details>
+<div class="result">
+<strong>Fock-space split-orthogonal 定理。</strong>
+    设实际 fermionic Gaussian 算符 \(\widehat{\mathcal U}\) 在完整
+    Nambu 或 Majorana 空间诱导 \(M\in SO_0(p,q)\)。那么
+    \(\operatorname{Tr}_{\rm Fock}\widehat{\mathcal U}\) 是实数，并且
+    <span class="nowrap">\((\operatorname{Tr}_{\rm Fock}
+    \widehat{\mathcal U})^2=\det(I+M)\)</span>；它的正负号由上面的
+    Pfaffian 乘法式或全时空 Pfaffian 唯一给出。因而这条加强版直接控制
+    Fock-space 整体号，而不需要去除 Nambu 分量。
+    在不经过 \(\det(I+M)=0\) 的任一连续区域内，这个实数的符号不变；包含
+    单位算符的区域取正号。最大子群中也可能含有第 2.5 节那样的二维旋转；当
+    \(M\) 出现本征值 \(-1\) 时，Fock trace 经过零并改变符号，所以定理会
+    如实给出负号，而不会把整个最大子群误判为非负。
+  </div>
+<p>
+    更具体地，令 \(\widehat{\mathcal U}(t)\) 是从单位算符出发、覆盖
+    \(M(t)\) 的连续 Fock-space Gaussian 算符，则
+  </p>
+<div class="scroll">\[
+  \boxed{
+  \begin{gathered}
+  M(t)^T\eta M(t)=\eta,\qquad M(0)=I,\\
+  \det[I+M(t)]&gt;0\quad(0\leq t\leq1)
+  \end{gathered}
+  \quad\Longrightarrow\quad
+  \operatorname{Tr}_{\rm Fock}\widehat{\mathcal U}(1)&gt;0.}
+  \]</div>
+<p>
+    证明只有一步：左边保证 Fock trace 始终是非零实数；它随 \(t\) 连续，
+    而 \(t=0\) 时等于 Fock-space 维数 \(2^N&gt;0\)，所以途中不能变号。
+    第 2.5 节同时证明了条件中的严格大于号不能从“属于最大子群”自动推出。
+  </p>
+<p>
+    若反线性对称性使这个 Pfaffian 分解成某个 Pfaffian 与其复共轭的乘积，
+    或使所有可能变号的实因子具有 Kramers 双重简并，便进一步得到逐构型非负；
+    这正是第 2.2、2.3 节的两种时间反演机制。若严格收缩条件保证整个辅助场域
+    不经过零权重点，则也可从单位算符所在的正区域固定符号。除此之外，
+    Pfaffian 公式只能准确计算负号，不能把真正存在的负权重消掉。
+    具体的离散更新与数值稳定化见
+    <a href="part_5_branch_sampling.html">第 5 卷</a>；费米 Pfaffian 公式见
+    <a href="https://arxiv.org/abs/2408.10311">PfQMC</a>。
+  </p>
+<p>
+    费米 Pfaffian 之所以特别简洁，是因为 Grassmann Gaussian 积分本身就是
+    一个 Pfaffian。玻色 Fock space 没有这一步，但也可以在完整 Nambu 空间中
+    得到同样无歧义的 lifted 乘法；下面把需要的公式列全。
+  </p>
+<details class="basis-audit">
+<summary><strong>展开 bosonic Fock-space split-orthogonal 定理</strong></summary>
+<div>
+<p>
+        先看普通矩阵定理给出什么。若完整 \(2N\) 维玻色 Nambu 传播同时满足
+        辛条件和 \(M\in SO_0(p,q)\)，其中 \(p+q=2N\)，则
+      </p>
+<div class="scroll">\[
+      (-1)^q\det(I-M)\geq0,
+      \qquad
+      p_{\rm B}^{-2}=(-1)^N\det(I-M).
+      \]</div>
+<p>
+        因此 \(N\) 与 \(q\) 奇偶性相同时，根号内的量非负，玻色权重在 pole
+        以外为实数；奇偶性不同时，单靠这个最大子群得到的是纯虚解析延拓，不能
+        作为实采样权重。最常用的 split 情形是 \(p=q=N\)，自动属于前一种。
+      </p>
+<p>
+        接着保存矩阵没有记录的整体号。把中心化 Gaussian 算符的传播矩阵分块为
+      </p>
+<div class="scroll">\[
+      M=\begin{pmatrix}u&amp;v\\w&amp;z\end{pmatrix},
+      \qquad
+      \eta_U=\langle0|\widehat{\mathcal U}|0\rangle .
+      \]</div>
+<p>
+        \(\eta_U\) 是真空矩阵元，不是正交群的度规 \(\eta\)。在 \(z\) 可逆的
+        区域内，\(\eta_U^2=\det(z)^{-1}\)；实际保存 \(\eta_U\) 本身，不能在
+        每一步用主平方根覆盖它。对左、右两个 Gaussian 算符，令
+      </p>
+<div class="scroll">\[
+      X_2=v_2z_2^{-1},
+      \qquad Z_1=-z_1^{-1}w_1.
+      \]</div>
+<p>Fock-space 乘法直接给出</p>
+<div class="scroll">\[
+      \boxed{
+      \begin{aligned}
+      M_{12}&amp;=M_1M_2,\\
+      \eta_{12}&amp;=\eta_1\eta_2
+      \exp\!\left[-\frac12\operatorname{Tr}
+      \operatorname{Log}_0(I-Z_1X_2)\right].
+      \end{aligned}}
+      \]</div>
+<p>
+        \(\operatorname{Log}_0\) 表示从 \(I-Z_1X_2=I\) 出发连续得到的矩阵
+        logarithm。这个 exponential 正是两个 Gaussian 算符相乘时，右边的
+        产生算符 exponential 与左边的湮灭算符 exponential 在真空之间产生的
+        Gaussian contraction。它随 \(\widehat{\mathcal U}_1,
+        \widehat{\mathcal U}_2\) 的实际 lifts 一起相乘，所以不会重新猜平方根。
+      </p>
+<p>乘完全部时间片以后，Fock trace 为</p>
+<div class="scroll">\[
+      \boxed{
+      \operatorname{Tr}_{\rm Fock}\widehat{\mathcal U}
+      =\eta_U
+      \left[
+      \frac{\det z}{(-1)^N\det(I-M)}
+      \right]_{\text{同一 Gaussian 分解区域}}^{1/2}.}
+      \]</div>
+<p>
+        方括号内平方根只在每个 Gaussian 分解区域用一个简单的收敛参考算符固定
+        一次；同一个 \(M\) 上的正、负 lift 已全部由 \(\eta_U\) 区分。若某次
+        乘法使 \(z\) 或 \(I-Z_1X_2\) 奇异，就改用另一种产生、湮灭算符分解次序，
+        或把 elementary exponentials 重新分组；不能丢弃 \(\eta_U\) 后改取主
+        平方根。不同分解区域之间的变换仍由同一个实际 Fock 算符唯一确定。
+      </p>
+<p>
+        因而玻色加强版与费米加强版的结论相同：完整 Nambu 空间可以保留，
+        split-orthogonal 条件先控制根号内量，lifted 乘法再控制实际整体号。
+        它是一条精确求号定理，不是一条把整个最大子群都宣布为正的定理。
+        离散 product tree、不同分解区域的处理和数值检查见
+        <a href="part_5_branch_sampling.html">第 5 卷</a>。
+      </p>
+</div>
+</details>
 </section><section id="three-or-more-time-reversals">
 <h2>3. 三条及更多时间反演</h2>
 <h3>3.1 含有负平方时间反演的三条类别</h3>
@@ -988,24 +1375,276 @@
     \(A_1,A_2\)，但 \(p_{\rm F}&lt;0\)。因此费米 \(\{+,+,+\}\) 这一格不能
     由三条时间反演保证非负。
   </p>
-<h4>其他时间反演类别与 split orthogonal group 的关系</h4>
+<details class="basis-audit" id="generalized-orthogonal-positivity">
+<summary><strong>展开：推广 split-orthogonal 判据，并彻底判定费米 \(\{+,+,+\}\)</strong></summary>
+<div>
 <p>
-    split-orthogonal 证明需要在同一套独立一体算符上同时得到三件事：传播矩阵是
-    实矩阵、存在实对称且可逆的 \(\eta\)，并且 \(M^T\eta M=\eta\)。不同时间反演
-    类别提供的结构并不相同：
-  </p>
-<ul>
-<li>\(\{+,-\}\) 产生 \(P=\pm1\) 两个完整物理部分。单独一个部分的传播可以是一般复矩阵；正性来自两部分的 trace 互为复共轭。</li>
-<li>\(\{-,-\}\) 产生守恒荷 \(Q\)，剩下的负平方时间反演在同一守恒荷空间内形成 Kramers 双重简并。两条对称性没有给出实对称的 \(\eta\)。</li>
-<li>玻色 \(\{+,+,+\}\) 同时给出实传播和实对称 \(\eta\)，所以自然落入 split orthogonal group；费米的同一步给出实反对称 \(\eta\)，因此不能使用该定理。</li>
-</ul>
+        split orthogonal group 不是一个只在
+        \(\eta=\operatorname{diag}(I,I,-I,-I)\) 这类特殊写法下才成立的技巧。
+        真正起作用的是两个物理条件：第一，存在一条平方为 \(+I\) 的时间反演，
+        使“取复共轭”在这套一体算符中有明确含义；第二，传播保持一个有正、负方向的
+        二次型。下面先把这两个条件写成不依赖基底的形式，再说明它们如何由不同的
+        时间反演类别产生。
+      </p>
+<h4>原来的 Nambu 矩阵可以是复数，正、负方向也不必一样多</h4>
 <p>
-    \(\{+,+,-\}\)、\(\{+,-,-\}\) 与 \(\{-,-,-\}\) 已分别包含
-    \(\{+,-\}\) 或 \(\{-,-\}\)，所以正性由前两种机制直接得到。某个具体表示
-    还可能额外保持实对称矩阵，从而也允许正交群证明；仅凭时间反演平方的三个符号
-    并不固定这个额外矩阵及其正、负 blocks。因而这些格与 split-orthogonal
-    情形可以重叠，但不能全部等同为同一个 split orthogonal group 条件。
-  </p>
+        设 \(M=e^{A_1}\cdots e^{A_k}\) 作用在一个有限维一体向量空间上。
+        假定这个空间中有一条时间反演 \(\Theta_0\)，以及一个 Hermitian、可逆的
+        矩阵 \(\eta\)，满足
+      </p>
+<div class="scroll">\[
+      \Theta_0^2=I,\qquad
+      \Theta_0A_\ell\Theta_0^{-1}=A_\ell,\qquad
+      \Theta_0\eta\Theta_0^{-1}=\eta,
+      \qquad A_\ell^\dagger\eta+\eta A_\ell=0.
+      \]</div>
+<p>
+        这里不要求原始基底中的 \(A_\ell\)、\(M\) 或 \(\eta\) 为实矩阵。
+        因为 \(\Theta_0^2=I\)，可以选取一组在 \(\Theta_0\) 下不变的基向量；
+        在这组基中，\(\Theta_0\) 就是普通复共轭。前两条不变性随即说明
+        \(A_\ell\) 与 \(\eta\) 都是实矩阵，而 Hermitian 的 \(\eta\) 在这里就是
+        实对称矩阵。再作一次实换基，可以把它写成
+      </p>
+<div class="scroll">\[
+      \eta=\operatorname{diag}(I_p,-I_q),
+      \qquad \dim M=p+q.
+      \]</div>
+<p>
+        \(p\) 和 \(q\) 分别是 \(\eta\) 的正、负方向数目；不需要 \(p=q\)。
+        每一层从 \(t=0\) 到 \(t=1\) 的传播 \(e^{tA_\ell}\) 都保持 \(\eta\)，
+        所以它们的乘积与单位矩阵连续相连。由此得到比 split 情形更一般的结论：
+      </p>
+<div class="scroll">\[
+      \boxed{
+      \det(I+M)\geq0,\qquad
+      (-1)^q\det(I-M)\geq0
+      \quad(p+q\ \text{为偶数}).}
+      \]</div>
+<p>
+        若 \(p+q\) 为奇数，保持 \(\eta\) 的本征值仍按
+        \(\lambda,\lambda^{-1}\) 出现，剩下的一个本征值必须是 \(+1\)，因此
+        \(\det(I-M)=0\)。
+      </p>
+<h4>上述推广的完整推导</h4>
+<p>
+        先证明 \(\det(I+M)\)。若 \(p&gt;q\)，给系统添加 \(p-q\) 个完全不参与
+        传播的辅助自由度，并令这些自由度对应 \(\eta\) 的负方向：
+      </p>
+<div class="scroll">\[
+      \widetilde M=\operatorname{diag}(M,I_{p-q}),\qquad
+      \widetilde\eta=\operatorname{diag}(\eta,-I_{p-q}).
+      \]</div>
+<p>
+        于是 \(\widetilde\eta\) 恰有 \(p\) 个正方向和 \(p\) 个负方向，
+        \(\widetilde M\) 位于与单位矩阵相连的 split orthogonal group。
+        split-orthogonal determinant theorem 给出
+      </p>
+<div class="scroll">\[
+      0\leq\det(I+\widetilde M)
+      =2^{p-q}\det(I+M).
+      \]</div>
+<p>
+        若 \(q&gt;p\)，改为添加 \(q-p\) 个正方向，推导完全相同。因此原定理
+        并不需要正、负方向数目相等；相等只是在不添加辅助自由度时的特殊情形。
+      </p>
+<p>
+        再证明 \(\det(I-M)\)。当 \(I+M\) 可逆时，由
+        \(M^T\eta M=\eta\) 逐项展开可得
+      </p>
+<div class="scroll">\[
+      \left[\eta(I-M)(I+M)^{-1}\right]^T
+      =-\eta(I-M)(I+M)^{-1}.
+      \]</div>
+<p>
+        方括号内是实反对称矩阵。偶数维实反对称矩阵的行列式等于其 Pfaffian
+        的平方，所以
+      </p>
+<div class="scroll">\[
+      \operatorname{Pf}\!\left[\eta(I-M)(I+M)^{-1}\right]^2
+      =\det\eta\,\frac{\det(I-M)}{\det(I+M)}
+      =(-1)^q\frac{\det(I-M)}{\det(I+M)}\geq0.
+      \]</div>
+<p>
+        刚才已经证明分母非负，故得到第二条不等式。若 \(I+M\) 不可逆，
+        把 \(M\) 沿着保持 \(\eta\) 的连续路径稍微移开，再取极限即可。
+        这个证明同时说明：原始矩阵是否看起来是实数并不重要；重要的是是否存在
+        \(\Theta_0^2=I\) 来定义一套实基底。
+      </p>
+<h4>最大子群还可以扩展成单向半群</h4>
+<p>
+        上面的等式正是
+        <a href="https://arxiv.org/abs/1712.09412">Wei 的半群框架</a>中
+        maximal subgroup 的生成元条件。等式还可放宽为所有时间片取同一个方向的
+        不等式
+      </p>
+<div class="scroll">\[
+      A_\ell^\dagger\eta+\eta A_\ell\succeq0
+      \quad\text{对所有 }\ell,
+      \qquad\text{或}\qquad
+      A_\ell^\dagger\eta+\eta A_\ell\preceq0
+      \quad\text{对所有 }\ell.
+      \]</div>
+<p>
+        \(\succeq0\) 表示左边的 Hermitian 矩阵所有本征值都非负。
+        以第一种方向为例，直接求导得到
+      </p>
+<div class="scroll">\[
+      \frac{d}{dt}\left(e^{tA_\ell^\dagger}\eta e^{tA_\ell}\right)
+      =e^{tA_\ell^\dagger}
+      (A_\ell^\dagger\eta+\eta A_\ell)e^{tA_\ell}\succeq0.
+      \]</div>
+<p>
+        因而每一层都只把 \(\eta\) 向同一个方向改变，任意层数的乘积仍具有这个
+        性质。单向半群 determinant theorem 给出 \(\det(I+M)\geq0\)；
+        <a href="https://mathoverflow.net/questions/229788/how-to-prove-this-determinant-is-positive-ii">MathOverflow 推导</a>
+        给出了直接的矩阵证明，并明确覆盖等式之外的非零半群方向。负号方向可对 \(M^{-1}\) 使用同一
+        结论，再利用
+        \(\det(I+M)=\det(M)\det(I+M^{-1})\) 与 \(\det(M)&gt;0\)。
+        任意 \((p,q)\) 的情形仍可用上一段添加不传播自由度的方法化为正、负方向
+        相等的情形。
+      </p>
+<p>
+        这条扩展在物理上意味着：时间反演给出的正交群可以只是一个边界；沿着同一
+        \(\eta\) 方向加入耗散或放大的 HS 时间片以后，普通费米 determinant
+        仍然非负。若这个一体空间已经是一套独立算符，determinant 就是实际权重；
+        若它是完整 Nambu 空间，矩阵不等式仍然可以直接使用，但还要按第 2.6 节
+        保存 Fock-space lift。严格半群不经过零权重点时，单位算符所在的正区域
+        自动固定 lift；只有最大子群时则可能发生第 2.5 节的旋转变号。
+      </p>
+<h4>不同时间反演类别具体产生什么矩阵结构</h4>
+<p>
+        上述正交结构并不限于玻色 \(\{+,+,+\}\)。例如费米
+        \(\{+,-\}\) 中，可选取基底使
+      </p>
+<div class="scroll">\[
+      \Theta_+=\mathcal K,\qquad
+      \Theta_-=iR\mathcal K,\qquad
+      R\ \text{为实矩阵}.
+      \]</div>
+<p>
+        两条时间反演的平方、反对易关系以及对 \(g\) 的保持条件逐项给出
+      </p>
+<div class="scroll">\[
+      R^2=-I,\qquad R^TgR=-g,\qquad [R,A_\ell]=0.
+      \]</div>
+<p>
+        对费米子 \(g^T=g\)。由前两式有 \(R^Tg=gR\)，所以
+      </p>
+<div class="scroll">\[
+      \eta=gR,\qquad
+      \eta^T=\eta,\qquad
+      A_\ell^T\eta+\eta A_\ell
+      =-gA_\ell R+gRA_\ell=0.
+      \]</div>
+<p>
+        因此费米 \(\{+,-\}\) 的完整 Nambu 传播本身就有 split-orthogonal
+        结构。具体地，Hermitian-conjugation 条件给出 \(CRC=-R\)；由于
+        \(g=C\)，有 \((gR)^2=I\)，而 \(R\) 把 \(gR\) 的正、负本征空间互相交换，
+        所以两者维数相同。它的物理权重之所以能够确定平方根的正号，仍是第 2.2 节的两个完整
+        物理部分互为复共轭；正交群结论在矩阵层面给出同一机制的另一种表现。
+      </p>
+<div class="scroll">
+<table>
+<thead><tr><th>时间反演类别</th><th>由该类别自动得到的结构</th><th>实际权重为何非负</th></tr></thead>
+<tbody>
+<tr><td>\(\{+,-\}\)</td><td>费米：在完整 Nambu 空间得到实对称 \(gR\)；玻色的同一 \(gR\) 为反对称矩阵</td><td>两个 \(P=\pm1\) 物理部分的 trace 互为复共轭</td></tr>
+<tr><td>\(\{-,-\}\)</td><td>产生 \(Q^2=-I\) 的守恒荷；在独立一体算符空间保留一条 Kramers 时间反演</td><td>每个实本征值出现两次，非实本征值与其复共轭一起出现</td></tr>
+<tr><td>玻色 \(\{+,+,+\}\)</td><td>在 \(Q=+i\) 空间得到本节前面推导的实对称 \(\eta=gR_3\)</td><td>一般化的正交群定理给 \(\det(I-M)\) 正确的 \((-1)^{N/2}\)</td></tr>
+<tr><td>费米 \(\{+,+,+\}\)</td><td>在 \(Q=+i\) 空间只得到实反对称矩阵，传播属于实 symplectic group</td><td>三条时间反演本身不能保证非负，见下一段的完整反例</td></tr>
+<tr><td>\(\{+,+,-\}\)、\(\{+,-,-\}\)</td><td>玻色可分别使用两条正平方对称性或两条负平方对称性的乘积构造实对称矩阵；费米可选取其中的 \(\{+,-\}\) 构造实对称矩阵</td><td>同时已含第 2.2 节的共轭部分机制</td></tr>
+<tr><td>玻色 \(\{-,-,-\}\)</td><td>三条时间反演的乘积平方为 \(+I\)，定义实基底；任取两条的乘积平方为 \(-I\)，与 \(g\) 相乘得到实对称矩阵</td><td>正交群证明与第 2.3 节的 Kramers 证明都可使用</td></tr>
+<tr><td>费米 \(\{-,-,-\}\)</td><td>相同构造给出实反对称矩阵，而不是正交群度规</td><td>任取两条 \(\{-,-\}\) 已给出 Kramers 非负性</td></tr>
+</tbody>
+</table>
+</div>
+<h4>费米 \(\{+,+,+\}\)：无附加条件时不可能有正性定理</h4>
+<p>
+        这里不能靠进一步推广“实对称”到“实反对称”来挽救。
+        实反对称矩阵 \(\omega\) 满足
+        \(M^T\omega M=\omega\) 时，本征值仍按
+        \(\lambda,\lambda^{-1},\overline\lambda,
+        \overline\lambda^{-1}\) 出现。非实的四个本征值贡献非负数，正实倒数对也
+        贡献正数；但是一个负实倒数对满足
+      </p>
+<div class="scroll">\[
+      \lambda&lt;-1,\qquad -1&lt;\lambda^{-1}&lt;0,\qquad
+      (1+\lambda)(1+\lambda^{-1})&lt;0.
+      \]</div>
+<p>
+        正交群中，与单位矩阵相连这一条件禁止这种负实倒数对单独出现；实
+        symplectic group 中没有这个限制。最小矩阵例已经是
+      </p>
+<div class="scroll">\[
+      \omega=\begin{pmatrix}0&amp;1\\-1&amp;0\end{pmatrix},\qquad
+      M=\begin{pmatrix}-e^x&amp;0\\0&amp;-e^{-x}\end{pmatrix},\qquad
+      M^T\omega M=\omega,
+      \]</div>
+<div class="scroll">\[
+      \det(I+M)=(1-e^x)(1-e^{-x})
+      =2-e^x-e^{-x}&lt;0\qquad(x\neq0).
+      \]</div>
+<p>
+        而且这个负矩阵仍与单位矩阵连续相连：
+        \(M=e^{\pi\omega}e^{x\sigma_z}\)，两段
+        \(e^{t\pi\omega}\) 与 \(e^{tx\sigma_z}\) 都保持 \(\omega\)。
+        因此不能像正交群那样再挑选“与单位矩阵相连的部分”来排除它。
+      </p>
+<p>
+        这个 \(M\) 不是随意写出的矩阵；它正是上面两模费米
+        \(\{+,+,+\}\) 反例在 \(Q=+i\) 独立一体算符空间中的传播。
+        为了排除 Nambu 平方根或矩阵换基造成的误判，可以直接在四维 Fock space
+        中计算。取基底
+        \(|00\rangle,|01\rangle,|10\rangle,|11\rangle\)，两个时间片为
+      </p>
+<div class="scroll">\[
+      \hat h_1=\pi(\hat c_1\hat c_2+\hat c_1^+\hat c_2^+),
+      \qquad
+      \hat h_2=x(\hat n_1+\hat n_2-1).
+      \]</div>
+<p>它们的指数无需任何 determinant 公式便可算出：</p>
+<div class="scroll">\[
+      e^{\hat h_1}=\operatorname{diag}(-1,1,1,-1),\qquad
+      e^{\hat h_2}=\operatorname{diag}(e^{-x},1,1,e^x),
+      \]</div>
+<div class="scroll">\[
+      \boxed{
+      \operatorname{Tr}(e^{\hat h_1}e^{\hat h_2})
+      =2-e^x-e^{-x}&lt;0\qquad(x\neq0).}
+      \]</div>
+<p>
+        对应的 Nambu 矩阵与三条时间反演完整写为
+      </p>
+<div class="scroll">\[
+      \begin{gathered}
+      g=C=\sigma_x\otimes I_2,\qquad
+      U_1=I_4,\quad U_2=i\sigma_z\otimes\sigma_x,\quad
+      U_3=i\sigma_z\otimes\sigma_z,\\
+      A_1=\pi i\sigma_x\otimes\sigma_y,\qquad
+      A_2=x\sigma_z\otimes I_2,\qquad
+      \Theta_a=U_a\mathcal K.
+      \end{gathered}
+      \]</div>
+<p>
+        利用 Pauli 矩阵乘法可逐项验证
+      </p>
+<div class="scroll">\[
+      \begin{gathered}
+      gA_\ell+A_\ell^Tg=0,\qquad
+      U_a^TgU_a=g,\qquad C\overline U_aC=U_a,\\
+      U_a\overline U_a=I,\qquad
+      U_a\overline U_b+U_b\overline U_a=0\ (a\neq b),\qquad
+      U_a^{-1}\overline{A_\ell}U_a=A_\ell.
+      \end{gathered}
+      \]</div>
+<p>
+        所以它满足费米 \(\{+,+,+\}\) 的全部条件，却有严格负权重。
+        这已经构成无附加条件下的完整反证：任何只从三条正平方、两两反对易的
+        时间反演推出权重非负的定理，都会错误地把这个构型判为非负。
+        因此周期表中费米 \(\{+,+,+\}\) 必须保留为空格；这不是现有证明不够强，
+        而是该类别本身确实包含负权重。
+      </p>
+</div>
+</details>
 <h3>3.3 四条及以上为什么全部非负</h3>
 <p>
     若四条时间反演中同时出现正平方和负平方，直接选出一对
@@ -1230,11 +1869,98 @@
 </div>
 </div>
 </details>
+<details class="basis-audit" id="maximal-subgroup-split-screen">
+<summary><strong>展开：只有最大子群的类别中，哪些模型子空间可用 split-orthogonal 定理</strong></summary>
+<div>
+<p>
+        每个 \(A_{\rm group}\) 都满足某个 metric-preserving 等式，并不意味着
+        整个类别的 Fock-space 权重非负。若直接在完整 Nambu 空间使用这个等式，
+        第 2.5 节的反例说明它只控制
+        \(p_{\rm F}^2=\det(I+M)\)。因此下表只列真正完成了下一步的情形：
+        在 \(A_{\rm group}\) 中限制出一个保持粒子数的模型子空间，使 Nambu
+        determinant 约化为实际权重中的普通 determinant。
+      </p>
+<p>
+        构造不依赖某一组特殊数值矩阵。把系数空间（物理上可以是 flavor、
+        layer 或 orbital）分成同样大的两部分，并在这两部分上取
+      </p>
+<div class="scroll">\[
+      S=\operatorname{diag}(I_m,-I_m).
+      \]</div>
+<p>
+        令每个时间片在独立的一体算符空间中的矩阵具有
+      </p>
+<div class="scroll">\[
+      A_{\rm red}=
+      \begin{pmatrix}
+      K_+&amp;V\\
+      V^T&amp;K_-
+      \end{pmatrix},
+      \qquad
+      K_+^T=-K_+,\quad K_-^T=-K_-,
+      \]</div>
+<p>
+        其中 \(V\) 是任意实矩阵。逐项相乘可见
+      </p>
+<div class="scroll">\[
+      A_{\rm red}^T S+S A_{\rm red}=0.
+      \]</div>
+<p>
+        因而 \(e^{A_{\rm red}}\) 及任意时间片乘积都属于
+        \(SO_0(m,m)\)。费米权重是
+        \(\det(I+M_{\rm red})\geq0\)。表中两条玻色候选关系的最小表示在
+        \(S=+1\) 与 \(S=-1\) 的每一部分中都各含两个独立的一体算符，所以
+        \(S\) 的负本征值数目是 \(2m\)。第 3.2 节的
+        \(\det(I-M_{\rm red})\) 公式因而给出正号，玻色权重为这个普通
+        determinant 的逆。这里没有遗留 Nambu 平方根。
+      </p>
+<p>
+        Octave 生成元表中的 \(I\otimes K\)、\(K^T=-K\) 给出上式的两个
+        对角 blocks；相应的实对称方向给出 \(V,V^T\)。逐类代回五条关系后，
+        只有最大子群的候选如下。表中三个符号依次表示
+        \((J_1^TgJ_1/g,J_1^2)\)、
+        \((J_2^TgJ_2/g,J_2^2)\) 和 \(J_1J_2=\pm J_2J_1\)。
+      </p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>统计</th>
+<th>\((J_1^TgJ_1/g,J_1^2)\)</th>
+<th>\((J_2^TgJ_2/g,J_2^2)\)</th>
+<th>相对关系</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>玻色</td><td>\((+,+)\)</td><td>\((+,+)\)</td><td>对易</td><td>上述 \(SO_0(m,m)\) 模型子空间是新增的 determinant-positive 子空间</td></tr>
+<tr><td>玻色</td><td>\((+,+)\)</td><td>\((+,-)\)</td><td>反对易</td><td>同一正交子空间存在；整个 \(A_{\rm group}\) 已由双时间反演定号</td></tr>
+<tr><td rowspan="6">费米</td><td>\((+,+)\)</td><td>\((+,+)\)</td><td>反对易</td><td rowspan="6">上述 \(SO_0(m,m)\) 模型子空间均为新增的 determinant-positive 子空间</td></tr>
+<tr><td>\((+,+)\)</td><td>\((+,-)\)</td><td>对易</td></tr>
+<tr><td>\((+,+)\)</td><td>\((-,+)\)</td><td>对易</td></tr>
+<tr><td>\((+,-)\)</td><td>\((+,+)\)</td><td>对易</td></tr>
+<tr><td>\((+,-)\)</td><td>\((-,+)\)</td><td>反对易</td></tr>
+<tr><td>\((-,+)\)</td><td>\((+,+)\)</td><td>对易</td></tr>
+<tr><td>费米</td><td>\((+,-)\)</td><td>\((+,+)\)</td><td>反对易</td><td>同一正交子空间存在；整个 \(A_{\rm group}\) 已由双时间反演定号</td></tr>
+</tbody>
+</table>
+</div>
+<p>
+        “模型子空间”是必要限定：一般的 \(A_{\rm group}\) 还允许不保持上述
+        粒子数与 \(S\) 的方向，所以这些结果不能把整格重新涂成无符号。
+        可复现筛选见
+        <a href="analysis/screen_reduced_so_subspaces.py">screen_reduced_so_subspaces.py</a>
+        与
+        <a href="tables/reduced_so_subspace_screen.csv">逐类检查表</a>。
+      </p>
+</div>
+</details>
 </section><section id="symmetry-positivity-conclusion">
 <h2>6. 结论</h2>
 <ol>
 <li>固定辅助场构型的时间反演必须保持 commutator 或 anticommutator、Hermitian conjugation 和每一个时间片。满足这些条件时，正性证明与 bare trace 的收敛区域无关。</li>
 <li>反对易 \(\{+,-\}\) 产生 \(P^2=I\)，把系统分成两个互为复共轭的完整物理部分；反对易 \(\{-,-\}\) 产生 \(Q^2=-I\)，先消除 Nambu 重复，再给出 Kramers 简并。</li>
+<li>split-orthogonal 条件可以直接施加在完整 Nambu 传播矩阵上，但普通 determinant theorem 只给出 Fock trace 的平方。保存 \((M,\zeta)\) 并用 Pfaffian 乘法即可直接计算整体号；整个最大子群却不可能无条件恒正，因为 \(SO_0(2,2)\) 已包含返回同一个 \(M=I\)、而 Fock lift 从 \(+I\) 变成 \(-I\) 的旋转路径。</li>
 <li>玻色 \(\{+,+,+\}\) 中，两条时间反演先产生守恒荷，第三条使传播属于 \(SO_0(N/2,N/2)\)。split-orthogonal determinant theorem 与 Pfaffian 等式共同给出的 \((-1)^{N/2}\)，和 \(N/2\) 个负 commutator blocks 的符号相消。费米在同一步得到的是反对称矩阵，并且存在负权重反例。</li>
 <li>含 pairing 的模型同样可以由双时间反演保证非负；\(P\) 或 \(Q\) 取代了粒子数守恒时预先给定的湮灭算符空间。</li>
 <li>note 的五条 \(J_1,J_2\) 关系只有在补充 Hermitian conjugation 相容性与逐时间片不变性后，才能转为物理时间反演。\(A_{\rm cone}\) 的定号仍属于独立的收缩半群路线。</li>
@@ -1245,7 +1971,11 @@
 <li><a href="https://arxiv.org/abs/1601.05780">Li, Jiang, and Yao, Majorana-Time-Reversal Symmetries</a>：反对易时间反演分类及费米 Majorana、Kramers 两类。</li>
 <li><a href="https://arxiv.org/abs/cond-mat/0407272">Wu and Zhang, Sufficient condition for absence of the sign problem</a>：粒子数守恒一体空间中的 Kramers determinant 证明。</li>
 <li><a href="https://doi.org/10.1103/PhysRevLett.115.250601">Wang, Liu, Iazzi, Troyer, and Harcos, Phys. Rev. Lett. 115, 250601 (2015)</a>：split orthogonal group 的 determinant theorem；原文附录记录了 Harcos 与 Tao 给出的数学证明。本卷把该矩阵定理用于玻色 \(\{+,+,+\}\) 的守恒荷空间。</li>
-<li><a href="analysis/verify_symmetry_group_positivity.py">verify_symmetry_group_positivity.py</a> 与 <a href="tables/symmetry_group_positivity_checks.csv">数值检查表</a>：多时间片随机矩阵、三条全正费米反例及单时间反演反例。</li>
+<li><a href="https://mathoverflow.net/questions/229788/how-to-prove-this-determinant-is-positive-ii">Lei Wang, “How to prove this determinant is positive-II?”</a>：split-orthogonal 等式条件向单向半群不等式的推广；页面同时链接 Harcos--Tao 对等式情形的证明。</li>
+<li><a href="https://arxiv.org/abs/1712.09412">Wei, Phys. Rev. B 110, 075146 (2024)</a>：contraction semigroup、maximal subgroup 与 invariant cone 的统一表述；本节用其最大子群条件连接时间反演与一般化正交群。</li>
+<li><a href="https://arxiv.org/abs/2408.10311">Han, Wan, and Yao, Pfaffian quantum Monte Carlo</a>：用 \((M,\zeta)\) 与 Pfaffian 乘法恢复 fermionic Gaussian operator 的 double-cover 信息；第 2.6 节采用其精确乘法式。</li>
+<li><a href="analysis/verify_symmetry_group_positivity.py">verify_symmetry_group_positivity.py</a> 与 <a href="tables/symmetry_group_positivity_checks.csv">数值检查表</a>：任意正、负方向数目的正交群与单向半群随机检查，完整 Nambu \(SO(2)\)、\(SO_0(2,2)\) lift 反例，Pfaffian 乘法定号，以及三条全正费米反例的显式 Fock-space trace。</li>
+<li><a href="analysis/screen_reduced_so_subspaces.py">screen_reduced_so_subspaces.py</a> 与 <a href="tables/reduced_so_subspace_screen.csv">最大子群筛选表</a>：检查 64 类中可约化为普通 \(SO_0(m,m)\) determinant 的模型子空间，并与整个 \(A_{\rm group}\) 的结论分开记录。</li>
 <li><a href="part_3_enumeration_models.html">第 3 卷：64 类生成元、收缩半群与物理模型</a>。</li>
 <li><a href="part_5_branch_sampling.html">第 5 卷：不能由纯对称性定号时的 double-cover 符号追踪</a>。</li>
 </ul>
