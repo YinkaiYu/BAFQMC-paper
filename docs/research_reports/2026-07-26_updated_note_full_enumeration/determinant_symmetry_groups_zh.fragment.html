@@ -836,20 +836,22 @@
     \(Q=\Theta_1\Theta_2=-iR_2\) 满足 \(Q^2=-I\)，并像第 2.3 节一样
     产生守恒荷。以下只在 \(Q=+i\) 的 \(N\) 维守恒荷空间工作。
     \(\Theta_1=\mathcal K\) 使每个时间片矩阵及完整传播矩阵在这个空间中均为实数。
-    第三条时间反演给出
+    第三条时间反演给出完整 Nambu 空间中的矩阵
   </p>
   <div class="scroll">\[
-  \eta=\left.(gR_3)\right|_{Q=+i}.
+  \eta=gR_3.
   \]</div>
   <p>
-    这个限制没有零本征值。事实上，五条矩阵关系直接给出
+    它不混合 \(Q=+i\) 与 \(Q=-i\) 两个空间，所以进入守恒荷空间以后，
+    下面仍用 \(\eta\) 表示它在 \(Q=+i\) 空间中的限制。这个限制没有零
+    本征值。事实上，五条矩阵关系直接给出
   </p>
   <div class="scroll">\[
-  Q^T(gR_3)Q=-gR_3.
+  Q^T\eta Q=-\eta.
   \]</div>
   <p>
     因为 \(+i\) 与 \(-i\) 相乘为 \(+1\)，上式使两个不同 \(Q\) 空间之间的
-    \(gR_3\) 矩阵元全部为零。完整 \(gR_3\) 可逆，所以两个对角
+    \(\eta\) 矩阵元全部为零。完整 \(\eta\) 可逆，所以两个对角
     blocks 都可逆，特别是上面定义的 \(\eta\) 可逆。
   </p>
   <p>
@@ -859,8 +861,8 @@
   </p>
   <div class="scroll">\[
   \begin{array}{lll}
-  \text{玻色：}&g^T=-g,&(gR_3)^T=-R_3^Tg=gR_3,\\[2pt]
-  \text{费米：}&g^T= g,&(gR_3)^T= R_3^Tg=-gR_3.
+  \text{玻色：}&g^T=-g,&\eta^T=-R_3^Tg=\eta,\\[2pt]
+  \text{费米：}&g^T= g,&\eta^T= R_3^Tg=-\eta.
   \end{array}
   \]</div>
   <p>
@@ -871,8 +873,8 @@
   \begin{aligned}
   \left(A_\ell|_{Q=+i}\right)^T\eta
   +\eta\left(A_\ell|_{Q=+i}\right)
-  &=\left.\left(A_\ell^TgR_3+gR_3A_\ell\right)\right|_{Q=+i}\\
-  &=\left.\left(-gA_\ell R_3+gR_3A_\ell\right)\right|_{Q=+i}=0.
+  &=\left.g\left(R_3A_\ell-A_\ell R_3\right)\right|_{Q=+i}\\
+  &=\left.g[R_3,A_\ell]\right|_{Q=+i}=0.
   \end{aligned}
   \]</div>
 
@@ -880,20 +882,26 @@
   <p>
     对玻色，\(\eta^T=\eta\)，而完整 Nambu commutator matrix 是
     \(-gC=\operatorname{diag}(I_N,-I_N)\)。由
-    \(CR_2C=-R_2\) 和 \(R_2R_3=-R_3R_2\) 可得 \(CR_3\) 与 \(Q=-iR_2\)
-    对易，所以 \(CR_3\) 的作用不会离开 \(Q=+i\) 空间。再使用
-    \(CgC=-g\)、\(CR_3C=-R_3\) 及 \(R_3^Tg=-gR_3\)，直接算得
+    \(CR_2C=-R_2\) 和 \(R_2R_3=-R_3R_2\)，定义
+  </p>
+  <div class="scroll">\[
+  S=CR_3.
+  \]</div>
+  <p>
+    逐项相乘可得 \([S,Q]=0\)，所以 \(S\) 的作用不会离开 \(Q=+i\)
+    空间。再使用 \(CgC=-g\)、\(CR_3C=-R_3\) 及
+    \(R_3^Tg=-gR_3\)，直接算得
   </p>
   <div class="scroll">\[
   \begin{aligned}
-  (CR_3)^T(gR_3)(CR_3)
-  &=R_3^TCgR_3CR_3=-gR_3,\\
-  (CR_3)^T(-gC)(CR_3)
+  S^T\eta S
+  &=R_3^TCgR_3CR_3=-\eta,\\
+  S^T(-gC)S
   &=R_3^TC(-gC)CR_3=gC.
   \end{aligned}
   \]</div>
   <p>
-    这两行分别把 \(\eta=gR_3\) 和 commutator matrix \(-gC\) 变成各自的
+    这两行分别把 \(\eta\) 和 commutator matrix \(-gC\) 变成各自的
     相反数。因此它们在 \(Q=+i\) 的 \(N\) 维空间内都有相同数目的正、负
     本征值，故 \(N\) 必为偶数。对 commutator matrix，这个结论具体写成
   </p>
@@ -1212,7 +1220,7 @@
           <tbody>
             <tr><td>\(\{+,-\}\)</td><td>费米：在完整 Nambu 空间得到实对称 \(gR\)；玻色的同一 \(gR\) 为反对称矩阵</td><td>两个 \(P=\pm1\) 物理部分的 trace 互为复共轭</td></tr>
             <tr><td>\(\{-,-\}\)</td><td>产生 \(Q^2=-I\) 的守恒荷；在独立一体算符空间保留一条 Kramers 时间反演</td><td>每个实本征值出现两次，非实本征值与其复共轭一起出现</td></tr>
-            <tr><td>玻色 \(\{+,+,+\}\)</td><td>在 \(Q=+i\) 空间得到本节前面推导的实对称 \(\eta=gR_3\)</td><td>一般化的正交群定理给 \(\det(I-M)\) 正确的 \((-1)^{N/2}\)</td></tr>
+            <tr><td>玻色 \(\{+,+,+\}\)</td><td>在 \(Q=+i\) 空间得到本节前面推导的实对称 \(\eta\)</td><td>一般化的正交群定理给 \(\det(I-M)\) 正确的 \((-1)^{N/2}\)</td></tr>
             <tr><td>费米 \(\{+,+,+\}\)</td><td>在 \(Q=+i\) 空间只得到实反对称矩阵，传播属于实 symplectic group</td><td>三条时间反演本身不能保证非负，见下一段的完整反例</td></tr>
             <tr><td>\(\{+,+,-\}\)、\(\{+,-,-\}\)</td><td>玻色可分别使用两条正平方对称性或两条负平方对称性的乘积构造实对称矩阵；费米可选取其中的 \(\{+,-\}\) 构造实对称矩阵</td><td>同时已含第 2.2 节的共轭部分机制</td></tr>
             <tr><td>玻色 \(\{-,-,-\}\)</td><td>三条时间反演的乘积平方为 \(+I\)，定义实基底；任取两条的乘积平方为 \(-I\)，与 \(g\) 相乘得到实对称矩阵</td><td>正交群证明与第 2.3 节的 Kramers 证明都可使用</td></tr>
@@ -1416,7 +1424,168 @@
     时间片，所以这个破坏粒子数守恒的费米模型也逐构型无符号。
   </p>
 
-  <h3>4.3 main.tex 的 paired benchmark</h3>
+  <h3>4.3 由玻色 \(\{+,+,+\}\) 定号的奇宇称配对模型</h3>
+  <p>
+    玻色 \(\{+,+,+\}\) 的独特性可以在一个两组分、显式破坏粒子数守恒的
+    Hermitian 模型中实现。固定每条最近邻键的一个方向 \(i\to j\)，并在每个
+    格点放置两个玻色算符 \(\hat b_i,\hat c_i\)。先定义键上的奇宇称跨组分配对
+    与两个 Hermitian 算符
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+  \hat P_{ij}^+&amp;=\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+,
+  &amp;\hat P_{ij}&amp;=\hat b_i\hat c_j-\hat b_j\hat c_i,\\
+  \hat J_{ij}&amp;=-i\left(
+  \hat b_i^+\hat b_j-\hat b_j^+\hat b_i
+  +\hat c_i^+\hat c_j-\hat c_j^+\hat c_i\right),
+  &amp;\hat\Pi_{ij}&amp;=-i\left(\hat P_{ij}^+-\hat P_{ij}\right).
+  \end{aligned}
+  \]</div>
+  <p>
+    \(\hat P_{ij}^+\) 在交换两个格点时变号，在交换 \(b,c\) 两个组分时也变号；
+    两个负号相消，所以完整的两玻色子配对波函数仍满足交换对称性。
+    \(\hat J_{ij}\) 是两组分之和的键电流，\(\hat\Pi_{ij}\) 是配对场的
+    pair-phase quadrature。考虑
+  </p>
+  <div class="scroll">\[
+  \begin{aligned}
+  \hat H_0={}&amp;
+  \kappa\sum_i(\hat n_{b,i}+\hat n_{c,i})
+  -t\sum_{\langle ij\rangle}
+  \left(\hat b_i^+\hat b_j+\hat c_i^+\hat c_j+\mathrm{h.c.}\right)\\
+  &amp;+\Delta\sum_{i\to j}
+  \left(\hat P_{ij}^++\hat P_{ij}\right),\\
+  \hat H_I={}&amp;\sum_{i\to j}
+  \left(U_J\hat J_{ij}^{2}+U_\Pi\hat\Pi_{ij}^{2}\right),
+  \qquad U_J,U_\Pi&gt;0,
+  \end{aligned}
+  \]</div>
+  <p>
+    其中 \(t,\Delta,\kappa\) 均为实数。取 \(\kappa\) 足够大，使
+    \(\hat H_0\) 的 bosonic BdG coefficient matrix 正定，便得到有下界的
+    Gaussian 自由部分；一个直接的充分条件是 \(\kappa\) 大于 hopping matrix
+    与 pairing matrix 的 operator norms 之和。由于 \(\hat J_{ij}\) 和
+    \(\hat\Pi_{ij}\) 都是 Hermitian 算符，两个 \(U\hat O^2\) 相互作用也都
+    非负。
+  </p>
+
+  <h4>三个固定辅助场时间反演</h4>
+  <p>
+    三条反幺正变换在湮灭算符上的作用取为
+  </p>
+  <div class="scroll">\[
+  \begin{array}{c|cc|c}
+  &amp;\hat b_i&amp;\hat c_i&amp;i\\ \hline
+  \Theta_1&amp;\hat b_i&amp;\hat c_i&amp;-i\\
+  \Theta_2&amp;i\hat c_i&amp;i\hat b_i&amp;-i\\
+  \Theta_3&amp;i\hat b_i&amp;-i\hat c_i&amp;-i
+  \end{array}
+  \]</div>
+  <p>
+    它们在产生算符上的作用由 Hermitian conjugation 唯一确定。逐项作用两次可得
+    \(\Theta_a^2=I\)，交换任意两条的作用次序则相差一个负号，所以三条时间反演
+    两两反对易。hopping、数目项和
+    \(\hat P_{ij}^++\hat P_{ij}\) 在三条变换下均保持不变；而
+  </p>
+  <div class="scroll">\[
+  \Theta_a\hat J_{ij}\Theta_a^{-1}=-\hat J_{ij},
+  \qquad
+  \Theta_a\hat\Pi_{ij}\Theta_a^{-1}=-\hat\Pi_{ij}
+  \qquad(a=1,2,3).
+  \]</div>
+  <p>
+    对每个键分别作连续 HS 分解，
+  </p>
+  <div class="scroll">\[
+  e^{-\Delta\tau U\hat O^2}
+  =\frac1{\sqrt{2\pi}}\int_{-\infty}^{\infty}d\phi\,
+  e^{-\phi^2/2}
+  e^{i\sqrt{2\Delta\tau U}\,\phi\hat O},
+  \qquad \hat O=\hat J_{ij}\ \text{或}\ \hat\Pi_{ij},
+  \]</div>
+  <p>
+    后，\(i\) 与 \(\hat O\) 在时间反演下同时变号。因此每一个固定实辅助场
+    \(\phi\) 的二次时间片都保持同样三条时间反演，而不是只在积分以后恢复对称性。
+  </p>
+
+  <h4>与第 3.2 节矩阵证明逐项对应</h4>
+  <p>
+    取 Nambu/flavor 次序
+    \((\hat b,\hat c,\hat b^+,\hat c^+)^T\)，省略 site identity 后有
+  </p>
+  <div class="scroll">\[
+  g=-i\sigma_y\otimes I_2,
+  \qquad C=\sigma_x\otimes I_2,
+  \qquad R_2=\sigma_z\otimes\sigma_x,
+  \qquad R_3=\sigma_z\otimes\sigma_z.
+  \]</div>
+  <p>
+    把实对称 hopping matrix 记为 \(K^T=K\)，把有向键组成的实反对称
+    matrix 记为 \(L^T=-L\)。四种二次项的生成元分别具有
+  </p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>二次时间片中的算符</th><th>对应的 \(A\) 的矩阵因子</th></tr></thead>
+      <tbody>
+        <tr><td>real hopping 与 number term</td><td>\(\sigma_z\otimes I_2\otimes K\)</td></tr>
+        <tr><td>\(\hat P^++\hat P\)</td><td>\((i\sigma_y)\otimes(i\sigma_y)\otimes L\)</td></tr>
+        <tr><td>\(i\hat J\)</td><td>\(I_2\otimes I_2\otimes L\)</td></tr>
+        <tr><td>\(i\hat\Pi\)</td><td>\(\sigma_x\otimes(i\sigma_y)\otimes L\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    这些矩阵全部为实数，逐项满足
+  </p>
+  <div class="scroll">\[
+  gA+A^Tg=0,
+  \qquad [R_2,A]=[R_3,A]=0.
+  \]</div>
+  <p>
+    因而它们正是第 3.2 节玻色 \(\{+,+,+\}\) 允许的四种生成元方向。
+    自由 hopping 和配对进入每个时间片的固定 Hermitian 部分；两个实 Gaussian
+    HS 场分别乘在 \(i\hat J\) 与 \(i\hat\Pi\) 方向。第 3.2 节的
+    split-orthogonal 证明由此对任意格点、任意实辅助场构型给出
+    \(p_{\rm B}\geq0\)；determinant pole 仍是权重未定义的点。
+  </p>
+  <details class="basis-audit">
+    <summary><strong>为什么这个模型不属于前面的 \(\{+,-\}\) 或 \(\{-,-\}\)</strong></summary>
+    <div>
+      <p>
+        当 \(t,\Delta,U_J,U_\Pi\) 均非零，而且不同键上的 HS fields 可以独立
+        取值时，同时保持全部固定辅助场时间片的反幺正变换，其矩阵部分只能写成
+      </p>
+      <div class="scroll">\[
+      U=aI+ibR_2+icR_3+dR_2R_3,
+      \qquad a,b,c,d\in\mathbb R.
+      \]</div>
+      <p>
+        保持 commutator 要求
+        \(a^2+b^2+c^2+d^2=1\)。反幺正变换的平方可以直接展开为
+      </p>
+      <div class="scroll">\[
+      U\overline U=
+      (a^2+b^2+c^2-d^2)I
+      +2d\left[-icR_2+ibR_3+aR_2R_3\right].
+      \]</div>
+      <p>
+        因此平方为 \(+I\) 时必须有 \(d=0\)，平方为
+        \(-I\) 时则必须有 \(a=b=c=0\) 与 \(d=\pm1\)。所以负平方时间反演
+        只有 \(\pm R_2R_3\mathcal K\) 这一条，而且它与所有正平方时间反演
+        对易。这里不存在反对易的 \(\{+,-\}\)，也不存在两条独立的负平方
+        时间反演组成 \(\{-,-\}\)。模型的逐构型非负性因此确实使用了玻色
+        \(\{+,+,+\}\) 这一格。
+      </p>
+    </div>
+  </details>
+  <p>
+    这个模型把奇宇称跨组分配对、键电流涨落与配对相位涨落放在同一个无符号
+    AFQMC 问题中。在链、三角晶格或其他带有定向键结构的晶格上，它可以用于研究
+    稳定 bosonic paired phase 与相互作用驱动的 bond-current、pair-phase order
+    之间的竞争。
+  </p>
+
+  <h3>4.4 main.tex 的 paired benchmark</h3>
   <p>该 benchmark 的两条自然时间反演在 flavor space 可写为</p>
   <div class="scroll">\[
   \Theta_+=e^{-i\varphi}\sigma_x\mathcal K,\qquad

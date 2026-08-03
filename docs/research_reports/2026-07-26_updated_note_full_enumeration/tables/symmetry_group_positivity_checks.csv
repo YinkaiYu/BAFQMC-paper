@@ -41,4 +41,5 @@ full_nambu_SO22_same_M_opposite_lift,exact,pass,det_I_plus_M=1.600000000000e+01;
 fermion_lifted_pfaffian_product_sign,exact,pass,pfaffian_trace=-1.177002234511e+00,direct_fock_trace=-1.177002234511e+00,6.661338147751e-16
 fermion_spacetime_pfaffian_closed_loop,exact,pass,pfaffian_trace=-2.000000000000e+00,four_positive_slices_total_lift_negative,0.000000000000e+00
 boson_single_positive_TR_not_positive,exact,pass,radicand=-3.414213562373e+00,analytic_weight_is_imaginary,0.000000000000e+00
+boson_three_positive_odd_parity_pair_model,exact,pass,four_generator_families_preserve_three_positive_TR;centralizer_dimension=4,single_negative_TR_commutes_with_positive_TRs,7.850462293419e-17
 fermion_three_positive_TR,exact,pass,weight=-5.103380112619e-01,fock_trace=-5.103380112619e-01;radicand_residual=2.220446049250e-16,5.551115123126e-16

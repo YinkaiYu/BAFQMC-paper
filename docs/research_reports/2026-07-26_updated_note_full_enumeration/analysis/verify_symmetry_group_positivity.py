@@ -490,6 +490,194 @@ def exact_counterexample_checks() -> list[dict[str, str]]:
         }
     )
 
+    real_y = 1j * sigma_y
+    spatial_identity = np.eye(2, dtype=complex)
+    spatial_symmetric = np.array([[1.7, 0.3], [0.3, 2.1]])
+    spatial_antisymmetric = np.array([[0.0, 1.0], [-1.0, 0.0]])
+
+    def kron3(
+        first: np.ndarray, second: np.ndarray, third: np.ndarray
+    ) -> np.ndarray:
+        return np.kron(np.kron(first, second), third)
+
+    boson_model_g = kron3(-1j * sigma_y, identity, spatial_identity)
+    boson_model_c = kron3(sigma_x, identity, spatial_identity)
+    boson_r2 = kron3(sigma_z, sigma_x, spatial_identity)
+    boson_r3 = kron3(sigma_z, sigma_z, spatial_identity)
+    boson_model_time_reversals = [
+        np.eye(8, dtype=complex),
+        1j * boson_r2,
+        1j * boson_r3,
+    ]
+    boson_model_generators = [
+        kron3(sigma_z, identity, spatial_symmetric),
+        kron3(real_y, real_y, spatial_antisymmetric),
+        kron3(identity, identity, spatial_antisymmetric),
+        kron3(sigma_x, real_y, spatial_antisymmetric),
+    ]
+    boson_model_residuals: list[float] = []
+    for generator in boson_model_generators:
+        boson_model_residuals.extend(
+            [
+                np.linalg.norm(generator.imag),
+                np.linalg.norm(
+                    boson_model_g @ generator
+                    + generator.T @ boson_model_g
+                ),
+                np.linalg.norm(generator @ boson_r2 - boson_r2 @ generator),
+                np.linalg.norm(generator @ boson_r3 - boson_r3 @ generator),
+            ]
+        )
+        for unitary in boson_model_time_reversals:
+            boson_model_residuals.append(
+                np.linalg.norm(
+                    np.linalg.solve(unitary, generator.conj()) @ unitary
+                    - generator
+                )
+            )
+    for unitary in boson_model_time_reversals:
+        boson_model_residuals.extend(
+            [
+                np.linalg.norm(
+                    unitary.T @ boson_model_g @ unitary - boson_model_g
+                ),
+                np.linalg.norm(
+                    boson_model_c @ unitary.conj() @ boson_model_c
+                    - unitary
+                ),
+                np.linalg.norm(unitary @ unitary.conj() - np.eye(8)),
+            ]
+        )
+    for first in range(3):
+        for second in range(first + 1, 3):
+            boson_model_residuals.append(
+                np.linalg.norm(
+                    boson_model_time_reversals[first]
+                    @ boson_model_time_reversals[second].conj()
+                    + boson_model_time_reversals[second]
+                    @ boson_model_time_reversals[first].conj()
+                )
+            )
+
+    boson_eta = boson_model_g @ boson_r3
+    boson_s = boson_model_c @ boson_r3
+    boson_q = -1j * boson_r2
+    boson_model_residuals.extend(
+        [
+            np.linalg.norm(boson_q.T @ boson_eta @ boson_q + boson_eta),
+            np.linalg.norm(boson_s @ boson_q - boson_q @ boson_s),
+            np.linalg.norm(boson_s.T @ boson_eta @ boson_s + boson_eta),
+            np.linalg.norm(
+                boson_s.T
+                @ (-boson_model_g @ boson_model_c)
+                @ boson_s
+                - boson_model_g
+                @ boson_model_c
+            ),
+        ]
+    )
+
+    negative_unitary = boson_r2 @ boson_r3
+    boson_model_residuals.extend(
+        [
+            np.linalg.norm(
+                negative_unitary @ negative_unitary.conj() + np.eye(8)
+            ),
+            np.linalg.norm(
+                negative_unitary.T
+                @ boson_model_g
+                @ negative_unitary
+                - boson_model_g
+            ),
+            np.linalg.norm(
+                boson_model_c
+                @ negative_unitary.conj()
+                @ boson_model_c
+                - negative_unitary
+            ),
+        ]
+    )
+    for generator in boson_model_generators:
+        boson_model_residuals.append(
+            np.linalg.norm(
+                np.linalg.solve(negative_unitary, generator.conj())
+                @ negative_unitary
+                - generator
+            )
+        )
+    for unitary in boson_model_time_reversals:
+        boson_model_residuals.append(
+            np.linalg.norm(
+                negative_unitary @ unitary.conj()
+                - unitary @ negative_unitary.conj()
+            )
+        )
+
+    base_generators = [
+        np.kron(sigma_z, identity),
+        np.kron(real_y, real_y),
+        np.kron(sigma_x, real_y),
+    ]
+    commutator_columns = []
+    for row in range(4):
+        for column in range(4):
+            matrix_unit = np.zeros((4, 4), dtype=complex)
+            matrix_unit[row, column] = 1.0
+            commutator_columns.append(
+                np.concatenate(
+                    [
+                        (matrix_unit @ generator - generator @ matrix_unit)
+                        .reshape(-1)
+                        for generator in base_generators
+                    ]
+                )
+            )
+    commutator_map = np.stack(commutator_columns, axis=1)
+    centralizer_dimension = 16 - np.linalg.matrix_rank(
+        commutator_map, tol=TOLERANCE
+    )
+    assert centralizer_dimension == 4
+
+    coefficients = np.array([0.2, -0.3, 0.4, 0.5])
+    a_coefficient, b_coefficient, c_coefficient, d_coefficient = coefficients
+    general_unitary = (
+        a_coefficient * np.eye(8)
+        + 1j * b_coefficient * boson_r2
+        + 1j * c_coefficient * boson_r3
+        + d_coefficient * negative_unitary
+    )
+    expected_square = (
+        a_coefficient**2
+        + b_coefficient**2
+        + c_coefficient**2
+        - d_coefficient**2
+    ) * np.eye(8) + 2.0 * d_coefficient * (
+        -1j * c_coefficient * boson_r2
+        + 1j * b_coefficient * boson_r3
+        + a_coefficient * negative_unitary
+    )
+    boson_model_residuals.append(
+        np.linalg.norm(
+            general_unitary @ general_unitary.conj() - expected_square
+        )
+    )
+
+    boson_model_maximum_residual = max(boson_model_residuals)
+    assert boson_model_maximum_residual < TOLERANCE
+    rows.append(
+        {
+            "check": "boson_three_positive_odd_parity_pair_model",
+            "samples": "exact",
+            "result": "pass",
+            "diagnostic_1": (
+                "four_generator_families_preserve_three_positive_TR;"
+                f"centralizer_dimension={centralizer_dimension}"
+            ),
+            "diagnostic_2": "single_negative_TR_commutes_with_positive_TRs",
+            "maximum_residual": f"{boson_model_maximum_residual:.12e}",
+        }
+    )
+
     x = 0.7
     fermion_g = np.kron(sigma_x, identity)
     fermion_c = fermion_g.copy()
