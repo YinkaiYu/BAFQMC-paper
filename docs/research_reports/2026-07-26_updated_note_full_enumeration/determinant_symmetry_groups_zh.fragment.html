@@ -166,9 +166,15 @@
   <p>
     这个区别可以直接由 Hermitian conjugation 看出。若 \(Pv=pv\)，其中
     \(p=\pm1\) 是实数，那么与 \(v\) 对应算符的 Hermitian conjugate 仍在同一个
-    \(P=p\) 部分。若 \(Qv=iv\)，Hermitian conjugation 会同时复共轭系数，
-    所以相应的共轭算符满足 \(Qv^+=-iv^+\)。因此 \(Q=+i\) 的一半包含
-    \(N\) 个独立算符，\(Q=-i\) 的另一半正好包含它们的 Hermitian conjugates。
+    \(P=p\) 部分。若 \(Qv=iv\)，则与该算符的 Hermitian conjugate 对应的
+    列向量是 \(C\overline v\)。利用 \(C\overline Q C=Q\)，有
+  </p>
+  <div class="scroll">\[
+  Q(C\overline v)=C\overline{Qv}=-iC\overline v.
+  \]</div>
+  <p>
+    因此 \(Q=+i\) 的一半包含 \(N\) 个独立算符，\(Q=-i\) 的另一半正好包含
+    它们的 Hermitian conjugates。
   </p>
 
   <h3>2.2 \(\{+,-\}\)：两个完整物理部分互为复共轭</h3>
@@ -306,8 +312,8 @@
     作用下的变换为
   </p>
   <div class="scroll">\[
-  [\hat\chi,\hat\chi^+]=-gC=\operatorname{diag}(I_N,-I_N),\qquad
-  Q^+(-gC)Q=-gC.
+  [\hat\chi,\hat\chi^\dagger]=-gC=\operatorname{diag}(I_N,-I_N),\qquad
+  Q^\dagger(-gC)Q=-gC.
   \]</div>
   <p>
     第二式来自两条时间反演都保持 commutator。它还说明 \(Q=+i\) 与 \(Q=-i\)
@@ -721,11 +727,11 @@
   \end{aligned}
   \]</div>
   <p>
-    其中 \(K=K^+\)、\(\Delta=\Delta^T\)。玻色二次 Hamiltonian 有下界的一个
+    其中 \(K=K^\dagger\)、\(\Delta=\Delta^T\)。玻色二次 Hamiltonian 有下界的一个
     直接条件是
   </p>
   <div class="scroll">\[
-  \begin{pmatrix}K&\Delta\\ \Delta^+&K^T\end{pmatrix}>0.
+  \begin{pmatrix}K&\Delta\\ \Delta^\dagger&K^T\end{pmatrix}>0.
   \]</div>
   <p>
     例如令 \(K=\kappa I+T\)，取
