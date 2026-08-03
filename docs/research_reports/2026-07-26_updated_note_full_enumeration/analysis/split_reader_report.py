@@ -113,11 +113,10 @@ def build_index(source: BeautifulSoup) -> None:
             </div>
             <div class="summary-item established">
               <strong><a href="part_7_determinant_symmetry_groups.html">独立理论卷：Gaussian AFQMC 权重的对称性正性</a></strong>
-              先把 Nambu half-power 精确约化为普通 determinant，再以
-              互为复共轭的产生、湮灭子空间、Kramers 配对和实
-              \(SO_0(p,q)\) 建立三条
-              逐构型判据，并给出时间反演周期表、paired 模型与
-              64 类 \(J_1,J_2\) 结论。
+              从固定辅助场构型的 many-body trace 出发，先给出玻色、费米
+              时间反演周期表，再解释共轭物理部分、Nambu 空间中的 Kramers
+              简并、玻色三条全正对称性、含 pairing 模型与 64 类
+              \(J_1,J_2\) 结论。
             </div>
             <div class="summary-item established">
               <strong><a href="part_8_canonical_projector_algorithms.html">独立算法卷：固定粒子数有限温与零温投影</a></strong>
@@ -262,7 +261,7 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
     table_text = HALF_POWER_SYMMETRY_TABLE_PATH.read_text(encoding="utf-8")
     marker = "{{HALF_POWER_64_TABLE}}"
     if fragment_text.count(marker) != 1:
-        raise RuntimeError("Half-power fragment needs exactly one table marker")
+        raise RuntimeError("Symmetry fragment needs exactly one 64-class table marker")
     fragment = BeautifulSoup(fragment_text.replace(marker, table_text), "html.parser")
     page = BeautifulSoup(
         "<!doctype html><html><body><main></main></body></html>", "html.parser"
@@ -271,13 +270,12 @@ def build_determinant_symmetry_page(source: BeautifulSoup) -> None:
     page.title.string = "Gaussian AFQMC 权重的对称性正性"
     header = fragment.find("header", recursive=False)
     section_ids = [
-        "half-power-symmetry",
-        "ordinary-determinant-reduction",
-        "general-symmetry-positivity",
-        "physical-time-reversal",
-        "two-time-reversal-theorems",
-        "known-positive-structures",
-        "j-relations-half-power",
+        "configuration-weight-and-trs",
+        "two-basic-time-reversal-classes",
+        "three-or-more-time-reversals",
+        "real-positive-negative-channels",
+        "paired-physical-models",
+        "j-relations-symmetry-weight",
         "symmetry-positivity-conclusion",
         "symmetry-positivity-references",
     ]

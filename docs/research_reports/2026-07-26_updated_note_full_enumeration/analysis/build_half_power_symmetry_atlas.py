@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the 64-class atlas for the actual Nambu half-power weight."""
+"""Build the 64-class atlas for the actual Gaussian AFQMC weight."""
 
 from __future__ import annotations
 
@@ -214,22 +214,22 @@ def boson_status(
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
-            "已证明（物理表示已验证）："
-            r"\(W_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\)",
+            "已证明（两个完整物理部分互为复共轭）："
+            r"\(p_{\rm B}=|\det[I-M|_{P=+1}]|^{-1}>0\)",
         )
     if mechanism_name == "kramers_pair":
         dimension = BOSON_KRAMERS_MIN_DIMENSION[row["class_id"]]
         return (
             "yes",
-            rf"已证明（最小物理 Nambu 维数 {dimension}）："
-            r"\(W_{\rm B}=\sqrt{\det B}/\det(I-B)>0\)",
+            rf"已证明（\(\{{-,-\}}\) 约化 Kramers；最小 Nambu 维数 {dimension}）："
+            r"\(p_{\rm B}>0\)（除 pole 外）",
         )
     return (
         "partial",
         (
-            r"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间"
+            r"整类未定号；含第 6.3 节新增的实正、负通道子空间"
             if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["boson"]
-            else r"整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间"
+            else r"五条关系不足以给整个 \(A_{\rm group}\) 定号"
         ),
     )
 
@@ -240,21 +240,20 @@ def fermion_status(
     if mechanism_name == "conjugate_subsystems":
         return (
             "yes",
-            "已证明（共轭分块）："
-            r"\(W_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\)",
+            "已证明（两个完整物理部分互为复共轭）："
+            r"\(p_{\rm F}=|\det[I+M|_{P=+1}]|\geq0\)",
         )
     if mechanism_name == "kramers_pair":
         return (
             "yes",
-            "已证明（Kramers 配对）："
-            r"\(W_{\rm F}=\det(I+B)/\sqrt{\det B}\geq0\)",
+            r"已证明（\(\{-,-\}\) 约化 Kramers）：\(p_{\rm F}\geq0\)",
         )
     return (
         "partial",
         (
-            r"整类未定号；含第 7.3 节新增的实 \(SO_0(p,q)\) 子空间"
+            r"整类未定号；含第 6.3 节新增的实正、负通道子空间"
             if row["class_id"] in NEW_REDUCED_SO_SUBSPACES["fermion"]
-            else r"整类未定号；含第 7.3 节通用的正定度规 \(SO(r)\) 子空间"
+            else r"五条关系不足以给整个 \(A_{\rm group}\) 定号"
         ),
     )
 
@@ -293,7 +292,7 @@ def build_html(rows: list[dict[str, str]]) -> str:
             "</tr>"
         )
     return r"""
-<div class="scroll half-power-atlas-table">
+<div class="scroll symmetry-atlas-table">
   <table>
     <thead>
       <tr>
