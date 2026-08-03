@@ -825,15 +825,13 @@ def cone_block(row: dict[str, str], full: dict[str, str]) -> str:
           J_2^TA_{{\mathrm{{cone}}}}J_2
             &=-\overline{{A_{{\mathrm{{cone}}}}}},\\
           \eta A_{{\mathrm{{cone}}}}
-            -A_{{\mathrm{{cone}}}}^\dagger\eta&=0,\\
-          \eta A_{{\mathrm{{cone}}}}
             +A_{{\mathrm{{cone}}}}^\dagger\eta&<0 .
         \end{{aligned}}}}
       \]</div>
       <p>
-        第四式说明 \(\eta A_{{\mathrm{{cone}}}}\) 是 Hermitian 矩阵，
+        前三式已经保证 \(\eta A_{{\mathrm{{cone}}}}\) 是 Hermitian 矩阵，
         所以最后一式等价于
-        \(\eta A_{{\mathrm{{cone}}}}<0\)。先由前四个等式得到
+        \(\eta A_{{\mathrm{{cone}}}}<0\)。先由前三个等式得到
       </p>
       {formula}
       {table}
@@ -2002,6 +2000,49 @@ def integer_matrix_tex(matrix: np.ndarray) -> str:
     )
 
 
+def pauli_decomposition_tex(matrix: np.ndarray) -> str:
+    """Write a real 2x2 or 4x4 matrix in the real Pauli tensor basis."""
+    dimension = matrix.shape[0]
+    if dimension not in (2, 4) or matrix.shape != (dimension, dimension):
+        return integer_matrix_tex(matrix)
+    words = list(PAULI_NUMPY)
+    if dimension == 4:
+        words = [left + right for left in words for right in words]
+    basis = [pauli_word_numpy(word).real for word in words]
+    coefficients, residuals, _, _ = np.linalg.lstsq(
+        np.column_stack([item.reshape(-1) for item in basis]),
+        matrix.reshape(-1),
+        rcond=None,
+    )
+    if residuals.size and residuals[0] > 1e-18:
+        return integer_matrix_tex(matrix)
+    denominator = 2 if any(
+        abs(value * 2 - round(value * 2)) < 1e-10
+        and abs(value - round(value)) >= 1e-10
+        for value in coefficients
+    ) else 1
+    terms: list[tuple[int, str]] = []
+    for value, word in zip(coefficients, words):
+        numerator = int(round(value * denominator))
+        if numerator:
+            terms.append((numerator, pauli_word_tex(word)))
+    if not terms:
+        return "0"
+    pieces: list[str] = []
+    for index, (numerator, word_tex) in enumerate(terms):
+        sign = "-" if numerator < 0 else "+"
+        magnitude = abs(numerator)
+        term = word_tex if magnitude == 1 else rf"{magnitude}{word_tex}"
+        if index == 0:
+            pieces.append(("-" if numerator < 0 else "") + term)
+        else:
+            pieces.append(rf"\,{sign}\,{term}")
+    expression = "".join(pieces)
+    if denominator == 2:
+        return rf"\frac12\left({expression}\right)"
+    return expression
+
+
 def phased_matrix_tex(phase: str, matrix: np.ndarray) -> str:
     prefix = "" if phase == "1" else "i"
     return prefix + integer_matrix_tex(matrix)
@@ -2493,8 +2534,6 @@ def compact_cone_block(
             J_2^TA_{{\mathrm{{cone}}}}J_2
               =-\overline{{A_{{\mathrm{{cone}}}}}},\\
             \eta A_{{\mathrm{{cone}}}}
-              -A_{{\mathrm{{cone}}}}^\dagger\eta=0,\qquad
-            \eta A_{{\mathrm{{cone}}}}
               +A_{{\mathrm{{cone}}}}^\dagger\eta<0.
           \end{{gathered}}
         \]</div>
@@ -2562,8 +2601,8 @@ def compact_orbit_sheet(
     return rf"""
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1={integer_matrix_tex(first)},\qquad
-          J_2={integer_matrix_tex(second)},\qquad
+          J_1={pauli_decomposition_tex(first)},\qquad
+          J_2={pauli_decomposition_tex(second)},\qquad
           \eta={eta}.
         \]</div>
         <h6>\(A_{{\mathrm{{group}}}}\)</h6>
@@ -2592,11 +2631,7 @@ def compact_low_dimensional_block(
             blocks.append("<p>没有这种维数的实正交表示。</p>")
     return r"""
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     """ + "".join(blocks) + "</details>"
 
 
@@ -2682,6 +2717,35 @@ def compact_summary_relations(row: dict[str, str]) -> str:
     """
 
 
+def compact_summary_status(
+    row: dict[str, str], symmetry: dict[str, str]
+) -> str:
+    dimension = 2 ** int(row["n"])
+    if int(row["strict_interior"]):
+        metric = r"J_2g" if row["metric"] == "J2g" else r"iJ_2g"
+        semigroup = rf"收缩半群：\(\eta={metric}\)"
+        semigroup_class = "semigroup-yes"
+    else:
+        semigroup = "收缩半群：无"
+        semigroup_class = "semigroup-no"
+    if symmetry["group_half_power_mechanism"] in (
+        "conjugate_subsystems",
+        "kramers_pair",
+    ):
+        time_reversal = "时间反演：非负"
+        time_reversal_class = "time-reversal-yes"
+    else:
+        time_reversal = "时间反演：本类不足以定号"
+        time_reversal_class = "time-reversal-no"
+    return rf"""
+      <span class="compact-card-status">
+        <span>最小维数：{dimension}</span>
+        <span class="{semigroup_class}">{semigroup}</span>
+        <span class="{time_reversal_class}">{time_reversal}</span>
+      </span>
+    """
+
+
 def case_card(
     row: dict[str, str],
     full: dict[str, str],
@@ -2692,7 +2756,10 @@ def case_card(
     card_id = f"class-{row['statistics']}-{number:02d}"
     return rf"""
       <details class="all-class-card" id="{card_id}">
-        <summary>{compact_summary_relations(row)}</summary>
+        <summary>
+          {compact_summary_relations(row)}
+          {compact_summary_status(row, symmetry)}
+        </summary>
         <div class="all-class-body tex2jax_ignore">
           {compact_representative_block(row)}
           {compact_positivity_result(row, symmetry)}
@@ -2861,6 +2928,31 @@ def atlas_guide() -> str:
           vertical-align: top;
         }
         .compact-relations > span { white-space: nowrap; }
+        .compact-card-status {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.35rem 0.5rem;
+          margin: 0.45rem 0 0 1.35rem;
+        }
+        .compact-card-status > span {
+          border: 1px solid #aab4af;
+          border-radius: 4px;
+          padding: 0.08rem 0.45rem;
+          font-size: 0.92rem;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .compact-card-status .semigroup-yes,
+        .compact-card-status .time-reversal-yes {
+          border-color: #50816c;
+          color: #245943;
+          background: #f0f7f3;
+        }
+        .compact-card-status .semigroup-no,
+        .compact-card-status .time-reversal-no {
+          color: #535c58;
+          background: #f5f6f5;
+        }
         .compact-representative { font-size: 1.02rem; }
         .compact-status {
           border-left: 4px solid #2f6f57;
@@ -2889,6 +2981,41 @@ def atlas_guide() -> str:
         单独说明原有两条时间反演对称性是否还能证明
         \(A_{\mathrm{group}}\) 序列非负。展开卡片即可查到完整的
         \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 解。
+      </div>
+      <div class="derivation">
+        <p>
+          收缩锥卡片不再把
+          \(\eta A_{\mathrm{cone}}-A_{\mathrm{cone}}^\dagger\eta=0\)
+          列作独立条件。取 \(\eta=\alpha J_2g\)，其中
+          \(\alpha=1\) 或 \(i\)。由
+          \(J_2^TA_{\mathrm{cone}}J_2=-\overline{A_{\mathrm{cone}}}\)、
+          \(gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg=0\)、
+          \(J_2^T=J_2^{-1}\) 可直接得到
+        </p>
+        <div class="scroll">\[
+          A_{\mathrm{cone}}^\dagger\eta
+          =-\alpha J_2^TA_{\mathrm{cone}}^TJ_2^2g
+          =\alpha J_2gA_{\mathrm{cone}}
+          =\eta A_{\mathrm{cone}}.
+        \]</div>
+        <p>
+          因而 \(\eta A_{\mathrm{cone}}\) 自动是 Hermitian 矩阵，唯一还要
+          施加的不等式就是
+          \(\eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0\)，
+          等价地写成 \(\eta A_{\mathrm{cone}}<0\)。
+        </p>
+      </div>
+      <div class="note">
+        <strong>为什么仍要检查同一类的其他低维表示。</strong>
+        卡片顶部的 Pauli 代表以及任意系数矩阵 \(K_P\)，已经包含该代表的
+        任意份相同拷贝，但没有自动包含由不同小块组成的可约表示。后者有时
+        确实改变允许的 \(A\) 空间。例如五条关系右侧全取正号的四维费米
+        类，其不同表示给出
+        \(\dim A_{\mathrm{group}}=6,3,2\) 三种结果。
+        因此只保留一组代表会漏掉生成元方向。每张卡末尾只把不等价表示列
+        一次，并将 \(J_1,J_2\) 写成
+        \(I_2,\sigma_x,i\sigma_y,\sigma_z\) 的张量组合；读者无需再从
+        展开的整数矩阵辨认其结构。
       </div>
     """
 

@@ -9571,6 +9571,31 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
           vertical-align: top;
         }
         .compact-relations > span { white-space: nowrap; }
+        .compact-card-status {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.35rem 0.5rem;
+          margin: 0.45rem 0 0 1.35rem;
+        }
+        .compact-card-status > span {
+          border: 1px solid #aab4af;
+          border-radius: 4px;
+          padding: 0.08rem 0.45rem;
+          font-size: 0.92rem;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .compact-card-status .semigroup-yes,
+        .compact-card-status .time-reversal-yes {
+          border-color: #50816c;
+          color: #245943;
+          background: #f0f7f3;
+        }
+        .compact-card-status .semigroup-no,
+        .compact-card-status .time-reversal-no {
+          color: #535c58;
+          background: #f5f6f5;
+        }
         .compact-representative { font-size: 1.02rem; }
         .compact-status {
           border-left: 4px solid #2f6f57;
@@ -9599,6 +9624,41 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         单独说明原有两条时间反演对称性是否还能证明
         \(A_{\mathrm{group}}\) 序列非负。展开卡片即可查到完整的
         \(A_{\mathrm{group}}\) 与 \(A_{\mathrm{cone}}\) 解。
+      </div>
+      <div class="derivation">
+        <p>
+          收缩锥卡片不再把
+          \(\eta A_{\mathrm{cone}}-A_{\mathrm{cone}}^\dagger\eta=0\)
+          列作独立条件。取 \(\eta=\alpha J_2g\)，其中
+          \(\alpha=1\) 或 \(i\)。由
+          \(J_2^TA_{\mathrm{cone}}J_2=-\overline{A_{\mathrm{cone}}}\)、
+          \(gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg=0\)、
+          \(J_2^T=J_2^{-1}\) 可直接得到
+        </p>
+        <div class="scroll">\[
+          A_{\mathrm{cone}}^\dagger\eta
+          =-\alpha J_2^TA_{\mathrm{cone}}^TJ_2^2g
+          =\alpha J_2gA_{\mathrm{cone}}
+          =\eta A_{\mathrm{cone}}.
+        \]</div>
+        <p>
+          因而 \(\eta A_{\mathrm{cone}}\) 自动是 Hermitian 矩阵，唯一还要
+          施加的不等式就是
+          \(\eta A_{\mathrm{cone}}+A_{\mathrm{cone}}^\dagger\eta<0\)，
+          等价地写成 \(\eta A_{\mathrm{cone}}<0\)。
+        </p>
+      </div>
+      <div class="note">
+        <strong>为什么仍要检查同一类的其他低维表示。</strong>
+        卡片顶部的 Pauli 代表以及任意系数矩阵 \(K_P\)，已经包含该代表的
+        任意份相同拷贝，但没有自动包含由不同小块组成的可约表示。后者有时
+        确实改变允许的 \(A\) 空间。例如五条关系右侧全取正号的四维费米
+        类，其不同表示给出
+        \(\dim A_{\mathrm{group}}=6,3,2\) 三种结果。
+        因此只保留一组代表会漏掉生成元方向。每张卡末尾只把不等价表示列
+        一次，并将 \(J_1,J_2\) 写成
+        \(I_2,\sigma_x,i\sigma_y,\sigma_z\) 的张量组合；读者无需再从
+        展开的整数矩阵辨认其结构。
       </div>
 
 
@@ -9633,6 +9693,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-01">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -9640,7 +9701,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -9688,16 +9757,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=I_2,\qquad
           \eta=i\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9716,8 +9781,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9736,8 +9801,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9756,8 +9821,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9776,8 +9841,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9800,6 +9865,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-02">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -9807,7 +9873,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -9851,8 +9925,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -9872,16 +9944,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_z,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&1\\1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9914,6 +9982,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-03">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -9921,7 +9990,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -9969,16 +10046,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -9997,8 +10070,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10017,8 +10090,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10037,8 +10110,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10057,8 +10130,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10081,6 +10154,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-04">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -10088,7 +10162,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10136,16 +10218,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10168,6 +10246,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-05">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -10175,7 +10254,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10219,8 +10306,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -10240,16 +10325,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=\sigma_z,\qquad
           \eta=\begin{pmatrix}0&-1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10278,8 +10359,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10308,8 +10389,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10342,6 +10423,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-06">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -10349,7 +10431,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10397,16 +10487,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}0&0&-1&0\\0&0&0&1\\-1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10429,6 +10515,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-07">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -10436,7 +10523,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10484,16 +10579,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10516,6 +10607,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-08">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -10523,7 +10615,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10571,16 +10671,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=I_2\otimes \sigma_x,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10603,6 +10699,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-09">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -10610,7 +10707,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10658,16 +10763,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=I_2,\qquad
           \eta=i\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10686,8 +10787,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10706,8 +10807,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10726,8 +10827,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10746,8 +10847,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10770,6 +10871,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-10">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -10777,7 +10879,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10821,8 +10931,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -10842,16 +10950,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10884,6 +10988,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-11">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -10891,7 +10996,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -10939,16 +11052,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10967,8 +11076,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -10987,8 +11096,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11007,8 +11116,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11027,8 +11136,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11051,6 +11160,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-12">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -11058,7 +11168,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11106,16 +11224,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11138,6 +11252,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-13">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -11145,7 +11260,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11189,8 +11312,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -11210,16 +11331,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\-1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11252,6 +11369,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-14">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -11259,7 +11377,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11307,16 +11433,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=\sigma_x,\qquad
           \eta=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11335,8 +11457,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11355,8 +11477,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11379,6 +11501,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-15">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -11386,7 +11509,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11434,16 +11565,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-I_2\otimes i\sigma_y,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11466,6 +11593,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-16">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -11473,7 +11601,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11521,16 +11657,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes I_2,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11553,6 +11685,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-17">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -11560,7 +11693,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11604,8 +11745,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -11625,16 +11764,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=I_2,\qquad
           \eta=i\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11663,8 +11798,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11693,8 +11828,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11727,6 +11862,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-18">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -11734,7 +11870,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11782,16 +11926,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_z,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&1\\1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11814,6 +11954,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-19">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -11821,7 +11962,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11869,16 +12018,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes I_2,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11901,6 +12046,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-20">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -11908,7 +12054,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -11956,16 +12110,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -11984,8 +12134,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12004,8 +12154,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12028,6 +12178,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-21">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -12035,7 +12186,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12083,16 +12242,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=\sigma_z,\qquad
           \eta=\begin{pmatrix}0&-1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12111,8 +12266,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12131,8 +12286,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\-1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12155,6 +12310,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-22">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -12162,7 +12318,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12206,8 +12370,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -12227,16 +12389,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=\sigma_z,\qquad
           \eta=\begin{pmatrix}0&-1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12265,8 +12423,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}0&0&-1&0\\0&0&0&1\\-1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12295,8 +12453,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12329,6 +12487,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-23">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -12336,7 +12495,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12384,16 +12551,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes I_2,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12416,6 +12579,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-24">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -12423,7 +12587,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12471,16 +12643,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=\sigma_z\otimes \sigma_x,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12503,6 +12671,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-25">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12510,7 +12679,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12554,8 +12731,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -12575,16 +12750,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12617,6 +12788,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-26">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12624,7 +12796,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12672,16 +12852,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12704,6 +12880,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-27">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12711,7 +12888,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12759,16 +12944,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12791,6 +12972,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-28">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12798,7 +12980,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12846,16 +13036,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12878,6 +13064,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-29">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12885,7 +13072,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -12933,16 +13128,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\-1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -12965,6 +13156,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-30">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -12972,7 +13164,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -13016,8 +13216,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -13037,16 +13235,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13079,6 +13273,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-31">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -13086,7 +13281,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：8</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -13134,16 +13337,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-\sigma_z\otimes i\sigma_y,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13166,6 +13365,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-boson-32">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -13173,7 +13373,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -13221,16 +13429,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13254,6 +13458,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-01">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -13261,7 +13466,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -13309,16 +13522,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=\sigma_x,\qquad
           \eta=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13337,8 +13546,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=I_2,\qquad
           \eta=\begin{pmatrix}0&1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13357,8 +13566,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=\sigma_x,\qquad
           \eta=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13377,8 +13586,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=I_2,\qquad
           \eta=\begin{pmatrix}0&1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13397,8 +13606,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13417,8 +13626,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13437,8 +13646,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13457,8 +13666,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13477,8 +13686,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13497,8 +13706,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13517,8 +13726,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13537,8 +13746,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13557,8 +13766,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13577,8 +13786,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_z,\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13597,8 +13806,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_z,\qquad
+          J_2=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13617,8 +13826,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13637,8 +13846,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\sigma_x\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13657,8 +13866,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13677,8 +13886,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13697,8 +13906,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,-\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13717,8 +13926,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13737,8 +13946,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13757,8 +13966,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\sigma_x\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13777,8 +13986,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13797,8 +14006,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13817,8 +14026,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,-\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13837,8 +14046,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13857,8 +14066,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13877,8 +14086,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13897,8 +14106,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&1&0&0\\1&0&0&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=\frac12\left(I_2\otimes I_2\,-\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13917,8 +14126,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&-1&0&0\\1&0&0&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=\frac12\left(-I_2\otimes I_2\,+\,I_2\otimes \sigma_z\,+\,\sigma_x\otimes I_2\,+\,\sigma_x\otimes \sigma_z\right),\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&0&0&-1\\0&0&1&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13937,8 +14146,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -13961,6 +14170,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-02">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -13968,7 +14178,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14016,16 +14234,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14048,6 +14262,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-03">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14055,7 +14270,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14103,16 +14326,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14131,8 +14350,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14155,6 +14374,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-04">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14162,7 +14382,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14206,8 +14434,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -14227,16 +14453,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14269,6 +14491,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-05">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14276,7 +14499,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14324,16 +14555,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=\sigma_z,\qquad
           \eta=i\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14352,8 +14579,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14372,8 +14599,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14396,6 +14623,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-06">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14403,7 +14631,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14451,16 +14687,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=\sigma_z,\qquad
           \eta=i\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14479,8 +14711,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14499,8 +14731,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14523,6 +14755,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-07">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14530,7 +14763,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14574,8 +14815,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -14595,16 +14834,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=I_2,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14633,8 +14868,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14663,8 +14898,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=I_2\otimes I_2,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14697,6 +14932,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-08">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -14704,7 +14940,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14752,16 +14996,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=\sigma_x,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14780,8 +15020,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14800,8 +15040,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=\sigma_x\otimes I_2,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14824,6 +15064,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-09">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -14831,7 +15072,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14879,16 +15128,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14907,8 +15152,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -14931,6 +15176,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-10">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -14938,7 +15184,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -14986,16 +15240,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15018,6 +15268,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-11">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15025,7 +15276,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15073,16 +15332,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15101,8 +15356,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15125,6 +15380,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-12">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15132,7 +15388,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：8</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15176,8 +15440,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -15197,11 +15459,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5><p>没有这种维数的实正交表示。</p></details>
         </div>
       </details>
@@ -15209,6 +15467,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-13">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15216,7 +15475,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15264,16 +15531,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15296,6 +15559,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-14">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15303,7 +15567,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15351,16 +15623,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15383,6 +15651,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-15">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15390,7 +15659,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15434,8 +15711,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -15455,16 +15730,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15497,6 +15768,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-16">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -15504,7 +15776,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15552,16 +15832,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-\sigma_x\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15584,6 +15860,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-17">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -15591,7 +15868,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15639,16 +15924,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=I_2,\qquad
           \eta=\begin{pmatrix}0&1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15667,8 +15948,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15687,8 +15968,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15711,6 +15992,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-18">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -15718,7 +16000,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15766,16 +16056,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=\sigma_x,\qquad
           \eta=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15794,8 +16080,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15814,8 +16100,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=I_2\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15838,6 +16124,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-19">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -15845,7 +16132,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -15889,8 +16184,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -15910,16 +16203,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -15952,6 +16241,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-20">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -15959,7 +16249,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16007,16 +16305,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16039,6 +16333,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-21">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -16046,7 +16341,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16094,16 +16397,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=\sigma_z,\qquad
           \eta=i\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16122,8 +16421,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16142,8 +16441,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16166,6 +16465,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-22">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -16173,7 +16473,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16221,16 +16529,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&-1&0\\0&0&0&-1\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=\sigma_z\otimes I_2,\qquad
           \eta=i\begin{pmatrix}0&0&1&0\\0&0&0&1\\-1&0&0&0\\0&-1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16253,6 +16557,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-23">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -16260,7 +16565,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16308,16 +16621,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16340,6 +16649,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-24">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=I\)</span>
@@ -16347,7 +16657,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16391,8 +16709,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -16412,16 +16728,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=\sigma_z,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16450,8 +16762,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16480,8 +16792,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=i\sigma_y\otimes i\sigma_y,\qquad
+          J_2=-\sigma_z\otimes i\sigma_y,\qquad
           \eta=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16514,6 +16826,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-25">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -16521,7 +16834,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16569,16 +16890,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=I_2,\qquad
           \eta=\begin{pmatrix}0&1\\1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16597,8 +16914,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&-1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16617,8 +16934,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=I_2\otimes I_2,\qquad
           \eta=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16641,6 +16958,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-26">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -16648,7 +16966,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16696,16 +17022,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=\sigma_x,\qquad
           \eta=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16724,8 +17046,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16744,8 +17066,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&1&0\\0&0&0&1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=\sigma_x\otimes I_2,\qquad
           \eta=\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16768,6 +17090,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-27">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -16775,7 +17098,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=iJ_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16819,8 +17150,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -16840,16 +17169,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-\sigma_x\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16882,6 +17207,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-28">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -16889,7 +17215,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -16937,16 +17271,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-I_2\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&0&0&-1\\0&0&1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -16969,6 +17299,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-29">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -16976,7 +17307,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -17024,16 +17363,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0&0&0\\0&-1&0&0\\0&0&-1&0\\0&0&0&1\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_z,\qquad
           \eta=i\begin{pmatrix}0&0&1&0\\0&0&0&-1\\-1&0&0&0\\0&1&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17056,6 +17391,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-30">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -17063,7 +17399,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：2</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -17111,16 +17455,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=\sigma_z,\qquad
           \eta=i\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17139,8 +17479,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&1\\0&0&-1&0\\0&-1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=i\sigma_y\otimes i\sigma_y,\qquad
           \eta=i\begin{pmatrix}0&1&0&0\\-1&0&0&0\\0&0&0&-1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17159,8 +17499,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&1&0&0\\1&0&0&0\\0&0&0&-1\\0&0&-1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=\sigma_z\otimes \sigma_x,\qquad
           \eta=i\begin{pmatrix}0&0&0&1\\0&0&1&0\\0&-1&0&0\\-1&0&0&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17183,6 +17523,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-31">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -17190,7 +17531,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-no">收缩半群：无</span>
+        <span class="time-reversal-no">时间反演：本类不足以定号</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -17238,16 +17587,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y,\qquad
+          J_2=-i\sigma_y,\qquad
           \eta=\begin{pmatrix}-1&0\\0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17266,8 +17611,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
     <h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes \sigma_x,\qquad
           \eta=\begin{pmatrix}0&-1&0&0\\-1&0&0&0\\0&0&0&1\\0&0&1&0\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17286,8 +17631,8 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&-1\\1&0&0&0\\0&1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes I_2,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&-1&0&0\\0&0&1&0\\0&0&0&1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
@@ -17310,6 +17655,7 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
       <details class="all-class-card" id="class-fermion-32">
         <summary>
+
       <span class="compact-relations">
         <span>\(J_1^TgJ_1=-g\)</span>
         <span>\(J_1^2=-I\)</span>
@@ -17317,7 +17663,15 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
         <span>\(J_2^2=-I\)</span>
         <span>\(J_1J_2=-J_2J_1\)</span>
       </span>
-    </summary>
+
+
+      <span class="compact-card-status">
+        <span>最小维数：4</span>
+        <span class="semigroup-yes">收缩半群：\(\eta=J_2g\)</span>
+        <span class="time-reversal-yes">时间反演：非负</span>
+      </span>
+
+        </summary>
         <div class="all-class-body tex2jax_ignore">
 
       <div class="scroll compact-representative">\[
@@ -17361,8 +17715,6 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
             J_2^TA_{\mathrm{cone}}J_2
               =-\overline{A_{\mathrm{cone}}},\\
             \eta A_{\mathrm{cone}}
-              -A_{\mathrm{cone}}^\dagger\eta=0,\qquad
-            \eta A_{\mathrm{cone}}
               +A_{\mathrm{cone}}^\dagger\eta<0.
           \end{gathered}
         \]</div>
@@ -17382,16 +17734,12 @@ B_{21} &amp; 0 &amp; 0 &amp; C_{11}\\
 
 
       <details class="basis-audit low-dimensional-representations">
-        <summary>二维和四维的全部不等价表示</summary>
-        <p class="small">
-          每一块只给出一组代表矩阵和相应的完整生成元解；相差保持
-          \(g\) 的实正交换基者只列一次。
-        </p>
+        <summary>同一类别中可能新增 \(A\) 方向的二维、四维表示</summary>
     <h5>2 维</h5><p>没有这种维数的实正交表示。</p><h5>4 维</h5>
       <section class="orbit-sheet compact-orbit-sheet">
         <div class="scroll">\[
-          J_1=\begin{pmatrix}0&0&0&-1\\0&0&-1&0\\0&1&0&0\\1&0&0&0\end{pmatrix},\qquad
-          J_2=\begin{pmatrix}0&0&-1&0\\0&0&0&1\\1&0&0&0\\0&-1&0&0\end{pmatrix},\qquad
+          J_1=-i\sigma_y\otimes \sigma_x,\qquad
+          J_2=-i\sigma_y\otimes \sigma_z,\qquad
           \eta=\begin{pmatrix}-1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&-1\end{pmatrix}.
         \]</div>
         <h6>\(A_{\mathrm{group}}\)</h6>
