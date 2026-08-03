@@ -1,4 +1,4 @@
-\documentclass[onecolumn,aps,prl,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
+\documentclass[onecolumn,aps,prb,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
 
 \usepackage{newtxtext}
 \usepackage{newtxmath}
@@ -56,6 +56,8 @@ Auxiliary-field quantum Monte Carlo reduces an interacting problem to a statisti
 \end{abstract}
 
 \maketitle
+
+\tableofcontents
 
 \section{Quadratic evolution and configuration weights}
 
@@ -170,7 +172,7 @@ Consider a set of time reversals that all satisfy Eq.~\eqref{eq:physical_TR_cond
     \qquad (a\ne b).
     \label{eq:anticommuting_TR}
 \end{equation}
-The braces in Table~\ref{tab:periodic_table} list their squares.  For example, \(\{+,-\}\) means one positive-square and one negative-square time reversal.  The fermionic column recovers the Majorana-time-reversal classification~\cite{li2016prl}.  The bosonic column contains one additional three-symmetry class.
+The braces in Table~\ref{tab:periodic_table} record the squares of a sign-free set.  For example, \(\{+,-\}\) means one positive-square and one negative-square time reversal.  The fermionic column recovers the Majorana-time-reversal classification~\cite{li2016prl}.  The bosonic column contains one additional three-symmetry class.
 
 \begin{center}
     \refstepcounter{table}\label{tab:periodic_table}
@@ -179,15 +181,13 @@ The braces in Table~\ref{tab:periodic_table} list their squares.  For example, \
     Time-reversal periodic table for general Nambu evolution, with no separate assumption of particle-number conservation.  Every listed time reversal preserves each auxiliary-field slice, and the time reversals anticommute pairwise.  The entries guarantee \(p_{\rm B}>0\) away from bosonic poles or \(p_{\rm F}\geq0\).  ``None'' means that the number and squares of the time reversals alone give no guarantee; additional conserved quantities or model-specific structure may still ensure positivity.
     \par\vspace{0.5\baselineskip}
     \begin{ruledtabular}
-    \begin{tabular}{ccll}
-        Number & Squares & \multicolumn{1}{c}{Bosons} & \multicolumn{1}{c}{Fermions} \\
+    \begin{tabular}{cll}
+        Number & \multicolumn{1}{c}{Bosons} & \multicolumn{1}{c}{Fermions} \\
         \hline
-        0 or 1 & any & none & none \\
-        2 & \(\{+,+\},\{+,-\},\{-,-\}\)
-          & \(\{+,-\},\{-,-\}\) & \(\{+,-\},\{-,-\}\) \\
-        3 & \(\{+,+,+\},\{+,+,-\},\{+,-,-\},\{-,-,-\}\)
-          & all & \(\{+,+,-\},\{+,-,-\},\{-,-,-\}\) \\
-        \(\geq4\) & any & all & all
+        0 or 1 & none & none \\
+        2 & \(\{+,-\},\{-,-\}\) & \(\{+,-\},\{-,-\}\) \\
+        3 & all & all except \(\{+,+,+\}\) \\
+        \(\geq4\) & all & all
     \end{tabular}
     \end{ruledtabular}
 \end{center}
@@ -840,10 +840,6 @@ With generic nonzero hopping, pairing, and two independently fluctuating bond ch
 Mutually anticommuting time reversals determine the sign of general bosonic and fermionic Gaussian quantum Monte Carlo weights through three physical mechanisms.  The \(\{+,-\}\) class cancels phases between conjugate sectors.  The \(\{-,-\}\) class selects one operator from every Nambu-conjugate pair and enforces Kramers degeneracy among them.  The bosonic \(\{+,+,+\}\) class produces a real propagation that preserves a symmetric matrix with equally many positive and negative directions, which fixes the remaining determinant sign.  This last mechanism has no fermionic counterpart, as demonstrated by the explicit negative two-mode trace in Eq.~\eqref{eq:fermion_three_plus_negative}.  Four time reversals always generate a \(\{+,-\}\) pair.
 
 The resulting periodic table applies directly to anomalous Gaussian evolution.  Pairing terms therefore fit naturally within time-reversal-protected auxiliary-field simulations.  The two bosonic models above show how the symmetry algebra can guide Hubbard--Stratonovich design and open sign-problem-free routes to interacting paired phases on frustrated lattices.
-
-\begin{acknowledgments}
-Y.-K.Y. and Z.-X.L. are supported by the National Natural Science Foundation of China under Grant Nos.~12347107 and 12474146, and Beijing Natural Science Foundation under Grant No.~JR25007.  Z.-X.L. is supported by the New Cornerstone Investigator Program.  Z.-C.W. is supported by the Doctor Foundation of Qingdao Binhai University (No.~BCZ2025004).
-\end{acknowledgments}
 
 \bibliography{references}
 
