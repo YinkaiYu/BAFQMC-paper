@@ -30,8 +30,8 @@
 
 \newcommand{\cellentry}[4]{%
   \subsubsection*{\texorpdfstring{%
-    \(\mathrm{#1}\)\quad \(#2\); \(#3\); \(#4\)%
-  }{#1: five defining relations}}%
+    \(\text{#1}\)\quad \(#2\); \(#3\); \(#4\)%
+  }{#1: symmetry relations}}%
 }
 
 \setcounter{tocdepth}{3}
@@ -419,7 +419,10 @@ The Majorana rule is realized by physical representations of B04, B07, B10, B13,
 
 The following representatives show how Eq.~\eqref{eq:whole_group_TR_rule} works for all four possible actions on \(g\).  Superscripts distinguish the Nambu and internal factors.
 
-\subsubsection*{\texorpdfstring{\(J_1^\trans gJ_1=g\), \(J_2^\trans gJ_2=g\)}{Both transformations leave g invariant}}
+\cellentry{B04, B12, F10}
+{J_1^\trans gJ_1=g}
+{J_2^\trans gJ_2=g}
+{\Theta_1\Theta_2=-\Theta_2\Theta_1}
 For B04, choose
 \begin{equation*}
 J_1=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})},\qquad
@@ -438,7 +441,10 @@ J_1=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\qquad
 J_2=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}.
 \end{equation*}
 
-\subsubsection*{\texorpdfstring{\(J_1^\trans gJ_1=g\), \(J_2^\trans gJ_2=-g\)}{The first transformation leaves g invariant and the second changes its sign}}
+\cellentry{B07, B15, F13}
+{J_1^\trans gJ_1=g}
+{J_2^\trans gJ_2=-g}
+{\Theta_1\Theta_2=-\Theta_2\Theta_1}
 The factor \(\ii\) in the second line of Eq.~\eqref{eq:induced_time_reversals} changes the commutation rule.  Consequently, commuting \(J_1,J_2\) produce anticommuting physical time reversals.  Representative pairs are
 \begin{align*}
 (J_1,J_2)_{\rm B07}
@@ -453,7 +459,10 @@ The factor \(\ii\) in the second line of Eq.~\eqref{eq:induced_time_reversals} c
 \end{align*}
 B07 and F13 have opposite time-reversal squares and realize the Majorana class.  B15 has two negative squares and realizes the Kramers class.
 
-\subsubsection*{\texorpdfstring{\(J_1^\trans gJ_1=-g\), \(J_2^\trans gJ_2=g\)}{The first transformation changes the sign of g and the second leaves it invariant}}
+\cellentry{B19, B27, F25}
+{J_1^\trans gJ_1=-g}
+{J_2^\trans gJ_2=g}
+{\Theta_1\Theta_2=-\Theta_2\Theta_1}
 The same mechanism with \(J_1\) and \(J_2\) exchanged gives
 \begin{align*}
 (J_1,J_2)_{\rm B19}
@@ -467,7 +476,10 @@ The same mechanism with \(J_1\) and \(J_2\) exchanged gives
 \end{align*}
 B19 and F25 realize the Majorana class.  B27 realizes the Kramers class.
 
-\subsubsection*{\texorpdfstring{\(J_1^\trans gJ_1=-g\), \(J_2^\trans gJ_2=-g\)}{Both transformations change the sign of g}}
+\cellentry{B24, B32, F30}
+{J_1^\trans gJ_1=-g}
+{J_2^\trans gJ_2=-g}
+{\Theta_1\Theta_2=-\Theta_2\Theta_1}
 \begin{samepage}
 Now both induced transformations carry the factor \(\ii\), so anticommuting \(J_1,J_2\) again produce anticommuting time reversals.  Representative pairs are
 \begin{align*}
