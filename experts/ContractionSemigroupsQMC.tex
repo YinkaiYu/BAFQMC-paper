@@ -1,21 +1,13 @@
-\documentclass[onecolumn,aps,prb,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
+\documentclass[onecolumn,aps,prb,amsmath,amssymb,superscriptaddress,longbibliography,floatfix]{revtex4-2}
 
 \usepackage{newtxtext}
 \usepackage{newtxmath}
 \usepackage{microtype}
 \usepackage{bm}
 \usepackage{mathtools}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage[table]{xcolor}
+\usepackage{xcolor}
 \usepackage{graphicx}
-\usepackage{rotating}
 \definecolor{PRLBlue}{RGB}{46,48,146}
-\definecolor{SemigroupJ}{RGB}{218,238,222}
-\definecolor{SemigroupI}{RGB}{218,234,244}
-\definecolor{GroupOnly}{RGB}{239,241,242}
-\definecolor{TRBrown}{RGB}{126,68,18}
 \usepackage[
     colorlinks,
     citecolor=PRLBlue,
@@ -31,12 +23,6 @@
 \newcommand{\mc}[1]{\mathcal{#1}}
 \newcommand{\bb}[1]{\bm{#1}}
 \newcommand{\ror}[2]{\href{https://ror.org/#1}{#2}}
-\newcommand{\groupcell}{\cellcolor{GroupOnly}\shortstack{group only}}
-\newcommand{\trgroupcell}{\cellcolor{GroupOnly}\shortstack{group only\\[-1pt]\textcolor{TRBrown}{\bfseries TR positive}}}
-\newcommand{\jcell}{\cellcolor{SemigroupJ}\shortstack{semigroup\\[-1pt]\(\eta=J_2g\)}}
-\newcommand{\icell}{\cellcolor{SemigroupI}\shortstack{semigroup\\[-1pt]\(\eta=\ii J_2g\)}}
-\newcommand{\jonehead}[2]{\shortstack{\(J_1^\trans gJ_1=#1g\)\\\(J_1^2=#2I\)}}
-\newcommand{\jtwohead}[3]{\shortstack{\(J_2^\trans gJ_2=#1g\)\\\(J_2^2=#2I\)\\\(J_1J_2=#3J_2J_1\)}}
 
 \allowdisplaybreaks
 
@@ -66,7 +52,7 @@
 \date{\today}
 
 \begin{abstract}
-Auxiliary-field quantum Monte Carlo expresses each field configuration as an ordered product of Gaussian many-body operators.  A contraction semigroup keeps this product inside a connected region where a real weight cannot cross a determinant zero or a bosonic pole.  We formulate the construction in a common Nambu representation for bosons and fermions and classify two real orthogonal matrices through five binary relations.  Of the \(32\) bosonic and \(32\) fermionic classes, exactly eight in each set admit a contraction cone with negative-definite generators.  Four use the metric \(J_2g\), four use \(\ii J_2g\), and the remaining \(24\) contain only the maximal subgroup.  Two short algebraic criteria give the complete classification.  We enumerate the maximal-subgroup and contraction-cone generators for every allowed class and translate them into number-conserving and anomalous Hamiltonian terms.  Time-reversal positivity supplies an independent sign-free route for eight bosonic and four fermionic group-only classes.  For trace-convergent realizations connected to a positive reference, the resulting table gives a constructive map from symmetry algebra to sign-problem-free auxiliary-field decompositions.
+Auxiliary-field quantum Monte Carlo expresses each field configuration as an ordered product of Gaussian many-body operators.  A contraction semigroup keeps this product inside a connected region where a real weight cannot cross a determinant zero or a bosonic pole.  We formulate the construction in a common Nambu representation for bosons and fermions and classify two real orthogonal matrices through five binary relations.  Of the \(32\) bosonic and \(32\) fermionic classes, exactly eight in each set admit a contraction cone with negative-definite generators.  Four use the metric \(J_2g\), four use \(\ii J_2g\), and the remaining \(24\) contain only the maximal subgroup.  Two short algebraic criteria give the complete classification.  We enumerate the maximal-subgroup and contraction-cone generators for every allowed class and translate them into number-conserving and particle-number-changing Hamiltonian terms.  Time-reversal positivity supplies an independent sign-free route for eight bosonic and four fermionic group-only classes.  For trace-convergent realizations connected to a positive reference, the classification gives a constructive map from symmetry algebra to sign-problem-free auxiliary-field decompositions.
 \end{abstract}
 
 \maketitle
@@ -147,18 +133,16 @@ The first matrix, \(J_1\), supplies the anti-linear constraint
 \end{equation}
 It follows slice by slice that \(J_1^\trans M J_1=\overline M\).  Hence the determinants in Eq.~\eqref{eq:gaussian_weights} are real.  Together with strict contraction and a positive reference configuration, this is the reality condition used by the semigroup proof above.
 
-The second real orthogonal matrix, \(J_2\), builds the Hermitian metric used in Eq.~\eqref{eq:generator_contraction}.  The discrete information needed from \(J_1,J_2\) is
+The second real orthogonal matrix, \(J_2\), builds the Hermitian metric used in Eq.~\eqref{eq:generator_contraction}.  Each matrix may preserve or reverse \(g\), each may square to \(+I\) or \(-I\), and the two matrices may commute or anticommute.  The five choices are
 \begin{equation}
-\begin{aligned}
-    J_1^\trans gJ_1&=s_1g,&\qquad J_1^2&=q_1I,\\
-    J_2^\trans gJ_2&=s_2g,& J_2^2&=q_2I,\\
-    J_1J_2&=rJ_2J_1,
-\end{aligned}
-\qquad
-    s_1,q_1,s_2,q_2,r\in\{+1,-1\}.
+\begin{gathered}
+    J_1^\trans gJ_1=\pm g,\qquad J_1^2=\pm I,\\
+    J_2^\trans gJ_2=\pm g,\qquad J_2^2=\pm I,\\
+    J_1J_2=\pm J_2J_1.
+\end{gathered}
     \label{eq:five_relations}
 \end{equation}
-The first four signs say whether each matrix preserves or reverses \(g\), and whether it squares to \(+I\) or \(-I\).  The fifth sign records whether the two transformations commute or anticommute.  These are the five independent binary choices, giving \(2^5=32\) classes for bosons and another \(32\) for fermions.
+They give \(2^5=32\) classes for bosons and another \(32\) for fermions.
 
 The signs carried by \(J_2\) determine whether \(J_2g\) is Hermitian or anti-Hermitian.  The appropriate metric is listed in Table~\ref{tab:metric_choice}.  In every row it satisfies \(\eta^\dagger=\eta\) and \(\eta^2=I\).
 \begin{table}[tb]
@@ -206,14 +190,14 @@ Thus \(A_{\rm group}\) describes reversible motion that preserves the metric, wh
 
 \section{Enumeration and periodic table}
 
-The enumeration uses the real Pauli basis
+The enumeration uses tensor products of the four real matrices
 \begin{equation}
-    I=I_2,\qquad X=\sigma_x,\qquad
-    Y=\ii\sigma_y=\begin{pmatrix}0&1\\-1&0\end{pmatrix},
-    \qquad Z=\sigma_z .
+    I_2,\qquad \sigma_x,\qquad
+    \ii\sigma_y=\begin{pmatrix}0&1\\-1&0\end{pmatrix},
+    \qquad \sigma_z .
     \label{eq:real_pauli_basis}
 \end{equation}
-Tensor products of these four matrices generate real orthogonal representatives.  For example, \(IYX\) means \(I_2\otimes Y\otimes X\), and the first factor is always the Nambu factor.  A GNU Octave calculation searched products with one, two, and three Pauli factors, retained the smallest representative of every sign class, and solved the linear equations
+Their tensor products generate real orthogonal representatives.  The first factor acts on the particle--hole part of the Nambu column, while the remaining factors act on internal components.  A GNU Octave calculation searched products with one, two, and three factors, retained the smallest representative of every class, and solved the linear equations
 \begin{equation}
 \begin{gathered}
     gA+A^\trans g=0,\qquad
@@ -225,60 +209,15 @@ Tensor products of these four matrices generate real orthogonal representatives.
 \end{equation}
 Complex matrices were separated into real and imaginary parts, so Eq.~\eqref{eq:enumeration_equations} became an ordinary real linear system for the matrix entries.  Solving that system produced every allowed coefficient.  The final step tested whether the cone subspace intersects \(\eta A_{\rm cone}<0\).  All \(64\) classes were evaluated, and every displayed Pauli direction was substituted back into the original matrix equations.
 
-Table~\ref{tab:periodic_table} is the resulting periodic table.  The bosonic and fermionic sectors each have eight contraction-semigroup classes, equally divided between the two metrics, and \(24\) group-only classes.  A time-reversal marker identifies a group-only cell that admits a physical Majorana or Kramers representative.  The representatives are given in Sec.~\ref{sec:group_only_TR}.
+Figure~\ref{fig:periodic_table} is the resulting periodic table.  The bosonic and fermionic sectors each have eight contraction-semigroup classes, equally divided between the two metrics, and \(24\) group-only classes.  A dark outline identifies a group-only cell that admits a physical Majorana or Kramers representative.  The representatives are given in Sec.~\ref{sec:group_only_TR}.
 
-\begin{sidewaystable}
-\caption{Complete enumeration of the five relations in Eq.~\eqref{eq:five_relations}.  Rows specify the action and square of \(J_1\).  Columns specify the action and square of \(J_2\), followed by their mutual sign.  Green and blue cells contain a contraction cone with a negative-definite direction.  Gray cells contain only the maximal subgroup.  The label ``TR positive'' marks a group-only class with at least one physical representative whose two induced time reversals form a Majorana \(\{+,-\}\) or Kramers \(\{-,-\}\) pair.}
-\label{tab:periodic_table}
+\begin{figure}[p]
 \centering
-\setlength{\tabcolsep}{3.5pt}
-\renewcommand{\arraystretch}{1.55}
-\scriptsize
-\resizebox{0.98\textheight}{!}{%
-\begin{tabular}{c*{8}{c}}
-\toprule
-\multicolumn{9}{c}{\bfseries Bosons}\\
-\cmidrule(lr){1-9}
-& \jtwohead{+}{+}{+}
-& \jtwohead{+}{+}{-}
-& \jtwohead{+}{-}{+}
-& \jtwohead{+}{-}{-}
-& \jtwohead{-}{+}{+}
-& \jtwohead{-}{+}{-}
-& \jtwohead{-}{-}{+}
-& \jtwohead{-}{-}{-}\\
-\midrule
-\jonehead{+}{+}
-&\groupcell&\icell&\groupcell&\trgroupcell&\jcell&\groupcell&\trgroupcell&\groupcell\\
-\jonehead{+}{-}
-&\groupcell&\icell&\groupcell&\trgroupcell&\jcell&\groupcell&\trgroupcell&\groupcell\\
-\jonehead{-}{+}
-&\icell&\groupcell&\trgroupcell&\groupcell&\groupcell&\jcell&\groupcell&\trgroupcell\\
-\jonehead{-}{-}
-&\icell&\groupcell&\trgroupcell&\groupcell&\groupcell&\jcell&\groupcell&\trgroupcell\\
-\midrule
-\multicolumn{9}{c}{\bfseries Fermions}\\
-\cmidrule(lr){1-9}
-& \jtwohead{+}{+}{+}
-& \jtwohead{+}{+}{-}
-& \jtwohead{+}{-}{+}
-& \jtwohead{+}{-}{-}
-& \jtwohead{-}{+}{+}
-& \jtwohead{-}{+}{-}
-& \jtwohead{-}{-}{+}
-& \jtwohead{-}{-}{-}\\
-\midrule
-\jonehead{+}{+}
-&\groupcell&\groupcell&\groupcell&\icell&\groupcell&\groupcell&\jcell&\groupcell\\
-\jonehead{+}{-}
-&\groupcell&\trgroupcell&\groupcell&\icell&\trgroupcell&\groupcell&\jcell&\groupcell\\
-\jonehead{-}{+}
-&\groupcell&\groupcell&\icell&\groupcell&\groupcell&\groupcell&\groupcell&\jcell\\
-\jonehead{-}{-}
-&\trgroupcell&\groupcell&\icell&\groupcell&\groupcell&\trgroupcell&\groupcell&\jcell\\
-\bottomrule
-\end{tabular}}
-\end{sidewaystable}
+\includegraphics[width=\textwidth]{figures/contraction_semigroup_periodic_table.pdf}
+\caption{Complete enumeration of the five relations in Eq.~\eqref{eq:five_relations}.  The row labels give the action and square of \(J_1\).  The column labels give the action and square of \(J_2\), followed by the relation between the two matrices.  Green and blue cells contain a negative-definite contraction direction.  Gray cells contain only the maximal subgroup.  A dark outline marks a group-only class with at least one physical representative whose two time reversals form a Majorana \(\{+,-\}\) or Kramers \(\{-,-\}\) pair.}
+\label{fig:periodic_table}
+\end{figure}
+\clearpage
 
 \section{Two screening lemmas}
 
@@ -316,46 +255,56 @@ The fermionic requirement is consequently
 The opposite squares in Eqs.~\eqref{eq:boson_J2_square} and \eqref{eq:fermion_J2_square} arise directly from the symmetric bosonic \(gA\) and antisymmetric fermionic \(gA\).
 
 \paragraph{Lemma 2: compatibility with the real-weight condition.}
-Let \(H=\eta A_{\rm cone}=H^\dagger\), and write \(\eta=cJ_2g\), where Table~\ref{tab:metric_choice} fixes \(c=1\) or \(c=\ii\).  Once the square condition in Lemma~1 holds, the same table gives \(c/\overline c=-s_2\).  The transformation of \(H\) is then
+After imposing the square condition from Lemma~1, Table~\ref{tab:metric_choice} reduces to a simple rule.  The metric is \(\eta=\ii J_2g\) when \(J_2\) preserves \(g\), and \(\eta=J_2g\) when \(J_2\) reverses \(g\).  We then use \(J_1^\trans J_2J_1=J_2\) for a commuting pair and \(J_1^\trans J_2J_1=-J_2\) for an anticommuting pair, together with Eq.~\eqref{eq:J1_reality}.  Direct substitution gives
 \begin{equation}
-\begin{aligned}
-J_1^\trans HJ_1
-&=c(J_1^\trans J_2J_1)(J_1^\trans gJ_1)
-  (J_1^\trans A_{\rm cone}J_1)\\
-&=crs_1J_2g\overline{A_{\rm cone}}
- =-rs_1s_2\overline H.
-\end{aligned}
-    \label{eq:H_transformation}
+J_1^\trans(\eta A_{\rm cone})J_1=
+\begin{cases}
+\overline{\eta A_{\rm cone}},
+&\begin{array}{l}
+J_1,J_2\text{ both preserve or both reverse }g,
+\quad J_1J_2=-J_2J_1,\\[-1pt]
+\text{one preserves and one reverses }g,
+\quad J_1J_2=J_2J_1,
+\end{array}\\[12pt]
+-\overline{\eta A_{\rm cone}},
+&\begin{array}{l}
+J_1,J_2\text{ both preserve or both reverse }g,
+\quad J_1J_2=J_2J_1,\\[-1pt]
+\text{one preserves and one reverses }g,
+\quad J_1J_2=-J_2J_1.
+\end{array}
+\end{cases}
+    \label{eq:cone_transformation}
 \end{equation}
-The right-hand side equals \(\overline H\) precisely when
+The first two lines preserve the negative-semidefinite cone.  The other two lines reverse its sign.  In the latter cases, starting from \(\eta A_{\rm cone}\leq0\) gives
 \begin{equation}
-    r=-s_1s_2.
-    \label{eq:commutation_rule}
-\end{equation}
-This equation has a direct reading.  If \(J_1\) and \(J_2\) both preserve \(g\), or both reverse it, they must anticommute.  If one preserves \(g\) and the other reverses it, they must commute.
-
-For the other mutual relation, Eq.~\eqref{eq:H_transformation} reads \(J_1^\trans HJ_1=-\overline H\).  Starting from \(H\leq0\), one obtains
-\begin{equation}
-    J_1^\trans HJ_1\leq0
+    J_1^\trans(\eta A_{\rm cone})J_1\leq0
     \quad\Longrightarrow\quad
-    -\overline H\leq0
+    -\overline{\eta A_{\rm cone}}\leq0
     \quad\Longrightarrow\quad
-    H\geq0.
+    \eta A_{\rm cone}\geq0.
     \label{eq:cone_sign_flip}
 \end{equation}
 The two inequalities force
 \begin{equation}
-    H=0.
+    \eta A_{\rm cone}=0,
     \label{eq:reality_flip_boundary}
 \end{equation}
-This leaves only the maximal-subgroup boundary.
+and therefore \(A_{\rm cone}=0\).  This leaves only the maximal subgroup.
 
 The two requirements are also sufficient.  Choose \(\eta\) from Table~\ref{tab:metric_choice} and set
 \begin{equation}
     A_{\rm cone}=-\eta .
     \label{eq:universal_cone_witness}
 \end{equation}
-Equations~\eqref{eq:boson_J2_square} or \eqref{eq:fermion_J2_square} ensure \(gA_{\rm cone}+A_{\rm cone}^\trans g=0\).  Equation~\eqref{eq:commutation_rule} ensures \(J_1^\trans A_{\rm cone}J_1=\overline{A_{\rm cone}}\), and the \(J_2\)-odd relation follows from the metric construction.  Finally,
+Using the square of \(J_2\), the action of both matrices on \(g\), and the required mutual relation gives
+\begin{equation}
+g\eta+\eta^\trans g=0,\qquad
+J_1^\trans\eta J_1=\overline\eta,\qquad
+J_2^\trans\eta J_2=-\overline\eta.
+\label{eq:metric_witness_checks}
+\end{equation}
+The first equality puts \(-\eta\) in the quadratic Lie algebra.  The second supplies the real-weight condition, and the third puts it in the \(J_2\)-odd subspace.  Finally,
 \begin{equation}
     \eta A_{\rm cone}+A_{\rm cone}^\dagger\eta=-2I<0.
     \label{eq:universal_strict_contraction}
@@ -363,270 +312,22 @@ Equations~\eqref{eq:boson_J2_square} or \eqref{eq:fermion_J2_square} ensure \(gA
 We have therefore proved the complete criterion
 \begin{equation}
 \boxed{
-\begin{array}{ll}
-    J_2^2=+I,\quad r=-s_1s_2,&\text{bosons},\\[2pt]
-    J_2^2=-I,\quad r=-s_1s_2,&\text{fermions}.
-\end{array}}
+\begin{gathered}
+J_2^2=+I\ \text{for bosons},\qquad
+J_2^2=-I\ \text{for fermions},\\[2pt]
+J_1J_2=-J_2J_1
+\quad\text{when both matrices act on }g\text{ in the same way},\\[2pt]
+J_1J_2=J_2J_1
+\quad\text{when one preserves }g\text{ and the other reverses it}.
+\end{gathered}}
     \label{eq:complete_semigroup_criterion}
 \end{equation}
-The sign \(q_1=\pm1\) remains free.  For bosons and fermions separately, \(s_1,q_1,s_2\) supply \(2^3=8\) allowed classes.  The four with \(s_2=-1\) use \(J_2g\), while the four with \(s_2=+1\) use \(\ii J_2g\).
+The square of \(J_1\) may take either sign.  Its square, the two possible actions of \(J_1\) on \(g\), and the two possible actions of \(J_2\) on \(g\) give eight bosonic and eight fermionic classes.  Four in each set use \(J_2g\), while four use \(\ii J_2g\).
 
 \section{Generators and Hamiltonian terms}
 
-The following tables give every generator for the smallest Pauli representative of each allowed class.  If the displayed representative has dimension \(d\), it can be tensored with an \(m\)-dimensional orbital, site, or flavor space.  Every solution has the form
-\begin{equation}
-    A_{\rm group}=\sum_P P\otimes K_P,
-    \qquad
-    A_{\rm cone}=\sum_P P\otimes K_P.
-    \label{eq:pauli_generator_expansion}
-\end{equation}
-The four coefficient columns state the complete transpose and complex-conjugation conditions on \(K_P\).  The contraction condition acts on the full sum,
-\begin{equation}
-    \eta A_{\rm cone}
-    =\eta\sum_P P\otimes K_P<0.
-    \label{eq:full_coefficient_inequality}
-\end{equation}
-Explicitly, the four column headings mean
-\begin{equation}
-\begin{array}{c|cc}
-&\overline{K_P}&K_P^\trans\\
-\hline
-\text{real symmetric}&K_P&K_P\\
-\text{real antisymmetric}&K_P&-K_P\\
-\text{imaginary symmetric}&-K_P&K_P\\
-\text{imaginary antisymmetric}&-K_P&-K_P
-\end{array}.
-\label{eq:coefficient_types}
-\end{equation}
-It generally couples different \(K_P\) and cannot be replaced by separate sign conditions on the coefficients.  Each representative also lists the simple ray obtained by taking a real symmetric \(H>0\), setting the stated \(K_P\), and setting all other cone coefficients to zero.  Along that ray,
-\begin{equation}
-    A_{\rm cone}=-\eta\otimes H,
-    \qquad
-    \eta A_{\rm cone}=-I_d\otimes H<0.
-    \label{eq:negative_ray}
-\end{equation}
+\input{experts/ContractionSemigroupGenerators}
 
-The first Pauli factor immediately identifies the physical quadratic term.  Let \(P=P_{\rm N}\otimes P_{\rm int}\) and \(L=P_{\rm int}\otimes K_P\).  Table~\ref{tab:operator_dictionary} translates each Nambu factor into operators.  The required symmetry of \(L\) follows automatically from the coefficient columns in Tables~\ref{tab:boson_ij2g_generators}--\ref{tab:fermion_j2g_generators}.
-\begin{table}[tb]
-\caption{Hamiltonian term generated by the first Pauli factor in \(A=P_{\rm N}\otimes L\).  The remaining Pauli factors and \(K_P\) are combined into \(L\).  Indices include every internal, orbital, and spatial label.}
-\label{tab:operator_dictionary}
-\centering
-\small
-\begin{ruledtabular}
-\begin{tabular}{ccll}
-\(P_{\rm N}\) & symmetry of \(L\) & bosonic term & fermionic term\\
-\hline
-\(I\) & \(L^\trans=-L\) &
-\(\sum_{ij}b_i^+L_{ij}b_j\) &
-\(\sum_{ij}c_i^+L_{ij}c_j\)\\[2pt]
-\(Z\) & \(L^\trans=L\) &
-\(\sum_{ij}b_i^+L_{ij}b_j+\frac12\Tr L\) &
-\(\sum_{ij}c_i^+L_{ij}c_j-\frac12\Tr L\)\\[2pt]
-\(X\) & \shortstack{\(L^\trans=L\), boson\\\(L^\trans=-L\), fermion} &
-\(\frac12\sum_{ij}L_{ij}(b_i^+b_j^+-b_ib_j)\) &
-\(\frac12\sum_{ij}L_{ij}(c_ic_j+c_i^+c_j^+)\)\\[2pt]
-\(Y\) & \shortstack{\(L^\trans=L\), boson\\\(L^\trans=-L\), fermion} &
-\(\frac12\sum_{ij}L_{ij}(b_i^+b_j^++b_ib_j)\) &
-\(\frac12\sum_{ij}L_{ij}(-c_ic_j+c_i^+c_j^+)\)
-\end{tabular}
-\end{ruledtabular}
-\end{table}
-
-\begin{sidewaystable}
-\caption{Bosonic contraction-semigroup generators with \(J_2^\trans gJ_2=g\), \(J_2^2=I\), and \(\eta=\ii J_2g\).  A Pauli word in a coefficient column means that it appears in Eq.~\eqref{eq:pauli_generator_expansion} with a matrix \(K_P\) of the stated type.  The tuple is \((s_1,q_1;s_2,q_2;r)\).  The complete negative-definite condition is Eq.~\eqref{eq:full_coefficient_inequality}.}
-\label{tab:boson_ij2g_generators}
-\centering
-\renewcommand{\arraystretch}{2.2}
-\footnotesize
-\resizebox{0.98\textheight}{!}{%
-\begin{tabular}{lcllll}
-\toprule
-Class and representative & generator & \shortstack{real\\symmetric} & \shortstack{real\\antisymmetric} & \shortstack{imaginary\\symmetric} & \shortstack{imaginary\\antisymmetric}\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,+;+,+;-)\), \(d=4\)\\
-\(J_1=IX, J_2=IZ\)\\
-\(\eta=-\ii YZ\)\\
-ray: \(K_{YZ}=\ii H\)}
-& \(A_{\rm group}\) & XI, YI, ZI & II & IY & XY, YY, ZY\\
-& \(A_{\rm cone}\) & XX, YX, ZX & IX & XZ, YZ, ZZ & IZ\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,-;+,+;-)\), \(d=4\)\\
-\(J_1=IY, J_2=IX\)\\
-\(\eta=-\ii YX\)\\
-ray: \(K_{YX}=\ii H\)}
-& \(A_{\rm group}\) & XI, YI, ZI & II & XZ, YZ, ZZ & IZ\\
-& \(A_{\rm cone}\) & IY & XY, YY, ZY & XX, YX, ZX & IX\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,+;+,+;+)\), \(d=2\)\\
-\(J_1=X, J_2=I\)\\
-\(\eta=-\ii Y\)\\
-ray: \(K_Y=\ii H\)}
-& \(A_{\rm group}\) & X & I & -- & --\\
-& \(A_{\rm cone}\) & -- & -- & Y, Z & --\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,-;+,+;+)\), \(d=4\)\\
-\(J_1=XY, J_2=II\)\\
-\(\eta=-\ii YI\)\\
-ray: \(K_{YI}=\ii H\)}
-& \(A_{\rm group}\) & IY, XI, YX, YZ, ZX, ZZ & II, XY & -- & --\\
-& \(A_{\rm cone}\) & -- & -- & XX, XZ, YI, ZI & IX, IZ, YY, ZY\\
-\bottomrule
-\end{tabular}}
-\end{sidewaystable}
-
-\begin{sidewaystable}
-\caption{Bosonic contraction-semigroup generators with \(J_2^\trans gJ_2=-g\), \(J_2^2=I\), and \(\eta=J_2g\).  Notation follows Table~\ref{tab:boson_ij2g_generators}.}
-\label{tab:boson_j2g_generators}
-\centering
-\renewcommand{\arraystretch}{2.2}
-\footnotesize
-\resizebox{0.98\textheight}{!}{%
-\begin{tabular}{lcllll}
-\toprule
-Class and representative & generator & \shortstack{real\\symmetric} & \shortstack{real\\antisymmetric} & \shortstack{imaginary\\symmetric} & \shortstack{imaginary\\antisymmetric}\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,+;-,+;+)\), \(d=2\)\\
-\(J_1=I, J_2=X\)\\
-\(\eta=Z\)\\
-ray: \(K_Z=-H\)}
-& \(A_{\rm group}\) & X & I & -- & --\\
-& \(A_{\rm cone}\) & Y, Z & -- & -- & --\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,-;-,+;+)\), \(d=4\)\\
-\(J_1=IY, J_2=XI\)\\
-\(\eta=ZI\)\\
-ray: \(K_{ZI}=-H\)}
-& \(A_{\rm group}\) & IY, XI & II, XY & YX, YZ, ZX, ZZ & --\\
-& \(A_{\rm cone}\) & YI, ZI & YY, ZY & XX, XZ & IX, IZ\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,+;-,+;-)\), \(d=2\)\\
-\(J_1=X, J_2=Z\)\\
-\(\eta=-X\)\\
-ray: \(K_X=H\)}
-& \(A_{\rm group}\) & -- & I & Y & --\\
-& \(A_{\rm cone}\) & X & -- & Z & --\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,-;-,+;-)\), \(d=4\)\\
-\(J_1=XY, J_2=XX\)\\
-\(\eta=ZX\)\\
-ray: \(K_{ZX}=-H\)}
-& \(A_{\rm group}\) & XI, YZ, ZZ & II & XZ, YI, ZI & IZ\\
-& \(A_{\rm cone}\) & IY, YX, ZX & XY & XX & IX, YY, ZY\\
-\bottomrule
-\end{tabular}}
-\end{sidewaystable}
-
-\begin{sidewaystable}
-\caption{Fermionic contraction-semigroup generators with \(J_2^\trans gJ_2=g\), \(J_2^2=-I\), and \(\eta=\ii J_2g\).  Notation follows Table~\ref{tab:boson_ij2g_generators}.}
-\label{tab:fermion_ij2g_generators}
-\centering
-\renewcommand{\arraystretch}{2.2}
-\scriptsize
-\resizebox{0.98\textheight}{!}{%
-\begin{tabular}{lcllll}
-\toprule
-Class and representative & generator & \shortstack{real\\symmetric} & \shortstack{real\\antisymmetric} & \shortstack{imaginary\\symmetric} & \shortstack{imaginary\\antisymmetric}\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,+;+,-;-)\), \(d=4\)\\
-\(J_1=IX, J_2=IY\)\\
-\(\eta=\ii XY\)\\
-ray: \(K_{XY}=-\ii H\)}
-& \(A_{\rm group}\) & ZI & II, XI, YI & ZZ & IZ, XZ, YZ\\
-& \(A_{\rm cone}\) & ZX & IX, XX, YX & IY, XY, YY & ZY\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,-;+,-;-)\), \(d=8\)\\
-\(J_1=IIY, J_2=IYX\)\\
-\(\eta=\ii XYX\)\\
-ray: \(K_{XYX}=-\ii H\)}
-& \(A_{\rm group}\) &
-\shortstack[l]{IXY, IYI, IZY, XXY, XYI\\XZY, YXY, YYI, YZY, ZII} &
-\shortstack[l]{III, XII, YII\\ZXY, ZYI, ZZY} &
-\shortstack[l]{IYZ, XYZ, YYZ\\ZIZ, ZXX, ZZX} &
-\shortstack[l]{IIZ, IXX, IZX, XIZ, XXX\\XZX, YIZ, YXX, YZX, ZYZ}\\
-& \(A_{\rm cone}\) &
-\shortstack[l]{IIY, XIY, YIY\\ZXI, ZYY, ZZI} &
-\shortstack[l]{IXI, IYY, IZI, XXI, XYY\\XZI, YXI, YYY, YZI, ZIY} &
-\shortstack[l]{IYX, XYX, YYX\\ZIX, ZXZ, ZZZ} &
-\shortstack[l]{IIX, IXZ, IZZ, XIX, XXZ\\XZZ, YIX, YXZ, YZZ, ZYX}\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,+;+,-;+)\), \(d=4\)\\
-\(J_1=YY, J_2=IY\)\\
-\(\eta=\ii XY\)\\
-ray: \(K_{XY}=-\ii H\)}
-& \(A_{\rm group}\) & IY, YY & II, YI & -- & IX, IZ, YX, YZ\\
-& \(A_{\rm cone}\) & ZX, ZZ & XX, XZ & XY, ZI & XI, ZY\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,-;+,-;+)\), \(d=4\)\\
-\(J_1=YI, J_2=IY\)\\
-\(\eta=\ii XY\)\\
-ray: \(K_{XY}=-\ii H\)}
-& \(A_{\rm group}\) & IY, YY & II, YI & ZX, ZZ & XX, XZ\\
-& \(A_{\rm cone}\) & -- & IX, IZ, YX, YZ & XY, ZI & XI, ZY\\
-\bottomrule
-\end{tabular}}
-\end{sidewaystable}
-
-\begin{sidewaystable}
-\caption{Fermionic contraction-semigroup generators with \(J_2^\trans gJ_2=-g\), \(J_2^2=-I\), and \(\eta=J_2g\).  Notation follows Table~\ref{tab:boson_ij2g_generators}.}
-\label{tab:fermion_j2g_generators}
-\centering
-\renewcommand{\arraystretch}{2.2}
-\footnotesize
-\resizebox{0.98\textheight}{!}{%
-\begin{tabular}{lcllll}
-\toprule
-Class and representative & generator & \shortstack{real\\symmetric} & \shortstack{real\\antisymmetric} & \shortstack{imaginary\\symmetric} & \shortstack{imaginary\\antisymmetric}\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,+;-,-;+)\), \(d=2\)\\
-\(J_1=I, J_2=Y\)\\
-\(\eta=Z\)\\
-ray: \(K_Z=-H\)}
-& \(A_{\rm group}\) & -- & I, Y & -- & --\\
-& \(A_{\rm cone}\) & Z & X & -- & --\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((+,-;-,-;+)\), \(d=4\)\\
-\(J_1=IY, J_2=YI\)\\
-\(\eta=ZI\)\\
-ray: \(K_{ZI}=-H\)}
-& \(A_{\rm group}\) & IY, YY & II, YI & ZX, ZZ & XX, XZ\\
-& \(A_{\rm cone}\) & XY, ZI & XI, ZY & -- & IX, IZ, YX, YZ\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,+;-,-;-)\), \(d=2\)\\
-\(J_1=Z, J_2=Y\)\\
-\(\eta=Z\)\\
-ray: \(K_Z=-H\)}
-& \(A_{\rm group}\) & -- & I & -- & X\\
-& \(A_{\rm cone}\) & Z & -- & -- & Y\\
-\midrule
-\multirow{2}{0.22\textheight}{
-\((-,-;-,-;-)\), \(d=4\)\\
-\(J_1=YI, J_2=ZY\)\\
-\(\eta=YY\)\\
-ray: \(K_{YY}=-H\)}
-& \(A_{\rm group}\) & IY & II, YX, YZ & XY, ZX, ZZ & XI\\
-& \(A_{\rm cone}\) & YY & IX, IZ, YI & ZI & XX, XZ, ZY\\
-\bottomrule
-\end{tabular}}
-\end{sidewaystable}
-
-All representatives in the tables have Nambu dimension two or four, except the fermionic class \((+,-;+,-;-)\).  In that class both \(J_1\) and \(J_2\) preserve \(g\), square to \(-I\), and anticommute.  The \(+1\) and \(-1\) eigenspaces of the fermionic \(g\) are separately preserved.  Two real anticommuting matrices that each square to \(-I\) require four real dimensions in either eigenspace.  The two eigenspaces have equal size, so the smallest Nambu representation has \(d=8\).
-
-The tables separate two roles that are useful when designing a Hubbard--Stratonovich decomposition.  Terms in \(A_{\rm group}\) preserve the metric and may fluctuate with either sign.  Terms in \(A_{\rm cone}\) provide damping when their full coefficient matrix obeys Eq.~\eqref{eq:full_coefficient_inequality}.  Since the first Pauli factor fixes whether a term conserves particle number, every class can be read directly as an allowed mixture of hopping, flavor conversion, and anomalous propagation.  The two-dimensional representatives give the most elementary single-flavor structures.  The four- and eight-dimensional representatives supply the internal degrees of freedom required by the corresponding squares and commutation relations.
 
 \section{Group-only classes and time-reversal positivity}
 \label{sec:group_only_TR}
@@ -640,74 +341,95 @@ When either screening lemma fails, the linear \(J_2\)-odd subspace may still con
 \end{gathered}
     \label{eq:group_only_generators}
 \end{equation}
-These are the \(24\) gray cells in each half of Table~\ref{tab:periodic_table}.
+These are the \(24\) gray cells in each half of Fig.~\ref{fig:periodic_table}.
 
-Some group-only cells remain sign-problem-free through time-reversal symmetry.  Define anti-linear transformations on the Nambu operators by
+Some group-only cells remain sign-problem-free through time-reversal symmetry.  Let \(\mc K\) conjugate numerical coefficients.  Each real matrix \(J\) defines a time reversal by
 \begin{equation}
-    \Theta_j=U_j\mc K,\qquad
-    U_j=\begin{cases}
-        J_j,&s_j=+1,\\
-        \ii J_j,&s_j=-1,
-    \end{cases}
-    \label{eq:induced_time_reversals}
+\Theta=\begin{cases}
+J\mc K,&J^\trans gJ=g,\\
+\ii J\mc K,&J^\trans gJ=-g.
+\end{cases}
+\label{eq:induced_time_reversals}
 \end{equation}
-where \(\mc K\) conjugates numerical coefficients.  The phase in \(U_j\) compensates the sign with which \(J_j\) acts on \(g\).  Consequently,
+Writing \(\Theta=U\mc K\), both lines obey
 \begin{equation}
-    U_j^\trans gU_j=g,\qquad
-    U_j^{-1}\overline{A_{\rm group}}U_j=A_{\rm group}.
-    \label{eq:TR_canonical_and_invariant}
+U^\trans gU=g,\qquad
+U^{-1}\overline{A_{\rm group}}U=A_{\rm group},\qquad
+\Theta^2=J^2.
+\label{eq:TR_canonical_and_invariant}
 \end{equation}
-The first equation preserves the canonical commutator or anticommutator, and the second makes every maximal-subgroup slice invariant.  Direct composition gives
-\begin{equation}
-    \Theta_j^2=q_jI,\qquad
-    \Theta_1\Theta_2=(rs_1s_2)\Theta_2\Theta_1.
-    \label{eq:induced_TR_algebra}
-\end{equation}
-The two time reversals anticommute when \(r=-s_1s_2\).  Opposite squares give the Majorana class \(\{+,-\}\), while two negative squares give the Kramers class \(\{-,-\}\)~\cite{li2016prl}.  The time-reversal positivity theorem states that invariance under either pair makes the full bosonic or fermionic Gaussian weight nonnegative, including evolution with anomalous terms.  A derivation for bosons and fermions is given in the companion note \textit{Time-Reversal Symmetries for Sign-Problem-Free Quantum Monte Carlo}.
+The first equation preserves the canonical commutator or anticommutator, and the second makes every maximal-subgroup slice time-reversal invariant.  When \(J_1\) and \(J_2\) act on \(g\) in the same way, their two time reversals anticommute if \(J_1J_2=-J_2J_1\).  When one preserves \(g\) and the other reverses it, complex conjugation changes the sign of the single factor \(\ii\), and the two time reversals anticommute if \(J_1J_2=J_2J_1\).  These are exactly the two mutual relations in Eq.~\eqref{eq:complete_semigroup_criterion}.
 
-A physical time reversal must also preserve the conjugacy between creation and annihilation operators.  In the Nambu basis this relation is expressed by the exchange matrix
+Opposite squares give the Majorana class \(\{+,-\}\), while two negative squares give the Kramers class \(\{-,-\}\)~\cite{li2016prl}.  Invariance under either pair makes the complete bosonic or fermionic Gaussian weight nonnegative, including evolution with particle-number-changing terms.  A derivation is given in the companion note \textit{Time-Reversal Symmetries for Sign-Problem-Free Quantum Monte Carlo}.
+
+The time reversal must preserve the relation between creation and annihilation operators.  In the Nambu basis, its linear part satisfies
 \begin{equation}
-    C=X\otimes I_{N},\qquad C\overline{U_j}C=U_j.
-    \label{eq:physical_TR_adjoint}
+\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}
+\overline U
+\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}=U.
+\label{eq:physical_TR_adjoint}
 \end{equation}
-For fermions, \(g_{\rm F}=C\), so Eq.~\eqref{eq:physical_TR_adjoint} follows from Eq.~\eqref{eq:TR_canonical_and_invariant} and the unitarity of \(U_j\).  Bosons require this relation in addition to the five signs.  Table~\ref{tab:physical_TR_representatives} supplies a physical representative for every group-only cell marked in Table~\ref{tab:periodic_table}.  Thus eight bosonic cells are time-reversal positive, four in the Majorana class and four in the Kramers class.  Four fermionic cells belong to the Majorana class.
+The following representatives satisfy this condition.  The leftmost tensor factor acts on the Nambu components.
 
-\begin{table}[tb]
-\caption{Physical representatives for the group-only classes marked ``TR positive'' in Table~\ref{tab:periodic_table}.  The tuple denotes \((s_1,q_1;s_2,q_2;r)\), and \(d\) is the Nambu dimension.  Pauli words follow Eq.~\eqref{eq:real_pauli_basis}.  For \(s_j=-1\), the physical time reversal uses \(U_j=\ii J_j\).  Every displayed pair satisfies Eq.~\eqref{eq:physical_TR_adjoint}.}
-\label{tab:physical_TR_representatives}
-\centering
-\small
-\renewcommand{\arraystretch}{1.15}
-\begin{ruledtabular}
-\begin{tabular}{ccccc}
-Statistics & \((s_1,q_1;s_2,q_2;r)\) & \(d\) & \((J_1,J_2)\) & TR class\\
-\hline
-\multirow{8}{*}{boson}
-& \((+,+;+,-;-)\) & 4 & \((IX,IY)\) & \(\{+,-\}\)\\
-& \((+,+;-,-;+)\) & 4 & \((II,ZY)\) & \(\{+,-\}\)\\
-& \((+,-;+,-;-)\) & 8 & \((IXY,IYI)\) & \(\{-,-\}\)\\
-& \((+,-;-,-;+)\) & 4 & \((IY,ZY)\) & \(\{-,-\}\)\\
-& \((-,+;+,-;+)\) & 4 & \((ZI,IY)\) & \(\{+,-\}\)\\
-& \((-,+;-,-;-)\) & 4 & \((ZX,ZY)\) & \(\{+,-\}\)\\
-& \((-,-;+,-;+)\) & 4 & \((ZY,IY)\) & \(\{-,-\}\)\\
-& \((-,-;-,-;-)\) & 8 & \((ZXY,ZYI)\) & \(\{-,-\}\)\\
-\hline
-\multirow{4}{*}{fermion}
-& \((+,-;+,+;-)\) & 4 & \((IY,IX)\) & \(\{+,-\}\)\\
-& \((+,-;-,+;+)\) & 4 & \((IY,YY)\) & \(\{+,-\}\)\\
-& \((-,-;+,+;+)\) & 2 & \((Y,I)\) & \(\{+,-\}\)\\
-& \((-,-;-,+;-)\) & 2 & \((Y,Z)\) & \(\{+,-\}\)\\
-\end{tabular}
-\end{ruledtabular}
-\end{table}
+\paragraph{Both matrices preserve \(g\) and anticommute.}
+For bosons, where \(J_2^2=-I\), the Majorana representative is
+\begin{equation*}
+J_1=I_2\otimes\sigma_x,\qquad J_2=I_2\otimes\ii\sigma_y,
+\end{equation*}
+and the Kramers representative is
+\begin{equation*}
+J_1=I_2\otimes\sigma_x\otimes\ii\sigma_y,\qquad
+J_2=I_2\otimes\ii\sigma_y\otimes I_2.
+\end{equation*}
+For fermions, the group-only condition has \(J_2^2=I\), and
+\begin{equation*}
+J_1=I_2\otimes\ii\sigma_y,\qquad J_2=I_2\otimes\sigma_x
+\end{equation*}
+gives the Majorana class.
 
-Time-reversal and contraction-semigroup positivity give independent sufficient conditions.  The periodic table marks time reversal only in group-only cells, where it supplies the nonnegative-weight conclusion unavailable from contraction alone.
+\paragraph{\(J_1\) preserves \(g\), \(J_2\) reverses it, and they commute.}
+The bosonic Majorana and Kramers representatives are, respectively,
+\begin{align*}
+(J_1,J_2)&=(I_2\otimes I_2,\ \sigma_z\otimes\ii\sigma_y),\\
+(J_1,J_2)&=(I_2\otimes\ii\sigma_y,\ \sigma_z\otimes\ii\sigma_y).
+\end{align*}
+The fermionic Majorana representative is
+\begin{equation*}
+J_1=I_2\otimes\ii\sigma_y,\qquad
+J_2=\ii\sigma_y\otimes\ii\sigma_y.
+\end{equation*}
+
+\paragraph{\(J_1\) reverses \(g\), \(J_2\) preserves it, and they commute.}
+The bosonic Majorana and Kramers representatives are
+\begin{align*}
+(J_1,J_2)&=(\sigma_z\otimes I_2,\ I_2\otimes\ii\sigma_y),\\
+(J_1,J_2)&=(\sigma_z\otimes\ii\sigma_y,\ I_2\otimes\ii\sigma_y).
+\end{align*}
+For fermions,
+\begin{equation*}
+J_1=\ii\sigma_y,\qquad J_2=I_2
+\end{equation*}
+gives the Majorana class.
+
+\paragraph{Both matrices reverse \(g\) and anticommute.}
+The bosonic Majorana and Kramers representatives are
+\begin{align*}
+(J_1,J_2)&=(\sigma_z\otimes\sigma_x,\ \sigma_z\otimes\ii\sigma_y),\\
+(J_1,J_2)&=(\sigma_z\otimes\sigma_x\otimes\ii\sigma_y,
+\ \sigma_z\otimes\ii\sigma_y\otimes I_2).
+\end{align*}
+The fermionic Majorana representative is
+\begin{equation*}
+J_1=\ii\sigma_y,\qquad J_2=\sigma_z.
+\end{equation*}
+
+Every bosonic group-only cell with \(J_2^2=-I\) and one of these mutual relations therefore has a physical time-reversal-positive representative.  The choice \(J_1^2=I\) gives four Majorana cells, and \(J_1^2=-I\) gives four Kramers cells.  For fermions, \(J_2^2=I\), \(J_1^2=-I\), and the same mutual relations give four Majorana cells.  Time-reversal and contraction-semigroup positivity are independent sufficient conditions.  Figure~\ref{fig:periodic_table} marks time reversal only where the contraction cone is empty.
 
 \section{Summary}
 
-Two real orthogonal matrices organize a complete contraction-semigroup screen for bosonic and fermionic Gaussian quantum Monte Carlo.  The five relations record how each matrix acts on the canonical matrix \(g\), how each squares, and how the pair commutes.  A negative-definite contraction direction exists exactly when \(J_2^2=+I\) for bosons or \(J_2^2=-I\) for fermions, together with \(r=-s_1s_2\).  This gives eight bosonic and eight fermionic semigroup classes.  Four in each set use \(J_2g\), four use \(\ii J_2g\), and the universal negative-definite direction is \(A_{\rm cone}=-\eta\).
+Two real orthogonal matrices organize a complete contraction-semigroup screen for bosonic and fermionic Gaussian quantum Monte Carlo.  The five relations record how each matrix acts on the canonical matrix \(g\), how each squares, and how the pair commutes.  A negative-definite contraction direction requires \(J_2^2=+I\) for bosons or \(J_2^2=-I\) for fermions.  It further requires \(J_1J_2=-J_2J_1\) when both matrices act on \(g\) in the same way, and \(J_1J_2=J_2J_1\) when one preserves \(g\) and the other reverses it.  This gives eight bosonic and eight fermionic semigroup classes.  Four in each set use \(J_2g\), four use \(\ii J_2g\), and the universal negative-definite direction is \(A_{\rm cone}=-\eta\).
 
-The explicit generator tables convert the classification into a construction principle.  Maximal-subgroup directions supply reversible hopping, conversion, and anomalous Hubbard--Stratonovich channels.  Cone directions supply the damping that prevents determinant zeros and bosonic poles.  When the auxiliary-field domain is connected to a positive reference, and a bosonic realization has a convergent many-body trace, these directions define a sign-free semigroup construction.  The remaining group-only cells admit a second screen based on time-reversal symmetry, adding eight bosonic and four fermionic sign-free classes.  Together, the two routes give a systematic map from quadratic symmetry data to sign-problem-free interacting models.
+The class-by-class generator solutions convert the classification into a construction principle.  Maximal-subgroup directions supply reversible hopping, conversion, and particle-number-changing Hubbard--Stratonovich channels.  Cone directions supply the damping that prevents determinant zeros and bosonic poles.  When the auxiliary-field domain is connected to a positive reference, and a bosonic realization has a convergent many-body trace, these directions define a sign-free semigroup construction.  The remaining group-only cells admit a second screen based on time-reversal symmetry, adding eight bosonic and four fermionic sign-free classes.  Together, the two routes give a systematic map from quadratic symmetry data to sign-problem-free interacting models.
 
 \bibliography{references}
 

@@ -1,0 +1,607 @@
+We now solve the generator equations for every semigroup class.  A representative built from the matrices in Eq.~\eqref{eq:real_pauli_basis} may be tensored with an arbitrary site, orbital, or flavor space.  Its complete solution is
+\begin{equation}
+    A_{\rm group}=\sum_P P\otimes K_P,
+    \qquad
+    A_{\rm cone}=\sum_P P\otimes K_P,
+    \label{eq:pauli_generator_expansion}
+\end{equation}
+where each displayed \(P\) is a Pauli tensor and \(K_P\) acts on the additional space.  We will state whether every \(K_P\) is real symmetric, real antisymmetric, imaginary symmetric, or imaginary antisymmetric.  These phrases mean, respectively,
+\begin{equation}
+\begin{aligned}
+&\overline{K_P}=K_P,\quad K_P^\trans=K_P,
+&&\overline{K_P}=K_P,\quad K_P^\trans=-K_P,\\
+&\overline{K_P}=-K_P,\quad K_P^\trans=K_P,
+&&\overline{K_P}=-K_P,\quad K_P^\trans=-K_P.
+\end{aligned}
+    \label{eq:coefficient_types}
+\end{equation}
+Types with no allowed factor are omitted below.  The inequality printed for each class acts on the complete sum in \(A_{\rm cone}\).  It can couple several coefficient matrices.  A particularly transparent contraction direction is obtained from a real symmetric positive-definite matrix \(H\) through
+\begin{equation}
+    A_{\rm cone}=-\eta\otimes H,
+    \qquad
+    \eta A_{\rm cone}=-I\otimes H<0.
+    \label{eq:negative_direction}
+\end{equation}
+The identity on the additional space will be left implicit in the metrics and inequalities below.
+
+The leftmost Pauli factor acts on the particle--hole components of Eq.~\eqref{eq:nambu_column}.  Its operator meaning is useful when reading the solutions.  Combining the remaining factors and \(K_P\) into a matrix \(K\), the factors \(I_2\) and \(\sigma_z\) give number-conserving terms,
+\begin{align}
+I_2:&\quad \sum_{ij}\hat a_i^+K_{ij}\hat a_j,
+\qquad K^\trans=-K,
+\label{eq:I_operator_term}\\
+\sigma_z:&\quad
+\begin{cases}
+\displaystyle \sum_{ij}b_i^+K_{ij}b_j+\frac12\Tr K,&\text{bosons},\\[3pt]
+\displaystyle \sum_{ij}c_i^+K_{ij}c_j-\frac12\Tr K,&\text{fermions},
+\end{cases}
+\qquad K^\trans=K.
+\label{eq:sigmaz_operator_term}
+\end{align}
+The factors \(\sigma_x\) and \(\ii\sigma_y\) change particle number by two,
+\begin{align}
+\sigma_x:&\quad
+\begin{cases}
+\displaystyle \frac12\sum_{ij}K_{ij}(b_i^+b_j^+-b_ib_j),&K^\trans=K,\\[3pt]
+\displaystyle \frac12\sum_{ij}K_{ij}(c_ic_j+c_i^+c_j^+),&K^\trans=-K,
+\end{cases}
+\label{eq:sigmax_operator_term}\\
+\ii\sigma_y:&\quad
+\begin{cases}
+\displaystyle \frac12\sum_{ij}K_{ij}(b_i^+b_j^++b_ib_j),&K^\trans=K,\\[3pt]
+\displaystyle \frac12\sum_{ij}K_{ij}(-c_ic_j+c_i^+c_j^+),&K^\trans=-K.
+\end{cases}
+\label{eq:isigmay_operator_term}
+\end{align}
+The upper and lower lines in Eqs.~\eqref{eq:sigmax_operator_term} and \eqref{eq:isigmay_operator_term} are the bosonic and fermionic expressions.  Internal Pauli factors describe flavor-dependent hopping, conversion, and pair creation or annihilation.
+
+\subsection{Bosons with \texorpdfstring{\(\eta=\ii J_2g\)}{eta = i J2 g}}
+
+In this subsection \(J_2^\trans gJ_2=g\) and \(J_2^2=I\).  The Hermitian metric can contain the conventional complex matrix \(\sigma_y\), although the real orthogonal matrices \(J_1,J_2\) use \(\ii\sigma_y\).
+
+\paragraph{Both matrices preserve \(g\), with \(J_1^2=I\).}
+The five relations and a four-dimensional representative are
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=I_2\otimes\sigma_x,\qquad
+J_2=I_2\otimes\sigma_z,\qquad
+\eta=\sigma_y\otimes\sigma_z.
+\end{gathered}
+\end{equation}
+The complete generator directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{\sigma_x\otimes I_2,\ii\sigma_y\otimes I_2,\sigma_z\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P&=I_2\otimes I_2,&&K_P\ \text{real antisymmetric},\\
+P&=I_2\otimes\ii\sigma_y,&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes\ii\sigma_y,\ii\sigma_y\otimes\ii\sigma_y,
+\sigma_z\otimes\ii\sigma_y\},&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\sigma_x\otimes\sigma_x,\ii\sigma_y\otimes\sigma_x,
+\sigma_z\otimes\sigma_x\},&&K_P\ \text{real symmetric},\\
+P&=I_2\otimes\sigma_x,&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\sigma_z,\ii\sigma_y\otimes\sigma_z,
+\sigma_z\otimes\sigma_z\},&&K_P\ \text{imaginary symmetric},\\
+P&=I_2\otimes\sigma_z,&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The strict condition is \((\sigma_y\otimes\sigma_z)A_{\rm cone}<0\).  Setting
+\(K_{\ii\sigma_y\otimes\sigma_z}=\ii H\) and all other cone coefficients to zero realizes Eq.~\eqref{eq:negative_direction}.  Both the group and cone allow the number-conserving terms in Eqs.~\eqref{eq:I_operator_term} and \eqref{eq:sigmaz_operator_term}, together with the particle-number-changing terms in Eqs.~\eqref{eq:sigmax_operator_term} and \eqref{eq:isigmay_operator_term}.
+
+\paragraph{Both matrices preserve \(g\), with \(J_1^2=-I\).}
+Here a four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=I_2\otimes\ii\sigma_y,\qquad
+J_2=I_2\otimes\sigma_x,\qquad
+\eta=\sigma_y\otimes\sigma_x.
+\end{gathered}
+\end{equation}
+The solutions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{\sigma_x\otimes I_2,\ii\sigma_y\otimes I_2,\sigma_z\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P&=I_2\otimes I_2,&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\sigma_z,\ii\sigma_y\otimes\sigma_z,
+\sigma_z\otimes\sigma_z\},&&K_P\ \text{imaginary symmetric},\\
+P&=I_2\otimes\sigma_z,&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=I_2\otimes\ii\sigma_y,&&K_P\ \text{real symmetric},\\
+P&\in\{\sigma_x\otimes\ii\sigma_y,\ii\sigma_y\otimes\ii\sigma_y,
+\sigma_z\otimes\ii\sigma_y\},&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\ii\sigma_y\otimes\sigma_x,
+\sigma_z\otimes\sigma_x\},&&K_P\ \text{imaginary symmetric},\\
+P&=I_2\otimes\sigma_x,&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The full inequality is \((\sigma_y\otimes\sigma_x)A_{\rm cone}<0\).  The choice
+\(K_{\ii\sigma_y\otimes\sigma_x}=\ii H\) gives a simple negative-definite direction.  The allowed first factors again include all four matrices in Eq.~\eqref{eq:real_pauli_basis}, so this class supports both number-conserving and particle-number-changing slice terms.
+
+\paragraph{\(J_1\) reverses \(g\) and \(J_2\) preserves it, with \(J_1^2=I\).}
+The smallest representative has two Nambu components,
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=I,\quad
+J_1J_2=J_2J_1,\\
+J_1=\sigma_x,\qquad J_2=I_2,\qquad \eta=\sigma_y.
+\end{gathered}
+\end{equation}
+Its short solution is
+\begin{align*}
+A_{\rm group}:\quad
+P&=\sigma_x,&&K_P\ \text{real symmetric},\\
+P&=I_2,&&K_P\ \text{real antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\ii\sigma_y,\sigma_z\},&&K_P\ \text{imaginary symmetric}.
+\end{align*}
+The condition \(\sigma_yA_{\rm cone}<0\) is realized by
+\(K_{\ii\sigma_y}=\ii H\).  The group contains ordinary hopping and the \(\sigma_x\) pair channel.  The cone combines number damping from \(\sigma_z\) with the independent pair quadrature carried by \(\ii\sigma_y\).
+
+\paragraph{\(J_1\) reverses \(g\) and \(J_2\) preserves it, with \(J_1^2=-I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=I,\quad
+J_1J_2=J_2J_1,\\
+J_1=\sigma_x\otimes\ii\sigma_y,\qquad
+J_2=I_2\otimes I_2,\qquad
+\eta=\sigma_y\otimes I_2.
+\end{gathered}
+\end{equation}
+The generator directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\sigma_x\otimes I_2,
+\ii\sigma_y\otimes\sigma_x,\ii\sigma_y\otimes\sigma_z,
+\sigma_z\otimes\sigma_x,\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\sigma_x\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z,
+\ii\sigma_y\otimes I_2,\sigma_z\otimes I_2\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z,
+\ii\sigma_y\otimes\ii\sigma_y,\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The contraction requirement is \((\sigma_y\otimes I_2)A_{\rm cone}<0\), and
+\(K_{\ii\sigma_y\otimes I_2}=\ii H\) gives a simple negative-definite direction.  The internal two-component structure allows both flavor conversion and flavor-dependent pair creation or annihilation.
+
+\subsection{Bosons with \texorpdfstring{\(\eta=J_2g\)}{eta = J2 g}}
+
+Here \(J_2^\trans gJ_2=-g\) and \(J_2^2=I\).
+
+\paragraph{\(J_1\) preserves \(g\), with \(J_1^2=I\).}
+The smallest representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=I,\quad
+J_1J_2=J_2J_1,\\
+J_1=I_2,\qquad J_2=\sigma_x,\qquad \eta=\sigma_z.
+\end{gathered}
+\end{equation}
+The complete solution is
+\begin{align*}
+A_{\rm group}:\quad
+P&=\sigma_x,&&K_P\ \text{real symmetric},\\
+P&=I_2,&&K_P\ \text{real antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\ii\sigma_y,\sigma_z\},&&K_P\ \text{real symmetric}.
+\end{align*}
+The explicit inequality \(\sigma_zA_{\rm cone}<0\) contains the simple choice
+\(K_{\sigma_z}=-H\).  This two-component class combines ordinary hopping with two independent bosonic pair quadratures, while the \(\sigma_z\) cone direction damps particle occupation.
+
+\paragraph{\(J_1\) preserves \(g\), with \(J_1^2=-I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=I,\quad
+J_1J_2=J_2J_1,\\
+J_1=I_2\otimes\ii\sigma_y,\qquad
+J_2=\sigma_x\otimes I_2,\qquad
+\eta=\sigma_z\otimes I_2.
+\end{gathered}
+\end{equation}
+The solutions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\sigma_x\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\sigma_x\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\ii\sigma_y\otimes\sigma_x,\ii\sigma_y\otimes\sigma_z,
+\sigma_z\otimes\sigma_x,\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{imaginary symmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\ii\sigma_y\otimes I_2,\sigma_z\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{\ii\sigma_y\otimes\ii\sigma_y,\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The condition \((\sigma_z\otimes I_2)A_{\rm cone}<0\) is satisfied along
+\(K_{\sigma_z\otimes I_2}=-H\).  Both generator spaces mix number-conserving and particle-number-changing terms and can therefore describe interacting two-component bosons with flavor-dependent hopping and pair conversion.
+
+\paragraph{Both matrices reverse \(g\), with \(J_1^2=I\).}
+The two-component representative reads
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=\sigma_x,\qquad J_2=\sigma_z,\qquad \eta=-\sigma_x.
+\end{gathered}
+\end{equation}
+Its generator directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&=I_2,&&K_P\ \text{real antisymmetric},\\
+P&=\ii\sigma_y,&&K_P\ \text{imaginary symmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=\sigma_x,&&K_P\ \text{real symmetric},\\
+P&=\sigma_z,&&K_P\ \text{imaginary symmetric}.
+\end{align*}
+The condition is \((-\sigma_x)A_{\rm cone}<0\).  Taking
+\(K_{\sigma_x}=H\) gives Eq.~\eqref{eq:negative_direction}.  The reversible part contains hopping and one pair quadrature.  The cone supplies the complementary pair quadrature together with a number-conserving contribution.
+
+\paragraph{Both matrices reverse \(g\), with \(J_1^2=-I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=\sigma_x\otimes\ii\sigma_y,\qquad
+J_2=\sigma_x\otimes\sigma_x,\qquad
+\eta=\sigma_z\otimes\sigma_x.
+\end{gathered}
+\end{equation}
+The solutions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{\sigma_x\otimes I_2,\ii\sigma_y\otimes\sigma_z,
+\sigma_z\otimes\sigma_z\},&&K_P\ \text{real symmetric},\\
+P&=I_2\otimes I_2,&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\sigma_z,\ii\sigma_y\otimes I_2,
+\sigma_z\otimes I_2\},&&K_P\ \text{imaginary symmetric},\\
+P&=I_2\otimes\sigma_z,&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\ii\sigma_y\otimes\sigma_x,
+\sigma_z\otimes\sigma_x\},&&K_P\ \text{real symmetric},\\
+P&=\sigma_x\otimes\ii\sigma_y,&&K_P\ \text{real antisymmetric},\\
+P&=\sigma_x\otimes\sigma_x,&&K_P\ \text{imaginary symmetric},\\
+P&\in\{I_2\otimes\sigma_x,\ii\sigma_y\otimes\ii\sigma_y,
+\sigma_z\otimes\ii\sigma_y\},&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The strict inequality is \((\sigma_z\otimes\sigma_x)A_{\rm cone}<0\).  It includes the direction
+\(K_{\sigma_z\otimes\sigma_x}=-H\).  The internal component is essential here because the symmetry permits flavor-selective hopping and both pair quadratures in the group and cone.
+
+\subsection{Fermions with \texorpdfstring{\(\eta=\ii J_2g\)}{eta = i J2 g}}
+
+For these four classes \(J_2^\trans gJ_2=g\) and \(J_2^2=-I\).
+
+\paragraph{Both matrices preserve \(g\), with \(J_1^2=I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=-I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=I_2\otimes\sigma_x,\qquad
+J_2=I_2\otimes\ii\sigma_y,\qquad
+\eta=-\sigma_x\otimes\sigma_y.
+\end{gathered}
+\end{equation}
+The complete directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&=\sigma_z\otimes I_2,&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\sigma_x\otimes I_2,
+\ii\sigma_y\otimes I_2\},&&K_P\ \text{real antisymmetric},\\
+P&=\sigma_z\otimes\sigma_z,&&K_P\ \text{imaginary symmetric},\\
+P&\in\{I_2\otimes\sigma_z,\sigma_x\otimes\sigma_z,
+\ii\sigma_y\otimes\sigma_z\},&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=\sigma_z\otimes\sigma_x,&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes\sigma_x,\sigma_x\otimes\sigma_x,
+\ii\sigma_y\otimes\sigma_x\},&&K_P\ \text{real antisymmetric},\\
+P&\in\{I_2\otimes\ii\sigma_y,\sigma_x\otimes\ii\sigma_y,
+\ii\sigma_y\otimes\ii\sigma_y\},&&K_P\ \text{imaginary symmetric},\\
+P&=\sigma_z\otimes\ii\sigma_y,&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The condition \((-\sigma_x\otimes\sigma_y)A_{\rm cone}<0\) contains the direction
+\(K_{\sigma_x\otimes\ii\sigma_y}=-\ii H\).  The allowed terms include spin- or flavor-dependent hopping, conversion, and fermion pairing in both the reversible and damping parts.
+
+\paragraph{Both matrices preserve \(g\), with \(J_1^2=-I\).}
+This is the only semigroup class whose smallest representative has eight Nambu components,
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=-I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=I_2\otimes I_2\otimes\ii\sigma_y,\qquad
+J_2=I_2\otimes\ii\sigma_y\otimes\sigma_x,\qquad
+\eta=-\sigma_x\otimes\sigma_y\otimes\sigma_x.
+\end{gathered}
+\end{equation}
+For \(A_{\rm group}\), the allowed factors are
+\begin{align*}
+P\in\{&I_2\otimes\sigma_x\otimes\ii\sigma_y,
+I_2\otimes\ii\sigma_y\otimes I_2,
+I_2\otimes\sigma_z\otimes\ii\sigma_y,
+\sigma_x\otimes\sigma_x\otimes\ii\sigma_y,\\[-2pt]
+&\sigma_x\otimes\ii\sigma_y\otimes I_2,
+\sigma_x\otimes\sigma_z\otimes\ii\sigma_y,
+\ii\sigma_y\otimes\sigma_x\otimes\ii\sigma_y,
+\ii\sigma_y\otimes\ii\sigma_y\otimes I_2,\\[-2pt]
+&\ii\sigma_y\otimes\sigma_z\otimes\ii\sigma_y,
+\sigma_z\otimes I_2\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P\in\{&I_2\otimes I_2\otimes I_2,
+\sigma_x\otimes I_2\otimes I_2,
+\ii\sigma_y\otimes I_2\otimes I_2,
+\sigma_z\otimes\sigma_x\otimes\ii\sigma_y,\\[-2pt]
+&\sigma_z\otimes\ii\sigma_y\otimes I_2,
+\sigma_z\otimes\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric},\\
+P\in\{&I_2\otimes\ii\sigma_y\otimes\sigma_z,
+\sigma_x\otimes\ii\sigma_y\otimes\sigma_z,
+\ii\sigma_y\otimes\ii\sigma_y\otimes\sigma_z,\\[-2pt]
+&\sigma_z\otimes I_2\otimes\sigma_z,
+\sigma_z\otimes\sigma_x\otimes\sigma_x,
+\sigma_z\otimes\sigma_z\otimes\sigma_x\},
+&&K_P\ \text{imaginary symmetric},\\
+P\in\{&I_2\otimes I_2\otimes\sigma_z,
+I_2\otimes\sigma_x\otimes\sigma_x,
+I_2\otimes\sigma_z\otimes\sigma_x,
+\sigma_x\otimes I_2\otimes\sigma_z,\\[-2pt]
+&\sigma_x\otimes\sigma_x\otimes\sigma_x,
+\sigma_x\otimes\sigma_z\otimes\sigma_x,
+\ii\sigma_y\otimes I_2\otimes\sigma_z,
+\ii\sigma_y\otimes\sigma_x\otimes\sigma_x,\\[-2pt]
+&\ii\sigma_y\otimes\sigma_z\otimes\sigma_x,
+\sigma_z\otimes\ii\sigma_y\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+For \(A_{\rm cone}\), they are
+\begin{align*}
+P\in\{&I_2\otimes I_2\otimes\ii\sigma_y,
+\sigma_x\otimes I_2\otimes\ii\sigma_y,
+\ii\sigma_y\otimes I_2\otimes\ii\sigma_y,
+\sigma_z\otimes\sigma_x\otimes I_2,\\[-2pt]
+&\sigma_z\otimes\ii\sigma_y\otimes\ii\sigma_y,
+\sigma_z\otimes\sigma_z\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P\in\{&I_2\otimes\sigma_x\otimes I_2,
+I_2\otimes\ii\sigma_y\otimes\ii\sigma_y,
+I_2\otimes\sigma_z\otimes I_2,
+\sigma_x\otimes\sigma_x\otimes I_2,\\[-2pt]
+&\sigma_x\otimes\ii\sigma_y\otimes\ii\sigma_y,
+\sigma_x\otimes\sigma_z\otimes I_2,
+\ii\sigma_y\otimes\sigma_x\otimes I_2,
+\ii\sigma_y\otimes\ii\sigma_y\otimes\ii\sigma_y,\\[-2pt]
+&\ii\sigma_y\otimes\sigma_z\otimes I_2,
+\sigma_z\otimes I_2\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric},\\
+P\in\{&I_2\otimes\ii\sigma_y\otimes\sigma_x,
+\sigma_x\otimes\ii\sigma_y\otimes\sigma_x,
+\ii\sigma_y\otimes\ii\sigma_y\otimes\sigma_x,\\[-2pt]
+&\sigma_z\otimes I_2\otimes\sigma_x,
+\sigma_z\otimes\sigma_x\otimes\sigma_z,
+\sigma_z\otimes\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{imaginary symmetric},\\
+P\in\{&I_2\otimes I_2\otimes\sigma_x,
+I_2\otimes\sigma_x\otimes\sigma_z,
+I_2\otimes\sigma_z\otimes\sigma_z,
+\sigma_x\otimes I_2\otimes\sigma_x,\\[-2pt]
+&\sigma_x\otimes\sigma_x\otimes\sigma_z,
+\sigma_x\otimes\sigma_z\otimes\sigma_z,
+\ii\sigma_y\otimes I_2\otimes\sigma_x,
+\ii\sigma_y\otimes\sigma_x\otimes\sigma_z,\\[-2pt]
+&\ii\sigma_y\otimes\sigma_z\otimes\sigma_z,
+\sigma_z\otimes\ii\sigma_y\otimes\sigma_x\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The strict condition is
+\((-\sigma_x\otimes\sigma_y\otimes\sigma_x)A_{\rm cone}<0\), with the simple choice
+\(K_{\sigma_x\otimes\ii\sigma_y\otimes\sigma_x}=-\ii H\).  Both generator spaces contain number-conserving and fermion-pairing terms.  The eight-component minimum has a direct origin.  In a basis that diagonalizes the symmetric fermionic \(g\), both \(J_1\) and \(J_2\) act separately in the \(+1\) and \(-1\) sectors.  Within either sector, two real transformations that square to \(-I\) and anticommute need four components.  The two sectors therefore require eight Nambu components.
+
+\paragraph{\(J_1\) reverses \(g\) and \(J_2\) preserves it, with \(J_1^2=I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=-I,\quad
+J_1J_2=J_2J_1,\\
+J_1=\ii\sigma_y\otimes\ii\sigma_y,\qquad
+J_2=I_2\otimes\ii\sigma_y,\qquad
+\eta=-\sigma_x\otimes\sigma_y.
+\end{gathered}
+\end{equation}
+The solutions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\ii\sigma_y\otimes\ii\sigma_y\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\ii\sigma_y\otimes I_2\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z,
+\ii\sigma_y\otimes\sigma_x,\ii\sigma_y\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\sigma_z\otimes\sigma_x,\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\ii\sigma_y,\sigma_z\otimes I_2\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes I_2,\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The condition is \((-\sigma_x\otimes\sigma_y)A_{\rm cone}<0\), and
+\(K_{\sigma_x\otimes\ii\sigma_y}=-\ii H\) gives a strict direction.  Both number-conserving and fermion-pairing terms are available, with independent internal conversion channels.
+
+\paragraph{\(J_1\) reverses \(g\) and \(J_2\) preserves it, with \(J_1^2=-I\).}
+One may take
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=g,\quad J_2^2=-I,\quad
+J_1J_2=J_2J_1,\\
+J_1=\ii\sigma_y\otimes I_2,\qquad
+J_2=I_2\otimes\ii\sigma_y,\qquad
+\eta=-\sigma_x\otimes\sigma_y.
+\end{gathered}
+\end{equation}
+The generator spaces are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\ii\sigma_y\otimes\ii\sigma_y\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\ii\sigma_y\otimes I_2\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_z\otimes\sigma_x,\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z,
+\ii\sigma_y\otimes\sigma_x,\ii\sigma_y\otimes\sigma_z\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\ii\sigma_y,\sigma_z\otimes I_2\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes I_2,\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+Again \((-\sigma_x\otimes\sigma_y)A_{\rm cone}<0\), with
+\(K_{\sigma_x\otimes\ii\sigma_y}=-\ii H\) as a simple solution.  This class has the same contraction metric as the preceding class, while the square of \(J_1\) changes which flavor-resolved hopping and pairing directions lie in the group and cone.
+
+\subsection{Fermions with \texorpdfstring{\(\eta=J_2g\)}{eta = J2 g}}
+
+These classes have \(J_2^\trans gJ_2=-g\) and \(J_2^2=-I\).
+
+\paragraph{\(J_1\) preserves \(g\), with \(J_1^2=I\).}
+The two-component representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=-I,\quad
+J_1J_2=J_2J_1,\\
+J_1=I_2,\qquad J_2=\ii\sigma_y,\qquad \eta=\sigma_z.
+\end{gathered}
+\end{equation}
+Its complete solution is
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2,\ii\sigma_y\},&&K_P\ \text{real antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=\sigma_z,&&K_P\ \text{real symmetric},\\
+P&=\sigma_x,&&K_P\ \text{real antisymmetric}.
+\end{align*}
+The condition \(\sigma_zA_{\rm cone}<0\) contains
+\(K_{\sigma_z}=-H\).  The group permits ordinary hopping and a fermion-pair quadrature.  The cone supplies number damping and the complementary pair channel.
+
+\paragraph{\(J_1\) preserves \(g\), with \(J_1^2=-I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=-I,\quad
+J_1J_2=J_2J_1,\\
+J_1=I_2\otimes\ii\sigma_y,\qquad
+J_2=\ii\sigma_y\otimes I_2,\qquad
+\eta=\sigma_z\otimes I_2.
+\end{gathered}
+\end{equation}
+The allowed directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&\in\{I_2\otimes\ii\sigma_y,\ii\sigma_y\otimes\ii\sigma_y\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\ii\sigma_y\otimes I_2\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_z\otimes\sigma_x,\sigma_z\otimes\sigma_z\},
+&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&\in\{\sigma_x\otimes\ii\sigma_y,\sigma_z\otimes I_2\},
+&&K_P\ \text{real symmetric},\\
+P&\in\{\sigma_x\otimes I_2,\sigma_z\otimes\ii\sigma_y\},
+&&K_P\ \text{real antisymmetric},\\
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z,
+\ii\sigma_y\otimes\sigma_x,\ii\sigma_y\otimes\sigma_z\},
+&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The inequality \((\sigma_z\otimes I_2)A_{\rm cone}<0\) includes
+\(K_{\sigma_z\otimes I_2}=-H\).  The internal doublet opens flavor-changing normal and pairing channels in both parts of the generator.
+
+\paragraph{Both matrices reverse \(g\), with \(J_1^2=I\).}
+The minimal representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=-I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=\sigma_z,\qquad J_2=\ii\sigma_y,\qquad \eta=\sigma_z.
+\end{gathered}
+\end{equation}
+The solutions are
+\begin{align*}
+A_{\rm group}:\quad
+P&=I_2,&&K_P\ \text{real antisymmetric},\\
+P&=\sigma_x,&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=\sigma_z,&&K_P\ \text{real symmetric},\\
+P&=\ii\sigma_y,&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The condition \(\sigma_zA_{\rm cone}<0\) is satisfied by
+\(K_{\sigma_z}=-H\).  The group contains number-conserving motion and one complex pairing quadrature, while the cone provides number damping and the other pairing quadrature.
+
+\paragraph{Both matrices reverse \(g\), with \(J_1^2=-I\).}
+A four-dimensional representative is
+\begin{equation}
+\begin{gathered}
+J_1^\trans gJ_1=-g,\quad J_1^2=-I,\quad
+J_2^\trans gJ_2=-g,\quad J_2^2=-I,\quad
+J_1J_2=-J_2J_1,\\
+J_1=\ii\sigma_y\otimes I_2,\qquad
+J_2=\sigma_z\otimes\ii\sigma_y,\qquad
+\eta=\ii\sigma_y\otimes\ii\sigma_y.
+\end{gathered}
+\end{equation}
+The complete directions are
+\begin{align*}
+A_{\rm group}:\quad
+P&=I_2\otimes\ii\sigma_y,&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes I_2,\ii\sigma_y\otimes\sigma_x,
+\ii\sigma_y\otimes\sigma_z\},&&K_P\ \text{real antisymmetric},\\
+P&\in\{\sigma_x\otimes\ii\sigma_y,\sigma_z\otimes\sigma_x,
+\sigma_z\otimes\sigma_z\},&&K_P\ \text{imaginary symmetric},\\
+P&=\sigma_x\otimes I_2,&&K_P\ \text{imaginary antisymmetric};\\[2pt]
+A_{\rm cone}:\quad
+P&=\ii\sigma_y\otimes\ii\sigma_y,&&K_P\ \text{real symmetric},\\
+P&\in\{I_2\otimes\sigma_x,I_2\otimes\sigma_z,
+\ii\sigma_y\otimes I_2\},&&K_P\ \text{real antisymmetric},\\
+P&=\sigma_z\otimes I_2,&&K_P\ \text{imaginary symmetric},\\
+P&\in\{\sigma_x\otimes\sigma_x,\sigma_x\otimes\sigma_z,
+\sigma_z\otimes\ii\sigma_y\},&&K_P\ \text{imaginary antisymmetric}.
+\end{align*}
+The explicit contraction requirement is
+\([(\ii\sigma_y)\otimes(\ii\sigma_y)]A_{\rm cone}<0\).  The choice
+\(K_{\ii\sigma_y\otimes\ii\sigma_y}=-H\) gives a strict direction.  Normal and pairing terms both occur, and the second tensor factor resolves their internal symmetry.
+
+Across all sixteen classes, \(A_{\rm group}\) supplies reversible quadratic motion and can carry auxiliary fields of either sign.  The complete \(A_{\rm cone}\) supplies damping when its class-specific inequality is satisfied.  The listed directions are fixed-field quadratic slice terms.  Individual slices may be non-Hermitian even when the original interacting Hamiltonian is Hermitian, as is common after a Hubbard--Stratonovich transformation.
