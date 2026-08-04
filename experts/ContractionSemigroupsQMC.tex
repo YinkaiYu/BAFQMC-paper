@@ -581,36 +581,6 @@ The stated generator is invariant under all three transformations.  They therefo
 
 \input{experts/ContractionSemigroupKramersProper}
 
-\subsection{Adding contraction-cone generators}
-
-Figure~\ref{fig:periodic_table} superposes two complementary results.  The M,
-K, and S symbols identify subgroups inside the maximal subgroup whose signs are
-fixed by time reversals.  A filled symbol covers the complete maximal subgroup,
-whereas an outlined symbol covers the proper subgroup written explicitly
-above.  The green or blue background describes the complete
-contraction-semigroup slice.  This distinction follows directly from
-Eqs.~\eqref{eq:A_group_projection} and \eqref{eq:A_cone_projection}.  With
-\(U_2=J_2\) or \(U_2=\ii J_2\), one has
-\(U_2^{-1}\overline{A_{\rm group}}U_2=A_{\rm group}\) and
-\(U_2^{-1}\overline{A_{\rm cone}}U_2=-A_{\rm cone}\).  Thus \(\Theta_2\)
-maps \(A_{\rm group}+A_{\rm cone}\) to
-\(A_{\rm group}-A_{\rm cone}\) for a fixed auxiliary-field configuration.
-A nonzero \(A_{\rm cone}\) changes the time slice under this transformation.
-The sign of the complete slice instead follows from
-\begin{equation}
-\eta A+A^\dagger\eta=2\eta A_{\rm cone}\leq0,
-\qquad
-J_1^\trans AJ_1=\overline A.
-\label{eq:full_slice_semigroup_sign_conditions}
-\end{equation}
-If at least one time slice obeys
-\(\eta A+A^\dagger\eta<0\), while all other slices obey the non-strict
-inequality in Eq.~\eqref{eq:full_slice_semigroup_sign_conditions}, the complete
-propagation cannot reach a determinant zero or a bosonic pole.  The second
-relation keeps the weight real.  A positive reference configuration then fixes
-the sign throughout the contraction semigroup.  Boundary configurations follow
-by the continuous connection stated below Eq.~\eqref{eq:semigroup_product}.
-
 \section{Interacting models selected by contraction semigroups}
 
 The generator lists in Sec.~V can be used directly to design Hubbard--Stratonovich decompositions.  The following models retain a positive Gaussian auxiliary-field measure.  Their full fixed-field slices satisfy the contraction inequality, while their available time reversals alone do not belong to a sign-fixing class.  Rewriting a quadratic Hamiltonian in the Nambu form of Eq.~\eqref{eq:configuration_weight} adds a field-independent real constant.  The slice formulas below omit its positive exponential factor because it cannot affect a Monte Carlo sign.
