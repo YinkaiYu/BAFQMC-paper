@@ -1,0 +1,65 @@
+statistics,class_number,class_id,s1,q1,s2,q2,r,semigroup_status,metric,time_reversal_result,time_reversal_class,figure_tag,time_reversal_squares,number_of_pauli_factors,nambu_dimension,J1_word,J2_word,induced_U1,induced_U2,extra_U,extra_square,extra_pairs_with,A_group_dimension,time_reversal_subspace_dimension,time_reversal_subspace_basis
+boson,1,s1+_q1+_s2+_q2+_r+,1,1,1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,II,IX,II,IX,IY,-1,Theta2,6,3,XI;YI;ZI
+boson,2,s1+_q1+_s2+_q2+_r-,1,1,1,1,-1,contraction semigroup,iJ2g,proper A_group subspace,split-orthogonal,S*,"{+,+,+}",2,4,IX,IZ,IX,IZ,iZI,1,Theta1 and Theta2,4,1,ZI
+boson,3,s1+_q1+_s2+_q2-_r+,1,1,1,-1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,II,IY,II,IY,IX,1,Theta2,4,3,XI;YI;ZI
+boson,4,s1+_q1+_s2+_q2-_r-,1,1,1,-1,-1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,IX,IY,IX,IY,,,,6,6,XI;iXZ;YI;iYZ;ZI;iZZ
+boson,5,s1+_q1+_s2-_q2+_r+,1,1,-1,1,1,contraction semigroup,J2g,proper A_group subspace,split-orthogonal,S*,"{+,+,+}",2,4,II,ZX,II,iZX,iZZ,1,Theta1 and Theta2,4,1,ZI
+boson,6,s1+_q1+_s2-_q2+_r-,1,1,-1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IX,ZZ,IX,iZZ,IY,-1,Theta1,6,3,iXZ;iYZ;ZI
+boson,7,s1+_q1+_s2-_q2-_r+,1,1,-1,-1,1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,II,ZY,II,iZY,,,,6,6,IY;XX;XZ;YX;YZ;ZI
+boson,8,s1+_q1+_s2-_q2-_r-,1,1,-1,-1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IX,ZY,IX,iZY,II,1,Theta2,4,3,XX;YX;ZI
+boson,9,s1+_q1-_s2+_q2+_r+,1,-1,1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IY,II,IY,II,IX,1,Theta1,4,3,XI;YI;ZI
+boson,10,s1+_q1-_s2+_q2+_r-,1,-1,1,1,-1,contraction semigroup,iJ2g,whole A_group,Majorana,M,"{+,-}",2,4,IY,IX,IY,IX,,,,6,6,XI;iXZ;YI;iYZ;ZI;iZZ
+boson,11,s1+_q1-_s2+_q2-_r+,1,-1,1,-1,1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",3,8,IIY,IXY,IIY,IXY,IYI,-1,Theta2,20,10,IIY;XII;iXXX;iXXZ;YII;iYXX;iYXZ;ZII;iZXX;iZXZ
+boson,12,s1+_q1-_s2+_q2-_r-,1,-1,1,-1,-1,maximal subgroup only,,whole A_group,Kramers,K,"{-,-}",3,8,IIY,IYX,IIY,IYX,,,,16,16,IXY;IYI;iIYZ;IZY;XII;iXIZ;iXXX;iXZX;YII;iYIZ;iYXX;iYZX;ZII;iZIZ;iZXX;iZZX
+boson,13,s1+_q1-_s2-_q2+_r+,1,-1,-1,1,1,contraction semigroup,J2g,whole A_group,Majorana,M,"{+,-}",2,4,IY,ZI,IY,iZI,,,,6,6,IY;iXX;iXZ;iYX;iYZ;ZI
+boson,14,s1+_q1-_s2-_q2+_r-,1,-1,-1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IY,ZX,IY,iZX,IZ,1,Theta1,4,3,iXX;iYX;ZI
+boson,15,s1+_q1-_s2-_q2-_r+,1,-1,-1,-1,1,maximal subgroup only,,whole A_group,Kramers,K,"{-,-}",2,4,IY,ZY,IY,iZY,,,,4,4,IY;ZI;iZX;iZZ
+boson,16,s1+_q1-_s2-_q2-_r-,1,-1,-1,-1,-1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",3,8,IIY,ZYX,IIY,iZYX,IXY,-1,Theta2,20,10,IXY;iXIX;XXI;iXXZ;iYIX;YXI;iYXZ;ZII;iZIZ;iZXX
+boson,17,s1-_q1+_s2+_q2+_r+,-1,1,1,1,1,contraction semigroup,iJ2g,proper A_group subspace,split-orthogonal,S*,"{+,+,+}",2,4,ZI,IX,iZI,IX,IZ,1,Theta1 and Theta2,4,1,ZI
+boson,18,s1-_q1+_s2+_q2+_r-,-1,1,1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZX,IZ,iZX,IZ,IY,-1,Theta2,6,3,iXX;iYX;ZI
+boson,19,s1-_q1+_s2+_q2-_r+,-1,1,1,-1,1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,ZI,IY,iZI,IY,,,,6,6,IY;iXX;iXZ;iYX;iYZ;ZI
+boson,20,s1-_q1+_s2+_q2-_r-,-1,1,1,-1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZX,IY,iZX,IY,IZ,1,Theta2,4,3,iXX;iYX;ZI
+boson,21,s1-_q1+_s2-_q2+_r+,-1,1,-1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZI,ZX,iZI,iZX,IY,-1,Theta1,6,3,iXX;iYX;ZI
+boson,22,s1-_q1+_s2-_q2+_r-,-1,1,-1,1,-1,contraction semigroup,J2g,proper A_group subspace,split-orthogonal,S*,"{+,+,+}",2,4,ZX,ZZ,iZX,iZZ,II,1,Theta1 and Theta2,4,1,ZI
+boson,23,s1-_q1+_s2-_q2-_r+,-1,1,-1,-1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZI,ZY,iZI,iZY,iZX,1,Theta2,4,3,iXI;iYI;ZI
+boson,24,s1-_q1+_s2-_q2-_r-,-1,1,-1,-1,-1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,ZX,ZY,iZX,iZY,,,,6,6,iXI;XZ;iYI;YZ;ZI;iZZ
+boson,25,s1-_q1-_s2+_q2+_r+,-1,-1,1,1,1,contraction semigroup,iJ2g,whole A_group,Majorana,M,"{+,-}",2,4,ZY,II,iZY,II,,,,6,6,IY;XX;XZ;YX;YZ;ZI
+boson,26,s1-_q1-_s2+_q2+_r-,-1,-1,1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZY,IX,iZY,IX,II,1,Theta1,4,3,XX;YX;ZI
+boson,27,s1-_q1-_s2+_q2-_r+,-1,-1,1,-1,1,maximal subgroup only,,whole A_group,Kramers,K,"{-,-}",2,4,ZY,IY,iZY,IY,,,,4,4,IY;ZI;iZX;iZZ
+boson,28,s1-_q1-_s2+_q2-_r-,-1,-1,1,-1,-1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",3,8,ZIY,IYX,iZIY,IYX,IXY,-1,Theta1,20,10,IXY;iXYY;iXZI;XZZ;iYYY;iYZI;YZZ;ZII;iZIZ;iZXX
+boson,29,s1-_q1-_s2-_q2+_r+,-1,-1,-1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,ZY,ZI,iZY,iZI,iZX,1,Theta1,4,3,iXI;iYI;ZI
+boson,30,s1-_q1-_s2-_q2+_r-,-1,-1,-1,1,-1,contraction semigroup,J2g,whole A_group,Majorana,M,"{+,-}",2,4,ZY,ZX,iZY,iZX,,,,6,6,iXI;XZ;iYI;YZ;ZI;iZZ
+boson,31,s1-_q1-_s2-_q2-_r+,-1,-1,-1,-1,1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",3,8,ZIY,ZXY,iZIY,iZXY,IYI,-1,Theta1,20,10,IIY;XIX;XIZ;iXXI;YIX;YIZ;iYXI;ZII;iZXX;iZXZ
+boson,32,s1-_q1-_s2-_q2-_r-,-1,-1,-1,-1,-1,maximal subgroup only,,whole A_group,Kramers,K,"{-,-}",3,8,ZIY,ZYX,iZIY,iZYX,,,,16,16,IXY;IYI;iIYZ;IZY;iXII;XIZ;XXX;XZX;iYII;YIZ;YXX;YZX;ZII;iZIZ;iZXX;iZZX
+fermion,1,s1+_q1+_s2+_q2+_r+,1,1,1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,II,IX,II,IX,IY,-1,Theta2,2,1,ZI
+fermion,2,s1+_q1+_s2+_q2+_r-,1,1,1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IX,IZ,IX,IZ,iYX,-1,Theta1,4,2,iIY;iYY
+fermion,3,s1+_q1+_s2+_q2-_r+,1,1,1,-1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,II,IY,II,IY,iYI,-1,Theta1,4,2,IY;YY
+fermion,4,s1+_q1+_s2+_q2-_r-,1,1,1,-1,-1,contraction semigroup,iJ2g,whole A_group,Majorana,M,"{+,-}",2,4,IX,IY,IX,IY,,,,2,2,ZI;iZZ
+fermion,5,s1+_q1+_s2-_q2+_r+,1,1,-1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,II,YY,II,iYY,IY,-1,Theta2,4,2,IY;YY
+fermion,6,s1+_q1+_s2-_q2+_r-,1,1,-1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IX,YY,IX,iYY,XY,-1,Theta1,2,1,ZX
+fermion,7,s1+_q1+_s2-_q2-_r+,1,1,-1,-1,1,contraction semigroup,J2g,whole A_group,Majorana,M,"{+,-}",2,4,II,YI,II,iYI,,,,2,2,IY;YY
+fermion,8,s1+_q1+_s2-_q2-_r-,1,1,-1,-1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IX,YZ,IX,iYZ,IZ,1,Theta2,4,2,iIY;iYY
+fermion,9,s1+_q1-_s2+_q2+_r+,1,-1,1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IY,II,IY,II,iYI,-1,Theta2,4,2,IY;YY
+fermion,10,s1+_q1-_s2+_q2+_r-,1,-1,1,1,-1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,IY,IX,IY,IX,,,,2,2,ZI;iZZ
+fermion,11,s1+_q1-_s2+_q2-_r+,1,-1,1,-1,1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",2,4,IY,XY,IY,XY,iYI,-1,Theta1,2,1,IY
+fermion,12,s1+_q1-_s2+_q2-_r-,1,-1,1,-1,-1,contraction semigroup,iJ2g,whole A_group,Kramers,K,"{-,-}",3,8,IIY,IYX,IIY,IYX,,,,16,16,IXY;IYI;iIYZ;IZY;XXY;XYI;iXYZ;XZY;YXY;YYI;iYYZ;YZY;ZII;iZIZ;iZXX;iZZX
+fermion,13,s1+_q1-_s2-_q2+_r+,1,-1,-1,1,1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,IY,YY,IY,iYY,,,,2,2,IY;YY
+fermion,14,s1+_q1-_s2-_q2+_r-,1,-1,-1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,IY,ZX,IY,iZX,IX,1,Theta1,4,2,ZI;iZZ
+fermion,15,s1+_q1-_s2-_q2-_r+,1,-1,-1,-1,1,contraction semigroup,J2g,whole A_group,Kramers,K,"{-,-}",2,4,IY,YI,IY,iYI,,,,4,4,IY;YY;iZX;iZZ
+fermion,16,s1+_q1-_s2-_q2-_r-,1,-1,-1,-1,-1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",2,4,IY,YX,IY,iYX,XY,-1,Theta2,2,1,XY
+fermion,17,s1-_q1+_s2+_q2+_r+,-1,1,1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,II,iYY,II,IY,-1,Theta1,4,2,IY;YY
+fermion,18,s1-_q1+_s2+_q2+_r-,-1,1,1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,IX,iYY,IX,XY,-1,Theta2,2,1,ZX
+fermion,19,s1-_q1+_s2+_q2-_r+,-1,1,1,-1,1,contraction semigroup,iJ2g,whole A_group,Majorana,M,"{+,-}",2,4,YY,IY,iYY,IY,,,,2,2,IY;YY
+fermion,20,s1-_q1+_s2+_q2-_r-,-1,1,1,-1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,XY,iYY,XY,XX,1,Theta2,4,2,iZI;ZZ
+fermion,21,s1-_q1+_s2-_q2+_r+,-1,1,-1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,ZX,iYY,iZX,IY,-1,Theta1,2,1,YY
+fermion,22,s1-_q1+_s2-_q2+_r-,-1,1,-1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,ZI,iYY,iZI,iYI,-1,Theta2,4,2,IY;iXY
+fermion,23,s1-_q1+_s2-_q2-_r+,-1,1,-1,-1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YY,YI,iYY,iYI,II,1,Theta2,4,2,IY;YY
+fermion,24,s1-_q1+_s2-_q2-_r-,-1,1,-1,-1,-1,contraction semigroup,J2g,whole A_group,Majorana,M,"{+,-}",2,4,YY,YX,iYY,iYX,,,,2,2,iZI;ZZ
+fermion,25,s1-_q1-_s2+_q2+_r+,-1,-1,1,1,1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,YI,II,iYI,II,,,,2,2,IY;YY
+fermion,26,s1-_q1-_s2+_q2+_r-,-1,-1,1,1,-1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YI,XX,iYI,XX,IY,-1,Theta2,4,2,YY;iZX
+fermion,27,s1-_q1-_s2+_q2-_r+,-1,-1,1,-1,1,contraction semigroup,iJ2g,whole A_group,Kramers,K,"{-,-}",2,4,YI,IY,iYI,IY,,,,4,4,IY;YY;iZX;iZZ
+fermion,28,s1-_q1-_s2+_q2-_r-,-1,-1,1,-1,-1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",2,4,YI,XY,iYI,XY,IY,-1,Theta1,2,1,IY
+fermion,29,s1-_q1-_s2-_q2+_r+,-1,-1,-1,1,1,maximal subgroup only,,proper A_group subspace,Majorana,M*,"{+,-}",2,4,YI,YY,iYI,iYY,II,1,Theta1,4,2,IY;YY
+fermion,30,s1-_q1-_s2-_q2+_r-,-1,-1,-1,1,-1,maximal subgroup only,,whole A_group,Majorana,M,"{+,-}",2,4,YI,ZI,iYI,iZI,,,,2,2,IY;iXY
+fermion,31,s1-_q1-_s2-_q2-_r+,-1,-1,-1,-1,1,maximal subgroup only,,proper A_group subspace,Kramers,K*,"{-,-}",2,4,YI,YX,iYI,iYX,IY,-1,Theta1,2,1,iZX
+fermion,32,s1-_q1-_s2-_q2-_r-,-1,-1,-1,-1,-1,contraction semigroup,J2g,whole A_group,Kramers,K,"{-,-}",2,4,YI,ZY,iYI,iZY,,,,4,4,IY;iXY;iZX;iZZ
