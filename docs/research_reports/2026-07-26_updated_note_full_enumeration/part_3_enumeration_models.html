@@ -998,9 +998,7 @@
               \begin{aligned}
               gA_{\mathrm{group}}+A_{\mathrm{group}}^Tg&amp;=0,\\
               J_1^TA_{\mathrm{group}}J_1&amp;=\bar A_{\mathrm{group}},\\
-              J_2^TA_{\mathrm{group}}J_2&amp;=\bar A_{\mathrm{group}},\\
-              \eta A_{\mathrm{group}}
-                +A_{\mathrm{group}}^\dagger\eta&amp;=0.
+              J_2^TA_{\mathrm{group}}J_2&amp;=\bar A_{\mathrm{group}}.
               \end{aligned}
               \]
             </td>
@@ -1010,10 +1008,7 @@
               gA_{\mathrm{cone}}+A_{\mathrm{cone}}^Tg&amp;=0,\\
               J_1^TA_{\mathrm{cone}}J_1&amp;=\bar A_{\mathrm{cone}},\\
               J_2^TA_{\mathrm{cone}}J_2&amp;=-\bar A_{\mathrm{cone}},\\
-              \eta A_{\mathrm{cone}}
-                -A_{\mathrm{cone}}^\dagger\eta&amp;=0,\\
-              \eta A_{\mathrm{cone}}
-                +A_{\mathrm{cone}}^\dagger\eta&amp;&lt;0.
+              \eta A_{\mathrm{cone}}&amp;&lt;0.
               \end{aligned}
               \]
             </td>
@@ -1022,12 +1017,42 @@
 </table>
 </div>
 <p>
-      每列关于 \(\eta\) 的等式都可由 canonical condition、\(J_2\)
-      关系和 \(\eta\) 的定义推出；表中仍把它写出，是为了让“最大子群”
-      和“收缩锥”的含义可以直接看见，而不是把它当作额外的独立筛选条件。
-      对右列，这个等式说明 \(\eta A_{\mathrm{cone}}\) 是 Hermitian 矩阵，
-      所以最后一式就是 \(\eta A_{\mathrm{cone}}&lt;0\)。程序求出等式的全部
-      线性解，再把最后这个负定条件原样保留。若该类允许
+      表中只保留独立条件。下面直接验证为什么不必另写关于 \(\eta\) 的
+      等式。由于 \(J_2\) 是实正交矩阵且 \(J_2^2=\pm I\)，有
+      \(J_2^T=J_2^{-1}\)。先取 \(\eta=J_2g\)。最大子群关系给出
+      \[
+      \begin{aligned}
+      A_{\mathrm{group}}^\dagger\eta
+      &amp;=\left(J_2^TA_{\mathrm{group}}J_2\right)^T\eta\\
+      &amp;=J_2^TA_{\mathrm{group}}^TJ_2^2g\\
+      &amp;=J_2A_{\mathrm{group}}^Tg\\
+      &amp;=-\eta A_{\mathrm{group}},
+      \end{aligned}
+      \]
+      其中最后一步使用
+      \(gA_{\mathrm{group}}+A_{\mathrm{group}}^Tg=0\)。因此
+      \(\eta A_{\mathrm{group}}+A_{\mathrm{group}}^\dagger\eta=0\)
+      已经自动成立。收缩锥关系右边多出的负号则给出
+      \[
+      \begin{aligned}
+      A_{\mathrm{cone}}^\dagger\eta
+      &amp;=-\left(J_2^TA_{\mathrm{cone}}J_2\right)^T\eta\\
+      &amp;=-J_2^TA_{\mathrm{cone}}^TJ_2^2g\\
+      &amp;=-J_2A_{\mathrm{cone}}^Tg\\
+      &amp;=\eta A_{\mathrm{cone}}.
+      \end{aligned}
+      \]
+      当 \(\eta=iJ_2g\) 时，每一行两边同时多出因子 \(i\)，所以结论不变。
+      所以 \(\eta A_{\mathrm{cone}}\) 自动是 Hermitian 矩阵，收缩条件可直接
+      写成表中的 \(\eta A_{\mathrm{cone}}&lt;0\)。程序先求出三条等式的全部
+      线性解，再在右列解空间中检查这个负定条件。
+    </p>
+<p>
+      负定条件仍是独立的筛选。若 \(A_{\mathrm{cone}}\) 满足三条线性等式，
+      \(-A_{\mathrm{cone}}\) 也满足，而
+      \(\eta(-A_{\mathrm{cone}})=-\eta A_{\mathrm{cone}}\)。因此这些等式只能
+      保证 \(\eta A_{\mathrm{cone}}\) 是 Hermitian 矩阵，不能单独决定它是
+      负定还是正定。若该类允许
       \(A_{\mathrm{cone}}\)，代入 \(A=-\eta\) 会得到
       \(\eta A+A^\dagger\eta=-2I&lt;0\)，从而直接验证负定区域确实非空；
       若该类不允许，引理1或引理2会证明负定解不存在，而不是只报告一次
