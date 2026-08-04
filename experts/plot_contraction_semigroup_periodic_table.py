@@ -10,7 +10,8 @@ from pathlib import Path
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from matplotlib.patches import Rectangle
+from matplotlib.path import Path as MplPath
+from matplotlib.patches import PathPatch, Rectangle
 import numpy as np
 
 
@@ -65,14 +66,9 @@ def signed_right_hand_side(sign: int, symbol: str) -> str:
     return symbol if sign == 1 else f"-{symbol}"
 
 
-def row_label(relations: tuple[int, int]) -> str:
-    metric_sign, square_sign = relations
-    return "\n".join(
-        (
-            rf"$J_1^{{\mathsf{{T}}}}gJ_1={signed_right_hand_side(metric_sign, 'g')}$",
-            rf"$J_1^2={signed_right_hand_side(square_sign, 'I')}$",
-        )
-    )
+def row_square_label(relations: tuple[int, int]) -> str:
+    _, square_sign = relations
+    return rf"$J_1^2={signed_right_hand_side(square_sign, 'I')}$"
 
 
 def category_index(row: dict[str, str]) -> int:
@@ -304,9 +300,8 @@ def draw_panel(
     ax.set_xticks([])
     ax.set_yticks(range(4))
     ax.set_yticklabels(
-        [row_label(relations) for relations in ROW_RELATIONS],
+        [row_square_label(relations) for relations in ROW_RELATIONS],
         fontsize=7.1,
-        linespacing=1.12,
         ha="right",
     )
     ax.tick_params(axis="y", length=0, pad=7.0)
@@ -326,21 +321,48 @@ def draw_panel(
         spine.set_color("#555C60")
 
 
-def draw_span(
+def draw_horizontal_brace(
     ax: plt.Axes,
     x0: float,
     x1: float,
     y: float,
+    height: float,
     label: str,
     fontsize: float,
 ) -> None:
-    ax.plot([x0, x1], [y, y], color="#60676A", linewidth=0.65, clip_on=False)
-    tick = 0.035
-    ax.plot([x0, x0], [y, y + tick], color="#60676A", linewidth=0.65, clip_on=False)
-    ax.plot([x1, x1], [y, y + tick], color="#60676A", linewidth=0.65, clip_on=False)
+    width = x1 - x0
+    middle = (x0 + x1) / 2
+    vertices = [
+        (x0, y),
+        (x0, y + 0.42 * height),
+        (x0 + 0.018 * width, y + 0.55 * height),
+        (x0 + 0.060 * width, y + 0.55 * height),
+        (x0 + 0.28 * width, y + 0.55 * height),
+        (middle - 0.045 * width, y + 0.55 * height),
+        (middle, y + height),
+        (middle + 0.045 * width, y + 0.55 * height),
+        (x1 - 0.28 * width, y + 0.55 * height),
+        (x1 - 0.060 * width, y + 0.55 * height),
+        (x1 - 0.018 * width, y + 0.55 * height),
+        (x1, y + 0.42 * height),
+        (x1, y),
+    ]
+    codes = [MplPath.MOVETO] + [MplPath.CURVE4] * 12
+    ax.add_patch(
+        PathPatch(
+            MplPath(vertices, codes),
+            transform=ax.transData,
+            fill=False,
+            edgecolor="#555D61",
+            linewidth=0.85,
+            capstyle="round",
+            joinstyle="round",
+            clip_on=False,
+        )
+    )
     ax.text(
-        (x0 + x1) / 2,
-        y + 0.055,
+        middle,
+        y + height + 0.018,
         label,
         ha="center",
         va="bottom",
@@ -355,15 +377,20 @@ def draw_shared_column_header(figure: plt.Figure) -> None:
     ax.set_ylim(0.0, 1.0)
     ax.axis("off")
 
-    draw_span(ax, -0.46, 3.46, 0.765, r"$J_2^{\mathsf{T}}gJ_2=g$", 7.4)
-    draw_span(ax, 3.54, 7.46, 0.765, r"$J_2^{\mathsf{T}}gJ_2=-g$", 7.4)
+    draw_horizontal_brace(
+        ax, -0.46, 3.46, 0.715, 0.105, r"$J_2^{\mathsf{T}}gJ_2=g$", 7.4
+    )
+    draw_horizontal_brace(
+        ax, 3.54, 7.46, 0.715, 0.105, r"$J_2^{\mathsf{T}}gJ_2=-g$", 7.4
+    )
 
     for center, square_sign in ((0.5, 1), (2.5, -1), (4.5, 1), (6.5, -1)):
-        draw_span(
+        draw_horizontal_brace(
             ax,
             center - 0.96,
             center + 0.96,
-            0.455,
+            0.365,
+            0.085,
             rf"$J_2^2={signed_right_hand_side(square_sign, 'I')}$",
             6.9,
         )
@@ -376,11 +403,74 @@ def draw_shared_column_header(figure: plt.Figure) -> None:
         )
         ax.text(
             column_index,
-            0.105,
+            0.095,
             relation,
             ha="center",
             va="center",
             fontsize=6.8,
+            color="#202528",
+        )
+
+
+def draw_vertical_brace(
+    figure: plt.Figure,
+    x: float,
+    y_top: float,
+    y_bottom: float,
+    width: float,
+) -> None:
+    height = y_top - y_bottom
+    middle = (y_top + y_bottom) / 2
+    vertices = [
+        (x + width, y_top),
+        (x + 0.42 * width, y_top),
+        (x + 0.55 * width, y_top - 0.018 * height),
+        (x + 0.55 * width, y_top - 0.060 * height),
+        (x + 0.55 * width, y_top - 0.28 * height),
+        (x + 0.55 * width, middle + 0.045 * height),
+        (x, middle),
+        (x + 0.55 * width, middle - 0.045 * height),
+        (x + 0.55 * width, y_bottom + 0.28 * height),
+        (x + 0.55 * width, y_bottom + 0.060 * height),
+        (x + 0.55 * width, y_bottom + 0.018 * height),
+        (x + 0.42 * width, y_bottom),
+        (x + width, y_bottom),
+    ]
+    codes = [MplPath.MOVETO] + [MplPath.CURVE4] * 12
+    figure.add_artist(
+        PathPatch(
+            MplPath(vertices, codes),
+            transform=figure.transFigure,
+            fill=False,
+            edgecolor="#555D61",
+            linewidth=0.85,
+            capstyle="round",
+            joinstyle="round",
+            clip_on=False,
+        )
+    )
+
+
+def draw_shared_row_header(figure: plt.Figure, panel_bottom: float) -> None:
+    panel_top = panel_bottom + PANEL_HEIGHT
+    pair_height = PANEL_HEIGHT / 2
+    for pair_index, metric_sign in enumerate((1, -1)):
+        y_top = panel_top - pair_index * pair_height - 0.004
+        y_bottom = panel_top - (pair_index + 1) * pair_height + 0.004
+        draw_vertical_brace(figure, 0.091, y_top, y_bottom, 0.013)
+        figure.text(
+            0.080,
+            (y_top + y_bottom) / 2,
+            "\n".join(
+                (
+                    r"$J_1^{\mathsf{T}}gJ_1$",
+                    rf"$={signed_right_hand_side(metric_sign, 'g')}$",
+                )
+            ),
+            ha="right",
+            va="center",
+            fontsize=6.7,
+            linespacing=1.05,
             color="#202528",
         )
 
@@ -442,17 +532,53 @@ def figure_badge(
 
 
 def draw_legend(figure: plt.Figure) -> None:
-    swatch_width = 0.027
-    swatch_height = 0.024
+    figure.add_artist(
+        mpl.lines.Line2D(
+            [0.018, 0.992],
+            [0.170, 0.170],
+            transform=figure.transFigure,
+            color="#B8BEC1",
+            linewidth=0.55,
+        )
+    )
+    figure.add_artist(
+        mpl.lines.Line2D(
+            [0.126, 0.126],
+            [0.018, 0.154],
+            transform=figure.transFigure,
+            color="#D2D6D8",
+            linewidth=0.45,
+        )
+    )
+
+    row_headers = (
+        (0.139, "Contraction"),
+        (0.086, "Time reversal"),
+        (0.033, "Scope"),
+    )
+    for y, label in row_headers:
+        figure.text(
+            0.025,
+            y,
+            label,
+            ha="left",
+            va="center",
+            fontsize=6.8,
+            fontweight="bold",
+            color="#303538",
+        )
+
+    swatch_width = 0.026
+    swatch_height = 0.025
     fill_items = (
-        (0.130, CATEGORY_COLORS[0], r"$A_{\rm group}$ only"),
+        (0.140, CATEGORY_COLORS[0], r"$A_{\rm group}$ only"),
         (
-            0.354,
+            0.355,
             CATEGORY_COLORS[1],
             r"$\eta A_{\rm cone}<0$, $\eta=J_2g$",
         ),
         (
-            0.675,
+            0.685,
             CATEGORY_COLORS[2],
             r"$\eta A_{\rm cone}<0$, $\eta=\mathrm{i}J_2g$",
         ),
@@ -461,74 +587,74 @@ def draw_legend(figure: plt.Figure) -> None:
         figure_rectangle(
             figure,
             x,
-            0.132,
+            0.139 - swatch_height / 2,
             swatch_width,
             swatch_height,
             color,
         )
         figure.text(
             x + swatch_width + 0.009,
-            0.144,
+            0.139,
             label,
             ha="left",
             va="center",
-            fontsize=6.7,
+            fontsize=6.6,
             color="#303538",
         )
 
     badge_items = (
-        (0.090, "M", True, r"Majorana $\{+,-\}$"),
-        (0.290, "K", True, r"Kramers $\{-,-\}$"),
-        (0.455, "S", False, r"split-orthogonal $\{+,+,+\}$"),
+        (0.140, "M", True, r"Majorana $\{+,-\}$"),
+        (0.355, "K", True, r"Kramers $\{-,-\}$"),
+        (0.685, "S", False, r"split-orthogonal $\{+,+,+\}$"),
     )
     for x, letter, whole_space, label in badge_items:
-        figure_badge(figure, x, 0.068, letter, whole_space)
+        figure_badge(figure, x, 0.086 - 0.031 / 2, letter, whole_space)
         figure.text(
             x + 0.033,
-            0.083,
+            0.086,
             label,
             ha="left",
             va="center",
-            fontsize=6.5,
+            fontsize=6.6,
             color="#303538",
         )
 
     figure_rectangle(
         figure,
-        0.238,
-        0.018,
-        0.022,
+        0.140,
+        0.033 - 0.026 / 2,
+        0.024,
         0.026,
         "#4D5356",
         "#4D5356",
         0.8,
     )
     figure.text(
-        0.269,
-        0.031,
-        r"filled badge = whole $A_{\rm group}$",
+        0.173,
+        0.033,
+        r"entire maximal subgroup",
         ha="left",
         va="center",
-        fontsize=6.9,
+        fontsize=6.7,
         color="#303538",
     )
     figure_rectangle(
         figure,
-        0.515,
-        0.018,
-        0.022,
+        0.455,
+        0.033 - 0.026 / 2,
+        0.024,
         0.026,
         "none",
         "#4D5356",
         0.9,
     )
     figure.text(
-        0.546,
-        0.031,
-        r"outlined badge = restricted nonzero part of $A_{\rm group}$",
+        0.488,
+        0.033,
+        r"proper subgroup",
         ha="left",
         va="center",
-        fontsize=6.9,
+        fontsize=6.7,
         color="#303538",
     )
 
@@ -584,6 +710,8 @@ def main() -> None:
         "F",
     )
     draw_shared_column_header(figure)
+    draw_shared_row_header(figure, TOP_PANEL_BOTTOM)
+    draw_shared_row_header(figure, BOTTOM_PANEL_BOTTOM)
 
     figure.text(
         0.018,
