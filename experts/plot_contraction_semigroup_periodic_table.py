@@ -543,7 +543,7 @@ def draw_legend(figure: plt.Figure) -> None:
     )
     figure.add_artist(
         mpl.lines.Line2D(
-            [0.126, 0.126],
+            [0.130, 0.130],
             [0.018, 0.154],
             transform=figure.transFigure,
             color="#D2D6D8",
@@ -558,7 +558,7 @@ def draw_legend(figure: plt.Figure) -> None:
     )
     for y, label in row_headers:
         figure.text(
-            0.025,
+            0.018,
             y,
             label,
             ha="left",
