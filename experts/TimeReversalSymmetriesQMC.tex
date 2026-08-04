@@ -124,7 +124,14 @@ We use time reversal in the generalized quantum Monte Carlo sense of an antiunit
     \Theta(c\hat d)=\overline c\,\Theta(\hat d).
     \label{eq:time_reversal_definition}
 \end{equation}
-Here \(c\) is a complex number and \(\hat d\) is any linear combination of the entries of \(\hat\chi\).  In the basis \(\hat\chi\), this action is conventionally written as \(\Theta=U\mc K\).  This notation is shorthand for Eq.~\eqref{eq:time_reversal_definition}.  Successive transformations act directly on \(\hat\chi\), so \(\Theta_a\Theta_b\) is represented by \(\overline U_bU_a\).  The Nambu exchange matrix
+Here \(c\) is a complex number and \(\hat d\) is any linear combination of the entries of \(\hat\chi\).  The rows of \(U\) record the images of the basis operators in \(\hat\chi\).  We use the compact label \(\Theta=U\mc K\), with Eq.~\eqref{eq:time_reversal_definition} fixing this operator-space convention.  The order of two transformations then follows directly:
+\begin{equation}
+    (\Theta_a\Theta_b)(\hat\chi)
+    =\Theta_a(U_b\hat\chi)
+    =\overline U_bU_a\hat\chi.
+    \label{eq:TR_composition_order}
+\end{equation}
+The complex conjugation acts on \(U_b\) because \(\Theta_a\) is anti-linear.  The Nambu exchange matrix
 \begin{equation}
     C=\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}
     \label{eq:C_matrix}
