@@ -853,6 +853,83 @@ Mutually anticommuting time reversals determine the sign of general bosonic and 
 
 The resulting periodic table applies directly to anomalous Gaussian evolution.  Pairing terms therefore fit naturally within time-reversal-protected auxiliary-field simulations.  The two bosonic models above show how the symmetry algebra can guide Hubbard--Stratonovich design and open sign-problem-free routes to interacting paired phases on frustrated lattices.
 
+\appendix
+
+\section{Equivalence of the fermionic Nambu and Majorana formulations}
+
+For fermions, the Majorana and Kramers classes used in this note are the same two classes introduced in Ref.~\cite{li2016prl}.  Their different appearance comes from the operator basis.  That work uses Hermitian Majorana operators, while the derivations above keep annihilation and creation operators together in the Nambu column.  A fixed change of operator basis connects the two descriptions.  For every complex-fermion mode,
+\begin{equation}
+    \hat\gamma_j^1=\hat a_j+\hat a_j^+,
+    \qquad
+    \hat\gamma_j^2=-\ii(\hat a_j-\hat a_j^+),
+    \qquad
+    \hat a_j=\frac12(\hat\gamma_j^1+\ii\hat\gamma_j^2).
+    \label{eq:nambu_majorana_operators}
+\end{equation}
+These operators obey \(\{\hat\gamma_j^\alpha,\hat\gamma_k^\beta\}=2\delta_{jk}\delta_{\alpha\beta}\).  Collecting first all \(\hat\gamma_j^1\) and then all \(\hat\gamma_j^2\) gives
+\begin{equation}
+    \hat\gamma=S\hat\chi,
+    \qquad
+    S=\begin{pmatrix}I_N&I_N\\-\ii I_N&\ii I_N\end{pmatrix}.
+    \label{eq:nambu_majorana_basis}
+\end{equation}
+Since \(g_{\rm F}=C\), the fermionic generator becomes
+\begin{equation}
+    \hat h_\ell=\frac14\hat\gamma^\trans A_{\ell,{\rm M}}\hat\gamma,
+    \qquad
+    A_{\ell,{\rm M}}=SA_\ell S^{-1},
+    \qquad
+    A_{\ell,{\rm M}}^\trans=-A_{\ell,{\rm M}}.
+    \label{eq:majorana_generator_dictionary}
+\end{equation}
+For a time reversal \(\Theta=U\mc K\), its matrix in this Majorana basis is
+\begin{equation}
+    U_{\rm M}=\overline S\,U S^{-1}.
+    \label{eq:majorana_TR_dictionary}
+\end{equation}
+The adjoint and canonical conditions in Eq.~\eqref{eq:physical_TR_conditions} make \(U_{\rm M}\) real and orthogonal.  The remaining relations become
+\begin{equation}
+    U_{\rm M}^{-1}\overline{A}_{\ell,{\rm M}}U_{\rm M}
+    =A_{\ell,{\rm M}},
+    \qquad
+    U_{\rm M}^2=\pm I,
+    \qquad
+    U_{\rm M}^\trans=\pm U_{\rm M}.
+    \label{eq:majorana_TR_conditions}
+\end{equation}
+The signs in the last two relations match.  These are the Majorana-time-reversal conditions of Ref.~\cite{li2016prl}.  The change of basis preserves the square of each antiunitary symmetry and the anticommutation relations among them.  The square patterns map respectively onto the Majorana class \(\{+,-\}\) and the Kramers class \(\{-,-\}\), which remain distinct from each other.
+
+In the Majorana class, the linear product \(P=\Theta_+\Theta_-\) is represented by a real symmetric matrix with \(P^2=I\) and \([P,A_{\ell,{\rm M}}]=0\).  A basis adapted to its two eigenspaces block diagonalizes every slice,
+\begin{equation}
+    A_{\ell,{\rm M}}\sim
+    \begin{pmatrix}
+        B_\ell&0\\
+        0&\overline B_\ell
+    \end{pmatrix}.
+    \label{eq:majorana_reference_blocks}
+\end{equation}
+The positive-square time reversal exchanges the two blocks.  Its anti-linearity makes the two sector amplitudes complex conjugates, so \(p=p_+\overline p_+=|p_+|^2\).  For fermions, the ordered Fock-space trace gives the absolute determinant in Eq.~\eqref{eq:majorana_determinants}, including the overall sign that the full Nambu determinant in Eq.~\eqref{eq:nambu_trace} does not retain.  This reproduces the block structure and positivity argument of Eq.~(2) in Ref.~\cite{li2016prl}.
+
+In the Kramers class, the product \(Q=\Theta_1\Theta_2\) is represented by a real antisymmetric matrix satisfying
+\begin{equation}
+    Q^2=-I,
+    \qquad
+    Q^\trans=-Q,
+    \qquad
+    [Q,A_{\ell,{\rm M}}]=0.
+    \label{eq:kramers_reference_Q}
+\end{equation}
+The matrix \(\ii Q\) defines the conserved, number-like quadratic charge \(\hat\gamma^\trans(\ii Q)\hat\gamma\) identified in Ref.~\cite{li2016prl}.  The \(Q=\pm\ii\) eigenspaces combine the real Majorana operators into independent operators \(\hat d\) and their Hermitian conjugates,
+\begin{equation}
+    Q\hat d=+\ii\hat d,
+    \qquad
+    Q\hat d^+=-\ii\hat d^+.
+    \label{eq:kramers_reference_sectors}
+\end{equation}
+Anti-linearity and \(Q\Theta_1=-\Theta_1Q\) keep \(\Theta_1\hat d\) in the \(Q=+\ii\) sector.  There \(\Theta_1^2=-I\) gives the usual Kramers pairing.  Taking these \(\hat d\) as annihilation operators gives the full Fock-space trace in Eq.~\eqref{eq:fermion_reduced_weight}.  Kramers pairing makes its determinant factor nonnegative as shown in Eq.~\eqref{eq:Kramers_determinant}.  This is the charge-conservation and Kramers argument of Ref.~\cite{li2016prl} written as a reduced Nambu-space determinant.  A Majorana bilinear represents a general quadratic fermion generator, including pairing terms.
+
+Because our matrices store the images of basis operators by rows, Eq.~\eqref{eq:TR_composition_order} represents \(\Theta_a\Theta_b\) in the Majorana basis by \(U_{{\rm M},b}U_{{\rm M},a}\), whereas Ref.~\cite{li2016prl} writes the corresponding product as \(U_{{\rm M},a}U_{{\rm M},b}\).  Anticommutation makes the two products differ by an overall minus sign.  This exchanges the labels \(P=\pm1\) or \(Q=\pm\ii\) and leaves the block factorization and conservation law unchanged.  The bosonic positivity results extend the same symmetry mechanisms to bosonic Gaussian traces.
+
 \bibliography{references}
 
 \end{document}
