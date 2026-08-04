@@ -231,7 +231,12 @@ For bosons, \(g^\trans=-g\) and Eq.~\eqref{eq:quadratic_lie_algebra} gives \((gA
 \end{aligned}
     \label{eq:boson_trace_obstruction}
 \end{equation}
-The same result holds after multiplication by \(\ii\).  A negative-semidefinite Hermitian matrix with zero trace must vanish.  A bosonic contraction cone with a negative-definite direction therefore requires
+The second possible metric has the same obstruction because
+\begin{equation}
+    \Tr(\ii J_2gA)=\ii\Tr(J_2gA)=0.
+    \label{eq:boson_imaginary_metric_trace}
+\end{equation}
+A negative-semidefinite Hermitian matrix with zero trace must vanish.  A bosonic contraction cone with a negative-definite direction therefore requires
 \begin{equation}
     J_2^2=+I.
     \label{eq:boson_J2_square}
@@ -295,7 +300,10 @@ J_1^\trans gJ_1=-J_2^\trans gJ_2,
 \end{cases}
     \label{eq:cone_transformation}
 \end{equation}
-The upper two alternatives reproduce the same negative-semidefinite matrix after the transformation by \(J_1\).  In either lower alternative, \(\eta A_{\rm cone}\leq0\) gives
+The two combinations in Eq.~\eqref{eq:cone_transformation} that produce
+\(\overline{\eta A_{\rm cone}}\) preserve the negative-semidefinite
+condition.  Either combination that produces
+\(-\overline{\eta A_{\rm cone}}\) gives
 \begin{equation}
     J_1^\trans(\eta A_{\rm cone})J_1\leq0
     \quad\Longrightarrow\quad
@@ -393,146 +401,62 @@ When Eq.~\eqref{eq:physical_TR_adjoint} holds for both transformations, the five
 
 \subsection{Entire maximal subgroups fixed by two time reversals}
 
-Equations~\eqref{eq:group_only_generators} and \eqref{eq:TR_canonical_and_invariant} show why the conclusion applies to an entire maximal subgroup.  Once the two induced transformations satisfy Eq.~\eqref{eq:physical_TR_adjoint} and \(\Theta_1\Theta_2=-\Theta_2\Theta_1\), no further restriction on \(A_{\rm group}\) is required.  For any such physical representation, the five relations give
-\begin{equation}
-\begin{aligned}
-&\left.
-\begin{gathered}
-C\overline{U_a}C=U_a\quad(a=1,2),\\
-\Theta_1\Theta_2=-\Theta_2\Theta_1,\\
-(J_1^2,J_2^2)=(I,-I)\text{ or }(-I,I)
-\end{gathered}
-\right\}
-&&\Longrightarrow\quad \text{Majorana class},\\
-&\left.
-\begin{gathered}
-C\overline{U_a}C=U_a\quad(a=1,2),\\
-\Theta_1\Theta_2=-\Theta_2\Theta_1,\\
-J_1^2=J_2^2=-I
-\end{gathered}
-\right\}
-&&\Longrightarrow\quad \text{Kramers class}.
-\end{aligned}
-\label{eq:whole_group_TR_rule}
-\end{equation}
-The Majorana rule is realized by physical representations of B04, B07, B10, B13, B19, B24, B25, and B30, together with F04, F07, F10, F13, F19, F24, F25, and F30.  The Kramers rule is realized by B12, B15, B27, and B32, together with F12, F15, F27, and F32.  The filled M and K symbols in Fig.~\ref{fig:periodic_table} display these results.
+Equations~\eqref{eq:group_only_generators} and
+\eqref{eq:TR_canonical_and_invariant} show why the conclusion applies to an
+entire maximal subgroup.  Once the two induced transformations satisfy
+Eq.~\eqref{eq:physical_TR_adjoint} and
+\(\Theta_1\Theta_2=-\Theta_2\Theta_1\), no further restriction on
+\(A_{\rm group}\) is required.  Opposite squares,
+\((\Theta_1^2,\Theta_2^2)=(+I,-I)\) or \((-I,+I)\), give the Majorana
+class.  The choice \(\Theta_1^2=\Theta_2^2=-I\) gives the Kramers class.
+The four groups below give explicit physical representations for all such
+cases.  The filled M and K symbols in Fig.~\ref{fig:periodic_table} summarize
+the Majorana and Kramers results.
 
-The following representatives show how Eq.~\eqref{eq:whole_group_TR_rule} works for all four possible actions on \(g\).  Superscripts distinguish the Nambu and internal factors.
-
-\cellentry{B04, B12, F10}
-{J_1^\trans gJ_1=g}
-{J_2^\trans gJ_2=g}
-{\Theta_1\Theta_2=-\Theta_2\Theta_1}
-For B04, choose
-\begin{equation*}
-J_1=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})},\qquad
-J_2=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}.
-\end{equation*}
-Direct multiplication gives \((J_1\mc K)^2=+I\), \((J_2\mc K)^2=-I\), and \((J_1\mc K)(J_2\mc K)=-(J_2\mc K)(J_1\mc K)\).  Thus \(J_1\mc K\) and \(J_2\mc K\) form a Majorana pair and leave every B04 maximal-subgroup generator invariant.  For B12, the choice
-\begin{equation*}
-J_1=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f}_1)}
-       \otimes(\ii\sigma_y)^{({\rm f}_2)},\qquad
-J_2=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f}_1)}
-       \otimes I_2^{({\rm f}_2)}
-\end{equation*}
-obeys \((J_1\mc K)^2=(J_2\mc K)^2=-I\) and \((J_1\mc K)(J_2\mc K)=-(J_2\mc K)(J_1\mc K)\), and therefore realizes the Kramers class.  The fermionic case F10 is represented by
-\begin{equation*}
-J_1=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\qquad
-J_2=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}.
-\end{equation*}
-Here \((J_1\mc K)^2=-I\), \((J_2\mc K)^2=+I\), and \((J_1\mc K)(J_2\mc K)=-(J_2\mc K)(J_1\mc K)\), which gives the Majorana class.
-
-\cellentry{B07, B15, F13}
-{J_1^\trans gJ_1=g}
-{J_2^\trans gJ_2=-g}
-{\Theta_1\Theta_2=-\Theta_2\Theta_1}
-The factor \(\ii\) in the second line of Eq.~\eqref{eq:induced_time_reversals} changes the commutation rule.  For \(J_1J_2=J_2J_1\), Eq.~\eqref{eq:induced_TR_anticommutation} gives \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Representative pairs are
-\begin{align*}
-(J_1,J_2)_{\rm B07}
-&=\bigl(I_2^{({\rm N})}\otimes I_2^{({\rm f})},
-\ \sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr),\\
-(J_1,J_2)_{\rm B15}
-&=\bigl(I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-\ \sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr),\\
-(J_1,J_2)_{\rm F13}
-&=\bigl(I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-\ (\ii\sigma_y)^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr).
-\end{align*}
-For all three pairs, \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Their squares are \((\Theta_1^2,\Theta_2^2)=(+I,-I)\) for B07, \((-I,-I)\) for B15, and \((-I,+I)\) for F13.  Thus B07 and F13 realize the Majorana class, while B15 realizes the Kramers class.
-
-\cellentry{B19, B27, F25}
-{J_1^\trans gJ_1=-g}
-{J_2^\trans gJ_2=g}
-{\Theta_1\Theta_2=-\Theta_2\Theta_1}
-The same mechanism with \(J_1\) and \(J_2\) exchanged gives
-\begin{align*}
-(J_1,J_2)_{\rm B19}
-&=\bigl(\sigma_z^{({\rm N})}\otimes I_2^{({\rm f})},
-\ I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr),\\
-(J_1,J_2)_{\rm B27}
-&=\bigl(\sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-\ I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr),\\
-(J_1,J_2)_{\rm F25}
-&=\bigl((\ii\sigma_y)^{({\rm N})},I_2^{({\rm N})}\bigr).
-\end{align*}
-For all three pairs, \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Their squares are \((\Theta_1^2,\Theta_2^2)=(+I,-I)\) for B19, \((-I,-I)\) for B27, and \((-I,+I)\) for F25.  Thus B19 and F25 realize the Majorana class, while B27 realizes the Kramers class.
-
-\cellentry{B24, B32, F30}
-{J_1^\trans gJ_1=-g}
-{J_2^\trans gJ_2=-g}
-{\Theta_1\Theta_2=-\Theta_2\Theta_1}
-\begin{samepage}
-Both induced transformations now carry the factor \(\ii\).  For \(J_1J_2=-J_2J_1\), Eq.~\eqref{eq:induced_TR_anticommutation} gives \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Representative pairs are
-\begin{align*}
-(J_1,J_2)_{\rm B24}
-&=\bigl(\sigma_z^{({\rm N})}\otimes\sigma_x^{({\rm f})},
-\ \sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr),\\
-(J_1,J_2)_{\rm B32}
-&=\bigl(\sigma_z^{({\rm N})}\otimes\sigma_x^{({\rm f}_1)}
-       \otimes(\ii\sigma_y)^{({\rm f}_2)},
-\ \sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f}_1)}
-       \otimes I_2^{({\rm f}_2)}\bigr),\\
-(J_1,J_2)_{\rm F30}
-&=\bigl((\ii\sigma_y)^{({\rm N})},\sigma_z^{({\rm N})}\bigr).
-\end{align*}
-For all three pairs, \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Their squares are \((\Theta_1^2,\Theta_2^2)=(+I,-I)\) for B24, \((-I,-I)\) for B32, and \((-I,+I)\) for F30.  Thus B24 and F30 realize the Majorana class, while B32 realizes the Kramers class.
-\end{samepage}
-
-\begin{samepage}
-The five relations specify an algebraic case, while Eq.~\eqref{eq:physical_TR_adjoint} also depends on its representation in the Nambu basis.  The following alternative physical representatives belong to the same five-relation classes as B10, B13, B25, and B30 and realize the Majorana class on the complete maximal subgroup:
-\begin{align*}
-\mathrm{B10}:\quad &(J_1,J_2)
-=\bigl(I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}\bigr),\\
-\mathrm{B13}:\quad &(J_1,J_2)
-=\bigl(I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-\sigma_z^{({\rm N})}\otimes I_2^{({\rm f})}\bigr),\\
-\mathrm{B25}:\quad &(J_1,J_2)
-=\bigl(\sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-I_2^{({\rm N})}\otimes I_2^{({\rm f})}\bigr),\\
-\mathrm{B30}:\quad &(J_1,J_2)
-=\bigl(\sigma_z^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},
-\sigma_z^{({\rm N})}\otimes\sigma_x^{({\rm f})}\bigr).
-\end{align*}
-\end{samepage}
-For every line, the induced transformations satisfy Eq.~\eqref{eq:physical_TR_adjoint}, \((\Theta_1^2,\Theta_2^2)=(-I,+I)\), and \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  They therefore protect the complete \(A_{\rm group}\) of that representation.  The contraction criterion depends on the same five relations, so these representatives also possess the nonempty cone indicated by the background color in Fig.~\ref{fig:periodic_table}.
+\input{experts/ContractionSemigroupWholeGroup}
 
 \subsection{Proper subgroups selected by an additional time reversal}
 
-The two transformations induced by \(J_1,J_2\) do not always form one of the two-symmetry classes that fixes the sign.  A Hamiltonian can then be restricted to a proper subgroup of the maximal subgroup by imposing one additional physical time reversal \(\Theta_3=U_3\mc K\):
+The two transformations induced by \(J_1,J_2\) do not always fix the sign by
+themselves.  An additional physical time reversal \(\Theta_3=U_3\mc K\) can
+select the generators that remain sign free.  Its matrix must satisfy
 \begin{equation}
+U_3^\trans gU_3=g,\qquad
+C\overline{U_3}C=U_3,\qquad
 U_3^{-1}\overline{A_{\rm group}}U_3=A_{\rm group}.
 \label{eq:extra_TR_restriction}
 \end{equation}
-Generators satisfying Eqs.~\eqref{eq:group_only_generators} and \eqref{eq:extra_TR_restriction} remain closed under commutators.  Their exponentials therefore form a subgroup.  For every relation case not covered by Eq.~\eqref{eq:whole_group_TR_rule}, the Pauli-tensor enumeration constructs at least one physical representation and one nonzero proper subgroup.  Additional symmetries of a particular Hamiltonian can select a larger sign-free subgroup.
+The first two equations make \(\Theta_3\) a physical transformation of the
+creation and annihilation operators.  The last equation selects the quadratic
+generators invariant under it.  These generators remain closed under
+commutators, so their exponentials and products form a subgroup of the maximal
+subgroup.
 
-For the physical Pauli-tensor representations found by the enumeration, these proper subgroups follow a simple pattern.  Once the additional \(\Theta_3\) has been constructed, its square and commutation with the original transformations determine the sign-free class.  For \(\Theta_1^2=\Theta_2^2=+I\) and \(\Theta_1\Theta_2=-\Theta_2\Theta_1\), a transformation satisfying \(\Theta_3^2=+I\), \(\Theta_1\Theta_3=-\Theta_3\Theta_1\), and \(\Theta_2\Theta_3=-\Theta_3\Theta_2\) completes the bosonic split-orthogonal \(\{+,+,+\}\) class.  For fermions, \(\Theta_3^2=-I\) and \(\Theta_1\Theta_3=-\Theta_3\Theta_1\) give a Majorana \(\{+,-\}\) pair.  The conditions \(\Theta_3^2=-I\) and \(\Theta_2\Theta_3=-\Theta_3\Theta_2\) give the equivalent pair with \(\Theta_2\).
+The sign follows once the selected generators possess one of the following
+time-reversal algebras:
+\begin{align*}
+&\Theta_1^2=\Theta_2^2=\Theta_3^2=I,
+&&\Theta_a\Theta_b=-\Theta_b\Theta_a
+  \quad(a,b\in\{1,2,3\},\ a\ne b),
+&&\text{bosonic split-orthogonal }\{+,+,+\},\\
+&\Theta_a\Theta_3=-\Theta_3\Theta_a,
+&&\bigl(\Theta_a^2,\Theta_3^2\bigr)=(I,-I)
+   \text{ or }(-I,I),
+&&\text{Majorana }\{+,-\},\\
+&\Theta_a\Theta_3=-\Theta_3\Theta_a,
+&&\Theta_a^2=\Theta_3^2=-I,
+&&\text{Kramers }\{-,-\}.
+\end{align*}
+In the last two lines, \(a=1\) or \(2\).  The explicit lists below state which
+original transformation participates in each pair and give every generator
+retained by Eq.~\eqref{eq:extra_TR_restriction}.  They cover all cases marked by
+an outlined M, K, or S in Fig.~\ref{fig:periodic_table}.
 
-For \(\Theta_1\Theta_2=\Theta_2\Theta_1\), the conditions \(\Theta_1^2=+I\), \(\Theta_3^2=-I\), and \(\Theta_1\Theta_3=-\Theta_3\Theta_1\) give a Majorana pair.  The conditions \(\Theta_2^2=+I\), \(\Theta_3^2=-I\), and \(\Theta_2\Theta_3=-\Theta_3\Theta_2\) give the corresponding pair with \(\Theta_2\).  For \(\Theta_1^2=\Theta_2^2=-I\) and \(\Theta_1\Theta_2=\Theta_2\Theta_1\), the conditions \(\Theta_3^2=-I\) and \(\Theta_1\Theta_3=-\Theta_3\Theta_1\) give a Kramers pair.  Replacing \(\Theta_1\) by \(\Theta_2\) gives the other possibility.  The outlined M, K, and S symbols in Fig.~\ref{fig:periodic_table} summarize these proper subgroups.
-
-\subsubsection*{Bosonic split-orthogonal proper subgroups}
+\subsubsection*{\texorpdfstring{Bosonic split-orthogonal
+\(\{+,+,+\}\) proper subgroups}{Bosonic split-orthogonal \{+,+,+\}
+proper subgroups}}
 The four cases B02, B05, B17, and B22 satisfy \(\Theta_1^2=\Theta_2^2=+I\) and \(\Theta_1\Theta_2=-\Theta_2\Theta_1\).  Each admits the following four-component realization.  In every line, Eq.~\eqref{eq:extra_TR_restriction} retains the generator \(A_{\rm group}=\kappa\,\sigma_z^{({\rm N})}\otimes I_2^{({\rm f})}\), with real \(\kappa\):
-\begin{align}
+\begin{align*}
 \mathrm{B02}:\quad &(J_1,J_2,U_3)
 =\bigl(I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})},
 I_2^{({\rm N})}\otimes\sigma_z^{({\rm f})},
@@ -548,9 +472,8 @@ I_2^{({\rm N})}\otimes\sigma_z^{({\rm f})}\bigr),\notag\\*
 \mathrm{B22}:\quad &(J_1,J_2,U_3)
 =\bigl(\sigma_z^{({\rm N})}\otimes\sigma_x^{({\rm f})},
 \sigma_z^{({\rm N})}\otimes\sigma_z^{({\rm f})},
-I_2^{({\rm N})}\otimes I_2^{({\rm f})}\bigr).
-\label{eq:split_subgroup_witnesses}
-\end{align}
+ I_2^{({\rm N})}\otimes I_2^{({\rm f})}\bigr).
+\end{align*}
 Equation~\eqref{eq:induced_time_reversals} supplies \(U_1\) and \(U_2\).  Direct multiplication gives
 \[
 \Theta_1^2=\Theta_2^2=\Theta_3^2=I,\qquad
@@ -560,105 +483,39 @@ Equation~\eqref{eq:induced_time_reversals} supplies \(U_1\) and \(U_2\).  Direct
 \]
 The stated generator is invariant under all three transformations.  They therefore fix the bosonic Gaussian weight throughout the selected one-parameter subgroup.
 
-\subsubsection*{Majorana-class proper subgroups}
-For bosons, this construction applies to B01, B03, B06, B08, B09, B14, B18, B20, B21, B23, B26, and B29.  For fermions, it applies to F01, F02, F03, F05, F06, F08, F09, F14, F17, F18, F20, F21, F22, F23, F26, and F29.  These indices refer to the five-relation cases in Fig.~\ref{fig:periodic_table}.  In every listed case, the enumeration constructs an additional \(\Theta_3\) and retains a nonzero set of generators such that \(\Theta_1^2=+I\), \(\Theta_3^2=-I\), and \(\Theta_1\Theta_3=-\Theta_3\Theta_1\), or the same three equations hold with \(\Theta_1\) replaced by \(\Theta_2\).  This is the Majorana \(\{+,-\}\) class.
+\input{experts/ContractionSemigroupMajoranaProper}
 
-B01 gives a representative bosonic example:
-\begin{equation}
-J_1=I_2^{({\rm N})}\otimes I_2^{({\rm f})},\quad
-J_2=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})},\quad
-U_3=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}.
-\label{eq:B01_majorana_subgroup}
-\end{equation}
-The added condition retains
-\begin{equation}
-A_{\rm group}\in
-\operatorname{span}_{\mathbb R}
-\{\sigma_x^{({\rm N})},(\ii\sigma_y)^{({\rm N})},
-\sigma_z^{({\rm N})}\}\otimes I_2^{({\rm f})}.
-\label{eq:B01_majorana_generators}
-\end{equation}
-The three Nambu directions are the two independent particle-number-changing quadratures and the number-conserving direction.  On this subgroup,
-\begin{equation}
-(J_2\mc K)^2=+I,\qquad
-(U_3\mc K)^2=-I,\qquad
-(J_2\mc K)(U_3\mc K)=-(U_3\mc K)(J_2\mc K).
-\label{eq:B01_majorana_algebra}
-\end{equation}
-Thus all three allowed quadratic channels belong to the Majorana class.
+\input{experts/ContractionSemigroupKramersProper}
 
-For F01 the same three matrices select the one-parameter subgroup
-\begin{equation}
-A_{\rm group}=\kappa\,\sigma_z^{({\rm N})}\otimes I_2^{({\rm f})},
-\qquad \kappa\in\mathbb R.
-\label{eq:F01_majorana_generator}
-\end{equation}
-This is a flavor-independent number-conserving generator.  It is invariant under \(J_2\mc K\) and \(U_3\mc K\), which obey Eq.~\eqref{eq:B01_majorana_algebra} and therefore fix its fermionic Gaussian weight.  The remaining fermionic cases in the list follow the same three equations with the representatives obtained by the Pauli-tensor enumeration.
+\subsection{Adding contraction-cone generators}
 
-\subsubsection*{Kramers-class proper subgroups}
-The cases B11, B16, B28, and B31 satisfy \(\Theta_1^2=\Theta_2^2=-I\) and \(\Theta_1\Theta_2=\Theta_2\Theta_1\).  The enumeration constructs an additional transformation satisfying \(\Theta_3^2=-I\) together with either \(\Theta_1\Theta_3=-\Theta_3\Theta_1\) or \(\Theta_2\Theta_3=-\Theta_3\Theta_2\).  The resulting pair selects a Kramers subgroup.  For B11, one explicit eight-component representation is
+Figure~\ref{fig:periodic_table} superposes two complementary results.  The M,
+K, and S symbols identify subgroups inside the maximal subgroup whose signs are
+fixed by time reversals.  A filled symbol covers the complete maximal subgroup,
+whereas an outlined symbol covers the proper subgroup written explicitly
+above.  The green or blue background describes the complete
+contraction-semigroup slice.  This distinction follows directly from
+Eqs.~\eqref{eq:A_group_projection} and \eqref{eq:A_cone_projection}.  With
+\(U_2=J_2\) or \(U_2=\ii J_2\), one has
+\(U_2^{-1}\overline{A_{\rm group}}U_2=A_{\rm group}\) and
+\(U_2^{-1}\overline{A_{\rm cone}}U_2=-A_{\rm cone}\).  Thus \(\Theta_2\)
+maps \(A_{\rm group}+A_{\rm cone}\) to
+\(A_{\rm group}-A_{\rm cone}\) for a fixed auxiliary-field configuration.
+A nonzero \(A_{\rm cone}\) changes the time slice under this transformation.
+The sign of the complete slice instead follows from
 \begin{equation}
-\begin{aligned}
-J_1&=I_2^{({\rm N})}\otimes I_2^{({\rm f}_1)}
-       \otimes(\ii\sigma_y)^{({\rm f}_2)},\\
-J_2&=I_2^{({\rm N})}\otimes\sigma_x^{({\rm f}_1)}
-       \otimes(\ii\sigma_y)^{({\rm f}_2)},\\
-U_3&=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f}_1)}
-       \otimes I_2^{({\rm f}_2)}.
-\end{aligned}
-\label{eq:B11_kramers_subgroup}
+\eta A+A^\dagger\eta=2\eta A_{\rm cone}\leq0,
+\qquad
+J_1^\trans AJ_1=\overline A.
+\label{eq:full_slice_semigroup_sign_conditions}
 \end{equation}
-Here
-\begin{equation}
-(J_2\mc K)^2=(U_3\mc K)^2=-I,\qquad
-(J_2\mc K)(U_3\mc K)=-(U_3\mc K)(J_2\mc K).
-\label{eq:B11_kramers_algebra}
-\end{equation}
-In this eight-component representation, before adding any orbital or site factor, the full B11 maximal subgroup has twenty real Pauli directions.  Equation~\eqref{eq:extra_TR_restriction} retains the following ten.  The tensor factors are ordered as Nambu, \({\rm f}_1\), and \({\rm f}_2\):
-\begin{align}
-A_{\rm group}\in\operatorname{span}_{\mathbb R}\{&
-I_2\otimes I_2\otimes\ii\sigma_y,
-\sigma_x\otimes I_2\otimes I_2,
-\ii\sigma_x\otimes\sigma_x\otimes\sigma_x,
-\ii\sigma_x\otimes\sigma_x\otimes\sigma_z,\notag\\
-&(\ii\sigma_y)\otimes I_2\otimes I_2,
-\sigma_y\otimes\sigma_x\otimes\sigma_x,
-\sigma_y\otimes\sigma_x\otimes\sigma_z,\notag\\
-&\sigma_z\otimes I_2\otimes I_2,
-\ii\sigma_z\otimes\sigma_x\otimes\sigma_x,
-\ii\sigma_z\otimes\sigma_x\otimes\sigma_z\}.
-\label{eq:B11_kramers_generators}
-\end{align}
-Every real linear combination in Eq.~\eqref{eq:B11_kramers_generators} is invariant under the two transformations in Eq.~\eqref{eq:B11_kramers_algebra}.  It therefore exponentiates into a Kramers-class proper subgroup.
-
-The fermionic cases F11, F16, F28, and F31 obey the same pattern in four Nambu components.  For F11, choose
-\begin{equation}
-J_1=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\quad
-J_2=\sigma_x^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\quad
-U_3=\ii(\ii\sigma_y)^{({\rm N})}\otimes I_2^{({\rm f})}.
-\label{eq:F11_kramers_subgroup}
-\end{equation}
-Before the extra condition, the F11 maximal subgroup contains the two independent directions
-\begin{equation}
-I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\qquad
-\sigma_x^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}.
-\end{equation}
-Direct substitution shows why only the first direction remains:
-\begin{align}
-U_3^{-1}\overline{\bigl[I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr]}U_3
-&=I_2^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})},\notag\\
-U_3^{-1}\overline{\bigl[\sigma_x^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\bigr]}U_3
-&=-\sigma_x^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}.
-\label{eq:F11_extra_TR_projection}
-\end{align}
-The retained direction is invariant under \(J_1\mc K\) and \(U_3\mc K\).  These transformations satisfy \((J_1\mc K)^2=(U_3\mc K)^2=-I\) and \((J_1\mc K)(U_3\mc K)=-(U_3\mc K)(J_1\mc K)\).  The selected one-parameter subgroup is therefore in the Kramers class.  F16, F28, and F31 follow from the same construction using the explicit Pauli-tensor representations found in the enumeration.
-
-For a contraction-cone generator, the transformation induced by \(J_2\) gives
-\begin{equation}
-U_2^{-1}\overline{A_{\rm cone}}U_2=-A_{\rm cone}.
-\label{eq:cone_odd_under_second_TR}
-\end{equation}
-The M, K, and S symbols on a green or blue case in Fig.~\ref{fig:periodic_table} therefore describe its maximal-subgroup generators.  A nonzero cone term breaks this particular \(\Theta_2\) while the complete fixed-field slice remains in the contraction semigroup.  A different time-reversal pair may still be present for a particular cone term.
+If at least one time slice obeys
+\(\eta A+A^\dagger\eta<0\), while all other slices obey the non-strict
+inequality in Eq.~\eqref{eq:full_slice_semigroup_sign_conditions}, the complete
+propagation cannot reach a determinant zero or a bosonic pole.  The second
+relation keeps the weight real.  A positive reference configuration then fixes
+the sign throughout the contraction semigroup.  Boundary configurations follow
+by the continuous connection stated below Eq.~\eqref{eq:semigroup_product}.
 
 \section{Interacting models selected by contraction semigroups}
 
