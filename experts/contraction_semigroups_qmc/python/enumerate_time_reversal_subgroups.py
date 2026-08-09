@@ -17,6 +17,7 @@ bosonic and fermionic five-relation classes.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import itertools
 from pathlib import Path
@@ -24,8 +25,8 @@ from pathlib import Path
 import numpy as np
 
 
-HERE = Path(__file__).resolve().parent
-OUTPUT = HERE / "time_reversal_subspaces_64.csv"
+PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_OUTPUT = PACKAGE_ROOT / "build" / "time_reversal_subgroups.csv"
 TOLERANCE = 1.0e-9
 
 I2 = np.eye(2, dtype=complex)
@@ -308,6 +309,33 @@ def record_sort_key(record: dict[str, object]) -> tuple[object, ...]:
     )
 
 
+def lies_in_real_span(
+    matrix: np.ndarray, basis: list[np.ndarray]
+) -> bool:
+    columns = np.column_stack(
+        [
+            np.concatenate((candidate.real.ravel(), candidate.imag.ravel()))
+            for candidate in basis
+        ]
+    )
+    target = np.concatenate((matrix.real.ravel(), matrix.imag.ravel()))
+    coefficients, *_ = np.linalg.lstsq(columns, target, rcond=None)
+    return np.linalg.norm(columns @ coefficients - target) < TOLERANCE
+
+
+def assert_lie_closed(
+    names: str, matrices: dict[str, np.ndarray]
+) -> None:
+    basis = [
+        (1j * matrices[name[1:]]) if name.startswith("i") else matrices[name]
+        for name in names.split(";")
+    ]
+    for first in basis:
+        for second in basis:
+            if not lies_in_real_span(first @ second - second @ first, basis):
+                raise AssertionError("reported generator subspace is not Lie closed")
+
+
 def enumerate_records() -> list[dict[str, object]]:
     best: dict[tuple[str, tuple[int, int, int, int, int]], dict[str, object]] = {}
 
@@ -494,6 +522,14 @@ def validate_records(records: list[dict[str, object]]) -> None:
         row["time_reversal_class"] == "split-orthogonal"
         for row in bosonic
     ) == 4
+
+    for row in records:
+        number_of_factors = int(row["number_of_pauli_factors"])
+        matrices = {
+            word: pauli_matrix(word)
+            for word in pauli_words(number_of_factors)
+        }
+        assert_lie_closed(str(row["time_reversal_subspace_basis"]), matrices)
     assert sum(
         row["time_reversal_class"] == "Kramers"
         and row["time_reversal_result"].startswith("proper")
@@ -506,8 +542,9 @@ def validate_records(records: list[dict[str, object]]) -> None:
     ) == 4
 
 
-def write_csv(records: list[dict[str, object]]) -> None:
-    with OUTPUT.open("w", newline="", encoding="utf-8") as handle:
+def write_csv(records: list[dict[str, object]], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
             handle,
             fieldnames=list(records[0]),
@@ -517,13 +554,30 @@ def write_csv(records: list[dict[str, object]]) -> None:
         writer.writerows(records)
 
 
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Enumerate physical time-reversal subgroups for all 64 "
+            "five-relation cases."
+        )
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help=f"output CSV (default: {DEFAULT_OUTPUT})",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    arguments = parse_arguments()
     records = enumerate_records()
     validate_records(records)
-    write_csv(records)
+    write_csv(records, arguments.output)
     print("Convention: Y = i sigma_y; a leading i multiplies the full word.")
     print(f"Verified {len(records)} physical representatives.")
-    print(f"Wrote {OUTPUT}")
+    print(f"Wrote {arguments.output.resolve()}")
 
 
 if __name__ == "__main__":

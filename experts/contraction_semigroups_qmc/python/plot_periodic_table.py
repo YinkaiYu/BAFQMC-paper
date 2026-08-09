@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 from collections import Counter
 from pathlib import Path
@@ -15,10 +16,12 @@ from matplotlib.patches import PathPatch, Rectangle
 import numpy as np
 
 
-ROOT = Path(__file__).resolve().parents[1]
-CLASSIFICATION = ROOT / "experts" / "time_reversal_subspaces_64.csv"
-OUTPUT_PDF = ROOT / "figures" / "contraction_semigroup_periodic_table.pdf"
-OUTPUT_PNG = ROOT / "figures" / "contraction_semigroup_periodic_table.png"
+PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CLASSIFICATION = (
+    PACKAGE_ROOT / "reference" / "time_reversal_subgroups.csv"
+)
+DEFAULT_OUTPUT_PDF = PACKAGE_ROOT / "build" / "periodic_table.pdf"
+DEFAULT_OUTPUT_PNG = PACKAGE_ROOT / "build" / "periodic_table.png"
 
 
 ROW_RELATIONS = [
@@ -659,8 +662,8 @@ def draw_legend(figure: plt.Figure) -> None:
     )
 
 
-def print_summary(rows: list[dict[str, str]]) -> None:
-    print(f"Validated {len(rows)} classes from {CLASSIFICATION}")
+def print_summary(rows: list[dict[str, str]], classification: Path) -> None:
+    print(f"Validated {len(rows)} classes from {classification}")
     for statistics in ("boson", "fermion"):
         selected = [row for row in rows if row["statistics"] == statistics]
         semigroup_counts = Counter(
@@ -675,8 +678,34 @@ def print_summary(rows: list[dict[str, str]]) -> None:
         )
 
 
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Draw the periodic table used as Fig. 1 of the note."
+    )
+    parser.add_argument(
+        "--input",
+        type=Path,
+        default=DEFAULT_CLASSIFICATION,
+        help=f"classification CSV (default: {DEFAULT_CLASSIFICATION})",
+    )
+    parser.add_argument(
+        "--pdf",
+        type=Path,
+        default=DEFAULT_OUTPUT_PDF,
+        help=f"output PDF (default: {DEFAULT_OUTPUT_PDF})",
+    )
+    parser.add_argument(
+        "--png",
+        type=Path,
+        default=DEFAULT_OUTPUT_PNG,
+        help=f"output PNG (default: {DEFAULT_OUTPUT_PNG})",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    rows = read_csv(CLASSIFICATION)
+    arguments = parse_arguments()
+    rows = read_csv(arguments.input)
     validate(rows)
 
     mpl.rcParams.update(
@@ -735,14 +764,15 @@ def main() -> None:
     )
     draw_legend(figure)
 
-    OUTPUT_PDF.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(OUTPUT_PDF)
-    figure.savefig(OUTPUT_PNG, dpi=320)
+    arguments.pdf.parent.mkdir(parents=True, exist_ok=True)
+    arguments.png.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(arguments.pdf)
+    figure.savefig(arguments.png, dpi=320)
     plt.close(figure)
 
-    print_summary(rows)
-    print(f"Wrote {OUTPUT_PDF}")
-    print(f"Wrote {OUTPUT_PNG}")
+    print_summary(rows, arguments.input)
+    print(f"Wrote {arguments.pdf.resolve()}")
+    print(f"Wrote {arguments.png.resolve()}")
 
 
 if __name__ == "__main__":
