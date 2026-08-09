@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Search reproducible sign/phase-problem witnesses outside protected subgroups.
 
-For every physical representative labelled ``proper A_group subspace``, this
-script samples short ordered products from the complete maximal-subgroup Lie
-algebra.  Fermionic weights are evaluated directly in the finite Fock space,
+For every relation-class row labelled ``proper A_group subspace``, this script
+samples short ordered products from the complete maximal-subgroup Lie algebra,
+first in the displayed representation and then, if needed, after appending a
+two-dimensional spectator.  Fermionic weights are evaluated in the finite Fock space,
 which retains the sign lost by the Nambu determinant square.  Bosonic square
 root branches are followed by analytic continuation from a stable positive
 reference configuration, with a small complex detour around determinant zeros.
@@ -503,7 +504,7 @@ def main() -> None:
     fermionic = len(records) - bosonic
     print(
         f"Found sign/phase-problem witnesses for {len(records)} proper-subgroup "
-        f"representatives ({bosonic} bosonic, {fermionic} fermionic)."
+        f"relation classes ({bosonic} bosonic, {fermionic} fermionic)."
     )
     print(f"Wrote {arguments.output.resolve()}")
 

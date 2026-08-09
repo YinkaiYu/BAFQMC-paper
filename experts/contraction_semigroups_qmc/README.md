@@ -28,7 +28,7 @@ Verified 64 bosonic/fermionic five-relation classes.
 Verified all A_group and A_cone Pauli directions for 64 representatives.
 Verified the 16 generator formulas transcribed into the note.
 Verified all 64 time-reversal subgroup constructions and M/K TeX case lists.
-Found sign/phase-problem witnesses for 40 proper-subgroup representatives (20 bosonic, 20 fermionic).
+Found sign/phase-problem witnesses for 40 proper-subgroup relation classes (20 bosonic, 20 fermionic).
 Verified the B05, B13, and F04 model slices.
 All generated CSV files match the committed reference results.
 Verified the B05, B13, and F04 TeX formulas against verify_model_slices.py.
@@ -298,19 +298,25 @@ The `proper A_group subspace` label originally established only that an added
 time reversal protects the displayed nonzero proper subspace.  By itself, that
 calculation did **not** show that the complete maximal subgroup allowed by the
 two original matrices `(J1,J2)` contains a sign problem.  The separate witness
-search closes this numerical evidence gap at the level of the five-relation
-classes.
+search answers only the one-sided existence question: for every five-relation
+class it constructs at least one representation and one ordered product with a
+negative weight.  This disproves positivity derived from the five signs alone,
+but leaves every other representation in that class as a separate question.
 
 For all 20 bosonic proper-subgroup cases and 16 of the 20 fermionic cases, the
 committed witness lies in the exact physical representation displayed in the
 time-reversal table.  For F01, F06, F18, and F21, the fixed search did not find
-a witness in the minimal displayed representative and instead appends a
+a witness in the minimal displayed representative; those four representations
+remain unresolved by this test.  The recorded witness instead appends a
 two-dimensional spectator factor,
 `J1 -> J1 tensor I2` and `J2 -> J2 tensor I2`.  This preserves all five signs
-but supplies the noncommuting coefficient directions needed for a negative
-weight.  Thus the witnesses rule out a universal positivity conclusion based
-only on the five `(J1,J2)` relations; they do not claim that every
-representation in the same relation class has a sign problem.
+and gives a negative weight in the enlarged representation.  Thus the
+witnesses rule out a universal positivity conclusion based only on the five
+`(J1,J2)` relations; they do not claim that every representation in the same
+relation class has a sign problem.  In particular, failure to find a witness
+is never treated as evidence of positivity.  Proving positivity for even one
+specific representation would instead indicate an additional sign-free
+mechanism worth analyzing on its own.
 
 The search is deterministic for the committed seed and records the full basis,
 slice coefficients, representation, weight, determinant identity residual,
