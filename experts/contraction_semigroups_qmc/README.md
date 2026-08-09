@@ -131,7 +131,10 @@ state the two conditions on the coefficient matrix (K_P):
 | `octave/enumerate_semigroup_classes.m` | Enumerates all 64 cases, proves the numerical `8+24` and `4+4` counts, constructs the metric, and checks (A_{\rm cone}=-\eta). |
 | `octave/derive_generator_spaces.m` | Solves the full (A_{\rm group}) and candidate (A_{\rm cone}) Pauli directions used in Sec. V. |
 | `python/enumerate_time_reversal_subgroups.py` | Produces the complete/proper subgroup and M/K/S classifications used in Sec. VI and Fig. 1. |
-| `python/search_sign_problem_witnesses.py` | Uses seeded random products to find a negative Gaussian weight in every relation class labelled `proper A_group subspace`. |
+| `python/search_sign_problem_witnesses.py` | Uses seeded random products to find a negative fermion trace or bosonic continued branch in every relation class labelled `proper A_group subspace`. |
+| `python/enumerate_abelian_hermitian_representations.py` | Optionally scans for complete fermionic generator spaces whose Fock lifts are commuting and Hermitian. |
+| `python/enumerate_boson_commuting_hermitian_representations.py` | Checks the bosonic analogue together with Fock-trace convergence and analytic continuation. |
+| `python/scan_boson_representation_witnesses.py` | Streams a seeded negative-branch continuation over every physical one-to-three-factor Pauli realization in the 20 bosonic proper-subgroup classes. |
 | `python/verify_model_slices.py` | Checks the B05, B13, and F04 slice formulas and contraction inequalities in Sec. VII. |
 | `python/verify_model_tex.py` | Cross-checks the B05, B13, and F04 equations in the note against the numerical model checker. |
 | `python/verify_time_reversal_tex.py` | Parses all 64 displayed time-reversal cases and checks their matrices, algebra, class, and retained generator bases. |
@@ -139,6 +142,7 @@ state the two conditions on the coefficient matrix (K_P):
 | `python/verify_results.py` | Independently reconstructs the algebra, cross-checks both branches, and checks the TeX transcription. |
 | `octave/scan_pauli_realizations.m` | Optional full scan over every ordered (J_1,J_2) Pauli-word pair with one to three factors. |
 | `reproduce.py` | Runs the complete workflow. |
+| `../RepresentationSpecificPositivity.tex` | Standalone analysis of low-dimensional fermionic positivity beyond the five-sign classification. |
 
 The committed `reference/` directory contains the approved machine-readable
 results:
@@ -148,7 +152,10 @@ results:
 | `semigroup_classes.csv` | 32 bosonic and 32 fermionic classes, their representative matrices, metric, status, and residuals. |
 | `generator_spaces.csv` | Complete generator solutions for all 64 representatives.  The note prints the 16 rows with a nonempty contraction cone. |
 | `time_reversal_subgroups.csv` | Physical representatives, time-reversal class, complete/proper scope, and retained generator basis for Fig. 1. |
-| `sign_problem_witnesses.csv` | Reproducible negative-weight products showing that the two-J relations alone do not protect each proper-subgroup relation class. |
+| `sign_problem_witnesses.csv` | Reproducible negative fermion traces and bosonic continued branches showing that the two-J relations alone do not protect each proper-subgroup relation class. |
+| `abelian_hermitian_representations.csv` | Six fermionic relation classes with a sign-free complete generator space in at least one searched representation. |
+| `boson_commuting_hermitian_representations.csv` | The B05/B17 structural candidates, their positive convergence half-line, and their negative pure-group meromorphic continuation. |
+| `boson_representation_witnesses.csv` | One verified negative continued branch for each of the 766 searched bosonic proper-subgroup realizations. |
 | `model_slice_checks.csv` | Nine deterministic checks, using three field values for each of B05, B13, and F04. |
 | `pauli_realization_scan.csv` | Optional aggregate data for the 8568-realization full scan. |
 
@@ -187,11 +194,11 @@ particular, it checks:
    case, including their displayed matrices, five-relation algebra, added time
    reversal, class, and retained generator basis.
 10. Every proper-subgroup relation class has an explicit seeded random product
-    in the complete maximal subgroup with a negative Gaussian weight.  The
-    fermionic calculation uses the exact finite Fock trace and checks
-    `p_F^2 = det(I+M)`.  The bosonic calculation continuously follows the
-    square-root branch from a stable positive reference around all intervening
-    poles and checks `p_B^(-2) = (-1)^N det(I-M)`.
+    in the complete maximal subgroup.  The fermionic calculation finds a
+    negative finite Fock trace and checks `p_F^2 = det(I+M)`.  The bosonic
+    calculation records a continuation path from a stable positive reference
+    to a negative square-root branch, detouring around intervening poles, and
+    checks `p_B^(-2) = (-1)^N det(I-M)`.
 11. The B05, B13, and F04 examples satisfy the canonical, anti-linear, group,
     cone, and negative-definite contraction conditions.  Their TeX equations
     are checked term by term against the numerical constructions.  The model
@@ -298,17 +305,18 @@ The `proper A_group subspace` label originally established only that an added
 time reversal protects the displayed nonzero proper subspace.  By itself, that
 calculation did **not** show that the complete maximal subgroup allowed by the
 two original matrices `(J1,J2)` contains a sign problem.  The separate witness
-search answers only the one-sided existence question: for every five-relation
-class it constructs at least one representation and one ordered product with a
-negative weight.  This disproves positivity derived from the five signs alone,
-but leaves every other representation in that class as a separate question.
+search answers only the one-sided existence question.  For every five-relation
+class it constructs at least one realization with a negative fermion trace or
+a negative bosonic continued branch.  This disproves positivity derived from
+the five signs alone, while leaving every other representation in that class
+as a separate question.
 
 For all 20 bosonic proper-subgroup cases and 16 of the 20 fermionic cases, the
 committed witness lies in the exact physical representation displayed in the
 time-reversal table.  For F01, F06, F18, and F21, the fixed search did not find
-a witness in the minimal displayed representative; those four representations
-remain unresolved by this test.  The recorded witness instead appends a
-two-dimensional spectator factor,
+a witness in the minimal displayed representative.  The witness search alone
+therefore leaves those four representations unresolved.  The recorded witness
+instead appends a two-dimensional spectator factor,
 `J1 -> J1 tensor I2` and `J2 -> J2 tensor I2`.  This preserves all five signs
 and gives a negative weight in the enlarged representation.  Thus the
 witnesses rule out a universal positivity conclusion based only on the five
@@ -318,6 +326,13 @@ is never treated as evidence of positivity.  Proving positivity for even one
 specific representation would instead indicate an additional sign-free
 mechanism worth analyzing on its own.
 
+The separate Abelian-Hermitian calculation resolves the four displayed
+representations just mentioned.  All four are sign free on their complete
+generator spaces.  The same scan finds lower-dimensional sign-free
+representations of F05 and F17.  These existence results leave the one-sided
+witness claim unchanged and are derived in
+`experts/RepresentationSpecificPositivity.tex`.
+
 The search is deterministic for the committed seed and records the full basis,
 slice coefficients, representation, weight, determinant identity residual,
 and bosonic continuation winding in `sign_problem_witnesses.csv`.  It is
@@ -326,6 +341,93 @@ coefficient magnitude.  For F02, the witness uses the displayed four-component
 representation itself: four slices give
 `p_F = -1.51748371663e6`, while `det(I+M) = 2.30275683024e12` and the relative
 square-identity residual is `6.303e-12`.
+
+## Representation-specific positivity scan
+
+For a fermionic representation, let `H_j` be the Fock lifts of a complete real
+basis of `A_group`.  Pairwise commuting Hermitian `H_j` make all time slices
+commute and give
+
+```text
+p_F = Tr exp(sum_l h_l) > 0.
+```
+
+The optional script exhausts physical real-Pauli pairs with one to three
+tensor factors, including pairs with `J1 == J2`.  It finds this mechanism in
+exactly six relation classes within that family:
+
+```text
+F01, F05, F06, F17, F18, F21.
+```
+
+The script also reconstructs the complete ambient real-linear space of
+Nambu-adjoint, group-invariant antiunitary matrices.  Every matrix in that
+space is symmetric for the six reported representations.  The canonical
+physical members are therefore unitary and square to `+I`, which excludes a
+hidden Majorana or Kramers pair as the source of positivity.
+
+Run the optional scan and compare its output with the reviewed snapshot using
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  python experts/contraction_semigroups_qmc/python/enumerate_abelian_hermitian_representations.py
+
+diff -u \
+  experts/contraction_semigroups_qmc/reference/abelian_hermitian_representations.csv \
+  experts/contraction_semigroups_qmc/build/abelian_hermitian_representations.csv
+```
+
+This optional scan is separate from the default note-reproduction workflow.
+It records an additional representation-specific sufficient mechanism and
+does not alter the classification in `ContractionSemigroupsQMC.tex`.
+
+The corresponding bosonic scan is
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  python experts/contraction_semigroups_qmc/python/enumerate_boson_commuting_hermitian_representations.py
+
+diff -u \
+  experts/contraction_semigroups_qmc/reference/boson_commuting_hermitian_representations.csv \
+  experts/contraction_semigroups_qmc/build/boson_commuting_hermitian_representations.csv
+```
+
+Only B05 and B17 pass the commuting-Hermitian structural test.  Their ordinary
+Fock trace is positive for `alpha < 0`.  The meromorphic continuation along the
+same pure one-parameter group is negative for `alpha > 0`, where the
+occupation-number trace diverges.  This is the known one-mode bosonic
+`{+,+}` counterexample.  A contraction-cone path fixes a different stable
+branch, so the pure-group continuation does not signal a negative convergent
+configuration inside that semigroup.  The commuting-Hermitian condition alone
+does not fix a positive full group character.  No bosonic relation class in the
+searched family realizes the full fermionic mechanism.
+
+A stronger seeded stress test examines every ordered physical Pauli realization
+in the 20 bosonic proper-subgroup classes through three factors.  Along the
+recorded interpolation from a number-damping reference, it finds a negative
+continued branch for all 766 realizations: 4 with one factor, 50 with two
+factors, and 712 with three factors.  These counts are not quotiented by unitary
+equivalence.  Each record contains the complete generator basis, slice
+coefficients, stable reference, branch winding, opposite-detour check,
+determinant identity residual, and path clearance.  Run this optional scan
+under an explicit WSL memory cap with
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
+  prlimit --as=2147483648 -- \
+  python experts/contraction_semigroups_qmc/python/scan_boson_representation_witnesses.py
+
+diff -u \
+  experts/contraction_semigroups_qmc/reference/boson_representation_witnesses.csv \
+  experts/contraction_semigroups_qmc/build/boson_representation_witnesses.csv
+```
+
+The implementation writes one row at a time and keeps no collection of path
+samples in memory.  The reviewed run used about 57 MiB peak RSS and produced
+a 0.84 MB CSV.  The witnesses are constructive numerical evidence within the
+finite Pauli family.  They do not classify arbitrary-dimensional bosonic
+representations or exclude a different positivity mechanism.
 
 ## Tested environment
 

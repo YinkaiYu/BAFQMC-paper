@@ -1,0 +1,402 @@
+\documentclass[onecolumn,aps,prb,amsmath,amssymb,superscriptaddress,longbibliography]{revtex4-2}
+
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{microtype}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\definecolor{PRLBlue}{RGB}{46,48,146}
+\usepackage[
+    colorlinks,
+    linkcolor=PRLBlue,
+    urlcolor=PRLBlue,
+]{hyperref}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\trans}{\mathsf{T}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\begin{document}
+
+\title{Representation-Dependent Positivity in Fermionic Gaussian Quantum Monte Carlo}
+
+\author{Yin-Kai Yu}
+\affiliation{Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\author{Zhong-Chao Wei}
+\affiliation{Qingdao Binhai University, Qingdao 266555, China}
+\author{Lei Wang}
+\affiliation{Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+\affiliation{Songshan Lake Materials Laboratory, Dongguan, Guangdong 523808, China}
+\author{Zi-Xiang Li}
+\affiliation{Institute of Physics, Chinese Academy of Sciences, Beijing 100190, China}
+\affiliation{University of Chinese Academy of Sciences, Beijing 100049, China}
+
+\date{\today}
+
+\begin{abstract}
+Relations among anti-linear transformations provide representation-independent
+sufficient conditions for positive Gaussian quantum Monte Carlo weights.  A
+low-dimensional representation can carry additional structure that is
+invisible in those relations.  For six fermionic relation classes, we exhibit
+specific representations whose complete allowed generator spaces lift to
+commuting Hermitian operators in the finite fermion Fock space.  Every ordered
+product in these representations can therefore be combined into one Hermitian
+exponential, which gives a strictly positive trace.  In the two-mode examples,
+the two generators act
+separately in the even- and odd-parity sectors and the weight is a sum of two
+hyperbolic cosines.  Every physical antiunitary transformation preserving the
+reported generator spaces squares to \(+I\).  The mechanism therefore extends
+the sign-free structures captured by the Majorana and Kramers criteria.  The
+corresponding bosonic search illustrates the essential role of Fock-space
+convergence.
+\end{abstract}
+
+\maketitle
+
+\section{Positivity from the representation}
+
+For a fixed auxiliary-field configuration, fermionic Gaussian quantum Monte
+Carlo evaluates the finite Fock-space trace
+\begin{equation}
+    p_{\rm F}=\Tr\!\left(
+    \ee^{\hat h_1}\ee^{\hat h_2}\cdots\ee^{\hat h_L}
+    \right),
+    \qquad
+    \hat h_\ell=\frac12\hat\chi^\trans gA_\ell\hat\chi .
+    \label{eq:fermion_weight}
+\end{equation}
+Here
+\begin{equation}
+    \hat\chi=(\hat c_1,\ldots,\hat c_N,
+    \hat c_1^+,\ldots,\hat c_N^+)^\trans,
+    \qquad
+    g=\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}.
+    \label{eq:fermion_nambu}
+\end{equation}
+The contraction-semigroup classification uses two real orthogonal matrices
+\(J_1,J_2\).  Its five signs are defined by
+\begin{equation}
+\begin{gathered}
+    J_1^\trans gJ_1=\pm g,\qquad J_1^2=\pm I,\\
+    J_2^\trans gJ_2=\pm g,\qquad J_2^2=\pm I,\qquad
+    J_1J_2=\pm J_2J_1 .
+\end{gathered}
+    \label{eq:five_relations}
+\end{equation}
+The labels F01--F32 identify the binary ordering of these signs in the
+companion classification.  For a concrete representation, the complete
+maximal-group generator space is the real solution of
+\begin{equation}
+\begin{gathered}
+    gA+A^\trans g=0,\\
+    J_1^\trans AJ_1=\overline A,
+    \qquad J_2^\trans AJ_2=\overline A .
+\end{gathered}
+    \label{eq:A_group_definition}
+\end{equation}
+Its dimension and operator algebra may contain information beyond the five
+signs.
+
+Let \(\hat H_j\) be the Fock-space lifts of a complete real basis of the
+maximal-group generator space.  Real auxiliary fields give
+\(\hat h_\ell=\sum_j x_{\ell j}\hat H_j\).  Suppose the complete basis obeys
+\begin{equation}
+    \hat H_j^\dagger=\hat H_j,
+    \qquad
+    [\hat H_j,\hat H_k]=0 .
+    \label{eq:commuting_hermitian}
+\end{equation}
+All time slices then commute.  Summing their coefficients as
+\(X_j=\sum_\ell x_{\ell j}\) reduces Eq.~\eqref{eq:fermion_weight} to
+\begin{equation}
+    p_{\rm F}
+    =\Tr\exp\!\left(\sum_j X_j\hat H_j\right)
+    =\sum_n \exp(\lambda_n)>0,
+    \label{eq:positive_trace}
+\end{equation}
+where \(\lambda_n\) are the real eigenvalues of the summed generator.  The
+finite fermion Hilbert space makes the trace finite for every real field
+configuration.  Equation~\eqref{eq:positive_trace} fixes the sign for any
+number and ordering of time slices.
+
+\section{Low-dimensional fermion representations}
+
+We use the real Pauli basis
+\(I=I_2\), \(X=\sigma_x\), \(Y=\ii\sigma_y\), and \(Z=\sigma_z\).
+A word denotes a tensor product, while a leading \(\ii\) multiplies the full
+word.  Table~\ref{tab:fermion_representations} gives six representations whose
+complete maximal-group generator spaces satisfy
+Eq.~\eqref{eq:commuting_hermitian}.  In the weight formulas,
+\(\alpha=\sum_\ell a_\ell\) and
+\(\beta=\sum_\ell b_\ell\) are the total coefficients of the two listed
+generators.
+
+\begin{center}
+\refstepcounter{table}\label{tab:fermion_representations}
+\begin{minipage}{0.98\linewidth}
+\small
+\textbf{TABLE \thetable.}\enspace
+Fermionic representations with commuting Hermitian Fock generators.  The
+Nambu dimension is twice the number of physical fermion modes.
+\par\vspace{0.5\baselineskip}
+\centering
+\begin{ruledtabular}
+\begin{tabular}{ccccc}
+Case & Nambu dimension & \((J_1,J_2)\) & complete \(A_{\rm group}\) basis
+& \(p_{\rm F}\) \\
+\hline
+F01 & 4 & \((II,IX)\) & \(ZI,ZX\)
+& \(2\cosh\alpha+2\cosh\beta\) \\
+F05 & 2 & \((I,Z)\) & \(Z\)
+& \(2\cosh(\alpha/2)\) \\
+F06 & 4 & \((IX,YY)\) & \(\ii XY,ZX\)
+& \(2\cosh\alpha+2\cosh\beta\) \\
+F17 & 2 & \((Z,I)\) & \(Z\)
+& \(2\cosh(\alpha/2)\) \\
+F18 & 4 & \((YY,IX)\) & \(\ii XY,ZX\)
+& \(2\cosh\alpha+2\cosh\beta\) \\
+F21 & 4 & \((YY,ZX)\) & \(YY,ZX\)
+& \(2\cosh\alpha+2\cosh\beta\) \\
+\end{tabular}
+\end{ruledtabular}
+\end{minipage}
+\end{center}
+
+The two-mode result has a direct parity-sector interpretation.  In the
+occupation basis \(\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}\), the
+first listed generator acts only on the even-parity pair
+\(\{|00\rangle,|11\rangle\}\), while the second acts only on the odd-parity
+pair \(\{|01\rangle,|10\rangle\}\).  Each active block has eigenvalues
+\((-1,+1)\).  The joint spectrum is consequently
+\begin{equation}
+    (-1,0),\quad (1,0),\quad (0,-1),\quad (0,1),
+    \label{eq:joint_spectrum}
+\end{equation}
+which gives the sum of two hyperbolic cosines in
+Table~\ref{tab:fermion_representations}.  For F05 and F17, the single lifted
+generator has eigenvalues \((-1/2,+1/2)\).  The weights are bounded below by
+\(4\) in the two-mode examples and by \(2\) in the one-mode examples.
+
+Allowing the two orthogonal transformations to coincide gives additional
+one-mode realizations.  F01 admits \((J_1,J_2)=(I,I)\), while F21 admits
+\((J_1,J_2)=(Z,Z)\).  Both have the complete basis \(A_{\rm group}=\{Z\}\)
+and the one-mode weight \(2\cosh(\alpha/2)\).  The two-mode realizations in
+Table~\ref{tab:fermion_representations} expose the parity-sector structure and
+coincide with the physical representations used in the time-reversal subgroup
+classification.
+
+F02 provides a useful control case.  Its displayed four-component
+representation has a four-slice Fock trace
+\begin{equation}
+    p_{\rm F}=-1.517483716634575\times10^6 .
+    \label{eq:F02_negative_weight}
+\end{equation}
+The same calculation gives
+\(\det(I+M)=2.30275683024\times10^{12}\) and verifies
+\(p_{\rm F}^2=\det(I+M)\) with relative residual
+\(6.30\times10^{-12}\).  The exhaustive search described below finds no F02
+realization satisfying Eq.~\eqref{eq:commuting_hermitian} within the searched
+Pauli family.  The seed and four slice coefficients are stored in the F02 row
+of \path{contraction_semigroups_qmc/reference/sign_problem_witnesses.csv} and
+are reproduced by
+\path{contraction_semigroups_qmc/python/search_sign_problem_witnesses.py}.
+
+\section{Relation to time-reversal criteria}
+
+The six relation classes carry proper-subgroup entries in the companion
+time-reversal table.  Such an entry records a sufficient Majorana or Kramers
+construction for one displayed representation and makes no sign assignment to
+other representations in the same class.  The F01, F06, F18, and F21 rows of
+Table~\ref{tab:fermion_representations} use those displayed representations.
+The F05 and F17 rows use one-mode alternatives; the companion table uses
+different two-mode representations for those classes.
+
+We test the complete generator spaces listed in
+Table~\ref{tab:fermion_representations} for further invariant antiunitary
+transformations \(\Theta=U\mc K\).  Before the canonical normalization is
+imposed, the Nambu-adjoint and invariance equations give the real linear spaces
+\begin{equation}
+\begin{array}{c|c|l}
+\text{case} & (J_1,J_2) & \text{invariant matrices }U \\ \hline
+\mathrm{F01} & (II,IX)
+& \operatorname{span}_{\mathbb R}\{II,IX,\ii ZI,\ii ZX\} \\
+\mathrm{F06} & (IX,YY)
+& \operatorname{span}_{\mathbb R}\{IX,XZ,\ii YY,\ii ZI\} \\
+\mathrm{F18} & (YY,IX)
+& \operatorname{span}_{\mathbb R}\{IX,XZ,\ii YY,\ii ZI\} \\
+\mathrm{F21} & (YY,ZX)
+& \operatorname{span}_{\mathbb R}\{II,XZ,\ii YY,\ii ZX\} \\
+\mathrm{F05} & (I,Z)
+& \operatorname{span}_{\mathbb R}\{I,\ii Z\} \\
+\mathrm{F17} & (Z,I)
+& \operatorname{span}_{\mathbb R}\{I,\ii Z\} .
+\end{array}
+\label{eq:invariant_U_spaces}
+\end{equation}
+The one-mode F01 \((I,I)\) and F21 \((Z,Z)\) realizations have the same ambient
+space \(\operatorname{span}_{\mathbb R}\{I,\ii Z\}\).  Every matrix in these
+spaces is symmetric.  A physical transformation also
+obeys
+\begin{equation}
+    U^\trans C U=C,
+    \qquad
+    C\overline U C=U,
+    \label{eq:physical_U}
+\end{equation}
+where \(C\) exchanges the annihilation and creation halves of the Nambu
+column.  The second relation gives \(U^\trans=CU^\dagger C\).  Substitution into
+the first relation yields \(U^\dagger U=I\).  Symmetry then implies
+\begin{equation}
+    \Theta^2=U\overline U=UU^\dagger=I.
+    \label{eq:all_square_plus}
+\end{equation}
+The complete invariant space therefore contains no antiunitary transformation
+with square \(-I\).  Majorana and Kramers pairs require a negative-square
+member, placing these representations outside those two sufficient classes.
+The two-mode traces originate from the complementary fermion-parity sectors
+in Eq.~\eqref{eq:joint_spectrum}.  The one-mode traces follow from the
+two-level spectrum \((-1/2,+1/2)\).
+
+\section{Bosonic comparison}
+
+For bosons, a convergent Fock trace fixes the Gaussian square-root branch
+locally.  We continue its closed-form expression within the same
+one-dimensional pure group and use the result as a group-character diagnostic.
+In a region where the occupation-number sum diverges, this continued value is
+not an ordinary Monte Carlo trace.  Adding a contraction cone defines a
+different stable continuation problem.
+
+The bosonic scan leaves two commuting-Hermitian structural candidates, the
+one-mode representations of B05 and B17,
+\begin{equation}
+    (J_1,J_2)=(I,Z)\ \text{or}\ (Z,I),
+    \qquad
+    A_{\rm group}=\{Z\}.
+    \label{eq:boson_representations}
+\end{equation}
+For \(A_\ell=a_\ell Z\), the lifted operator is
+\(a_\ell(\hat n+1/2)\).  With
+\(\alpha=\sum_\ell a_\ell\), the convergent Fock trace is
+\begin{equation}
+\begin{aligned}
+    p_{\rm B}
+    &=\sum_{n=0}^{\infty}\exp[\alpha(n+1/2)]\\
+    &=\frac{1}{2\sinh(-\alpha/2)}>0,
+    \qquad \alpha<0.
+\end{aligned}
+    \label{eq:boson_trace}
+\end{equation}
+The one-body matrix is
+\(M=\exp(\alpha Z)\), and its determinant radicand is
+\begin{equation}
+    -\det(I-M)=4\sinh^2(\alpha/2).
+    \label{eq:boson_radicand}
+\end{equation}
+The convergent half-line \(\alpha<0\) selects the positive square-root branch.
+Within this one-dimensional \(A_{\rm group}\), continuing the same Fock-space
+expression to \(\alpha>0\) gives
+\begin{equation}
+    p_{\rm B}
+    =\frac{\ee^{\alpha/2}}{1-\ee^\alpha}
+    =-\frac{1}{2\sinh(\alpha/2)}<0.
+    \label{eq:boson_negative_continuation}
+\end{equation}
+The radicand in Eq.~\eqref{eq:boson_radicand} stays positive on both sides of
+the pole, so it does not determine this sign.  The sign is carried by the
+Fock-space branch.  This one-mode example shows that commuting Hermitian
+generators alone do not fix the bosonic group character.  The numerical scan
+below follows the branch explicitly for every searched representation.
+The occupation-number series diverges in this region, while the continued
+group character is finite away from \(\alpha=0\).  Its continuation along this
+pure one-parameter group is negative.  The finite fermion Hilbert space removes
+this convergence obstruction in Eq.~\eqref{eq:positive_trace}.
+
+The five relations of B05 and B17 also allow an independent contraction-cone
+direction.  This direction can anchor the stable connected evolution used in
+a bosonic contraction semigroup.  Equation~\eqref{eq:boson_negative_continuation}
+tests the pure \(A_{\rm group}\) line by itself.  It reproduces the known
+one-mode bosonic \(\{+,+\}\) counterexample while leaving the positive
+cone-anchored semigroup construction intact.  The one-to-three-factor scan
+finds no additional bosonic relation class with this structure.
+
+\section{Enumeration and reproducibility}
+
+The fermionic enumeration checks every ordered pair of real Pauli words with
+one, two, or three tensor factors, including coincident pairs.  Each pair must
+induce physical antiunitary transformations on the Nambu column.  The program
+then solves the complete scalar \(A_{\rm group}\) basis, constructs its exact
+finite Fock-space lift, and checks Hermiticity, all commutators, and the joint
+spectrum.  Six relation classes contain at least one passing representation in
+the searched family.  Their numbers of qualifying representations at the
+lowest searched dimension are
+\(1,1,8,1,8,1\), ordered as F01, F05, F06, F17, F18, and F21.  The respective
+counts through three factors are \(13,1,8,1,8,9\).  These raw counts have not
+been reduced by unitary equivalence.
+
+For an independent numerical check, each reported representation is tested on
+1000 seeded random ordered products with one to four slices.  Direct Fock-space
+multiplication agrees with the analytic formulas in
+Table~\ref{tab:fermion_representations}.  The largest relative error is below
+\(6\times10^{-15}\).
+
+A separate seeded stress test covers all 766 ordered physical bosonic Pauli
+realizations in the 20 proper-subgroup relation classes through three factors.
+Their one-, two-, and three-factor counts are \(4\), \(50\), and \(712\),
+without quotienting by unitary equivalence.  Along the recorded interpolation
+from a number-damping reference, the search finds a negative continued branch
+for every realization.  Each witness is checked with a finer continuation,
+detours on both sides of the real interpolation, odd branch winding, and the
+determinant square identity.  These witnesses give numerical existence
+evidence for every realization in this finite family.
+
+The scans are reproduced with
+\begin{verbatim}
+cd experts/contraction_semigroups_qmc
+
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  python python/enumerate_abelian_hermitian_representations.py
+
+diff -u \
+  reference/abelian_hermitian_representations.csv \
+  build/abelian_hermitian_representations.csv
+
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+  python python/enumerate_boson_commuting_hermitian_representations.py
+
+diff -u \
+  reference/boson_commuting_hermitian_representations.csv \
+  build/boson_commuting_hermitian_representations.csv
+
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1 \
+  prlimit --as=2147483648 -- \
+  python python/scan_boson_representation_witnesses.py
+
+diff -u \
+  reference/boson_representation_witnesses.csv \
+  build/boson_representation_witnesses.csv
+\end{verbatim}
+The fermionic CSV records both the lowest-dimensional realization and the
+two-mode representations in Table~\ref{tab:fermion_representations}.  It also
+records the joint spectra, residuals, invariant antiunitary spaces, random
+seeds, and sample counts.  The bosonic CSV records the convergence domain and
+the negative continued branch.  The all-representation witness CSV records the
+matrices, complete bases, slice coefficients, random seeds, continuation
+paths, branch windings, and residuals for all 766 representations.
+
+The enumeration is exhaustive within the one-to-three-factor real-Pauli
+family.  The commuting-Hermitian condition gives a transparent sufficient
+mechanism.  The fermionic positivity statements follow analytically from the
+finite Fock spectra.  The all-representation bosonic result is constructive
+numerical evidence within the finite Pauli family.  Larger representations and
+noncommuting positive algebras provide natural directions for further searches.
+Tensoring the sign-free examples with a spectator space enlarges the complete
+generator algebra and can produce negative weights, emphasizing the physical
+role of the chosen representation.
+
+\end{document}
