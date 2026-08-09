@@ -23,6 +23,7 @@ CORE_RESULTS = (
     "semigroup_classes.csv",
     "generator_spaces.csv",
     "time_reversal_subgroups.csv",
+    "sign_problem_witnesses.csv",
     "model_slice_checks.csv",
 )
 FULL_RESULT = "pauli_realization_scan.csv"
@@ -34,7 +35,15 @@ def command_text(command: list[str]) -> str:
 
 def run(command: list[str], *, cwd: Path = REPO_ROOT) -> None:
     print(f"\n$ {command_text(command)}", flush=True)
-    subprocess.run(command, cwd=cwd, check=True)
+    environment = os.environ.copy()
+    for variable in (
+        "OPENBLAS_NUM_THREADS",
+        "OMP_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+    ):
+        environment[variable] = "1"
+    subprocess.run(command, cwd=cwd, check=True, env=environment)
 
 
 def octave_command(argument: str | None) -> list[str]:
@@ -81,6 +90,16 @@ def reproduce(octave: list[str], *, full: bool) -> None:
             str(PYTHON / "verify_model_slices.py"),
             "--output",
             str(BUILD / "model_slice_checks.csv"),
+        ]
+    )
+    run(
+        [
+            sys.executable,
+            str(PYTHON / "search_sign_problem_witnesses.py"),
+            "--input",
+            str(BUILD / "time_reversal_subgroups.csv"),
+            "--output",
+            str(BUILD / "sign_problem_witnesses.csv"),
         ]
     )
     if full:

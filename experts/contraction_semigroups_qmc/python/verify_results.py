@@ -29,6 +29,7 @@ SEMIGROUP_FILE = "semigroup_classes.csv"
 GENERATOR_FILE = "generator_spaces.csv"
 TIME_REVERSAL_FILE = "time_reversal_subgroups.csv"
 MODEL_FILE = "model_slice_checks.csv"
+WITNESS_FILE = "sign_problem_witnesses.csv"
 PAULI_SCAN_FILE = "pauli_realization_scan.csv"
 MAX_PAULI_FACTORS = 3
 
@@ -770,7 +771,13 @@ def verify_model_rows(rows: list[dict[str, str]]) -> None:
 
 
 def compare_reference(results: Path, reference: Path) -> None:
-    for name in (SEMIGROUP_FILE, GENERATOR_FILE, TIME_REVERSAL_FILE, MODEL_FILE):
+    for name in (
+        SEMIGROUP_FILE,
+        GENERATOR_FILE,
+        TIME_REVERSAL_FILE,
+        WITNESS_FILE,
+        MODEL_FILE,
+    ):
         produced = (results / name).read_bytes()
         approved = (reference / name).read_bytes()
         if produced != approved:

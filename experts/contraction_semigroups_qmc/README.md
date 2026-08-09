@@ -28,11 +28,15 @@ Verified 64 bosonic/fermionic five-relation classes.
 Verified all A_group and A_cone Pauli directions for 64 representatives.
 Verified the 16 generator formulas transcribed into the note.
 Verified all 64 time-reversal subgroup constructions and M/K TeX case lists.
+Found sign/phase-problem witnesses for 40 proper-subgroup representatives (20 bosonic, 20 fermionic).
 Verified the B05, B13, and F04 model slices.
 All generated CSV files match the committed reference results.
 Verified the B05, B13, and F04 TeX formulas against verify_model_slices.py.
 Verified 64 TeX cases: 24 whole maximal subgroups, 28 Majorana proper subgroups, 8 Kramers proper subgroups, and 4 split-orthogonal proper subgroups.
 ```
+
+`reproduce.py` pins BLAS/OpenMP subprocesses to one thread.  The matrices in
+this package are small, and this cap prevents unnecessary WSL memory pressure.
 
 If Octave is installed in another Conda environment, its launch command can be
 given without changing the scripts:
@@ -127,6 +131,7 @@ state the two conditions on the coefficient matrix (K_P):
 | `octave/enumerate_semigroup_classes.m` | Enumerates all 64 cases, proves the numerical `8+24` and `4+4` counts, constructs the metric, and checks (A_{\rm cone}=-\eta). |
 | `octave/derive_generator_spaces.m` | Solves the full (A_{\rm group}) and candidate (A_{\rm cone}) Pauli directions used in Sec. V. |
 | `python/enumerate_time_reversal_subgroups.py` | Produces the complete/proper subgroup and M/K/S classifications used in Sec. VI and Fig. 1. |
+| `python/search_sign_problem_witnesses.py` | Uses seeded random products to find a negative Gaussian weight in every relation class labelled `proper A_group subspace`. |
 | `python/verify_model_slices.py` | Checks the B05, B13, and F04 slice formulas and contraction inequalities in Sec. VII. |
 | `python/verify_model_tex.py` | Cross-checks the B05, B13, and F04 equations in the note against the numerical model checker. |
 | `python/verify_time_reversal_tex.py` | Parses all 64 displayed time-reversal cases and checks their matrices, algebra, class, and retained generator bases. |
@@ -143,6 +148,7 @@ results:
 | `semigroup_classes.csv` | 32 bosonic and 32 fermionic classes, their representative matrices, metric, status, and residuals. |
 | `generator_spaces.csv` | Complete generator solutions for all 64 representatives.  The note prints the 16 rows with a nonempty contraction cone. |
 | `time_reversal_subgroups.csv` | Physical representatives, time-reversal class, complete/proper scope, and retained generator basis for Fig. 1. |
+| `sign_problem_witnesses.csv` | Reproducible negative-weight products showing that the two-J relations alone do not protect each proper-subgroup relation class. |
 | `model_slice_checks.csv` | Nine deterministic checks, using three field values for each of B05, B13, and F04. |
 | `pauli_realization_scan.csv` | Optional aggregate data for the 8568-realization full scan. |
 
@@ -180,7 +186,13 @@ particular, it checks:
    split-orthogonal TeX entries agree with the generated classification case by
    case, including their displayed matrices, five-relation algebra, added time
    reversal, class, and retained generator basis.
-10. The B05, B13, and F04 examples satisfy the canonical, anti-linear, group,
+10. Every proper-subgroup relation class has an explicit seeded random product
+    in the complete maximal subgroup with a negative Gaussian weight.  The
+    fermionic calculation uses the exact finite Fock trace and checks
+    `p_F^2 = det(I+M)`.  The bosonic calculation continuously follows the
+    square-root branch from a stable positive reference around all intervening
+    poles and checks `p_B^(-2) = (-1)^N det(I-M)`.
+11. The B05, B13, and F04 examples satisfy the canonical, anti-linear, group,
     cone, and negative-definite contraction conditions.  Their TeX equations
     are checked term by term against the numerical constructions.  The model
     checker also verifies the extra symmetry at the stated special point and
@@ -280,6 +292,35 @@ inequality to separate scalar bounds for an arbitrary simultaneous choice of
 all coefficient matrices.  The note therefore prints the complete matrix
 inequality for each class.
 
+## Evidence boundary for proper subgroups
+
+The `proper A_group subspace` label originally established only that an added
+time reversal protects the displayed nonzero proper subspace.  By itself, that
+calculation did **not** show that the complete maximal subgroup allowed by the
+two original matrices `(J1,J2)` contains a sign problem.  The separate witness
+search closes this numerical evidence gap at the level of the five-relation
+classes.
+
+For all 20 bosonic proper-subgroup cases and 16 of the 20 fermionic cases, the
+committed witness lies in the exact physical representation displayed in the
+time-reversal table.  For F01, F06, F18, and F21, the fixed search did not find
+a witness in the minimal displayed representative and instead appends a
+two-dimensional spectator factor,
+`J1 -> J1 tensor I2` and `J2 -> J2 tensor I2`.  This preserves all five signs
+but supplies the noncommuting coefficient directions needed for a negative
+weight.  Thus the witnesses rule out a universal positivity conclusion based
+only on the five `(J1,J2)` relations; they do not claim that every
+representation in the same relation class has a sign problem.
+
+The search is deterministic for the committed seed and records the full basis,
+slice coefficients, representation, weight, determinant identity residual,
+and bosonic continuation winding in `sign_problem_witnesses.csv`.  It is
+constructive numerical evidence rather than a proof of minimal slice count or
+coefficient magnitude.  For F02, the witness uses the displayed four-component
+representation itself: four slices give
+`p_F = -1.51748371663e6`, while `det(I+M) = 2.30275683024e12` and the relative
+square-identity residual is `6.303e-12`.
+
 ## Tested environment
 
 The committed results were reproduced with:
@@ -288,6 +329,7 @@ The committed results were reproduced with:
 GNU Octave 10.3.0
 Python 3.12.12
 NumPy 2.3.4
+SciPy 1.18.0
 Matplotlib 3.10.7
 ```
 

@@ -5,4 +5,5 @@ dependencies:
   - octave=10.3
   - python=3.12
   - numpy=2.3
+  - scipy=1.18
   - matplotlib=3.10
