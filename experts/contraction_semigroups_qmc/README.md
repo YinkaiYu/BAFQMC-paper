@@ -142,7 +142,6 @@ state the two conditions on the coefficient matrix (K_P):
 | `python/verify_results.py` | Independently reconstructs the algebra, cross-checks both branches, and checks the TeX transcription. |
 | `octave/scan_pauli_realizations.m` | Optional full scan over every ordered (J_1,J_2) Pauli-word pair with one to three factors. |
 | `reproduce.py` | Runs the complete workflow. |
-| `../RepresentationSpecificPositivity.tex` | Standalone analysis of low-dimensional fermionic positivity beyond the five-sign classification. |
 
 The committed `reference/` directory contains the approved machine-readable
 results:
@@ -330,8 +329,8 @@ The separate Abelian-Hermitian calculation resolves the four displayed
 representations just mentioned.  All four are sign free on their complete
 generator spaces.  The same scan finds lower-dimensional sign-free
 representations of F05 and F17.  These existence results leave the one-sided
-witness claim unchanged and are derived in
-`experts/RepresentationSpecificPositivity.tex`.
+witness claim unchanged and are summarized in Appendix A of
+`experts/ContractionSemigroupsQMC.tex`.
 
 The search is deterministic for the committed seed and records the full basis,
 slice coefficients, representation, weight, determinant identity residual,

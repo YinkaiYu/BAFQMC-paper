@@ -185,7 +185,7 @@ Thus \(A_{\rm group}\) obeys the equality in Eq.~\eqref{eq:generator_contraction
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.98\linewidth]{figures/contraction_semigroup_periodic_table.pdf}
-\caption{Contraction-semigroup classification of the \(64\) cases defined by Eq.~\eqref{eq:five_relations}.  Panels (a) and (b) show bosons and fermions.  The row braces give \(J_1^\trans gJ_1=\pm g\), each split by \(J_1^2=\pm I\).  The column braces give \(J_2^\trans gJ_2=\pm g\), each split by \(J_2^2=\pm I\); the lowest header specifies whether \(J_1\) and \(J_2\) commute or anticommute.  B01--B32 and F01--F32 are row-by-row indices that lead to the contraction-generator solutions in Sec.~V and the time-reversal subgroup constructions in Sec.~VI.  Gray denotes a maximal subgroup with no nonzero \(A_{\rm cone}\) satisfying the contraction inequality.  Green and blue denote a nonempty contraction cone with \(\eta=J_2g\) and \(\eta=\ii J_2g\), respectively.  Each panel contains four green, four blue, and \(24\) gray cases.  The symbols M, K, and S identify sign-free subgroups obtained from the Majorana \(\{+,-\}\), Kramers \(\{-,-\}\), and bosonic split-orthogonal \(\{+,+,+\}\) time-reversal classes.  A filled symbol marks a case that admits a physical representation in which two time reversals leave every \(A_{\rm group}\) generator invariant and fix the sign of every ordered product in the maximal subgroup.  An outlined symbol marks a case that admits a physical representation in which one additional time reversal selects a nonzero proper subgroup whose ordered products have fixed sign.  These transformations preserve the canonical algebra and the Hermitian-conjugation relation between the annihilation and creation halves of the Nambu column.  In each panel, \(12\) cases carry a filled M or K, while the remaining \(20\) carry an outlined symbol.  Cone generators are controlled by the contraction inequality and may break the time reversals represented by M, K, or S.}
+\caption{Contraction-semigroup classification of the \(64\) cases defined by Eq.~\eqref{eq:five_relations}.  Panels (a) and (b) show bosons and fermions.  The row braces give \(J_1^\trans gJ_1=\pm g\), each split by \(J_1^2=\pm I\).  The column braces give \(J_2^\trans gJ_2=\pm g\), each split by \(J_2^2=\pm I\); the lowest header specifies whether \(J_1\) and \(J_2\) commute or anticommute.  B01--B32 and F01--F32 are row-by-row indices that lead to the contraction-generator solutions in Sec.~V and the time-reversal subgroup constructions in Sec.~VI.  Gray denotes a maximal subgroup with no nonzero \(A_{\rm cone}\) satisfying the contraction inequality.  Green and blue denote a nonempty contraction cone with \(\eta=J_2g\) and \(\eta=\ii J_2g\), respectively.  Each panel contains four green, four blue, and \(24\) gray cases.  The symbols M, K, and S identify sign-free subgroups obtained from the Majorana \(\{+,-\}\), Kramers \(\{-,-\}\), and bosonic split-orthogonal \(\{+,+,+\}\) time-reversal classes.  A filled symbol marks a case that admits a physical representation in which two time reversals leave every \(A_{\rm group}\) generator invariant and fix the sign of every ordered product in the maximal subgroup.  An outlined symbol marks a case that admits a physical representation in which one additional time reversal selects a nonzero proper subgroup whose ordered products have fixed sign.  The outline states the scope of this sufficient time-reversal criterion.  The remaining maximal-group weights can depend on the representation, as discussed in Appendix~\ref{app:proper_subgroup_scope}.  These transformations preserve the canonical algebra and the Hermitian-conjugation relation between the annihilation and creation halves of the Nambu column.  In each panel, \(12\) cases carry a filled M or K, while the remaining \(20\) carry an outlined symbol.  Cone generators are controlled by the contraction inequality and may break the time reversals represented by M, K, or S.}
 \label{fig:periodic_table}
 \end{figure}
 
@@ -264,8 +264,10 @@ class.  A filled symbol means that there is a physical representation in which
 the indicated time reversals leave every \(A_{\rm group}\) generator invariant
 and fix the sign of every ordered product in the maximal subgroup.  An outlined
 symbol means that one additional time reversal selects a nonzero proper subgroup
-whose ordered products have fixed sign.  Each panel has twelve filled symbols
-and twenty outlined symbols.
+whose ordered products have fixed sign.  The outline states the scope of this
+sufficient criterion and leaves the other maximal-group directions unclassified.
+Appendix~\ref{app:proper_subgroup_scope} examines their weights directly.  Each
+panel has twelve filled symbols and twenty outlined symbols.
 
 The colored cases reveal how the two classifications overlap.  For bosons, the
 four colored cases with \(J_1^2=-I\) have a filled M, while the four with
@@ -511,9 +513,12 @@ the Majorana and Kramers results.
 
 \subsection{Proper subgroups selected by an additional time reversal}
 
-The two transformations induced by \(J_1,J_2\) do not always fix the sign by
-themselves.  An additional physical time reversal \(\Theta_3=U_3\mc K\) can
-select the generators that remain sign free.  Its matrix must satisfy
+The two transformations induced by \(J_1,J_2\) do not always form a Majorana,
+Kramers, or split-orthogonal set that fixes the complete maximal subgroup.  This
+identifies the reach of the time-reversal criteria and does not assign a sign to
+the other maximal-group directions.  An additional physical time reversal
+\(\Theta_3=U_3\mc K\) can select a sign-free set of generators.  Its matrix must
+satisfy
 \begin{equation}
 U_3^\trans gU_3=g,\qquad
 C\overline{U_3}C=U_3,\qquad
@@ -755,7 +760,187 @@ Two real orthogonal matrices organize a complete contraction-semigroup classific
 
 The class-by-class generator solutions convert the classification into a construction principle.  Maximal-subgroup directions supply hopping, conversion, and particle-number-changing Hubbard--Stratonovich channels.  Cone directions enforce \(\eta A+A^\dagger\eta<0\), which keeps the ordered propagation away from determinant zeros and bosonic poles.  Together with \(J_1^\trans A J_1=\overline A\), a connected auxiliary-field domain anchored at a positive reference has nonnegative weights throughout the contraction semigroup.
 
-Time reversal gives an independent analysis of \(A_{\rm group}\).  For each statistics, twelve relation cases admit a physical representation in which every maximal-subgroup generator is invariant under a Majorana or Kramers pair.  In every remaining case, an explicit physical Pauli-tensor representation and one additional time reversal select a nonzero proper subgroup in the Majorana, Kramers, or bosonic split-orthogonal class.  The three interacting models show how a cone term can complete a sign-free fixed-field evolution even when the time reversals retained by the full slice do not fix its sign.  The periodic table therefore links the five elementary matrix relations to contraction-semigroup Hamiltonians and to the sign-free subgroups selected by physical time reversals.
+Time reversal gives an independent analysis of \(A_{\rm group}\).  For each statistics, twelve relation cases admit a physical representation in which every maximal-subgroup generator is invariant under a Majorana or Kramers pair.  In every remaining case, an explicit physical Pauli-tensor representation and one additional time reversal select a nonzero proper subgroup in the Majorana, Kramers, or bosonic split-orthogonal class.  The outlined symbol records this sufficient construction and leaves the complementary directions to direct analysis.  Appendix~\ref{app:proper_subgroup_scope} reports negative finite fermionic traces and negative bosonic continued branches for all outlined relation classes.  It also identifies six fermionic classes with low-dimensional realizations whose complete maximal subgroups are sign free because all allowed Fock generators are Hermitian and mutually commute.  The three interacting models show how a cone term can complete a sign-free fixed-field evolution even when the time reversals retained by the full slice do not fix its sign.  The periodic table therefore links the five elementary matrix relations to contraction-semigroup Hamiltonians and to the sign-free subgroups selected by physical time reversals.
+
+\appendix
+
+\section{Complete maximal-subgroup weights in specific representations}
+\label{app:proper_subgroup_scope}
+
+\subsection{Direct sign tests with only \texorpdfstring{\(J_1,J_2\)}{J1,J2}}
+
+The outlined symbols in Fig.~\ref{fig:periodic_table} show that an additional
+time reversal protects a nonzero proper subgroup.  To test the complete space
+allowed by \(J_1,J_2\), we formed seeded random slices from the full real
+solution of Eq.~\eqref{eq:group_only_generators}, without imposing
+Eq.~\eqref{eq:extra_TR_restriction}.  The fermionic weights were evaluated as
+finite Fock-space traces.  For bosons, the inverse-square-root branch was
+continued from a number-damping reference using small conjugate complex detours
+that remained numerically separated from determinant zeros.  These detours
+select the analytically continued Gaussian branch and are not real
+auxiliary-field paths.  The endpoint occupation-number trace need not converge.
+Table~\ref{tab:proper_group_witnesses} summarizes the resulting negative tests.
+
+\begin{center}
+\refstepcounter{table}\label{tab:proper_group_witnesses}
+\begin{minipage}{0.82\linewidth}
+\small
+\textbf{TABLE \thetable.}\enspace
+Location of a negative finite fermionic trace or a negative bosonic continued
+branch for the twenty outlined relation classes in each statistics.  A witness
+in a spectator extension uses \(J_a\mapsto J_a\otimes I_2\).
+\par\vspace{0.5\baselineskip}
+\centering
+\begin{ruledtabular}
+\begin{tabular}{lccc}
+Statistics & \shortstack{Number of\\classes} & Displayed realization
+& \shortstack{Witness in\\spectator extension} \\
+\hline
+Bosons & 20 & 20 & 0 \\
+Fermions & 20 & 16 & 4 (F01, F06, F18, F21)
+\end{tabular}
+\end{ruledtabular}
+\end{minipage}
+\end{center}
+
+All twenty outlined cases in each panel were tested, and a negative result was
+found in every relation class.  For example, four random slices in the displayed
+F02 realization give \(p_{\rm F}\simeq-1.52\times10^6\), with the identity
+\(p_{\rm F}^2=\det(I+M)\) satisfied to a relative residual of
+\(6.3\times10^{-12}\).  Thus the five relations obeyed by \(J_1,J_2\) do not
+guarantee full-group positivity for every physical representation of an
+outlined class.  The four fermionic spectator entries in
+Table~\ref{tab:proper_group_witnesses} are needed because the corresponding
+displayed two-mode representations are exactly sign free, as shown next.
+
+\subsection{Commuting low-dimensional fermion representations}
+
+These low-dimensional sign-free representations have an elementary Fock-space
+explanation.  Let
+\(A_a\) span the complete maximal-group space and define
+\(\hat H_a=\frac12\hat\chi^\trans g_{\rm F}A_a\hat\chi\).  When
+\begin{equation}
+    \hat H_a^\dagger=\hat H_a,
+    \qquad
+    [\hat H_a,\hat H_b]=0
+    \quad\text{for every }a,b,
+    \label{eq:commuting_full_group_condition}
+\end{equation}
+all time slices commute.  For arbitrary real coefficients \(x_{\ell a}\),
+\begin{equation}
+\begin{aligned}
+    p_{\rm F}
+    &=\Tr\prod_\ell\exp\!\left(\sum_a x_{\ell a}\hat H_a\right)\\
+    &=\Tr\exp\!\left(\sum_{\ell,a}x_{\ell a}\hat H_a\right)>0.
+\end{aligned}
+    \label{eq:commuting_full_group_weight}
+\end{equation}
+At fixed auxiliary field, all operators in this statement are quadratic.  In a
+Hamiltonian realization, the quadratic free term and every decoupled interaction
+channel therefore commute.  The basis-independent content is that the complete
+allowed set of Fock generators is Hermitian and mutually commuting.
+
+For one fermion mode, \(g_{\rm F}=\sigma_x\).  The following four
+representations all have the complete space
+\(A_{\rm group}=a\sigma_z\):
+\begin{equation}
+\begin{array}{c|cccc}
+\text{class}&\mathrm{F01}&\mathrm{F05}&\mathrm{F17}&\mathrm{F21}\\ \hline
+(J_1,J_2)&(I_2,I_2)&(I_2,\sigma_z)&(\sigma_z,I_2)&
+(\sigma_z,\sigma_z).
+\end{array}
+    \label{eq:one_mode_commuting_representations}
+\end{equation}
+The lifted generator is \(a(\hat n-\frac12)\), where
+\(\hat n=\hat c^+\hat c\).  With
+\(\alpha=\sum_\ell a_\ell\), every ordered product has weight
+\begin{equation}
+    p_{\rm F}=2\cosh\frac{\alpha}{2}>0.
+    \label{eq:one_mode_commuting_weight}
+\end{equation}
+The F05 and F17 pairs are alternative one-mode representations of their
+relation classes.  Their displayed two-mode representations in
+Sec.~\ref{sec:group_only_TR} have negative witnesses.  The F01 and F21 pairs in
+Eq.~\eqref{eq:one_mode_commuting_representations} are lower-dimensional,
+degenerate representations with \(J_1=J_2\).
+
+The four sign-free displayed representations have two fermion modes.  Write
+\(g_{\rm F}=\sigma_x^{({\rm N})}\otimes I_2^{({\rm f})}\), where the two factors
+label Nambu and flavor spaces.  Their \(J_1,J_2\) pairs are
+\begin{equation}
+\begin{array}{c|cc}
+\text{class}&J_1&J_2\\ \hline
+\mathrm{F01}&I_2^{({\rm N})}\otimes I_2^{({\rm f})}
+&I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}\\
+\mathrm{F06}&I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}
+&(\ii\sigma_y)^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}\\
+\mathrm{F18}&(\ii\sigma_y)^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}
+&I_2^{({\rm N})}\otimes\sigma_x^{({\rm f})}\\
+\mathrm{F21}&(\ii\sigma_y)^{({\rm N})}\otimes(\ii\sigma_y)^{({\rm f})}
+&\sigma_z^{({\rm N})}\otimes\sigma_x^{({\rm f})}.
+\end{array}
+    \label{eq:two_mode_commuting_representations}
+\end{equation}
+In the occupation basis
+\(\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}\), one complete-group
+generator is
+\begin{equation}
+    \hat H_{\rm o}=\hat c_1^+\hat c_2+\hat c_2^+\hat c_1,
+    \label{eq:odd_parity_group_generator}
+\end{equation}
+which acts only in the odd-parity doublet.  With
+\(\hat n_i=\hat c_i^+\hat c_i\), the other generator acts only in the
+even-parity doublet and is, up to an overall sign,
+\begin{align}
+\mathrm{F01}:\quad
+    \hat H_{\rm e}^{(1)}&=\hat n_1+\hat n_2-1,\notag\\
+\mathrm{F06},\mathrm{F18}:\quad
+    \hat H_{\rm e}^{(2)}&=\ii(\hat c_1\hat c_2+
+        \hat c_1^+\hat c_2^+),\notag\\
+\mathrm{F21}:\quad
+    \hat H_{\rm e}^{(3)}&=\hat c_1^+\hat c_2^+-\hat c_1\hat c_2.
+    \label{eq:even_parity_group_generators}
+\end{align}
+Their complementary supports give
+\(\hat H_{\rm e}^{(j)}\hat H_{\rm o}=
+\hat H_{\rm o}\hat H_{\rm e}^{(j)}=0\).  Each active doublet has eigenvalues
+\((-1,+1)\).  Consequently, the complete maximal-group weight is
+\begin{equation}
+    p_{\rm F}=2\cosh\alpha+2\cosh\beta\geq4,
+    \label{eq:two_mode_commuting_weight}
+\end{equation}
+where \(\alpha\) and \(\beta\) are the summed slice coefficients of the even-
+and odd-parity generators.  This direct commutation is the full explanation of
+the positive weights.
+
+For bosons, Eq.~\eqref{eq:commuting_full_group_condition} cannot give an
+ordinary convergent Fock trace throughout a complete nontrivial real group.
+Each nonzero Hermitian direction contains both \(\hat H\) and \(-\hat H\).
+Their exponentials cannot both be trace class on the infinite-dimensional
+bosonic Fock space, since their product is the identity.  The one-mode B05 and
+B17 realizations make this explicit.  Their
+generator is \(a(\hat n+\frac12)\), and for
+\(\alpha=\sum_\ell a_\ell<0\) the trace is
+\(p_{\rm B}=[2\sinh(-\alpha/2)]^{-1}>0\).  It diverges for \(\alpha>0\), while
+its pure-group meromorphic continuation is
+\(-[2\sinh(\alpha/2)]^{-1}<0\).  Commutation alone therefore does not give a
+bosonic full-group sign-free example with a convergent trace.  The contraction
+cone supplies the required damping and fixes the positive branch.
+
+To probe higher dimensions, we exhaustively enumerated ordered pairs in which
+each \(J_j\) is a single tensor product of one, two, or three matrices from
+Eq.~\eqref{eq:real_pauli_basis}.  At Nambu dimension two, the commuting-Hermitian
+property occurs in F01, F05, F17, and F21.  At dimension four, it occurs in F01,
+F06, F18, and F21.  No example appeared at dimension eight, corresponding to
+four fermion modes.  For the four displayed two-mode pairs in
+Eq.~\eqref{eq:two_mode_commuting_representations}, appending a two-dimensional
+spectator adds noncommuting mixing directions to the complete \(A_{\rm group}\).
+Their extensions supply the four negative witnesses in
+Table~\ref{tab:proper_group_witnesses}.  The finite search does not cover general
+orthogonal representations, Nambu dimensions outside powers of two, more than
+three tensor factors, or \(J_1\) and \(J_2\) formed from linear combinations of
+Pauli tensors.  The existence of other higher-dimensional realizations with a
+Hermitian, mutually commuting complete generator space remains open.
 
 \bibliography{references}
 
