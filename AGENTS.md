@@ -8,7 +8,8 @@ This repository contains a theoretical physics manuscript on sign-problem-free b
 - `SM.tex`: supplemental material source, included by `main.tex`.
 - `references.bib`: bibliography database.
 - `figures/schematic.pdf`: sign-problem classification schematic.
-- `figures/benchmark.pdf`: benchmark figure.
+- `figures/benchmark_number_conserving.pdf`: number-conserving benchmark figure.
+- `figures/benchmark_pairing_delta.pdf`: paired/Nambu benchmark figure.
 - `.latexmkrc`: build configuration; output goes to `.build/` and the final PDF is copied to `pdf/`.
 
 ## Build And Verification
@@ -31,6 +32,11 @@ Before delivering any manuscript edit to the user:
 
 - Keep the prose in polished scientific English suitable for APS journals.
 - Prefer PRL-like structure: sharp motivation, compact statement of novelty, minimal repetition, and direct connection between formal results and physical consequences.
+- Treat the mentor-revised abstract, Introduction, and Concluding remarks established in commit `66c6cd4` as the primary local calibration for high-visibility prose. Learn the information hierarchy and rhetorical moves rather than copying isolated phrases.
+- Begin high-visibility sections at the broadest level justified by the evidence: establish why the problem matters across the relevant physics communities, identify the concrete obstruction, then introduce technical machinery only when it performs the conceptual turn.
+- Build the central story as a paradigm shift from local matrix-element positivity in WLQMC/SSE to global symmetry-protected weights after HS decoupling. State this physical distinction before adding formal detail.
+- Use confident language to expose a proved contribution: `formulate`, `establish`, `rigorously prove`, `unifying principles`, and `opens a route` are appropriate when supported. Confidence must come from theorem, benchmark, or clearly delimited outlook evidence, not from decorative superlatives.
+- Present benchmarks as validation of the construction, not as a detached numerical report. A conclusion should synthesize the new organizing principle, the demonstrated evidence, the separate pole/variance issue, and concrete next algorithmic directions.
 - The central framing follows Fig. 1: bosonic sign-problem-free regions are classified by the presence of RP/TRS and by lattice frustration. BAFQMC covers the RP/TRS half-plane; SSE/WLQMC covers the unfrustrated half-plane; the frustrated but RP/TRS quadrant is the new computable territory revealed by this work.
 - For substantial PRL restructuring, style analysis, Section IV rewriting, Introduction rewriting, or post-edit review, use the project-level skill at `.codex/skills/bafqmc-prl-revision/SKILL.md`.
 - Write for the paper's actual audience: readers, referees, and editors. The manuscript should read as a coherent scientific story, not as a record of the author-assistant collaboration.
@@ -46,10 +52,9 @@ Before delivering any manuscript edit to the user:
 
 ## Current Manuscript State
 
-- The manuscript currently compiles to an 18-page PDF.
-- Main sections present the BAFQMC formalism, reflection positivity, TRS, examples, discussion, and Supplemental Material.
-- The benchmark subsection contains an unfinished marker: `To be finished......`
-- `Summary and outlook` is currently empty.
+- The manuscript currently compiles to a 25-page PDF including the Supplemental Material.
+- Main-text sections present the BAFQMC formalism, TRS and RP criteria, triangular-lattice benchmarks, and Concluding remarks, followed by the Supplemental Material.
+- The benchmark discussion and Concluding remarks are populated; no unfinished marker remains in the manuscript.
 - `lipsum` is loaded but no generated filler text is used.
 - The current document class is `revtex4-2` with APS-style options matching the repository's PRL-format reference manuscript; the Supplemental Material is kept in the same compiled PDF and set in single-column format.
 

@@ -64,6 +64,14 @@ Check:
 
 Compare the changed section with `style-analysis.md` and `style-micro-excerpts.md`:
 
+- For high-visibility prose, does the information arrive in the mentor-calibrated
+  order of broad stakes, concrete obstruction, paradigm boundary, mechanism, proved
+  result, validation, and specific opportunity? Apply only the stages relevant to
+  the unit rather than forcing all seven into every paragraph.
+- Is technical machinery delayed until it explains something the reader already
+  knows is consequential?
+- Can every strong phrase be mapped to a theorem, Fig. 1 classification, benchmark,
+  or explicitly prospective direction?
 - Is the prose direct, confident, and readable by theoretical physicists outside the
   immediate subfield?
 - Are unfamiliar concepts explained before technical labels carry the argument?

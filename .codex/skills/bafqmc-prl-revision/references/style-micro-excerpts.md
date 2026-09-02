@@ -28,9 +28,25 @@ Use these as adaptable patterns:
 
 ## BAFQMC-Specific Voice Targets
 
+- Use the mentor revision in commit `66c6cd4` as the primary local rhythm cue. Reuse
+  its moves---broad stakes, concrete obstruction, paradigm shift, rigorous result,
+  benchmark, and opportunity---rather than its exact strings.
 - Use assertive, precise claims such as "BAFQMC covers the RP/TRS half-plane" instead of hedged claims such as "BAFQMC may help with some cases".
 - In the abstract and Introduction, establish the broad problem and physical stakes before the classification. In the formalism, move quickly from the physical AFQMC picture to the weight and criteria.
 - Let citations sit behind the story. Do not turn a sentence into a taxonomy merely because the research report found many relevant terms or methods.
 - Exclude process language: never write "we now modify", "as requested", "this addresses", or "we have added".
 - Avoid reader-correction framing: do not begin by negating what the reader supposedly thinks.
 - Prefer short conceptual turns and ordinary physics language over invented labels.
+
+## Mentor-Calibrated Pattern Library
+
+- Stakes: "[Problem] poses a fundamental barrier to [scientific capability], limiting access to [physical territory]."
+- Paradigm boundary: "This familiar identification is rooted in [specific computational construction]."
+- Mechanism turn: "After [transformation], [local object] is replaced by [global object], so [old obstruction] no longer determines [target property]."
+- Precedent to gap: "In [neighboring setting], [structure] protects [property]; no unifying criterion has been available for [target setting]."
+- Direct delivery: "We establish [principles/criteria] and demonstrate them in [diagnostic model or benchmark]."
+- Conceptual conclusion: "The result shifts the organizing principle from [old criterion] to [new structure]."
+- Concrete outlook: "The same criteria guide [specific algorithmic extension], while [specific formulation] offers a route around [separate numerical difficulty]."
+
+Do not stack these patterns mechanically. Choose the one rhetorical move needed at
+the current point in the reader's journey.

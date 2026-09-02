@@ -2,6 +2,53 @@
 
 Use this file when drafting, condensing, or reviewing main-text prose. The papers are style models, not physics templates. Mimic their confidence, economy, and rhythm while preserving the BAFQMC manuscript's own Fig. 1 classification and bosonic claims.
 
+## Mentor-Calibrated Voice And Information Hierarchy
+
+The mentor revision recorded in commit `66c6cd4` is the strongest local evidence for
+how this paper should sound. It supersedes earlier generic blueprints where they
+conflict. Learn the following decisions rather than copying its wording:
+
+1. **Scale before mechanism.** The abstract and Introduction first establish the
+   sign problem as a fundamental barrier with consequences across physics. They do
+   not begin by teaching partition-function sampling, cancellation mechanics, or
+   local matrix elements. Technical explanation enters only after the reader knows
+   why the obstacle matters.
+2. **A specific conceptual reversal.** Geometrical frustration appears nearly
+   synonymous with the bosonic sign problem only within local-weight paradigms such
+   as WLQMC and SSE. HS decoupling traces out the original degrees of freedom and
+   replaces local matrix elements by a global weight. This is the explanatory hinge,
+   not a secondary implementation detail.
+3. **Precedent, gap, answer.** Fermionic AFQMC establishes that global symmetries and
+   mathematical structures can protect positivity. Earlier bosonic AFQMC lacks a
+   unifying criterion. The paper then delivers BAFQMC, TRS/RP sufficient conditions,
+   frustrated reach, and ED validation without pausing for a rhetorical question.
+4. **Confidence tied to evidence.** Words such as `fundamental`, `rigorously prove`,
+   `unifying principles`, and `substantially expands` are warranted because the paper
+   supplies a theorem, a classification, and a benchmark. Intensifiers must expose
+   that evidence; they must not substitute for it.
+5. **Conclusion as synthesis and launch.** The ending names the shift from local
+   positivity to global Hamiltonian structure, explains the distinct determinant-pole
+   variance difficulty, and identifies projector and canonical formulations as
+   concrete next directions. It does more than repeat the abstract.
+
+Apply this hierarchy across the manuscript. A technical section may start closer to
+the formal object, but it should still tell the reader what physical or computational
+question the object resolves before developing machinery.
+
+### Mentor-Calibrated Editing Test
+
+For high-visibility prose, ask:
+
+- Does the opening establish consequence before method detail?
+- Is the precise obstruction clear rather than merely called difficult?
+- Does the method change the reader's picture of the problem?
+- Are theorem, benchmark, and outlook claims visibly separated by evidence level?
+- Does the final sentence open a specific scientific or computational opportunity?
+
+Reject two common misreadings of the mentor's style. Do not inflate every sentence
+with superlatives, and do not make every paragraph broad. The prose is effective
+because breadth, mechanism, proof, validation, and outlook appear in the right order.
+
 ## Length And Page Rhythm
 
 Approximate text counts from local arXiv PDFs:
@@ -21,10 +68,10 @@ The reference Letters share a useful rhetorical progression: establish a broad p
 
 For this manuscript, follow the author-approved four-paragraph story in `introduction-frontmatter-guidelines.md`:
 
-1. Begin briefly from the fundamental interacting many-body problem, introduce QMC and the sign problem, and end with the historical importance of sign-free developments.
-2. Make the frustration-related bosonic/spin barrier and its physical cost severe.
+1. Begin from the fundamental interacting many-body problem, establish QMC's importance, and present the sign problem as the central cross-disciplinary obstruction without a textbook detour through sampling mechanics.
+2. Make the frustration-related bosonic barrier and its physical cost severe.
 3. Delay the `local matrix elements` qualification until the conceptual reversal, then contrast fermionic AFQMC's global fixed-field weight and symmetry-protected positivity with the missing bosonic criterion.
-4. Answer the broad bosonic question affirmatively and state BAFQMC, TRS/RP, Fig. 1, and the triangular benchmark.
+4. Deliver BAFQMC, TRS/RP, Fig. 1, and the triangular benchmark directly and confidently.
 
 The first paragraph may explain QMC to broad readers, but it must remain purposeful rather than textbook-like. Do not introduce Fig. 1 before the frustration barrier and AFQMC reversal have made its axes meaningful.
 
@@ -127,7 +174,7 @@ The reference papers use direct, high-confidence claims:
 
 Useful tone for this manuscript:
 
-- "The answer is affirmative."
+- "In this Letter, we provide unifying criteria for sign-problem-free AFQMC simulations in bosonic systems."
 - "We formulate a sign-problem-free finite-temperature bosonic auxiliary-field quantum Monte Carlo method."
 - "When the HS-decoupled Hamiltonian satisfies either criterion, BAFQMC is sign-problem-free even in the presence of lattice frustration."
 - "The triangular-lattice benchmark demonstrates the reliability of BAFQMC."
@@ -183,7 +230,7 @@ For this manuscript:
 - Section II should be formula-first: `Z`, number-conserving weight, paired weight, basic Green function.
 - Section III should state TRS/RP criteria and give only the physical proof sketch.
 - Section IV should read as the model and benchmark realization of Fig. 1's upper-left quadrant.
-- Concluding Remarks should summarize the new classification and finite-temperature pole limitation without turning into a methods paper.
+- Concluding Remarks should synthesize the new organizing principle, benchmark evidence, distinct determinant-pole variance issue, and concrete projector/canonical directions without turning into a methods paper.
 
 ## Figure And Table Style
 

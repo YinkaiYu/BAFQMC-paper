@@ -15,6 +15,12 @@ The Introduction exists to make the paper's result feel important and inevitable
 
 Do not turn the Introduction into a taxonomy of neighboring methods or terminology. A correct mini-review can still be a bad Introduction if it interrupts the story.
 
+The mentor-revised frontmatter in commit `66c6cd4` is the current narrative
+calibration and supersedes earlier instructions where they conflict. Its governing
+lesson is information hierarchy: establish broad consequence before mechanism, then
+introduce technical detail only when it reveals why the auxiliary-field formulation
+changes the problem.
+
 ## Audience And Confidence
 
 - Write for broad PRL readers first, then QMC specialists. Introduce unfamiliar ideas before relying on them.
@@ -28,12 +34,12 @@ Do not turn the Introduction into a taxonomy of neighboring methods or terminolo
 
 Use a short sign-problem-first arc:
 
-1. The sign problem limits numerically exact QMC.
+1. The sign problem is a fundamental barrier to numerically exact QMC across relevant areas of physics.
 2. Geometrical frustration makes the barrier acute for interacting bosons.
-3. State the sign-problem-free finite-temperature BAFQMC method and the TRS/RP sufficient conditions.
-4. State that the route remains sign-free on frustrated lattices where WLQMC/SSE remain sign-problematic.
+3. State the BAFQMC method and the rigorously established TRS/RP sufficient conditions.
+4. State that the route evades the sign problem on frustrated lattices where WLQMC/SSE fail.
 5. Give the triangular-lattice finite-temperature ED benchmark.
-6. End with a strong but supportable expansion-of-reach statement.
+6. End with the unifying-principle contribution and a strong but supportable expansion-of-reach statement.
 
 The first two sentences should be short and forceful. Do not begin with `local-weight`, `stoquastic`, onsite gauge flux, local matrix-element signs, or another specialist mechanism. Those details repel broad readers before the result appears. Geometrical frustration is the motivating pressure point, not the paper's entire subject.
 
@@ -49,35 +55,39 @@ Open with one short sentence that places interacting quantum many-body systems a
 
 Then introduce QMC with original method papers rather than another textbook cluster. The established local pattern is a broad set spanning determinant/auxiliary-field, projector, world-line/worm, and SSE traditions, with BSS, Scalapino--Sugar, Hirsch, Sugiyama--Koonin, Prokofev, and Sandvik as representative anchors.
 
-Explain QMC and the sign problem step by step for non-specialists:
+Move quickly from QMC's importance to its central obstruction. State that
+non-positive-definite quantum configuration weights cause the required effort to
+scale exponentially with system size and inverse temperature. Do not insert a
+step-by-step tutorial on partition-function rewriting, importance sampling, and
+cancellation mechanics unless a later author decision specifically requires it.
 
-1. QMC rewrites the partition function as a configuration sum or integral.
-2. Importance sampling explores an exponentially large configuration space.
-3. This requires nonnegative probabilistic weights.
-4. Negative or complex weights lead to cancellations.
-5. Resolving those cancellations typically costs exponentially more effort.
-6. No generic polynomial-time cure is expected, while important physical classes can avoid or mitigate the problem.
+Make the scope of the obstruction visible: the sign problem limits quantum
+many-body studies across fields from condensed matter to particle and nuclear
+physics. Then state that no universal solution is expected while important physical
+classes can avoid the problem.
 
-End by pre-establishing the value of this paper. The intended logic is that QMC's continuing impact rests on the ongoing development of sign-problem-free formulations and a deepening physical understanding of the sign problem. This sentence can carry broad citation clusters covering:
+End by pre-establishing the value of this paper. The intended logic is that QMC's continuing impact rests on the ongoing discovery of sign-problem-free formulations and a deepening theoretical understanding of the sign problem. This sentence can carry broad citation clusters covering:
 
 - major physical achievements enabled by QMC;
 - sign-problem-free formulations for important models;
 - work that deepens understanding of the sign problem;
 - methods that avoid or mitigate it.
 
-Use `ongoing development`, not `repeated discoveries`.
+Use language of continuing discovery or development according to the nearby rhythm;
+the substantive point is that new sign-free formulations and new understanding have
+jointly extended QMC's reach.
 
-### Paragraph 2: Make The Bosonic/Spin Barrier Severe
+### Paragraph 2: Make The Bosonic Barrier Severe
 
-State the familiar field-level association between geometrical frustration and the sign problem in bosonic or spin systems. Explain the intuitive closed-loop incompatibility of off-diagonal hopping or exchange signs without turning the paragraph into a stoquasticity lecture.
+State the familiar field-level association between geometrical frustration and the sign problem in bosonic systems. Explain the intuitive closed-loop incompatibility of off-diagonal hopping or exchange signs without turning the paragraph into a stoquasticity lecture.
 
 Recognize exceptional bases, clusters, or regroupings in one compressed clause, then return immediately to the broad obstruction. This paragraph should emphasize:
 
-- most frustrated bosonic and spin systems still lack sign-problem-free QMC formulations;
+- most frustrated bosonic systems still lack sign-problem-free QMC formulations;
 - some chiral topological classes have locality-qualified intrinsic-sign obstructions;
 - the barrier blocks unbiased large-scale access to important quantum matter.
 
-List motivating phenomena with citations attached immediately to each example, not one undifferentiated citation pile at the end. Suitable categories include bosonic FQH states, frustrated supersolids, chiral Mott phases and bosonic DQCPs, multiparticle or paired superfluids, and QSLs.
+List motivating phenomena with citations attached immediately to each example, not one undifferentiated citation pile at the end. Suitable categories include bosonic FQH states, frustrated supersolids, chiral Mott phases and their associated criticality, frustrated superfluids, and QSLs.
 
 Do not introduce the phrase `conventional local-weight picture` in this paragraph. The delayed explanation is the dramatic turn at the start of paragraph 3. Do not spend the paragraph praising special-case cures; they are acknowledged for fairness, while the narrative purpose is to establish the scale of the unresolved problem.
 
@@ -98,11 +108,13 @@ The last point is a useful place for a broad, purposeful cluster of major applic
 
 Return to bosons and state the historical gap plainly. Bosonic AFQMC and related auxiliary-field methods exist, including projector, finite-temperature, canonical, and static-cluster lines. They did not provide a general sign-problem-free criterion. When negative or complex weights arise, exact work is limited to small systems or larger simulations require biased approximations. Do not bury this simple novelty statement under unnecessarily narrow qualifiers.
 
-End with a broad question about using Hamiltonian symmetries to solve the sign problem in bosonic systems. Do not mention AFQMC or spin in the question itself.
+End by stating the need for unifying principles rooted in the global symmetries and
+mathematical structures of the Hamiltonian. This creates forward pressure without a
+rhetorical question and prepares the direct contribution statement.
 
-### Paragraph 4: Answer And Deliver
+### Paragraph 4: Deliver The Result
 
-Begin with `The answer is affirmative.` or an equally direct answer. Then state:
+Begin directly with what the Letter provides. Then state:
 
 1. the finite-temperature BAFQMC method;
 2. TRS and RP as two general sufficient conditions for nonnegative configuration weights;
@@ -110,7 +122,10 @@ Begin with `The answer is affirmative.` or an equally direct answer. Then state:
 4. the resulting route toward unbiased simulations of frustrated bosonic matter;
 5. the triangular two-flavor Bose-Hubbard benchmark and finite-temperature ED agreement.
 
-Do not add number-conserving or Kramers details here. The theorem statement in the body carries that scope. Do not weaken the contribution with unnecessary efficiency, completeness, or sampling disclaimers.
+Do not restore `The answer is affirmative.` merely because it appeared in an older
+draft. Do not add number-conserving or Kramers details here. The theorem statement in
+the body carries that scope. Do not weaken the contribution with unnecessary
+efficiency, completeness, or sampling disclaimers.
 
 ## Fig. 1 And Caption
 

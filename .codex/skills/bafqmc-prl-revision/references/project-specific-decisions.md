@@ -27,6 +27,24 @@ in `SKILL.md` and `manuscript-story-evidence-principles.md`.
 - Keep theorem assumptions, branch conditions, pole statements, and benchmark scope
   consistent across the main text and SM.
 
+## Mentor-Calibrated Narrative
+
+- Commit `66c6cd4` records the mentor-revised abstract, Introduction, and Concluding
+  remarks and is the primary historical baseline for the manuscript's high-visibility
+  voice. Its value is the information hierarchy, not immutable wording.
+- The frontmatter should move from the cross-disciplinary importance of the sign
+  problem to the bosonic frustration barrier, then reveal that the usual
+  frustration/sign identification belongs to local-weight formulations. AFQMC
+  changes the sign question by sampling global HS-decoupled weights whose positivity
+  can be protected by symmetry and mathematical structure.
+- The contribution paragraph should deliver the method, two rigorous sufficient
+  criteria, frustrated reach, and ED validation directly. Do not restore a rhetorical
+  question-and-answer bridge merely because it appeared in an earlier draft.
+- The conclusion should frame BAFQMC as a change in organizing principle, from local
+  matrix-element positivity to global Hamiltonian structure. It should keep the
+  determinant-pole/infinite-variance issue separate from the sign problem and name
+  projector and canonical AFQMC as concrete directions.
+
 ## Notation And Model Choices
 
 - Preserve `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.

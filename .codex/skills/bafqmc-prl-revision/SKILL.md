@@ -59,10 +59,19 @@ Task-specific guidance overrides a generic pattern when the two conflict.
 
 ## Scientific Story And Voice
 
+- Use the mentor-revised abstract, Introduction, and Concluding remarks recorded in
+  commit `66c6cd4` as the strongest project-local voice calibration. Preserve their
+  hierarchy of stakes, obstruction, conceptual reversal, result, validation, and
+  opportunity while allowing future prose to improve. Do not freeze or mechanically
+  imitate individual sentences.
 - Organize the paper around the significance of its own question and result. Prior
   literature, technical detail, and caveats support that story rather than control it.
 - Build a causal progression from consequential problem to obstruction, mechanism,
   formal result, validation, and scientific opportunity. Avoid catalogue prose.
+- In high-visibility prose, lead from the broadest supportable physical stakes and
+  delay technical mechanism until it creates explanatory leverage. For this paper,
+  the decisive turn is from local matrix-element weights in WLQMC/SSE to global
+  symmetry-protected weights after HS decoupling.
 - State established results directly and confidently. Do not weaken important claims
   with defensive qualifications that do not change their truth or interpretation.
 - Preserve every assumption or limitation that does change a theorem, applicability,
@@ -73,6 +82,10 @@ Task-specific guidance overrides a generic pattern when the two conflict.
   constructions, parentheses, dashes, and repeated superlatives.
 - Use Zi-Xiang Li's papers as references for direct, confident, broad-reader physics
   prose. Learn their rhetorical habits without copying wording or importing claims.
+- Make the conclusion do conceptual work: state the unifying principle, connect it
+  to the benchmark, distinguish sign positivity from the pole/variance problem, and
+  end with concrete computational directions rather than a generic promise of future
+  work.
 - Never write manuscript prose that answers an author request, advertises a revision,
   or deliberately echoes private feedback. If a sentence is not for an unfamiliar
   reader, remove it.

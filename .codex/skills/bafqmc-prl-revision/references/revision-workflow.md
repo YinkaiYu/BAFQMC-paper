@@ -57,7 +57,11 @@ Read the changed text once for each independent question:
    source or derivation?
 5. **Precision layer:** are technical caveats placed where readers need them?
 6. **Voice:** does the text sound like a paper for readers rather than revision notes?
-7. **Consistency:** do notation, claims, captions, equations, and SM agree?
+7. **Mentor calibration:** does high-visibility prose preserve the hierarchy of broad
+   stakes, concrete obstruction, conceptual reversal, proved result, validation, and
+   specific opportunity established in commit `66c6cd4`, without copying its wording
+   or adding unsupported intensifiers?
+8. **Consistency:** do notation, claims, captions, equations, and SM agree?
 
 After high-stakes prose, use `review-prompts.md` with a fresh-context reviewer when
 available. For a researched Introduction, repeat the citation search sentence by

@@ -32,6 +32,12 @@ A scientific paper should read as a chain of necessity:
 
 Each paragraph should have one dominant action. Arrange sentences so that each creates the need for the next. Use contrast, a question, or a reversal only when it changes the reader's understanding, not as decoration.
 
+For high-visibility BAFQMC prose, follow the mentor-calibrated information order:
+scale the physical stakes, identify the concrete obstruction, reveal the relevant
+computational paradigm, introduce the mechanism that changes the problem, state the
+proved result, validate it, and open a specific opportunity. Do not front-load
+technical machinery merely because it is logically prior in a derivation.
+
 Do not let the conventional order of a literature review, derivation, code implementation, or chronological work log determine the order of the paper.
 
 ## 3. Control Reader Burden
@@ -77,6 +83,12 @@ main text is a presentation decision, not permission to leave the reasoning undo
 ## 5. Use Confidence Correctly
 
 Confidence comes from selecting the strongest supportable claim and stating it directly.
+
+In this manuscript, confident language should make evidence visible. `Rigorously
+prove` points to the TRS/RP results; `unifying principles` points to the common
+positivity framework; `expands the reach` points to the frustrated territory and
+benchmark. If a strong phrase cannot be mapped to theorem, figure, benchmark, or a
+clearly marked outlook, replace it with a factual statement.
 
 - Prefer `we prove`, `we establish`, `we formulate`, and `the criterion guarantees` when the manuscript supplies the proof.
 - Avoid `may`, `could`, `appears`, and procedural verbs when the result is established.

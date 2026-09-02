@@ -13,8 +13,8 @@
 ## Current Snapshot
 
 **Files inspected:**
-- `main.tex`: 287 lines as of 2026-07-09. The main text now uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks. Section II, Section III, the benchmark example, the ending, and the Introduction have been compressed into Letter-style prose.
-- `SM.tex`: 1194 lines as of 2026-07-09. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
+- `main.tex`: 288 lines as of 2026-09-03. The main text uses PRL-style run-in headings for the Introduction, BAFQMC formalism, nonnegative-weight criteria, examples, and Concluding remarks. The mentor-revised frontmatter and ending are preserved as the current high-visibility prose baseline.
+- `SM.tex`: 1233 lines as of 2026-09-03. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
 - `figures/benchmark_number_conserving.pdf`: current Fig. 2, placed at the top of page 3.
 - `figures/benchmark_pairing_delta.pdf`: current Fig. 3, placed at the top of page 4.
 - `experts/comment1.md` to `experts/comment4.md`: independent comments converge on the same structural recommendation.
@@ -35,6 +35,7 @@
 - Status on 2026-07-06: Section III has been flattened and theoremized through commits `caee0e7`--`846d3be`; figure placement was adjusted in `559dc79`.
 - Status on 2026-07-08: Pole/branch framing, SM regularization prose, and `Concluding remarks` were updated through commits `f00aec9`--`07568ac`. The Introduction was rewritten into a five-paragraph PRL-style story that moves from the QMC sign problem, to the local-weight frustration barrier, to the auxiliary-field symmetry viewpoint, to the new BAFQMC answer. Verified Introduction references and a citation-audit HTML report were added.
 - Status on 2026-07-09: The Introduction pass was compiled, `pdf/main.pdf` and `pdf/main-diff.pdf` were refreshed against commit `559dc79cf5dd25f4e574824d9acf3aca44268d1a`, and the completed pass was committed as `4d4d766`. Fig. 2 is placed at the top of page 3 and Fig. 3 at the top of page 4 in `pdf/main.pdf`.
+- Status on 2026-09-03: The mentor revised the abstract, Introduction, and Concluding remarks. The cleaned and verified revision was committed as `66c6cd4`. This pass is now the primary local calibration for information hierarchy and high-confidence PRL voice: scale before mechanism; local-weight paradigm before the AFQMC global-weight reversal; fermionic precedent before the missing bosonic principle; direct delivery of theorem, frustrated reach, and benchmark; and a conclusion that joins conceptual synthesis to the distinct pole/variance issue and concrete projector/canonical directions.
 
 **Main diagnosis:**
 - The core PRL structure is now in place, but the main text and SM still require many detail-level revisions for reader flow, notation consistency, proof pedagogy, benchmark clarity, and exact claim boundaries.
@@ -58,7 +59,9 @@
 - Do not remove mathematical precision. Move proof details to SM with clean cross references.
 - Avoid theorem/proof style in the main text beyond concise criterion statements. Use short physical explanations plus the decisive formula.
 - Use PRL-like run-in headings in the main text, e.g. `{\it Conditions for nonnegative weights}---`, instead of standalone numbered section headings. Keep ordinary `\section`/`\subsection` structure in SM.
-- The Introduction should remain a PRL-style story that motivates the work from the QMC sign problem, the local-weight frustration barrier in bosonic/spin simulations, the auxiliary-field symmetry viewpoint developed in fermionic AFQMC, and the missing bosonic counterpart that this paper supplies.
+- The Introduction should remain a PRL-style story that motivates the work from the QMC sign problem, the local-weight frustration barrier in bosonic simulations, the auxiliary-field symmetry viewpoint developed in fermionic AFQMC, and the missing bosonic counterpart that this paper supplies. Spin systems remain an outlook target rather than the organizing subject of this frontmatter paragraph.
+- The mentor-calibrated frontmatter should establish the sign problem's broad physical stakes without a textbook explanation of configuration sampling. Technical explanation of local matrix elements belongs at the conceptual reversal, where it earns its place by showing why AFQMC changes the sign question.
+- Treat assertive language as evidence-bearing. Strong words should point to a proved criterion, classification, benchmark, or carefully framed opportunity; they should never be added as a cosmetic tone pass.
 - The Introduction should cite background claims with broad but purposeful reference clusters. Every added or modified BibTeX entry must be verified against authoritative sources before use, and a citation report should be written for author review.
 - Avoid unnecessary "not ... but ..." constructions. State positive claims directly.
 - Minimize dashes in manuscript prose.
@@ -175,6 +178,9 @@ These must be resolved before edits that change physics claims or figure content
 
 ## Resolved Author Decisions
 
+- The mentor-edited high-visibility prose in commit `66c6cd4` supersedes earlier Introduction templates where they conflict. Preserve its rhetorical architecture rather than restoring the earlier step-by-step importance-sampling explanation or the question-and-answer transition.
+- The core narrative contrast is local matrix-element positivity in WLQMC/SSE versus global symmetry-protected HS-decoupled weights in BAFQMC. This distinction should organize the Introduction and conclusion.
+- Concluding remarks should state the change in organizing principle, explain determinant-pole/infinite-variance behavior as separate from the sign problem, and identify projector and canonical AFQMC as concrete future directions.
 - Pairing term in main text should use the Hermitian negative-sign convention `-\Delta b_i^+c_i^+-\Delta^*b_i c_i`.
 - The paired sign-free statement allows arbitrary complex `\Delta`; benchmark captions may specify the plotted real `\Delta` axis.
 - The main-text application/example section should initially use the real positive triangular hopping used in the benchmark.

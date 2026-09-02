@@ -105,7 +105,18 @@ Pattern:
 
 BAFQMC adaptation:
 
-The main result is a symmetry classification of sign-free bosonic AFQMC. It provides
-a constructive route into the frustrated TRS/RP quadrant of Fig. 1 and establishes a
-starting point for numerically exact studies of interacting bosons beyond the reach
-of conventional world-line formulations.
+The ending should normally use three distinct moves rather than compressing every
+function into one paragraph:
+
+1. **Synthesis:** state BAFQMC, the TRS/RP criteria, benchmark validation, and the
+   shift from local matrix-element positivity to global symmetry and Hamiltonian
+   structure.
+2. **Distinct numerical issue:** explain that inverse-determinant poles can create
+   large-weight or infinite-variance behavior. Keep this separate from sign
+   positivity and delimit when it becomes practically relevant.
+3. **Scientific launch:** identify frustrated bosonic or spin problems that become
+   candidates when an RP/TRS HS decomposition exists, then name projector AFQMC and
+   canonical fixed-number formulations as concrete algorithmic directions.
+
+End on capability or direction, not on a defensive caveat. Do not merely repeat the
+abstract's claims in a different order.
