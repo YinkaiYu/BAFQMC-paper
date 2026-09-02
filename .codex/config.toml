@@ -1,8 +1,6 @@
 # Project-local Codex configuration for the BAFQMC paper.
 # This file is intentionally focused on manuscript work, not software engineering.
 
-model = "gpt-5.5"
-model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 approvals_reviewer = "guardian_subagent"
 
