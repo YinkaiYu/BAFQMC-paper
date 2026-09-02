@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{+,+,+} 物理模型与既有文献逐项调查</title>
+  <style>
+    :root{--ink:#17202b;--muted:#556270;--paper:#fbfaf7;--card:#fff;--line:#d9ddd9;--blue:#164e73;--teal:#0c6b67;--gold:#9a6500;--red:#9b2d30;--green:#23643b;--soft:#eef4f5}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(135deg,#f4f0e8,#eef4f5 55%,#f8f6f0);color:var(--ink);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+    main{max-width:1180px;margin:auto;padding:34px 24px 80px} header{background:#102f43;color:white;padding:34px 38px;border-radius:18px;box-shadow:0 12px 35px #102f4322}
+    h1{font-size:34px;line-height:1.2;margin:0 0 12px} h2{font-size:25px;margin:42px 0 16px;border-bottom:2px solid #b9c9cc;padding-bottom:7px;color:#123d56} h3{font-size:20px;margin:30px 0 10px;color:#174e66} h4{font-size:17px;margin:20px 0 5px;color:#315163}
+    p{margin:8px 0 13px}.subtitle{font-size:18px;color:#dfeaed;max-width:900px}.date{color:#b9d1d8;font-size:14px}
+    nav,.card,.model,.warning,.recommend{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 24px;margin:18px 0;box-shadow:0 5px 18px #14252f0a}
+    nav a{margin-right:18px;white-space:nowrap}.lead{font-size:18px}.verdict{border-left:5px solid var(--green);background:#f1f8f2}.warning{border-left:5px solid var(--red);background:#fff6f5}.recommend{border-left:5px solid var(--gold);background:#fffaf0}
+    .tag{display:inline-block;border-radius:999px;padding:2px 9px;margin:2px 5px 2px 0;font-size:13px;font-weight:650}.a{background:#dff2e6;color:#175331}.b{background:#fff0cc;color:#735000}.c{background:#e4eef8;color:#184b74}.d{background:#f0e6f5;color:#643778}.risk{background:#fde4e4;color:#852329}
+    table{width:100%;border-collapse:collapse;margin:14px 0 24px;background:white;font-size:14px} th,td{border:1px solid var(--line);padding:10px 11px;vertical-align:top} th{background:#eaf0f1;color:#183c4c;text-align:left;position:sticky;top:0} tr:nth-child(even) td{background:#fafcfb}
+    code,.eq{font-family:"Cambria Math","STIX Two Math",Consolas,serif}.eq{display:block;background:#f2f5f5;border-left:4px solid #82a8ae;padding:10px 14px;margin:10px 0;overflow:auto;white-space:pre-wrap}.small{font-size:14px;color:var(--muted)}
+    ul,ol{padding-left:24px} li{margin:4px 0} a{color:#075e91;text-decoration:none} a:hover{text-decoration:underline}.refs{font-size:14px}.model{scroll-margin-top:20px}.model h3{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}.mini{background:#f7f9f8;border:1px solid #dfe5e4;border-radius:10px;padding:12px 14px}.mini b{color:#254959}.rank{font-size:18px;font-weight:750;color:#784f00}.nowrap{white-space:nowrap}.footer{margin-top:50px;color:#5b6871;font-size:13px;border-top:1px solid #ccd5d5;padding-top:15px}
+    @media(max-width:720px){main{padding:16px 10px 55px}header{padding:25px 20px}h1{font-size:27px}.table-wrap{overflow:auto}th{position:static}.model{padding:16px}}
+  </style>
+</head>
+<body><main>
+<header>
+  <div class="date">文献调查报告 · 2026-09-03</div>
+  <h1>新无符号类 {+,+,+}：具体模型与既有研究逐项核查</h1>
+  <div class="subtitle">目标不是证明“相关领域很活跃”，而是逐篇回答：文献究竟算了哪个哈密顿量、哪些参数、用了什么方法、得到什么结论，以及它与本工作的严格无符号锥到底是什么关系。</div>
+</header>
+
+<nav>
+  <a href="#executive">结论</a><a href="#criterion">判据</a><a href="#ranking">推荐排序</a><a href="#matrix">总表</a><a href="#details">逐项调查</a><a href="#claims">写作边界</a><a href="#refs">来源</a>
+</nav>
+
+<section id="executive">
+<h2>一、先给结论</h2>
+<div class="card verdict">
+  <p class="lead"><b>目前没有找到一个已经被广泛研究、原封不动便属于严格 {+,+,+} 锥、同时又因传统 QMC 符号问题而长期未解的“现成名模”。</b></p>
+  <p>最接近直接命中的，是两种<strong>相互作用通道</strong>：准平带模型中的成对跃迁，以及腔介导模型中的吸引性实双线性平方；但这些论文的完整哈密顿量还包含单组分结构、排斥 onsite/密度项或其他不在严格锥内的项。其余候选多数是<strong>机制相近的文献母体</strong>，需要按 {+,+,+} 允许的双线性重新完成，不能把原文模型直接称为本类模型。</p>
+</div>
+<div class="recommend">
+  <p><b>主文最值得写的例子：</b>三角晶格、双谷 ±K、两组分奇宇称成对的严格 {+,+,+} 模型。它把“受挫双谷 + Ising 手性 + anomalous propagation”三件事合在一起，和冷原子双谷手性超流的理论及 2025 年实验有明确物理连接；但必须表述为<strong>受既有双谷研究启发的严格可计算新模型</strong>，而不是声称那些实验哈密顿量本身已经满足本判据。</p>
+  <p><b>补充材料最有说服力的两个例子：</b>（i）准平带成对跃迁，展示允许符号分解与现有相竞争问题的直接联系；（ii）腔介导 bond-square，相互作用形式最干净，适合成为 BAFQMC 的近期数值应用。</p>
+</div>
+</section>
+
+<section id="criterion">
+<h2>二、严格判据与本报告的四级分类</h2>
+<p>以下比较以当前推导中的标准形式为准。对三种反幺正对称同时为正的情形，允许的二次双线性通道可组织为</p>
+<div class="eq">H = H₀ − ½ EᵀG_EE + ½ OᵀG_OO,     G_E ≥ 0, G_O ≥ 0,</div>
+<p>其中 <code>E</code> 是三种对称下的偶双线性（例如实 hopping <code>T</code>、实 pairing <code>X</code>），<code>O</code> 是奇双线性（例如 current <code>J</code>、pair current <code>Π</code>）。因此，不能仅凭“有 pairing”“哈密顿量可取实”或“有时间反演”就判断属于 {+,+,+}；平方项前的符号、组分结构、硬核约束和复通量都必须逐项检查。</p>
+<div class="grid">
+  <div class="mini"><span class="tag a">A 级</span><b>通道直接命中</b><br>文献中的某个相互作用可精确写成允许的偶/奇平方符号；完整模型未必严格命中。</div>
+  <div class="mini"><span class="tag b">B 级</span><b>近失配</b><br>物理现象高度相关，但 onsite 排斥、硬核投影、复通量或平方符号使原模型离开严格锥。</div>
+  <div class="mini"><span class="tag c">C 级</span><b>严格新模型的文献母体</b><br>已有工作支持其色散、序参量或拓扑动机；严格哈密顿量是本工作的新完成。</div>
+  <div class="mini"><span class="tag d">D 级</span><b>已有其他无符号算法</b><br>现象有趣，但不能用作“BAFQMC 打开此前不可算领域”的旗舰。</div>
+</div>
+</section>
+
+<section id="ranking">
+<h2>三、作为论文例子的推荐排序</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>排序</th><th>候选</th><th>为什么值得放</th><th>主要风险</th><th>建议位置</th></tr></thead>
+<tbody>
+<tr><td class="rank">1</td><td><b>三角晶格双谷奇宇称两组分 pairing</b></td><td>最直接连接本文 Fig. 1 的“受挫但 RP/TRS”新象限；有冷原子双谷、手性超流及有限温熔化实验作为物理背景；序参量和可测现象清楚。</td><td>是严格新完成，不是既有论文原模型；有限温两转变先后顺序并不普适。</td><td>主文旗舰哈密顿量</td></tr>
+<tr><td class="rank">2</td><td><b>准平带 pair-hopping</b></td><td>代数上最直接：<code>−P(z²+z†²)=−(P/2)T²+(P/2)J²</code>；已有 ED/变分工作显示单粒子与成对超流竞争。</td><td>原文是单组分 1D 小系统，且含 <code>U,V&gt;0</code>；2026 预印本尚新。</td><td>主文一句 + SM 详例</td></tr>
+<tr><td class="rank">3</td><td><b>腔介导 bond-square</b></td><td>吸引性的全局实双线性平方形式干净；已有 DMRG 展示 BSF/BSS、直接一级转变和连续边界。</td><td>原文 onsite <code>U&gt;0</code> 不在严格锥；全局长程相互作用与局域模型物理不同。</td><td>SM 数值应用候选</td></tr>
+<tr><td class="rank">4</td><td><b>π-flux / Aharonov–Bohm cage 平带</b></td><td>pair motion、半磁通周期、interaction-induced topology 均有扎实文献；平带使传统 determinant/pole 问题尖锐。</td><td>π-flux hopping、onsite <code>U</code> 与局域对称完成需重新核查；全平带局域对称可禁止长程手性序。</td><td>讨论/未来应用</td></tr>
+<tr><td class="rank">5</td><td><b>高阶拓扑 triplon / parametric BBH</b></td><td>与 bosonic BdG、角态、parametric pairing 连接时髦且直观。</td><td>现有结论主要在谐波或驱动耗散层面；单粒子角态不等于强相互作用多体相变。</td><td>讨论段谨慎举例</td></tr>
+<tr><td class="rank">6</td><td><b>可积两组分 p-wave pairing</b></td><td>有精确 Richardson–Gaudin 解、三阶量子相变和 Moore–Read-like 临界态，可作解析标尺。</td><td>原文 pairing 平方属于相反的 odd-channel 符号，不是严格模型本身。</td><td>SM 解析 benchmark</td></tr>
+<tr><td>7–10</td><td>kagome 平带、bosonic Kitaev、helical Hofstadter–BdG、moat/Bose-surface</td><td>分别提供受挫平带、anomalous chain、伪时间反演拓扑和连续简并色散的物理动机。</td><td>与严格相互作用的距离更远；既有结果多为平均场、二次理论、少体或变分。</td><td>展望，不宜都写主文</td></tr>
+<tr><td>不推荐作旗舰</td><td>原始 twisted SF、Bubble Phase、binary pair conversion</td><td>现象吸引人。</td><td>原哈密顿量的错号、复通量或 onsite 排斥是核心组成，强行称为本类会失真。</td><td>只作近邻文献</td></tr>
+<tr><td>明确排除旗舰</td><td>三角 pair-SSE、pyrochlore worm-QMC</td><td>确有成对超流/液体等丰富物理。</td><td>已有专门无符号 QMC；不能支持“过去不可算、现在可算”的中心叙事。</td><td>算法版图对照</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="matrix">
+<h2>四、全部候选的快速证据矩阵</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>模型族</th><th>文献真正计算的对象</th><th>方法与关键参数</th><th>主要结论</th><th>与 {+,+,+} 的关系</th></tr></thead>
+<tbody>
+<tr><td>准平带 pair hopping</td><td>1D <code>t-J-P-U-V</code> 玻色链</td><td>ED（至 L≈16）+ Gaussian variational；单位/半填充；<code>V≈2P</code></td><td>单粒子 SF、pair SF、束缚阈值与动力学响应</td><td><span class="tag a">A</span> pair-hopping 通道精确命中；全模型不命中</td></tr>
+<tr><td>腔介导 bond order</td><td>1D Bose–Hubbard + <code>(zD+yB)²</code></td><td>固定粒子数 DMRG；<code>ρ=1,1/2</code>；三种腔几何</td><td>BSF、BI、BSS、CDW/SS；一级与连续边界</td><td><span class="tag a">A</span> <code>U₁&lt;0</code> square 命中；onsite U 不命中</td></tr>
+<tr><td>可积 p-wave pair</td><td>两组分、动量奇函数 form factor 的 attractive pair Hamiltonian</td><td>Bethe/Richardson–Gaudin + 热力学极限；<code>ρ=.2</code></td><td>三阶 QPT、fragmented pair BEC、gapped pair SF、MR-like 点</td><td><span class="tag b">B</span> 原文 odd quadrature 的平方号与严格锥相反</td></tr>
+<tr><td>三角 correlated hopping</td><td>硬核玻色子，密度辅助跃迁 <code>−K n_i b†_j b_k</code></td><td>圆柱 DMRG，<code>ρ=1/6</code>，<code>L_y=3…9</code></td><td>SF、SS、PSF、相分离；连续/一级边界</td><td><span class="tag b">B</span> 硬核与三体张量不是严格平方完成</td></tr>
+<tr><td>twisted SF/TSS</td><td>extended BH + 正号 pair tunneling</td><td>cluster MF（2D）与 DMRG（1D，平均 n=4）</td><td>自发 TR 破缺、TSF/TSS、pair-wave MI</td><td><span class="tag b">B</span> current-square 符号相反，且 onsite repulsion</td></tr>
+<tr><td>2D Kitaev–BH Bubble</td><td>复 hopping + nearest-neighbor pairing + onsite U</td><td>inhomogeneous Gutzwiller + bosonic BdG；<code>α=1/16, Δ/U=.005</code></td><td>MI 与 SF 间的可压缩、局域超流“Bubble”窗口</td><td><span class="tag b">B</span> 复通量与 <code>U&gt;0</code> 均超出严格类</td></tr>
+<tr><td>binary pair conversion</td><td>两组分 BH + onsite <code>W[(a†b)²+h.c.]</code></td><td>CGMF；1D DMRG 检查；<code>W/U=-.1</code></td><td>PSCF、SSCF、quadruple critical point</td><td><span class="tag b">B</span> onsite repulsion；不是空间奇宇称 pair</td></tr>
+<tr><td>chiral Mott ladder</td><td>π-flux 两腿 Bose–Hubbard ladder</td><td>DMRG、classical rotor MC、VMC；<code>t⊥=t</code></td><td>CSF→CMI（BKT）→MI（Ising），窄 CMI</td><td><span class="tag b">B</span> repulsive density square 不允许</td></tr>
+<tr><td>triangular chiral Mott</td><td>受挫三角 BH，<code>t,U,V&gt;0</code></td><td>2D MF；4-leg/2-leg iDMRG</td><td>χSF、χMI、MI；Ising/BKT/一级线</td><td><span class="tag b">B</span> 正 onsite/NN repulsion；无 anomalous sector</td></tr>
+<tr><td>double-valley chiral SF</td><td>±K 两谷两组分密度相互作用；p-band phase model；冷原子实验</td><td>Bogoliubov/Gutzwiller、classical MC、TOF 实验</td><td>chiral spin/charge SF、split Ising/BKT melting；实验见 chirality 先熔</td><td><span class="tag c">C</span> 最强物理母体，严格 pairing Hamiltonian 是新完成</td></tr>
+<tr><td>kagome/π-flux flat band</td><td>受挫 kagome BH；π-flux plaquette arrays</td><td>MF+Bogo、classical thermal、ladder DMRG、ED</td><td>trion SF、chiral Mott、局域对称导致的无手性序</td><td><span class="tag c">C</span> 平带动机强；原 onsite-U 模型不严格</td></tr>
+<tr><td>AB cage</td><td>π-flux rhombic/diamond/Creutz；onsite interaction</td><td>DMRG、ED、弱耦合投影、少体实验</td><td>pair LL、半磁通周期、拓扑 bound-pair 边态、interaction-induced delocalization</td><td><span class="tag c">C</span> 严格 pair/current 平方模型可借鉴</td></tr>
+<tr><td>HOT triplon / BBH</td><td>bilayer-dimer spin model 的二次 triplon BdG；χ² 光学阵列</td><td>bond operator、real-space BdG、Langevin/mean-field</td><td>corner triplons、edge/corner parametric oscillation</td><td><span class="tag c">C</span> strict interacting completion 尚未被文献计算</td></tr>
+<tr><td>bosonic Kitaev</td><td>quadratic bosonic Kitaev chain 实验；含 U/U₃ 的链与梯</td><td>超导参量腔；JW/DMRG</td><td>手性传输、quadrature localization、Ising transitions</td><td><span class="tag c">C</span> real-coupling cousin 可严格；原模型常含复相位/U</td></tr>
+<tr><td>helical bosonic BdG</td><td>pseudo-TRS bilayer kagome magnon BdG</td><td>linear spin wave；strip spectra；Z₂ invariant</td><td>helical magnon edge modes</td><td><span class="tag c">C</span> 四组分 realification 的拓扑母体；非强关联证明</td></tr>
+<tr><td>moat / Bose surface</td><td>连续 moat dispersion + repulsion；bilayer exciton</td><td>CS trial-state VMC；T-matrix + 变分态比较</td><td>CSL 候选、LO stripe、fragmented/composite-fermion competition</td><td><span class="tag c">C</span> 只共享色散；相互作用不是严格完成</td></tr>
+<tr><td>triangular pair SSE</td><td>三体约束 extended BH + pair hopping</td><td>SSE directed loop；<code>β=L</code></td><td>PSF/PSS/solid，丰富相变</td><td><span class="tag d">D</span> 已有无符号 QMC</td></tr>
+<tr><td>pyrochlore paired bosons</td><td>hard-core hopping + anomalous pair term + NN V</td><td>连续时间 worm QMC</td><td>U(1) Coulomb liquid、可能 Z₂ liquid、一级转变</td><td><span class="tag d">D</span> 已有无符号 QMC</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="details">
+<h2>五、逐项文献调查</h2>
+
+<article class="model" id="quasiflat">
+<h3>1. 准平带 <code>t–J–P–U–V</code> 模型：最强“代数命中”</h3>
+<span class="tag a">A：允许通道直接出现</span><span class="tag risk">全模型不严格</span>
+<div class="eq">H_t = −t Σ_j (b†_{j+1}b_j + h.c.)
+H_J = −J Σ_j (b†_{j+1} n_j b_{j−1} + h.c.)
+H_PUV = Σ_j { −P[(b†_j)²b²_{j+1}+h.c.] + U n_j(n_j−1)+V n_jn_{j+1} }.</div>
+<p><b>论文实际做了什么。</b>Burgher 等（2026 预印本）研究 1D 周期链，使用 QuSpin 精确对角化和含位移/压缩的 Gaussian variational ansatz。平带切片取 <code>t=J=0</code>、单位填充、<code>L=14</code>，扫描 <code>U/P,V/P</code>；更一般的竞争图取 <code>V=2P,J=0</code>，单位填充 <code>L=N=14</code> 与半填充 <code>L=16,N=8</code>，扫描 <code>t/P,U/P</code>。动力学结构因子的示例为 <code>J=.08P,t=0,U=.1P,V=2.1P,n=1</code>。</p>
+<p><b>有趣结论。</b><code>U=0,V=2P</code> 存在精确 pair-condensate 状态；但单粒子激发的抛物型低能结构意味着它并非普通 Landau 超流。论文给出用 <code>Ũ=2U−4P</code>、<code>Ṽ=V−2J</code> 表示的两体束缚阈值，并展示 single-particle/pair superfluid 竞争。</p>
+<p><b>严格关系。</b>令 <code>z=b†_i b_j</code>，则 <code>−P(z²+z†²)=−(P/2)T²+(P/2)J²</code>：偶 hopping 平方为负、奇 current 平方为正，正好是本锥允许的符号。问题在于原文是单组分，而且 <code>U,V&gt;0</code> 的密度平方不能一并宣称属于严格类。</p>
+<p class="refs"><a href="https://arxiv.org/abs/2605.26231">arXiv:2605.26231</a> · <a href="../../../local_reference_pdfs/candidates/burgher2026_quasiflat.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="cavity">
+<h3>2. 腔介导 bond-order Bose–Hubbard：最干净的数值应用候选</h3>
+<span class="tag a">A：吸引性 square 命中</span><span class="tag risk">onsite U 不严格</span>
+<div class="eq">H_BH = −tΣ_j(a†_j a_{j+1}+h.c.) + (U/2)Σ_j n_j(n_j−1),
+H_BCH = (U₁/L)[z²D² + zy(DB+BD)+y²B²] = (U₁/L)(zD+yB)²,
+D=Σ_j(−1)^j n_j,  B=Σ_j(−1)^j(a†_{j+1}a_j+h.c.).</div>
+<p><b>论文实际做了什么。</b>Chanda 等用固定粒子数、开边界 DMRG 研究 1D 链。光晶格深度取 <code>V₀=4E_R</code>，三种腔几何分别近似为：密度耦合 <code>(z,y)=(.8279,0)</code>；bond 耦合 <code>(0,−.0658)</code>；混合耦合 <code>(.5854,−.0465)</code>。研究单位填充与半填充，典型相图用 <code>L=60</code>，<code>t/U=.01…1</code> 的 101 个对数点，并扫描 <code>U₁/U</code>。</p>
+<p><b>有趣结论。</b>在纯 <code>B²</code> 情形，单位填充出现 bond superfluid；半填充下 bond insulator 将普通 SF 和 BSF 分开。SF–BSF 可为不连续转变，而 SF–BI、BI–BSF 连续。混合 <code>D+B</code> 耦合还能产生 CDW+BI、supersolid 与 bond supersolid；BSF/BSS 的中心荷约为 1。</p>
+<p><b>严格关系。</b>当 <code>U₁&lt;0</code> 时，实偶双线性 <code>zD+yB</code> 的负平方正是允许通道；但原文维持稳定性的排斥 onsite <code>U&gt;0</code> 不是严格锥的一部分。适合作为“允许 square 已经对应现实 cavity mechanism”的证据，而不是宣称整篇 DMRG 相图都属于本方法。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.106.075137">Phys. Rev. B 106, 075137 (2022)</a> · <a href="../../../local_reference_pdfs/candidates/chanda2022_cavity.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="pwave">
+<h3>3. 两组分 p-wave 可积配对：解析 benchmark，而非原样命中</h3>
+<span class="tag b">B：平方符号近失配</span>
+<div class="eq">H = Σ_k η_k²(n_{ak}+n_{bk})
+ − (G/4)Σ_{kk′}η_kη_{k′}(b†_k a†_{−k}−a†_k b†_{−k})(b_{k′}a_{−k′}−a_{k′}b_{−k′}).</div>
+<p><b>论文实际做了什么。</b>Lerma-Hernández、Dukelsky 与 Ortiz 用 Richardson–Gaudin Bethe ansatz 给出精确解，并与热力学极限的 mean-field/quasiboson 分析比较。1D 例子取 <code>η_k=sin(k/2)</code>、反周期动量；常用密度 <code>ρ=N/(2L)=.2</code>，有限尺寸示例为 <code>M=10</code> 对、<code>L=50</code>，展示 <code>g=GL=.5,1.2,1.8,5,6.8</code>。</p>
+<p><b>有趣结论。</b>临界耦合 <code>g_c=2/(2+ρ)</code> 处为三阶量子相变：从无能隙、fragmented singlet-pair BEC 进入有能隙 pair superfluid；另有 <code>g_∞=2/ρ</code> 的强耦合尺度。临界态具有 Moore–Read-like 形式 <code>(Ση_k⁻¹K†_k)^M|0⟩</code>。</p>
+<p><b>严格关系。</b>它证明奇宇称两组分配对本身有丰富、可解析的多体物理；但原文的吸引配对写成了严格锥中 odd quadrature 的错误符号，不能列为直接实例。最佳用途是检验本文模型的弱耦合/临界直觉或构造一个允许符号的 cousin。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevResearch.1.032021">Phys. Rev. Research 1, 032021 (2019)</a> · <a href="../../../local_reference_pdfs/candidates/lerma2019_pwave.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="correlated">
+<h3>4. 三角晶格 correlated hopping：pair supersolid 的机制母体</h3>
+<span class="tag b">B：硬核/三体结构失配</span>
+<div class="eq">H = tΣ_⟨ij⟩(b†_i b_j+h.c.) + VΣ_⟨ij⟩n_in_j
+ − KΣ_△(n_i b†_j b_k+h.c.),     n_i=0,1.</div>
+<p><b>论文实际做了什么。</b>Jiang、Fu 与 Xu 取 <code>t=1,V,K&gt;0</code>、密度 <code>1/6</code>，在三角晶格圆柱上做 DMRG，周长 <code>L_y=3…9</code>、最大尺寸约 <code>18×9</code>，保留超过 6000 个态，并比较圆柱/周期边界。重点切片包括 <code>V=6</code> 扫 <code>K</code>，以及 <code>V=0</code> 增大 <code>K</code>。</p>
+<p><b>有趣结论。</b>得到 SF、supersolid、pair superfluid 和 phase separation。<code>V=6</code> 的 SS→PSF 连续，而 <code>V=0</code> 增大 <code>K</code> 的 SF→SS 为一级。它说明三角受挫 + correlated motion 的确自然生成 pair order 与密度序竞争。</p>
+<p><b>严格关系。</b>硬核投影和 <code>n_i b†_j b_k</code> 三体张量不能自动化为本文允许的 bilinear squares；只能作为严格三角 pair/current-square 模型的现象动机。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.86.045129">Phys. Rev. B 86, 045129 (2012)</a> · <a href="../../../local_reference_pdfs/candidates/jiang2012_tri_pair.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="twisted">
+<h3>5. pair tunneling 诱导 twisted superfluid：现象很近，符号恰好不对</h3>
+<span class="tag b">B：quadrature 符号相反</span>
+<div class="eq">H = (U/2)Σ_i n_i(n_i−1) − JΣ_⟨ij⟩(a†_i a_j+h.c.) − μΣ_i n_i
+ + VΣ_⟨ij⟩n_in_j + (P/2)Σ_⟨ij⟩[(a†_i)²a_j²+h.c.].</div>
+<p><b>2D 研究。</b>Jürgensen 等用最多四格点 cluster mean-field 嵌入热力学环境，绘制三维参数相图；代表切片 <code>P=V=.15U,J=.12U</code>。正 <code>P</code> 使键能包含 <code>−2Jφ_iφ_j cosθ+Pφ_i²φ_j²cos2θ</code>，在适当密度下选择 <code>θ=±π/2</code>，得到 spontaneous-TR-breaking TSF/TSS。</p>
+<p><b>1D 研究。</b>Lühmann 在平均每站 <code>N=4</code> 做 DMRG，onsite Fock cutoff 16、保留约 450 态；典型扫描 <code>J=.6U,P=.16… .24U</code>，相关函数例子 <code>P=.28U</code>。发现 TSF、pair-wave Mott、PSF/PSS 等，TSF 中有限尺寸 gap 指数闭合；临界 <code>P/U</code> 随填充升高显著降低（<code>N=8</code> 约 .07）。</p>
+<p><b>严格关系。</b>正号 pair tunneling 正是产生 twist 的机制，但分解后 current-square 的符号与 {+,+,+} 所需相反；再加上 <code>U,V&gt;0</code>，原模型不是严格实例。它适合说明“改一个相互作用 quadrature 就跨过严格边界”，不适合当正例。</p>
+<p class="refs"><a href="https://doi.org/10.1038/srep12912">Sci. Rep. 5, 12912 (2015)</a> · <a href="../../../local_reference_pdfs/candidates/jurgensen2015_twisted_honeycomb.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevA.94.011603">Phys. Rev. A 94, 011603(R) (2016)</a> · <a href="../../../local_reference_pdfs/candidates/luhmann2016_twisted1d.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="bubble">
+<h3>6. 2D Kitaev–Bose–Hubbard “Bubble Phase”：新奇，但证据与严格性都偏弱</h3>
+<span class="tag b">B：复通量与 onsite U 失配</span>
+<div class="eq">H = −Σ_{r,ν=x,y}[J e^{iθ_{rν}}b†_r b_{r+ν}+Δ e^{iφ_{rν}}b†_r b†_{r+ν}+h.c.]
+ +(U/2)Σ_r n_r(n_r−1)−μΣ_r n_r.</div>
+<p><b>论文实际做了什么。</b>Zhu 与 Yang（2026 预印本）采用对称规范 <code>θ_x=−παy, θ_y=παx</code> 且 <code>φ=θ</code>，主参数 <code>α=1/16, Δ/U=.005</code>。方法是 inhomogeneous Gutzwiller product state，加 quantum-Gutzwiller/slave-particle BdG 修正，并人为剔除平均场冗余产生的零模；没有做无偏 QMC。<code>μ/U=.5</code> 下报告 MI（<code>J/U≲.04</code>）、Bubble（约 <code>.04… .046</code>）及更大 <code>J</code> 的不稳定 SF。文中局域结构示例还用到 <code>J/U=.025</code> 的切片。</p>
+<p><b>有趣结论。</b>Bubble 窗口可压缩，但超流密度只形成彼此分离的岛，cluster collective mode 有有限 gap；作者称其为 intrinsic Bose glass。</p>
+<p><b>判断。</b>“Bose glass”通常需要更强的多体、尺寸和无序/准周期诊断；这里是周期、确定性体系的 Gutzwiller/BdG 结果，表述应保留。更重要的是，复磁通和 <code>U&gt;0</code> 都不在严格锥，不能作为主例。</p>
+<p class="refs"><a href="https://arxiv.org/abs/2601.05781">arXiv:2601.05781</a> · <a href="../../../local_reference_pdfs/candidates/zhu2026_bubble.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="binary">
+<h3>7. binary mixture 的 onsite pair conversion：四阶超流与四重临界点</h3>
+<span class="tag b">B：序参量相近，结构不同</span>
+<div class="eq">H = −JΣ_⟨ij⟩(a†_i a_j+b†_i b_j+h.c.)−μΣ_i(n_{ia}+n_{ib})
+ +Σ_i[U_{aa}n_{ia}(n_{ia}−1)/2+U_{bb}n_{ib}(n_{ib}−1)/2+U_{ab}n_{ia}n_{ib}]
+ +WΣ_i[(a†_i b_i)²+h.c.].</div>
+<p><b>论文实际做了什么。</b>Liu 与 Lin（2025 预印本）主用 square-lattice cluster Gutzwiller mean field。对称例取 <code>Uaa=Ubb=1,Uab=.5,W=−.1</code>，非对称例取 <code>Ubb=.8Uaa</code>；代表性切片 <code>J/U=.005,.008</code>。作者还在 1D <code>L=32</code>、<code>J/Uaa=.01</code>、同一相互作用比值下做 DMRG，检查关联函数与 noise correlations。</p>
+<p><b>有趣结论。</b>得到仅 <code>⟨(ab†)²⟩≠0</code> 的 paired super-counter-fluid（PSCF），以及二阶与四阶序共存的 SSCF；组分非对称时出现四重临界点。论文也在多组 <code>(J/U,μ/U)</code> 点检查 demixing。</p>
+<p><b>严格关系。</b>它展示 pair-conversion order 可作为实际可识别的四阶序，但 conversion 是 onsite flavor exchange，不是拟议三角模型的空间奇宇称 pair；原 onsite 排斥也使完整模型不严格。</p>
+<p class="refs"><a href="https://arxiv.org/abs/2502.01125">arXiv:2502.01125</a> · <a href="../../../local_reference_pdfs/candidates/liu2025_binary_pair.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="chiral-mott">
+<h3>8. chiral Mott：受挫 Ising×U(1) 熔化的经典参照</h3>
+<span class="tag b">B：受挫 hopping 可实，但 repulsive density square 不允许</span>
+<h4>完全受挫两腿梯</h4>
+<div class="eq">H = −tΣ_x(a†_x a_{x+1}+h.c.) + tΣ_x(b†_x b_{x+1}+h.c.)
+ −t_⊥Σ_x(a†_x b_x+h.c.) +(U/2)Σ_x[n_{a,x}(n_{a,x}−1)+n_{b,x}(n_{b,x}−1)].</div>
+<p>Dhar 等取整数填充与 <code>t⊥=t</code>，结合 finite-system DMRG（至 100 rungs、每站 6 个 Fock 态、约 200 kept states）、classical rotor Monte Carlo 和 Jastrow VMC。得到 chiral SF→chiral Mott 的 BKT 转变 <code>U_c1/t≈3.98(2)</code>，再经 Ising 转变到普通 MI，<code>U_c2/t≈4.08(1)</code>；两者之间是窄但可辨认的 CMI。</p>
+<h4>三角晶格与窄梯</h4>
+<div class="eq">H = tΣ_⟨ij⟩(b†_i b_j+h.c.)+VΣ_⟨ij⟩δn_iδn_j+(U/2)Σ_i(δn_i)²,   t,U,V&gt;0.</div>
+<p>Zaletel 等对 2D 做变分 mean field，并对四腿圆柱做 iDMRG：<code>n₀=1</code>、每站最多 2 bosons、<code>χ≤1600</code>，比较 <code>V=0</code> 与 <code>1.6</code>；估计 Ising 临界约 <code>U_c≈5.99</code> 与 <code>7.06</code>。两腿版本用 iDMRG + bosonization，得到 MI–χMI 的 <code>c=1/2</code> Ising 与 χMI–χSF 的 BKT，且在较大 hopping 处可能有一级段/三临界结构。</p>
+<p><b>价值与限制。</b>这些工作最清楚地告诉我们受挫双谷体系为什么自然有 U(1) 与 Z₂ 两种序，但它们没有 anomalous propagation，且稳定相互作用恰是正 onsite/NN density squares。引用它们支撑“物理问题”，不能支撑“严格类已有研究”。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.87.174501">PRB 87, 174501 (2013)</a> · <a href="../../../local_reference_pdfs/candidates/dhar2013_chiral_mott_ladder.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevB.89.155142">PRB 89, 155142 (2014)</a> · <a href="../../../local_reference_pdfs/candidates/zaletel2014_chiral_mott_tri.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="double-valley">
+<h3>9. 三角晶格双谷严格模型：推荐的主文旗舰</h3>
+<span class="tag c">C：严格新完成 + 强文献母体</span>
+<p><b>建议写入文章的哈密顿量。</b>在每个格点放两种玻色子 <code>b,c</code>，定义</p>
+<div class="eq">T_{ij}=b†_i b_j+b†_j b_i+c†_i c_j+c†_j c_i,
+P†_{ij}=b†_i c†_j−b†_j c†_i,     X_{ij}=P†_{ij}+P_{ij},
+J_{ij}=−i(b†_i b_j−b†_j b_i+c†_i c_j−c†_j c_i),
+Π_{ij}=−i(P†_{ij}−P_{ij}),
+
+H = κΣ_i(n_{bi}+n_{ci}) + tΣ_⟨ij⟩T_{ij}+Δ_pΣ_{i→j}X_{ij}
+    +U_JΣ_⟨ij⟩J²_{ij}+U_ΠΣ_{i→j}Π²_{ij},     U_J,U_Π&gt;0.</div>
+<p>三角晶格取受挫 <code>t&gt;0</code> 时，单粒子低能谷位于 <code>±K</code>；有向键上的 flavor-singlet 奇宇称 pair 同时引入 anomalous sector。各平方项的符号按偶/奇分类直接处于严格锥内。它允许研究单谷/双谷凝聚、relative-phase locking、Ising chirality、pair/current order 及其量子/有限温转变。</p>
+<h4>已有文献究竟支持什么</h4>
+<ul>
+  <li><b>Li 等，Nat. Commun. 5, 5174 (2014)：</b>研究具有 ±K 退简并的两组分 bosons 与密度相互作用，采用 Bogoliubov order-by-disorder、Gutzwiller、微扰和 time-dependent GP。六角 spin-dependent 例中常取总密度 1、<code>U/t_eff=1</code>；弱耦合边界约 <code>V_c≈U/3</code>，强耦合趋于 <code>V_c=2t_eff</code>。结论是量子涨落可在“同谷 chiral charge SF”和“异谷 chiral spin SF”之间选择，后者在广泛参数稳定。</li>
+  <li><b>Li 等，Nat. Commun. 5, 3205 (2014)：</b>对 checkerboard p-orbital phase-only model 做经典 MC，典型 <code>U/J∥=1,J⊥/J∥=1</code>；报告 Ising <code>T/J≈2.088(3)</code> 与 BKT <code>≈2.072(3)</code>，中间是很窄的 chiral Bose liquid。该顺序对应 U(1) 先熔、chirality 后熔。</li>
+  <li><b>Yu 等，arXiv:2507.07494：</b>一维 shaken optical lattice 实验，典型驱动 <code>ω=2π×12.55 kHz</code>、<code>V₀=11.3E_r</code>、振幅 <code>.005λ</code>，每温度约 40 个 TOF shots。得到 chirality melting <code>T_m=165(40)nK</code>，而 superfluid <code>T_c=315(11)nK</code>：<strong>实验是 chirality 先熔，形成 paramagnetic superfluid；与上面常见理论次序相反。</strong>在较小谷间距处两转变可接近重合。</li>
+</ul>
+<p><b>正确写法。</b>这些论文支持 ±K 双谷、Z₂ 手性和两阶段熔化的重要性，但没有计算上面的 <code>J²+Π²</code> 严格模型。文章应写“motivated by / realizes a sign-free interacting completion of”，不应写“the experimental model belongs to {+,+,+}”。</p>
+<p class="refs"><a href="https://doi.org/10.1038/ncomms6174">chiral spin SF</a> · <a href="../../../local_reference_pdfs/candidates/li2014_chiral_spin.pdf">PDF</a> · <a href="https://doi.org/10.1038/ncomms4205">chiral Bose liquid</a> · <a href="../../../local_reference_pdfs/candidates/li2014_chiral_bose_liquid.pdf">PDF</a> · <a href="https://arxiv.org/abs/2507.07494">2025 experiment</a> · <a href="../../../local_reference_pdfs/candidates/vestigial2025_double_valley.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="kagome">
+<h3>10. kagome / π-flux flat band：高吸引力，也有重要反例</h3>
+<span class="tag c">C：平带母体</span>
+<p><b>Kagome frustrated BH。</b>You 等研究 <code>H=tΣ⟨ij⟩(b†_i b_j+h.c.)+UΣn_i(n_i−1)−μΣn_i</code>，<code>t&gt;0</code> 使每个三角形有 π flux，最低带平坦。方法为高密度 Hartree、Bogoliubov zero-point order-by-disorder 与三色流形的经典热涨落。代表 <code>Uρ/t=.3,3</code>，相图常在 <code>Uρ/t=1</code> 分析。极低温出现 K-point SF，但有效锁相尺度 <code>J_eff</code> 仅约 <code>10⁻³t</code>；更高温可有 <code>b³</code> 准长程序的 trion SF，直至 <code>T∼t</code>。</p>
+<p><b>Coupled π-flux plaquettes。</b>Di Liberto 与 Goldman 将单 plaquette 投影为 <code>H_eff=(3U/16)n²−(U/16)L_z²−(√2J+U/8)n</code>，再用耦合 plaquettes 实现 bosonic BBH。Bogoliubov 例取 <code>J'=.1J,g=.1J</code>，并在 <code>L_y=2,L_x≤48</code>、每 plaquette 两粒子处做 DMRG，得到 SF 到具有 loop-current ferromagnetism 的 chiral Mott。</p>
+<p><b>关键反例。</b>Burgher 等（PRB 111, 064514）研究 all-flat π-flux plaquette chain，利用局域对称、Elitzur 型论证与 ED 说明局域守恒量可禁止长程 chiral order，并发现 impurity self-pinning。因而“平带 + 相互作用 ⇒ 手性序”绝不能当作普遍结论。</p>
+<p><b>严格关系。</b>原模型的 <code>U&gt;0</code> 不严格；最稳妥的方向是在相同色散上换成允许的 pair/current squares，并把局域对称导致的无序风险作为待解决问题。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevLett.109.265302">PRL 109, 265302</a> · <a href="../../../local_reference_pdfs/candidates/you2012_kagome.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevResearch.5.023064">PRResearch 5, 023064</a> · <a href="../../../local_reference_pdfs/candidates/diliberto2022_pi_flux.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevB.111.064514">PRB 111, 064514</a> · <a href="../../../local_reference_pdfs/candidates/burgher2025_chiral_flat.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="abcage">
+<h3>11. Aharonov–Bohm cages：pair delocalization 与 interaction-induced topology</h3>
+<span class="tag c">C：强平带/配对母体</span>
+<p><b>Rhombic chain 多体 DMRG。</b>Cartwright、De Chiara 与 Rizzi 研究带一条 <code>e^{iφ}</code> 键的 rhombic chain BH：NN hopping <code>−J</code> 加 <code>(U/2)Σn(n−1)</code>。开边界 MPS/DMRG，<code>L=3M−2</code>，平均填充 1 与 2。<code>φ=π</code> 时三条带全平，onsite U 投影后产生 pair hopping。单位填充 Mott 临界从 <code>φ=0</code> 的 <code>J/U≈.14±.01</code> 推至 <code>φ=π</code> 的 <code>.78±.03</code>；pair Luttinger liquid 只在偏离 π 约 0.5% 的极窄窗口存活，<code>c=1</code>，entanglement spectrum 可区分普通/paired LL。</p>
+<p><b>Preformed pairs。</b>Tovmasyan 等对 Creutz/diamond/dice 全平带模型做 ED 与 DMRG。对保持局域对称的相互作用，1D 整个多体谱具有半磁通量子周期；单粒子传播有限程而 charge-2 pairs 可移动。二维 dice 也给出数值迹象。</p>
+<p><b>两体拓扑。</b>Pelegrí 等研究带轨道角动量的 diamond chain，允许 <code>U_A,U_1,U_2</code>。在 <code>|U|≪</code> band gap 做精确投影为 pair SSH/Creutz 模型，再用 ED 检查强耦合与离开平带情形；得到 interaction-induced topological bound-pair edge states 和 doubly localized cages。</p>
+<p><b>实验。</b>2025 年 Rydberg synthetic rhombic lattice（最多约 12 个合成态）直接观察：中等相互作用会破坏单粒子 caging 并促使 pair delocalization，强相互作用则形成慢的 bound pairs。它是少体非平衡实验，不是平衡多体相图。</p>
+<p><b>严格关系。</b>这是构造严格 pair/current-square AB-cage 模型的最强物理背景；但必须重新证明 π-flux gauge、flavor doubling 与每个相互作用平方同时满足三种 TRS。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.98.184508">PRB 98, 184508</a> · <a href="../../../local_reference_pdfs/candidates/cartwright2018_rhombi.pdf">PDF</a> · <a href="https://arxiv.org/abs/1805.04529">arXiv:1805.04529</a> · <a href="../../../local_reference_pdfs/candidates/tovmasyan2018_preformed.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevResearch.2.033267">PRResearch 2, 033267</a> · <a href="../../../local_reference_pdfs/candidates/pelegri2020_two_boson_flat.pdf">PDF</a> · <a href="https://doi.org/10.1038/s41567-024-02714-7">Nat. Phys. 21, 221 (2025)</a></p>
+</article>
+
+<article class="model" id="hot">
+<h3>12. 高阶拓扑 triplon / parametric BBH：适合展望，不宜宣称多体问题已建立</h3>
+<span class="tag c">C：quadratic BdG 母体</span>
+<p><b>Triplon。</b>Haldar、Massarelli 与 Paramekanti 从 bilayer square spin dimers 出发：强 <code>J_D S_{rT}·S_{rB}</code>，层内采用 tetramerized BBH-like XXZ，或带 DM 与 Γ 的 SOC-like 交换。用 bond operators 截断到 quadratic triplon BdG，并在实空间开边界求谱。tBBH 代表 <code>J₁/J_D=.02,J₂/J_D=.2</code>；tSOC 代表 <code>J₁=.1,J₂=.2,D=.2,Γ=.22,J=.01</code>（均以 <code>J_D</code> 为单位）。得到四个近 midgap corner triplons 及相应 bulk invariants/edge theories。</p>
+<p><b>Parametric photonics。</b>Roy 等考虑 χ² 阵列 <code>H_NL=Σ_n(g/2)(a_na_n+h.c.)</code> 与 SSH hopping <code>J[1+ε(−1)^n]</code>。在 <code>g&lt;2Jε</code> 时只有拓扑边/角模先达到 parametric instability：阈值下强 squeezing，阈值上 edge/corner-only oscillation。方法为驱动耗散 classical mean-field/Langevin，不是平衡量子多体。</p>
+<p><b>几何工具。</b>Tesfaye 与 Eckardt发展 symplectic quantum metric/Berry curvature，并以弱相互作用 bosonic Haldane 为例（如 <code>J₂=.1J₁,θ=π/2,Δ=3√3J₂/2,Un/J₁=0,3</code>）模拟调制激发率。这给出诊断工具，不是相互作用 HOT 相图。</p>
+<p><b>严格关系。</b>可把 BBH-like real hopping 与允许 pairing/current squares 拼成严格 bosonic BdG 模型；但现有文献的 corner mode 主要是 quadratic quasiparticle 结论。论文只能说 BAFQMC “may enable interacting many-body tests of” 这些预测。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.104.184403">PRB 104, 184403</a> · <a href="../../../local_reference_pdfs/candidates/haldar2021_hot_triplon.pdf">PDF</a> · <a href="https://doi.org/10.1515/nanoph-2021-0765">Nanophotonics 11, 1611</a> · <a href="../../../local_reference_pdfs/candidates/roy2022_topological_oscillation.pdf">PDF</a> · <a href="https://arxiv.org/abs/2406.12981">arXiv:2406.12981</a> · <a href="../../../local_reference_pdfs/candidates/tesfaye2024_bdg_geometry.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="kitaev">
+<h3>13. Bosonic Kitaev chain / 2D cousin：anomalous propagation 的实验锚点</h3>
+<span class="tag c">C：real-coupling cousin 可严格</span>
+<div class="eq">H_B = (1/2)Σ_j[t e^{iφ_t}a†_{j+1}a_j+iΔ a†_{j+1}a†_j+h.c.].</div>
+<p><b>实验。</b>Busnaina 等在三模 superconducting parametric cavity 中用 difference-frequency pump 实现 hopping、sum-frequency pump 实现 pairing。开链典型 <code>t/2π≈2.02 MHz</code>、<code>Δ/2π≈.55–.62 MHz</code>；闭环设备约 <code>Δ/t=.417</code>。实验观察 pump-phase-controlled chiral transport、quadrature localization 和显著 boundary sensitivity。它是可控的二次、开放、非平衡网络，不含强相互作用。</p>
+<p><b>相互作用理论。</b>Wang、You 与 Sun 研究带相位的 Kitaev hopping/pairing，加 onsite <code>U</code> 和三体 <code>U₃n(n−1)(n−2)</code>。处理 free、hard-core（spin/Jordan–Wigner）、三体约束与 soft-core DMRG；常取 <code>t=Δ=1</code>、链长至 192。hard-core、三体约束和 soft-core 中均找到 Ising 标度 <code>ν≈1</code>，并扩展到两腿梯。</p>
+<p><b>严格关系。</b>这说明 anomalous chain 的实验与临界物理都真实存在。严格例应选择可同时 realify 的相位和允许的 square interactions；原实验是二次系统，原相互作用理论的复相位/正 onsite U 则不能直接纳入。</p>
+<p class="refs"><a href="https://doi.org/10.1038/s41467-024-47186-8">Nat. Commun. 15, 3065 (2024)</a> · <a href="../../../local_reference_pdfs/candidates/busnaina2023_bosonic_kitaev.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevA.106.053315">PRA 106, 053315 (2022)</a> · <a href="../../../local_reference_pdfs/candidates/wang2022_interacting_bkc.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="helical">
+<h3>14. 四组分 helical Hofstadter–BdG：拓扑吸引力高，强关联证据低</h3>
+<span class="tag c">C：pseudo-TRS 拓扑母体</span>
+<p>Kondo、Akagi 与 Katsura 建立满足 pseudo-time-reversal <code>Θ′=PK</code>、<code>Θ′²=−1</code> 的 bosonic BdG <code>Z₂</code> 分类。显式例是 bilayer kagome ferromagnet：层内 <code>−J S_i·S_j +Dξ_{ij}(S_i×S_j)_z</code>，层间反铁磁 <code>J′S_{i1}·S_{i2}</code>。linear spin-wave/BdG 在宽度 <code>M=20</code>、<code>D=.1J,J′=.1J</code> 的 strip 上得到 helical magnon edge modes，三个 band pairs 的 <code>Z₂</code> 指数为 1,0,1。</p>
+<p>它支持“多 flavor + antiunitary square −1 能保护 bosonic BdG topology”的概念。把 complex helical sectors 成对 realify 并加入允许的 <code>J²,Π²</code> 可形成严格四组分模型；但这是本工作的构造，不是该文已经做过的 interacting simulation。</p>
+<p class="refs"><a href="https://doi.org/10.1103/PhysRevB.99.041110">PRB 99, 041110(R) (2019)</a> · <a href="../../../local_reference_pdfs/candidates/kondo2019_z2_magnon.pdf">本地 PDF</a></p>
+</article>
+
+<article class="model" id="moat">
+<h3>15. Moat band / Bose surface：问题重要，但离严格实例最远</h3>
+<span class="tag c">C：只共享低能色散</span>
+<div class="eq">H = ∫d²r { Φ†[(|k|−k₀)²/(2M)]Φ +(g/2M)(Φ†Φ)² }.</div>
+<p><b>CS trial state。</b>Wei 与 Sedrakyan 用 Chern–Simons transmutation 构造 chiral-spin-liquid-like wavefunction，再用 Monte Carlo 积分评估该变分态；这不是对原玻色哈密顿量的无偏 QMC。低密度区约 <code>n≲k₀²/(8π)</code> 时得到 <code>μ∼n²ln²n</code>，并比较 CSL、fragmented BEC 与普通 BEC。</p>
+<p><b>Bilayer excitons。</b>Maisel Licerán、Boeve 与 Stoof（2026）研究具有 quadratic/quartic moat dispersion 和软排斥的连续体，求两体 T-matrix，并比较单动量 FF、<code>±q</code> LO stripe、高 Q、fragmented 和 composite-fermion 变分能。大 moat、弱裸相互作用下也可因 T-matrix 重整化偏好 LO。</p>
+<p><b>严格关系。</b>这些工作证明 moat 色散有真正未决的 many-body competition，但相互作用都是 repulsive density type，和严格 square completion 不同。除非我们能写出短程、稳定且清楚处于锥内的 lattice realization，否则不建议放主文。</p>
+<p class="refs"><a href="https://doi.org/10.1016/j.aop.2023.169354">Ann. Phys. 456, 169354 (2023)</a> · <a href="../../../local_reference_pdfs/candidates/wei2023_moat.pdf">PDF</a> · <a href="https://arxiv.org/abs/2602.18194">arXiv:2602.18194</a> · <a href="../../../local_reference_pdfs/candidates/maisel2026_moat_exciton.pdf">PDF</a></p>
+</article>
+
+<article class="model" id="already-signfree">
+<h3>16. 两个“物理很像但已有无符号 QMC”的对照组</h3>
+<span class="tag d">D：已有专门无符号算法</span>
+<h4>三角晶格 pair hopping + 三体约束</h4>
+<div class="eq">H=−μΣn_i +(U/2)Σn_i(n_i−1)+VΣ_⟨ij⟩n_in_j
+ −tΣ_⟨ij⟩(a†_i a_j+h.c.)−t_pΣ_⟨ij⟩[(a†_i)²a_j²+h.c.],  n_i=0,1,2.</div>
+<p>Zhang 等使用 SSE directed-loop，并设计 pair-head update，取 <code>β=L</code>。在 <code>U=V=μ=0</code> 得到 ASF→PSF 连续转变 <code>t_p/t≈2.5</code>；<code>U&gt;0,V=0</code> 的 MI–PSF 为一级；有限 <code>V</code> 产生多个 commensurate solids 与 pair supersolid。它可作为“世界线算法已经覆盖未受挫/特殊矩阵元区域”的对照，不能作为 BAFQMC 独占新领域。</p>
+<h4>Pyrochlore paired hard-core bosons</h4>
+<div class="eq">H=Σ_⟨ij⟩[−t₁(b†_i b_j+h.c.)−t₂(b†_i b†_j+h.c.)+V n_in_j],   n_i=0,1.</div>
+<p>Huang 等在 <code>μ=3V,t₁,t₂&gt;0</code> 用连续时间 worm QMC，并为 anomalous pair kinks 设计更新，系统至 <code>N=4L³</code>。发现广泛的 U(1) Coulomb liquid，密度关联 <code>1/r⁴</code>、单玻色子关联指数衰减；有序转变多为强/弱一级，并提出窄的 gapped <code>Z₂</code> liquid 候选，但不能完全排除 CDW。这个例子更应被用于划清 SSE/WLQMC 版图。</p>
+<p class="refs"><a href="https://arxiv.org/abs/1208.6506">triangular pair SSE</a> · <a href="../../../local_reference_pdfs/candidates/zhang2013_pair_qmc.pdf">PDF</a> · <a href="https://doi.org/10.1103/PhysRevResearch.2.042022">PRResearch 2, 042022(R)</a> · <a href="../../../local_reference_pdfs/candidates/huang2020_pyrochlore_pair.pdf">PDF</a></p>
+</article>
+</section>
+
+<section id="claims">
+<h2>六、文章中可以说什么、不能说什么</h2>
+<div class="warning">
+  <p><b>不要写：</b>“这些模型都属于新发现的 {+,+,+} 类。”绝大多数只提供色散、序参量或相互作用通道的母体。</p>
+  <p><b>不要写：</b>“双谷手性超流总是先失去 U(1) 再失去 Z₂。”2014 phase-only MC 是这个次序，但 2025 shaken-lattice 实验得到相反次序：chirality 先熔，留下 paramagnetic SF。</p>
+  <p><b>不要写：</b>“flat band interaction 必然产生 chiral order。”all-flat π-flux plaquette chain 的局域对称可禁止长程手性序。</p>
+  <p><b>不要写：</b>“HOT corner mode 说明 interacting higher-order topological phase 已确立。”现有主要证据是 quadratic triplon BdG 或驱动耗散 parametric oscillator。</p>
+  <p><b>不要写：</b>“Bubble Phase 已被无偏方法确认为 Bose glass。”目前依据是周期模型的 Gutzwiller/BdG 预印本。</p>
+</div>
+<div class="card verdict">
+  <p><b>推荐的准确中心表述：</b></p>
+  <p>“The {+,+,+} cone contains interacting bosonic BdG Hamiltonians whose elementary channels—pair hopping, cavity-induced bond squares, odd-parity interflavor pairing, and current interactions—already underpin a broad range of proposed chiral, paired, flat-band, and topological phenomena. The full Hamiltonians studied previously generally contain additional repulsive-density, hard-core, or complex-flux structures outside this cone. The present criterion therefore identifies sign-problem-free interacting completions of these physically established mechanisms, including a frustrated double-valley triangular-lattice model inaccessible to conventional world-line formulations.”</p>
+</div>
+<h3>最小而有力的主文组合</h3>
+<ol>
+  <li>只写一个完整哈密顿量：上面的三角晶格双谷模型，并逐项说明 <code>T,X</code> 偶、<code>J,Π</code> 奇及其平方符号。</li>
+  <li>紧接一句物理目标：双谷凝聚、Ising chirality 与 pair/current order 的竞争；引用双谷理论、chiral Bose liquid 与实验。</li>
+  <li>再用一句说明可实现相互作用不是凭空构造：pair-hopping 和 cavity bond-square 在现有模型中已经出现。</li>
+  <li>把其他 kagome/AB-cage/HOT/Kitaev/moat 候选放入 Supplemental 的“future applications”表，不稀释主线。</li>
+</ol>
+</section>
+
+<section id="refs">
+<h2>七、来源与核查说明</h2>
+<p>本报告对上列论文逐篇核对了原始 PDF 中的模型、参数、方法和主要图/结论。每节同时给出 DOI/arXiv 页面和本地 PDF，便于作者复查。若后续把任一文献加入 <code>references.bib</code>，仍需从出版社/DOI/arXiv 元数据逐字段复核作者、题目、卷页、年份、DOI 与 arXiv 号；尤其三角 pair-SSE 的早期 arXiv 作者列表与正式出版版本存在差异，不应直接复制预印本 BibTeX。</p>
+<p class="small">范围边界：这里的“属于/不属于严格类”是按当前 <code>experts/TimeReversalSymmetriesQMC.tex</code> 的三种 TRS 与平方符号判据做的结构性判断；若该文件中的 flavor basis、normal-ordering counterterm 或稳定性条件后续改变，相关分类也应同步重审。</p>
+</section>
+
+<div class="footer">BAFQMC manuscript research report · 仅新增研究报告，未修改 main.tex、SM.tex 或 references.bib。</div>
+</main></body></html>
