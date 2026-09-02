@@ -760,85 +760,70 @@ Two real orthogonal matrices organize a complete contraction-semigroup classific
 
 The class-by-class generator solutions convert the classification into a construction principle.  Maximal-subgroup directions supply hopping, conversion, and particle-number-changing Hubbard--Stratonovich channels.  Cone directions enforce \(\eta A+A^\dagger\eta<0\), which keeps the ordered propagation away from determinant zeros and bosonic poles.  Together with \(J_1^\trans A J_1=\overline A\), a connected auxiliary-field domain anchored at a positive reference has nonnegative weights throughout the contraction semigroup.
 
-Time reversal gives an independent analysis of \(A_{\rm group}\).  For each statistics, twelve relation cases admit a physical representation in which every maximal-subgroup generator is invariant under a Majorana or Kramers pair.  In every remaining case, an explicit physical Pauli-tensor representation and one additional time reversal select a nonzero proper subgroup in the Majorana, Kramers, or bosonic split-orthogonal class.  The outlined symbol records this sufficient construction and leaves the complementary directions to direct analysis.  Appendix~\ref{app:proper_subgroup_scope} reports negative finite fermionic traces and negative bosonic continued branches for all outlined relation classes.  It also identifies six fermionic classes with low-dimensional realizations whose complete maximal subgroups are sign free because all allowed Fock generators are Hermitian and mutually commute.  The three interacting models show how a cone term can complete a sign-free fixed-field evolution even when the time reversals retained by the full slice do not fix its sign.  The periodic table therefore links the five elementary matrix relations to contraction-semigroup Hamiltonians and to the sign-free subgroups selected by physical time reversals.
+Time reversal gives an independent analysis of \(A_{\rm group}\).  For each statistics, twelve relation cases admit a physical representation in which every maximal-subgroup generator is invariant under a Majorana or Kramers pair.  In every remaining case, an explicit physical Pauli-tensor representation and one additional time reversal select a nonzero proper subgroup in the Majorana, Kramers, or bosonic split-orthogonal class.  The outlined symbol records this sufficient construction and leaves the complementary directions to direct analysis.  Appendix~\ref{app:proper_subgroup_scope} tests the complete maximal group in all outlined classes.  It also explains six fermionic classes with low-dimensional realizations whose entire maximal subgroups are sign free because every allowed quadratic Fock-space term is Hermitian and commutes with all the others.  The three interacting models show how a cone term can complete a sign-free fixed-field evolution even when the time reversals retained by the full slice do not fix its sign.  The periodic table therefore links the five elementary matrix relations to contraction-semigroup Hamiltonians and to the sign-free subgroups selected by physical time reversals.
 
 \appendix
 
-\section{Complete maximal-subgroup weights in specific representations}
+\section{Weights of the complete maximal subgroup}
 \label{app:proper_subgroup_scope}
 
-\subsection{Direct sign tests with only \texorpdfstring{\(J_1,J_2\)}{J1,J2}}
+An outlined symbol in Fig.~\ref{fig:periodic_table} means that the additional
+time reversal introduced in Sec.~\ref{sec:group_only_TR} protects only a subset
+of the quadratic terms allowed by \(A_{\rm group}\).  The two original matrices
+\(J_1,J_2\) allow further terms.  The additional time reversal does not
+determine the sign of products containing them.  The complete maximal group
+must therefore be examined separately.
 
-The outlined symbols in Fig.~\ref{fig:periodic_table} show that an additional
-time reversal protects a nonzero proper subgroup.  To test the complete space
-allowed by \(J_1,J_2\), we formed seeded random slices from the full real
-solution of Eq.~\eqref{eq:group_only_generators}, without imposing
-Eq.~\eqref{eq:extra_TR_restriction}.  The fermionic weights were evaluated as
-finite Fock-space traces.  For bosons, the inverse-square-root branch was
-continued from a number-damping reference using small conjugate complex detours
-that remained numerically separated from determinant zeros.  These detours
-select the analytically continued Gaussian branch and are not real
-auxiliary-field paths.  The endpoint occupation-number trace need not converge.
-Table~\ref{tab:proper_group_witnesses} summarizes the resulting negative tests.
+\subsection{Fermionic tests of the complete group}
 
-\begin{center}
-\refstepcounter{table}\label{tab:proper_group_witnesses}
-\begin{minipage}{0.82\linewidth}
-\small
-\textbf{TABLE \thetable.}\enspace
-Location of a negative finite fermionic trace or a negative bosonic continued
-branch for the twenty outlined relation classes in each statistics.  A witness
-in a spectator extension uses \(J_a\mapsto J_a\otimes I_2\).
-\par\vspace{0.5\baselineskip}
-\centering
-\begin{ruledtabular}
-\begin{tabular}{lccc}
-Statistics & \shortstack{Number of\\classes} & Displayed realization
-& \shortstack{Witness in\\spectator extension} \\
-\hline
-Bosons & 20 & 20 & 0 \\
-Fermions & 20 & 16 & 4 (F01, F06, F18, F21)
-\end{tabular}
-\end{ruledtabular}
-\end{minipage}
-\end{center}
+We chose random real coefficients for a basis of the complete solution of
+Eq.~\eqref{eq:group_only_generators} in several time slices.  No additional
+time-reversal condition was imposed.  The fermionic Fock space is finite, so the
+trace in Eq.~\eqref{eq:configuration_weight} can be evaluated directly.  Among
+the twenty outlined fermionic relation classes, sixteen give a negative
+Fock-space trace in the same representation displayed in
+Sec.~\ref{sec:group_only_TR}.  The displayed two-mode representations of F01,
+F06, F18, and F21 remain positive for their entire \(A_{\rm group}\).
 
-All twenty outlined cases in each panel were tested, and a negative result was
-found in every relation class.  For example, four random slices in the displayed
-F02 realization give \(p_{\rm F}\simeq-1.52\times10^6\), with the identity
-\(p_{\rm F}^2=\det(I+M)\) satisfied to a relative residual of
-\(6.3\times10^{-12}\).  Thus the five relations obeyed by \(J_1,J_2\) do not
-guarantee full-group positivity for every physical representation of an
-outlined class.  The four fermionic spectator entries in
-Table~\ref{tab:proper_group_witnesses} are needed because the corresponding
-displayed two-mode representations are exactly sign free, as shown next.
+F02 is one of the sixteen direct examples.  Four real time slices in the
+displayed F02 representation give
+\(p_{\rm F}=-1.51748371663\times10^6\).  Direct evaluation of the Fock-space
+trace fixes the minus sign.  The identity \(p_{\rm F}^2=\det(I+M)\)
+independently checks its magnitude.
 
-\subsection{Commuting low-dimensional fermion representations}
+For the remaining four classes, replacing \(J_a\) by \(J_a\otimes I_2\) adds a
+two-component flavor degree of freedom on which both matrices act trivially.
+This leaves all five relations in Eq.~\eqref{eq:five_relations} unchanged.  The
+complete \(A_{\rm group}\) in the larger space contains new quadratic terms
+that mix the two flavor components.  These terms do not all commute, and random
+products give negative fermionic traces.  The sixteen direct examples and these
+four enlarged examples show that every outlined fermionic relation class
+contains a representation with a sign problem.  The five relations alone
+therefore do not give a class-wide positivity result.  The dimension and the
+complete set of allowed quadratic terms also matter.
 
-These low-dimensional sign-free representations have an elementary Fock-space
-explanation.  Let
-\(A_a\) span the complete maximal-group space and define
-\(\hat H_a=\frac12\hat\chi^\trans g_{\rm F}A_a\hat\chi\).  When
+\subsection{Positive weights when all quadratic terms commute}
+
+The positive low-dimensional cases have a simple explanation.  Suppose every
+quadratic Fock-space operator allowed by \(A_{\rm group}\) is Hermitian and any
+two such operators commute.  The operators \(\hat h_\ell\) then commute even
+when the auxiliary fields vary between time slices.  All slices share a common
+eigenbasis, and imaginary-time ordering has no effect.  Their ordered product
+reduces to
 \begin{equation}
-    \hat H_a^\dagger=\hat H_a,
-    \qquad
-    [\hat H_a,\hat H_b]=0
-    \quad\text{for every }a,b,
-    \label{eq:commuting_full_group_condition}
-\end{equation}
-all time slices commute.  For arbitrary real coefficients \(x_{\ell a}\),
-\begin{equation}
-\begin{aligned}
     p_{\rm F}
-    &=\Tr\prod_\ell\exp\!\left(\sum_a x_{\ell a}\hat H_a\right)\\
-    &=\Tr\exp\!\left(\sum_{\ell,a}x_{\ell a}\hat H_a\right)>0.
-\end{aligned}
+    =\Tr\prod_\ell\ee^{\hat h_\ell}
+    =\Tr\ee^{\sum_\ell\hat h_\ell}>0.
     \label{eq:commuting_full_group_weight}
 \end{equation}
-At fixed auxiliary field, all operators in this statement are quadratic.  In a
-Hamiltonian realization, the quadratic free term and every decoupled interaction
-channel therefore commute.  The basis-independent content is that the complete
-allowed set of Fock generators is Hermitian and mutually commuting.
+The exponential of a Hermitian operator has positive eigenvalues, and the
+fermionic Fock space has finite dimension.  Its trace is therefore positive.
+In a Hamiltonian realization, this condition simply says that the quadratic
+free term and all quadratic terms produced by the Hubbard--Stratonovich fields
+are Hermitian and mutually commute.  Different Hubbard--Stratonovich channels
+must also commute with one another.
+
+\subsubsection{One fermion mode}
 
 For one fermion mode, \(g_{\rm F}=\sigma_x\).  The following four
 representations all have the complete space
@@ -851,18 +836,23 @@ representations all have the complete space
 \end{array}
     \label{eq:one_mode_commuting_representations}
 \end{equation}
-The lifted generator is \(a(\hat n-\frac12)\), where
+Every slice is generated by
+\(\hat h_\ell=a_\ell(\hat n-\frac12)\), where
 \(\hat n=\hat c^+\hat c\).  With
-\(\alpha=\sum_\ell a_\ell\), every ordered product has weight
+\(\alpha=\sum_\ell a_\ell\), the two occupation states give
 \begin{equation}
-    p_{\rm F}=2\cosh\frac{\alpha}{2}>0.
+    p_{\rm F}
+    =\ee^{-\alpha/2}+\ee^{\alpha/2}
+    =2\cosh\frac{\alpha}{2}>0.
     \label{eq:one_mode_commuting_weight}
 \end{equation}
-The F05 and F17 pairs are alternative one-mode representations of their
-relation classes.  Their displayed two-mode representations in
-Sec.~\ref{sec:group_only_TR} have negative witnesses.  The F01 and F21 pairs in
-Eq.~\eqref{eq:one_mode_commuting_representations} are lower-dimensional,
-degenerate representations with \(J_1=J_2\).
+The F05 and F17 pairs are one-mode realizations different from the two-mode
+ones displayed in Sec.~\ref{sec:group_only_TR}.  Those displayed realizations
+give negative traces in the random test.  In the one-mode F01 and F21 cases in
+Eq.~\eqref{eq:one_mode_commuting_representations}, \(J_1\) and \(J_2\) happen to
+be the same matrix.
+
+\subsubsection{Two fermion modes}
 
 The four sign-free displayed representations have two fermion modes.  Write
 \(g_{\rm F}=\sigma_x^{({\rm N})}\otimes I_2^{({\rm f})}\), where the two factors
@@ -881,66 +871,117 @@ label Nambu and flavor spaces.  Their \(J_1,J_2\) pairs are
 \end{array}
     \label{eq:two_mode_commuting_representations}
 \end{equation}
-In the occupation basis
-\(\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}\), one complete-group
-generator is
+Although the four matrix pairs differ, their allowed quadratic operators have
+the same simple structure.  One operator is the hopping term
 \begin{equation}
-    \hat H_{\rm o}=\hat c_1^+\hat c_2+\hat c_2^+\hat c_1,
+    \hat c_1^+\hat c_2+\hat c_2^+\hat c_1,
     \label{eq:odd_parity_group_generator}
 \end{equation}
-which acts only in the odd-parity doublet.  With
-\(\hat n_i=\hat c_i^+\hat c_i\), the other generator acts only in the
-even-parity doublet and is, up to an overall sign,
+which mixes the two singly occupied states \(\lvert10\rangle\) and
+\(\lvert01\rangle\).  The second operator is, up to an overall sign,
 \begin{align}
 \mathrm{F01}:\quad
-    \hat H_{\rm e}^{(1)}&=\hat n_1+\hat n_2-1,\notag\\
+    &\hat n_1+\hat n_2-1,\notag\\
 \mathrm{F06},\mathrm{F18}:\quad
-    \hat H_{\rm e}^{(2)}&=\ii(\hat c_1\hat c_2+
+    &\ii(\hat c_1\hat c_2+
         \hat c_1^+\hat c_2^+),\notag\\
 \mathrm{F21}:\quad
-    \hat H_{\rm e}^{(3)}&=\hat c_1^+\hat c_2^+-\hat c_1\hat c_2.
+    &\hat c_1^+\hat c_2^+-\hat c_1\hat c_2,
     \label{eq:even_parity_group_generators}
 \end{align}
-Their complementary supports give
-\(\hat H_{\rm e}^{(j)}\hat H_{\rm o}=
-\hat H_{\rm o}\hat H_{\rm e}^{(j)}=0\).  Each active doublet has eigenvalues
-\((-1,+1)\).  Consequently, the complete maximal-group weight is
+where \(\hat n_i=\hat c_i^+\hat c_i\).  Each operator in
+Eq.~\eqref{eq:even_parity_group_generators} acts only on the empty and doubly
+occupied states \(\lvert00\rangle,\lvert11\rangle\).  It vanishes on the two
+singly occupied states.  Conversely, the hopping term vanishes on
+\(\lvert00\rangle,\lvert11\rangle\).  The two allowed operators therefore
+commute because they act on different pairs of Fock states.  Within the pair on
+which it acts, each operator has eigenvalues \(-1,+1\).  If \(\alpha\) and
+\(\beta\) are their total coefficients accumulated over all time slices, the
+complete trace is
 \begin{equation}
-    p_{\rm F}=2\cosh\alpha+2\cosh\beta\geq4,
+\begin{aligned}
+    p_{\rm F}
+    &=\ee^{-\alpha}+\ee^\alpha+\ee^{-\beta}+\ee^\beta\\
+    &=2\cosh\alpha+2\cosh\beta\geq4,
+\end{aligned}
     \label{eq:two_mode_commuting_weight}
 \end{equation}
-where \(\alpha\) and \(\beta\) are the summed slice coefficients of the even-
-and odd-parity generators.  This direct commutation is the full explanation of
-the positive weights.
+where the two \(\cosh\) terms come from the two pairs of Fock states.  This
+separation of the one-particle and zero-or-two-particle sectors explains the
+positive weight directly.
 
-For bosons, Eq.~\eqref{eq:commuting_full_group_condition} cannot give an
-ordinary convergent Fock trace throughout a complete nontrivial real group.
-Each nonzero Hermitian direction contains both \(\hat H\) and \(-\hat H\).
-Their exponentials cannot both be trace class on the infinite-dimensional
-bosonic Fock space, since their product is the identity.  The one-mode B05 and
-B17 realizations make this explicit.  Their
-generator is \(a(\hat n+\frac12)\), and for
-\(\alpha=\sum_\ell a_\ell<0\) the trace is
-\(p_{\rm B}=[2\sinh(-\alpha/2)]^{-1}>0\).  It diverges for \(\alpha>0\), while
-its pure-group meromorphic continuation is
-\(-[2\sinh(\alpha/2)]^{-1}<0\).  Commutation alone therefore does not give a
-bosonic full-group sign-free example with a convergent trace.  The contraction
-cone supplies the required damping and fixes the positive branch.
+Together with the one-mode examples, these results give positive complete
+groups in F01, F05, F06, F17, F18, and F21 for the concrete realizations above.
 
-To probe higher dimensions, we exhaustively enumerated ordered pairs in which
-each \(J_j\) is a single tensor product of one, two, or three matrices from
-Eq.~\eqref{eq:real_pauli_basis}.  At Nambu dimension two, the commuting-Hermitian
-property occurs in F01, F05, F17, and F21.  At dimension four, it occurs in F01,
-F06, F18, and F21.  No example appeared at dimension eight, corresponding to
-four fermion modes.  For the four displayed two-mode pairs in
-Eq.~\eqref{eq:two_mode_commuting_representations}, appending a two-dimensional
-spectator adds noncommuting mixing directions to the complete \(A_{\rm group}\).
-Their extensions supply the four negative witnesses in
-Table~\ref{tab:proper_group_witnesses}.  The finite search does not cover general
-orthogonal representations, Nambu dimensions outside powers of two, more than
-three tensor factors, or \(J_1\) and \(J_2\) formed from linear combinations of
-Pauli tensors.  The existence of other higher-dimensional realizations with a
-Hermitian, mutually commuting complete generator space remains open.
+\subsection{Bosonic convergence}
+
+For bosons, the occupation number has no upper bound.  The one-mode B05 and B17
+representations have \((J_1,J_2)=(I_2,\sigma_z)\) and
+\((\sigma_z,I_2)\), respectively.  Their slices are generated by
+\(a_\ell(\hat n+\frac12)\).  For
+\(\alpha=\sum_\ell a_\ell<0\), the occupation-number trace is the convergent
+geometric series
+\begin{equation}
+    p_{\rm B}
+    =\sum_{n=0}^{\infty}\ee^{\alpha(n+1/2)}
+    =\frac{1}{2\sinh(-\alpha/2)}>0.
+    \label{eq:one_mode_boson_trace}
+\end{equation}
+Higher occupations are suppressed in this range.  For \(\alpha>0\), each term
+grows with \(n\), and the trace diverges.  Continuing the final expression in
+Eq.~\eqref{eq:one_mode_boson_trace} around its pole at \(\alpha=0\) gives
+\(-[2\sinh(\alpha/2)]^{-1}<0\).  This negative number is the continuation of
+the Gaussian formula.  The occupation-number sum at the same point is
+divergent.  A complete real group contains both signs of \(\alpha\), so
+commutation alone cannot keep the bosonic trace finite.
+
+The random tests in larger bosonic spaces follow the same square-root sign from
+a real evolution with a convergent positive trace.  The matrices are varied
+continuously toward the real configuration being tested.  If the direct path
+reaches a zero of the determinant, we move slightly into the complex plane and
+pass the zero once on either side.  The two paths return to the real axis at the
+same endpoint.  For every reported configuration they give the same negative
+real value.  Such a configuration was found in the displayed representation of
+every one of the twenty outlined bosonic classes.
+The occupation-number sum at the endpoint can diverge, just as it does for
+\(\alpha>0\) in the one-mode example.  The negative value records the continued
+Gaussian expression.  The contraction cone supplies the damping that keeps the
+physical trace finite and positive.
+
+\subsection{Search in higher dimensions}
+
+The sign-free fermionic realizations above contain one or two modes.  We also
+searched all ordered pairs for which each \(J_j\) is a single tensor product of
+one, two, or three matrices from Eq.~\eqref{eq:real_pauli_basis}.  For every
+pair, we solved the complete \(A_{\rm group}\) and checked whether all of its
+quadratic Fock-space operators are Hermitian and mutually commute.  The pairs
+that pass this test belong to
+\begin{center}
+\begin{ruledtabular}
+\begin{tabular}{ccc}
+Fermion modes & Nambu dimension & Classes \\
+\hline
+1 & 2 & F01, F05, F17, F21 \\
+2 & 4 & F01, F06, F18, F21 \\
+4 & 8 & none
+\end{tabular}
+\end{ruledtabular}
+\end{center}
+The four-mode row includes the enlarged F01, F06, F18, and F21 examples used
+above.  They give negative traces even though their two-mode versions are
+positive.  Within the same Pauli-tensor family, a separate bosonic test covers
+\(766\) realizations in the twenty outlined classes through Nambu dimension
+eight.  For each realization, the random search finds a configuration whose
+continued Gaussian value is negative.  Only the one-mode B05 and B17
+realizations have a complete set of Hermitian, mutually commuting quadratic
+terms, and their Fock traces converge for only one sign of \(\alpha\).
+
+The enumeration of matrix pairs is exhaustive within this Pauli-tensor family.
+Because its Nambu dimension doubles with each tensor factor, it describes one,
+two, and four fermion modes and does not include three-mode representations.
+Other matrix representations and other dimensions remain open, so
+higher-dimensional fermionic realizations with positive complete-group weights
+may still exist.
 
 \bibliography{references}
 
