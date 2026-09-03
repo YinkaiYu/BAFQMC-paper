@@ -774,186 +774,97 @@ At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and ar
 \end{equation}
 The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\).  Equation~\eqref{eq:conjugate_BdG_weight} makes interaction-driven transitions between paired, density-imbalanced, and phase-coherent bosonic states accessible to auxiliary-field simulation on frustrated lattices.
 
-\subsection{Frustrated triangular-lattice two-flavor \texorpdfstring{\(p\)}{p}-wave model in the split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
+\subsection{A sign-free frustrated two-flavor \texorpdfstring{\(p\)}{p}-wave model}
 
-Frustrated hopping on the triangular lattice produces two low-energy valleys at \(\pm\mathbf K\), allowing orbital motion to become locked to an internal flavor.  For two-component bosons, closely related multivalley settings have been predicted to support counterpropagating flavors with no net mass current and staggered spin loop currents.  When the valley bands carry nonzero Berry curvature, the same order also produces a spontaneous spin Hall response~\cite{liNatuParamekanti2014chiral}.  Density-matrix renormalization-group calculations on a triangular ladder found that the chiral-spin structure survives strong one-dimensional quantum fluctuations~\cite{wuLiDasSarma2017chiral}.  Odd-parity flavor-singlet pairing adds a second source of strong quantum fluctuations and connects this double-valley problem to exactly solvable \(p\)-wave boson models with fragmented pair condensation and an unusual third-order quantum transition~\cite{lermaHernandezDukelsky2019pwave}.  The Hamiltonian below brings double-valley counterflow and \(p\)-wave pair dynamics together in a local two-dimensional model whose auxiliary-field weight is strictly positive.
-
-Let the primitive vectors be \(\mathbf a_1=(1,0)\) and \(\mathbf a_2=(1/2,\sqrt{3}/2)\).  We sum over the three displacements
+We consider two bosonic flavors on a triangular lattice with frustrated nearest-neighbor hopping, an oriented flavor-singlet pair field, and two positive-square interactions.  Let \(\mathbf a_1=(1,0)\) and \(\mathbf a_2=(1/2,\sqrt{3}/2)\).  We count every nearest-neighbor bond once by choosing
 \begin{equation}
-    \boldsymbol\delta\in
-    \{\mathbf a_1,\mathbf a_2,\mathbf a_2-\mathbf a_1\},
+    \boldsymbol\delta\in\{\mathbf a_1,\mathbf a_2,\mathbf a_2-\mathbf a_1\}.
     \label{eq:three_plus_bond_directions}
 \end{equation}
-so that every nearest-neighbor bond appears once.  The chosen directions are a physical part of the pairing texture.  On such a bond, define the flavor-singlet pair
+The oriented flavor-singlet pair on such a bond is
 \begin{equation}
-    \hat P_{\mathbf r,\boldsymbol\delta}^+
-    =\hat b_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}^+
-     -\hat b_{\mathbf r+\boldsymbol\delta}^+
-      \hat c_{\mathbf r}^+,
-    \qquad
-    \hat P_{\mathbf r,\boldsymbol\delta}
-    =\hat c_{\mathbf r+\boldsymbol\delta}\hat b_{\mathbf r}
-     -\hat c_{\mathbf r}\hat b_{\mathbf r+\boldsymbol\delta}.
+    \hat P_{\mathbf r,\boldsymbol\delta}^+=\hat b_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}^+-\hat b_{\mathbf r+\boldsymbol\delta}^+\hat c_{\mathbf r}^+,
+    \qquad \hat P_{\mathbf r,\boldsymbol\delta}=\hat c_{\mathbf r+\boldsymbol\delta}\hat b_{\mathbf r}-\hat c_{\mathbf r}\hat b_{\mathbf r+\boldsymbol\delta}.
     \label{eq:odd_pair}
 \end{equation}
-Its spatial and flavor wave functions are both antisymmetric.  Their product has the exchange symmetry required for two bosons.  The bond field is odd under \(\boldsymbol\delta\mapsto-\boldsymbol\delta\) and has a linear long-wavelength harmonic, which is the lattice analogue of \(p\)-wave pairing.  This directional texture lowers the threefold rotation symmetry and remains finite at the two valleys.
-
-We consider
-\begin{align}
-    \hat H={}&\hat H_0+\hat H_I,
-    \label{eq:three_plus_model}\\
-    \hat H_0={}&
-    -\mu\sum_{\mathbf r}
-    (\hat n_{b,\mathbf r}+\hat n_{c,\mathbf r})
-    +t\sum_{\mathbf r,\boldsymbol\delta}
-    \left(
-      \hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}
-      +\hat c_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}
-      +\mathrm{H.c.}
-    \right)
-    \notag\\
-    &-\Delta_{\rm p}\sum_{\mathbf r,\boldsymbol\delta}
-    \left(
-      \hat P_{\mathbf r,\boldsymbol\delta}^+
-      +\hat P_{\mathbf r,\boldsymbol\delta}
-    \right),
-    \label{eq:three_plus_model_H0}\\
-    \hat H_I={}&
-    g_1\sum_{\mathbf r,\boldsymbol\delta}
-    \left[
-      -\ii\left(
-        \hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}
-        -\hat b_{\mathbf r+\boldsymbol\delta}^+\hat b_{\mathbf r}
-        +\hat c_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}
-        -\hat c_{\mathbf r+\boldsymbol\delta}^+\hat c_{\mathbf r}
-      \right)
-    \right]^2
-    \notag\\
-    &+g_2\sum_{\mathbf r,\boldsymbol\delta}
-    \left[
-      -\ii\left(
-        \hat P_{\mathbf r,\boldsymbol\delta}^+
-        -\hat P_{\mathbf r,\boldsymbol\delta}
-      \right)
-    \right]^2,
+It is odd under reversal of the bond.  The spatial and flavor parts are both antisymmetric, giving the exchange symmetry required for two bosons.  Equal amplitudes on the three chosen directions define a lattice \(p\)-wave texture and select a spatial orientation.  We also use the total particle current on the same bond,
+\begin{equation}
+    \hat J_{\mathbf r,\boldsymbol\delta}=-\ii\bigl(\hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}-\hat b_{\mathbf r+\boldsymbol\delta}^+\hat b_{\mathbf r}+\hat c_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}-\hat c_{\mathbf r+\boldsymbol\delta}^+\hat c_{\mathbf r}\bigr).
+    \label{eq:three_plus_total_current}
+\end{equation}
+The Hamiltonian is
+\begin{equation}
+    \hat H=\hat H_0+\hat H_I,
+    \label{eq:three_plus_model}
+\end{equation}
+\begin{equation}
+    \hat H_0=-\mu\sum_{\mathbf r}(\hat n_{b,\mathbf r}+\hat n_{c,\mathbf r})+t\sum_{\mathbf r,\boldsymbol\delta}(\hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}+\hat c_{\mathbf r}^+\hat c_{\mathbf r+\boldsymbol\delta}+\mathrm{H.c.})-\Delta_{\rm p}\sum_{\mathbf r,\boldsymbol\delta}(\hat P_{\mathbf r,\boldsymbol\delta}^++\hat P_{\mathbf r,\boldsymbol\delta}),
+    \label{eq:three_plus_model_H0}
+\end{equation}
+\begin{equation}
+    \hat H_I=g_1\sum_{\mathbf r,\boldsymbol\delta}\hat J_{\mathbf r,\boldsymbol\delta}^2+g_2\sum_{\mathbf r,\boldsymbol\delta}\bigl[-\ii(\hat P_{\mathbf r,\boldsymbol\delta}^+-\hat P_{\mathbf r,\boldsymbol\delta})\bigr]^2,
     \qquad g_1,g_2>0.
     \label{eq:three_plus_model_HI}
-\end{align}
-Here \(t>0\), while \(\Delta_{\rm p}\) and \(\mu\) are real.  The plus sign of the hopping frustrates every elementary triangle.  In the absence of pairing, the dispersion is
+\end{equation}
+Here \(t>0\), while \(\mu\) and \(\Delta_{\rm p}\) are real.  Every term is invariant under global flavor \(SU(2)\).  Its relative-phase \(U(1)\) subgroup conserves the population difference between \(b\) and \(c\).
+
+For population-conserving two-component bosons, quantum fluctuations in a double-valley band can place the two flavors in opposite valleys and generate counterpropagating currents~\cite{liNatuParamekanti2014chiral}.  This chiral-spin structure survives strong one-dimensional fluctuations over a finite interaction regime on a \(\pi\)-flux triangular ladder~\cite{wuLiDasSarma2017chiral}.  Related pair-hopping and integrable \(p\)-wave models support pair-superfluid, pair-supersolid, and fragmented pair-condensed phases~\cite{zhangYinWang2013pair,lermaHernandezDukelsky2019pwave}.  Equation~\eqref{eq:three_plus_model} brings the two mechanisms together and asks whether odd-parity pairing binds the opposite valleys into a counterflow condensate or separates one-boson coherence from flavor-current order.  This frustrated anomalous Hamiltonian lies outside the familiar unfrustrated settings with manifestly nonnegative local weights.  Its \(\{+,+,+\}\) decomposition makes every convergent auxiliary-field configuration weight positive and opens a nonperturbative route to its condensate and critical physics.
+
+The plus sign of the hopping frustrates every elementary triangle.  The single-particle dispersion is
 \begin{equation}
-    \xi_{\mathbf k}=-\mu+2t\left[
-      \cos(\mathbf k\cdot\mathbf a_1)
-      +\cos(\mathbf k\cdot\mathbf a_2)
-      +\cos\bigl(\mathbf k\cdot(\mathbf a_2-\mathbf a_1)\bigr)
-    \right],
+    \xi_{\mathbf k}=-\mu+2t\bigl[\cos(\mathbf k\!\cdot\!\mathbf a_1)+\cos(\mathbf k\!\cdot\!\mathbf a_2)+\cos\bigl(\mathbf k\!\cdot\!(\mathbf a_2-\mathbf a_1)\bigr)\bigr],
     \label{eq:three_plus_dispersion}
 \end{equation}
-with minima at \(\pm\mathbf K=\pm(4\pi/3,0)\).  The pair term has the odd form factor
+with two degenerate minima at \(\pm\mathbf K=\pm(4\pi/3,0)\).  Fourier transformation of the pair field gives the creation amplitude \(-2\ii\Delta_{\rm p}\sum_{\boldsymbol\delta}\sin(\mathbf k\cdot\boldsymbol\delta)\).  It is odd in momentum and reverses sign between the valleys.  Since \(\sum_{\boldsymbol\delta}\sin(\mathbf K\cdot\boldsymbol\delta)=-\sqrt{3}/2\), its low-energy form is
 \begin{equation}
-    2\ii\Delta_{\rm p}\left[
-      \sin(\mathbf k\cdot\mathbf a_1)
-      +\sin(\mathbf k\cdot\mathbf a_2)
-      +\sin\bigl(\mathbf k\cdot(\mathbf a_2-\mathbf a_1)\bigr)
-    \right].
+    \hat H_{\rm p}^{\rm valley}=\ii\sqrt{3}\Delta_{\rm p}\bigl(\hat b_{\mathbf K}^+\hat c_{-\mathbf K}^+-\hat b_{-\mathbf K}^+\hat c_{\mathbf K}^+\bigr)+\mathrm{H.c.}
     \label{eq:three_plus_pair_form_factor}
 \end{equation}
-It changes sign between the valleys and pairs a \(b\) boson near one valley with a \(c\) boson near the other.  We choose \(\mu\) sufficiently negative that the free Bogoliubov Hamiltonian is stable.  A simple sufficient condition is that \(\xi_{\mathbf k}\) exceed the magnitude of Eq.~\eqref{eq:three_plus_pair_form_factor} for every \(\mathbf k\).
+A \(b\) boson at \(+\mathbf K\) pairs with a \(c\) boson at \(-\mathbf K\), while the time-reversed channel pairs \(b_{-\mathbf K}\) with \(c_{\mathbf K}\).  The two amplitudes have equal magnitude and opposite sign, which is the valley imprint of \(p\)-wave parity.  These are the relevant valleys at weak pairing.  The directional pair texture shifts the exact Bogoliubov minima slightly away from \(\pm\mathbf K\) at finite \(\Delta_{\rm p}\).  We choose \(\mu\) so that the free Bogoliubov Hamiltonian is stable.  A simple sufficient condition is \(\xi_{\mathbf k}>2|\Delta_{\rm p}\sum_{\boldsymbol\delta}\sin(\mathbf k\cdot\boldsymbol\delta)|\) for every \(\mathbf k\).
 
-The model has an exact global flavor \(SU(2)\) symmetry,
+Expanding the two squares reveals their microscopic content.  For one flavor on one bond,
 \begin{equation}
-    \begin{pmatrix}\hat b_{\mathbf r}\\ \hat c_{\mathbf r}\end{pmatrix}
-    \longmapsto
-    V\begin{pmatrix}\hat b_{\mathbf r}\\ \hat c_{\mathbf r}\end{pmatrix},
-    \qquad V\in SU(2).
-    \label{eq:three_plus_SU2}
-\end{equation}
-The hopping and the total current in Eq.~\eqref{eq:three_plus_model_HI} are flavor scalars, while Eq.~\eqref{eq:odd_pair} is an \(SU(2)\) singlet.  In particular, the relative \(U(1)\) transformation
-\begin{equation}
-    \hat b_{\mathbf r}\longmapsto \ee^{\ii\theta}\hat b_{\mathbf r},
-    \qquad
-    \hat c_{\mathbf r}\longmapsto \ee^{-\ii\theta}\hat c_{\mathbf r}
-    \label{eq:three_plus_relative_U1}
-\end{equation}
-is an exact subgroup, and
-\begin{equation}
-    \left[\hat H,\sum_{\mathbf r}
-    (\hat n_{b,\mathbf r}-\hat n_{c,\mathbf r})\right]=0.
-    \label{eq:three_plus_relative_number}
-\end{equation}
-The common boson parity
-\begin{equation}
-    (-1)^{\sum_{\mathbf r}(\hat n_{b,\mathbf r}+\hat n_{c,\mathbf r})}
-    =\ee^{\ii\pi\sum_{\mathbf r}
-    (\hat n_{b,\mathbf r}-\hat n_{c,\mathbf r})}
-    \label{eq:three_plus_common_parity}
-\end{equation}
-is the central \(-I\) element of this same \(SU(2)\).  It therefore does not supply a separate Ising degree of freedom.
-
-The two interactions have direct physical meanings.  For either flavor on one bond,
-\begin{align}
-    &\left[-\ii\left(
-      \hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}
-      -\hat b_{\mathbf r+\boldsymbol\delta}^+\hat b_{\mathbf r}
-    \right)\right]^2
-    \notag\\
-    &\quad=
-    \hat n_{b,\mathbf r}+\hat n_{b,\mathbf r+\boldsymbol\delta}
-    +2\hat n_{b,\mathbf r}\hat n_{b,\mathbf r+\boldsymbol\delta}
-    -\left[
-      (\hat b_{\mathbf r}^+)^2\hat b_{\mathbf r+\boldsymbol\delta}^2
-      +(\hat b_{\mathbf r+\boldsymbol\delta}^+)^2\hat b_{\mathbf r}^2
-    \right].
+    \bigl[-\ii(\hat b_{\mathbf r}^+\hat b_{\mathbf r+\boldsymbol\delta}-\hat b_{\mathbf r+\boldsymbol\delta}^+\hat b_{\mathbf r})\bigr]^2=\hat n_{b,\mathbf r}+\hat n_{b,\mathbf r+\boldsymbol\delta}+2\hat n_{b,\mathbf r}\hat n_{b,\mathbf r+\boldsymbol\delta}-\bigl[(\hat b_{\mathbf r}^+)^2\hat b_{\mathbf r+\boldsymbol\delta}^2+\mathrm{H.c.}\bigr].
     \label{eq:three_plus_current_square_expansion}
-\end{align}
-Thus \(g_1\) combines a nearest-neighbor density cost with coherent pair hopping.  The cross term couples the currents of the two flavors.  Positive \(g_1\) penalizes net mass flow and makes counterpropagating flavors more favorable than two flavors moving through the same valley.  Atom-pair hopping has been studied directly in a constrained triangular-lattice Bose--Hubbard model, where large-scale quantum Monte Carlo simulations found pair-superfluid and pair-supersolid phases~\cite{zhangYinWang2013pair}.  The additional density and cross-flavor current terms make Eq.~\eqref{eq:three_plus_model_HI} a distinct, flavor-symmetric realization of correlated pair motion.
-
-The second square obeys
-\begin{align}
-    &\left[-\ii\left(
-      \hat P_{\mathbf r,\boldsymbol\delta}^+
-      -\hat P_{\mathbf r,\boldsymbol\delta}
-    \right)\right]^2
-    \notag\\
-    &\quad=
-    \hat P_{\mathbf r,\boldsymbol\delta}^+
-      \hat P_{\mathbf r,\boldsymbol\delta}
-    +\hat P_{\mathbf r,\boldsymbol\delta}
-      \hat P_{\mathbf r,\boldsymbol\delta}^+
-    -(\hat P_{\mathbf r,\boldsymbol\delta}^+)^2
-    -\hat P_{\mathbf r,\boldsymbol\delta}^2.
-    \label{eq:three_plus_pair_square_expansion}
-\end{align}
-It contains number-conserving scattering of odd-parity pairs together with processes that create or remove two bond pairs.  The real linear pair field in Eq.~\eqref{eq:three_plus_model_H0} selects one pair quadrature, while positive \(g_2\) suppresses fluctuations in the orthogonal quadrature.  The exactly solvable model of Ref.~\cite{lermaHernandezDukelsky2019pwave} shows how strongly a flavor-singlet \(p\)-wave channel can reorganize a bosonic many-body state.  Its number-conserving separable interaction differs from the local quadrature interaction in Eq.~\eqref{eq:three_plus_model_HI}, leaving the fate of its fragmented and pair-coherent regimes on a frustrated lattice as an open question.
-
-Three time reversals act on the annihilation operators as
+\end{equation}
+Thus \(g_1\) combines a nearest-neighbor density cost, coherent pair hopping, and a cross term that couples the two flavor currents.  The second square obeys
 \begin{equation}
-\begin{array}{c|cc|c}
-    &\hat b_{\mathbf r}&\hat c_{\mathbf r}&\ii\\
-    \hline
-    \widehat\Theta_1&\hat b_{\mathbf r}&\hat c_{\mathbf r}&-\ii\\
-    \widehat\Theta_2&\ii\hat c_{\mathbf r}&\ii\hat b_{\mathbf r}&-\ii\\
-    \widehat\Theta_3&\ii\hat b_{\mathbf r}&-\ii\hat c_{\mathbf r}&-\ii
-\end{array}
+    \bigl[-\ii(\hat P_{\mathbf r,\boldsymbol\delta}^+-\hat P_{\mathbf r,\boldsymbol\delta})\bigr]^2=\hat P_{\mathbf r,\boldsymbol\delta}^+\hat P_{\mathbf r,\boldsymbol\delta}+\hat P_{\mathbf r,\boldsymbol\delta}\hat P_{\mathbf r,\boldsymbol\delta}^+-(\hat P_{\mathbf r,\boldsymbol\delta}^+)^2-\hat P_{\mathbf r,\boldsymbol\delta}^2.
+    \label{eq:three_plus_pair_square_expansion}
+\end{equation}
+It contains scattering between odd-parity bond pairs and coherent creation or removal of two such pairs.  The linear \(\Delta_{\rm p}\) term selects the real bond-pair component, while positive \(g_2\) suppresses the orthogonal component.
+
+A valley mean-field comparison shows how the interactions select this structure.  Let each flavor have condensate density \(\rho\).  If both flavors occupy \(+\mathbf K\), their bond currents add and the leading quartic contribution from \(g_1\) is \(36g_1\rho^2\) per site.  If they occupy opposite valleys, their currents cancel on every bond and this contribution vanishes.  Positive \(g_1\) therefore converts the valley degeneracy into a direct energetic preference for counterflow.  In the \(b_{\mathbf K}\)-\(c_{-\mathbf K}\) channel, let the condensate phases be \(\phi_b\) and \(\phi_c\).  For \(N_s\) lattice sites, the two phase-dependent energies are
+\begin{equation}
+    \frac{E_{\Delta_{\rm p}}}{N_s}=2\sqrt{3}\Delta_{\rm p}\rho\sin(\phi_b+\phi_c),
+    \qquad \frac{E_{g_2}}{N_s}=36g_2\rho^2\cos^2(\phi_b+\phi_c).
+    \label{eq:three_plus_mean_field_pair_energy}
+\end{equation}
+For \(\Delta_{\rm p}>0\), the linear pair field selects \(\phi_b+\phi_c=-\pi/2\), while the time-reversed valley channel selects \(+\pi/2\).  Positive \(g_2\) has minima at both values and supplies stiffness against fluctuations of this phase sum.  The relative phase remains dynamical.  A same-valley condensate has zero odd-parity pair amplitude and gains no energy from \(\Delta_{\rm p}\).  Frustration creates the valleys, \(g_1\) favors counterflow, and \(\Delta_{\rm p}\) together with \(g_2\) fixes the pair phase within each opposite-valley channel.
+
+The absence of a sign problem follows directly from the transformation of these physical terms.  The three antiunitary maps act as
+\begin{equation}
+    \widehat\Theta_1:(\hat b,\hat c)\mapsto(\hat b,\hat c),
+    \qquad \widehat\Theta_2:(\hat b,\hat c)\mapsto(\ii\hat c,\ii\hat b),
+    \qquad \widehat\Theta_3:(\hat b,\hat c)\mapsto(\ii\hat b,-\ii\hat c),
+    \qquad \ii\mapsto-\ii.
     \label{eq:three_plus_model_TR}
 \end{equation}
-Their action on creation operators follows by Hermitian conjugation.  Each one-body map squares to \(+I\), and every pair anticommutes.  The quadratic Hamiltonian is invariant under all three transformations.  Both Hermitian operators inside square brackets in Eq.~\eqref{eq:three_plus_model_HI} are odd under all three time reversals.  Denoting either bracket briefly by \(\hat O\), its Hubbard--Stratonovich decomposition is
+Under \(\widehat\Theta_1\), real hopping and \(\hat P^++\hat P\) are unchanged, whereas the explicit \(-\ii\) makes the current and the orthogonal pair component odd.  Under \(\widehat\Theta_2\), the two hopping terms exchange flavors.  The flavor exchange in \(\hat P^+\) produces one minus sign and the two factors of \(\ii\) produce another, leaving the pair field even.  Under \(\widehat\Theta_3\), the opposite flavor phases cancel within every hopping or singlet-pair bilinear.  The two Hermitian operators squared in Eq.~\eqref{eq:three_plus_model_HI} are therefore odd under all three maps, while \(\hat H_0\) is even.  For either operator \(\hat O\), the fixed-field decomposition is
 \begin{equation}
-    \ee^{-\Delta\tau g\hat O^2}
-    =\frac{1}{\sqrt{2\pi}}
-    \int_{-\infty}^{\infty}d\phi\,\ee^{-\phi^2/2}
-    \ee^{\ii\sqrt{2\Delta\tau g}\,\phi\hat O},
+    \ee^{-\Delta\tau g\hat O^2}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}d\phi\,\ee^{-\phi^2/2}\ee^{\ii\sqrt{2\Delta\tau g}\,\phi\hat O},
     \qquad g=g_1\ \text{or}\ g_2.
     \label{eq:three_plus_HS}
 \end{equation}
-Antiunitarity reverses \(\ii\), while time reversal reverses \(\hat O\).  Every fixed-field quadratic factor retains the three symmetries in Eq.~\eqref{eq:three_plus_model_TR}.  Equation~\eqref{eq:boson_three_plus_weight} then makes every convergent configuration weight positive.
+Antiunitarity reverses \(\ii\), and each map also reverses \(\hat O\).  The two signs cancel for every auxiliary-field configuration.  Moreover, \(\widehat\Theta_a^2=+I\) and the three maps anticommute pairwise.  The split-orthogonal theorem in Eq.~\eqref{eq:boson_three_plus_weight} therefore protects positive global auxiliary-field weights despite frustrated hopping and anomalous pairing.
 
-The most direct weak-coupling reference state is an \(SU(2)\)-symmetric squeezed state with odd-parity singlet-pair correlations and no one-boson condensate.  A particularly interesting competing state places the two flavors near opposite valleys.  At the quadratic instability, if the soft condensate amplitude at \(+\mathbf K\) is a complex two-component spinor \(z\), the singlet pair field selects a partner at \(-\mathbf K\) proportional to \(\ii\sigma_y z^*\).  The two valleys then have equal total populations and opposite flavor polarizations.  Their opposite bond-mass-current patterns cancel, while their bond-flavor-current contributions add.  Coherence between the locked valley amplitudes produces a \(120^\circ\) flavor texture.  This is the paired analogue of the chiral spin superfluid and momentum-space antiferromagnet proposed in Ref.~\cite{liNatuParamekanti2014chiral}.  Opposite projections of its flavor current along a chosen laboratory axis are connected continuously by \(SU(2)\), in accord with the absence of an additional Ising order parameter.
+The stable weak-coupling reference state is a squeezed state with odd-parity singlet-pair correlations and no one-boson condensate.  If interactions drive one-boson coherence, the mean-field selection above points to a finite-momentum counterflow condensate.  In the weak-pairing valley description, write the \(+\mathbf K\) component as the complex flavor spinor \(z=(\langle\hat b_{\mathbf K}\rangle,\langle\hat c_{\mathbf K}\rangle)^\trans\).  The singlet pair field locks its \(-\mathbf K\) partner to \(\ii\sigma_y z^*\), up to an overall phase fixed by the sign of \(\Delta_{\rm p}\).  The mass currents of the two valley components cancel, while their flavor currents add.  Their coherent interference approaches a three-sublattice \(120^\circ\) flavor texture in the weak-pairing limit.  This is the paired counterpart of the chiral spin superfluid and momentum-space antiferromagnet proposed for number-conserving double-valley bosons~\cite{liNatuParamekanti2014chiral}.  The relative \(U(1)\) rotation identifies the counterflow phase as one direction within the full flavor spinor.
 
-The spinor \(z\) has four real components, and every local \(SU(2)\)-invariant potential for one such spinor depends only on its length.  If its low-energy dynamics is relativistic and no additional soft mode or relevant anisotropy intervenes, a direct continuous transition is therefore a natural candidate for the three-dimensional \(O(4)\) Wilson--Fisher universality class~\cite{pelissettoVicari2002critical}.  Strong fluctuations can instead drive a first-order transition.  They may also produce an intermediate composite phase with a flavor-current vector but no one-boson coherence.  Such a phase would first break \(SU(2)\) down to \(U(1)\), allowing an \(O(3)\)-like onset followed by a second transition that orders the remaining phase.  Current order without single-particle coherence is well established in related frustrated, number-conserving boson models~\cite{dhar2013,zaletel2014prb}, while its flavor-vector counterpart in the present anomalous model remains to be determined.
+The complex two-component spinor has four real components.  If it is the only soft mode, its long-wavelength dynamics is relativistic, and every symmetry-allowed anisotropy is irrelevant, a direct continuous onset is a natural candidate for the three-dimensional \(O(4)\) Wilson--Fisher universality class~\cite{pelissettoVicari2002critical}.  Interactions may instead separate the loss of one-boson coherence from the onset of flavor-current order.  The resulting intermediate phase has no one-particle condensate but retains a composite flavor-current vector.  It would be an anomalously paired, flavor-vector analogue of the loop-current insulating regimes found in related number-conserving models~\cite{dhar2013,zaletel2014prb}.  Strong fluctuations can also drive a first-order transition.  Distinguishing these routes requires nonperturbative information about the full interacting distribution of the four condensate components.
 
-The exact \(SU(2)\) symmetry also changes the finite-temperature picture.  In two dimensions it precludes conventional long-range flavor order, and the fixed-amplitude spinor manifold \(S^3\) has no ordinary vortices.  Flavor-anisotropic double-valley systems can instead separate a superfluid \(U(1)\) transition from an Ising valley or chirality transition.  Classical Monte Carlo found a narrow chiral nonsuperfluid regime in an orbital lattice model~\cite{liParamekantiHemmerich2014chiral}, whereas a recent shaken-lattice experiment observed the reverse sequence, with valley balance restored before superfluid coherence was lost~\cite{yuWuZhang2025vestigial}.  These contrasting results make the exact \(SU(2)\) line a useful high-symmetry reference point and show how sensitively multivalley melting depends on the allowed order-parameter manifold.
+Two-stage thermal melting has a transparent defect picture in nearby flavor-anisotropic realizations.  A counterflow condensate then carries a continuous phase angle and a discrete valley or chirality choice.  Vortices disorder the phase angle, while domain walls disorder the discrete choice.  If vortices proliferate first, superfluid coherence disappears while chirality survives.  Classical Monte Carlo simulations of a phase-only orbital model found precisely this narrow chiral nonsuperfluid regime~\cite{liParamekantiHemmerich2014chiral}.  If domain walls proliferate first, time-reversal symmetry is restored while phase coherence remains.  A recent three-dimensional shaken-lattice experiment observed this reverse sequence, with valley balance restored while condensation persisted~\cite{yuWuZhang2025vestigial}.  These contrasting sequences show that the relative vortex and domain-wall scales are model dependent.  At the exact flavor-symmetric point of Eq.~\eqref{eq:three_plus_model}, continuous flavor fluctuations destroy true long-range order at any nonzero temperature in two dimensions.  The fixed-amplitude spinor can also unwind without ordinary vortices.  The phase and flavor orientation then merge, so the usual vortices and Ising domain walls are no longer independent defects.  The model is a high-symmetry reference point for asking how flavor anisotropy reconstructs separate phase and chirality transitions.
 
-Sign-problem-free simulations can now distinguish these possibilities through valley-resolved one-particle correlations, flavor-current structure factors, pair-quadrature correlations, and the joint probability distribution of the four spinor components.  Correlation-length and Binder-ratio crossings can test \(O(4)\) or split critical scaling, while energy histograms can resolve a weak first-order transition.  The calculation must remain in the region where the bosonic trace converges.  A perfectly balanced semiclassical counterflow can make both positive squares vanish, so these interactions do not by themselves stabilize a mode after the free Bogoliubov kernel becomes negative.  Within the stable region, the model poses a focused nonperturbative question: whether local pair and current interactions turn an \(SU(2)\)-symmetric paired state into a finite-momentum counterflow condensate, generate an intermediate composite phase, or avoid criticality through a first-order transition.
+The leading \(O(\rho^2)\) contributions of both positive squares vanish in the optimally locked counterflow configuration.  They sharply select its internal structure while leaving quantum fluctuations to decide whether the condensate forms.  Within the trace-convergent regime, valley-resolved one-particle correlations identify the counterflow condensate, flavor-current correlations detect the composite phase, and correlation-length crossings test the proposed \(O(4)\) critical behavior.  Joint order-parameter and energy histograms can expose split or weakly first-order transitions.  The \(\{+,+,+\}\) construction therefore enables an unbiased determination of the condensate, vestigial, and critical phases generated by frustration, odd-parity pairing, and correlated currents in two dimensions.
 
 \section{Summary}
 
