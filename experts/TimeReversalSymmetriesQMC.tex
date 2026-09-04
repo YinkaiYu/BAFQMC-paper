@@ -52,7 +52,7 @@
 \date{\today}
 
 \begin{abstract}
-Auxiliary-field quantum Monte Carlo reduces an interacting problem to a statistical sum over products of Gaussian many-body operators.  We classify when mutually anticommuting time-reversal symmetries make every bosonic or fermionic configuration weight nonnegative, including propagators with pairing terms.  Each time reversal squares to \(+I\) or \(-I\), and braces list these signs.  The Majorana class \(\{+,-\}\), containing one symmetry of each square, separates the evolution into complex-conjugate sectors.  The Kramers class \(\{-,-\}\) selects one operator from every Nambu-conjugate pair and imposes Kramers degeneracy.  Both classes protect bosonic and fermionic weights.  The bosonic split-orthogonal class \(\{+,+,+\}\) provides a third mechanism, while the same symmetry set permits negative fermionic weights.  Four or more anticommuting time reversals always generate a Majorana or Kramers pair.  The resulting periodic table unifies time-reversal criteria for both statistics and guides sign-free interacting boson models with anomalous propagation.
+Auxiliary-field quantum Monte Carlo reduces an interacting problem to a statistical sum over products of Gaussian many-body operators.  We classify when mutually anticommuting time-reversal symmetries make every bosonic or fermionic configuration weight nonnegative, including propagators with pairing terms.  Each time reversal squares to \(+I\) or \(-I\), and braces list these signs.  The Majorana class \(\{+,-\}\), containing one symmetry of each square, separates the evolution into complex-conjugate sectors.  The Kramers class \(\{-,-\}\) selects one operator from every Nambu-conjugate pair and imposes Kramers degeneracy.  Both classes protect bosonic and fermionic weights.  The bosonic split-orthogonal class \(\{+,+,+\}\) provides a third mechanism, while the same symmetry set permits negative fermionic weights.  Four or more anticommuting time reversals always generate a Majorana or Kramers pair.  Within the minimal onsite two-flavor realization, an odd-parity pair field with a common phase admits neither a Majorana nor a Kramers symmetry pair and is irreducibly \(\{+,+,+\}\).  This identifies a sign-free family of interacting \(p\)-wave boson models unique to the bosonic periodic table.
 \end{abstract}
 
 \maketitle
@@ -774,17 +774,22 @@ At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and ar
 \end{equation}
 The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\).  Equation~\eqref{eq:conjugate_BdG_weight} makes interaction-driven transitions between paired, density-imbalanced, and phase-coherent bosonic states accessible to auxiliary-field simulation on frustrated lattices.
 
-\subsection{A frustrated triangular-lattice two-flavor \texorpdfstring{\(p\)}{p}-wave model in the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
+\subsection{Odd-parity two-flavor bosons in the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
+\label{sec:odd_parity_two_flavor_bosons}
 
-How a multicomponent condensate loses coherence is a central problem across quantum matter.  Fluctuations can destroy the primary order while preserving a composite vestige, an organizing principle for unconventional superconductors, density waves, and frustrated magnets~\cite{fernandesOrthSchmalian2019vestigial}.  Frustrated multivalley bosons provide a tunable realization: quantum fluctuations can place two components in opposite valleys, producing counterpropagating currents and momentum-space antiferromagnetism~\cite{liNatuParamekanti2014chiral,wuLiDasSarma2017chiral}.  Whether one-boson coherence and current or chirality order disappear together remains unsettled.  Theory has predicted chiral Mott and chiral Bose-liquid regimes in which coherence is lost while loop-current order survives~\cite{dhar2013,zaletel2014prb,liParamekantiHemmerich2014chiral}, whereas a recent double-valley experiment observed the reverse thermal sequence, with valley order melting before condensation~\cite{yuWuZhang2025vestigial}.  Correlated pair hopping and \(p\)-wave boson models add pair superfluids, pair supersolids, and fragmented pair condensates to this landscape~\cite{zhangYinWang2013pair,lermaHernandezDukelsky2019pwave}.  The uniquely bosonic \(\{+,+,+\}\) class supplies a sign-free high-symmetry setting in which these intertwined orders can be resolved nonperturbatively, including whether one-boson coherence emerges directly, through a vestigial flavor-current phase, or by a fluctuation-driven first-order transition.
-
-We realize this setting with two bosonic flavors on a triangular lattice, frustrated nearest-neighbor hopping, an oriented flavor-singlet pair field, and two positive-square interactions.  Let \(\mathbf a_1=(1,0)\) and \(\mathbf a_2=(1/2,\sqrt{3}/2)\).  Here \(\langle i,j\rangle\) contains one ordered representative of every nearest-neighbor bond, chosen so that \(\mathbf r_j-\mathbf r_i\) points along \(\mathbf a_1\), \(\mathbf a_2\), or \(\mathbf a_2-\mathbf a_1\).  The oriented flavor-singlet pair on such a bond is
+The minimal two-flavor odd-parity pair exposes the uniquely bosonic \(\{+,+,+\}\) class in its sharpest form.  Bose exchange symmetry forces a pair that is odd under spatial exchange to be antisymmetric in flavor.  With two flavors, every nonzero channel is proportional to
 \begin{equation}
     \hat P_{ij}^+=\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+,
     \qquad \hat P_{ij}=\hat c_j\hat b_i-\hat c_i\hat b_j.
     \label{eq:odd_pair}
 \end{equation}
-It is odd under reversal of the bond.  The spatial and flavor parts are both antisymmetric, giving the exchange symmetry required for two bosons.  Since \(\hat P_{ji}^+=-\hat P_{ij}^+\), the chosen bond orientation fixes the relative signs of the three pair amplitudes and hence the lattice \(p\)-wave texture.  We also use the total particle current on the same bond,
+For onsite time reversals that act uniformly on the two flavors without mixing annihilation and creation operators, Appendix~\ref{app:two_flavor_odd_pairing} proves that a nonzero time-reversal-invariant field \(-\Delta_{\rm p}\hat P_{ij}^+-\Delta_{\rm p}^*\hat P_{ij}\) cannot preserve an anticommuting Majorana \(\{+,-\}\) pair or Kramers \(\{-,-\}\) pair.  The pair field preserves one negative-square time reversal, and this map commutes with every other internal time reversal that preserves the pair.  At the same time, it preserves three positive-square time reversals that anticommute pairwise.  The two smaller sign-free classes are therefore absent, making the minimal onsite odd-parity pair an irreducible \(\{+,+,+\}\) realization.  The split-orthogonal mechanism consequently opens a sign-free family of interacting \(p\)-wave boson Hamiltonians beyond the Majorana and Kramers mechanisms.
+
+Odd-parity boson pairing has direct microscopic and experimental foundations.  Experiments have identified broad interspecies \(p\)-wave Feshbach resonances in bosonic mixtures and have now created bulk ultracold heteronuclear \(p\)-wave Feshbach molecules~\cite{dongCuiShen2016pwave,jiaGuoHuangWang2026pwave}.  For two bosonic species near such a resonance, theory predicts a molecular \(p\)-wave superfluid and a finite-momentum atomic--molecular superfluid separated by tunable quantum phase transitions~\cite{radzihovskyChoi2009pwave,choiRadzihovsky2011finite}.  The lattice projection of the atom--molecule conversion is antisymmetric in flavor and odd under reversal of the bond displacement.  Condensing the molecular field therefore induces the same antisymmetric two-flavor odd-parity anomalous structure as Eq.~\eqref{eq:odd_pair}~\cite{choiRadzihovsky2011finite}.  Exact many-body solutions independently establish \(p\)-wave pair condensates in rotating two-component gases~\cite{papenbrockReimannKavoulakis2012pwave} and a gapless fragmented singlet-pair condensate separated from a gapped pair superfluid by a third-order quantum phase transition~\cite{lermaHernandezDukelsky2019pwave}.  The broader triangular-lattice setting is itself rich.  Correlated pair motion stabilizes pair superfluids and pair supersolids~\cite{jiangFuXu2012,zhangYinWang2013pair}, while frustrated triangular ladders support both pair and chiral superfluids~\cite{burba2026}.  The direct \(p\)-wave results and these neighboring triangular-lattice phases establish two-flavor odd-parity pairing as a concrete many-body target for the sign-free class identified here.
+
+A particularly consequential setting combines pairing with multivalley condensation.  Fluctuations can destroy the primary order while preserving a composite vestige, an organizing principle for unconventional superconductors, density waves, and frustrated magnets~\cite{fernandesOrthSchmalian2019vestigial}.  Frustrated multivalley bosons provide a tunable realization in which quantum fluctuations can place two components in opposite valleys, producing counterpropagating currents and momentum-space antiferromagnetism~\cite{liNatuParamekanti2014chiral,wuLiDasSarma2017chiral}.  Whether one-boson coherence and current or chirality order disappear together remains unsettled.  Theory has predicted chiral Mott and chiral Bose-liquid regimes in which coherence is lost while loop-current order survives~\cite{dhar2013,zaletel2014prb,liParamekantiHemmerich2014chiral}, whereas a recent double-valley experiment observed the reverse thermal sequence, with valley order melting before condensation~\cite{yuWuZhang2025vestigial}.  The \(\{+,+,+\}\) class supplies a sign-free high-symmetry setting in which these intertwined orders can be resolved nonperturbatively, including whether one-boson coherence emerges directly, through a vestigial flavor-current phase, or by a fluctuation-driven first-order transition.
+
+We now realize this setting with two bosonic flavors on a triangular lattice, frustrated nearest-neighbor hopping, the odd-parity flavor-singlet pair in Eq.~\eqref{eq:odd_pair}, and two positive-square interactions.  Let \(\mathbf a_1=(1,0)\) and \(\mathbf a_2=(1/2,\sqrt{3}/2)\).  Here \(\langle i,j\rangle\) contains one ordered representative of every nearest-neighbor bond, chosen so that \(\mathbf r_j-\mathbf r_i\) points along \(\mathbf a_1\), \(\mathbf a_2\), or \(\mathbf a_2-\mathbf a_1\).  Since \(\hat P_{ji}^+=-\hat P_{ij}^+\), this orientation fixes the relative signs of the three pair amplitudes and hence the lattice \(p\)-wave texture.  We also use the total particle current on the same bond,
 \begin{equation}
     \hat J_{ij}=-\ii\bigl(\hat b_i^+\hat b_j-\hat b_j^+\hat b_i+\hat c_i^+\hat c_j-\hat c_j^+\hat c_i\bigr).
     \label{eq:three_plus_total_current}
@@ -803,7 +808,7 @@ The Hamiltonian is
     \qquad g_1,g_2>0.
     \label{eq:three_plus_model_HI}
 \end{equation}
-Here \(t>0\), while \(\mu\) and \(\Delta_{\rm p}\) are real.  The anomalous pair field explicitly breaks the common number \(U(1)\), while every term remains invariant under global flavor \(SU(2)\).  In particular, \(\hat b_i\mapsto\ee^{\ii\theta}\hat b_i\) and \(\hat c_i\mapsto\ee^{-\ii\theta}\hat c_i\) form its relative-phase \(U(1)\) subgroup and conserve the population difference between the two flavors.
+Here \(t>0\).  We choose the common pair phase so that \(\Delta_{\rm p}\) is real, which also fixes the orthogonal pair component in \(\hat H_I\).  Appendix~\ref{app:two_flavor_odd_pairing} gives the equivalent expressions for any common complex phase.  The anomalous pair field explicitly breaks the common number \(U(1)\), while every term remains invariant under global flavor \(SU(2)\).  In particular, \(\hat b_i\mapsto\ee^{\ii\theta}\hat b_i\) and \(\hat c_i\mapsto\ee^{-\ii\theta}\hat c_i\) form its relative-phase \(U(1)\) subgroup and conserve the population difference between the two flavors.
 
 Equation~\eqref{eq:three_plus_model} combines frustration, odd-parity pairing, and correlated currents in a regime outside the familiar unfrustrated settings with manifestly nonnegative local weights.  Its \(\{+,+,+\}\) decomposition makes every convergent auxiliary-field configuration weight positive and opens a nonperturbative route to the condensate and critical physics posed above.
 
@@ -897,9 +902,212 @@ The leading \(O(\rho^2)\) contributions of both positive squares vanish in the o
 
 Mutually anticommuting time reversals determine the sign of general bosonic and fermionic Gaussian quantum Monte Carlo weights through three physical mechanisms.  The Majorana class \(\{+,-\}\) cancels phases between conjugate sectors.  The Kramers class \(\{-,-\}\) selects one operator from every Nambu-conjugate pair and enforces Kramers degeneracy among them.  The bosonic split-orthogonal class \(\{+,+,+\}\) produces a real propagation that preserves a symmetric matrix with equally many positive and negative directions, which fixes the remaining determinant sign.  This last mechanism has no fermionic counterpart, as demonstrated by the explicit negative two-mode trace in Eq.~\eqref{eq:fermion_three_plus_negative}.  Four time reversals always generate a Majorana pair.
 
-The resulting periodic table applies directly to anomalous Gaussian evolution.  Pairing terms therefore fit naturally within time-reversal-protected auxiliary-field simulations.  The two bosonic models above show how the symmetry algebra can guide Hubbard--Stratonovich design and open sign-problem-free routes to interacting paired phases on frustrated lattices.
+The resulting periodic table applies directly to anomalous Gaussian evolution.  In the minimal onsite two-flavor realization, the odd-parity pair makes the new bosonic sector concrete because its internal time reversals realize neither the Majorana nor the Kramers class and instead form an irreducible \(\{+,+,+\}\) set.  Hamiltonians that preserve this set constitute a sign-free family of interacting \(p\)-wave boson models.  The triangular-lattice construction shows how the symmetry algebra can guide Hubbard--Stratonovich design and open these paired phases and their quantum transitions to unbiased simulation in the presence of frustration.
 
 \appendix
+
+\section{Why minimal two-flavor odd-parity pairing selects the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
+\label{app:two_flavor_odd_pairing}
+
+This appendix proves the classification statement used in Sec.~\ref{sec:odd_parity_two_flavor_bosons}.  We consider the minimal internal realization in which every time reversal leaves each lattice site fixed, acts in the same way on the two flavors, and maps annihilation operators to annihilation operators.  All nonzero bond amplitudes have one common complex phase up to a sign.  We display equal bond amplitudes below.  Arbitrary real bond-dependent factors pass unchanged through every step.
+
+The form of the pair follows directly from Bose exchange symmetry.  Bosonic creation operators on different modes commute, so a same-flavor odd pair vanishes identically,
+\begin{equation}
+    \hat b_i^+\hat b_j^+-\hat b_j^+\hat b_i^+=0,
+    \qquad
+    \hat c_i^+\hat c_j^+-\hat c_j^+\hat c_i^+=0.
+    \label{eq:same_flavor_odd_pair_vanishes}
+\end{equation}
+Exchanging the two particles maps \(\hat b_i^+\hat c_j^+\) to \(\hat b_j^+\hat c_i^+\).  An odd spatial wave function therefore requires their difference, which is precisely \(\hat P_{ij}^+\) in Eq.~\eqref{eq:odd_pair}.  In matrix form,
+\begin{equation}
+    \hat P_{ij}^+
+    =
+    (\hat b_i^+,\hat c_i^+)
+    \ii\sigma_y
+    \begin{pmatrix}\hat b_j^+\\ \hat c_j^+\end{pmatrix},
+    \qquad
+    \ii\sigma_y=
+    \begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+    \label{eq:odd_pair_matrix_form}
+\end{equation}
+
+Consider a nonzero pair field with a general common phase,
+\begin{equation}
+    \hat H_{\rm p}
+    =-\sum_{\langle i,j\rangle}
+    \left(
+        \Delta_{\rm p}\hat P_{ij}^+
+        +\Delta_{\rm p}^*\hat P_{ij}
+    \right),
+    \qquad
+    \Delta_{\rm p}=|\Delta_{\rm p}|\ee^{\ii\phi_{\rm p}}\ne0.
+    \label{eq:general_complex_odd_pair_field}
+\end{equation}
+Let \(\mc K\) denote complex conjugation in the \((\hat b,\hat c)\) basis.  The most general internal time reversal in this space is \(\Theta=U\mc K\), where
+\begin{equation}
+    \widehat\Theta
+    \begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}
+    \widehat\Theta^{-1}
+    =U\begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix},
+    \qquad U^\dagger U=I_2.
+    \label{eq:two_flavor_general_TR}
+\end{equation}
+Unitarity is exactly the condition that preserves the canonical bosonic commutators.  Taking Hermitian conjugates gives
+\begin{equation}
+    \widehat\Theta(\hat b_i^+,\hat c_i^+)\widehat\Theta^{-1}
+    =(\hat b_i^+,\hat c_i^+)U^\dagger.
+    \label{eq:two_flavor_creation_TR}
+\end{equation}
+Because \(\ii\sigma_y\) is real, Eqs.~\eqref{eq:odd_pair_matrix_form} and \eqref{eq:two_flavor_creation_TR} give
+\begin{equation}
+    \widehat\Theta\hat P_{ij}^+\widehat\Theta^{-1}
+    =
+    (\hat b_i^+,\hat c_i^+)
+    U^\dagger(\ii\sigma_y)U^*
+    \begin{pmatrix}\hat b_j^+\\ \hat c_j^+\end{pmatrix}.
+    \label{eq:odd_pair_TR_before_determinant}
+\end{equation}
+
+The matrix in the middle can be evaluated without any assumption about \(U\).  Writing its entries as \(u_{11},u_{12},u_{21},u_{22}\), direct multiplication gives
+\begin{align}
+    U^\trans(\ii\sigma_y)U
+    &={}
+    \begin{pmatrix}u_{11}&u_{21}\\u_{12}&u_{22}\end{pmatrix}
+    \begin{pmatrix}u_{21}&u_{22}\\-u_{11}&-u_{12}\end{pmatrix}
+    \notag\\
+    &={}
+    \begin{pmatrix}
+        0&u_{11}u_{22}-u_{12}u_{21}\\
+        -(u_{11}u_{22}-u_{12}u_{21})&0
+    \end{pmatrix}
+    =(\det U)\ii\sigma_y.
+    \label{eq:two_by_two_determinant_identity}
+\end{align}
+Taking the complex conjugate of this identity yields
+\begin{equation}
+    U^\dagger(\ii\sigma_y)U^*
+    =(\det U)^*\ii\sigma_y.
+    \label{eq:odd_pair_determinant_identity}
+\end{equation}
+Substitution into Eq.~\eqref{eq:odd_pair_TR_before_determinant}, followed by Hermitian conjugation, now gives every step of the pair transformation,
+\begin{equation}
+    \widehat\Theta\hat P_{ij}^+\widehat\Theta^{-1}
+    =(\det U)^*\hat P_{ij}^+,
+    \qquad
+    \widehat\Theta\hat P_{ij}\widehat\Theta^{-1}
+    =(\det U)\hat P_{ij}.
+    \label{eq:odd_pair_determinant_transformation}
+\end{equation}
+
+Antiunitarity also conjugates the numerical coefficients in Eq.~\eqref{eq:general_complex_odd_pair_field}.  The transformed pair field is therefore
+\begin{equation}
+    \widehat\Theta\hat H_{\rm p}\widehat\Theta^{-1}
+    =-\sum_{\langle i,j\rangle}
+    \left[
+        \Delta_{\rm p}^*(\det U)^*\hat P_{ij}^+
+        +\Delta_{\rm p}(\det U)\hat P_{ij}
+    \right].
+    \label{eq:complex_pair_field_TR}
+\end{equation}
+Comparison with Eq.~\eqref{eq:general_complex_odd_pair_field} shows that time reversal preserves the pair field exactly when
+\begin{equation}
+    \Delta_{\rm p}^*(\det U)^*=\Delta_{\rm p}
+    \quad\Longleftrightarrow\quad
+    \det U=\ee^{-2\ii\phi_{\rm p}}.
+    \label{eq:pair_preserving_determinant}
+\end{equation}
+
+We first determine all negative-square time reversals compatible with Eq.~\eqref{eq:pair_preserving_determinant}.  Applying \(\Theta\) twice conjugates the matrix in its first action and gives
+\begin{equation}
+    \Theta^2
+    \begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}
+    =U^*U\begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}.
+    \label{eq:two_flavor_TR_square}
+\end{equation}
+Thus \(\Theta^2=-I\) requires \(U^*U=-I_2\).  Unitarity implies \(U^\trans U^*=I_2\), and multiplying \(U^*U=-I_2\) from the left by \(U^\trans\) gives
+\begin{equation}
+    U=-U^\trans.
+    \label{eq:negative_TR_antisymmetric}
+\end{equation}
+Every antisymmetric unitary \(2\times2\) matrix has the form \(U=\ee^{\ii\varphi}\ii\sigma_y\).  Its determinant is \(\ee^{2\ii\varphi}\).  Equation~\eqref{eq:pair_preserving_determinant} fixes \(\varphi=-\phi_{\rm p}\) modulo \(\pi\), so the pair field preserves only
+\begin{equation}
+    \Theta_0=\ee^{-\ii\phi_{\rm p}}\ii\sigma_y\mc K
+    \label{eq:unique_negative_pair_TR}
+\end{equation}
+and the same transformation with an overall minus sign.  There are no two independent negative-square time reversals, which excludes the Kramers \(\{-,-\}\) class.
+
+The remaining step is to show that \(\Theta_0\) cannot acquire an anticommuting positive-square partner.  For any pair-preserving \(U\), the matrix \(\ee^{\ii\phi_{\rm p}}U\) is unitary and has determinant one.  Its second column is the normalized vector orthogonal to its first column, with the phase fixed by the determinant, so it has the general form
+\begin{equation}
+    \ee^{\ii\phi_{\rm p}}U
+    =\begin{pmatrix}
+        \alpha&\beta\\
+        -\beta^*&\alpha^*
+    \end{pmatrix},
+    \qquad |\alpha|^2+|\beta|^2=1.
+    \label{eq:SU2_explicit_form}
+\end{equation}
+Direct multiplication then shows
+\begin{equation}
+    (\ii\sigma_y)\ee^{\ii\phi_{\rm p}}U
+    =\begin{pmatrix}-\beta^*&\alpha^*\\-\alpha&-\beta\end{pmatrix}
+    =(\ee^{\ii\phi_{\rm p}}U)^*(\ii\sigma_y).
+    \label{eq:SU2_pair_identity}
+\end{equation}
+For two antiunitary maps \(A\mc K\) and \(B\mc K\), the first map conjugates the coefficients of the second, so their ordered product acts with the matrix \(B^*A\).  The matrices for \(\Theta\Theta_0\) and \(\Theta_0\Theta\) are consequently
+\begin{equation}
+    (\ee^{-\ii\phi_{\rm p}}\ii\sigma_y)^*U
+    =\ee^{\ii\phi_{\rm p}}\ii\sigma_yU,
+    \qquad
+    U^*(\ee^{-\ii\phi_{\rm p}}\ii\sigma_y)
+    =\ee^{-\ii\phi_{\rm p}}U^*\ii\sigma_y.
+    \label{eq:pair_TR_composition}
+\end{equation}
+Equation~\eqref{eq:SU2_pair_identity} says that these two matrices are equal.  Hence \(\Theta_0\) commutes with every internal time reversal that preserves the odd-parity pair.  An anticommuting \(\{+,-\}\) pair cannot occur.  For real \(\Delta_{\rm p}\), this obstruction is visible in the simplest candidate partner \(\sigma_x\mc K\).  It squares to \(+I\), while
+\begin{equation}
+    (\sigma_x\mc K)(\ii\sigma_y\mc K)=\sigma_z,
+    \qquad
+    (\ii\sigma_y\mc K)(\sigma_x\mc K)=-\sigma_z.
+    \label{eq:failed_majorana_partner}
+\end{equation}
+It therefore has exactly the algebra required for a \(\{+,-\}\) pair.  Its determinant is \(-1\), so Eq.~\eqref{eq:odd_pair_determinant_transformation} shows that it reverses the sign of the pair field and is not a symmetry.
+
+The allowed \(\{+,+,+\}\) triple follows just as directly.  When \(\phi_{\rm p}=0\), complex conjugation \(\mc K\) preserves the real pair field.  A second map \(U\mc K\) anticommutes with \(\mc K\) precisely when \(U^*=-U\).  The real Pauli matrices \(\sigma_x\) and \(\sigma_z\) supply two independent directions.  Multiplication by \(\ii\) makes both matrices purely imaginary while keeping them unitary with determinant one, so \(\ii\sigma_x\mc K\) and \(\ii\sigma_z\mc K\) both preserve the pair and anticommute with \(\mc K\).  Restoring the common phase gives
+\begin{equation}
+    \Theta_1=\ee^{-\ii\phi_{\rm p}}\mc K,
+    \qquad
+    \Theta_2=\ee^{-\ii\phi_{\rm p}}\ii\sigma_x\mc K,
+    \qquad
+    \Theta_3=\ee^{-\ii\phi_{\rm p}}\ii\sigma_z\mc K.
+    \label{eq:general_phase_three_plus_TR}
+\end{equation}
+Every matrix in Eq.~\eqref{eq:general_phase_three_plus_TR} has determinant \(\ee^{-2\ii\phi_{\rm p}}\), so all three maps preserve the pair.  Their common phase cancels from every square and ordered product.  Explicitly,
+\begin{equation}
+    (\ee^{-\ii\phi_{\rm p}}\ii\sigma_x)^*(\ee^{-\ii\phi_{\rm p}}\ii\sigma_x)
+    =(\ee^{-\ii\phi_{\rm p}}\ii\sigma_z)^*(\ee^{-\ii\phi_{\rm p}}\ii\sigma_z)
+    =I_2,
+    \label{eq:three_plus_positive_squares}
+\end{equation}
+and the scalar first matrix also has positive square.  Anticommutation with \(\Theta_1\) follows from \((\ii\sigma_x)^*=-\ii\sigma_x\) and \((\ii\sigma_z)^*=-\ii\sigma_z\).  The remaining pair obeys
+\begin{equation}
+    (\ii\sigma_z)^*(\ii\sigma_x)=\ii\sigma_y,
+    \qquad
+    (\ii\sigma_x)^*(\ii\sigma_z)=-\ii\sigma_y.
+    \label{eq:three_plus_last_anticommutator}
+\end{equation}
+Thus \(\Theta_a^2=+I\) and \(\Theta_a\Theta_b=-\Theta_b\Theta_a\) for every \(a\ne b\).
+
+For the complete interacting model, the general pair phase is implemented by replacing the last square in Eq.~\eqref{eq:three_plus_model_HI} with
+\begin{equation}
+    g_2\sum_{\langle i,j\rangle}
+    \left[
+        -\ii\left(
+            \ee^{\ii\phi_{\rm p}}\hat P_{ij}^+
+            -\ee^{-\ii\phi_{\rm p}}\hat P_{ij}
+        \right)
+    \right]^2.
+    \label{eq:complex_phase_pair_interaction}
+\end{equation}
+This is the component orthogonal to the linear pair field in Eq.~\eqref{eq:general_complex_odd_pair_field}.  It is odd under all three maps in Eq.~\eqref{eq:general_phase_three_plus_TR}, so its fixed-field Hubbard--Stratonovich factor preserves the same triple.  The odd-parity pair field therefore admits a \(\{+,+,+\}\) symmetry set while excluding both smaller sign-free sets in the minimal two-flavor internal realization.  Hamiltonians whose remaining terms preserve this triple form the irreducible sign-free \(\{+,+,+\}\) family represented by Eq.~\eqref{eq:three_plus_model}.
 
 \section{Equivalence of the fermionic Nambu and Majorana formulations}
 
