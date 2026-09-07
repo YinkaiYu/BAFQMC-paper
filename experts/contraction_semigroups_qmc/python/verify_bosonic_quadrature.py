@@ -271,6 +271,97 @@ def test_two_kinds_and_examples():
     check(np.linalg.det(np.eye(4) - expm(a)), exact**-2)
 
 
+def test_direct_theorems(rng):
+    """Compare coefficient-block tests with symmetry and finite propagation."""
+    for paired, size in ((False, 1), (False, 3), (True, 1), (True, 2)):
+        if paired:
+            # Grouped order (x_b, p_b, x_c, p_c).
+            block = 2 * size
+            omega = np.kron(np.eye(2), np.kron(P["Y"], np.eye(size)))
+            sigma = np.kron(P["Z"], np.eye(size))
+            symmetry = np.kron(P["Y"], sigma)
+        else:
+            block = size
+            omega = np.kron(P["Y"], np.eye(size))
+            symmetry = np.kron(P["Z"], np.eye(size))
+        identity = np.eye(len(omega))
+        metric = 1j * omega
+        product = identity.astype(complex)
+        previous_generator = None
+
+        for sample in range(3):
+            raw = rng.normal(size=omega.shape) + 1j * rng.normal(size=omega.shape)
+            h = (raw + raw.T) / 2
+            if sample == 0:
+                # Construct directly from the theorem's block conditions.
+                first = h[:block, :block]
+                cross = h[:block, block:]
+                if paired:
+                    cross = (cross - sigma @ cross.conj().T @ sigma) / 2
+                    second = sigma @ first.conj() @ sigma
+                else:
+                    first = first.real
+                    second = h[block:, block:].real
+                    cross = 1j * cross.imag
+                h = np.block([[first, cross], [cross.T, second]])
+            else:
+                # Independently impose the canonical anti-linear symmetry.
+                h = (h + symmetry.T @ h.conj() @ symmetry) / 2
+            h -= (np.linalg.eigvalsh(h.real).max() + 0.8) * identity
+            check(h.T, h)
+            check(symmetry.T @ h.conj() @ symmetry, h)
+            assert np.linalg.eigvalsh(h.real).max() < -0.79
+
+            first, cross, second = h[:block, :block], h[:block, block:], h[block:, block:]
+            if paired:
+                check(second, sigma @ first.conj() @ sigma)
+                check(cross, -sigma @ cross.conj().T @ sigma)
+                # Compare with the already established form in (x_b,x_c,p_b,p_c).
+                order = np.concatenate([np.arange(start, start + size)
+                                        for start in (0, 2 * size, size, 3 * size)])
+                standard_h = h[np.ix_(order, order)]
+                standard_symmetry = np.kron(P["Z"], np.kron(P["Y"], np.eye(size)))
+                check(standard_symmetry.T @ standard_h.conj() @ standard_symmetry,
+                      standard_h)
+            else:
+                check(first.imag)
+                check(second.imag)
+                check(cross.real)
+
+            generator = 1j * omega @ h
+            check(generator.T @ omega + omega @ generator)
+            check(metric @ generator + generator.conj().T @ metric, 2 * h.real)
+            if previous_generator is not None:
+                assert np.linalg.norm(generator @ previous_generator
+                                      - previous_generator @ generator) > 1e-4
+            previous_generator = generator
+            factor = expm((0.07 + 0.02 * sample) * generator)
+            check(factor.T @ omega @ factor, omega)
+            check(np.linalg.solve(symmetry, factor.conj() @ symmetry), factor)
+            assert np.linalg.eigvalsh(factor.conj().T @ metric @ factor - metric).max() < 0
+            combined = product @ factor
+            check(combined.conj().T @ metric @ combined - metric,
+                  factor.conj().T @ (product.conj().T @ metric @ product - metric) @ factor
+                  + factor.conj().T @ metric @ factor - metric)
+            product = combined
+        check(product.T @ omega @ product, omega)
+        check(np.linalg.solve(symmetry, product.conj() @ symmetry), product)
+        assert np.linalg.eigvalsh(product.conj().T @ metric @ product - metric).max() < 0
+
+        # The boundary Re H=0 preserves the canonical Hermitian form exactly.
+        boundary = 1j * h.imag
+        factor = expm(0.13j * omega @ boundary)
+        check(factor.conj().T @ metric @ factor, metric)
+
+    # Negative diagonal blocks alone are insufficient in the paired family.
+    sigma = P["Z"]
+    cross = 2 * P["X"]
+    h = np.block([[-np.eye(2), cross], [cross.T, -np.eye(2)]])
+    check(cross, -sigma @ cross.conj().T @ sigma)
+    check(np.kron(P["Y"], sigma).T @ h @ np.kron(P["Y"], sigma), h)
+    assert np.linalg.eigvalsh(h).max() > 0
+
+
 def main():
     rng = np.random.default_rng(20260906)
     counts = []
@@ -288,6 +379,7 @@ def main():
         counts.append(len(retained))
 
     test_two_kinds_and_examples()
+    test_direct_theorems(rng)
 
     # A physical-basis obstruction that survives arbitrary real symplectic changes.
     omega = np.kron(P["Y"], np.eye(2))
@@ -304,6 +396,7 @@ def main():
     print("All normalize to the q1=+ or q1=- damping form with E=i Omega and R2=i I.")
     print("Verified both anti-linear kinds, inherited adjoints, and the lecture's oscillator examples.")
     print("Verified quadratic forms, inverse dictionaries, group/cone projections, and ordered products.")
+    print("Verified both direct coefficient criteria, noncommuting products, and the contraction boundary.")
     print(f"Real-canonical obstruction verified: inertias {inertias[0]} and {inertias[1]} differ.")
     print(f"Passed {CHECKS} matrix identities; maximum residual {MAX_ERROR:.3e}.")
 
