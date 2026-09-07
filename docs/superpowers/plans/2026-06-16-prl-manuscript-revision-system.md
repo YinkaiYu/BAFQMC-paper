@@ -17,7 +17,7 @@
 - `SM.tex`: 1233 lines as of 2026-09-03. It carries HS identities, trace formulas, Green functions, Sherman-Morrison/Woodbury updates, stabilization details, TRS/RP proofs, regularized weights, and benchmark numerical parameters. The obsolete semigroup route has been removed.
 - `figures/benchmark_number_conserving.pdf`: current Fig. 2, placed at the top of page 3.
 - `figures/benchmark_pairing_delta.pdf`: current Fig. 3, placed at the top of page 4.
-- `experts/comment1.md` to `experts/comment4.md`: independent comments converge on the same structural recommendation.
+- `note/archive/comment1.md`, `note/archive/comment2.md`, `note/comment3.md`, and `note/comment4.md`: independent comments converge on the same structural recommendation.
 - Number-conserving benchmark report: `/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC/data/20260603_bafqmc_ed_3x3_observables_v2_standard/publication_report/report_manual_stage_zh.html`.
 - Paired benchmark report: `/mnt/c/Users/Newton/Documents/LigroupIOP/2408_bosonSignProblem/code_bosonDQMC_paring/data/20260605_pairing_delta_mu_m5_production/publication_report/report_pairing_delta_mu_m5_production_zh.html`.
 

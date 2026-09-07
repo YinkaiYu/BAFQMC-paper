@@ -25,15 +25,15 @@ PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 
 DEFAULT_CSV = PACKAGE_ROOT / "build" / "time_reversal_subgroups.csv"
-DEFAULT_WHOLE_GROUP = REPOSITORY_ROOT / "experts" / "ContractionSemigroupWholeGroup.tex"
+DEFAULT_WHOLE_GROUP = REPOSITORY_ROOT / "note" / "ContractionSemigroupWholeGroup.tex"
 DEFAULT_MAJORANA = (
-    REPOSITORY_ROOT / "experts" / "ContractionSemigroupMajoranaProper.tex"
+    REPOSITORY_ROOT / "note" / "ContractionSemigroupMajoranaProper.tex"
 )
 DEFAULT_KRAMERS = (
-    REPOSITORY_ROOT / "experts" / "ContractionSemigroupKramersProper.tex"
+    REPOSITORY_ROOT / "note" / "ContractionSemigroupKramersProper.tex"
 )
 DEFAULT_SPLIT_ORTHOGONAL = (
-    REPOSITORY_ROOT / "experts" / "ContractionSemigroupsQMC.tex"
+    REPOSITORY_ROOT / "note" / "ContractionSemigroupsQMC.tex"
 )
 
 CASE_PATTERN = re.compile(r"[BF]\d{2}")
@@ -455,7 +455,7 @@ def parse_majorana(path: Path) -> list[ParsedCase]:
 def parse_split_orthogonal(path: Path) -> list[ParsedCase]:
     text = remove_comments(path.read_text(encoding="utf-8"))
     start_marker = r"\subsubsection*{\texorpdfstring{Bosonic split-orthogonal"
-    end_marker = r"\input{experts/ContractionSemigroupMajoranaProper}"
+    end_marker = r"\input{note/ContractionSemigroupMajoranaProper}"
     start = text.find(start_marker)
     end = text.find(end_marker, start)
     if start < 0 or end < 0:

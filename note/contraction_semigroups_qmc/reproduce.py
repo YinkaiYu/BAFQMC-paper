@@ -145,7 +145,7 @@ def verify(*, full: bool, compare_reference: bool) -> None:
             sys.executable,
             str(PYTHON / "verify_model_tex.py"),
             "--tex",
-            str(REPO_ROOT / "experts" / "ContractionSemigroupsQMC.tex"),
+            str(REPO_ROOT / "note" / "ContractionSemigroupsQMC.tex"),
             "--model-script",
             str(PYTHON / "verify_model_slices.py"),
         ]
@@ -200,7 +200,7 @@ def parse_arguments() -> argparse.Namespace:
 def main() -> None:
     arguments = parse_arguments()
     if arguments.action == "note":
-        run(["latexmk", "experts/ContractionSemigroupsQMC.tex"])
+        run(["latexmk", "note/ContractionSemigroupsQMC.tex"])
         return
 
     octave = octave_command(arguments.octave_command)

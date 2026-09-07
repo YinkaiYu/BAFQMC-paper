@@ -1,7 +1,7 @@
 # Reproducing the contraction-semigroup note
 
 This directory contains the calculations used by
-`experts/ContractionSemigroupsQMC.tex`.  A single command reconstructs the
+`note/ContractionSemigroupsQMC.tex`.  A single command reconstructs the
 classification, solves the generator spaces, enumerates the time-reversal
 subgroups, checks the three model slices, and redraws Fig. 1.  It then compares
 the results with the committed reference tables and checks the formulas
@@ -15,9 +15,9 @@ not overwrite an approved CSV table or the published figure.
 Create and activate the tested Conda environment:
 
 ```bash
-conda env create -f experts/contraction_semigroups_qmc/environment.yml
+conda env create -f note/contraction_semigroups_qmc/environment.yml
 conda activate bafqmc-contraction
-python experts/contraction_semigroups_qmc/reproduce.py check
+python note/contraction_semigroups_qmc/reproduce.py check
 ```
 
 The core calculation takes about 20 seconds on a laptop.  A successful run
@@ -43,7 +43,7 @@ given without changing the scripts:
 
 ```bash
 OCTAVE_COMMAND='conda run -n bafqmc-octave octave' \
-python experts/contraction_semigroups_qmc/reproduce.py check
+python note/contraction_semigroups_qmc/reproduce.py check
 ```
 
 The equivalent command-line option is
@@ -217,7 +217,7 @@ The optional scan tests every distinct ordered pair of real Pauli words with
 one, two, or three factors:
 
 ```bash
-python experts/contraction_semigroups_qmc/reproduce.py check --full
+python note/contraction_semigroups_qmc/reproduce.py check --full
 ```
 
 It covers 8568 ordered realizations.  Of these, 2184 belong to a contraction
@@ -234,13 +234,13 @@ a representation-theory proof.
 The ordinary command is read-only with respect to tracked results:
 
 ```bash
-python experts/contraction_semigroups_qmc/reproduce.py check
+python note/contraction_semigroups_qmc/reproduce.py check
 ```
 
 It creates
 
 ```text
-experts/contraction_semigroups_qmc/build/
+note/contraction_semigroups_qmc/build/
 ```
 
 and compares every generated CSV byte for byte with `reference/`.  The generated
@@ -252,16 +252,16 @@ When a scientifically reviewed change intentionally updates the results, first
 inspect the generated differences:
 
 ```bash
-diff -u experts/contraction_semigroups_qmc/reference/semigroup_classes.csv \
-        experts/contraction_semigroups_qmc/build/semigroup_classes.csv
-diff -u experts/contraction_semigroups_qmc/reference/generator_spaces.csv \
-        experts/contraction_semigroups_qmc/build/generator_spaces.csv
+diff -u note/contraction_semigroups_qmc/reference/semigroup_classes.csv \
+        note/contraction_semigroups_qmc/build/semigroup_classes.csv
+diff -u note/contraction_semigroups_qmc/reference/generator_spaces.csv \
+        note/contraction_semigroups_qmc/build/generator_spaces.csv
 ```
 
 Then publish the verified tables and Fig. 1 explicitly:
 
 ```bash
-python experts/contraction_semigroups_qmc/reproduce.py publish
+python note/contraction_semigroups_qmc/reproduce.py publish
 ```
 
 `publish` first runs every algebraic and TeX-transcription check without
@@ -273,13 +273,13 @@ to change.
 Compile the note with
 
 ```bash
-python experts/contraction_semigroups_qmc/reproduce.py note
+python note/contraction_semigroups_qmc/reproduce.py note
 ```
 
 or directly with
 
 ```bash
-latexmk experts/ContractionSemigroupsQMC.tex
+latexmk note/ContractionSemigroupsQMC.tex
 ```
 
 ## Evidence boundary for the cone
@@ -330,7 +330,7 @@ representations just mentioned.  All four are sign free on their complete
 generator spaces.  The same scan finds lower-dimensional sign-free
 representations of F05 and F17.  These existence results leave the one-sided
 witness claim unchanged and are summarized in Appendix A of
-`experts/ContractionSemigroupsQMC.tex`.
+`note/ContractionSemigroupsQMC.tex`.
 
 The search is deterministic for the committed seed and records the full basis,
 slice coefficients, representation, weight, determinant identity residual,
@@ -369,11 +369,11 @@ Run the optional scan and compare its output with the reviewed snapshot using
 
 ```bash
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-  python experts/contraction_semigroups_qmc/python/enumerate_abelian_hermitian_representations.py
+  python note/contraction_semigroups_qmc/python/enumerate_abelian_hermitian_representations.py
 
 diff -u \
-  experts/contraction_semigroups_qmc/reference/abelian_hermitian_representations.csv \
-  experts/contraction_semigroups_qmc/build/abelian_hermitian_representations.csv
+  note/contraction_semigroups_qmc/reference/abelian_hermitian_representations.csv \
+  note/contraction_semigroups_qmc/build/abelian_hermitian_representations.csv
 ```
 
 This optional scan is separate from the default note-reproduction workflow.
@@ -384,11 +384,11 @@ The corresponding bosonic scan is
 
 ```bash
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-  python experts/contraction_semigroups_qmc/python/enumerate_boson_commuting_hermitian_representations.py
+  python note/contraction_semigroups_qmc/python/enumerate_boson_commuting_hermitian_representations.py
 
 diff -u \
-  experts/contraction_semigroups_qmc/reference/boson_commuting_hermitian_representations.csv \
-  experts/contraction_semigroups_qmc/build/boson_commuting_hermitian_representations.csv
+  note/contraction_semigroups_qmc/reference/boson_commuting_hermitian_representations.csv \
+  note/contraction_semigroups_qmc/build/boson_commuting_hermitian_representations.csv
 ```
 
 Only B05 and B17 pass the commuting-Hermitian structural test.  Their ordinary
@@ -415,11 +415,11 @@ under an explicit WSL memory cap with
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
 NUMEXPR_NUM_THREADS=1 BLIS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 \
   prlimit --as=2147483648 -- \
-  python experts/contraction_semigroups_qmc/python/scan_boson_representation_witnesses.py
+  python note/contraction_semigroups_qmc/python/scan_boson_representation_witnesses.py
 
 diff -u \
-  experts/contraction_semigroups_qmc/reference/boson_representation_witnesses.csv \
-  experts/contraction_semigroups_qmc/build/boson_representation_witnesses.csv
+  note/contraction_semigroups_qmc/reference/boson_representation_witnesses.csv \
+  note/contraction_semigroups_qmc/build/boson_representation_witnesses.csv
 ```
 
 The implementation writes one row at a time and keeps no collection of path

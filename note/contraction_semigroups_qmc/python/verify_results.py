@@ -601,7 +601,7 @@ def verify_tex_contraction_witness(
 
 
 def verify_generator_tex(rows: list[dict[str, str]], repo_root: Path) -> None:
-    path = repo_root / "experts" / "ContractionSemigroupGenerators.tex"
+    path = repo_root / "note" / "ContractionSemigroupGenerators.tex"
     text = path.read_text(encoding="utf-8")
     starts = list(re.finditer(r"\\cellentry\{([BF]\d\d)\}", text))
     if len(starts) != 16:
@@ -692,15 +692,15 @@ def verify_time_reversal_case_coverage(
     }
     files = {
         "whole": (
-            repo_root / "experts" / "ContractionSemigroupWholeGroup.tex",
+            repo_root / "note" / "ContractionSemigroupWholeGroup.tex",
             whole_expected,
         ),
         "Majorana": (
-            repo_root / "experts" / "ContractionSemigroupMajoranaProper.tex",
+            repo_root / "note" / "ContractionSemigroupMajoranaProper.tex",
             proper_majorana_expected,
         ),
         "Kramers": (
-            repo_root / "experts" / "ContractionSemigroupKramersProper.tex",
+            repo_root / "note" / "ContractionSemigroupKramersProper.tex",
             proper_kramers_expected,
         ),
     }

@@ -15,7 +15,7 @@ from reader_explanation_overrides import EXPLANATION_OVERRIDES
 
 REPORT_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = REPORT_DIR.parents[2]
-NOTE_PATH = REPO_ROOT / "experts" / "ToYinkaiYu-20260726.tex"
+NOTE_PATH = REPO_ROOT / "note" / "archive" / "ToYinkaiYu-20260726.tex"
 TEMPLATE_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.template.html"
 OUTPUT_PATH = REPORT_DIR / "report_updated_note_full_enumeration_zh.html"
 ENUMERATION_TAIL_PATH = REPORT_DIR / "enumeration_tail_zh.fragment.html"
@@ -582,7 +582,7 @@ SEGMENTS = [
           J_2^2=-I_4,\quad J_2^TgJ_2=g,\qquad
           J_1J_2=-J_2J_1 .
         \]</div>
-        <p>新增的 <code>experts/RPBAFQMC.tex</code> 给出了这两个 matrices
+        <p>新增的 <code>note/archive/RPBAFQMC.tex</code> 给出了这两个 matrices
         的直接来源。它先逐字规定</p>
         <div class="source-quote">
           “Reflection symmetry requires
@@ -754,7 +754,7 @@ SEGMENTS = [
         \(J_1^TgJ_1=g,\ J_1^2=I\) 两个矩阵等式推出。
         对 finite bare trace，证明直接来自这个 reflected-square
         multiplicative semigroup。
-        <code>experts/RPBAFQMC.tex</code> 曾尝试把 regularized weight
+        <code>note/archive/RPBAFQMC.tex</code> 曾尝试把 regularized weight
         表成 contraction part 与 expansion part 的 direct sum，但上面的
         block-mixing calculation 否定了这一步。当前得到验证的 RP 结论仍是：
         finite bare trace 由 reflected squares 保证 nonnegative。
@@ -974,7 +974,7 @@ SEGMENTS = [
         inequality 的通过项；\(3''\)--\(6''\) 才来自该列表。
         与上一版相比，作者已接受 commuting Case 10 为 Failed，所以总数从 7 降为 6。
         本 note 此处没有就地定义 “non-hermitian case”，但新增的
-        <code>experts/SGNH.tex</code> 补出了它的物理含义：作者研究的是</p>
+        <code>note/SGNH.tex</code> 补出了它的物理含义：作者研究的是</p>
         <div class="scroll">\[
           H_K=-H_K^\dagger,\qquad H_U=H_U^\dagger ,
         \]</div>
@@ -987,7 +987,7 @@ SEGMENTS = [
         \(U(\hat n_b-\hat n_c)^2\)。所以这里的 “non-hermitian”
         主要指 physical single-body Hamiltonian，不是笼统地指任意一个
         displayed block 不等于自己的 Hermitian conjugate。</p>
-        <p><code>experts/SGNH.tex</code> 声称这些 models sign-problem-free，
+        <p><code>note/SGNH.tex</code> 声称这些 models sign-problem-free，
         但当前文件只给出 proof scheme，没有写完 metaplectic 表示中
         determinant 平方根怎样沿连续传播取号，也没有写完 regularization
         的全部步骤。因此这个来源澄清了标签，不能单独替代
@@ -1541,7 +1541,7 @@ SEGMENTS = [
         “Discovery based on Yinkai's observation” 又在文本内部印证了这个
         来源。因此，原始的 “Yinkai Yu's case” 首先指那份报告中的具体
         双组分配对构造。这个名称最早在矩阵分类中的精确定义出现在旧 note
-        <code>experts/ToYinkaiYu.tex</code> 的第一节。原文先给出上面的
+        <code>note/archive/ToYinkaiYu.tex</code> 的第一节。原文先给出上面的
         \(J_1,J_2\)，紧接着用 “\(\Longleftrightarrow\)” 写出五条关系：</p>
         <div class="scroll">\[
           J_1^TgJ_1=g,\qquad J_1^2=I,\qquad
@@ -2194,7 +2194,7 @@ SEGMENTS = [
         穷举完全一致。</p>
 
         <p>用户补充说明 “ToLeiWang4.pdf” 大概是
-        <code>experts/RPBAFQMC.tex</code> 的编译稿。这个判断与文件主题吻合：
+        <code>note/archive/RPBAFQMC.tex</code> 的编译稿。这个判断与文件主题吻合：
         该文件确实讨论 BAFQMC reflection positivity、regularized weights，
         并声称存在 contraction/expansion semigroup decomposition。
         这项 decomposition 本身不成立，因为两类 blocks 在一般传播层中混合。

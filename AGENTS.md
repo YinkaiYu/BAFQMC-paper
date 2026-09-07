@@ -7,6 +7,7 @@ This repository contains a theoretical physics manuscript on sign-problem-free b
 - `main.tex`: main manuscript source.
 - `SM.tex`: supplemental material source, included by `main.tex`.
 - `references.bib`: bibliography database.
+- `note/`: research notes and their verification code. Superseded documents are kept in `note/archive/`.
 - `figures/schematic.pdf`: sign-problem classification schematic.
 - `figures/benchmark_number_conserving.pdf`: number-conserving benchmark figure.
 - `figures/benchmark_pairing_delta.pdf`: paired/Nambu benchmark figure.
@@ -30,6 +31,7 @@ Before delivering any manuscript edit to the user:
 
 ## Writing Target
 
+- For research notes, read [`note/AGENTS.md`](note/AGENTS.md). Use a gradual, lecture-style explanation suited to physicists, with clear physical motivation, essential derivations, and economical notation. These note-specific instructions govern presentation in `note/`.
 - Keep the prose in polished scientific English suitable for APS journals.
 - Prefer PRL-like structure: sharp motivation, compact statement of novelty, minimal repetition, and direct connection between formal results and physical consequences.
 - Treat the mentor-revised abstract, Introduction, and Concluding remarks established in commit `66c6cd4` as the primary local calibration for high-visibility prose. Learn the information hierarchy and rhetorical moves rather than copying isolated phrases.

@@ -26,7 +26,7 @@ from types import ModuleType
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_TEX = REPO_ROOT / "experts" / "ContractionSemigroupsQMC.tex"
+DEFAULT_TEX = REPO_ROOT / "note" / "ContractionSemigroupsQMC.tex"
 DEFAULT_MODEL_SCRIPT = Path(__file__).with_name("verify_model_slices.py")
 
 
