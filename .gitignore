@@ -2,6 +2,7 @@
 /.build/
 /.latex-workshop/
 /pdf/
+/tmp/
 /main*.pdf
 /*.synctex.gz
 

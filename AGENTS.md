@@ -13,12 +13,31 @@ This repository contains a theoretical physics manuscript on sign-problem-free b
 - `figures/benchmark_pairing_delta.pdf`: paired/Nambu benchmark figure.
 - `.latexmkrc`: build configuration; output goes to `.build/` and the final PDF is copied to `pdf/`.
 
+## Execution Environment
+
+- Keep the Windows ChatGPT agent in its native PowerShell 7 environment. Use Windows-native tools for source editing, Git operations, and other platform-neutral work.
+- Treat Linux as the canonical environment for LaTeX builds, scientific verification, and repository workflows that depend on Linux-only tools. A Windows-native agent must invoke the corresponding `.ps1` WSL launcher when one exists, or use `scripts/run-in-wsl.ps1` for another Linux command; it must not silently substitute a Windows-native toolchain.
+- A Linux or WSL agent should run commands directly and must not invoke `wsl.exe` recursively. Both path forms address the same checkout; do not create a second clone.
+- Build and scientific verification results are authoritative only from Linux/WSL. If the sandbox exposes `/mnt/<drive>` as read-only, request approval for the command rather than diagnosing the write failure as a toolchain error.
+
 ## Build And Verification
 
-Use:
+From Linux or WSL, use:
 
 ```bash
-latexmk main.tex
+bash ./scripts/build-manuscript.sh
+```
+
+The script runs `latexmk main.tex` from the repository root. From native Windows PowerShell 7, use the WSL forwarding entry point instead:
+
+```powershell
+.\scripts\build-manuscript.ps1
+```
+
+For another Linux-only command from a Windows-native agent, pass one Bash command string through the generic launcher, for example:
+
+```powershell
+.\scripts\run-in-wsl.ps1 'python3 note/contraction_semigroups_qmc/reproduce.py check'
 ```
 
 The configured build runs `pdflatex` with `-interaction=nonstopmode -halt-on-error`. Before claiming a manuscript edit is complete, run the build and inspect warnings that are relevant to changed text, labels, citations, or figures.
@@ -59,6 +78,12 @@ Before delivering any manuscript edit to the user:
 - The benchmark discussion and Concluding remarks are populated; no unfinished marker remains in the manuscript.
 - `lipsum` is loaded but no generated filler text is used.
 - The current document class is `revtex4-2` with APS-style options matching the repository's PRL-format reference manuscript; the Supplemental Material is kept in the same compiled PDF and set in single-column format.
+
+## Git Working Practices
+
+- After completing and validating a coherent set of changes, commit it promptly. Each completed editing round must include its local Git commit.
+- Before delivering the result, inspect `git status --short` and resolve all remaining staged, unstaged, and untracked changes. Finish with a clean working tree. Do not leave completed work uncommitted or merely staged for a later turn.
+- Review remaining changes and group commits by purpose. Preserve existing source work, and keep local build output, previews, and temporary review files in ignored directories. Do not discard work just to make Git status clean.
 
 ## Collaboration Guidelines
 
