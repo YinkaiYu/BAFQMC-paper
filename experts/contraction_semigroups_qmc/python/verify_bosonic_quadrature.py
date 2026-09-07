@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the Nambu/quadrature dictionary and the two complex canonical forms.
+"""Check the Nambu/quadrature dictionary, both anti-linear kinds, and damping.
 
 Run in Linux/WSL with Python and NumPy.  This checks both sets of representatives
 already recorded in the note; it does not replace physical trace convergence by
@@ -167,6 +167,16 @@ def test_row(row, physical, rng):
     check(p.conj() @ r2 @ p.conj().T, x)
     check(p.conj() @ r1 @ p.conj().T, r1_standard)
 
+    # Express the same standard forms with the damping metric i Omega.
+    p0 = (identity - 1j * x) / np.sqrt(2)
+    check(p0.conj().T @ p0, identity)
+    check(p0.T @ omega @ p0, omega)
+    p = p0 @ p
+    damping_metric = 1j * omega
+    check(p @ e @ p.conj().T, damping_metric)
+    check(p.conj() @ r2 @ p.conj().T, 1j * identity)
+    check(p.conj() @ r1 @ p.conj().T, r1_standard)
+
     products = [identity.astype(complex) for _ in range(3)]
     for _ in range(4):
         a = rng.normal(size=j1.shape) + 1j * rng.normal(size=j1.shape)
@@ -192,7 +202,15 @@ def test_row(row, physical, rng):
         final = p @ b @ p.conj().T
         check(final.T @ omega + omega @ final)
         check(np.linalg.solve(r1_standard, final.conj() @ r1_standard), final)
-        check(d @ final + final.conj().T @ d, p @ q @ contraction @ qinv @ p.conj().T)
+        transformed_contraction = p @ q @ contraction @ qinv @ p.conj().T
+        check(damping_metric @ final + final.conj().T @ damping_metric, transformed_contraction)
+        final_h = 1j * omega @ final
+        check(2 * final_h.real, transformed_contraction)
+        check(r1_standard.T @ final_h.conj() @ r1_standard, final_h)
+        group_h = 1j * omega @ (p @ bg @ p.conj().T)
+        cone_h = 1j * omega @ (p @ bc @ p.conj().T)
+        check(group_h.real)
+        check(cone_h.imag)
         for product, generator in zip(products, (a, b, final)):
             product[:] = product @ expm(0.17 * generator)
     check(products[1], q @ products[0] @ qinv)
@@ -200,6 +218,57 @@ def test_row(row, physical, rng):
     for m in products[1:]:
         check(np.linalg.det(identity - m), np.linalg.det(identity - products[0]))
     assert np.linalg.eigvalsh(products[1].conj().T @ e @ products[1] - e).max() < -0.1
+
+
+def test_two_kinds_and_examples():
+    """Test the explicit physical and algebraic examples used in the lecture."""
+    c, omega, d = P["X"].astype(complex), P["Y"].astype(complex), P["Z"]
+    g = -omega
+    q = np.array([[1, 1], [-1j, 1j]]) / np.sqrt(2)
+    u = 1j * c
+    check(c @ u.conj() @ c, -u)
+    check(u.T @ g @ u, g)
+    check(u.T @ c @ u, -c)  # The same attempted map reverses the fermionic CAR.
+    check(q.conj() @ u @ q.conj().T, 1j * np.eye(2))
+    check(u.conj() @ u, np.eye(2))
+
+    # A physical antiunitary becomes second-kind in a'=x, a'^+=-i p.
+    canonical_pair = np.diag([1, -1j])
+    check(canonical_pair @ (1j * omega) @ canonical_pair.T, omega)
+    transformed_u = canonical_pair.conj() @ c @ np.linalg.inv(canonical_pair)
+    check(transformed_u, u)
+    actual_adjoint = canonical_pair.conj() @ np.linalg.inv(canonical_pair)
+    check(actual_adjoint, d)
+    check(actual_adjoint @ transformed_u.conj() @ actual_adjoint, transformed_u)
+
+    # The real-rescaling example preserves canonical relations but changes adjoints.
+    scale = np.diag(np.exp([0.4, -0.4]))
+    check(scale.T @ g @ scale, g)
+    check(scale.T @ c @ scale, c)
+    check(scale.conj() @ c @ np.linalg.inv(scale),
+          np.array([[0, np.exp(0.8)], [np.exp(-0.8), 0]]))
+
+    # One-mode damping with a reversible squeezing term.
+    hx, hp, mixing = 0.7, 1.1, 0.3
+    h = np.array([[-hx, 1j * mixing], [1j * mixing, -hp]])
+    b = 1j * omega @ h
+    check(h.T, h)
+    check(d.T @ h.conj() @ d, h)
+    check(1j * omega @ b + b.conj().T @ (1j * omega), 2 * h.real)
+    assert np.linalg.eigvalsh(h.real).max() < 0
+
+    # Kramers doublet with conjugate phases; compare independent Fock sums.
+    kappa, phase = 0.9, 0.4
+    a = np.diag([-kappa + 1j * phase, -kappa - 1j * phase,
+                 kappa - 1j * phase, kappa + 1j * phase])
+    u_kramers = np.kron(np.eye(2), P["Y"])
+    check(np.linalg.solve(u_kramers, a.conj() @ u_kramers), a)
+    check(u_kramers.conj() @ u_kramers, -np.eye(4))
+    exact = 1 / (4 * abs(np.sinh((kappa - 1j * phase) / 2))**2)
+    occupations = np.arange(90)
+    one_mode = np.exp((-kappa + 1j * phase) * (occupations + 0.5)).sum()
+    check(one_mode * one_mode.conjugate(), exact)
+    check(np.linalg.det(np.eye(4) - expm(a)), exact**-2)
 
 
 def main():
@@ -218,6 +287,8 @@ def main():
         assert sum(int(r["q1"]) == 1 for r in retained) == 4
         counts.append(len(retained))
 
+    test_two_kinds_and_examples()
+
     # A physical-basis obstruction that survives arbitrary real symplectic changes.
     omega = np.kron(P["Y"], np.eye(2))
     r2 = np.kron(P["Z"], np.eye(2))
@@ -230,7 +301,8 @@ def main():
     assert inertias == [(4, 0), (2, 2)]
 
     print(f"Verified {counts[0]} minimal and {counts[1]} physical bosonic contraction representatives.")
-    print("All normalize to the q1=+ or q1=- form under complex unitary symplectic changes.")
+    print("All normalize to the q1=+ or q1=- damping form with E=i Omega and R2=i I.")
+    print("Verified both anti-linear kinds, inherited adjoints, and the lecture's oscillator examples.")
     print("Verified quadratic forms, inverse dictionaries, group/cone projections, and ordered products.")
     print(f"Real-canonical obstruction verified: inertias {inertias[0]} and {inertias[1]} differ.")
     print(f"Passed {CHECKS} matrix identities; maximum residual {MAX_ERROR:.3e}.")

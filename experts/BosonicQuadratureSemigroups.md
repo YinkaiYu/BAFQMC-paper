@@ -1,354 +1,371 @@
-# Bosonic Nambu and quadrature formulations of contraction semigroups
+# Canonical bosonic coordinates, time reversal, and imaginary-time damping
 
-Research note, 6 September 2026.
+Auxiliary-field quantum Monte Carlo assigns a configuration weight to an ordered product of quadratic propagators. For bosons, the unbounded occupation of each mode makes imaginary-time damping central to this construction. A useful sign-free criterion must keep the weight real and control the evolution that could reach a bosonic pole. Canonical position and momentum coordinates make these two roles transparent.
 
-The eight bosonic cases with a nonzero contraction cone reduce to **two algebraic families**, distinguished by the square of the first anti-linear map. A complex unitary symplectic change of coordinates puts every representative into one of two explicit standard forms. Requiring all coordinates to remain Hermitian imposes a stronger notion of equivalence: additional representation data can then survive. This distinction is essential when transferring the result to physical Gaussian traces.
+The canonical algebra also permits more freedom than a unitary change of single-particle orbitals. Creation and annihilation operators can be recombined while preserving their commutators. This freedom reveals an additional bosonic anti-linear transformation and brings the contraction conditions into a form with a direct physical interpretation.
 
-This note derives the bosonic counterpart of Appendix B of `TimeReversalSymmetriesQMC.tex`, then applies it to the eight colored bosonic cells of `ContractionSemigroupsQMC.tex`. The classification concerns the strict-contraction cases; it does not identify the 24 group-only cases with these semigroups.
+## 1. Creation operators and the choice of coordinates
 
-## 1. Nambu operators and Hermitian quadratures
-
-For \(N\) bosonic modes, set
-
+Let \(\hat a_j,\hat a_j^+\) obey
 \[
-\hat\chi=(\hat a,\hat a^+)^{\mathsf T},\qquad
-\hat r=(\hat x,\hat p)^{\mathsf T}=Q\hat\chi,\qquad
-Q=\frac1{\sqrt2}\begin{pmatrix}I&I\\-\mathrm iI&\mathrm iI\end{pmatrix}.
+[\hat a_j,\hat a_k^+]=\delta_{jk},\qquad
+[\hat a_j,\hat a_k]=[\hat a_j^+,\hat a_k^+]=0.
+\tag{1}
 \]
+The superscript \(+\) identifies the canonical creation partner. In the usual Fock representation we choose \(\hat a_j^+=\hat a_j^\dagger\). The symbol \(\dagger\) always denotes the Hilbert-space adjoint.
 
-Thus \(\hat a=(\hat x+\mathrm i\hat p)/\sqrt2\) and \(\hat a^+=(\hat x-\mathrm i\hat p)/\sqrt2\). Define
-
+A simple rescaling shows why it is useful to keep the two symbols distinct. Starting with an ordinary Fock pair, take real \(s\) and define
 \[
-\Omega=\begin{pmatrix}0&I\\-I&0\end{pmatrix},\qquad
-g=-\Omega,\qquad C=\begin{pmatrix}0&I\\I&0\end{pmatrix}.
+\hat a'=\mathrm e^s\hat a,\qquad
+\hat a'{}^+=\mathrm e^{-s}\hat a^+.
 \]
-
-The identities needed below are
-
+Then
 \[
-Q^{-1}=Q^\dagger,\qquad \overline Q=QC,\qquad
-Q^{-\mathsf T}gQ^{-1}=\mathrm i\Omega,\qquad
-[\hat r_\mu,\hat r_\nu]=\mathrm i\Omega_{\mu\nu}.
+[\hat a',\hat a'{}^+]=1,\qquad
+(\hat a')^\dagger=\mathrm e^s\hat a^+
+=\mathrm e^{2s}\hat a'{}^+.
+\tag{2}
 \]
+The commutator is unchanged, and the adjoint relation has acquired a scale factor. The same rescaling preserves the fermionic anticommutator. Gaussian operator identities can therefore be derived using canonical pairs, with the adjoint relation specified when a physical representation is chosen.
 
-For the quadratic generator and its one-body matrix, write
+Introduce
+\[
+\hat x=\frac{\hat a+\hat a^+}{\sqrt2},\qquad
+\hat p=\frac{\hat a-\hat a^+}{\mathrm i\sqrt2}.
+\tag{3}
+\]
+They obey \([\hat x_j,\hat p_k]=\mathrm i\delta_{jk}\). When \(\hat a^+=\hat a^\dagger\), they are Hermitian position and momentum operators. After a complex canonical change, they remain canonical coordinates and carry the transformed adjoint relation. Throughout the derivation, \(+\) is retained for creation operators.
 
+## 2. Quadratic evolution in position and momentum
+
+Collect the operators into columns,
+\[
+\hat\chi=\binom{\hat a}{\hat a^+},\qquad
+\hat r=\binom{\hat x}{\hat p}=Q\hat\chi,\qquad
+Q=\frac1{\sqrt2}
+\begin{pmatrix}I&I\\-\mathrm iI&\mathrm iI\end{pmatrix}.
+\tag{4}
+\]
+In these block matrices, \(I\) is the identity for the \(N\) modes. The commutators are
+\[
+[\hat r_\mu,\hat r_\nu]=\mathrm i\Omega_{\mu\nu},\qquad
+\Omega=\begin{pmatrix}0&I\\-I&0\end{pmatrix}.
+\]
+In the Nambu convention \(g=-\Omega\), a quadratic generator has the equivalent forms
 \[
 \hat h=\frac12\hat\chi^{\mathsf T}gA\hat\chi
 =\frac12\hat r^{\mathsf T}H\hat r,\qquad
-B=QAQ^{-1},\qquad H=\mathrm i\Omega B.
-\tag{1}
+B=QAQ^\dagger,\qquad H=\mathrm i\Omega B.
+\tag{5}
 \]
-
-The exact dictionary is
-
+The matrices \(A\) and \(B\) describe one-body propagation in the two bases. The matrix \(H\) contains the coefficients of the quadratic operator. Substitution of \(Q\) gives
 \[
 gA+A^{\mathsf T}g=0
 \quad\Longleftrightarrow\quad
 B^{\mathsf T}\Omega+\Omega B=0
 \quad\Longleftrightarrow\quad H^{\mathsf T}=H.
-\tag{2}
-\]
-
-The coefficient matrix \(H\) is symmetric, while \(B\) is a complex symplectic Lie-algebra element. They are different objects. Hermiticity of the quadratic operator additionally requires \(H\) real, or equivalently \(\overline B=-B\). Hubbard--Stratonovich generators need not have this property.
-
-For a product, \(M_r=QM Q^{-1}\). In particular,
-
-\[
-\det(I-M_r)=\det(I-M),\qquad
-p_{\rm B}=\bigl[(-1)^N\det(I-M_r)\bigr]^{-1/2}.
-\tag{3}
-\]
-
-The ordered Fock-space product selects the square-root branch. Equation (3) preserves its determinant under the coordinate change; it does not select a new branch.
-
-## 2. Physical antiunitary transformations
-
-Use the operator-space convention of the time-reversal note:
-
-\[
-\widehat\Theta\hat\chi\widehat\Theta^{-1}=U\hat\chi.
-\]
-
-Anti-linearity conjugates the coefficients in \(Q\), so
-
-\[
-R=\overline Q\,UQ^{-1},\qquad
-\widehat\Theta\hat r\widehat\Theta^{-1}=R\hat r,
-\qquad U=(\overline Q)^{-1}RQ.
-\tag{4}
-\]
-
-The three physical Nambu conditions become
-
-\[
-\begin{aligned}
-C\overline U C=U
-&\quad\Longleftrightarrow\quad \overline R=R,\\
-U^{\mathsf T}gU=g
-&\quad\Longleftrightarrow\quad R^{\mathsf T}\Omega R=-\Omega,\\
-U^{-1}\overline A U=A
-&\quad\Longleftrightarrow\quad R^{-1}\overline B R=B.
-\end{aligned}
-\tag{5}
-\]
-
-Thus a physical bosonic time reversal is a **real anti-symplectic transformation** of Hermitian quadratures. The minus sign follows directly from antiunitarity:
-
-\[
-[\Theta\hat r_\mu,\Theta\hat r_\nu]
-=\Theta(\mathrm i\Omega_{\mu\nu})=-\mathrm i\Omega_{\mu\nu}.
-\]
-
-Equivalently, \(R^{\mathsf T}\overline H R=H\). If \(U\) is also unitary as a matrix, as in the periodic-table representatives, \(R\) is orthogonal. General physical bosonic canonical transformations need not satisfy this extra Euclidean orthogonality condition.
-
-Squares and mutual anticommutation are preserved:
-
-\[
-\overline U U=\epsilon I
-\Longleftrightarrow\overline R R=\epsilon I,
-\qquad
-\overline U_bU_a+\overline U_aU_b=0
-\Longleftrightarrow
-\overline R_bR_a+\overline R_aR_b=0.
 \tag{6}
 \]
+Thus all allowed quadratic coefficients are contained in a complex symmetric \(H\). With Hermitian quadratures, its real part supplies the coefficients of the Hermitian part of \(\hat h\).
 
-For physical real matrices these reduce to \(R^2=\epsilon I\) and ordinary matrix anticommutation. Under the additional orthogonality assumption, \(R^{\mathsf T}=\epsilon R\).
-
-The fermionic analogue has a symmetric canonical form that becomes \(I\) in the Majorana basis. The bosonic alternating form remains \(\Omega\); an invertible change of basis cannot turn an alternating form into a symmetric one. This is the structural difference between the two dictionaries.
-
-## 3. The eight contraction cases in a common language
-
-Write the table's five signs as
-
+The sign convention is fixed by one damped mode in the usual Fock representation. For \(\kappa>0\),
 \[
-J_j^{\mathsf T}gJ_j=s_jg,\qquad J_j^2=q_jI,\qquad
-J_1J_2=rJ_2J_1.
-\]
-
-All \(J_j\) are real orthogonal. The existing cone criterion is
-
-\[
-q_2=+1,\qquad r=-s_1s_2.
+H=-\kappa I,\qquad
+\hat h=-\frac{\kappa}{2}(\hat x^2+\hat p^2)
+=-\kappa(\hat a^+\hat a+\tfrac12),
+\qquad
+\operatorname{Tr}\mathrm e^{\hat h}
+=\frac1{2\sinh(\kappa/2)}>0.
 \tag{7}
 \]
+The exponent suppresses states with large occupation. Its propagation matrix nevertheless has eigenvalues \(\mathrm e^\kappa\) and \(\mathrm e^{-\kappa}\). These reciprocal eigenvalues reflect the canonical relation between creation and annihilation operators. A useful matrix contraction criterion must accommodate both directions.
 
-Introduce the canonically preserving anti-linear matrices
-
+For several slices, write \(M=\mathrm e^{B_1}\cdots\mathrm e^{B_L}\). The Gaussian weight is
 \[
-U_j=\begin{cases}J_j,&s_j=+1,\\ \mathrm iJ_j,&s_j=-1,\end{cases}
-\qquad R_j=\overline Q\,U_jQ^{-1}.
+w=\operatorname{Tr}\bigl(\mathrm e^{\hat h_1}\cdots\mathrm e^{\hat h_L}\bigr)
+=\bigl[(-1)^N\det(I-M)\bigr]^{-1/2}.
 \tag{8}
 \]
+This expression agrees with the Fock trace where it converges. The ordered operators fix the square-root branch, and \(\det(I-M)=0\) locates its poles. The damped oscillator supplies a positive reference from which that branch can be followed.
 
-These matrices are unitary, and \(U_j^{\mathsf T}gU_j=g\). For an arbitrary table representative, physical adjoint compatibility is a separate condition. Specifically,
+## 3. Two kinds of bosonic anti-linear transformation
 
+An anti-linear transformation conjugates numerical coefficients and acts on the canonical operators as
 \[
-C\overline U_jC=U_j
-\quad\Longleftrightarrow\quad CJ_jC=s_jJ_j.
+\Theta\hat\chi=U\hat\chi,\qquad
+\Theta(c\hat d)=\overline c\,\Theta\hat d.
+\]
+Preservation of the canonical algebra requires \(U^{\mathsf T}gU=g\). In quadrature coordinates,
+\[
+R=\overline Q\,UQ^\dagger,\qquad
+\Theta\hat r=R\hat r,\qquad
+R^{\mathsf T}\Omega R=-\Omega.
 \tag{9}
 \]
+The bar on \(Q\) follows from anti-linearity. The minus sign in the last equation accounts for \(\Theta(\mathrm i)=-\mathrm i\).
 
-The minimal generator representatives and the physical time-reversal representatives in the repository are different choices in some cells. Equation (9) must therefore be checked rather than inferred from the five signs. Without it, \(R_j\) can be complex even though the initial \(x,p\) operators are Hermitian.
-
-Let \(E=Q\eta Q^\dagger\). Substitution of the table metric gives, for both signs of \(s_2\),
-
+To compare the action on annihilation and creation operators, introduce the exchange matrix
 \[
-\boxed{E=-\overline R_2\Omega},\qquad
-E=E^\dagger,\quad E^2=I,\quad
-E^{\mathsf T}\Omega+\Omega E=0.
+C=\begin{pmatrix}0&I\\I&0\end{pmatrix}.
+\]
+The two possibilities of interest are
+\[
+\begin{array}{c|c}
+\text{First kind}&C\overline U C=U\\
+\text{Second kind}&C\overline U C=-U.
+\end{array}
 \tag{10}
 \]
+In a usual Fock basis, the first kind preserves the adjoint relation. It can describe a physical antiunitary time reversal. The second kind is an anti-linear transformation of the canonical algebra. In that same Fock basis, the image of \(\hat a^+\) under a second-kind map is minus the adjoint of the image of \(\hat a\). Its use is to constrain quadratic generators algebraically.
 
-For example, \(\overline R_2=Q\overline\alpha_2J_2Q^{\mathsf T}\), where \(\alpha_2=1\) or \(\mathrm i\). Combining this with \(Q^{-\mathsf T}gQ^{-1}=\mathrm i\Omega\) yields (10) for either \(\eta=\mathrm iJ_2g\) or \(\eta=J_2g\). For a physical \(R_2\), the bar in (10) can be omitted.
-
-All eight cases now satisfy the same equations:
-
+Equation (9) makes this distinction concrete,
 \[
-\begin{gathered}
-B^{\mathsf T}\Omega+\Omega B=0,\qquad
-R_1^{-1}\overline B R_1=B,\qquad EB+B^\dagger E\leq0,\\
-R_j^\dagger R_j=I,\qquad R_j^{\mathsf T}\Omega R_j=-\Omega,\\
-R_1^{\mathsf T}=q_1R_1,\qquad R_2^{\mathsf T}=R_2,\qquad
-\overline R_2R_1+\overline R_1R_2=0.
-\end{gathered}
+C\overline U C=U\ \Longleftrightarrow\ \overline R=R,
+\qquad
+C\overline U C=-U\ \Longleftrightarrow\ \overline R=-R.
 \tag{11}
 \]
+First-kind transformations have real quadrature matrices. Second-kind transformations have \(R=\mathrm iV\), where \(V\) is real and obeys \(V^{\mathsf T}\Omega V=\Omega\). The two types are compatible with the bosonic commutators.
 
-Only \(q_1\) remains as a binary algebraic choice. The transformation also preserves the full group/cone decomposition:
-
+The simplest second-kind example is
 \[
-\begin{aligned}
-B_{\rm group}&=\tfrac12(B+R_2^{-1}\overline B R_2),\\
-B_{\rm cone}&=\tfrac12(B-R_2^{-1}\overline B R_2),\\
-EB+B^\dagger E&=2EB_{\rm cone}.
-\end{aligned}
+U=\mathrm iC,\qquad
+\Theta\hat a=\mathrm i\hat a^+,\qquad
+\Theta\hat a^+=\mathrm i\hat a,\qquad
+R=\mathrm iI.
 \tag{12}
 \]
-
-The first anti-linear map is a symmetry of the complete generator. The second fixes the group directions and reverses the cone directions. It is consequently not a second time-reversal symmetry of a general semigroup element.
-
-| Family | Bosonic cells | Anti-linear squares on the maximal subgroup |
-|---|---|---|
-| \(q_1=+1\) | B02, B05, B17, B22 | \(\{+,+\}\) |
-| \(q_1=-1\) | B10, B13, B25, B30 | \(\{-,+\}\) |
-
-The fermionic construction instead requires \(q_2=-1\), giving \(\{+,-\}\) and \(\{-,-\}\). These are the two fermionic semigroup families in [Wei, *Physical Review B* **110**, 075146 (2024), Sec. IV](https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.110.075146/fulltext). The paper also explicitly allows complex canonical Majorana coordinates; its algebraic scope is useful when comparing the two statistics.
-
-## 4. Proof that there are two complex canonical standard forms
-
-The allowed coordinate changes in this section are
-
+Indeed,
 \[
-\hat r'=P\hat r,\qquad P^\dagger P=I,\qquad
-P^{\mathsf T}\Omega P=\Omega.
+[\mathrm i\hat a^+,\mathrm i\hat a]
+=-[\hat a^+,\hat a]=1,\qquad
+U^{\mathsf T}gU=g.
+\]
+The exchange of the operators reverses a bosonic commutator, and the two factors of \(\mathrm i\) supply the compensating minus sign.
+
+The Hilbert-space meaning follows from the chosen adjoint relation. For example, start with Hermitian position and momentum and form the canonical pair
+\[
+\hat a'=\hat x,\qquad \hat a'{}^+=-\mathrm i\hat p,\qquad
+[\hat a',\hat a'{}^+]=1.
+\]
+A physical antiunitary that exchanges \(\hat x\) and \(\hat p\) acts as
+\(\Theta\hat a'=\mathrm i\hat a'{}^+\) and
+\(\Theta\hat a'{}^+=\mathrm i\hat a'\).
+It is therefore of the second kind in this basis. The actual adjoints are
+\((\hat a')^\dagger=\hat a'\) and
+\((\hat a'{}^+)^\dagger=-\hat a'{}^+\).
+This example shows how a physical antiunitary can acquire the second-kind form when expressed through canonical partners with a different adjoint relation.
+
+For fermions, the canonical matrix is \(g_{\rm F}=C\). The same proposed second-kind condition gives
+\[
+\overline U=-CUC,\qquad
+U^{\mathsf T}CU=C
+\quad\Longrightarrow\quad
+U^\dagger U=-CU^{\mathsf T}CU=-I.
 \tag{13}
 \]
+A numerical matrix \(U^\dagger U\) is positive semidefinite, so these conditions are incompatible. This argument does not require a separate assumption that \(U\) is unitary. For one mode the obstruction is already visible in
+\(\{\mathrm i\hat a^+,\mathrm i\hat a\}=-1\).
+The second kind is therefore a specifically bosonic possibility.
 
-The matrix \(P\) may be complex. Such a change preserves the canonical algebra and the contraction inequality, but need not preserve the Hermiticity of individual coordinates. The transformed data are
+The square of an anti-linear map is determined separately by \(\overline U U\). For example, (12) has \(\Theta^2=+I\). The distinction in (10) records its behavior under creation-annihilation conjugation and should be kept separate from the sign of its square.
 
+## 4. The second kind separates damping from reversible evolution
+
+The transformation \(R_2=\mathrm iI\) has a direct use in imaginary-time evolution. Under a canonical anti-linear transformation, the quadratic coefficient changes as
 \[
-B'=PBP^\dagger,\qquad E'=PEP^\dagger,\qquad
-R_j'=\overline P R_jP^\dagger.
+H\ \longmapsto\ R_2^{\mathsf T}\overline H R_2=-\overline H.
 \tag{14}
 \]
-
-In particular, \(E'B'+B'^\dagger E'=P(EB+B^\dagger E)P^\dagger\).
-
-### Normalize the contraction metric
-
-Because \(E\) is Hermitian, symplectic-infinitesimal, and an involution, an eigenvector \(v\) with eigenvalue \(+1\) is paired with \(-\Omega\overline v\), which has eigenvalue \(-1\). The two eigenspaces therefore have equal dimension \(N\). Choose an orthonormal basis \(V_+\) of the positive eigenspace and set
-
+It fixes the imaginary part of \(H\) and reverses its real part. With Hermitian quadratures, these are precisely the two familiar pieces of a quadratic generator,
 \[
-V=(V_+,-\Omega\overline V_+).
-\]
-
-The symplectic Lie-algebra relation implies \(V_+^{\mathsf T}\Omega V_+=0\), hence
-
-\[
-V^\dagger V=I,\qquad V^{\mathsf T}\Omega V=\Omega.
-\]
-
-The change \(P=V^\dagger\) gives
-
-\[
-E'=D\equiv\begin{pmatrix}I&0\\0&-I\end{pmatrix},\qquad
-R_2'=X\equiv\begin{pmatrix}0&I\\I&0\end{pmatrix}.
+\hat h=
+\frac12\hat r^{\mathsf T}(\operatorname{Re}H)\hat r
++\frac{\mathrm i}{2}\hat r^{\mathsf T}(\operatorname{Im}H)\hat r.
 \tag{15}
 \]
+The second term generates unitary evolution. A negative real part supplies damping.
 
-The second identity follows from (10), which is preserved by (14).
-
-### Normalize the remaining anti-linear map
-
-The cone-compatibility condition gives \(R_1^{-1}\overline E R_1=E\). With \(E'=D\), it forces \(R_1'\) to be block diagonal. Its anti-symplectic and unitary properties then imply
-
+The matrix relation \(H=\mathrm i\Omega B\) identifies the contraction matrix \(E=\mathrm i\Omega\). It is Hermitian and satisfies \(E^2=I\). Its contraction inequality becomes
 \[
-R_1'=\begin{pmatrix}U&0\\0&-\overline U\end{pmatrix},\qquad
-U^\dagger U=I,\qquad U^{\mathsf T}=q_1U.
+\boxed{
+EB+B^\dagger E
+=H+H^\dagger
+=2\operatorname{Re}H\leq0.
+}
 \tag{16}
 \]
+Thus the matrix condition is simply a negative-semidefinite real quadratic form. Strict negativity confines all quadrature directions, as in (7).
 
-Changes \(P=\operatorname{diag}(W,\overline W)\), with \(W\) unitary, preserve both matrices in (15) and send \(U\mapsto\overline W U W^\dagger\).
-
-For \(q_1=+1\), the anti-linear map \(z\mapsto U\overline z\) is an isometric involution. An orthonormal basis of its real fixed subspace gives \(U=VV^{\mathsf T}\). Taking \(W=V^{\mathsf T}\) reduces \(U\) to \(I\).
-
-For \(q_1=-1\), \(N=2m\) is even. Choose a normalized vector \(v\) and its orthogonal partner \(-U\overline v\), then repeat in the orthogonal complement. This constructs a unitary \(V\) with \(U=V\mathcal J V^{\mathsf T}\), where
-
+This also explains the group and cone terminology. The imaginary part of \(H\) can have either sign and gives reversible evolution. The allowed real part is restricted to the negative cone. Reversing it would amplify the same oscillator states. In terms of propagation matrices,
 \[
-\mathcal J=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix}.
-\]
-
-Again \(W=V^{\mathsf T}\) gives the standard form. The two results are
-
-\[
-\boxed{\begin{array}{c|c|c|c}
-q_1&E&R_2&R_1\\ \hline
-+1&D&X&D\\[2pt]
--1&D&X&\operatorname{diag}(\mathcal J,-\mathcal J)
-\end{array}}
+B_{\rm group}=\frac{B+\overline B}{2},\qquad
+B_{\rm cone}=\frac{B-\overline B}{2}.
 \tag{17}
 \]
+The map \(R_2=\mathrm iI\) is a symmetry of the group part and changes the sign of the cone part. For the oscillator in (7), it sends \(\hat h\) to \(-\hat h\).
 
-These transformations map the entire generator set, its contraction cone, and all ordered matrix products bijectively. They prove equivalence of the algebraic semigroups, rather than merely a relabeling of their signs. Both standard forms have a strict direction \(B=-D\), for which \(DB+B^\dagger D=-2I\).
-
-As a further distinction, the connected maximal subgroup has Lie algebra \(\mathfrak{gl}(N,\mathbb R)\) in the positive-square family and \(\mathfrak{sp}(2m,\mathbb C)\), regarded as a real Lie algebra, in the negative-square family. Here \(\operatorname{Sp}(2m,\mathbb C)\) denotes matrices of size \(2m\). To see this, split the complexified space into eigenspaces of \(R_1R_2\) in the standard forms (17). For \(q_1=+1\), they are paired Lagrangian sectors, each preserved by the anti-linear map \(z\mapsto R_2\overline z\); an arbitrary real block on one sector determines the other. For \(q_1=-1\), they are symplectic sectors exchanged by that anti-linear map; an arbitrary complex symplectic block determines its partner. For adjoint-compatible representatives, the latter family realizes the bosonic Majorana mechanism on its maximal subgroup.
-
-## 5. What changes when the coordinates must remain Hermitian
-
-A physical change between two Hermitian quadrature bases has \(P\) real and symplectic. The standardization in (13) allows complex matrices and therefore need not satisfy the Hermiticity requirement. Even allowing nonorthogonal real symplectic changes leaves the obstruction below intact.
-
-For real orthogonal anti-symplectic matrices, choose a real orthogonal symplectic basis with
-
+The inequality survives multiplication of slices. For a single slice,
 \[
-R_2=D,\qquad R_1=\begin{pmatrix}0&K\\K&0\end{pmatrix},\qquad
-K^{\mathsf T}K=I,\qquad K^2=q_1I.
+\frac{\mathrm d}{\mathrm dt}
+\left(\mathrm e^{tB^\dagger}E\mathrm e^{tB}\right)
+=\mathrm e^{tB^\dagger}(H+H^\dagger)\mathrm e^{tB}\leq0.
+\]
+Hence \(\mathrm e^{B^\dagger}E\mathrm e^B\leq E\), and inserting successive slices preserves this inequality. With strict contraction in one slice, the complete product has no eigenvalue \(+1\), so the Gaussian weight encounters no pole. A symmetry that keeps the weight real then lets its positive reference sign extend throughout a connected contracting domain.
+
+## 5. Two choices for the symmetry of the complete evolution
+
+Let \(R_1\) impose the symmetry of every slice,
+\[
+R_1^{-1}\overline B R_1=B
+\quad\Longleftrightarrow\quad
+R_1^{\mathsf T}\overline H R_1=H.
 \tag{18}
 \]
-
-This follows by choosing an orthonormal basis in the \(+1\) eigenspace of \(R_2\), completing it with its symplectic partners, and using the anticommutation of \(R_1,R_2\). The anti-symplectic condition identifies the two off-diagonal blocks in \(R_1\).
-
-For \(q_1=-1\), \(K\) is a real orthogonal complex structure; an orthogonal change reduces it to \(\mathcal J\). For \(q_1=+1\), it is a symmetric involution,
-
+The contraction construction uses two anticommuting anti-linear maps. Once \(R_2=\mathrm iI\), their anticommutation gives
 \[
-K=S=\operatorname{diag}(I_p,-I_q),\qquad p+q=N.
+\overline R_2R_1+\overline R_1R_2
+=-\mathrm iR_1+\mathrm i\overline R_1=0.
 \]
+Consequently \(R_1\) is real and belongs to the first kind. In the orthogonal representatives used below, its square can be \(+I\) or \(-I\).
 
-The real symmetric form
+### A symmetry that squares to \(+I\)
 
+The familiar choice is complex conjugation in the occupation basis,
 \[
-F=\Omega R_1R_2=\operatorname{diag}(S,S)
+\Theta_1\hat a=\hat a,\qquad
+\Theta_1\hat x=\hat x,\qquad
+\Theta_1\hat p=-\hat p,\qquad
+R_1=\begin{pmatrix}I&0\\0&-I\end{pmatrix}.
 \tag{19}
 \]
-
-has inertia \((2p,2q)\). Under any real symplectic change it transforms by congruence,
-
+Equation (18) makes the \(xx\) and \(pp\) coefficients real and the \(xp\) coefficients imaginary. One mode illustrates the complete construction,
 \[
-F'=P^{-\mathsf T}FP^{-1},
+\hat h=
+-\frac{\kappa_x}{2}\hat x^2
+-\frac{\kappa_p}{2}\hat p^2
++\frac{\mathrm i\lambda}{2}(\hat x\hat p+\hat p\hat x),
+\qquad
+\kappa_x,\kappa_p>0,\quad \lambda\in\mathbb R.
+\tag{20}
 \]
+The first two terms suppress large position and momentum fluctuations. The last term generates a unitary squeezing operation and can have either sign. Under \(\Theta_1\), both \(\mathrm i\) and \(\hat p\) reverse sign, leaving this term invariant. Every slice therefore combines damping with the same reality symmetry.
 
-so its inertia cannot change. The replacement \(R_1\mapsto-R_1\) leaves the generator constraints unchanged and interchanges \(p,q\); the physically relevant signature label is therefore unordered.
+For many modes, the positive coefficients in (20) become real positive-definite matrices, and the \(xp\) mixing is an arbitrary real matrix with the required transposed partner. The physical interpretation is unchanged.
 
-For a concrete counterexample, take two modes, \(R_2=D\), and compare \(K=I_2\) with \(K=\operatorname{diag}(1,-1)\). Their forms \(F\) have inertias \((4,0)\) and \((2,2)\). They share \(q_1=q_2=+1\) and the same anticommutation algebra, but their marked symmetry structures cannot be related by a real canonical change. Both signatures can already occur in physical realizations of the B05 relation case. Thus the five signs do not classify all physical representations up to real canonical equivalence.
+### A symmetry that squares to \(-I\)
 
-The displayed physical representatives of B02, B05, B17, and B22 all have balanced inertia \((2,2)\). The signature issue concerns the allowed representations beyond that particular choice; it does not introduce a third binary contraction criterion.
-
-## 6. Gaussian weights and the interpretation of the reduction
-
-For every change (13), \(M' = PM P^{-1}\), so the determinant and its poles are unchanged. The same ordered Gaussian lift retains its branch. However, if \(P\) is complex, interpreting \(P\hat r\) as a fresh set of Hermitian operators changes the adjoint structure. Trace convergence in that different physical realization need not be preserved.
-
-The one-mode B05 representative makes this explicit. Its minimal matrices are \(J_1=I\), \(J_2=\sigma_x\), and \(\eta=\sigma_z\). The strict generator \(A=-t\sigma_z\), \(t>0\), represents
-
+For an even number of modes, organize them into doublets \((\hat b_j,\hat c_j)\) and take
 \[
-\hat h=-t(\hat n+\tfrac12),\qquad
-p=\frac1{2\sinh(t/2)}>0.
+\Theta_1\hat b_j=\hat c_j,\qquad
+\Theta_1\hat c_j=-\hat b_j.
+\tag{21}
 \]
-
-The standardization above sends the matrix to \(B'=-tD\). Its quadratic coefficient is
-
+The creation operators transform in the same way. Applying the map twice gives a minus sign, as for a Kramers pair. In quadrature coordinates,
 \[
-H'=\mathrm i\Omega B'=\mathrm itX.
+R_1=\begin{pmatrix}\mathcal J&0\\0&-\mathcal J\end{pmatrix},
+\qquad
+\mathcal J=\begin{pmatrix}0&I\\-I&0\end{pmatrix}.
+\tag{22}
 \]
+Here the identities in \(\mathcal J\) act on the doublet labels. The lower-block sign again comes from the factor of \(\mathrm i\) in momentum.
 
-If the new coordinates are incorrectly treated as Hermitian, this becomes an anti-Hermitian squeezing generator, whose exponential is unitary and is not trace class. Under the actual complex coordinate change it remains the same damped oscillator, because the new coordinates carry a transformed adjoint relation. This example separates matrix-semigroup equivalence from equivalence of physical trace domains.
+A simple doublet shows how complex contributions are paired,
+\[
+\hat h=-\kappa(\hat b^+\hat b+\hat c^+\hat c+1)
++\mathrm i\lambda(\hat b^+\hat b-\hat c^+\hat c),
+\qquad \kappa>0,\quad \lambda\in\mathbb R.
+\tag{23}
+\]
+The imaginary phases of the two modes have opposite signs, while their damping is identical. The trace is
+\[
+w=\frac{1}
+{4\left|\sinh[(\kappa-\mathrm i\lambda)/2]\right|^2}>0.
+\tag{24}
+\]
+General pairing terms and noncommuting slices are included by imposing (18) together with (16). The contraction condition remains part of the criterion.
 
-Consequently:
+Both families contain the positive reference \(H=-\kappa I\). Interpolating every slice toward this reference preserves the symmetry and the nonpositive real part. An originally strict slice stays strict. The Gaussian branch remains real and encounters no pole, so its sign stays positive. The two families differ in whether the reality symmetry acts on individual canonical modes or on Kramers doublets.
 
-1. **Two algebraic contraction families:** yes, with the explicit standard forms (17).
-2. **Two patterns in physical quadrature language:** yes, for adjoint-compatible representatives, with real anti-symplectic matrices and squares \(\{+,+\}\) or \(\{-,+\}\) on the maximal subgroup.
-3. **Exactly two inequivalent physical realizations under real canonical changes:** this stronger statement does not follow; the signature example (19) supplies an obstruction.
+## 6. How the eight Nambu cases acquire these forms
 
-The bosonic time-reversal-only class \(\{+,+,+\}\) is a separate sufficient criterion. It need not collapse because the strict-contraction cases have two families: a cone inequality can protect evolution that breaks the second subgroup time reversal. In every physical application the positive reference, the branch, and the convergence domain must still be specified as in the original semigroup note.
+The Nambu enumeration uses real orthogonal matrices \(J_1,J_2\). The first imposes \(J_1^{\mathsf T}AJ_1=\overline A\), and the second constructs the Hermitian matrix \(\eta\) in the contraction condition \(\eta A+A^\dagger\eta\leq0\). The corresponding canonical anti-linear matrices are
+\[
+U_j=
+\begin{cases}
+J_j,&J_j^{\mathsf T}gJ_j=g,\\
+\mathrm iJ_j,&J_j^{\mathsf T}gJ_j=-g.
+\end{cases}
+\tag{25}
+\]
+The phase preserves \(U_j^{\mathsf T}gU_j=g\). It also keeps the square \(\overline U_jU_j=J_j^2\). The eight cases with a nonzero contraction cone all have \(J_2^2=I\), and their two induced anti-linear maps anticommute.
 
-## Verification
+Under (4), the contraction matrix and anti-linear matrices obey
+\[
+E=Q\eta Q^\dagger=-\overline R_2\Omega,\qquad
+R_j=\overline Q\,U_jQ^\dagger.
+\tag{26}
+\]
+The first-kind or second-kind property can be checked directly through \(C\overline U_jC=\pm U_j\). For example, the one-mode representative \(J_1=I,\ J_2=C\) has \(U_1=I,\ U_2=\mathrm iC\). It combines the reality symmetry and damping illustrated in (19)-(20).
 
-The companion `contraction_semigroups_qmc/python/verify_bosonic_quadrature.py` checks all eight minimal representatives and all eight physical representatives recorded in the existing CSV tables. It constructs the complex unitary symplectic standardization independently for each representation and checks the inverse dictionaries, quadratic coefficients, anti-linear constraints, group/cone projections, strict inequalities, and four-slice products. It also verifies the real-canonical inertia obstruction.
+A canonical change of coordinates brings the general contraction matrix in (26) to \(E=\mathrm i\Omega\). Equation (26) then fixes \(R_2=\mathrm iI\), and the anticommutation calculation below (18) makes \(R_1\) real. A final choice of canonical pairs reduces \(R_1\) to (19) or (22). An explicit coordinate construction is given in the Appendix.
 
-Run from the repository root in Linux/WSL:
+The eight cases group as follows, with cell labels taken from the [companion contraction-semigroup table](../pdf/ContractionSemigroupsQMC.pdf).
 
-```text
-python3 experts/contraction_semigroups_qmc/python/verify_bosonic_quadrature.py
-```
+| Square of the first map | Nambu cells | Standard reality symmetry |
+|---|---|---|
+| \(J_1^2=+I\) | B02, B05, B17, B22 | Equation (19) |
+| \(J_1^2=-I\) | B10, B13, B25, B30 | Equation (22) |
 
-The 6 September 2026 run passed 1,333 matrix identities with maximum residual \(1.78\times10^{-15}\). These finite-dimensional checks support the analytic derivation; they do not test Fock-space trace convergence numerically. The existing manuscript sources and bibliography are unchanged.
+Both use the second-kind map \(R_2=\mathrm iI\) to define damping. The two kinds in (10) and the two rows of this table answer different classification questions. The former describe a map's action on creation-annihilation conjugation. The latter describe the square of the symmetry that fixes the complete evolution.
+
+The coordinate changes used for this grouping can be complex. They preserve the canonical algebra, the contraction inequality, and the ordered matrix products. The transformed \(+\) operators retain the adjoint relation inherited from the original operators, as in (2). If the displayed standard forms are realized directly with Hermitian \(x,p\), inequality (16) has the literal damping interpretation used in Secs. 4 and 5. For a transformed operator basis, the same Gaussian operator and its original adjoint relation are carried along.
+
+This separation of roles clarifies the bosonic extension of the [fermionic semigroup construction](https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.110.075146/fulltext). The first map makes the configuration weight real. The second-kind bosonic map separates reversible quadratic evolution from imaginary-time damping, and the contraction inequality preserves the positive Gaussian branch. The resulting two families include paired evolution and connect the algebraic classification directly to the suppression of large bosonic occupations.
+
+## Appendix. Choosing coordinates adapted to the contraction condition
+
+The purpose of the coordinate choice is to turn \(EB+B^\dagger E\leq0\) into the energy-coefficient condition (16). A matrix \(P\) preserves the quadrature commutators when \(P^{\mathsf T}\Omega P=\Omega\). We can also choose \(P^\dagger P=I\), so that
+\[
+B'=PBP^\dagger,\qquad E'=PEP^\dagger,\qquad
+R_j'=\overline P R_jP^\dagger
+\tag{27}
+\]
+preserve the contraction inequality by ordinary unitary conjugation.
+
+For the eight contraction cases, \(E\) is Hermitian and satisfies
+\[
+E^2=I,\qquad E^{\mathsf T}\Omega+\Omega E=0.
+\]
+Its positive and negative eigenvectors occur in canonical pairs. If \(Ev=v\), then
+\[
+E(-\Omega\overline v)=-(-\Omega\overline v).
+\]
+Choose orthonormal positive eigenvectors as the columns of \(V_+\). Their partners form the remaining columns of
+\[
+V=(V_+,-\Omega\overline V_+),\qquad
+V^\dagger V=I,\qquad V^{\mathsf T}\Omega V=\Omega.
+\tag{28}
+\]
+The canonical relation between the two sets follows from
+\(V_+^{\mathsf T}\Omega V_+=0\).
+Thus \(V^\dagger\) preserves the commutators and sends \(E\) to
+\[
+D=\begin{pmatrix}I&0\\0&-I\end{pmatrix}.
+\]
+One final fixed change gives the desired damping matrix,
+\[
+P_0=\frac1{\sqrt2}
+\begin{pmatrix}I&-\mathrm iI\\-\mathrm iI&I\end{pmatrix},
+\qquad
+P_0DP_0^\dagger=\mathrm i\Omega,\qquad
+P=P_0V^\dagger.
+\tag{29}
+\]
+Equations (26)-(27) then give \(R_2'=\mathrm iI\).
+
+The remaining map \(R_1'\) is real and orthogonal, with
+\(R_1'{}^{\mathsf T}\Omega R_1'=-\Omega\).
+For square \(+I\), choose its \(+1\) eigenvectors as position directions. Their canonical partners have eigenvalue \(-1\), giving (19). For square \(-I\), a vector and its image under \(R_1'\) form a pair. Taking their momentum partners produces a four-dimensional block with the action in (22). Repeating this construction exhausts the modes. These final changes are real, orthogonal, and canonical, so they preserve \(E=\mathrm i\Omega\) and \(R_2=\mathrm iI\).
+
+The complete change preserves \(\det(I-M)\) and the same ordered Gaussian branch. It need not preserve the original identification of every canonical coordinate as a Hermitian observable. Keeping the inherited adjoint relation makes the operator interpretation consistent throughout.
