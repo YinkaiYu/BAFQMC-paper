@@ -564,22 +564,22 @@ In Nambu space the propagation matrix is similar to
 \end{equation}
 and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Multiplying the one-mode square-root choices gives
 \begin{equation}
-    \left[\det(I_{2N}-M)\right]_{\rm op}^{1/2}
+    \left[(-1)^N\det(I_{2N}-M)\right]_{\rm op}^{1/2}
     =
     \exp\!\left(-\frac12\sum_j\varepsilon_j\right)
     \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})
 \end{equation}
-for the even-$N$ cases considered in this work, where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
+where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
 
-For the stable, trace-convergent even-$N$ sector relevant here, the standard bosonic quadratic-operator trace formula gives~\cite{munn1978ensemble}
+For a stable, trace-convergent Gaussian product, the standard bosonic quadratic-operator trace formula gives~\cite{munn1978ensemble}
 \begin{equation}
     \Tr\,\hat U
     =
     \exp\!\left(\sum_\ell\xi_\ell\right)
-    \det(I_{2N}-\mc M)^{-1/2}.
+    \left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-Here the square root is the representative fixed by continuity from the convergent diagonal quasiparticle trace. It appears because the Nambu basis doubles the physical modes, so the propagation matrix alone determines the trace only up to this operator-fixed representative. In the RP applications of this paper, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
+Here the square root is the representative fixed by continuity from the convergent diagonal quasiparticle trace. It appears because the Nambu basis doubles the physical modes, so the propagation matrix alone determines the trace only up to this operator-fixed representative. The factor $(-1)^N$ is unity for the even number of modes in the sign-free classes considered here. The TRS proofs in Sec.~\ref{app:trs_proof} determine the complete weight by conjugate-sector or reduced-determinant formulas. In RP applications, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -945,34 +945,392 @@ The same construction applies to Gaussian propagators with pairing. In a stable 
 \begin{equation}
     W_{\rm bare}(\phi)
     =
-    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)+\frac12\sum_j\varepsilon_j(\phi)\right]
     \sum_{n_1,\ldots,n_N\ge0}
     \prod_{j=1}^{N}\ee^{n_j\varepsilon_j(\phi)}.
 \end{equation}
-Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
+The additional $\frac12\sum_j\varepsilon_j$ in the prefactor is the centered quadratic contribution in Eq.~\eqref{eq:hAdef}. Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
 \begin{equation}
     W_{\rm reg}(\phi)
     =
-    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
+    \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)+\frac12\sum_j\varepsilon_j(\phi)\right]
     \prod_{j=1}^{N}\frac{1}{1-\ee^{\varepsilon_j(\phi)}}.
 \end{equation}
 In Nambu notation this finite part is written as
 \begin{equation}
-    W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\det[I_{2N}-\mc M(\phi)]^{-1/2},
+    W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
 \end{equation}
 where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
 
-\section{Proofs of the nonnegative-weight criteria}
+\section{Time-reversal criterion and periodic table}
 \label{app:nonnegative_proofs}
-
-\subsection{Time-reversal-symmetry criterion}
 \label{app:trs_proof}
 
-We prove the TRS criterion for number-conserving slices
+\subsection{Canonical operators, time reversal, and the Gaussian weight}
+
+Theorem~\ref{thm:trs} concerns symmetries of every quadratic slice at fixed auxiliary fields. We prove all entries of Table~\ref{tab:trs_periodic}, including their square-root signs, and compare the bosonic result with the fermionic classification. The essential distinction is the canonical algebra of the particles.
+
+We use the Nambu convention of Sec.~\ref{app:algebra}. A real scalar \(\xi_\ell\) in each slice contributes the positive factor \(\exp(\sum_\ell\xi_\ell)\), so we first remove these scalars and denote the remaining weight by \(p\). Thus the bosonic configuration weight is \(W=\exp(\sum_\ell\xi_\ell)p_{\rm B}\). The centered quadratic evolution is
+\begin{equation}
+    p=\Tr\!\left(\ee^{\hat h_1}\ee^{\hat h_2}\cdots\ee^{\hat h_L}\right),
+    \qquad
+    \hat h_\ell=\frac12\hat\chi^\trans gA_\ell\hat\chi .
+    \label{eq:trs_configuration_weight}
+\end{equation}
+Here
+\begin{equation}
+    \hat\chi=
+    (\hat a_1,\ldots,\hat a_N,
+     \hat a_1^+,\ldots,\hat a_N^+)^\trans
+    \label{eq:trs_nambu_spinor}
+\end{equation}
+contains the annihilation and creation operators.  The canonical matrix is \(g_{\rm B}=-\Omega\) for bosons. To expose the role of particle statistics, we also introduce its fermionic counterpart,
+\begin{equation}
+    g_{\rm B}=\begin{pmatrix}0&-I_N\\ I_N&0\end{pmatrix},
+    \qquad
+    g_{\rm F}=\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}.
+    \label{eq:trs_g_matrices}
+\end{equation}
+The condition
+\begin{equation}
+    gA_\ell+A_\ell^\trans g=0
+    \label{eq:trs_quadratic_algebra}
+\end{equation}
+makes \(gA_\ell\) symmetric for bosons and antisymmetric for fermions, exactly as required by their commutation relations.  The generators \(\hat h_\ell\) may be non-Hermitian after the Hubbard--Stratonovich transformation even when the original interacting Hamiltonian is Hermitian. An antiunitary symmetry of the complete slice also requires its separated scalar to be real.
+
+The action of the ordered Gaussian product on the Nambu operators is encoded by
+\begin{equation}
+    \mc M=\ee^{A_1}\ee^{A_2}\cdots\ee^{A_L}.
+    \label{eq:trs_propagation_matrix}
+\end{equation}
+The bosonic Gaussian trace identity~\cite{munn1978ensemble} and its paired-fermion counterpart~\cite{klich2014jstat} are
+\begin{equation}
+    p_{\rm B}=\left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2},
+    \qquad
+    p_{\rm F}=\left[\det(I_{2N}+\mc M)\right]^{1/2}.
+    \label{eq:trs_nambu_trace}
+\end{equation}
+Their normalization follows already from one mode.  If the two Nambu eigenvalues are \(\ee^x\) and \(\ee^{-x}\), the centered fermion generator gives
+\begin{equation}
+    \Tr\ee^{x(\hat n-1/2)}
+    =\ee^{-x/2}(1+\ee^x),
+    \label{eq:trs_fermion_one_mode}
+\end{equation}
+while the boson generator gives
+\begin{equation}
+    \Tr\ee^{x(\hat n+1/2)}
+    =\frac{\ee^{x/2}}{1-\ee^x}.
+    \label{eq:trs_boson_one_mode}
+\end{equation}
+The determinant inside each square root in Eq.~\eqref{eq:trs_nambu_trace} is the square of the corresponding mode product.  The one-body matrix \(\mc M\) alone has therefore lost one overall sign.  The ordered Fock-space operators in Eq.~\eqref{eq:trs_configuration_weight} fix that sign~\cite{klich2014jstat}.  Starting in the trace-convergent region and varying the same ordered operators continuously also defines the Gaussian weight when an occupation-number sum diverges.  We use \(p\) for this continuation as well as for the ordinary trace with which it agrees.  For bosons, \(\det(I_{2N}-\mc M)=0\) is a pole.  All bosonic positivity statements below apply away from these poles.
+
+We use time reversal in the generalized quantum Monte Carlo sense of an antiunitary symmetry of every auxiliary-field slice.  Let \(\widehat\Theta\) be its action on Fock space and use \(\Theta\) for its anti-linear action on the space of one-body operators,
+\begin{equation}
+    \Theta(\hat\chi)
+    \equiv\widehat\Theta\hat\chi\widehat\Theta^{-1}
+    =U\hat\chi,
+    \qquad
+    \Theta(c\hat d)=\overline c\,\Theta(\hat d).
+    \label{eq:trs_time_reversal_definition}
+\end{equation}
+Here \(c\) is a complex number and \(\hat d\) is any linear combination of the entries of \(\hat\chi\).  The rows of \(U\) record the images of the basis operators in \(\hat\chi\).  We use the compact label \(\Theta=U\mc K\), with Eq.~\eqref{eq:trs_time_reversal_definition} fixing this operator-space convention.  The order of two transformations then follows directly:
+\begin{equation}
+    (\Theta_a\Theta_b)(\hat\chi)
+    =\Theta_a(U_b\hat\chi)
+    =\overline U_bU_a\hat\chi.
+    \label{eq:trs_TR_composition_order}
+\end{equation}
+The complex conjugation acts on \(U_b\) because \(\Theta_a\) is anti-linear.  The Nambu exchange matrix
+\begin{equation}
+    C=\begin{pmatrix}0&I_N\\ I_N&0\end{pmatrix}
+    \label{eq:trs_C_matrix}
+\end{equation}
+encodes Hermitian conjugation between the upper and lower halves of \(\hat\chi\).  A physical time reversal satisfies
+\begin{equation}
+    U^\trans gU=g,
+    \qquad
+    C\overline U C=U,
+    \qquad
+    U^{-1}\overline{A_\ell}U=A_\ell
+    \quad\text{for every }\ell .
+    \label{eq:trs_physical_TR_conditions}
+\end{equation}
+The first relation preserves the bosonic commutator or fermionic anticommutator.  The second ensures that the transformed creation operator remains the Hermitian conjugate of the transformed annihilation operator.  The third keeps the fixed-field quadratic generator invariant.  Indeed,
+\begin{equation}
+    \widehat\Theta\hat h_\ell\widehat\Theta^{-1}
+    =\frac12\hat\chi^\trans U^\trans g\overline{A_\ell}U\hat\chi
+    =\frac12\hat\chi^\trans gA_\ell\hat\chi
+    =\hat h_\ell .
+    \label{eq:trs_TR_invariance_derivation}
+\end{equation}
+The third relation can be rewritten as \(\overline{A_\ell}U=UA_\ell\).  It shows directly that time reversal commutes with the infinitesimal one-body evolution,
+\begin{equation}
+    \Theta(A_\ell\hat\chi)
+    =\overline{A_\ell}U\hat\chi
+    =UA_\ell\hat\chi.
+    \label{eq:trs_TR_commutes_A}
+\end{equation}
+Applying \(\Theta\) twice to \(\hat\chi\) gives
+\begin{equation}
+    \Theta^2(\hat\chi)=\overline U U\hat\chi
+    =\pm\hat\chi.
+    \label{eq:trs_TR_square}
+\end{equation}
+We denote these two possibilities by \(+\) and \(-\).  A negative square gives Kramers partners.  If \(\Theta\hat d=c\hat d\), applying \(\Theta\) once more would give \(-\hat d=|c|^2\hat d\), which is impossible for a nonzero operator.
+
+Consider a set of time reversals that all satisfy Eq.~\eqref{eq:trs_physical_TR_conditions} and anticommute pairwise,
+\begin{equation}
+    \Theta_a\Theta_b=-\Theta_b\Theta_a
+    \quad\Longleftrightarrow\quad
+    \overline U_bU_a=-\overline U_aU_b
+    \qquad (a\ne b).
+    \label{eq:trs_anticommuting_TR}
+\end{equation}
+
+The two-symmetry sets \(\{+,-\}\) and \(\{-,-\}\) are called the Majorana and Kramers classes, following Ref.~\cite{li2016prl}. The bosonic \(\{+,+,+\}\) set is the split-orthogonal class. Each proof below fixes the complete Gaussian weight, including the sign lost on squaring the trace formula.
+
+For a linear symmetry such as \(P\) or \(Q\) below, we use the same letter for its matrix acting on \(\hat\chi\). Under a basis change \(\hat\chi=V\hat\chi'\), the generator and canonical form become \(A_\ell'=V^{-1}A_\ell V\) and \(g'=V^\trans gV\). Thus column eigenvectors of a symmetry matrix define the columns of \(V\), while the rows of \(V^{-1}\) give the operators in the corresponding symmetry sectors. This distinction keeps matrix restrictions and operator transformations consistent.
+
+\subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
+
+Let
+\begin{equation}
+    \Theta_+^2=+I,
+    \qquad
+    \Theta_-^2=-I,
+    \qquad
+    \Theta_+\Theta_-=-\Theta_-\Theta_+,
+    \label{eq:trs_majorana_class}
+\end{equation}
+and form the linear transformation
+\begin{equation}
+    P=\Theta_+\Theta_-.
+    \label{eq:trs_P_definition}
+\end{equation}
+The two complex conjugations cancel in this product.  Using Eq.~\eqref{eq:trs_majorana_class},
+\begin{equation}
+    P^2=-\Theta_+^2\Theta_-^2=I,
+    \qquad
+    [P,A_\ell]=0,
+    \qquad
+    P\Theta_+=-\Theta_+P.
+    \label{eq:trs_P_properties}
+\end{equation}
+The first relation divides the one-body operators into \(P=+1\) and \(P=-1\) sectors.  The second keeps these sectors separate throughout the imaginary-time evolution.  Since \(P\) is the product of two physical time reversals, it preserves Hermitian conjugation.  Thus
+\begin{equation}
+    P\hat d=\pm\hat d
+    \quad\Longrightarrow\quad
+    P\hat d^+=(P\hat d)^+=\pm\hat d^+.
+    \label{eq:trs_P_adjoint_sector}
+\end{equation}
+The product \(P\) also preserves the canonical matrix, \(P^\trans gP=g\).  To see why this matters, let \(v_+\) and \(v_-\) be column eigenvectors of its matrix with eigenvalues \(+1\) and \(-1\). The canonical form has no cross-sector matrix elements because
+\begin{equation}
+    v_+^\trans gv_-
+    =(Pv_+)^\trans g(Pv_-)
+    =-v_+^\trans gv_-
+    =0.
+    \label{eq:trs_P_sector_canonical_pairing}
+\end{equation}
+Since \(g\) is invertible, its restriction to either sector is also invertible.  Together with Eq.~\eqref{eq:trs_P_adjoint_sector}, this means that each sector contains a self-contained set of canonical degrees of freedom.  For bosons, the antisymmetry of \(g_{\rm B}\) makes the dimension of each sector even, so the two sectors define separate many-body subsystems.  A fermionic sector can contain an odd number of self-adjoint Majorana components.  In that case, append one decoupled fermionic orbital and assign one of its two Majorana components to each sector.  Both sectors then have even dimension and define separate subsystems.  The added orbital multiplies every trace by two and cannot change its sign.
+
+The last relation in Eq.~\eqref{eq:trs_P_properties} makes \(\Theta_+\) exchange the two sectors:
+\begin{equation}
+    P\hat d=\pm\hat d
+    \quad\Longrightarrow\quad
+    P(\Theta_+\hat d)=-\Theta_+(P\hat d)
+    =\mp\Theta_+\hat d.
+    \label{eq:trs_P_sector_exchange}
+\end{equation}
+Since \(\Theta_+\) is antiunitary, the complete evolution in one sector is the complex conjugate of that in the other.  If \(p_+\) is the Gaussian trace in the \(P=+1\) sector, the full weight is~\cite{li2015prb,li2016prl}
+\begin{equation}
+    p=p_+\overline{p_+}=|p_+|^2\geq0.
+    \label{eq:trs_majorana_modulus_square}
+\end{equation}
+Equivalently,
+\begin{equation}
+    p_{\rm B}=\left|\det\!\left(I-\mc M\big|_{P=+1}\right)\right|^{-1}>0,
+    \qquad
+    p_{\rm F}=\left|\det\!\left(I+\mc M\big|_{P=+1}\right)\right|\geq0.
+    \label{eq:trs_majorana_determinants}
+\end{equation}
+
+\subsection{Kramers class \texorpdfstring{\(\{-,-\}\)}{\{-,-\}}}
+
+Now take
+\begin{equation}
+    \Theta_1^2=\Theta_2^2=-I,
+    \qquad
+    \Theta_1\Theta_2=-\Theta_2\Theta_1,
+    \qquad
+    Q=\Theta_1\Theta_2.
+    \label{eq:trs_kramers_class}
+\end{equation}
+The product \(Q\) is linear and obeys
+\begin{equation}
+    Q^2=-I,
+    \qquad
+    [Q,A_\ell]=0.
+    \label{eq:trs_Q_properties}
+\end{equation}
+Its eigenvalues are \(+\ii\) and \(-\ii\).  Hermitian conjugation exchanges these two eigenspaces because \(Q\) is a physical unitary transformation:
+\begin{equation}
+    Q\hat d=\ii\hat d
+    \quad\Longrightarrow\quad
+    Q\hat d^+=(Q\hat d)^+=-\ii\hat d^+.
+    \label{eq:trs_Q_adjoint_pair}
+\end{equation}
+The \(Q=+\ii\) sector therefore contains exactly \(N\) independent one-body operators, while the \(Q=-\ii\) sector contains their Hermitian conjugates.  The matrix \(\ii Q\) generates a conserved quadratic charge because
+\begin{equation}
+    \left[\frac12\hat\chi^\trans g(\ii Q)\hat\chi,
+      \hat h_\ell\right]
+    =\frac12\hat\chi^\trans g[\ii Q,A_\ell]\hat\chi=0.
+    \label{eq:trs_charge_conservation}
+\end{equation}
+Thus \(Q\) supplies the particle-number-like structure that a general Nambu problem lacks.
+
+Choose a column \(\hat{\bb d}=(\hat d_1,\ldots,\hat d_N)^\trans\) of one-body operators spanning the \(Q=+\ii\) sector.  We define the reduced slice generators and their ordered product by
+\begin{equation}
+    \ee^{-\hat h_\ell}\hat{\bb d}\,\ee^{\hat h_\ell}
+    =\ee^{A_{\ell,+\ii}}\hat{\bb d},
+    \qquad
+    \mc M_{+\ii}=\ee^{A_{1,+\ii}}\cdots\ee^{A_{L,+\ii}}.
+    \label{eq:trs_reduced_matrices}
+\end{equation}
+Normalize the independent fermionic operators so that \(\{\hat d_\mu,\hat d_\nu^+\}=D_{\mu\nu}\).  For bosons, choose a basis in which \([\hat d_\mu,\hat d_\nu^+]=D_{\mu\nu}\) is diagonal.  In the two cases,
+\begin{equation}
+    D=I_N\quad\text{for fermions},
+    \qquad
+    D=\diag(I_{N-N_-},-I_{N_-})\quad\text{for bosons}.
+    \label{eq:trs_reduced_commutator}
+\end{equation}
+For bosons, \(N_-\) counts the selected operators whose Hermitian conjugates are the physical annihilation operators.  In a basis formed by the \(N\) selected operators followed by their Hermitian conjugates, every generator and the full propagation have the forms
+\begin{equation}
+    A_\ell\sim
+    \begin{pmatrix}
+        A_{\ell,+\ii}&0\\
+        0&-D A_{\ell,+\ii}^\trans D
+    \end{pmatrix},
+    \qquad
+    \mc M\sim
+    \begin{pmatrix}
+        \mc M_{+\ii}&0\\
+        0&D(\mc M_{+\ii}^\trans)^{-1}D
+    \end{pmatrix}.
+    \label{eq:trs_Q_block_propagation}
+\end{equation}
+Consequently,
+\begin{align}
+    (-1)^N\det(I_{2N}-\mc M)
+    &=\det(\mc M_{+\ii})^{-1}\det(I_N-\mc M_{+\ii})^2,
+    \label{eq:trs_boson_reduced_square}\\
+    \det(I_{2N}+\mc M)
+    &=\det(\mc M_{+\ii})^{-1}\det(I_N+\mc M_{+\ii})^2,
+    \label{eq:trs_fermion_reduced_square}\\
+    \det(\mc M_{+\ii})
+    &=\exp\!\left[\sum_\ell\Tr A_{\ell,+\ii}\right].
+    \label{eq:trs_reduced_det_exp}
+\end{align}
+These identities determine the magnitude of the weight.  Its sign follows from how the \(Q=+\ii\) operators sit in Fock space.  For fermions, the selected operators are canonical annihilation operators \(\hat d_\mu\).  Inserting the first block matrix in Eq.~\eqref{eq:trs_Q_block_propagation} into Eq.~\eqref{eq:trs_configuration_weight} gives
+\begin{equation}
+    \hat h_\ell
+    =\sum_{\mu\nu}\hat d_\mu^+
+      (A_{\ell,+\ii})_{\mu\nu}\hat d_\nu
+     -\frac12\Tr A_{\ell,+\ii}.
+    \label{eq:trs_fermion_reduced_operator}
+\end{equation}
+For one eigenvalue \(x\), the trace contributes \(\ee^{-x/2}(1+\ee^x)\), as in Eq.~\eqref{eq:trs_fermion_one_mode}.  The usual fermionic Gaussian trace over all \(N\) independent operators therefore gives
+\begin{equation}
+    p_{\rm F}=
+    \exp\!\left[-\frac12\sum_\ell\Tr A_{\ell,+\ii}\right]
+    \det(I_N+\mc M_{+\ii}).
+    \label{eq:trs_fermion_reduced_weight}
+\end{equation}
+For bosons, the same substitution gives
+\begin{equation}
+    \hat h_\ell
+    =\sum_{\mu\nu}\hat d_\mu^+
+      (D A_{\ell,+\ii})_{\mu\nu}\hat d_\nu
+     +\frac12\Tr A_{\ell,+\ii}.
+    \label{eq:trs_boson_reduced_operator}
+\end{equation}
+The sign is visible at a stable diagonal reference point, where the selected directions do not mix.  If the selected operator is an annihilation operator and its propagation eigenvalue is \(\ee^x\), the trace contributes \(\ee^{x/2}(1-\ee^x)^{-1}\).  Selecting the creation operator reverses \(x\) and contributes
+\begin{equation}
+    \frac{\ee^{-x/2}}{1-\ee^{-x}}
+    =-\frac{\ee^{x/2}}{1-\ee^x}.
+    \label{eq:trs_boson_reversed_mode}
+\end{equation}
+Thus the reference trace carries one minus sign for every negative entry of \(D\).  A bosonic coherent-state Gaussian integral evaluates Eq.~\eqref{eq:trs_boson_reduced_operator} when the positive and negative directions mix and when different slices do not commute~\cite{munn1978ensemble}.  The integral and the expression below agree on a nonempty open set of trace-convergent generators.  They are the same meromorphic function of the generator matrix elements and therefore agree at every point where \(\det(I_N-\mc M_{+\ii})\ne0\).  The exact continued weight is
+\begin{equation}
+    p_{\rm B}=(-1)^{N_-}
+    \exp\!\left[\frac12\sum_\ell\Tr A_{\ell,+\ii}\right]
+    \det(I_N-\mc M_{+\ii})^{-1}.
+    \label{eq:trs_boson_reduced_weight}
+\end{equation}
+
+Although \(Q\Theta_1=-\Theta_1Q\), the anti-linearity of \(\Theta_1\) keeps the \(Q=+\ii\) sector invariant:
+\begin{equation}
+    Q\hat d=\ii\hat d
+    \quad\Longrightarrow\quad
+    Q(\Theta_1\hat d)=-\Theta_1(Q\hat d)
+    =-\Theta_1(\ii\hat d)=\ii\Theta_1\hat d.
+    \label{eq:trs_Kramers_in_reduced_space}
+\end{equation}
+Hence \(\Theta_1^2=-I\) acts as ordinary Kramers time reversal on the independent operators.  If an eigenoperator of the complete one-body evolution obeys
+\begin{equation}
+    \ee^{-\hat h_L}\cdots\ee^{-\hat h_1}
+    \hat d\,
+    \ee^{\hat h_1}\cdots\ee^{\hat h_L}
+    =\lambda\hat d,
+    \quad\text{then}\quad
+    \ee^{-\hat h_L}\cdots\ee^{-\hat h_1}
+    (\Theta_1\hat d)
+    \ee^{\hat h_1}\cdots\ee^{\hat h_L}
+    =\overline\lambda\,\Theta_1\hat d.
+    \label{eq:trs_Kramers_eigenvalues}
+\end{equation}
+Nonreal eigenvalues appear in complex-conjugate pairs.  For a real eigenvalue, \(\hat d\) and \(\Theta_1\hat d\) are linearly independent because \(\Theta_1^2=-I\).  The same pairing holds for every vector in a Jordan chain, so each real eigenvalue has even algebraic multiplicity.  It follows that
+\begin{equation}
+    \det(I_N\mp \mc M_{+\ii})
+    =\prod_{\lambda\notin\mathbb R}|1\mp\lambda|^2
+     \prod_{\lambda\in\mathbb R}(1\mp\lambda)^2
+    \geq0,
+    \label{eq:trs_Kramers_determinant}
+\end{equation}
+where each conjugate or Kramers pair is included once.  The same symmetry gives \(\Tr A_{\ell,+\ii}\in\mathbb R\).
+
+For bosons, the negative entries in Eq.~\eqref{eq:trs_reduced_commutator} also form Kramers pairs.  For any selected operator \(\hat d\), time reversal gives
+\begin{equation}
+    [\Theta_1\hat d,(\Theta_1\hat d)^+]
+    =\overline{[\hat d,\hat d^+]}
+    =[\hat d,\hat d^+],
+    \qquad
+    [\hat d,(\Theta_1\hat d)^+]=0.
+    \label{eq:trs_commutator_Kramers_pair}
+\end{equation}
+The first commutator is real because it is Hermitian.  To prove the second relation, denote \(z=[\hat d,(\Theta_1\hat d)^+]\).  Hermitian conjugation gives \(\overline z=[\Theta_1\hat d,\hat d^+]\).  Applying time reversal to the definition of \(z\) instead gives
+\begin{equation}
+    \overline z
+    =[\Theta_1\hat d,(\Theta_1^2\hat d)^+]
+    =-[\Theta_1\hat d,\hat d^+]
+    =-\overline z,
+\end{equation}
+so \(z=0\).  Every selected creation-like operator therefore has an independent, orthogonal partner with the same negative commutator, and \(N_-\) is even.  Equations~\eqref{eq:trs_fermion_reduced_weight}--\eqref{eq:trs_Kramers_determinant} now give
+\begin{equation}
+    \boxed{p_{\rm F}\geq0,\qquad p_{\rm B}>0\ \text{away from bosonic poles}.}
+    \label{eq:trs_kramers_class_positive}
+\end{equation}
+This is the Nambu-space form of the Kramers positivity mechanism~\cite{li2016prl}.
+
+For a particle-number-conserving problem, the annihilation-operator space is already an independent \(N\)-dimensional space.  A single negative-square time reversal then produces Eq.~\eqref{eq:trs_Kramers_eigenvalues} directly, which is the familiar Kramers criterion for determinant quantum Monte Carlo~\cite{wu2005prb}.  The second time reversal in Eq.~\eqref{eq:trs_kramers_class} supplies this independent space when pairing mixes annihilation and creation operators.
+
+\subsection{Number-conserving limit}
+\label{app:trs_number}
+
+The particle-number-conserving limit makes the Kramers mechanism particularly transparent. Consider
 \begin{equation}
     \hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}.
 \end{equation}
-Let the one-particle action of the antiunitary symmetry be $\Theta=UK$. The condition $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$ and $\Theta^2=-1$ is equivalent to
+Let the one-particle action of the antiunitary symmetry be $\Theta=U\mc K$, with unitary $U$. The condition $\Theta^{-1}\hat h_\ell\Theta=\hat h_\ell$ and $\Theta^2=-1$ is equivalent to
 \begin{equation}
     U^\hc\overline{B_\ell}U=B_\ell,
     \qquad
@@ -994,24 +1352,24 @@ Multiplying the slices in their imaginary-time order gives
     U^\hc\overline{\mc B}U=\mc B.
     \label{eq:Bsym_prod}
 \end{equation}
-Thus the antiunitary operator $\Theta=UK$ commutes with the full propagation matrix $\mc B$.
+On numerical column vectors, define $\mc T=\overline U\mc K$. Equation~\eqref{eq:Bsym_prod} gives $\mc B\overline U=\overline U\,\overline{\mc B}$, so $\mc T$ commutes with $\mc B$ and $\mc T^2=-I_N$. This column-vector convention is distinct from the operator map $\Theta(\hat{\bb a})=U\hat{\bb a}$.
 
 If $\mc Bv=\lambda v$, then
 \begin{equation}
-    \mc B(\Theta v)=\Theta(\mc Bv)=\lambda^*\Theta v.
+    \mc B(\mc T v)=\mc T(\mc Bv)=\lambda^*\mc T v.
 \end{equation}
 Therefore every nonreal eigenvalue comes with its complex conjugate. For a real eigenvalue $r$, one must also control the multiplicity. Let
 \begin{equation}
     \mc E_r=\ker\left[(\mc B-rI_N)^m\right]
 \end{equation}
-be the generalized eigenspace, with $m$ large enough that the kernel has stabilized. Because $\Theta$ commutes with $\mc B$, the space $\mc E_r$ is mapped to itself. On this space $\Theta^2=UU^*=-I_N$.
+be the generalized eigenspace, with $m$ large enough that the kernel has stabilized. Because $\mc T$ commutes with $\mc B$, the space $\mc E_r$ is mapped to itself. On this space $\mc T^2=\overline U U=-I_N$.
 
-No nonzero vector in $\mc E_r$ can be proportional to its time-reversed partner. If $\Theta v=\alpha v$ for a nonzero $v$, applying $\Theta$ again gives
+No nonzero vector in $\mc E_r$ can be proportional to its time-reversed partner. If $\mc T v=\alpha v$ for a nonzero $v$, applying $\mc T$ again gives
 \begin{equation}
-    -v=\Theta^2v=\Theta(\alpha v)=\overline{\alpha}\Theta v
+    -v=\mc T^2v=\mc T(\alpha v)=\overline{\alpha}\mc T v
     =|\alpha|^2v,
 \end{equation}
-which is impossible. Hence $v$ and $\Theta v$ are linearly independent. Repeating this pairing construction gives a basis of $\mc E_r$ made of such two-dimensional pairs, so $\dim_\mathbb C\mc E_r$ is even. This dimension is the algebraic multiplicity $m_r$ of the real eigenvalue $r$.
+which is impossible. Hence $v$ and $\mc T v$ are linearly independent. Repeating this pairing construction gives a basis of $\mc E_r$ made of such two-dimensional pairs, so $\dim_\mathbb C\mc E_r$ is even. This dimension is the algebraic multiplicity $m_r$ of the real eigenvalue $r$.
 
 The characteristic polynomial can then be evaluated at $x=1$ as
 \begin{equation}
@@ -1022,9 +1380,352 @@ The characteristic polynomial can then be evaluated at $x=1$ as
     \ge0,
     \label{eq:trs_det_positive_sm}
 \end{equation}
-because all $m_r$ are even. If the trace is finite, $\det(I_N-\mc B)$ is nonzero. Equation~\eqref{eq:trs_det_positive_sm} then implies $\det(I_N-\mc B)>0$, and therefore $W(\phi)>0$.
+because all $m_r$ are even. Away from a determinant pole, $\det(I_N-\mc B)$ is nonzero. Equation~\eqref{eq:trs_det_positive_sm} then implies $\det(I_N-\mc B)>0$, and therefore $W(\phi)>0$.
 
-\subsection{Reflection-positivity criterion}
+The second negative-square symmetry is supplied by number conservation. In the Nambu basis, let
+\begin{equation}
+    U_1=\begin{pmatrix}U&0\\0&\overline U\end{pmatrix},
+    \qquad
+    U_2=\begin{pmatrix}\ii U&0\\0&-\ii\overline U\end{pmatrix}.
+    \label{eq:trs_number_second_symmetry}
+\end{equation}
+Both maps preserve every number-conserving slice and the canonical algebra. Direct multiplication gives \(\overline U_1U_1=\overline U_2U_2=-I_{2N}\) and \(\overline U_2U_1=-\overline U_1U_2\). Thus one-particle Kramers symmetry together with particle-number conservation realizes the \(\{-,-\}\) class of Theorem~\ref{thm:trs}.
+
+\subsection{Bosonic split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
+
+The three sign patterns \(\{+,+,-\}\), \(\{+,-,-\}\), and \(\{-,-,-\}\) already contain a Majorana or Kramers pair. The remaining set \(\{+,+,+\}\) gives the additional bosonic class.
+
+For bosons, a positive-square time reversal defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
+\begin{equation}
+    \hat d+\widehat\Theta_1\hat d\widehat\Theta_1^{-1},
+    \qquad
+    \ii(\hat d-\widehat\Theta_1\hat d\widehat\Theta_1^{-1}).
+    \label{eq:trs_Theta1_real_operators}
+\end{equation}
+Both combinations are fixed by \(\Theta_1\).  They span the real subspace fixed by \(\Theta_1\), and a basis of that subspace is also a complex basis of Nambu space.  Since \(\Theta_1\) preserves bosonic commutators and Hermitian conjugation, these operators can be normalized in canonical conjugate pairs while staying inside this real span.  In the resulting basis, the three symmetries of the \(\{+,+,+\}\) class have the form
+\begin{equation}
+    \Theta_1=\mc K,
+    \qquad
+    \Theta_2=\ii R_2\mc K,
+    \qquad
+    \Theta_3=\ii R_3\mc K,
+    \label{eq:trs_three_plus_basis}
+\end{equation}
+with real matrices \(R_2\) and \(R_3\).  The first equality follows from the construction above.  Anticommutation with \(\Theta_1=\mc K\) makes the other two one-body matrices purely imaginary, which accounts for the factors of \(\ii\).  Substituting Eq.~\eqref{eq:trs_three_plus_basis} into Eq.~\eqref{eq:trs_physical_TR_conditions} gives
+\begin{gather}
+    \overline{A_\ell}=A_\ell,
+    \qquad
+    [R_2,A_\ell]=[R_3,A_\ell]=0,
+    \qquad
+    R_2R_3=-R_3R_2,
+    \label{eq:trs_three_plus_A}\\
+    R_j^2=I,
+    \qquad
+    R_j^\trans gR_j=-g,
+    \qquad
+    CR_jC=-R_j,
+    \qquad j=2,3.
+    \label{eq:trs_three_plus_physical}
+\end{gather}
+The first two time reversals define
+\begin{equation}
+    Q=\Theta_1\Theta_2=-\ii R_2,
+    \qquad Q^2=-I.
+    \label{eq:trs_three_plus_Q}
+\end{equation}
+We again work in its \(Q=+\ii\) sector.  All \(A_{\ell,+\ii}\) and \(\mc M_{+\ii}\) are real in this basis.  The third time reversal supplies the real matrix
+\begin{equation}
+    \eta=(gR_3)\big|_{Q=+\ii}.
+    \label{eq:trs_eta_definition}
+\end{equation}
+It is invertible on this sector.  Indeed, \(Q^\trans(gR_3)Q=-gR_3\).  If \(Qv=+\ii v\) and \(Qw=-\ii w\), this identity gives \(v^\trans gR_3w=-v^\trans gR_3w=0\).  Thus \(gR_3\) has no matrix elements between the two sectors and remains invertible inside each one.
+
+From \(R_3^\trans gR_3=-g\) and \(R_3^2=I\),
+\begin{equation}
+    R_3^\trans g=-gR_3.
+    \label{eq:trs_R3g_relation}
+\end{equation}
+Together with \(g_{\rm B}^\trans=-g_{\rm B}\), this makes \(\eta\) symmetric:
+\begin{equation}
+    \eta^\trans=\eta.
+    \label{eq:trs_eta_symmetric}
+\end{equation}
+Every reduced generator preserves this matrix because
+\begin{align}
+    A_{\ell,+\ii}^\trans\eta+\eta A_{\ell,+\ii}
+    &=\left.g(R_3A_\ell-A_\ell R_3)\right|_{Q=+\ii}
+    \notag\\
+    &=\left.g[R_3,A_\ell]\right|_{Q=+\ii}=0.
+    \label{eq:trs_eta_generator_relation}
+\end{align}
+
+In this canonical Nambu basis, the physical commutator matrix is
+\begin{equation}
+    [\hat\chi_i,\hat\chi_j^+]=(-gC)_{ij}.
+    \label{eq:trs_boson_commutator_matrix}
+\end{equation}
+Write this real symmetric matrix as \(\Sigma=-gC\), so \(\Sigma^{-1}=\Sigma\). Choose a real \(Q\)-adapted basis \(\hat\chi'=V^{-1}\hat\chi\). Its commutator matrix is
+\begin{equation}
+    \Sigma'=V^{-1}\Sigma V^{-\trans},
+    \qquad
+    (\Sigma')^{-1}=V^\trans\Sigma V.
+    \label{eq:trs_commutator_basis_change}
+\end{equation}
+The two \(Q\) sectors are separate blocks of the form on the right because \(R_2^\trans\Sigma R_2=\Sigma\). A real symmetric matrix and its inverse have the same numbers of positive and negative eigenvalues. The restriction of \(\Sigma\) to the \(Q=+\ii\) column eigenspace therefore has the same signature as the selected-operator commutator \(D\) in Eq.~\eqref{eq:trs_reduced_commutator}.
+The matrix
+\begin{equation}
+    S=(CR_3)\big|_{Q=+\ii}
+    \label{eq:trs_S_definition}
+\end{equation}
+stays within the \(Q=+\ii\) sector because \(R_2\) commutes with \(CR_3\).  Using \(CgC=-g\), \(CR_3C=-R_3\), and Eq.~\eqref{eq:trs_R3g_relation}, one finds
+\begin{align}
+    S^\trans\eta S
+    &=R_3^\trans(CgR_3C)R_3
+      =R_3^\trans g=-gR_3=-\eta,
+    \notag\\
+    S^\trans\left.(-gC)\right|_{Q=+\ii}S
+    &=-R_3^\trans CgR_3
+      =-\left.(-gC)\right|_{Q=+\ii}.
+    \label{eq:trs_S_flips_forms}
+\end{align}
+An invertible change of basis cannot alter how many positive and negative directions a real symmetric matrix has.  The first equality says that \(S\) turns \(\eta\) into \(-\eta\), so those two numbers must be equal.  The second equality gives the same result for the commutator in Eq.~\eqref{eq:trs_boson_commutator_matrix}.  Hence \(N\) is even, both matrices have \(N/2\) positive and \(N/2\) negative directions, and the integer in Eq.~\eqref{eq:trs_boson_reduced_weight} is fixed to
+\begin{equation}
+    N_-=\frac N2.
+    \label{eq:trs_Nminus_half}
+\end{equation}
+
+After a real change of basis, take
+\begin{equation}
+    \eta=\diag(I_{N/2},-I_{N/2}).
+    \label{eq:trs_eta_diagonal}
+\end{equation}
+The two diagonal blocks of \(\eta\) label equal sets of positive and negative channels.  Equation~\eqref{eq:trs_eta_generator_relation} implies
+\begin{equation}
+    \mc M_{+\ii}^\trans\eta \mc M_{+\ii}=\eta,
+    \qquad
+    \Tr A_{\ell,+\ii}=0.
+    \label{eq:trs_eta_propagation}
+\end{equation}
+Real matrices satisfying the first relation form the split orthogonal group \(O(N/2,N/2)\).  Each factor \(\ee^{A_{\ell,+\ii}}\) can be reached continuously from the identity along \(\ee^{tA_{\ell,+\ii}}\) while preserving \(\eta\).  The ordered product therefore lies in the same connected part of the group as the identity.  The split-orthogonal determinant theorem~\cite{wang2015prl} gives
+\begin{equation}
+    \det(I_N+\mc M_{+\ii})\geq0.
+    \label{eq:trs_plus_determinant_positive}
+\end{equation}
+The eigenvalue structure explains the sign.  Preservation of \(\eta\) produces reciprocal eigenvalues, while reality produces complex-conjugate eigenvalues.  Away from the unit circle, a nonreal quartet \(\lambda,\overline\lambda,\lambda^{-1},\overline\lambda^{-1}\) contributes \(|1+\lambda|^2|1+\lambda^{-1}|^2\).  On the unit circle, the quartet reduces to the conjugate pair \(\lambda,\overline\lambda\), which contributes \(|1+\lambda|^2\).  A positive real reciprocal pair contributes \((1+\lambda)(1+\lambda^{-1})>0\).  In the component connected to the identity, negative real reciprocal pairs occur in an even number, so their negative contributions also multiply to a positive number.
+
+The bosonic trace contains \(I_N-\mc M_{+\ii}\).  Its sign follows without another spectral classification.  Whenever \(I_N+\mc M_{+\ii}\) is invertible, Eq.~\eqref{eq:trs_eta_propagation} gives
+\begin{equation}
+    \left[\eta(I_N-\mc M_{+\ii})(I_N+\mc M_{+\ii})^{-1}\right]^\trans
+    =-\eta(I_N-\mc M_{+\ii})(I_N+\mc M_{+\ii})^{-1}.
+    \label{eq:trs_cayley_antisymmetric}
+\end{equation}
+The matrix in brackets is real and antisymmetric, so its determinant is the square of its Pfaffian.  Since \(\det\eta=(-1)^{N/2}\),
+\begin{equation}
+    (-1)^{N/2}
+    \frac{\det(I_N-\mc M_{+\ii})}{\det(I_N+\mc M_{+\ii})}
+    =\operatorname{Pf}\!\left[
+      \eta(I_N-\mc M_{+\ii})(I_N+\mc M_{+\ii})^{-1}
+    \right]^2\geq0.
+    \label{eq:trs_minus_determinant_positive}
+\end{equation}
+The result extends by continuity when \(I_N+\mc M_{+\ii}\) is singular.  Combining Eqs.~\eqref{eq:trs_plus_determinant_positive} and~\eqref{eq:trs_minus_determinant_positive} yields
+\begin{equation}
+    (-1)^{N/2}\det(I_N-\mc M_{+\ii})\geq0.
+    \label{eq:trs_boson_three_plus_det_sign}
+\end{equation}
+Finally, Eqs.~\eqref{eq:trs_boson_reduced_weight}, \eqref{eq:trs_Nminus_half}, and~\eqref{eq:trs_eta_propagation} give
+\begin{equation}
+    \boxed{
+    p_{\rm B}=(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0
+    }
+    \label{eq:trs_boson_three_plus_weight}
+\end{equation}
+away from bosonic poles.  The bosonic split-orthogonal class \(\{+,+,+\}\) therefore protects the full Gaussian weight.
+
+\subsection{Classes without sign protection}
+
+The unlisted two-symmetry class already has a one-mode bosonic counterexample.  Let \(\hat\chi=(\hat b,\hat b^+)^\trans\), \(g=-\ii\sigma_y\), and \(C=\sigma_x\).  The two time reversals
+\begin{equation}
+    \Theta_1=\mc K,
+    \qquad
+    \Theta_2=\ii\sigma_z\mc K
+    \label{eq:trs_boson_pp_counter_TR}
+\end{equation}
+obey all three conditions in Eq.~\eqref{eq:trs_physical_TR_conditions}, square to \(+I\), and anticommute.  They both preserve
+\begin{equation}
+    A=\kappa\sigma_z,
+    \qquad \kappa\in\mathbb R,
+    \qquad
+    \hat h=\kappa\left(\hat n+\frac12\right).
+    \label{eq:trs_boson_pp_counter_h}
+\end{equation}
+For \(\kappa<0\), the ordinary trace converges and equals \(\ee^{\kappa/2}/(1-\ee^\kappa)\).  Its unique analytic continuation to \(\kappa>0\) is
+\begin{equation}
+    p_{\rm B}=\frac{\ee^{\kappa/2}}{1-\ee^\kappa}
+    =-\frac{1}{2\sinh(\kappa/2)}<0.
+    \label{eq:trs_boson_pp_counter_weight}
+\end{equation}
+The occupation-number sum diverges at \(\kappa>0\), while the continued Gaussian weight defined above is finite and negative, with \(\det(I-\mc M)\ne0\).  Thus the bosonic \(\{+,+\}\) set does not fix the sign.  A fermionic counterexample for the \(\{+,+,+\}\) set will be given below.
+
+A single negative-square time reversal is likewise insufficient for general bosonic Nambu evolution.  For two bosonic flavors, let the first Pauli matrix act in Nambu space and the second in flavor space, and take
+\begin{equation}
+    g=(-\ii\sigma_y)\otimes I_2,
+    \quad C=\sigma_x\otimes I_2,
+    \quad U=I_2\otimes(\ii\sigma_y),
+    \quad \Theta=U\mc K,
+    \quad A=x(-\ii\sigma_y)\otimes I_2,
+    \label{eq:trs_boson_single_minus_counterexample}
+\end{equation}
+where \(x\) is real.  The matrix \(\ii\sigma_y\) is real, and direct multiplication gives \(gA+A^\trans g=0\), \(U^\trans gU=g\), \(C\overline UC=U\), \(\overline U U=-I_4\), and \(U^{-1}\overline AU=A\).  The quadratic operator separates into two identical flavors,
+\begin{equation}
+    \hat h=-\frac{x}{2}\sum_{\alpha=1}^2
+      (\hat b_\alpha^2+\hat b_\alpha^{+2}).
+\end{equation}
+Their continued weights are identical.  For either single flavor, Eq.~\eqref{eq:trs_nambu_trace} gives \(p_1^2=-[4\sin^2(x/2)]^{-1}\).  The two-flavor weight is therefore \(p_{\rm B}=p_1^2\), with no remaining branch choice:
+\begin{equation}
+    p_{\rm B}=-\frac{1}{4\sin^2(x/2)}<0,
+    \qquad x\notin2\pi\mathbb Z.
+    \label{eq:trs_boson_single_minus_weight}
+\end{equation}
+These excluded values are precisely the determinant poles.
+
+The opposite exchange symmetry explains why this additional class is absent for fermions. Replacing \(g_{\rm B}^\trans=-g_{\rm B}\) by \(g_{\rm F}^\trans=g_{\rm F}\) changes the matrix in Eq.~\eqref{eq:trs_eta_definition} from symmetric to antisymmetric, since
+\begin{equation}
+    (g_{\rm F}R_3)^\trans=-g_{\rm F}R_3.
+\end{equation}
+The split-orthogonal determinant argument therefore no longer applies. Indeed, the fermionic \(\{+,+,+\}\) class permits a negative weight.  A two-mode counterexample makes the difference explicit.  Let the first Pauli matrix act in Nambu space and the second in flavor space, and choose
+\begin{gather}
+    g=C=\sigma_x\otimes I_2,
+    \qquad
+    U_1=I_4,
+    \quad
+    U_2=\ii\sigma_z\otimes\sigma_x,
+    \quad
+    U_3=\ii\sigma_z\otimes\sigma_z,
+    \label{eq:trs_fermion_three_plus_U}\\
+    A_1=\pi\ii\sigma_x\otimes\sigma_y,
+    \qquad
+    A_2=x\sigma_z\otimes I_2,
+    \qquad x\in\mathbb R.
+    \label{eq:trs_fermion_three_plus_A}
+\end{gather}
+The Pauli algebra gives, for \(a\ne b\) and \(\ell=1,2\),
+\begin{equation}
+\begin{gathered}
+    gA_\ell+A_\ell^\trans g=0,
+    \qquad \overline U_aU_a=I_4,
+    \qquad \overline U_bU_a=-\overline U_aU_b,
+    \qquad U_a^\trans gU_a=g,\\
+    C\overline U_aC=U_a,
+    \qquad U_a^{-1}\overline{A_\ell}U_a=A_\ell.
+\end{gathered}
+    \label{eq:trs_fermion_counter_checks}
+\end{equation}
+Thus \(\Theta_a=U_a\mc K\) are three physical, pairwise anticommuting time reversals of both slices, and every one squares to \(+I\).  In Fock space,
+\begin{equation}
+    \hat h_1=\pi(\hat c_1\hat c_2+\hat c_1^+\hat c_2^+),
+    \qquad
+    \hat h_2=x(\hat n_1+\hat n_2-1).
+    \label{eq:trs_fermion_counter_operators}
+\end{equation}
+The first exponential is \(+I\) in the odd-parity sector and \(-I\) in the even-parity sector.  The two odd states contribute \(2\), while the empty and doubly occupied states contribute \(-\ee^{-x}\) and \(-\ee^x\).  Therefore
+\begin{equation}
+    p_{\rm F}=\Tr(\ee^{\hat h_1}\ee^{\hat h_2})
+    =2-\ee^x-\ee^{-x}<0
+    \qquad(x\in\mathbb R\setminus\{0\}).
+    \label{eq:trs_fermion_three_plus_negative}
+\end{equation}
+The fermionic \(\{+,+,+\}\) class consequently has no symmetry-protected sign.  The product \(\Theta_1\Theta_2\Theta_3\) is itself a physical time reversal, preserves both slices, and squares to \(-I\).  This same counterexample also shows why a single negative-square time reversal is insufficient for a general paired fermion problem.
+
+\subsection{Four or more time reversals}
+
+Four mutually anticommuting time reversals always generate an elementary sign-free pair.  If both square signs occur, one can select a \(\{+,-\}\) pair immediately.  If all four squares have the same sign, form the product of three,
+\begin{equation}
+    \widetilde\Theta=\Theta_2\Theta_3\Theta_4.
+    \label{eq:trs_generated_TR}
+\end{equation}
+This product is antiunitary and preserves every quadratic slice.  Pairwise anticommutation gives
+\begin{equation}
+    \widetilde\Theta^2
+    =-\Theta_2^2\Theta_3^2\Theta_4^2,
+    \qquad
+    \Theta_1\widetilde\Theta
+    =-\widetilde\Theta\Theta_1.
+    \label{eq:trs_generated_TR_properties}
+\end{equation}
+The square of \(\widetilde\Theta\) is opposite to that of \(\Theta_1\), so the generated pair is of type \(\{+,-\}\).  Any larger anticommuting set contains four members.  Thus four or more time reversals guarantee nonnegative bosonic and fermionic weights.
+
+\subsection{Equivalence of the fermionic Nambu and Majorana formulations}
+
+For every fermionic mode, introduce two Hermitian Majorana operators,
+\begin{equation}
+    \hat\gamma_j^1=\hat a_j+\hat a_j^+,
+    \qquad
+    \hat\gamma_j^2=-\ii(\hat a_j-\hat a_j^+).
+    \label{eq:trs_nambu_majorana_operators}
+\end{equation}
+They obey \(\{\hat\gamma_j^\alpha,\hat\gamma_k^\beta\}=2\delta_{jk}\delta_{\alpha\beta}\).  Collecting first all \(\hat\gamma_j^1\) and then all \(\hat\gamma_j^2\) gives
+\begin{equation}
+    \hat\gamma=S\hat\chi,
+    \qquad
+    S=\begin{pmatrix}I_N&I_N\\-\ii I_N&\ii I_N\end{pmatrix},
+    \qquad
+    \overline S=SC,
+    \qquad
+    SCS^\trans=2I_{2N}.
+    \label{eq:trs_nambu_majorana_basis}
+\end{equation}
+For the generator and a time reversal \(\Theta=U\mc K\), define their Majorana-basis matrices and the inverse transformation by
+\begin{equation}
+    A_{\ell,{\rm M}}=SA_\ell S^{-1},
+    \qquad
+    U_{\rm M}=\overline S\,U S^{-1},
+    \qquad
+    A_\ell=S^{-1}A_{\ell,{\rm M}}S,
+    \qquad
+    U=(\overline S)^{-1}U_{\rm M}S.
+    \label{eq:trs_majorana_TR_dictionary}
+\end{equation}
+Anti-linearity accounts for the complex conjugation of \(S\) in \(U_{\rm M}\).  Since \(g_{\rm F}=C\), direct substitution gives the same quadratic generator in Majorana form and maps every condition in Eq.~\eqref{eq:trs_physical_TR_conditions} in both directions:
+\begin{align}
+    \hat h_\ell
+    &=\frac14\hat\gamma^\trans A_{\ell,{\rm M}}\hat\gamma,
+    &
+    CA_\ell+A_\ell^\trans C=0
+    &\quad\Longleftrightarrow\quad
+    A_{\ell,{\rm M}}^\trans=-A_{\ell,{\rm M}},
+    \label{eq:trs_majorana_generator_dictionary}\\
+    C\overline U C=U
+    &\quad\Longleftrightarrow\quad
+    \overline U_{\rm M}=U_{\rm M},
+    &
+    U^\trans C U=C
+    &\quad\Longleftrightarrow\quad
+    U_{\rm M}^\trans U_{\rm M}=I,
+    \notag\\
+    U^{-1}\overline{A}_\ell U=A_\ell
+    &\quad\Longleftrightarrow\quad
+    U_{\rm M}^{-1}\overline{A}_{\ell,{\rm M}}U_{\rm M}
+    =A_{\ell,{\rm M}}.
+    \label{eq:trs_majorana_TR_conditions}
+\end{align}
+Thus a physical Nambu time reversal becomes a real orthogonal Majorana-time-reversal symmetry of every slice.  Using \(\overline U_{\rm M}U_{\rm M}=S(\overline U U)S^{-1}\), its square and its anticommutation relations obey
+\begin{align}
+    \overline U U=\pm I
+    &\quad\Longleftrightarrow\quad
+    U_{\rm M}^2=\pm I
+    \quad\Longleftrightarrow\quad
+    U_{\rm M}^\trans=\pm U_{\rm M},
+    \label{eq:trs_majorana_square_dictionary}\\
+    \overline U_bU_a+\overline U_aU_b=0
+    &\quad\Longleftrightarrow\quad
+    U_{{\rm M},b}U_{{\rm M},a}
+    +U_{{\rm M},a}U_{{\rm M},b}=0.
+    \label{eq:trs_majorana_anticommutation_dictionary}
+\end{align}
+Real symmetric and real antisymmetric orthogonal matrices are precisely the positive- and negative-square Majorana-time-reversal matrices of Ref.~\cite{li2016prl}.  Applying the inverse formulas in Eq.~\eqref{eq:trs_majorana_TR_dictionary} maps the right-hand conditions back to the fermionic Nambu conditions on the left.  Hence the fermionic \(\{+,-\}\) class maps one-to-one onto the Majorana class of Ref.~\cite{li2016prl}.  The fermionic \(\{-,-\}\) class maps one-to-one onto its Kramers class.
+
+\section{Reflection-positivity criterion}
 \label{app:rp_proof}
 
 We next prove the reflected-pair criterion used for both the number-conserving and paired examples. Let $\mc F_L$ and $\mc F_R$ be two bosonic Fock spaces generated by $\hat b_i$ and $\hat c_i$ ($i=1,\ldots,M$). The full space is $\mc F=\mc F_L\otimes\mc F_R$. Let $\mathfrak A_L$ be the operator algebra generated by the $b$ bosons, and let $\mathfrak A_R$ be the corresponding algebra generated by the $c$ bosons. Operators in the two algebras commute.
@@ -1168,6 +1869,399 @@ gives the block form
     \label{eq:rp_block_sm}
 \end{equation}
 This is the practical Gaussian RP test quoted in the main text. It is written in reflected-sector order, where the first block contains the $b$ operators and their conjugates and the second block contains the reflected $c$ operators and their conjugates. Other parts of the SM use the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$; the two descriptions are related by a fixed permutation of rows and columns. The reflection may include fixed phases; in that case the same derivation holds after absorbing those phases into the definition of $\theta$.
+
+\section{Time-reversal-protected models with pairing}
+\label{app:trs_models}
+
+The following models show how the symmetry algebra becomes a practical rule for choosing interactions and HS channels. We first construct conjugate paired flavors and then derive the distinct protection required by odd-parity pairs.
+
+\subsection{Conjugate Bogoliubov copies: Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
+
+Place two bosonic flavors \(\hat b_i\) and \(\hat c_i\) on each site and consider
+\begin{align}
+    \hat H_0={}&
+    \sum_{ij}\left(
+      \hat b_i^+K_{ij}\hat b_j
+      +\hat c_i^+\overline{K}_{ij}\hat c_j
+    \right)
+    \notag\\
+    &+\frac12\sum_{ij}\left(
+      \Delta_{ij}\hat b_i^+\hat b_j^+
+      +\overline\Delta_{ij}\hat c_i^+\hat c_j^+
+      +\overline\Delta_{ij}\hat b_j\hat b_i
+      +\Delta_{ij}\hat c_j\hat c_i
+    \right),
+    \label{eq:trs_conjugate_BdG_H0}\\
+    \hat H_I={}&U\sum_i(\hat n_{b,i}-\hat n_{c,i})^2,
+    \qquad U>0,
+    \label{eq:trs_conjugate_BdG_HI}
+\end{align}
+where \(K=K^\hc\) and \(\Delta=\Delta^\trans\).  A sufficient stability condition for the quadratic part is
+\begin{equation}
+    \begin{pmatrix}K&\Delta\\ \Delta^\hc&K^\trans\end{pmatrix}>0.
+    \label{eq:trs_conjugate_BdG_stability}
+\end{equation}
+On a finite lattice this condition makes \(\ee^{-\Delta\tau\hat H_0}\) damp every large-occupation state.  The auxiliary-field factors below are unitary.  Their ordered products consequently have finite many-body traces, so the model weights do not encounter bosonic poles.
+
+On the flavor doublet, define
+\begin{equation}
+    \widehat\Theta_+
+    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
+    \widehat\Theta_+^{-1}
+    =\sigma_x\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix},
+    \qquad
+    \widehat\Theta_-
+    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
+    \widehat\Theta_-^{-1}
+    =\ii\sigma_y\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}.
+    \label{eq:trs_conjugate_BdG_TR}
+\end{equation}
+Both transformations conjugate numerical coefficients.  Their one-body operator maps obey
+\begin{equation}
+    \Theta_+^2=+I,
+    \qquad
+    \Theta_-^2=-I,
+    \qquad
+    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+    \label{eq:trs_conjugate_BdG_TR_algebra}
+\end{equation}
+The Fock-space transformations preserve \(\hat H_0\) and send
+\begin{equation}
+    \hat n_{b,i}-\hat n_{c,i}
+    \longmapsto
+    -(\hat n_{b,i}-\hat n_{c,i}).
+    \label{eq:trs_relative_density_odd}
+\end{equation}
+The continuous Hubbard--Stratonovich identity
+\begin{equation}
+    \ee^{-\Delta\tau U(\hat n_{b,i}-\hat n_{c,i})^2}
+    =\frac{1}{\sqrt{2\pi}}
+    \int_{-\infty}^{\infty}d\phi_i\,\ee^{-\phi_i^2/2}
+    \ee^{\ii\sqrt{2\Delta\tau U}\,\phi_i
+      (\hat n_{b,i}-\hat n_{c,i})}
+    \label{eq:trs_relative_density_HS}
+\end{equation}
+therefore preserves both time reversals for every real value of \(\phi_i\).  Complex conjugation changes the sign of \(\ii\), while Eq.~\eqref{eq:trs_relative_density_odd} supplies the second sign change.
+
+At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and are exact complex conjugates.  Their many-body traces obey
+\begin{equation}
+    p(\phi)=p_b(\phi)\overline{p_b(\phi)}
+    =|p_b(\phi)|^2\geq0.
+    \label{eq:trs_conjugate_BdG_weight}
+\end{equation}
+The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\).  Equation~\eqref{eq:trs_conjugate_BdG_weight} permits unbiased studies of paired correlations and the effects of interactions on density fluctuations and one-boson coherence on frustrated lattices.
+
+\subsection{Odd-parity two-flavor bosons in the \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} class}
+\label{sec:trs_odd_parity_two_flavor_bosons}
+
+Odd-parity pairing of two-component bosons connects unconventional quantum gases with frustrated quantum magnetism.  It produces paired states in resonant and rotating Bose gases~\cite{radzihovskyChoi2009pwave,papenbrockReimannKavoulakis2012pwave}, and forms the singlet bonds underlying bosonic theories of quantum spin liquids with fractionalized spin excitations~\cite{readSachdev1991frustrated,sachdev1992kagome,balents2010}.  The bosonic \(\{+,+,+\}\) class establishes a sign-free family of interacting models built from this pairing structure, including \(p\)-wave pairing on frustrated lattices.
+
+Bose exchange symmetry explains the generality of this result.  An odd spatial pair wave function must also be antisymmetric in flavor.  For two flavors there is a single such channel,
+\begin{equation}
+    \hat P_{ij}^+=\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+,
+    \qquad \hat P_{ij}=\hat c_j\hat b_i-\hat c_i\hat b_j,
+    \label{eq:trs_odd_pair}
+\end{equation}
+with \(\hat P_{ji}^+=-\hat P_{ij}^+\).  The same operator creates a spin-singlet bond in the Schwinger-boson description of a quantum magnet.  In that representation, the two flavors encode spin, and the fixed boson number at each site sets the spin magnitude~\cite{readSachdev1991frustrated,sachdev1992kagome}.
+
+The antisymmetric flavor structure fixes the allowed internal time-reversal algebra independently of lattice geometry, as the following derivation shows.
+
+\subsection{Odd-parity pairing as an irreducible \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}} realization}
+\label{app:trs_two_flavor_odd_pairing}
+
+We consider the minimal setting used in Sec.~\ref{sec:trs_odd_parity_two_flavor_bosons}.  There are two bosonic flavors, all nonzero odd-parity bond amplitudes share one overall phase up to a sign, and every time reversal leaves each site fixed.  It acts in the same way on the onsite flavor doublet at every site and does not mix annihilation and creation operators.  A global phase rotation of both boson fields makes the pair amplitude real and positive.  We work in this gauge and use equal bond amplitudes to keep the formulas short.  Arbitrary real bond-dependent factors do not change the argument.
+
+The form of the pair follows directly from Bose exchange symmetry.  Bosonic creation operators on different modes commute, so a same-flavor odd pair vanishes identically,
+\begin{equation}
+    \hat b_i^+\hat b_j^+-\hat b_j^+\hat b_i^+=0,
+    \qquad
+    \hat c_i^+\hat c_j^+-\hat c_j^+\hat c_i^+=0.
+    \label{eq:trs_same_flavor_odd_pair_vanishes}
+\end{equation}
+Exchanging the two spatial coordinates maps \(\hat b_i^+\hat c_j^+\) to \(\hat b_j^+\hat c_i^+\).  An odd spatial wave function therefore requires their difference, which is precisely \(\hat P_{ij}^+\) in Eq.~\eqref{eq:trs_odd_pair}.  In matrix form,
+\begin{equation}
+    \hat P_{ij}^+
+    =
+    (\hat b_i^+,\hat c_i^+)
+    \ii\sigma_y
+    \begin{pmatrix}\hat b_j^+\\ \hat c_j^+\end{pmatrix},
+    \qquad
+    \ii\sigma_y=
+    \begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+    \label{eq:trs_odd_pair_matrix_form}
+\end{equation}
+
+The pair field can therefore be written as
+\begin{equation}
+    \hat H_{\rm p}
+    =-\Delta_{\rm p}\sum_{\langle i,j\rangle}
+    \left(\hat P_{ij}^++\hat P_{ij}\right),
+    \qquad \Delta_{\rm p}>0.
+    \label{eq:trs_real_odd_pair_field}
+\end{equation}
+Let \(\mc K\) denote complex conjugation in the \((\hat b,\hat c)\) basis.  The most general internal time reversal in this space is \(\Theta=U\mc K\), where
+\begin{equation}
+    \widehat\Theta
+    \begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}
+    \widehat\Theta^{-1}
+    =U\begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix},
+    \qquad U^\hc U=I_2.
+    \label{eq:trs_two_flavor_general_TR}
+\end{equation}
+Unitarity is exactly the condition that preserves the canonical bosonic commutators.  Taking Hermitian conjugates gives
+\begin{equation}
+    \widehat\Theta(\hat b_i^+,\hat c_i^+)\widehat\Theta^{-1}
+    =(\hat b_i^+,\hat c_i^+)U^\hc.
+    \label{eq:trs_two_flavor_creation_TR}
+\end{equation}
+Because \(\ii\sigma_y\) is real, Eqs.~\eqref{eq:trs_odd_pair_matrix_form} and \eqref{eq:trs_two_flavor_creation_TR} give
+\begin{equation}
+    \widehat\Theta\hat P_{ij}^+\widehat\Theta^{-1}
+    =
+    (\hat b_i^+,\hat c_i^+)
+    U^\hc(\ii\sigma_y)U^*
+    \begin{pmatrix}\hat b_j^+\\ \hat c_j^+\end{pmatrix}.
+    \label{eq:trs_odd_pair_TR_before_determinant}
+\end{equation}
+
+The matrix in the middle follows from one direct multiplication.  Writing the entries of \(U\) as \(u_{mn}\),
+\begin{align}
+    U^\trans(\ii\sigma_y)U
+    &={}
+    \begin{pmatrix}u_{11}&u_{21}\\u_{12}&u_{22}\end{pmatrix}
+    \begin{pmatrix}u_{21}&u_{22}\\-u_{11}&-u_{12}\end{pmatrix}
+    \notag\\
+    &={}
+    \begin{pmatrix}
+        0&u_{11}u_{22}-u_{12}u_{21}\\
+        -(u_{11}u_{22}-u_{12}u_{21})&0
+    \end{pmatrix}
+    =(\det U)\ii\sigma_y.
+    \label{eq:trs_two_by_two_determinant_identity}
+\end{align}
+Taking the complex conjugate of this identity yields
+\begin{equation}
+    U^\hc(\ii\sigma_y)U^*
+    =(\det U)^*\ii\sigma_y.
+    \label{eq:trs_odd_pair_determinant_identity}
+\end{equation}
+Substitution into Eq.~\eqref{eq:trs_odd_pair_TR_before_determinant}, followed by Hermitian conjugation, gives
+\begin{equation}
+    \widehat\Theta\hat P_{ij}^+\widehat\Theta^{-1}
+    =(\det U)^*\hat P_{ij}^+,
+    \qquad
+    \widehat\Theta\hat P_{ij}\widehat\Theta^{-1}
+    =(\det U)\hat P_{ij}.
+    \label{eq:trs_odd_pair_determinant_transformation}
+\end{equation}
+
+Equations~\eqref{eq:trs_real_odd_pair_field} and \eqref{eq:trs_odd_pair_determinant_transformation} give
+\begin{equation}
+    \widehat\Theta\hat H_{\rm p}\widehat\Theta^{-1}
+    =-\Delta_{\rm p}\sum_{\langle i,j\rangle}
+    \left[(\det U)^*\hat P_{ij}^++(\det U)\hat P_{ij}\right].
+\end{equation}
+Comparison with Eq.~\eqref{eq:trs_real_odd_pair_field} shows that the pair field is invariant precisely when
+\begin{equation}
+    \det U=1.
+    \label{eq:trs_pair_preserving_determinant}
+\end{equation}
+Thus every internal time reversal that preserves the pair is represented by an \(SU(2)\) matrix.
+
+The same transformation also explains the common-phase condition.  For a complex amplitude on any bond, antiunitarity conjugates the coefficient, and pair invariance requires \(\Delta_{\rm p}^*(\det U)^*=\Delta_{\rm p}\).  Since the same \(U\) acts at every site, all nonzero bond amplitudes must have the same phase up to signs.  The real-amplitude gauge therefore covers every odd-parity pair field preserved by a uniform internal time reversal.
+
+We first determine the negative-square possibilities.  Applying \(\Theta\) twice conjugates the matrix in its first action and gives
+\begin{equation}
+    \Theta^2
+    \begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}
+    =U^*U\begin{pmatrix}\hat b_i\\ \hat c_i\end{pmatrix}.
+    \label{eq:trs_two_flavor_TR_square}
+\end{equation}
+Thus \(\Theta^2=-I\) requires \(U^*U=-I_2\).  Unitarity also gives \(U^\trans U^*=I_2\).  Multiplying the first equation from the left by \(U^\trans\) yields
+\begin{equation}
+    U=-U^\trans.
+    \label{eq:trs_negative_TR_antisymmetric}
+\end{equation}
+Every antisymmetric \(2\times2\) matrix has the form
+\begin{equation}
+    U=\begin{pmatrix}0&u\\-u&0\end{pmatrix}.
+\end{equation}
+Equation~\eqref{eq:trs_pair_preserving_determinant} gives \(u^2=1\).  The pair field therefore preserves only
+\begin{equation}
+    \Theta_0=\ii\sigma_y\mc K
+    \label{eq:trs_unique_negative_pair_TR}
+\end{equation}
+and the same map with an overall minus sign.  No two independent negative-square time reversals exist, which excludes the Kramers \(\{-,-\}\) class.
+
+We next show that \(\Theta_0\) has no anticommuting positive-square partner.  For every pair-preserving \(U\), Eqs.~\eqref{eq:trs_two_by_two_determinant_identity} and \eqref{eq:trs_pair_preserving_determinant} give
+\begin{equation}
+    U^\trans(\ii\sigma_y)U=\ii\sigma_y.
+\end{equation}
+Unitarity implies \((U^\trans)^{-1}=U^*\).  Multiplying the last equation from the left by \(U^*\) gives
+\begin{equation}
+    (\ii\sigma_y)U=U^*(\ii\sigma_y).
+    \label{eq:trs_SU2_pair_identity}
+\end{equation}
+Anti-linearity now completes the argument.  Acting successively on the flavor doublet, the two orders \(\Theta\Theta_0\) and \(\Theta_0\Theta\) have matrices
+\begin{equation}
+    (\ii\sigma_y)U,
+    \qquad
+    U^*(\ii\sigma_y),
+    \label{eq:trs_pair_TR_composition}
+\end{equation}
+respectively.  Equation~\eqref{eq:trs_SU2_pair_identity} makes them equal.  Hence \(\Theta_0\) commutes with every internal time reversal that preserves the odd-parity pair, excluding the Majorana \(\{+,-\}\) class.
+
+The simplest would-be Majorana partner makes the obstruction visible.  The map \(\sigma_x\mc K\) squares to \(+I\) and anticommutes with \(\Theta_0\), since
+\begin{equation}
+    (\sigma_x\mc K)(\ii\sigma_y\mc K)=\sigma_z,
+    \qquad
+    (\ii\sigma_y\mc K)(\sigma_x\mc K)=-\sigma_z.
+    \label{eq:trs_failed_majorana_partner}
+\end{equation}
+It has the required Majorana algebra, but \(\det\sigma_x=-1\).  Equation~\eqref{eq:trs_odd_pair_determinant_transformation} then shows that it reverses the pair field and is not a symmetry.
+
+We finally construct the allowed \(\{+,+,+\}\) set.  Complex conjugation \(\mc K\) preserves the real pair field.  A second map \(U\mc K\) anticommutes with \(\mc K\) exactly when \(U^*=-U\).  The two simplest independent determinant-one flavor rotations with this property are \(\ii\sigma_x\) and \(\ii\sigma_z\).  Thus the pair preserves
+\begin{equation}
+    \Theta_1=\mc K,
+    \qquad
+    \Theta_2=\ii\sigma_x\mc K,
+    \qquad
+    \Theta_3=\ii\sigma_z\mc K.
+    \label{eq:trs_odd_pair_three_plus_TR}
+\end{equation}
+All three matrices have determinant one, so Eq.~\eqref{eq:trs_odd_pair_determinant_transformation} proves that they preserve the pair.  Their squares are positive because
+\begin{equation}
+    I_2^*I_2=(\ii\sigma_x)^*(\ii\sigma_x)
+    =(\ii\sigma_z)^*(\ii\sigma_z)=I_2,
+    \label{eq:trs_three_plus_positive_squares}
+\end{equation}
+and \(\Theta_1\) anticommutes with the other two because \((\ii\sigma_x)^*=-\ii\sigma_x\) and \((\ii\sigma_z)^*=-\ii\sigma_z\).  The remaining pair obeys
+\begin{equation}
+    (\ii\sigma_z)^*(\ii\sigma_x)=\ii\sigma_y,
+    \qquad
+    (\ii\sigma_x)^*(\ii\sigma_z)=-\ii\sigma_y.
+    \label{eq:trs_three_plus_last_anticommutator}
+\end{equation}
+Thus \(\Theta_a^2=+I\) and \(\Theta_a\Theta_b=-\Theta_b\Theta_a\) for every \(a\ne b\).  The odd-parity pair is consequently an irreducible \(\{+,+,+\}\) building block.  When the remaining quadratic terms and every fixed-field Hubbard--Stratonovich generator preserve the same three maps, the split-orthogonal theorem makes each convergent bosonic configuration weight positive, as in Eq.~\eqref{eq:trs_three_plus_model}.
+
+\subsection{Interacting odd-parity bosons on the triangular lattice}
+
+Two-species Bose gases provide a microscopic route to this pairing.  Broad interspecies \(p\)-wave Feshbach resonances have been observed in \(^{85}\mathrm{Rb}\)--\(^{87}\mathrm{Rb}\) mixtures~\cite{dongCuiShen2016pwave}, and ultracold heteronuclear \(p\)-wave molecules have recently been created from \(^{23}\mathrm{Na}\) and \(^{87}\mathrm{Rb}\) atoms~\cite{jiaGuoHuangWang2026pwave}.  Near such a resonance, a molecule converts coherently into two atoms through a coupling that is odd in relative momentum and antisymmetric in species~\cite{choiRadzihovsky2011finite}.  A molecular condensate therefore supplies an atomic pair field with the same flavor structure as Eq.~\eqref{eq:trs_odd_pair}.
+
+The central physical question is how odd-parity pairing reorganizes Bose condensation and its quantum transitions.  Resonant-gas theory predicts a phase in which the two atomic species condense at opposite finite momenta together with the molecules~\cite{radzihovskyChoi2009pwave,choiRadzihovsky2011finite}.  In three dimensions, fluctuations of the molecular orientation are predicted to make this onset a first-order quantum transition~\cite{choiRadzihovsky2011finite}.  Quantum fluctuations also control mechanical stability.  Quantum corrections to a \(p\)-wave interacting gas support a self-bound droplet with finite-momentum atomic condensation even when the mean-field state collapses~\cite{liPanLiu2019droplets}.  Exact \(p\)-wave paired states in rotating two-component gases~\cite{papenbrockReimannKavoulakis2012pwave} and a pairing-driven quantum critical point in an integrable two-species model~\cite{lermaHernandezDukelsky2019pwave} establish complementary limits in which correlations organize the many-body state.  These results motivate a nonperturbative treatment of the competition between pairing, one-boson coherence, and quantum fluctuations.  The \(\{+,+,+\}\) criterion supplies a general principle for constructing interacting lattice models that bring this competition within sign-free quantum Monte Carlo.
+
+Frustrated lattices make the relation between condensation and current order especially consequential.  When the single-particle dispersion has two minima, or valleys, the two flavors can condense at opposite momenta and carry opposite currents~\cite{liNatuParamekanti2014chiral}.  Related lattice theories predict phases in which circulating currents remain ordered after one-boson coherence is lost~\cite{zaletel2014prb,liParamekantiHemmerich2014chiral}.  A recent double-valley experiment observed the reverse thermal sequence, with valley order disappearing before superfluid coherence~\cite{yuWuZhang2025vestigial}.  The triangular-lattice model below combines two valleys with odd-parity pairing in an exactly flavor-symmetric setting.  Its sign-free formulation permits a direct investigation of whether one-boson coherence and composite flavor order emerge at the same quantum transition or through separate transitions.
+
+An explicit realization combines two bosonic flavors on a triangular lattice, frustrated nearest-neighbor hopping, the odd-parity flavor-singlet pair in Eq.~\eqref{eq:trs_odd_pair}, and two positive-square interactions.  Let \(\bb a_1=(1,0)\) and \(\bb a_2=(1/2,\sqrt{3}/2)\).  Here \(\langle i,j\rangle\) contains one ordered representative of every nearest-neighbor bond, chosen so that \(\bb r_j-\bb r_i\) points along \(\bb a_1\), \(\bb a_2\), or \(\bb a_2-\bb a_1\).  Since \(\hat P_{ji}^+=-\hat P_{ij}^+\), this orientation fixes the relative signs of the three pair amplitudes and hence the odd-parity bond texture.  We also use the total particle current on the same bond,
+\begin{equation}
+    \hat J_{ij}=-\ii\bigl(\hat b_i^+\hat b_j-\hat b_j^+\hat b_i+\hat c_i^+\hat c_j-\hat c_j^+\hat c_i\bigr).
+    \label{eq:trs_three_plus_total_current}
+\end{equation}
+The Hamiltonian is
+\begin{equation}
+    \hat H=\hat H_0+\hat H_I,
+    \label{eq:trs_three_plus_model}
+\end{equation}
+\begin{equation}
+    \hat H_0=-\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})+t\sum_{\langle i,j\rangle}(\hat b_i^+\hat b_j+\hat b_j^+\hat b_i+\hat c_i^+\hat c_j+\hat c_j^+\hat c_i)-\Delta_{\rm p}\sum_{\langle i,j\rangle}(\hat P_{ij}^++\hat P_{ij}),
+    \label{eq:trs_three_plus_model_H0}
+\end{equation}
+\begin{equation}
+    \hat H_I=g_1\sum_{\langle i,j\rangle}\hat J_{ij}^2+g_2\sum_{\langle i,j\rangle}\bigl[-\ii(\hat P_{ij}^+-\hat P_{ij})\bigr]^2,
+    \qquad g_1,g_2>0.
+    \label{eq:trs_three_plus_model_HI}
+\end{equation}
+Here \(t>0\) and \(\Delta_{\rm p}>0\).  Pair creation and annihilation change the total particle number and explicitly break its \(U(1)\) symmetry.  Every term remains invariant under global \(SU(2)\) rotations of the two flavors.  In particular, the opposite phase rotations \(\hat b_i\mapsto\ee^{\ii\theta}\hat b_i\) and \(\hat c_i\mapsto\ee^{-\ii\theta}\hat c_i\) leave the pair unchanged and conserve the population difference between the flavors.
+
+
+
+The plus sign of the hopping frustrates every elementary triangle.  The single-particle dispersion is
+\begin{equation}
+    \xi_{\bb k}=-\mu+2t\bigl[\cos(\bb k\!\cdot\!\bb a_1)+\cos(\bb k\!\cdot\!\bb a_2)+\cos\bigl(\bb k\!\cdot\!(\bb a_2-\bb a_1)\bigr)\bigr],
+    \label{eq:trs_three_plus_dispersion}
+\end{equation}
+with two degenerate minima at \(\pm\bb K=\pm(4\pi/3,0)\).  Fourier transformation of the pair field gives the creation amplitude \(-2\ii\Delta_{\rm p}[\sin(\bb k\cdot\bb a_1)+\sin(\bb k\cdot\bb a_2)+\sin(\bb k\cdot(\bb a_2-\bb a_1))]\).  It is odd in momentum and reverses sign between the valleys.  Its value at \(\bb K\) is \(\ii\sqrt{3}\Delta_{\rm p}\), so the low-energy form is
+\begin{equation}
+    \hat H_{\rm p}^{\rm valley}=\ii\sqrt{3}\Delta_{\rm p}\bigl(\hat b_{\bb K}^+\hat c_{-\bb K}^+-\hat b_{-\bb K}^+\hat c_{\bb K}^+-\hat b_{\bb K}\hat c_{-\bb K}+\hat b_{-\bb K}\hat c_{\bb K}\bigr).
+    \label{eq:trs_three_plus_pair_form_factor}
+\end{equation}
+A \(b\) boson at \(+\bb K\) pairs with a \(c\) boson at \(-\bb K\), while the time-reversed channel pairs \(b_{-\bb K}\) with \(c_{\bb K}\).  The two amplitudes have equal magnitude and opposite sign, which is the valley imprint of odd bond parity.  Time reversal exchanges the two channels and is distinct from the internal flavor \(SU(2)\).  These are the relevant valleys at weak pairing.  The directional pair texture shifts the exact Bogoliubov minima slightly away from \(\pm\bb K\) at finite \(\Delta_{\rm p}\).  We choose \(\mu\) so that the free Bogoliubov Hamiltonian is stable, meaning that \(\xi_{\bb k}\) exceeds the magnitude of the pair-creation amplitude for every \(\bb k\).
+
+Expanding the two squares reveals their microscopic content.  For one flavor on one bond,
+\begin{equation}
+    \bigl[-\ii(\hat b_i^+\hat b_j-\hat b_j^+\hat b_i)\bigr]^2=\hat n_{b,i}+\hat n_{b,j}+2\hat n_{b,i}\hat n_{b,j}-\bigl[(\hat b_i^+)^2\hat b_j^2+(\hat b_j^+)^2\hat b_i^2\bigr].
+    \label{eq:trs_three_plus_current_square_expansion}
+\end{equation}
+Thus \(g_1\) combines a nearest-neighbor density cost, coherent pair hopping, and a cross term that couples the two flavor currents.  Related correlated-hopping and atom-pair-hopping models on triangular lattices stabilize pair-superfluid and pair-supersolid phases~\cite{jiangFuXu2012,zhangYinWang2013pair}, showing how strongly these quartic processes can reorganize the phase diagram.  The second square obeys
+\begin{equation}
+    \bigl[-\ii(\hat P_{ij}^+-\hat P_{ij})\bigr]^2=\hat P_{ij}^+\hat P_{ij}+\hat P_{ij}\hat P_{ij}^+-(\hat P_{ij}^+)^2-\hat P_{ij}^2.
+    \label{eq:trs_three_plus_pair_square_expansion}
+\end{equation}
+It contains scattering between odd-parity bond pairs and coherent creation or removal of two such pairs.  The linear \(\Delta_{\rm p}\) term favors a real bond-pair expectation value, while positive \(g_2\) penalizes fluctuations of its imaginary part.
+
+The absence of a sign problem follows directly from the transformation of these physical terms.  The three antiunitary maps act as
+\begin{equation}
+    \widehat\Theta_1:(\hat b,\hat c)\mapsto(\hat b,\hat c),
+    \qquad \widehat\Theta_2:(\hat b,\hat c)\mapsto(\ii\hat c,\ii\hat b),
+    \qquad \widehat\Theta_3:(\hat b,\hat c)\mapsto(\ii\hat b,-\ii\hat c),
+    \qquad \ii\mapsto-\ii.
+    \label{eq:trs_three_plus_model_TR}
+\end{equation}
+Under \(\widehat\Theta_1\), real hopping and \(\hat P^++\hat P\) are unchanged, whereas the explicit \(-\ii\) makes the current and the imaginary pair component odd.  Under \(\widehat\Theta_2\), the two hopping terms exchange flavors.  The flavor exchange in \(\hat P^+\) produces one minus sign and the two factors of \(\ii\) produce another, leaving the pair field even.  Under \(\widehat\Theta_3\), the opposite flavor phases cancel within every hopping or singlet-pair bilinear.  The two Hermitian operators squared in Eq.~\eqref{eq:trs_three_plus_model_HI} are therefore odd under all three maps, while \(\hat H_0\) is even.  For either operator \(\hat O\), the fixed-field decomposition is
+\begin{equation}
+    \ee^{-\Delta\tau g\hat O^2}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}d\phi\,\ee^{-\phi^2/2}\ee^{\ii\sqrt{2\Delta\tau g}\,\phi\hat O},
+    \qquad g=g_1\ \text{or}\ g_2.
+    \label{eq:trs_three_plus_HS}
+\end{equation}
+Antiunitarity reverses \(\ii\), and each map also reverses \(\hat O\).  The two signs cancel for every auxiliary-field configuration.  Moreover, \(\Theta_a^2=+I\) on one-body operators and the three maps anticommute pairwise.  The split-orthogonal theorem in Eq.~\eqref{eq:trs_boson_three_plus_weight} therefore protects positive global auxiliary-field weights despite frustrated hopping and anomalous pairing.
+
+\subsection{Condensation and competing order}
+
+To determine the structure selected if a one-boson condensate develops, let each flavor have condensate density \(\rho\).  If both flavors occupy \(+\bb K\), their bond currents add and the leading quartic contribution from \(g_1\) is \(36g_1\rho^2\) per site.  If they occupy opposite valleys, their currents cancel on every bond and this contribution vanishes.  Within this condensate manifold, positive \(g_1\) therefore converts the valley degeneracy into a direct energetic preference for counterflow.  In the \(b_{\bb K}\)-\(c_{-\bb K}\) channel, let the condensate phases be \(\phi_b\) and \(\phi_c\).  For \(N_s\) lattice sites, the two phase-dependent energies are
+\begin{equation}
+    \frac{E_{\Delta_{\rm p}}}{N_s}=2\sqrt{3}\Delta_{\rm p}\rho\sin(\phi_b+\phi_c),
+    \qquad \frac{E_{g_2}}{N_s}=36g_2\rho^2\cos^2(\phi_b+\phi_c).
+    \label{eq:trs_three_plus_mean_field_pair_energy}
+\end{equation}
+For \(\Delta_{\rm p}>0\), the linear pair field selects \(\phi_b+\phi_c=-\pi/2\), while the time-reversed valley channel selects \(+\pi/2\).  Positive \(g_2\) has minima at both values and supplies stiffness against fluctuations of this phase sum.  The relative phase remains dynamical.  A same-valley condensate has zero odd-parity pair amplitude and gains no energy from \(\Delta_{\rm p}\).  Frustration creates the valleys, \(g_1\) favors counterflow, and \(\Delta_{\rm p}\) together with \(g_2\) fixes the pair phase within each opposite-valley channel.
+
+It is therefore sufficient to collect the \(+\bb K\) condensate amplitudes into the complex flavor spinor \(z=(\langle\hat b_{\bb K}\rangle,\langle\hat c_{\bb K}\rangle)^\trans\).  Substituting the condensate amplitudes into Eq.~\eqref{eq:trs_three_plus_pair_form_factor} shows that the pair energy is minimized when the \(-\bb K\) amplitudes form their flavor-singlet partners,
+\begin{equation}
+    \begin{pmatrix}
+        \langle\hat b_{-\bb K}\rangle\\
+        \langle\hat c_{-\bb K}\rangle
+    \end{pmatrix}
+    =-\sigma_yz^*.
+    \label{eq:trs_three_plus_spinor_locking}
+\end{equation}
+The two valleys therefore form one paired condensate specified completely by \(z\).
+
+For \(g_1=g_2=0\), the stable quadratic Hamiltonian has a squeezed ground state containing correlated pairs and no one-boson condensate.  It satisfies \(\langle\hat b_i\rangle=\langle\hat c_i\rangle=0\), while the explicit pair field induces \(\langle\hat b_{\bb K}\hat c_{-\bb K}\rangle=-\langle\hat b_{-\bb K}\hat c_{\bb K}\rangle\ne0\).  The interactions change the one-boson excitation gap.  Determining whether they close this gap and induce condensation requires a many-body calculation.  Within this two-valley manifold, Eq.~\eqref{eq:trs_three_plus_spinor_locking} selects a finite-momentum counterflow condensate.  A nonzero \(z\) chooses an orientation in flavor \(SU(2)\).  The total particle currents of its two valley components cancel, while their flavor currents add.  Interference between the two momenta produces a spatially rotating flavor orientation, which becomes a three-sublattice \(120^\circ\) pattern for condensation at \(\pm\bb K\).  This is the paired counterpart of the chiral spin superfluid proposed for number-conserving double-valley bosons~\cite{liNatuParamekanti2014chiral}.
+
+The transition can be diagnosed through correlations on finite lattices, where exact symmetries force the one-point condensate amplitudes to vanish.  Let \(\pm\bb q\) denote the actual condensation momenta, which can shift from the noninteracting valleys at finite pairing or interaction.  Their total occupation, with the \(N_s^{-1/2}\) Fourier normalization, is
+\begin{equation}
+    n_{\rm v}=\sum_{\nu=\pm}\left\langle
+    \hat b_{\nu\bb q}^+\hat b_{\nu\bb q}
+    +\hat c_{\nu\bb q}^+\hat c_{\nu\bb q}
+    \right\rangle.
+    \label{eq:trs_three_plus_condensate_scaling}
+\end{equation}
+Away from criticality, \(n_{\rm v}=O(1)\) in the gapped squeezed phase and \(n_{\rm v}=O(N_s)\) in a one-boson condensate.  The source-induced anomalous correlator characterizes the paired background.  The growth of \(n_{\rm v}\) reveals the onset of one-boson coherence.
+
+Spatial flavor order can survive even when individual bosons no longer condense.  Such a vestigial phase retains a composite order inherited from the condensate and can be detected with \(\hat\Phi_i=\hat b_i^+\hat c_i\).  For the representative \(b_{\bb q}\)-\(c_{-\bb q}\) condensate, \(\langle\hat\Phi_i\rangle\propto\ee^{-2\ii\bb q\cdot\bb r_i}\).  Its finite-size structure factor is
+\begin{equation}
+    S_\Phi(2\bb q)\equiv\frac{1}{N_s}\sum_{i,j}
+    \ee^{2\ii\bb q\cdot(\bb r_i-\bb r_j)}
+    \langle\hat\Phi_i\hat\Phi_j^+\rangle.
+    \label{eq:trs_three_plus_counterflow_structure_factor}
+\end{equation}
+Long-range flavor order gives \(S_\Phi(2\bb q)=O(N_s)\).  A nonzero thermodynamic limit of \(S_\Phi(2\bb q)/N_s\) together with \(n_{\rm v}/N_s\to0\) identifies vestigial spatial flavor order.  Both ratios remain finite in the counterflow condensate.  Uniform flavor-current order is a separate composite order that can be tested with bond-current correlations.  At a continuous condensation transition, the one-boson gap extracted from the imaginary-time Green function closes.
+
+The complex spinor \(z\) has four real components.  Exact flavor symmetry makes their leading interaction depend only on their total magnitude.  A direct transition with relativistic low-energy dynamics is therefore a candidate for the three-dimensional \(O(4)\) Wilson--Fisher universality class~\cite{pelissettoVicari2002critical}.  A separate transition into composite flavor or current order would instead produce an intermediate phase without one-boson coherence.  Related number-conserving models exhibit this separation between current order and condensation~\cite{dhar2013,zaletel2014prb}.  A first-order transition is a further possibility.
+
+At the exact \(SU(2)\)-symmetric point of Eq.~\eqref{eq:trs_three_plus_model}, condensate phase and flavor orientation are connected by continuous flavor rotations.  Their fluctuations preclude true long-range order at nonzero temperature in two dimensions, making quantum ordering at zero temperature the natural focus.  Flavor anisotropy in related models can leave a separate discrete valley or chirality choice and allow distinct thermal transitions~\cite{liParamekantiHemmerich2014chiral,yuWuZhang2025vestigial}.
+
+The leading \(O(\rho^2)\) contributions of both positive squares vanish in the optimally locked counterflow configuration.  They select its internal structure while leaving quantum fluctuations to decide whether the condensate forms.  Finite-size scaling of \(n_{\rm v}\) and \(S_\Phi\), correlation-length crossings, and joint order-parameter and energy histograms distinguish direct \(O(4)\), vestigial, and first-order routes.  The \(\{+,+,+\}\) construction therefore enables an unbiased determination of whether these phases occur and how their frustration-driven quantum transitions unfold.
 
 \section{Benchmark numerical details}
 \label{app:benchmark_details}
