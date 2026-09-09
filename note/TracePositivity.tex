@@ -1,0 +1,827 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{bm}
+\usepackage{xcolor}
+\definecolor{LinkBlue}{RGB}{35,58,115}
+\usepackage[colorlinks,linkcolor=LinkBlue,citecolor=LinkBlue,urlcolor=LinkBlue]{hyperref}
+\hypersetup{pdftitle={Trace inequalities for Gaussian contraction semigroups},pdfauthor={}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\trans}{\mathsf T}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\bb}[1]{\bm{#1}}
+\newcommand{\hc}{\dagger}
+\newcommand{\interior}{\operatorname{int}}
+\newcommand{\HS}{\mathrm{HS}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\numberwithin{equation}{section}
+\allowdisplaybreaks[1]
+\setlength{\parindent}{1.3em}
+\setlength{\parskip}{2pt}
+\setlength{\emergencystretch}{1em}
+
+\title{Trace inequalities for Gaussian contraction semigroups}
+\author{}
+\date{September 9, 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+\begin{abstract}
+Sign-problem-free Gaussian semigroups have nonnegative many-body traces. We
+examine the stronger requirement of strict positivity after inserting an
+ordered product of quadratic generators from the invariant cone. For finitely
+many fermion modes, we prove that Wei's nonnegative trace inequality becomes
+strict at every interior semigroup element whenever the insertion product is
+nonzero. The proof uses an interior-point argument and the algebra generated
+by the cone, including the exceptional two-mode Kramers case. For bosons,
+explicit oscillator calculations give negative traces even when the evolution
+and all insertions satisfy strict contraction conditions. We then establish
+three sufficient replacements: common-position insertions in the first
+bosonic semigroup, reverse paired insertions against a faithful positive
+thermal operator, and mutually commuting cone insertions against the same
+kind of thermal operator. All bosonic examples and positive results use
+ordinary convergent traces.
+\end{abstract}
+
+\section{The trace-positivity question}
+\label{sec:question}
+
+Auxiliary-field quantum Monte Carlo assigns a configuration weight to a
+product of Gaussian operators. A sign-problem-free contraction semigroup
+confines these products to a region where the many-body trace has a fixed
+nonnegative sign. Correlation functions introduce an additional question,
+because they contain operator insertions as well as the Gaussian evolution.
+The positivity of the configuration weight alone does not determine the sign
+of such an ordered correlation function.
+
+We use the convention
+\begin{equation}
+\hat g=\ee^{\hat q_1}\cdots\ee^{\hat q_L},
+\label{eq:gaussian_product}
+\end{equation}
+where each \(\hat q_\ell\) is a quadratic generator, with its sign and time
+step included. The corresponding one-body matrices satisfy a contraction
+inequality for a fixed Hermitian involution \(\eta\),
+\begin{equation}
+\eta^\dagger=\eta,\qquad \eta^2=I,\qquad
+M^\dagger\eta M\leq\eta.
+\label{eq:finite_contraction}
+\end{equation}
+The infinitesimal condition is
+\(\eta A+A^\dagger\eta\leq0\). Pure cone directions additionally satisfy
+\(\eta A=A^\dagger\eta\), so their inequality is simply \(\eta A\leq0\).
+The invariant cone of quadratic operators will be denoted by \(\mc C\).
+
+The strict trace inequality under consideration is
+\begin{equation}
+\Tr(P\hat g)>0,\qquad
+P=\hat h_1\cdots\hat h_s\ne0,\qquad
+\hat h_j\in\mc C,\qquad \hat g\in\interior S,
+\label{eq:proposed_inequality}
+\end{equation}
+where \(s\geq1\) and \(S\) is the Gaussian contraction semigroup. The
+interior is relative to the symmetry-constrained Gaussian Lie group, with
+the many-body representation fixed continuously from its positive reference
+element. For the semigroups considered here, it is the strict-contraction
+region \(M^\dagger\eta M<\eta\). Every trace is over the full Fock space;
+no particle-number or parity projection is included.
+
+The finite dimension of fermionic Fock space will be essential to the proof
+in Sec.~\ref{sec:fermions}. The bosonic counterexamples in
+Sec.~\ref{sec:counterexamples} have trace-class inserted operators. They
+therefore also apply to any regularization that agrees with the ordinary
+trace whenever it converges. Section~\ref{sec:boson_positive} states the
+additional conditions under which bosonic strict positivity is recovered.
+
+\section{Strict positivity for fermions}
+\label{sec:fermions}
+
+\subsection{Semigroups and the nonnegative inequality}
+
+For \(N\) complex fermion modes, let \(\Gamma\) be a column of \(2N\)
+Hermitian Majorana operators satisfying
+\(\{\Gamma_\mu,\Gamma_\nu\}=2\delta_{\mu\nu}\). Write
+\begin{equation}
+\hat h(A)=\frac14\Gamma^\trans A\Gamma,\qquad A^\trans=-A.
+\label{eq:fermion_quadratic}
+\end{equation}
+Wei's two semigroup classes are specified by real orthogonal matrices
+\(J_1,J_2\) with
+\begin{equation}
+J_2^2=-I,\qquad J_1J_2=-J_2J_1,\qquad J_1^2=\pm I,
+\qquad \eta=\ii J_2,
+\label{eq:fermion_symmetries}
+\end{equation}
+and by the generator conditions~\cite{wei2024prb}
+\begin{equation}
+J_1^\trans A J_1=\overline A,\qquad
+\eta A+A^\dagger\eta\leq0.
+\label{eq:fermion_generator}
+\end{equation}
+Their invariant cones consist of the generators in
+Eq.~\eqref{eq:fermion_generator} that also obey
+\(\eta A=A^\dagger\eta\). The choices \(J_1^2=+I\) and \(-I\) will be
+called the Majorana reflection and Kramers classes, respectively.
+
+The input from Wei's trace inequality is
+\begin{equation}
+\Tr(\hat c_1\cdots\hat c_m\hat g)\geq0,
+\qquad \hat c_j\in\mc C,\quad \hat g\in S,
+\quad m\geq1.
+\label{eq:wei_nonnegative}
+\end{equation}
+This is Eq.~(11) of Ref.~\cite{wei2024prb}. In that work, the first class is
+treated using Majorana reflection positivity, and the Kramers class is
+treated using fermionic contractions and Kramers structure. We now prove the
+strictness statement that follows from Eq.~\eqref{eq:wei_nonnegative}.
+
+\begin{theorem}[Strict fermionic trace positivity]
+\label{thm:fermion_strict}
+Let \(S\) be either semigroup defined by
+Eqs.~\eqref{eq:fermion_symmetries}--\eqref{eq:fermion_generator} on the full
+Fock space of finitely many modes. If
+\(P=\hat h_1\cdots\hat h_s\ne0\), with \(\hat h_j\in\mc C\) and
+\(s\geq1\), then
+\begin{equation}
+\boxed{\Tr(P\hat g_0)>0\qquad(\hat g_0\in\interior S).}
+\label{eq:fermion_strict}
+\end{equation}
+The individual insertions may lie on the boundary of the invariant cone.
+\end{theorem}
+
+\subsection{An interior zero forces all further insertions to vanish}
+
+The first step uses only Eq.~\eqref{eq:wei_nonnegative} and finite
+dimensionality. It separates the strictness argument from the details of
+either fermionic class.
+
+\begin{lemma}
+\label{lem:interior_zero}
+Suppose that \(\Tr(P\hat g_0)=0\) for a product of cone elements \(P\) and
+an interior element \(\hat g_0\). Let \(\mc A_{\mc C}\) be the complex
+linear span of the identity and all finite products of elements of
+\(\mc C\). Then
+\begin{equation}
+\Tr(PQ\hat g_0)=0\qquad(Q\in\mc A_{\mc C}).
+\label{eq:zero_on_algebra}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For any \(\hat c\in\mc C\), the curve
+\(\ee^{t\hat c}\hat g_0\) remains in \(S\) for all sufficiently small
+positive and negative real \(t\), because \(\hat g_0\) is an interior
+point. Thus
+\begin{equation}
+f(t)=\Tr(P\ee^{t\hat c}\hat g_0)\geq0,\qquad f(0)=0.
+\label{eq:minimum}
+\end{equation}
+The finite-matrix function \(f\) is differentiable. Its minimum at zero
+implies
+\begin{equation}
+\Tr(P\hat c\hat g_0)=f'(0)=0.
+\label{eq:zero_first_derivative}
+\end{equation}
+The operator \(P\hat c\) is still a product of cone elements, so
+Eq.~\eqref{eq:wei_nonnegative} applies to it as well. Repeating the same
+argument proves
+\begin{equation}
+\Tr(P\hat c_1\cdots\hat c_k\hat g_0)=0
+\quad\text{for every }k\geq0\text{ and }\hat c_j\in\mc C.
+\label{eq:all_words_zero}
+\end{equation}
+Complex linearity gives Eq.~\eqref{eq:zero_on_algebra}.
+\end{proof}
+
+To obtain a contradiction, it suffices to show that
+\(P^\dagger\hat g_0^{-1}\) belongs to \(\mc A_{\mc C}\). This is an
+algebraic statement about the cone, which we check for both classes below.
+
+\subsection{The algebra generated by the Majorana reflection cone}
+
+Choose
+\(J_1=\sigma_x\otimes I_N\),
+\(J_2=\ii\sigma_y\otimes I_N\), and split the Majorana column as
+\(\Gamma=(\gamma,\widetilde\gamma)^\trans\), with \(N\) operators in
+each half. The cone can be parameterized by a positive semidefinite Hermitian
+matrix \(C\),
+\begin{equation}
+A(C)=\begin{pmatrix}0&-\ii C\\ \ii C^\trans&0\end{pmatrix},
+\qquad
+\hat c(C)=-\frac{\ii}{2}
+\sum_{i,j}\gamma_iC_{ij}\widetilde\gamma_j,
+\qquad C=C^\dagger\geq0.
+\label{eq:majorana_cone}
+\end{equation}
+In particular,
+\(\eta A(C)=-\diag(C^\trans,C)\leq0\), which fixes the sign of
+Eq.~\eqref{eq:majorana_cone} in our contraction convention.
+
+Positive semidefinite Hermitian matrices span all Hermitian matrices over
+the reals, and their complex span is the full matrix space. Therefore
+\(\mc A_{\mc C}\) contains every cross bilinear
+\(\gamma_i\widetilde\gamma_j\). The Majorana anticommutation relations
+give, for distinct indices,
+\begin{align}
+[\gamma_i\widetilde\gamma_j,\gamma_k\widetilde\gamma_j]
+&=-2\gamma_i\gamma_k,\notag\\
+[\gamma_i\widetilde\gamma_j,\gamma_i\widetilde\gamma_l]
+&=-2\widetilde\gamma_j\widetilde\gamma_l.
+\label{eq:majorana_commutators}
+\end{align}
+Hence every Majorana bilinear lies in \(\mc A_{\mc C}\). Their products
+generate every even Majorana monomial, so \(\mc A_{\mc C}\) is the full
+even Clifford algebra. For one complex mode, the single cross bilinear
+already generates this algebra together with the identity.
+
+Both \(P^\dagger\) and \(\hat g_0^{-1}\) belong to the even algebra.
+For the inverse, this follows from writing it as a product of exponentials
+of even quadratics; finite-dimensionality keeps those exponentials in the
+same algebra. Taking \(Q=P^\dagger\hat g_0^{-1}\) in
+Eq.~\eqref{eq:zero_on_algebra} gives
+\begin{equation}
+0=\Tr(PP^\dagger)=\|P\|_{\HS}^2,
+\label{eq:hilbert_schmidt_contradiction}
+\end{equation}
+which contradicts \(P\ne0\).
+
+\subsection{The Kramers cone and its two-mode case}
+
+For the Kramers class, let \(N=2m\) be the number of complex fermion modes,
+collect their annihilation operators in \(a\), and define
+\begin{equation}
+K=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix}.
+\label{eq:kramers_K}
+\end{equation}
+The standard cone has the form~\cite{wei2024prb}
+\begin{equation}
+\hat c(R,S)=a^\trans RK a-(a^+)^\trans SK a^+,
+\label{eq:kramers_cone}
+\end{equation}
+where
+\begin{equation}
+\begin{gathered}
+R=R^\dagger\geq0,\qquad S=S^\dagger\geq0,\\
+K^\trans R K=\overline R,\qquad
+K^\trans S K=\overline S.
+\end{gathered}
+\label{eq:kramers_coefficients}
+\end{equation}
+The creation and annihilation coefficients are independent. An overall
+positive normalization of Eq.~\eqref{eq:kramers_cone} does not change the
+cone or the following argument.
+
+Adding a sufficiently large multiple of the identity makes any Hermitian
+matrix satisfying the Kramers condition positive. Consequently its positive
+cone spans the full allowed Hermitian space. The map \(R\mapsto W=RK\)
+identifies this space with the skew matrices satisfying
+\(K^\trans W K=\overline W\). To check that the complex span includes
+every complex skew matrix, consider
+\begin{equation}
+\tau(W)=K^\trans\overline W K,\qquad \tau^2(W)=W.
+\end{equation}
+Every skew \(W\) has the decomposition
+\begin{equation}
+W=\frac{W+\tau(W)}2
++\ii\frac{W-\tau(W)}{2\ii},
+\label{eq:real_form_decomposition}
+\end{equation}
+and both matrices on the right are fixed by \(\tau\). Conversely, for a
+fixed skew \(W\), the matrix \(R=-WK\) is Hermitian and obeys
+Eq.~\eqref{eq:kramers_coefficients}. Thus the complex span of cone
+operators contains every pair annihilator \(a_i a_j\) and every pair
+creator \(a_i^+a_j^+\), with \(i\ne j\).
+
+For \(N\geq4\), these pairs generate all number-conserving bilinears as
+well. For distinct \(i,j,k\), the canonical anticommutation relations give
+\begin{align}
+[a_i^+a_k^+,a_k a_j]&=a_i^+a_j,\notag\\
+[a_i^+a_j^+,a_j a_i]&=n_i+n_j-1,
+\qquad n_i=a_i^+a_i.
+\label{eq:pair_commutators}
+\end{align}
+Combining three of the second identities isolates each centered density,
+\begin{equation}
+n_i-\frac12=\frac12\bigl[(n_i+n_j-1)
++(n_i+n_k-1)-(n_j+n_k-1)\bigr].
+\end{equation}
+The pair terms, hoppings, and centered densities generate the full even
+Clifford algebra. Equation~\eqref{eq:hilbert_schmidt_contradiction} therefore
+proves strict positivity in this case.
+
+The two-mode case needs a separate block argument. Both cone pair operators
+annihilate the odd sector
+\(\operatorname{span}\{|10\rangle,|01\rangle\}\). On the even sector
+\(\operatorname{span}\{|00\rangle,|11\rangle\}\), pair creation and
+annihilation are the two off-diagonal matrix units, up to nonzero constants.
+Their products provide the diagonal matrix units. Hence
+\(\mc A_{\mc C}\) contains every matrix on the even sector with zero odd
+block. Because \(s\geq1\), the insertion product \(P\) has zero odd block.
+Gaussian operators preserve parity and are invertible on each block. Take
+\(Q\) to have even block
+\(P_{\rm e}^\dagger(\hat g_0)_{\rm e}^{-1}\) and zero odd block.
+Equation~\eqref{eq:zero_on_algebra} yields
+\(\Tr(P_{\rm e}P_{\rm e}^\dagger)=0\), again contradicting \(P\ne0\).
+This completes the proof of Theorem~\ref{thm:fermion_strict}.
+
+\begin{remark}[Canonical changes and the trace]
+For finitely many fermion modes, a canonical change is an automorphism of
+the finite-dimensional complex CAR algebra and is implemented by an
+invertible similarity in its full Fock representation. It preserves the
+trace and whether \(P\) is zero. If it maps one complete semigroup and its
+cone to another, it also maps their interiors. Theorem~\ref{thm:fermion_strict}
+therefore carries over to equivalent canonical representations. The
+Hilbert-space adjoint used in Eq.~\eqref{eq:hilbert_schmidt_contradiction}
+can be taken after this reduction.
+\end{remark}
+
+\section{Bosonic standard forms and counterexamples}
+\label{sec:counterexamples}
+
+\subsection{Physical coordinates and the cone}
+
+Use Hermitian coordinates
+\(\hat r=(x_1,\ldots,x_N,p_1,\ldots,p_N)^\trans\), with
+\begin{equation}
+[\hat r_\mu,\hat r_\nu]=\ii\Omega_{\mu\nu},\qquad
+\Omega=\begin{pmatrix}0&I_N\\-I_N&0\end{pmatrix},\qquad
+\hat h(H)=\frac12\hat r^\trans H\hat r,
+\quad H^\trans=H.
+\label{eq:boson_quadrature}
+\end{equation}
+Creation operators are denoted by \(a^+\), with
+\(a=(x+\ii p)/\sqrt2\) and \(a^+=(x-\ii p)/\sqrt2\). The propagation
+matrix and contraction metric are
+\begin{equation}
+\ee^{-\hat h}\hat r\ee^{\hat h}=\ee^{B}\hat r,
+\qquad B=\ii\Omega H,\qquad E=\ii\Omega.
+\label{eq:boson_propagation}
+\end{equation}
+They obey
+\(EB+B^\dagger E=H+H^\dagger=2\operatorname{Re}H\).
+
+The two physical standard families considered here impose
+\begin{equation}
+R^\trans\overline H R=H,\qquad \operatorname{Re}H\leq0,
+\label{eq:boson_families}
+\end{equation}
+where the anti-linear transformation sends \(\ii\mapsto-\ii\) and
+\(\hat r\mapsto R\hat r\). Its two possibilities are
+\begin{equation}
+R_+=\diag(I_N,-I_N),\qquad
+R_-=\diag(J,-J),\qquad
+J=\begin{pmatrix}0&I_m\\-I_m&0\end{pmatrix},\quad N=2m.
+\label{eq:boson_R}
+\end{equation}
+They satisfy \(R_\pm^\trans\Omega R_\pm=-\Omega\) and
+\(R_\pm^2=\pm I\). We denote the resulting semigroups by \(S_+\) and
+\(S_-\). In these coordinates the invariant cone is
+\begin{equation}
+H=\overline H,\qquad H^\trans=H,\qquad
+R^\trans H R=H,\qquad H\leq0.
+\label{eq:boson_cone}
+\end{equation}
+Its quadratic operators are self-adjoint and nonpositive. They are sums of
+negative squares of Hermitian linear combinations of coordinates. This
+explains why the natural signed bosonic inequality contains \((-1)^s\).
+
+These statements concern the usual physical adjoint of \(x,p\). A complex
+canonical change preserves the commutators but can change that adjoint
+relation. The position-kernel argument below is stated in the physical
+standard form, without assuming that an arbitrary complex change preserves
+pointwise positivity.
+
+\subsection{A negative two-insertion trace in a thermal state}
+
+A single oscillator already disproves Eq.~\eqref{eq:proposed_inequality}
+for bosons. Let
+\begin{equation}
+\hat K=\frac{x^2+p^2}{2}=a^+a+\frac12,\qquad
+\hat g_\beta=\ee^{-\beta\hat K},\qquad
+\hat h_x=-x^2,\qquad \hat h_p=-p^2,
+\qquad\beta>0.
+\label{eq:oscillator_example}
+\end{equation}
+The insertion matrices \(H_x=\diag(-2,0)\) and
+\(H_p=\diag(0,-2)\) satisfy Eq.~\eqref{eq:boson_cone} for \(R_+\).
+The thermal generator has \(H_\beta=-\beta I_2<0\), so it is strictly
+inside the cone. Indeed, for \(M(t)=\ee^{-t\beta E}\),
+\begin{equation}
+\frac{d}{dt}\bigl[M(t)^\dagger E M(t)\bigr]
+=-2\beta M(t)^\dagger M(t)<0.
+\label{eq:oscillator_strict}
+\end{equation}
+Integration proves that \(\hat g_\beta\) is a strict contraction for
+every \(\beta>0\). Its ordinary trace is
+\begin{equation}
+Z_\beta=\Tr\hat g_\beta
+=\frac{\ee^{-\beta/2}}{1-\ee^{-\beta}}
+=\frac1{2\sinh(\beta/2)}>0.
+\label{eq:oscillator_partition}
+\end{equation}
+
+The inserted trace can be evaluated directly in number states. Write
+\(D=2a^+a+1\) and \(T=a^2+(a^+)^2\), so
+\(x^2=(D+T)/2\) and \(p^2=(D-T)/2\). The mixed terms have zero diagonal
+matrix element, and the two occupation-preserving terms in \(T^2\) give
+\begin{align}
+\langle n|x^2p^2|n\rangle
+&=\frac14\bigl[(2n+1)^2-(n+1)(n+2)-n(n-1)\bigr]\notag\\
+&=\frac12n(n+1)-\frac14.
+\label{eq:number_diagonal}
+\end{align}
+In particular, \(\hat h_x\hat h_p\ne0\), because its vacuum matrix
+element is \(-1/4\).
+
+Set \(q=\ee^{-\beta}\). Summing
+\(\sum_{n\geq0}q^n=(1-q)^{-1}\) and
+\(\sum_{n\geq0}n(n+1)q^n=2q(1-q)^{-3}\) yields
+\begin{align}
+\Tr(\hat h_x\hat h_p\hat g_\beta)
+&=\sqrt q\sum_{n=0}^\infty q^n
+\left[\frac12n(n+1)-\frac14\right]\notag\\
+&=Z_\beta\left[\frac{q}{(1-q)^2}-\frac14\right]
+=Z_\beta\left[\frac14\coth^2\frac\beta2-\frac12\right].
+\label{eq:negative_thermal_formula}
+\end{align}
+It is negative whenever \(\beta>2\log(1+\sqrt2)\). At
+\(\beta=\log9\), the trace is the exact rational number
+\begin{equation}
+\boxed{\Tr(\hat h_x\hat h_p\hat g_{\log9})=-\frac{21}{512}<0,}
+\label{eq:negative_rational}
+\end{equation}
+with \(Z_{\log9}=3/8\). At \(\beta=2\log(1+\sqrt2)\), the same
+nonzero insertion product has zero trace although the evolution remains a
+strict contraction.
+
+These expressions are genuine trace-class calculations. For any polynomial
+operator \(F\) of degree at most four in \(a,a^+\),
+\(\|F|n\rangle\|\leq c(n+1)^2\) for some constant \(c\). Therefore
+\begin{equation}
+F\ee^{-\beta\hat K}
+=\sum_{n=0}^\infty\ee^{-\beta(n+1/2)}
+F|n\rangle\langle n|
+\label{eq:trace_norm_expansion}
+\end{equation}
+converges in trace norm. Indeed, the rank-one norms are bounded by
+\(c(n+1)^2\ee^{-\beta(n+1/2)}\), a summable sequence for every \(\beta>0\).
+
+\subsection{Strict cone insertions also give a negative trace}
+
+The failure persists when both insertions move into the cone interior. Take
+\begin{equation}
+\hat h_{1,\epsilon}=-(x^2+\epsilon p^2),\qquad
+\hat h_{2,\epsilon}=-(p^2+\epsilon x^2),\qquad\epsilon>0.
+\label{eq:strict_insertions}
+\end{equation}
+Their real quadratic coefficient matrices are negative definite, with
+eigenvalues \(-2\) and \(-2\epsilon\). Let
+\(v=\tfrac12\coth(\beta/2)\) and
+\(\langle O\rangle_\beta=\Tr(O\hat g_\beta)/Z_\beta\). The number-state
+diagonal of either \(x^4\) or \(p^4\) is
+\(\tfrac34(2n^2+2n+1)\), so
+\(\langle x^4\rangle_\beta=\langle p^4\rangle_\beta=3v^2\).
+Equation~\eqref{eq:number_diagonal} and its adjoint give
+\(\langle x^2p^2\rangle_\beta=\langle p^2x^2\rangle_\beta=v^2-1/2\).
+Expanding the ordered product in Eq.~\eqref{eq:strict_insertions} gives
+\begin{equation}
+\frac{\Tr(\hat h_{1,\epsilon}\hat h_{2,\epsilon}\hat g_\beta)}{Z_\beta}
+=(1+\epsilon^2)\left(v^2-\frac12\right)+6\epsilon v^2.
+\label{eq:strict_inserted_trace}
+\end{equation}
+For \(\beta=\log9\), this is
+\((-7+150\epsilon-7\epsilon^2)/64\). In particular,
+\begin{equation}
+\boxed{\Tr(\hat h_{1,1/32}\hat h_{2,1/32}\hat g_{\log9})
+=-\frac{7125}{524288}<0.}
+\label{eq:strict_negative_example}
+\end{equation}
+The insertion product is nonzero, with vacuum matrix element
+\((-1+6\epsilon-\epsilon^2)/4=-833/4096\) at \(\epsilon=1/32\).
+The trace-norm argument in Eq.~\eqref{eq:trace_norm_expansion} applies
+unchanged.
+
+For completeness, even a single insertion already fixes the sign issue in
+the chosen convention. The strict cone element \(-\hat K\) obeys
+\begin{equation}
+\Tr(-\hat K\ee^{-\beta\hat K})
+=\frac{dZ_\beta}{d\beta}
+=-\frac{\cosh(\beta/2)}{4\sinh^2(\beta/2)}<0.
+\label{eq:single_insertion}
+\end{equation}
+The two-insertion examples establish an additional obstruction. They remain
+negative after multiplying by \((-1)^s\), restricting to even \(s\),
+weakening strict positivity to nonnegativity, or requiring every insertion
+to be strictly inside the cone. Their low-temperature sign comes from
+\(\langle0|x^2p^2|0\rangle=-1/4\), reflecting the ordering of
+noncommuting positive observables. The symmetrized product
+\(\tfrac12\{x^2,p^2\}\) has the same thermal trace.
+
+\subsection{Commutativity alone is insufficient}
+\label{subsec:commuting_counterexample}
+
+The preceding examples have a positive thermal evolution and noncommuting
+insertions. A complementary example shows why mutually commuting insertions
+still require care when the Gaussian evolution is non-Hermitian. Use
+\(\hat h_1=\hat h_2=-\hat K\) and set
+\begin{equation}
+\hat D_t=\exp\!\left[\frac t2\bigl((a^+)^2-a^2\bigr)\right],
+\qquad \hat g=\hat D_t\ee^{-\beta\hat K},\qquad \beta>0.
+\label{eq:dilation_example}
+\end{equation}
+The exponent of \(\hat D_t\) is
+\(-\ii t(xp+px)/2\), a group direction in \(S_+\). Thus \(\hat D_t\)
+is unitary and preserves the contraction metric, while \(\hat g\) is a
+strict contraction. Both insertions are identical strict cone elements.
+
+In the position representation,
+\(\hat D_t f(x)=\ee^{-t/2}f(\ee^{-t}x)\). Integrating the diagonal of
+the dilated oscillator heat kernel gives
+\begin{equation}
+Z(t,\beta)=\Tr(\hat D_t\ee^{-\beta\hat K})
+=\frac1{\sqrt{2(\cosh t\cosh\beta-1)}}.
+\label{eq:dilated_partition}
+\end{equation}
+The trace converges because a bounded unitary multiplies a trace-class heat
+operator. Polynomial insertions also have finite trace norms; conjugating
+them through the dilation gives another polynomial. Since \(\hat K\)
+commutes with its heat operator, cyclicity yields
+\(\Tr(\hat K^2\hat g)=\partial_\beta^2 Z(t,\beta)\). Writing
+\(c=\cosh t\) and \(u=\cosh\beta\),
+\begin{equation}
+\Tr(\hat K^2\hat g)
+=\frac{c^2u^2+2cu-3c^2}{[2(cu-1)]^{5/2}}.
+\label{eq:dilated_second_derivative}
+\end{equation}
+At \(\cosh t=2\) and \(\beta=\log2\), so that \(u=5/4\),
+\begin{equation}
+\boxed{\Tr(\hat h_1\hat h_2\hat g)=-\frac1{12\sqrt3}<0.}
+\label{eq:commuting_negative}
+\end{equation}
+This example shows that commutativity of the insertions alone does not imply
+positivity against an arbitrary Gaussian semigroup element.
+
+\section{Sufficient bosonic positivity conditions}
+\label{sec:boson_positive}
+
+\subsection{Common-position insertions with arbitrary strict evolution}
+
+For the first standard family, Eq.~\eqref{eq:boson_families} is equivalent
+to writing every generator as
+\begin{equation}
+\hat h=-\frac12x^\trans A x-\frac12p^\trans D p
++\frac{\ii}{2}\bigl(x^\trans Bp+p^\trans B^\trans x\bigr),
+\quad A=A^\trans\geq0,\quad D=D^\trans\geq0,\quad B\text{ real}.
+\label{eq:first_bosonic_generator}
+\end{equation}
+All factors use the same physical coordinates. We take \(S_+\) in its usual
+bounded Gaussian-operator realization on \(L^2(\mathbb R^N)\).
+
+\begin{theorem}[Common-position insertions]
+\label{thm:position}
+Let \(\hat g\in\interior S_+\), and let \(V_j\) be nonzero real positive
+semidefinite matrices. For
+\begin{equation}
+\hat h_j=-\frac12x^\trans V_jx,\qquad j=1,\ldots,s,
+\label{eq:position_insertions}
+\end{equation}
+the inserted operator is trace class and
+\begin{equation}
+\boxed{(-1)^s\Tr(\hat h_1\cdots\hat h_s\hat g)>0.}
+\label{eq:position_positive}
+\end{equation}
+In particular, an even number of these insertions satisfies
+Eq.~\eqref{eq:proposed_inequality}. The evolution need not be Hermitian or
+commute with the insertions.
+\end{theorem}
+
+\begin{proof}
+The proof uses positivity of the evolution kernel in the common position
+representation. Substituting \(p=-\ii\nabla\) in
+Eq.~\eqref{eq:first_bosonic_generator} gives
+\begin{equation}
+\hat h=\frac12\nabla^\trans D\nabla
++(B^\trans x)\cdot\nabla
+-\frac12x^\trans A x+\frac12\tr B.
+\label{eq:parabolic_generator}
+\end{equation}
+The Feynman--Kac representation for this linear drift, constant diffusion,
+and real killing potential shows that \(\ee^{t\hat h}\) preserves
+nonnegative functions. The same fact follows from the strong Trotter product
+of multiplication by a positive Gaussian, convolution with a nonnegative
+Gaussian measure, and the real dilation
+\begin{equation}
+f(x)\longmapsto\ee^{t\tr B/2}f(\ee^{tB^\trans}x).
+\label{eq:positive_dilation}
+\end{equation}
+Zero eigenvalues of \(D\) give a degenerate Gaussian measure. Products and
+strong limits preserve nonnegative functions, so every element of \(S_+\)
+has this property. This is pointwise positivity in the position
+representation, distinct from positive definiteness as a Hilbert-space
+operator.
+
+To obtain strict positivity of the diagonal kernel, let
+\begin{equation}
+\hat K_0=\frac12(x^\trans x+p^\trans p),\qquad
+E_\epsilon=\ee^{-\epsilon\hat K_0}.
+\end{equation}
+Because \(\hat g\) is interior, continuity of multiplication in the
+ambient Gaussian group gives, for sufficiently small \(\epsilon>0\),
+\begin{equation}
+\hat g=E_\epsilon\hat g' E_\epsilon,
+\qquad \hat g'\in S_+.
+\label{eq:heat_sandwich}
+\end{equation}
+At the one-body level, the matrix for \(\hat g'\) is obtained by
+multiplying the matrix for \(\hat g\) on both sides by the inverse matrix
+of \(E_\epsilon\). It tends to the original strict element as
+\(\epsilon\downarrow0\), hence remains in the same interior component.
+The Gaussian representation is chosen continuously, fixing the operator
+identity in Eq.~\eqref{eq:heat_sandwich}. The inverse heat matrices are
+used in the ambient group; the resulting \(\hat g'\) belongs to the
+bounded semigroup.
+
+The Mehler kernel of \(E_\epsilon\) is
+\begin{equation}
+k_\epsilon(x,y)=\frac1{(2\pi\sinh\epsilon)^{N/2}}
+\exp\!\left[-\frac{(|x|^2+|y|^2)\cosh\epsilon-2x\cdot y}
+{2\sinh\epsilon}\right]>0.
+\label{eq:mehler_kernel}
+\end{equation}
+For each fixed \(x\), set \(f_x(y)=k_\epsilon(y,x)\). This function is
+strictly positive and lies in \(L^2\). Equation~\eqref{eq:heat_sandwich}
+provides the continuous kernel
+\begin{equation}
+g(x,y)=\langle f_x,\hat g'f_y\rangle.
+\label{eq:sandwich_kernel}
+\end{equation}
+The function \(\hat g'f_x\) is nonnegative and nonzero. To justify the
+second assertion, a nonzero bounded positivity-preserving operator \(T\)
+cannot annihilate a function \(f>0\) almost everywhere. If \(Tf=0\), then
+\begin{equation}
+|Tu|\leq T|u|\leq cTf=0
+\qquad\text{whenever }|u|\leq cf.
+\end{equation}
+Such \(u\) form a dense subspace of \(L^2\), forcing \(T=0\).
+Applying this observation to \(T=\hat g'\) and pairing with \(f_x>0\)
+shows that
+\begin{equation}
+g(x,x)>0\qquad\text{for every }x\in\mathbb R^N.
+\label{eq:positive_diagonal}
+\end{equation}
+
+The insertion product is \((-1)^sQ(x)\), with
+\begin{equation}
+Q(x)=\prod_{j=1}^s\frac12x^\trans V_jx\geq0.
+\end{equation}
+Each factor vanishes only on a proper linear subspace, so \(Q(x)>0\)
+almost everywhere. The heat factors ensure all polynomial moments are
+finite. In particular,
+\(\int Q(x)\|f_x\|^2\,dx<\infty\), and boundedness of \(\hat g'\)
+controls the absolute value of the diagonal integral. Also, polynomial
+multiplication times \(E_\epsilon\) is trace class, as follows from its
+oscillator-basis expansion. The Hilbert--Schmidt kernel product formula
+therefore gives the ordinary trace identity
+\begin{equation}
+(-1)^s\Tr(\hat h_1\cdots\hat h_s\hat g)
+=\int_{\mathbb R^N}Q(x)g(x,x)\,dx>0.
+\label{eq:positive_integral}
+\end{equation}
+This proves Eq.~\eqref{eq:position_positive}.
+\end{proof}
+
+The restriction in Theorem~\ref{thm:position} concerns the insertions, which
+depend on one common commuting set of coordinates. The Gaussian evolution
+may contain any allowed momentum and mixed terms in
+Eq.~\eqref{eq:first_bosonic_generator}. The proof is specific to the
+physical first family; it does not assert pointwise kernel positivity for
+\(S_-\) or after arbitrary complex canonical changes.
+
+\subsection{Reverse paired insertions against a positive thermal operator}
+
+An alternative applies in either physical standard family and allows
+noncommuting insertions. It imposes positivity on the evolution and fixes
+the ordering of the inserted factors.
+
+\begin{theorem}[Reverse paired insertions]
+\label{thm:paired}
+Let \(\hat h_1,\ldots,\hat h_m\) be self-adjoint quadratic cone operators
+in either physical bosonic standard form, and let
+\begin{equation}
+\hat g=\ee^{-\hat K},\qquad
+\hat K=\frac12\hat r^\trans G\hat r+c,
+\qquad G=G^\trans>0\text{ real},\quad c\in\mathbb R.
+\label{eq:faithful_thermal}
+\end{equation}
+If \(B=\hat h_m\cdots\hat h_1\ne0\), then
+\begin{equation}
+\boxed{\Tr(\hat h_1\cdots\hat h_m\hat h_m\cdots\hat h_1\hat g)
+=\|B\hat g^{1/2}\|_{\HS}^2>0.}
+\label{eq:paired_positive}
+\end{equation}
+Pairwise commutativity is unnecessary.
+\end{theorem}
+
+\begin{proof}
+The coefficient matrix \(G>0\) makes \(\hat K\) an elliptic harmonic
+oscillator Hamiltonian. Its thermal operator is trace class with strictly
+positive eigenvalues, and all polynomial thermal moments are finite. The
+ordered insertion is \(B^\dagger B\), so
+\begin{equation}
+\Tr(B^\dagger B\hat g)
+=\|B\hat g^{1/2}\|_{\HS}^2
+=\sum_\nu\ee^{-E_\nu}\|B|\nu\rangle\|^2,
+\label{eq:thermal_squared_norm}
+\end{equation}
+where \(\hat K|\nu\rangle=E_\nu|\nu\rangle\). Every weight is strictly
+positive. A nonzero polynomial \(B\) has a nonzero action on at least one
+oscillator eigenvector; their finite linear span is a core for these
+polynomial operators. Thus the sum is strictly positive.
+\end{proof}
+
+The result remains true for any faithful positive evolution with the
+required finite moments. Equation~\eqref{eq:faithful_thermal} supplies an
+explicit Gaussian condition. If a statement within one fixed semigroup is
+desired, \(\hat K\) can additionally be chosen to respect that family's
+anti-linear symmetry. The proof itself requires only positivity and finite
+moments of the thermal operator.
+
+\subsection{Mutually commuting insertions against a positive thermal operator}
+
+\begin{theorem}[Commuting cone insertions]
+\label{thm:commuting}
+Let \(\hat g\) satisfy Eq.~\eqref{eq:faithful_thermal}, and let the
+nonpositive self-adjoint cone quadratics \(\hat h_1,\ldots,\hat h_s\)
+strongly commute, meaning that their spectral projections commute. If
+\(\hat h_1\cdots\hat h_s\ne0\), then
+\begin{equation}
+\boxed{(-1)^s\Tr(\hat h_1\cdots\hat h_s\hat g)>0.}
+\label{eq:commuting_positive}
+\end{equation}
+In particular, even \(s\) gives the sign in
+Eq.~\eqref{eq:proposed_inequality}. The thermal operator need not commute
+with the insertions.
+\end{theorem}
+
+\begin{proof}
+Joint spectral calculus gives the nonzero positive operator
+\(R=\prod_j(-\hat h_j)\). Finite polynomial thermal moments justify
+\begin{equation}
+(-1)^s\Tr(\hat h_1\cdots\hat h_s\hat g)
+=\Tr(R\hat g)
+=\sum_\nu\ee^{-E_\nu}\|R^{1/2}|\nu\rangle\|^2>0.
+\end{equation}
+Strict positivity follows from \(R\ne0\), the completeness of the
+oscillator basis, and positivity of every thermal weight.
+\end{proof}
+
+Theorems~\ref{thm:paired} and \ref{thm:commuting} impose different
+conditions. The first uses reverse paired ordering and keeps noncommuting
+insertions; the second uses mutually commuting insertions with arbitrary
+ordering. The examples in Sec.~\ref{sec:counterexamples} explain why
+positivity of the thermal evolution alone, or commutativity of the
+insertions alone with arbitrary Gaussian evolution, does not suffice.
+
+\section{Scope of the results}
+
+For the two fermionic contraction-semigroup classes, the nonnegative
+inequality of Ref.~\cite{wei2024prb} and the interior-point argument prove
+Eq.~\eqref{eq:proposed_inequality} for every nonzero cone insertion product.
+The algebraic proof includes boundary cone insertions and the two-mode
+Kramers exception. Its conclusion concerns the full finite-mode Fock trace.
+
+For bosons, the thermal oscillator example already violates the unrestricted
+claim, including its nonnegative and even-order variants. A dilation times
+thermal evolution supplies a further counterexample with two identical
+strict cone insertions. Strict contraction protects the Gaussian weight,
+while the sign of an inserted trace depends on additional operator
+structure.
+
+The positive bosonic results identify three such structures. Common-position
+insertions use the strictly positive diagonal evolution kernel of the first
+physical family. Reverse paired insertions use a squared norm against a
+faithful positive thermal operator. Mutually commuting cone insertions use
+joint spectral positivity against the same kind of thermal operator. These
+are sufficient conditions for strict positivity, without a claim that they
+exhaust all admissible insertions.
+
+\begin{thebibliography}{1}
+\bibitem{wei2024prb}
+Z.-C. Wei,
+\href{https://doi.org/10.1103/PhysRevB.110.075146}{Semigroup approach to the
+sign problem in quantum Monte Carlo simulations},
+Phys. Rev. B \textbf{110}, 075146 (2024),
+\href{https://arxiv.org/abs/1712.09412v3}{arXiv:1712.09412v3}.
+\end{thebibliography}
+\end{document}
