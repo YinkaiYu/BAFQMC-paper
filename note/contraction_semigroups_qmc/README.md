@@ -72,6 +72,24 @@ time-reversal-invariant subgroup.  The verification compares their five signs,
 contraction-semigroup status, and contraction metric.  It does not require the
 two representatives to be identical.
 
+## Optional trace-insertion check
+
+The separate checker for Eq. (6) of *Trace Conjecture for Sign-problem-free
+Semigroups* evaluates negative bosonic traces in both standard families:
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+  python3 note/contraction_semigroups_qmc/python/verify_trace_conjecture.py
+```
+
+It checks B05/B13 cone membership against the committed representatives,
+strict contraction of the thermal evolution, exact rational Wick sums,
+independent Fock-space convergence, and seeded searches in a specified
+strict-cone subfamily. The output is `build/trace_conjecture.json`.
+See [TraceConjectureNumerics.md](../TraceConjectureNumerics.md) for the
+operators, exact negative values, and interpretation. This optional
+calculation does not alter the classification or the default `check` workflow.
+
 ## Matrix conventions
 
 All scripts use the real Pauli basis
