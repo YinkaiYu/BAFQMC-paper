@@ -1,0 +1,337 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{microtype}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks,allcolors=blue]{hyperref}
+
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\trans}{\mathsf{T}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\bb}[1]{\bm{#1}}
+\allowdisplaybreaks
+
+\title{Split-orthogonal positivity in bosonic AFQMC\\
+    \large Physical annihilation space and Nambu reduction}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+The split-orthogonal determinant theorem gives a sufficient condition for
+sign-free number-conserving fermionic auxiliary-field quantum Monte Carlo
+(AFQMC)~\cite{wang2015prl}. Its bosonic application depends on the operator
+space on which the matrix acts. This note derives the bosonic determinant
+sign, explains the grand-canonical obstruction when the group acts on
+physical annihilation operators, and shows why the same group works in the
+bosonic $\{+,+,+\}$ time-reversal class. A stable two-mode thermal state makes
+the distinction explicit. We then compare the number-conserving
+time-reversal symmetry (TRS) and Gaussian reflection-positivity (RP) conditions.
+
+\section{The determinant theorem and its bosonic counterpart}
+
+For a fixed auxiliary-field configuration, write a number-conserving Gaussian
+product as
+\begin{equation}
+    \hat U=\prod_{\ell=1}^{L}\ee^{\hat h_\ell},
+    \qquad
+    \hat h_\ell=\hat{\bb a}^{+}X_\ell\hat{\bb a},
+    \qquad
+    \mc B=\prod_{\ell=1}^{L}\ee^{X_\ell}.
+    \label{eq:number_product}
+\end{equation}
+Here $\hat{\bb a}$ contains all physical annihilation operators and
+$\hat{\bb a}^{+}$ is the corresponding creation row. Real scalar terms
+in the slices supply a positive overall factor and are omitted for now.
+The fermionic trace and the bosonic determinant representative are
+\begin{equation}
+    W_{\rm F}=\det(I+\mc B),
+    \qquad
+    W_{\rm B}^{\rm det}=\det(I-\mc B)^{-1}.
+    \label{eq:weights}
+\end{equation}
+The second expression equals the ordinary bosonic Fock trace in its
+convergent domain. Outside that domain it is a meromorphic continuation.
+
+Let $\eta=\diag(I_n,-I_n)$. A real matrix belongs to $O(n,n)$ when
+$M^\trans\eta M=\eta$. Its four connected components are labeled by the
+signs of the determinants of the two diagonal $n\times n$ blocks.
+The identity component is $O^{++}(n,n)$. Taking determinants gives
+$(\det M)^2=1$, and continuity from the identity therefore fixes
+\begin{equation}
+    \det M=1
+    \qquad\text{for every }M\in O^{++}(n,n).
+    \label{eq:unit_det}
+\end{equation}
+This is a property of the group, independent of particle statistics.
+Real generators satisfying
+$X_\ell^\trans\eta+\eta X_\ell=0$ produce an ordered product in this component.
+
+The split-orthogonal theorem states that $\det(I+M)$ is nonnegative on
+$O^{++}(n,n)$ and nonpositive on $O^{--}(n,n)$~\cite{wang2015prl}.
+For $M\in O^{++}(n,n)$, the matrix $-M$ lies in $O^{++}$ when $n$ is even
+and in $O^{--}$ when $n$ is odd. Applying the theorem to $-M$ yields
+\begin{equation}
+    \boxed{(-1)^n\det(I-M)\geq0,\qquad M\in O^{++}(n,n).}
+    \label{eq:minus_sign}
+\end{equation}
+Thus a direct substitution $\mc B=M$ in Eq.~\eqref{eq:weights} gives a
+positive bosonic determinant representative for $n$ even and a negative one
+for $n$ odd, away from poles. For example, the elementary boost
+\begin{equation}
+    R(x)=
+    \begin{pmatrix}\cosh x&\sinh x\\ \sinh x&\cosh x\end{pmatrix}
+    \in O^{++}(1,1),
+    \qquad
+    \det[I-R(x)]=-4\sinh^2(x/2)
+    \label{eq:boost}
+\end{equation}
+already exhibits the odd-$n$ sign.
+
+\section{The obstruction in physical annihilation space}
+\label{sec:annihilation_obstruction}
+
+The convergence of a bosonic occupation sum requires every physical
+annihilation mode to decay. In particular, an ordinary trace-class Gaussian
+product requires $\rho(\mc B)<1$, where $\rho$ is the spectral radius.
+For a general nonnormal matrix, this necessary spectral condition alone
+does not ensure trace-classness. Equation~\eqref{eq:unit_det} implies
+$\rho(\mc B)\geq1$ whenever $\mc B\in O^{++}(n,n)$, so this group cannot
+describe a convergent Gaussian trace on the full physical annihilation
+space. The positive sign in Eq.~\eqref{eq:minus_sign} for even $n$ refers
+to the determinant continuation.
+
+When every slice preserves the same $\eta$, the obstruction also has a
+many-body interpretation. Bosonic commutation relations give
+\begin{equation}
+    \hat Q^{+}=\frac12\hat{\bb a}^{+}
+                       \eta(\hat{\bb a}^{+})^\trans,
+    \qquad
+    [\hat h_\ell,\hat Q^{+}]
+    =\frac12\hat{\bb a}^{+}
+      (X_\ell\eta+\eta X_\ell^\trans)
+      (\hat{\bb a}^{+})^\trans=0.
+    \label{eq:pair_tower}
+\end{equation}
+The final equality follows from the Lie-algebra condition and $\eta^2=I$.
+Each number-conserving slice annihilates the vacuum, so every product in
+Eq.~\eqref{eq:number_product} acts with the same eigenvalue on
+\begin{equation}
+    |0\rangle,\quad
+    \hat Q^{+}|0\rangle,\quad
+    (\hat Q^{+})^2|0\rangle,\quad\ldots .
+    \label{eq:tower_states}
+\end{equation}
+After normalization these are infinitely many orthogonal states in
+different particle-number sectors. Restoring scalar slice terms multiplies
+all of them by the same factor. If an exact HS representation imposes
+this common group condition on every configuration, the full thermal
+operator inherits the same tower as its vacuum. A physical Hermitian
+Hamiltonian with a finite vacuum energy then has a divergent grand-canonical
+partition function. The symmetric pair in Eq.~\eqref{eq:pair_tower} is
+nonzero for bosons; the analogous symmetric creation bilinear vanishes
+for fermions.
+
+A chemical potential changes the number-conserving propagation to
+$z\mc B$, with fugacity $z=\ee^{\beta\mu}$. It also changes the group relation:
+\begin{equation}
+    (z\mc B)^\trans\eta(z\mc B)=z^2\eta.
+    \label{eq:fugacity}
+\end{equation}
+Consequently, the theorem at $z=1$ does not determine the sign of
+$\det(I-z\mc B)$. Projection onto a fixed total particle number removes
+the infinite tower from the trace, but its weight is the coefficient
+$[z^{N_{\rm p}}]\det(I-z\mc B)^{-1}$, whose sign requires a separate argument.
+For instance, $-I_4\in O^{++}(2,2)$ has a positive inverse determinant
+at $z=1$, while its one-particle trace is $-4$.
+
+\section{Why Nambu reduction admits a stable split-orthogonal propagation}
+
+Nambu space contains both annihilation and creation operators. Even a
+number-conserving problem has the doubled propagation
+\begin{equation}
+    \hat\chi=(\hat{\bb a},(\hat{\bb a}^{+})^\trans)^\trans,
+    \qquad
+    \mc M=
+    \begin{pmatrix}\mc B&0\\0&\mc B^{-\trans}\end{pmatrix},
+    \qquad
+    \det\mc M=1.
+    \label{eq:nambu_product}
+\end{equation}
+A contracting annihilation eigenvalue is accompanied by an expanding
+creation eigenvalue. This reciprocal structure is compatible with a
+finite thermal trace. It records the canonical algebra of the doubled
+operator space.
+
+In the bosonic $\{+,+,+\}$ class, the time reversals are physical,
+pairwise anticommuting antiunitary maps that each square to $+I$.
+Their product in pairs selects a half-dimensional Nambu sector.
+The reduced propagation, denoted $M_{\rm red}$, preserves a real symmetric
+form with signature $(n,n)$ and lies in $O^{++}(n,n)$ after a basis change.
+The selected operators have a commutator matrix with $n$ positive and
+$n$ negative directions. A negative direction corresponds to selecting
+a creation operator in place of its annihilation partner.
+
+This choice changes the trace factor. At a stable diagonal reference point,
+an annihilation direction with propagation $\ee^s$ contributes
+$\ee^{s/2}/(1-\ee^s)$ to the centered Gaussian trace. Selecting the creation
+direction instead gives
+\begin{equation}
+    \frac{\ee^{-s/2}}{1-\ee^{-s}}
+    =-\frac{\ee^{s/2}}{1-\ee^s}.
+    \label{eq:reversed_direction}
+\end{equation}
+There is one minus sign per negative commutator direction. The Gaussian
+trace formula carries this factor to mixed directions and ordered
+products.\footnote{The sector construction and the general reduced
+Gaussian trace are derived in the companion note
+\emph{Time-Reversal Symmetries for Sign-Problem-Free Quantum Monte Carlo}.}
+Since the reduced generators are traceless, the result in this class is
+\begin{equation}
+    \boxed{
+    W_{\rm B}=\ee^\Xi
+       \frac{(-1)^n}{\det(I-M_{\rm red})}>0
+    }
+    \label{eq:reduced_weight}
+\end{equation}
+where $\Xi$ is the sum of the real scalar terms separated from the
+centered quadratic generators. Positivity follows from
+Eq.~\eqref{eq:minus_sign}, away from poles, with the branch fixed by
+the operator trace. Both $\det\mc M=1$ and $\det M_{\rm red}=1$ hold.
+The physical content of the reduced operators supplies the sign factor.
+
+\subsection*{A two-mode thermal example}
+
+Take two bosonic modes with
+\begin{equation}
+    H=\varepsilon(n_b+n_c),\qquad
+    x=\beta\varepsilon>0,\qquad q=\ee^{-x}<1.
+    \label{eq:thermal_model}
+\end{equation}
+The physical annihilation propagation is $\mc B=qI_2$, and
+$Z=(1-q)^{-2}$ is finite. The antiunitary maps
+$K$, $\ii\sigma_xK$, and $\ii\sigma_zK$ on $(b,c)^\trans$
+preserve $H$, anticommute pairwise, and square to $+I$.
+For the $+\ii$ sector of the product of the first two maps, choose
+\begin{equation}
+    d_1=\frac{b-c}{\sqrt2},\qquad
+    d_2=\frac{b^{+}+c^{+}}{\sqrt2},
+    \qquad
+    [d_\mu,d_\nu^{+}]=
+       \begin{pmatrix}1&0\\0&-1\end{pmatrix}_{\mu\nu}.
+    \label{eq:thermal_sector}
+\end{equation}
+With the propagation convention
+$\ee^{-\hat h}\bb d\,\ee^{\hat h}=M_{\rm red}\bb d$ and
+$\hat h=-\beta H$, one obtains
+\begin{equation}
+    M_{\rm red}=\diag(q,q^{-1}),\qquad
+    M_{\rm red}^\trans
+       \begin{pmatrix}0&1\\1&0\end{pmatrix}M_{\rm red}
+       =\begin{pmatrix}0&1\\1&0\end{pmatrix}.
+    \label{eq:thermal_metric}
+\end{equation}
+An orthogonal change of basis diagonalizes this metric to
+$\diag(1,-1)$ and transforms $M_{\rm red}$ into $R(-x)$ of
+Eq.~\eqref{eq:boost}. Its determinant is one and its eigenvalue $q^{-1}$
+is larger than one, precisely because $d_2$ is a creation direction.
+
+Centering the two quadratic modes gives
+$\hat h=-x(n_b+n_c+1)+x$, hence $\Xi=x$. Direct evaluation of
+Eq.~\eqref{eq:reduced_weight} now gives
+\begin{equation}
+    \det(I-M_{\rm red})=-\frac{(1-q)^2}{q},
+    \qquad
+    Z=\ee^x\frac{-1}{\det(I-M_{\rm red})}
+      =\frac1{(1-q)^2}.
+    \label{eq:thermal_weight}
+\end{equation}
+The same boost that causes an occupation-growth problem when assigned
+to two physical annihilation modes describes a stable thermal state
+when assigned to one annihilation and one creation direction.
+
+\section{Relation to number-conserving TRS and Gaussian RP}
+
+Kramers TRS on physical annihilation space pairs complex eigenvalues by
+conjugation and forces real eigenvalues to have even multiplicity.
+It therefore protects $\det(I-\mc B)>0$ away from poles, and real
+chemical-potential shifts preserve this condition. Split orthogonality
+instead enforces reciprocal spectral pairing. The two matrix conditions
+are not nested. Two unequal boost blocks $R(x)\oplus R(y)$, with
+$x,y>0$ and $x\ne y$, have four distinct real eigenvalues and no Kramers
+symmetry. Two identical blocks give an algebraic overlap with
+conjugate-copy TRS and RP. Conversely, the stable thermal propagation
+$qI_2$ has Kramers TRS and RP but has determinant $q^2<1$.
+The overlap involving boosts is a statement about matrix conditions;
+the grand-canonical obstruction of Sec.~\ref{sec:annihilation_obstruction} still applies when those
+boosts act on physical annihilation modes.
+
+The number-conserving restriction simplifies the current Gaussian RP
+condition. Consider a fixed division into independent modes $b$ and $c$,
+with an antilinear multiplicative reflection $\theta(b)=c$ and
+$\theta(b^{+})=c^{+}$. Site phases can be absorbed into the $c$ modes.
+Write its Gaussian generator condition as
+\begin{equation}
+    \hat h=\hat q+\theta(\hat q)
+       +\sum_{\mu\nu}C_{\mu\nu}X_\mu\theta(X_\nu)+\xi,
+    \qquad
+    C=C^\dagger\succeq0,\quad \xi\in\mathbb R,
+    \quad
+    \bb X=(b_1,\ldots,b_m,b_1^{+},\ldots,b_m^{+})^\trans .
+    \label{eq:rp_condition}
+\end{equation}
+Conservation of $N_b+N_c$ sets the two diagonal blocks of $C$ to zero,
+since they multiply $bc$ and $b^{+}c^{+}$. Positive semidefiniteness
+then forces its off-diagonal blocks to vanish as well, by
+$|C_{\mu\nu}|^2\le C_{\mu\mu}C_{\nu\nu}$. Thus $C=0$, and
+\begin{equation}
+    \hat h_\ell=
+       \hat{\bb b}^{+}D_\ell\hat{\bb b}
+       +\hat{\bb c}^{+}\overline{D_\ell}\hat{\bb c}+\xi_\ell .
+    \label{eq:rp_number}
+\end{equation}
+This is the conjugate-copy limit of the Kramers block form
+\begin{equation}
+    X_\ell=
+    \begin{pmatrix}D_\ell&F_\ell\\
+    -\overline{F_\ell}&\overline{D_\ell}\end{pmatrix}.
+    \label{eq:kramers_block}
+\end{equation}
+For these number-preserving reflections and Gaussian slice conditions,
+RP is therefore contained in Kramers TRS.
+
+The inclusion can be strict for a fixed HS representation. Define
+$S_\alpha=(b^{+},c^{+})\sigma_\alpha(b,c)^\trans$ and take the stable
+number-conserving model
+\begin{equation}
+    H=\epsilon(N_b+N_c)+g_xS_x^2+g_zS_z^2,
+    \qquad \epsilon,g_x,g_z>0.
+    \label{eq:trs_example}
+\end{equation}
+Gaussian HS decoupling generates imaginary potentials
+$\ii\phi_x\sigma_x$ and $\ii\phi_z\sigma_z$. Both preserve
+$\ii\sigma_yK$. Their nonzero commutator prevents simultaneous
+diagonalization into the two one-mode blocks of Eq.~\eqref{eq:rp_number}.
+This HS representation satisfies Kramers TRS beyond the stated Gaussian
+RP condition. A different decomposition of the same Hamiltonian would
+require its own comparison.
+
+Finally, if all three $\{+,+,+\}$ maps preserve the physical annihilation
+space, their product is itself an antiunitary symmetry with square $-I$.
+They then imply the number-conserving Kramers criterion. The additional
+role of this class appears when pairing requires the full Nambu
+description. There, Eq.~\eqref{eq:reduced_weight} combines the
+split-orthogonal determinant sign with the signs of the selected
+commutator directions. This representation-dependent mechanism is
+compatible with a finite bosonic thermal trace.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}
