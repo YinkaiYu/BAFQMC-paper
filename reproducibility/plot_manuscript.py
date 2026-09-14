@@ -9,6 +9,7 @@ import copy
 from pathlib import Path
 
 from . import plot_number, plot_pairing, plot_style
+from .manuscript import describe_case, output_stem
 
 
 OBSERVABLES = ("density_total", "minus_total_energy", "S_SF_K", "S_DW_K")
@@ -20,6 +21,7 @@ def plot_figures(cases: list[dict], output: Path) -> None:
     records = []
     for case in cases:
         record = copy.deepcopy(case)
+        record["manuscript"] = describe_case(case)
         record["ed_reliable"] = True  # Preserve the published reference selection.
         nsite = case["parameters"]["Lx"] * case["parameters"]["Ly"]
         energy = case["observables"]["energy_density"]
@@ -30,16 +32,19 @@ def plot_figures(cases: list[dict], output: Path) -> None:
         }
         records.append(record)
 
-    repulsive = [c for c in records if c["model"] == "number_conserving" and c["row"] == 0]
-    attractive = [c for c in records if c["model"] == "number_conserving" and c["row"] == 1]
-    paired = [c for c in records if c["model"] == "pairing"]
-    main_rows = [(r"$U$", repulsive), (r"$\Delta$", paired)]
-    _draw(plt, output, [(label, row) for label, row in main_rows if row], "benchmark_combined")
-    if attractive:
-        _draw(plt, output, [(r"$U_1$", attractive)], "benchmark_attractive")
+    rows = []
+    for benchmark in ("repulsive_u", "pairing_delta", "attractive_u1"):
+        row = [c for c in records if c["manuscript"]["benchmark"] == benchmark]
+        if row:
+            rows.append((row[0]["manuscript"], row))
+    main_rows = [(description, row) for description, row in rows if description["section"] == "main"]
+    _draw(plt, output, main_rows, output_stem(records, "benchmark_combined"))
+    for description, row in rows:
+        if description["section"] == "supplement":
+            _draw(plt, output, [(description, row)], description["figure"])
 
 
-def _draw(plt, output: Path, rows: list[tuple[str, list[dict]]], stem: str) -> None:
+def _draw(plt, output: Path, rows: list[tuple[dict, list[dict]]], stem: str) -> None:
     if not rows:
         return
     with plt.rc_context():
@@ -55,7 +60,8 @@ def _draw(plt, output: Path, rows: list[tuple[str, list[dict]]], stem: str) -> N
             left=0.066, right=0.992, bottom=0.22 if len(rows) == 1 else 0.112,
             top=0.970, wspace=0.24, hspace=0.18,
         )
-        for row_index, (xlabel, records) in enumerate(rows):
+        for row_index, (description, records) in enumerate(rows):
+            xlabel = {"U": r"$U$", "Delta": r"$\Delta$", "U1": r"$U_1$"}[description["scan_parameter"]]
             for column, observable in enumerate(OBSERVABLES):
                 ax = axes[row_index, column]
                 plot_number._plot_observable_axis(ax, records, observable, plot_checkpoints=False)
@@ -73,10 +79,12 @@ def _draw(plt, output: Path, rows: list[tuple[str, list[dict]]], stem: str) -> N
                 plot_style.add_y_scale_text(ax, exponent)
                 ax.set_xlabel(xlabel)
         axes[0, 1].legend(
-            loc="upper right", frameon=False, handlelength=1.5,
+            loc="upper left" if rows[0][1][0]["model"] == "pairing" else "upper right",
+            frameon=False, handlelength=1.5,
             borderaxespad=0.15, handletextpad=0.45, labelspacing=0.25,
         )
-        plot_style.add_panel_labels(axes, x=-0.12, y=1.0, fontsize=8.0)
+        labels = [label for description, _ in rows for label in ("abcd" if description["figure_row"] == 0 else "efgh")]
+        plot_style.add_panel_labels(axes, labels=labels, x=-0.12, y=1.0, fontsize=8.0)
         output.mkdir(parents=True, exist_ok=True)
         fig.savefig(output / f"{stem}.pdf", metadata={"CreationDate": None, "ModDate": None})
         fig.savefig(output / f"{stem}.png", dpi=300)

@@ -111,6 +111,20 @@ class ProductionIntegrationTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "resume"):
                     invoke()
 
+                # The same solvers with a different manuscript case selection
+                # must not silently continue a different campaign in this output.
+                subset = {**index, "cases": index["cases"][:1]}
+                with self.assertRaisesRegex(ValueError, "run settings differ"):
+                    produce(ROOT, data, subset, output, MODELS, ("dqmc", "ed"), python_ed, 1, resume=True)
+
+                # A selected scan launches only its own case with the original
+                # full manifest, retaining the campaign's input/seed ordering.
+                selected_output = base / "selected-output"
+                produce(ROOT, data, subset, selected_output, ("number_conserving",), ("ed",), python_ed, 1, work_dir=base / "selected-scratch")
+                selected_state = json.loads((selected_output / "progress.json").read_text())
+                self.assertEqual(list(selected_state["steps"]), [f"number_conserving/{subset['cases'][0]['id']}/ed"])
+                self.assertFalse((selected_output / "runs/pairing").exists())
+
                 # A changed result is rejected before it can be treated as completed.
                 density = stage_path(output / "runs", "number_conserving", index["cases"][0]["id"], "dqmc") / "density_total"
                 correct_bytes = density.read_bytes()

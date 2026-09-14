@@ -4,6 +4,8 @@ param(
     [string]$Mode = 'full',
     [ValidateSet('both', 'number_conserving', 'pairing')]
     [string]$Model = 'both',
+    [ValidateSet('all', 'main', 'supplement')]
+    [string]$Scope = 'all',
     [string]$Output = '',
     [string]$PythonED = 'python3',
     [int]$Threads = 1,
@@ -19,7 +21,7 @@ function Quote-Bash([string]$Value) {
     return $sq + $Value.Replace($sq, $sq + $dq + $sq + $dq + $sq) + $sq
 }
 $arguments = @('python3', 'reproduce.py', '--mode', $Mode, '--model', $Model,
-    '--python-ed', $PythonED, '--threads', [string]$Threads)
+    '--scope', $Scope, '--python-ed', $PythonED, '--threads', [string]$Threads)
 if ($Output) { $arguments += @('--output', $Output) }
 if ($Plan) { $arguments += '--plan' }
 if ($Resume) { $arguments += '--resume' }

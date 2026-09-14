@@ -36,6 +36,33 @@ The code reads \(U_1\), \(U_2\), \(\mu\), and \(\Delta\) from `paramC_sets.txt`;
 +2(U_1-U_2)n_{b,i}n_{c,i}.
 \]
 
+### Manuscript notation and pair phase
+
+The main-text benchmark sets \(U_1=0\) and denotes \(U_2\) by \(U\).
+The paired scan has \(U=1\), \(\mu=-5\), \(\beta=4\), and
+\(\Delta=0,0.05,\ldots,0.30\). Its density, physical energy, and structure
+factors form panels (e–h) of the combined benchmark figure.
+
+The manuscript writes the real pair term as
+\(-\Delta\sum_i(b_i^+c_i^++b_ic_i)\). The implementation above uses the
+phase convention \(b_{\rm code}=b_{\rm paper}\),
+\(c_{\rm code}=-c_{\rm paper}\), at the same positive value of \(\Delta\).
+Hopping and density interactions are unchanged by this transformation.
+The four plotted observables \(\rho\), \(-E\), \(S_{\rm SF}(K)\), and
+\(S_{\rm DW}(K)\) therefore use the stored values directly. The anomalous
+amplitude per site is
+\(P_{\rm paper}=N_s^{-1}\sum_i\langle b_i c_i+b_i^+c_i^+\rangle_{\rm paper}
+=-\texttt{pair_equal}\). Its physical energy contribution per site is
+\(e_\Delta=-\Delta P_{\rm paper}=\Delta\,\texttt{pair_equal}\),
+and the total contribution is \(E_\Delta=N_s e_\Delta\).
+Both the BAFQMC and ED inputs retain the implementation's real coefficient.
+
+For this \(U_1=0\) model, the condition \(\mu<-3t-|\Delta|\) guarantees
+a finite trace for every real auxiliary-field configuration, as proved in the
+SM subsection "Convergence throughout the auxiliary-field domain". All seven
+paired benchmark points satisfy it. Only the relative-density HS field is
+coupled to the bosons, so the total-density normal-ordering factor is inactive.
+
 ## Triangular Lattice Vectors And Bonds
 
 The Hamiltonian's triangular lattice is defined by integer cell topology. The spatial cell index is \((x,y)\), with periodic boundaries, and each site stores three forward bonds:
@@ -88,7 +115,7 @@ current hopping sign convention.
 
 ## Continuous Hubbard-Stratonovich Fields
 
-The Trotter step uses two continuous Gaussian fields \(\phi_{1,i,\tau}\) and \(\phi_{2,i,\tau}\). For the intended signs \(U_1<0\) and \(U_2>0\),
+The Trotter step uses two continuous Gaussian fields \(\phi_{1,i,\tau}\) and \(\phi_{2,i,\tau}\). For the intended signs \(U_1\le0\) and \(U_2\ge0\),
 
 \[
 e^{-\Delta\tau U_1(n_b+n_c)^2}
@@ -108,6 +135,7 @@ e^{\alpha_2\phi_2(n_b-n_c)},
 
 The auxiliary fields live on spatial sites, not Nambu sectors:
 `Conf%phi_list(ns, i_site, ntau)`, where `ns=1` is the \(U_1\) channel and `ns=2` is the \(U_2\) channel.
+At a zero coupling the corresponding HS coefficient vanishes.
 
 ## Nambu Basis Convention
 

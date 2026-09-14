@@ -9,6 +9,15 @@ physics kernels are imported unchanged from upstream commit
 Commands below run from `software/pairing/` in Linux or WSL. See the repository
 root README for environment setup and the combined paper reproduction command.
 
+This solver produces panels (e–h) of the combined main-text benchmark: seven
+Delta points at `U=1`, `mu=-5`, and `beta=4`. In solver inputs, set `U1=0`
+and `U2=U`; these names retain the total-density and relative-density HS channels.
+The solver's positive real pair coefficient is related to the manuscript's
+negative pair term by `c_code=-c_paper`. All four plotted observables are
+unchanged by this phase convention; the anomalous amplitude `pair_equal`
+has the opposite sign in manuscript operators. See [the Hamiltonian and
+phase convention](docs/physics.md).
+
 ## Build and first run
 
 ```bash
@@ -50,7 +59,10 @@ python run_paper.py --manifest ../../reproducibility/data/pairing/manifest.json 
 
 The production campaign has seven pairing values and 100000 measurement bins
 per value. These are production calculations; use the repository smoke command
-for a quick installation check. The default seed policy is the archived
+for a quick installation check. From the repository root,
+`python3 reproduce.py --scope main --model pairing` runs this scan and produces
+`benchmark_combined_pairing.pdf` with the manuscript's panel labels (e–h).
+The default seed policy is the archived
 campaign policy: initialize each case from `base_seed + case_index` and generate
 its per-rank seed list. Use `--seed` to start independent chains and `--np` to
 set MPI ranks. Results vary with compiler, numerical libraries, and rank count.
@@ -74,9 +86,8 @@ The stages write `inputs/<case>/`, `ed_results/<case>.json`, and
 block errors, imaginary-part diagnostics and cutoff-sensitive observables.
 Its historical name `comparison_dqmc_ed_nmax3_ncut4.json` matches the paper
 plot input; consult the embedded manifest for the cutoffs of a custom run.
-Analysis succeeds when data are complete and computations are valid. It reports
-the original three-standard-error comparisons without making them mandatory
-acceptance criteria. `--require-agreement` enables that optional stricter gate.
+Analysis exports all valid means, standard errors, and reference differences.
+`--require-agreement` optionally enables the inherited three-standard-error check.
 
 Energy files store physical energy per site, excluding the chemical-potential
 term. The paper plots total physical energy with a minus sign:

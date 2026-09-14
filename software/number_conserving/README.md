@@ -6,6 +6,11 @@ the QuSpin ED implementations, regression cases, and the original campaign
 analysis tools. See [docs/physics.md](docs/physics.md) for the Hamiltonian,
 Hubbard–Stratonovich fields, Green functions, estimators, and cutoff conditions.
 
+The solver produces the main-text benchmark's interaction scan with `U1=0`
+and `U2=U`, and the supplemental attractive-density scan with varying `U1`
+at `U2=1`. Both have `Delta=0`. The input names `U1` and `U2` identify the
+total-density and relative-density channels throughout the implementation.
+
 ## Build and run
 
 On Linux/WSL install an MPI Fortran compiler and BLAS/LAPACK; the default build
@@ -55,6 +60,11 @@ python software/number_conserving/run_paper.py \
   --manifest /path/to/manifest.json --output /path/to/new/results --mode analyze
 ```
 
+From the repository root, `python3 reproduce.py --scope main --model number_conserving`
+reproduces the eight main-text U points, and `python3 reproduce.py --scope supplement`
+reproduces the seven supplemental U1 points. Their physical and sampling
+parameters are listed in [the reproduction guide](../../reproducibility/README.md).
+
 Use a QuSpin-enabled interpreter for ED, or pass `--python /path/to/python`.
 Use `--case ID` (repeatable) to select cases and `--dry-run` to inspect commands.
 Manifest paths are relative to the manifest file:
@@ -77,9 +87,9 @@ Manifest paths are relative to the manifest file:
 Outputs are `OUTPUT/ID/dqmc/`, `OUTPUT/ID/ed/results.json`, and
 `OUTPUT/analysis.json`. Original ED parameters and convergence policy are read
 unchanged. Stable free-boson points generate a fresh exact analytic reference in the
-`ed` stage, matching the manuscript prescription without a many-body cutoff. Statistical comparisons retain
-three-standard-error diagnostics; they are not a hard success threshold for
-reproducing valid samples. Missing or malformed output is still an error.
+`ed` stage, matching the manuscript prescription. Analysis exports the means,
+standard errors, and ED differences for all valid samples. Missing or malformed
+output is an error.
 
 The full 3x2 live regression suite is `make benchmark-dqmc`; it uses the
 original 100000-bin interacting cases and can take approximately 10–15 minutes.

@@ -132,7 +132,8 @@ def main():
     write_json(out / "index.json", index)
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
     from reproducibility.analysis import recompute, save_tables
-    cases, blocks = recompute(index, out)
+    from reproducibility.manuscript import select_index
+    cases, blocks = recompute(select_index(index), out)
     save_tables(cases, blocks, out)
     # Raw measurements are intentionally local/ignored; the tracked package is small.
     write_json(out / "checksums.json", {str(p.relative_to(out)): digest(p) for p in sorted(out.rglob("*")) if p.is_file() and "raw" not in p.relative_to(out).parts and p.name != "checksums.json"})

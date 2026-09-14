@@ -61,7 +61,14 @@ beyond the same roundoff/block-error scale, marks the observable unreliable.
 ## Pairing-Specific Extensions
 
 The pairing benchmark adds observables that do not exist in the no-pairing
-model:
+model. The operators in this table follow the solver convention
+`b_code=b_paper`, `c_code=-c_paper`, in which the real pair coefficient is
+positive. Consequently the manuscript's anomalous amplitude per site is
+\(P_{\rm paper}=N_s^{-1}\sum_i\langle b_i c_i+b_i^+c_i^+\rangle_{\rm paper}
+=-\texttt{pair_equal}\), and its energy contribution per site is
+\(e_\Delta=-\Delta P_{\rm paper}=\Delta\,\texttt{pair_equal}\).
+The four plotted benchmark observables are invariant under this phase change.
+See [the Hamiltonian conventions](physics.md#manuscript-notation-and-pair-phase).
 
 | symbol | key | definition |
 | --- | --- | --- |

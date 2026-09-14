@@ -39,7 +39,8 @@ def produce(root, data, index, output, models, stages, python_ed, threads, *, re
     source_hash = hashlib.sha256("\n".join(f"{p.relative_to(root)} {sha(p)}" for p in sorted(source_files)).encode()).hexdigest()
     package_files = [p for p in data.rglob("*") if p.is_file() and "raw" not in p.relative_to(data).parts]
     package_hash = hashlib.sha256("\n".join(f"{p.relative_to(data)} {sha(p)}" for p in sorted(package_files)).encode()).hexdigest()
-    signature = {"data_package_sha256": package_hash, "solver_source_sha256": source_hash, "models": list(models), "python_ed": str(python_ed), "threads": threads, "build_environment": {k: os.environ.get(k) for k in ("FC", "FFLAGS", "LDFLAGS", "LDLIBS", "MPIEXEC")}}
+    cases = [c for c in index["cases"] if c["model"] in models]
+    signature = {"data_package_sha256": package_hash, "solver_source_sha256": source_hash, "models": list(models), "cases": [f"{c['model']}/{c['id']}" for c in cases], "python_ed": str(python_ed), "threads": threads, "build_environment": {k: os.environ.get(k) for k in ("FC", "FFLAGS", "LDFLAGS", "LDLIBS", "MPIEXEC")}}
     if state_path.exists():
         state = json.loads(state_path.read_text())
         if state["signature"] != signature:
@@ -65,7 +66,6 @@ def produce(root, data, index, output, models, stages, python_ed, threads, *, re
     if "ed" in stages:
         subprocess.run([str(python_ed), "-c", "import quspin, numpy, scipy"], check=True)
     print(f"Working directory: {scratch}\nCompleted raw results are copied to: {output / 'runs'}", flush=True)
-    cases = [c for c in index["cases"] if c["model"] in models]
     total = len(cases) * len(stages)
     current = 0
     for model in models:

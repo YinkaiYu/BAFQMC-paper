@@ -36,3 +36,24 @@ budget is based on the measurements in [RESOURCES.md](RESOURCES.md).
 GNU Fortran/BLAS build settings and a GitHub Actions workflow are supplied.
 That compiler was not installed on the validation workstation, so local runtime
 results above refer to the Intel/MKL build. CI exercises the GNU setup when run.
+
+## Main-text and Supplemental Material mapping
+
+The reproduction interface was checked against manuscript commit `dc61002`
+on 2026-09-15. The default production comprises the eight-point U scan and
+seven-point Delta scan in the main text, plus the seven-point U1 scan in the SM.
+
+- All 13 reproduction tests passed, including real eight-bin BAFQMC/ED runs,
+  continuation and interrupted-chain recovery, and selecting a single case
+  for fresh reference calculation. Changing the selected cases is detected
+  when resuming a campaign.
+- Scope selection preserves the original inputs, case ordering, and seeds.
+  The 88 stored observable rows retain every original numeric value; added
+  columns identify the current manuscript figures and notation.
+- The regenerated `benchmark_combined.pdf` and `benchmark_attractive.pdf`
+  match the current manuscript figures pixel for pixel when rasterized to
+  1800 pixels wide. Individual main-text rows retain labels a–d and e–h.
+- A 172-state paired ED calculation at Delta=+0.2 and -0.2 gave identical
+  density, physical energy, structure factors, pairing energy, and free energy.
+  The anomalous `pair_equal` amplitude reversed sign, confirming the documented
+  phase conversion between the solver and manuscript conventions.

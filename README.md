@@ -4,13 +4,14 @@ This repository accompanies the BAFQMC manuscript in [main.tex](main.tex).
 It provides the number-conserving and paired/Nambu implementations for the
 two-flavor Bose–Hubbard model on a frustrated triangular lattice, independent
 finite-temperature exact diagonalization (ED), and the data and plotting code
-for both benchmark figures.
+for the combined main-text benchmark and the attractive-density benchmark in
+the Supplemental Material.
 
 ## Reproduce the complete benchmark data
 
 The default command **builds and runs BAFQMC and ED at all 22 paper parameter
-points**, then computes the means and standard errors and generates both
-benchmark figures:
+points**: 15 in the main text and seven in the Supplemental Material. It then
+computes the means and standard errors and generates both benchmark figures:
 
 ```bash
 python3 reproduce.py
@@ -44,7 +45,8 @@ A new directory `reproducibility/output/full-TIMESTAMP/` receives:
 
 - `runs/`: newly calculated raw BAFQMC data and ED results;
 - `observables.csv`, `block_means.csv`, and `records.json`;
-- both benchmark figures as PDF and PNG in `figures/`;
+- `figures/benchmark_combined.pdf` and `figures/benchmark_attractive.pdf`,
+  with PNG previews;
 - `progress.json`, per-stage logs, and an environment record.
 
 The driver runs file-intensive simulation output in Linux scratch space and
@@ -55,8 +57,12 @@ ignored by Git. Resume an interrupted run with:
 python3 reproduce.py --resume --output reproducibility/output/full-TIMESTAMP
 ```
 
-Completed stages are verified and skipped. `--model number_conserving` or
-`--model pairing` selects one implementation. `--mode dqmc`, `--mode ed`, and
+Completed stages are verified and skipped. Use `--scope main` for the 15
+main-text points or `--scope supplement` for the seven attractive-density
+points; the default `--scope all` covers both. `--model number_conserving` or
+`--model pairing` additionally selects one implementation. For example,
+`--scope main --model number_conserving` runs the eight-point interaction scan.
+Keep the same scope and model when resuming. `--mode dqmc`, `--mode ed`, and
 `--mode analyze` run separate stages with an explicit shared `--output`.
 
 ## Check the installation or redraw stored results
@@ -104,10 +110,12 @@ The model kernels and observable estimators are kept separate from campaign
 orchestration and plotting. Both solvers build from this repository without
 the original workstation's private numerical library.
 
-The main benchmark uses the archived reference conventions documented with the
-data. Reproduction checks data integrity and the numerical reconstruction of
-the figures. Differences between BAFQMC and ED are included in the exported
-tables; there is no fixed-sigma acceptance gate for generating the results.
+The main-text interaction is `U (n_b - n_c)^2`; set `U1=0` and `U2=U` in the
+solver inputs. The supplemental model retains both `U1 (n_b + n_c)^2` and
+`U2 (n_b - n_c)^2`. The [benchmark conventions](reproducibility/README.md)
+connect the manuscript symbols, input parameters, observables, and references.
+Exported tables include BAFQMC means, standard errors, ED values, and their
+differences. All valid parameter points are included.
 
 ## License and manuscript
 

@@ -13,9 +13,23 @@ H = t sum_<ij> (b_i^dagger b_j + c_i^dagger c_j + h.c.)
 The current convention is:
 
 - `t = 1 > 0`
-- `U1 < 0`
-- `U2 > 0`
+- `U1 <= 0`
+- `U2 >= 0`
 - flavors `b` and `c` are also called `up` and `down`
+
+The main-text benchmark sets `U1=0` and calls the relative-density coupling
+`U=U2`. Its eight interaction-scan points form panels (a–d) of the combined
+benchmark figure. The Supplemental Material retains the two-channel
+Hamiltonian above and scans seven `U1` values at `U2=1`. The Monte Carlo trace
+uses `H - mu*(N_b+N_c)`; the reported physical energy excludes the chemical
+potential term.
+
+For the main-text model, `mu < -3*t` ensures a finite trace for every
+auxiliary-field configuration. The relative-density HS factors below are
+unitary, and the quadratic propagator damps high occupations. The SM proves
+the resulting uniform trace bound, together with its paired extension
+`mu < -3*t - abs(Delta)`. This proof concerns `U1=0`; the supplemental
+attractive-density scan uses its stated finite-occupation references.
 
 ## Hubbard-Stratonovich Fields
 
@@ -30,6 +44,10 @@ Equivalently, the continuous-HS coupling constants are:
 alpha_cont(U1) = sqrt(-2 * U1 * Dtau)
 alpha_cont(U2) = i * sqrt(2 * U2 * Dtau)
 ```
+
+At zero interaction strength the corresponding coupling vanishes. Thus the
+main-text scan has only the relative-density phase field coupled to the bosons;
+at `U=0` both couplings vanish.
 
 After decoupling, the two flavor Hamiltonians are complex conjugates. The code samples the `b` flavor explicitly. The `c` flavor Green matrix is reconstructed with complex conjugation.
 
@@ -86,6 +104,7 @@ Pole diagnostics are configuration diagnostics. They do not change the density, 
 | `Ltrot` | `Ltrot` in `CalcBasic`, read from `paramC_sets.txt` |
 | `t` | `RT` in `CalcBasic`, currently set to `1.d0` in `Params_set` |
 | `U1`, `U2` | `RU1`, `RU2` in `CalcBasic`, read from `paramC_sets.txt` |
+| main-text `U` | `RU2` with `RU1=0` |
 | `mu` | `mu` in `CalcBasic`, read from `paramC_sets.txt` |
 | auxiliary field flavor index | `ns = 1` for `U1`, `ns = 2` for `U2` |
 | auxiliary fields | `Conf%phi_list(ns, ii, nt)` in `src/fields.f90` |

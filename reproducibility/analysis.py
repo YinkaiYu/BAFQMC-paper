@@ -19,10 +19,11 @@ RAW_OBSERVABLES = {
 
 
 def load_index(data_dir):
+    from .manuscript import select_index
     index = json.loads((data_dir / "index.json").read_text())
     if index["schema_version"] != 1 or len(index["cases"]) != 22:
         raise ValueError("expected the version-1, 22-point paper data package")
-    return index
+    return select_index(index)
 
 
 def verify_checksums(data_dir):
@@ -56,7 +57,8 @@ def processed_cases(index, data_dir, *, models=("number_conserving", "pairing"))
             for key, value in (("dqmc", mean), ("stderr", sem), ("ed", ed[name])):
                 if not math.isclose(value, c["observables"][name][key], rel_tol=5e-11, abs_tol=5e-14):
                     raise ValueError(f"processed {key} mismatch: {c['id']}/{name}")
-    return selected, [b for b in blocks if b["model"] in models]
+    selected_keys = {(c["model"], c["id"]) for c in selected}
+    return selected, [b for b in blocks if (b["model"], b["case"]) in selected_keys]
 
 
 def block_stats(raw: bytes, *, columns: int, samples: int, block_size: int, skip_samples: int = 0):
@@ -142,7 +144,7 @@ def save_tables(cases, blocks, output):
     rows = []
     for c in cases:
         for name, value in c["observables"].items():
-            rows.append({"model": c["model"], "case": c["id"], "row": c["row"], "x": c["x"], "observable": name, "dqmc": value["dqmc"], "stderr": value["stderr"], "ed": value["ed"], "difference": value["dqmc"] - value["ed"]})
+            rows.append({"model": c["model"], "case": c["id"], **c.get("manuscript", {}), "row": c["row"], "x": c["x"], "observable": name, "dqmc": value["dqmc"], "stderr": value["stderr"], "ed": value["ed"], "difference": value["dqmc"] - value["ed"]})
     for filename, records in (("observables.csv", rows), ("block_means.csv", blocks)):
         if not records:
             continue

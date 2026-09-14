@@ -1,7 +1,8 @@
 # Benchmark reproduction
 
 The default `python3 reproduce.py` reruns all 22 BAFQMC/reference calculations,
-processes the new measurements, and draws the benchmark figures in `main.tex`.
+processes the new measurements, and draws the benchmark figures in `main.tex`
+and the included `SM.tex`.
 See [RESOURCES.md](RESOURCES.md) for the 12–24 hour production budget, memory,
 scratch storage, and continuation commands. The optional `--mode plot` redraws
 the small stored dataset. Both paths draw the combined main-text benchmark and
@@ -19,6 +20,33 @@ The stored input and data keys retain `U1` and `U2`. Only the main-text notation
 uses `U` for `U2`; the supplemental model keeps both interaction coefficients.
 No values, error bars, or reference selections change under this rearrangement.
 
+`--scope main` selects the 15 points in the main-text figure, and
+`--scope supplement` selects the seven attractive-density points. The default
+`--scope all` includes both. Scope and solver selection are independent:
+
+| Selection | Points | Scan |
+|---|---|---|
+| `--scope main` | 15 | U and Delta |
+| `--scope main --model number_conserving` | 8 | U |
+| `--scope main --model pairing` | 7 | Delta |
+| `--scope supplement` | 7 | U1 |
+| `--model number_conserving` | 15 | U and U1 |
+
+The main-text model satisfies `mu < -3*t - abs(Delta)` at every plotted point.
+As proved in the SM subsection "Convergence throughout the auxiliary-field
+domain", its quadratic propagation and unitary relative-density HS factors
+give a finite trace throughout the auxiliary-field domain. This result applies
+to the repulsive model with `U1=0`; the supplemental scan uses the separate
+two-channel model and its stated finite-occupation references.
+
+The pairing implementation writes the real pair term with a positive input
+coefficient, whereas the manuscript writes it as `-Delta (b^+ c^+ + b c)`.
+The phase convention `c_code = -c_paper` relates these expressions at the same
+positive scan value. Density, total physical energy, and the two plotted
+structure factors are invariant under this transformation. The solver's
+anomalous pair amplitude `pair_equal` changes sign when expressed in manuscript
+operators; see [the pairing conventions](../software/pairing/docs/physics.md).
+
 All points have t = 1, a periodic 3 x 3 triangular lattice, Delta tau = 0.01,
 100000 measurement bins, and one MPI rank. The error bars are standard errors
 from ten consecutive blocks of 10000 bins. Warmup and stabilization settings,
@@ -35,7 +63,7 @@ from E. No statistical acceptance criterion removes points during reproduction.
 The supplemental negative-U1 reference uses the original low-density occupation
 window: six completed particle shells, with a configured maximum of eight.
 This is the finite-window comparison encoded by `low_density_cutoff_accepted`
-in the ED records. The zero-interaction upper-row reference is computed
+in the ED records. The U = 0 reference in the main-text interaction scan is computed
 analytically; its original truncated ED JSON is retained for provenance but is
 not used for that red point. All other reference values are read from the
 archived ED results.
@@ -68,9 +96,20 @@ the optional original raw archives when they are present locally.
 
 The current outputs are `figures/benchmark_combined.pdf` (two rows) and
 `figures/benchmark_attractive.pdf` (one row), with PNG previews alongside them.
-Selecting a single solver with `--model` draws only its available main-text row.
+Only the figures and rows covered by the selected scope and solver are drawn.
+An individual main-text row is written as
+`figures/benchmark_combined_number_conserving.pdf` or
+`figures/benchmark_combined_pairing.pdf`, preserving panel labels (a–d) or
+(e–h), respectively.
 The original layout modules and historical figure PDFs remain available for
 provenance and comparisons to earlier manuscript versions.
+
+Generated tables include `benchmark`, `section`, `figure`, `figure_row`, and
+`panels` to locate each point in the current manuscript. `scan_parameter`
+is the plotted symbol, `solver_parameter` is its input key, and `U` gives the
+main-text interaction coefficient. The JSON records collect these fields under
+`manuscript`. Existing case IDs and the archived `row` field retain their
+historical meaning; use `figure_row` for the current figure arrangement.
 
 ## Fresh calculations
 
@@ -86,6 +125,7 @@ when the plotted data and layout are identical.
 
 For separate stages, `--mode dqmc` and `--mode ed` write into `output/runs/`.
 After both stages, `--mode analyze` reblocks their outputs and draws the figures.
+Use the same `--scope` and `--model` for each stage and for `--resume`.
 Each solver's `run_paper.py --help` also exposes case selection or campaign
 configuration and an analysis entry point. Do not overwrite archived input files
 when creating a new model campaign; copy them into your own configuration directory.

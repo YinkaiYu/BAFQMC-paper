@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-command reproduction of the two BAFQMC manuscript benchmarks."""
+"""Reproduce BAFQMC and ED data for the main-text and supplemental benchmarks."""
 from __future__ import annotations
 import argparse
 import json
@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=("archived", "plot", "check", "raw", "full", "dqmc", "ed", "analyze", "smoke"), default="full", help="full (default): rerun BAFQMC and ED; plot: draw the stored processed data; smoke: small installation check")
     parser.add_argument("--model", choices=("both", *MODELS), default="both")
+    parser.add_argument("--scope", choices=("all", "main", "supplement"), default="all", help="all (default): main-text U/Delta scans and supplemental U1 scan; intersects --model")
     parser.add_argument("--output", type=Path, help="results directory; default: reproducibility/output/full-TIMESTAMP for production")
     parser.add_argument("--python-ed", default=sys.executable, help="Python interpreter containing QuSpin for fresh ED")
     parser.add_argument("--threads", type=int, default=1, help="threads per numerical-library process (default 1); cases run sequentially, one MPI rank")
@@ -30,6 +31,8 @@ def main():
         parser.error("--threads must be positive")
     if args.resume and args.output is None:
         parser.error("--resume requires --output pointing to the existing run")
+    if args.mode == "smoke" and args.scope != "all":
+        parser.error("--scope selects paper benchmarks; use --model to select a smoke pipeline")
     default = ROOT / "reproducibility/output"
     if args.mode == "full":
         default = default / time.strftime("full-%Y%m%d-%H%M%S")
@@ -38,6 +41,12 @@ def main():
     if output == ROOT or output.is_relative_to(DATA) or output.is_relative_to(ROOT / "software") or output.is_relative_to(ROOT / "figures"):
         parser.error("choose a separate generated-output directory")
     models = MODELS if args.model == "both" else (args.model,)
+    from reproducibility.manuscript import select_index, selection_summary
+    # Planning uses only the standard library, so it also works before installation.
+    index = select_index(json.loads((DATA / "index.json").read_text()), models=models, scope=args.scope)
+    models = tuple(m for m in models if any(c["model"] == m for c in index["cases"]))
+    if args.mode != "smoke":
+        print(f"Scope: {args.scope}; {len(index['cases'])} paper points.\n{selection_summary(index['cases'])}", flush=True)
     if args.mode in {"full", "dqmc", "ed"} or args.plan:
         resources = json.loads((ROOT / "reproducibility/resources.json").read_text())
         print(f"Mode: {args.mode}; models: {', '.join(models)}; {args.threads} thread(s), one MPI rank; cases run sequentially.")
@@ -51,7 +60,7 @@ def main():
     for name in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUMBA_NUM_THREADS"):
         os.environ[name] = str(args.threads)
     from reproducibility.analysis import load_index, verify_checksums, processed_cases, recompute, save_tables, plot
-    index = load_index(DATA)
+    index = select_index(load_index(DATA), models=models, scope=args.scope)
     count = verify_checksums(DATA)
     print(f"Verified {count} archived files.", flush=True)
     if args.mode == "smoke":
@@ -77,7 +86,7 @@ def main():
         plot(cases, output / "figures")
     import numpy
     import matplotlib
-    provenance = {"mode": args.mode, "models": models, "python": sys.version, "numpy": numpy.__version__, "matplotlib": matplotlib.__version__, "platform": platform.platform(), "cases": len(cases), "data_index_sha256": __import__("hashlib").sha256((DATA / "index.json").read_bytes()).hexdigest()}
+    provenance = {"mode": args.mode, "scope": args.scope, "models": models, "python": sys.version, "numpy": numpy.__version__, "matplotlib": matplotlib.__version__, "platform": platform.platform(), "cases": len(cases), "case_ids": [f"{c['model']}/{c['id']}" for c in cases], "data_index_sha256": __import__("hashlib").sha256((DATA / "index.json").read_bytes()).hexdigest()}
     (output / "environment.json").write_text(json.dumps(provenance, indent=2) + "\n")
     print(f"Reproduced {len(cases)} benchmark points. Results: {output}")
 
