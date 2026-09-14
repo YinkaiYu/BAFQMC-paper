@@ -12,6 +12,10 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \definecolor{PRLBlue}{RGB}{46,48,146}
+\definecolor{TRSHeader}{HTML}{273B52}
+\definecolor{TRSRowLight}{HTML}{F3F6FA}
+\definecolor{TRSRowShade}{HTML}{E5ECF4}
+\definecolor{TRSAccent}{HTML}{23588C}
 \newcommand{\runinsection}[2][0.6\baselineskip]{%
     \par\addvspace{#1}%
     \noindent\mbox{\color{PRLBlue}\itshape #2}\hspace{0.15em}---\hspace{0.3em}\ignorespaces
@@ -176,6 +180,46 @@ If every number-conserving slice $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ pr
 
 For number-conserving evolution, the mechanism is conjugate eigenvalue pairing~\cite{wu2005prb}. A Kramers symmetry pairs the nonreal eigenvalues of the full propagation matrix $\mc B$ into complex conjugates and enforces even multiplicities for real eigenvalues. The determinant in Eq.~\eqref{eq:trace_formula_number} is therefore a product of nonnegative factors.
 
+\begin{table}[t]
+    \caption{\textbf{Bosonic time-reversal periodic table.} Bold blue entries identify the two fundamental sign-problem-free classes. Each sign denotes $\Theta_a^2=\pm I$ for common, pairwise anticommuting time reversals of every slice. \emph{All} includes every sign assignment. Sign-problematic classes admit negative Gaussian weights.}
+    \label{tab:trs_periodic}
+    \vspace{6pt}
+    \fontencoding{T1}\sffamily
+    \begin{tikzpicture}[x=\columnwidth,y=1pt,
+        every node/.style={inner sep=0pt,outer sep=0pt,font=\sffamily\footnotesize},
+        heading/.style={text=white,font=\sffamily\bfseries\footnotesize,align=center},
+        fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize}]
+        \begin{scope}
+            \clip[rounded corners=2pt] (0,0) rectangle (1,-106);
+            \fill[TRSHeader]   (0,0)     rectangle (1,-22);
+            \fill[TRSRowLight] (0,-22)   rectangle (1,-36.5);
+            \fill[TRSRowShade] (0,-36.5) rectangle (1,-51);
+            \fill[TRSRowLight] (0,-51)   rectangle (1,-65.5);
+            \fill[TRSRowShade] (0,-65.5) rectangle (1,-91.5);
+            \fill[TRSRowLight] (0,-91.5) rectangle (1,-106);
+            \node[heading] at (0.075,-11) {No.\ of\\TRS};
+            \node[heading] at (0.41,-11) {Sign-problem-free};
+            \node[heading] at (0.835,-11) {Sign-problematic};
+            \node at (0.075,-29.25) {0};
+            \node at (0.41,-29.25) {None};
+            \node at (0.835,-29.25) {No TRS};
+            \node at (0.075,-43.75) {1};
+            \node at (0.41,-43.75) {None};
+            \node at (0.835,-43.75) {\{+\}, \{\textminus\}};
+            \node at (0.075,-58.25) {2};
+            \node[fundamental] at (0.41,-58.25) {\{\textminus,\textminus\} = Kramers class};
+            \node at (0.835,-58.25) {\{+,+\}, \{+,\textminus\}};
+            \node at (0.075,-78.5) {3};
+            \node[fundamental] at (0.41,-72.5) {\{+,+,+\} = Split-orthogonal class};
+            \node at (0.41,-84.5) {\{+,\textminus,\textminus\}, \{\textminus,\textminus,\textminus\}};
+            \node at (0.835,-78.5) {\{+,+,\textminus\}};
+            \node at (0.075,-98.75) {\(\geq\)\,4};
+            \node at (0.41,-98.75) {All};
+            \node at (0.835,-98.75) {None};
+        \end{scope}
+    \end{tikzpicture}
+\end{table}
+
 For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$. With $\Theta(\hat b_i)=\hat c_i$, $\Theta(\hat c_i)=-\hat b_i$, and $\Theta(\ii)=-\ii$, the symmetry condition takes the transparent block form
 \begin{equation}
     \hat h_\ell =
@@ -191,23 +235,17 @@ with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The hopping g
 
 Pairing mixes annihilation and creation operators, so the symmetry acts in Nambu space. Table~\ref{tab:trs_periodic} organizes these symmetries by their squares $\Theta_a^2=\pm I$, following the classification by mutually anticommuting time reversals~\cite{li2016prl}.
 
-\begin{table}[t]
-    \caption{Bosonic time-reversal periodic table for general Gaussian weights, including pairing. The time reversals preserve every slice and anticommute pairwise; each sign denotes $\Theta_a^2=\pm I$. \emph{All} includes every sign assignment. \emph{Sign problem possible} means that the listed symmetries alone do not ensure positivity. Weights use the trace branch of Eq.~\eqref{eq:trace_formula_main}, away from poles.}
-    \label{tab:trs_periodic}
-    \begin{ruledtabular}
-    \begin{tabular}{cll}
-        No. of TRS & Sign-free & Sign problem possible \\
-        \hline
-        $0$ & None & No TRS \\
-        $1$ & None & $\{+\},\{-\}$ \\
-        $2$ & $\{-,-\}$ & $\{+,+\},\{+,-\}$ \\
-        $3$ & $\{+,+,+\},\{+,-,-\},\{-,-,-\}$ & $\{+,+,-\}$ \\
-        $\ge4$ & All & None
-    \end{tabular}
-    \end{ruledtabular}
-\end{table}
+\emph{\underline{Kramers class} $\{-,-\}$.} The product $Q=\Theta_1\Theta_2$, with $Q^2=-I$, defines a conserved charge and splits the Nambu evolution into Hermitian-conjugate $Q=\pm\ii$ sectors. Antilinearity keeps $\Theta_1$ within either sector, so the reduced propagation $\mc M_{+\ii}$ inherits Kramers eigenvalue pairing. Each creation operator in a canonical sector basis has commutator $-1$ with its adjoint and contributes a minus sign to the reduced trace. These operators also form Kramers pairs, so $W\propto\det(I_N-\mc M_{+\ii})^{-1}>0$, with a positive prefactor. Particle-number conservation supplies the second symmetry in the number-conserving limit.
 
-The Kramers $\{-,-\}$ class enforces eigenvalue pairing within a conserved-charge sector. In the split-orthogonal $\{+,+,+\}$ class, the bosonic commutation relations fix the sign of a reduced determinant, providing a sign-free class with no fermionic counterpart~\cite{li2016prl}. For number-conserving slices, particle-number conservation supplies the second symmetry needed in Nambu space, recovering the single-Kramers criterion above. The proofs are given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
+\emph{\underline{Split-orthogonal class} $\{+,+,+\}$.} The same sector decomposition gives real $\mc M_{+\ii}$ in a basis where $\Theta_1$ acts as complex conjugation. The third symmetry enforces preservation of the form $\diag(I_{N/2},-I_{N/2})$ and, combined with Hermitian conjugation, exchanges annihilation and creation directions within each sector. Their numbers are therefore $N/2$. The slice evolution stays in the identity component of $O(N/2,N/2)$, whose determinant theorem gives $(-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0$~\cite{wang2015prl}. The $N/2$ creation signs precisely cancel this determinant sign, giving
+\begin{equation}
+    W=\ee^{\sum_\ell\xi_\ell}
+    \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
+    \label{eq:trs_split_weight}
+\end{equation}
+This sign cancellation follows from bosonic commutation relations and has no sign-protecting fermionic counterpart~\cite{li2016prl}.
+
+These are the only two fundamental sign-free classes in the classification by anticommuting time reversals. Every other sign-free class in Table~\ref{tab:trs_periodic} contains one of these sets and inherits its protection. The classification and proofs are given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
 
 \begin{theorem}[RP criterion]
 \label{thm:rp}
