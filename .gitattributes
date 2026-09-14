@@ -1,2 +1,13 @@
-# WSL build scripts require Unix line endings on Windows checkouts.
-/scripts/*.sh text eol=lf
+# Linux scripts and scientific inputs must keep LF line endings on Windows clones.
+*.sh text eol=lf
+*.py text eol=lf
+*.f90 text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+Makefile text eol=lf
+*.mk text eol=lf
+reproducibility/data/** text eol=lf
+
+# Preserve byte-level provenance of imported Fortran source snapshots.
+software/number_conserving/src/*.f90 whitespace=-trailing-space
+software/pairing/src/*.f90 whitespace=-trailing-space

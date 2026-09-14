@@ -27,3 +27,12 @@
 *~
 .DS_Store
 Thumbs.db
+
+# Reproducibility build products and fresh Monte Carlo runs
+/reproducibility/output/
+/reproducibility/.venv/
+/reproducibility/data/*/raw/
+/software/**/build/
+/software/**/runs/local/
+__pycache__/
+*.pyc

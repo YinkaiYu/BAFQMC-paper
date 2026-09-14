@@ -1,0 +1,37 @@
+name: Reproduce benchmarks
+on:
+  push:
+    paths: ['software/**', 'reproducibility/**', 'reproduce.py', '.github/workflows/reproduce-benchmarks.yml']
+  pull_request:
+    paths: ['software/**', 'reproducibility/**', 'reproduce.py', '.github/workflows/reproduce-benchmarks.yml']
+  workflow_dispatch:
+jobs:
+  compact-data-and-solvers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      NUMBA_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install GNU Fortran, MPI, and numerical libraries
+        run: sudo apt-get update && sudo apt-get install -y gfortran libopenmpi-dev openmpi-bin liblapack-dev libblas-dev
+      - name: Install Python dependencies
+        run: python -m pip install -r reproducibility/requirements.txt -r reproducibility/requirements-ed.txt
+      - name: Verify compact data and statistical conventions
+        run: python -m unittest discover -s reproducibility/tests -v
+      - name: Reproduce paper figures
+        run: python reproduce.py --mode plot
+      - name: Check numerical interfaces
+        run: make -C software/common check
+      - name: Run both small BAFQMC and ED pipelines
+        run: python reproduce.py --mode smoke --output reproducibility/output/ci-smoke
+      - name: Check production continuation with small real calculations
+        env:
+          BAFQMC_RUN_MPI_TESTS: '1'
+        run: python -m unittest discover -s reproducibility/tests -p test_production.py -v

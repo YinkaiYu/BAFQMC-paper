@@ -1,0 +1,9 @@
+/build/
+/benchmarks/tmp/
+__pycache__/
+*.pyc
+/runs/**
+!/runs/**/
+!/runs/**/paramC_sets.txt
+!/runs/**/confin.txt
+!/runs/**/seeds.txt
