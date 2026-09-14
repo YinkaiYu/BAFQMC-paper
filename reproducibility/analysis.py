@@ -156,23 +156,5 @@ def save_tables(cases, blocks, output):
 def plot(cases, output):
     import matplotlib
     matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from . import plot_number, plot_pairing
-    output.mkdir(parents=True, exist_ok=True)
-    records = []
-    for c in cases:
-        if c["model"] != "number_conserving":
-            continue
-        record = copy.deepcopy(c)
-        record["ed_reliable"] = True  # Fixed historical point selection, not a new sigma test.
-        record["vary"] = "U2" if c["row"] == 0 else "U1"
-        nsite = c["parameters"]["Lx"] * c["parameters"]["Ly"]
-        energy = c["observables"]["energy_density"]
-        record["observables"]["minus_total_energy"] = {"dqmc": -nsite * energy["dqmc"], "ed": -nsite * energy["ed"], "stderr": nsite * energy["stderr"]}
-        records.append(record)
-    if records:
-        row_specs = [("U2", [c for c in records if c["row"] == 0]), ("U1", [c for c in records if c["row"] == 1])]
-        plot_number._plot_candidate_grid(plt, output, row_specs, ("density_total", "minus_total_energy", "S_SF_K", "S_DW_K"), "benchmark_number_conserving", panel_aspect=1.03, plot_checkpoints=False)
-    paired = [dict(c, Delta=c["x"]) for c in cases if c["model"] == "pairing"]
-    if paired:
-        plot_pairing.figure_main(paired, output)
+    from .plot_manuscript import plot_figures
+    plot_figures(cases, output)

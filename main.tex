@@ -117,9 +117,9 @@ In this Letter, we provide unifying criteria for sign-problem-free AFQMC simulat
 
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_number_conserving.pdf}
-    \caption{\textbf{Number-conserving benchmark on a frustrated triangular lattice.} BAFQMC and finite-temperature reference results for Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$ on a $3\times3$ triangular lattice. The upper row varies $U_2$ at fixed $U_1=0$, $\mu=-3.5$, and $\beta=4$; the lower row varies $U_1$ at fixed $U_2=1$, $\mu=-7$, and $\beta=1$. The four columns show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$, respectively. Red points denote reference values, and blue open circles denote BAFQMC block means with standard-error bars.}
-    \label{fig:benchmark_number}
+    \includegraphics[width=\linewidth]{figures/benchmark_combined.pdf}
+    \caption{\textbf{BAFQMC benchmarks on a frustrated triangular lattice.} Results for Eq.~\eqref{eq:benchmark_pairing} on a periodic $3\times3$ lattice with $t=1$ and $\beta=4$. (a--d) Interaction scan at $\Delta=0$ and $\mu=-3.5$. (e--h) Pairing scan at $U=1$ and $\mu=-5$. The columns show the density $\rho$, negative energy $-E$, and structure factors $S_{\rm SF}(K)$ and $S_{\rm DW}(K)$. Red points are finite-temperature references; blue open circles are BAFQMC means with standard-error bars.}
+    \label{fig:benchmark}
 \end{figure*}
 
 
@@ -277,16 +277,9 @@ For number-conserving Gaussian slices, RP reduces to conjugate copies and is con
 
 Together, TRS and RP define the sign-free region shown schematically in Fig.~\ref{fig:schematic}: global symmetry and reflected-coupling structure make BAFQMC sign-problem-free even on frustrated lattices.
 
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_pairing_delta.pdf}
-    \caption{\textbf{Paired benchmark on the frustrated triangular lattice.} BAFQMC and ED results for Eq.~\eqref{eq:benchmark_pairing} on the same $3\times3$ triangular lattice with $U_1=0$, $U_2=1$, $\mu=-5$, and $\beta=4$, shown as a function of real $\Delta\ge0$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$. Red points denote ED references, and blue open circles denote BAFQMC block means with standard-error bars. The finite-$\Delta$ data test anomalous one-body propagation in the Nambu BAFQMC formulation.}
-    \label{fig:benchmark_pairing}
-\end{figure*}
-
 \phantomsection\label{sec:examples}
 \runinsection{Examples and applications}
-A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard model on the triangular lattice, with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. The operators $\hat b_i$ and $\hat c_i$ annihilate the two bosonic flavors on site $i$. They obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing. We define $\hat n_{b,i}=\hat b_i^+\hat b_i$ and $\hat n_{c,i}=\hat c_i^+\hat c_i$. The Hamiltonian is
+A minimal testbed is a two-flavor Bose-Hubbard model on the triangular lattice. With $\hat n_{b,i}=\hat b_i^+\hat b_i$ and $\hat n_{c,i}=\hat c_i^+\hat c_i$, consider
 \begin{equation}
 \begin{aligned}
     \hat H ={}&
@@ -298,29 +291,23 @@ A concrete testbed for these criteria is a frustrated two-flavor Bose-Hubbard mo
     \left(
     \hat c_i^+\hat c_j+\hat c_j^+\hat c_i
     \right)\\
-    &+ U_1\sum_i\left(\hat n_{b,i}+\hat n_{c,i}\right)^2
-    + U_2\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2\\
-    &{}
-    -\sum_i\left(\Delta\,\hat b_i^+\hat c_i^+
-    +\Delta^*\,\hat b_i\hat c_i\right),
+    &-\sum_i\left(\Delta\,\hat b_i^+\hat c_i^+
+    +\Delta^*\,\hat b_i\hat c_i\right)
+    +U\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2,
 \end{aligned}
 \label{eq:benchmark_pairing}
 \end{equation}
-The sign-free HS conditions for this model are $U_1\le0$ and $U_2\ge0$; grand-canonical stability is a separate convergence requirement for bosonic traces. The $\Delta=0$ and $\Delta\ne0$ cases realize the criteria above in different ways. For the benchmark data we choose the frustrated hopping convention $t=1$. On the triangular lattice, this real positive hopping has a sign problem in local-weight methods such as world-line QMC or SSE. In BAFQMC, for the real hopping considered here, the TRS/RP criteria are insensitive to the sign of $t$.
+For $t>0$, the hopping is frustrated and produces a sign problem in world-line QMC and SSE. BAFQMC is sign-free for $U\ge0$, with or without pairing.
 
-The interactions are decoupled in density channels for all values of $\Delta$. The $U_1$ channel produces a real potential $\alpha_1\phi_{i\ell}(\hat n_{b,i}+\hat n_{c,i})$, and the $U_2$ channel produces an imaginary relative potential $\ii\alpha_2\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})$, with $\alpha_1=\sqrt{-2\Delta\tau U_1}$ and $\alpha_2=\sqrt{2\Delta\tau U_2}$. Thus the two flavors see conjugate one-body potentials. When $\Delta=0$, the number-conserving slice is diagonal in flavor space, with $b$ block $D_\ell=-\Delta\tau\,tA_\triangle+\diag_i(\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell})$ and $c$ block $\overline{D_\ell}$, where $A_\triangle$ is the triangular-lattice nearest-neighbor adjacency matrix. The grand-canonical chemical potential only adds a real diagonal term to both blocks. This is Eq.~\eqref{eq:block_TRS} with $F_\ell=0$. It is also reflection positive: with $\theta(\hat b_i)=\hat c_i$ and $\theta(\ii)=-\ii$, one has $\hat h_\ell^{(0)}=\hat q_\ell+\theta(\hat q_\ell)$ for $\hat q_\ell=\hat{\bb b}^+D_\ell\hat{\bb b}$. The density-channel model is therefore sign-free by both TRS and RP.
+Decoupling the repulsive interaction gives an imaginary HS field coupled to $\hat n_{b,i}-\hat n_{c,i}$, so the two flavors experience conjugate potentials. At $\Delta=0$, every slice has the form of Eq.~\eqref{eq:block_TRS} with $F_\ell=0$ and satisfies both TRS and RP. For $\Delta\ne0$, a reflection adapted to the phase of $\Delta$ gives the positive anomalous block $F=(\Delta\tau|\Delta|/2)I$ in Eq.~\eqref{eq:rp_block_form}. With fluctuating relative-density fields, these paired slices lie outside the sign-protecting TRS classes, while RP guarantees positive weights. This model thus demonstrates the reach of RP beyond TRS.
 
-We benchmark Eq.~\eqref{eq:benchmark_pairing} on a $3\times3$ triangular lattice with periodic boundary conditions against finite-temperature reference calculations. The simulations are grand-canonical, with the chemical potential specified in each figure caption, while $E=\langle \hat H\rangle$ denotes the physical energy of Eq.~\eqref{eq:benchmark_pairing}. The plotted observables are the density $\rho=\langle N_b+N_c\rangle/N_s$, where $N_s$ is the number of sites, and the energy shown as $-E$. We also measure the structure factors $S_{\rm SF}(K)=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}\langle \hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle$ and $S_{\rm DW}(K)=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}\langle \hat n_i\hat n_j\rangle$, with $\hat n_i=\hat n_{b,i}+\hat n_{c,i}$ and $K=(4\pi/3,0)$.
-
-Figure~\ref{fig:benchmark_number} shows the number-conserving case, $\Delta=0$. The upper row varies $U_2$ at fixed $U_1=0$, $\mu=-3.5$, and $\beta=4$; the lower row varies $U_1$ at fixed $U_2=1$, $\mu=-7$, and $\beta=1$. Across density, energy, and both $K$-point structure factors, BAFQMC follows the reference values within the plotted statistical resolution. This benchmark probes the frustrated RP/TRS quadrant of Fig.~\ref{fig:schematic} in a minimal finite cluster.
-
-The paired term probes the more general BAFQMC formulation. For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, particle number is not conserved and the one-body evolution is written in Nambu space. Choosing the reflection $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$ gives the reflected anomalous bilinear $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$, so with this reflection Eq.~\eqref{eq:rp_block_form} has $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The finite-$\Delta$ benchmark is therefore sign-free by the paired RP criterion and uses the anomalous bosonic Gaussian trace formula, extending finite-temperature auxiliary-field simulations beyond the number-conserving treatment of Ref.~\cite{rubenstein2012pra}. With nonzero pairing and fluctuating relative-density fields, the common time reversals of these slices cannot form any of the sign-free sets in Table~\ref{tab:trs_periodic}. The paired benchmark thus establishes the reach of RP beyond the TRS criteria. Figure~\ref{fig:benchmark_pairing} shows agreement with ED within statistical error bars, benchmarking the paired Nambu implementation in the same frustrated model family.
+Figure~\ref{fig:benchmark} compares BAFQMC with finite-temperature reference calculations on a $3\times3$ cluster. Scanning $U$ at $\Delta=0$ and then $\Delta$ at $U=1$ validates both the number-conserving and paired Gaussian implementations through quantitative agreement in the density, energy, and two structure factors. Every auxiliary-field configuration in these scans has a convergent trace and avoids bosonic poles. The convergence proof, observable definitions, simulation details, and an additional attractive-density benchmark are given in Sec.~\ref{app:benchmark_details} of the SM~\cite{SM}.
 
 The new $\{+,+,+\}$ class opens a further sign-free frontier in odd-parity bosonic pairing. This pairing underlies finite-momentum superfluidity in resonant Bose gases~\cite{radzihovskyChoi2009pwave}, exact paired states in rotating two-component gases~\cite{papenbrockReimannKavoulakis2012pwave}, and the singlet bonds of Schwinger-boson theories of quantum spin liquids~\cite{readSachdev1991frustrated,sachdev1992kagome}. Bose exchange symmetry requires an odd spatial pair to be antisymmetric in flavor, giving $\hat P_{ij}^+=\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+$. We prove that, for time reversals acting identically on the annihilation doublet $(\hat b_i,\hat c_i)^\trans$ at every site, a time-reversal-invariant odd-parity pair field admits sign protection only through $\{+,+,+\}$ among the fundamental TRS classes. This establishes interacting sign-free families with $p$-wave pairing even on frustrated lattices. The exclusion proof and explicit symmetry-preserving HS constructions are given in Sec.~\ref{app:trs_models} of the SM~\cite{SM}. These models bring the competition between odd-parity pairing, condensation, and flavor order within reach of unbiased simulations.
 
 \phantomsection\label{sec:concluding}
 \runinsection{Concluding remarks}
-In summary, we have formulated a BAFQMC framework that establishes unifying principles for tackling the sign problem in interacting bosonic systems. Our two sufficient criteria, rooted in time-reversal symmetry and reflection positivity, provide practical guidance for guaranteeing sign-problem-free simulation. We validated this approach by simulating a frustrated two-flavor Bose-Hubbard model on the triangular lattice, achieving excellent agreement with exact diagonalization within statistical errors. Crucially, our results demonstrate a fundamental shift in the organizing principle for bosonic sign-free simulations: from the positivity of local matrix elements to the global symmetries and mathematical structures of the Hamiltonian. As depicted in Fig.~\ref{fig:schematic}, this unlocks a new sign-problem-free route into the regime of geometric frustration, transcending the natural boundaries of world-line QMC and SSE.
+In summary, we have formulated a BAFQMC framework that establishes unifying principles for tackling the sign problem in interacting bosonic systems. Our two sufficient criteria, rooted in time-reversal symmetry and reflection positivity, provide practical guidance for guaranteeing sign-problem-free simulation. We validated this approach by simulating a frustrated two-flavor Bose-Hubbard model on the triangular lattice, achieving excellent quantitative agreement with exact diagonalization. Crucially, our results demonstrate a fundamental shift in the organizing principle for bosonic sign-free simulations: from the positivity of local matrix elements to the global symmetries and mathematical structures of the Hamiltonian. As depicted in Fig.~\ref{fig:schematic}, this unlocks a new sign-problem-free route into the regime of geometric frustration, transcending the natural boundaries of world-line QMC and SSE.
 
 This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. For number-conserving propagation, fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$. The inverse determinant can generate large weights near its poles, giving a bosonic analogue of the infinite-variance problem known in fermionic AFQMC~\cite{alexandru2023prd,wan2025infinite}. This numerical difficulty is most relevant when the sampled trajectory approaches such poles, for example at higher chemical potential, and its severity depends on the Hamiltonian, the HS decomposition, and the determinant representation.
 

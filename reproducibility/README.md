@@ -4,15 +4,20 @@ The default `python3 reproduce.py` reruns all 22 BAFQMC/reference calculations,
 processes the new measurements, and draws the benchmark figures in `main.tex`.
 See [RESOURCES.md](RESOURCES.md) for the 12–24 hour production budget, memory,
 scratch storage, and continuation commands. The optional `--mode plot` redraws
-the small stored dataset. Both paths use the original figure layouts.
+the small stored dataset. Both paths draw the combined main-text benchmark and
+the separate attractive-density benchmark in the Supplemental Material.
 
 ## Data and reference conventions
 
 | Figure / row | Varying parameter | Fixed parameters | Reference |
 |---|---|---|---|
-| Number conserving, upper | U2 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | U1 = 0, mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U2 = 0 |
-| Number conserving, lower | U1 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U2 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U1 < 0 |
-| Pairing | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 0, U2 = 1, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
+| Main Fig. 2(a–d) | U = U2 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | U1 = 0, mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U = 0 |
+| Main Fig. 2(e–h) | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 0, U = U2 = 1, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
+| Supplemental Fig. S1(a–d) | U1 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U2 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U1 < 0 |
+
+The stored input and data keys retain `U1` and `U2`. Only the main-text notation
+uses `U` for `U2`; the supplemental model keeps both interaction coefficients.
+No values, error bars, or reference selections change under this rearrangement.
 
 All points have t = 1, a periodic 3 x 3 triangular lattice, Delta tau = 0.01,
 100000 measurement bins, and one MPI rank. The error bars are standard errors
@@ -27,7 +32,7 @@ use their real parts and show the physical total energy as -E = -9 e, with the
 energy standard error multiplied by 9. The chemical-potential term is excluded
 from E. No statistical acceptance criterion removes points during reproduction.
 
-The lower-row negative-U1 reference uses the original low-density occupation
+The supplemental negative-U1 reference uses the original low-density occupation
 window: six completed particle shells, with a configured maximum of eight.
 This is the finite-window comparison encoded by `low_density_cutoff_accepted`
 in the ED records. The zero-interaction upper-row reference is computed
@@ -47,6 +52,7 @@ data/<model>/inputs/<case>/      exact initial input files and ED parameters
 data/<model>/ed/<case>.json      original ED results
 data/<model>/raw/<case>.tar.gz   optional local raw archives, ignored by Git
 analysis.py                     raw-data statistics, references, tables, plot dispatch
+plot_manuscript.py               main U/Delta grid and supplemental U1 scan
 plot_number.py                  original 2 x 4 number-conserving layout
 plot_pairing.py                 original 1 x 4 paired layout
 plot_style.py                   shared original figure style
@@ -59,6 +65,12 @@ independent reconstruction of the plotted mean and standard error without
 shipping the full Monte Carlo chains. `--mode check` verifies the processed
 files and statistics without making figures. `--mode raw` additionally checks
 the optional original raw archives when they are present locally.
+
+The current outputs are `figures/benchmark_combined.pdf` (two rows) and
+`figures/benchmark_attractive.pdf` (one row), with PNG previews alongside them.
+Selecting a single solver with `--model` draws only its available main-text row.
+The original layout modules and historical figure PDFs remain available for
+provenance and comparisons to earlier manuscript versions.
 
 ## Fresh calculations
 
@@ -90,6 +102,7 @@ interfaces; see `software/common/README.md`.
 Historical campaigns were stored outside Git tracking. These commit IDs identify
 the imported source snapshots, not a proven historical production executable.
 The original summary, plotting-script, style, and PDF hashes are recorded in
-`data/index.json`. The two original PDF hashes match the figures in this
-manuscript repository. `tools/import_original.py` is a maintainer import tool;
+`data/index.json`. The two original PDF hashes match the historical
+`benchmark_number_conserving.pdf` and `benchmark_pairing_delta.pdf` retained in
+this repository. `tools/import_original.py` is a maintainer import tool;
 it is not used by readers and the normal workflow needs no sibling repositories.
