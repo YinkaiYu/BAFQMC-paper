@@ -163,7 +163,7 @@ $\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes
     \left[(-1)^N\det\!\left(I_{2N}-\mc M(\phi)\right)\right]^{-1/2}.
     \label{eq:trace_formula_main}
 \end{equation}
-Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$, and the square root is fixed by the ordered operator trace and its continuation from a convergent Gaussian trace. Bosonic poles occur at $\det(I_{2N}-\mc M)=0$. This anomalous Gaussian trace allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula, its continuation, and Nambu Green functions are discussed in Secs.~\ref{app:trace_paired}, \ref{app:regularization}, and~\ref{app:green_paired} of the SM~\cite{SM}.
+Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$, and the square root is fixed by the ordered operator trace. Bosonic poles occur at $\det(I_{2N}-\mc M)=0$. This anomalous Gaussian trace allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula and Nambu Green functions are derived in Secs.~\ref{app:trace_paired} and~\ref{app:green_paired} of the SM~\cite{SM}.
 
 \phantomsection\label{sec:positive}
 \runinsection{Conditions for nonnegative weights}
@@ -171,7 +171,7 @@ The central issue is when every auxiliary-field configuration in BAFQMC has a no
 
 \begin{theorem}[TRS criterion]
 \label{thm:trs}
-If every number-conserving slice $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ preserves a common antiunitary symmetry $\Theta$ acting on the annihilation operators with $\Theta^2=-I$, then $W=\det(I_N-\mc B)^{-1}>0$ wherever it is finite. More generally, let a common set of Nambu time reversals preserve every slice, the canonical commutators, and Hermitian conjugation. If these time reversals anticommute pairwise and their squares contain $\{+,-\}$, $\{-,-\}$, or $\{+,+,+\}$, the Gaussian weight $W$ is positive wherever it is finite.
+If every number-conserving slice $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ preserves a common antiunitary symmetry $\Theta$ acting on the annihilation operators with $\Theta^2=-I$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is positive whenever this trace is finite. More generally, the same conclusion holds if every quadratic slice preserves a common set of pairwise anticommuting Nambu time reversals whose squares contain $\{+,-\}$, $\{-,-\}$, or $\{+,+,+\}$. These time reversals preserve the canonical commutators and Hermitian conjugation.
 \end{theorem}
 
 For number-conserving evolution, the mechanism is conjugate eigenvalue pairing~\cite{wu2005prb}. A Kramers symmetry pairs the nonreal eigenvalues of the full propagation matrix $\mc B$ into complex conjugates and enforces even multiplicities for real eigenvalues. The determinant in Eq.~\eqref{eq:trace_formula_number} is therefore a product of nonnegative factors.
@@ -218,7 +218,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
     \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu}),
 \label{eq:rp_generator}
 \end{equation}
-with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever $W$ is finite.
+with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
 \end{theorem}
 This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and using the reflected-sector Nambu order $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, suppose every slice can be written as
 \begin{equation}

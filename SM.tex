@@ -579,7 +579,7 @@ For a stable, trace-convergent Gaussian product, the standard bosonic quadratic-
     \left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-Here the square root is the representative fixed by continuity from the convergent diagonal quasiparticle trace. It appears because the Nambu basis doubles the physical modes, so the propagation matrix alone determines the trace only up to this operator-fixed representative. The factor $(-1)^N$ is unity for the even number of modes in the sign-free classes considered here. The TRS proofs in Sec.~\ref{app:trs_proof} determine the complete weight by conjugate-sector or reduced-determinant formulas. In RP applications, the proof in Sec.~\ref{app:rp_proof} is formulated directly for $\Tr\prod_\ell\ee^{\hat h_\ell}$ and selects the nonnegative operator weight. The Nambu determinant formula is then evaluated with that representative.
+Here the square root is the representative fixed by the ordered operator product and its convergent trace. It appears because the Nambu basis doubles the physical modes, so the propagation matrix alone determines the trace only up to this operator-fixed representative. The factor $(-1)^N$ is unity for the even number of modes in the sign-free classes considered here. The TRS proofs in Sec.~\ref{app:trs_proof} determine the complete weight by conjugate-sector or reduced-determinant formulas. For trace-convergent RP products, the proof in Sec.~\ref{app:rp_proof} establishes nonnegativity of the same operator trace.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -1031,7 +1031,7 @@ Pairing requires the full operator vector $\hat\chi$ and the symplectic matrix $
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
     \label{eq:trs_configuration_weight}
 \end{equation}
-The generators may be non-Hermitian after HS decoupling. Their Gaussian weight is $W$ of Eq.~\eqref{eq:trace_formula_main}, with the square-root branch fixed by the ordered operator trace as in Sec.~\ref{app:trace_paired}. The proofs below determine that sign as well as the determinant. All positivity statements apply where this weight is finite.
+The generators may be non-Hermitian after HS decoupling. We consider the finite operator trace $W=\Tr\prod_\ell\ee^{\hat h_\ell}$, evaluated through Eq.~\eqref{eq:trace_formula_main} with the square-root representative fixed as in Sec.~\ref{app:trace_paired}. The proofs below determine the sign of this trace as well as its determinant representation.
 
 A time reversal is an antilinear map on the bosonic operators,
 \begin{equation}
@@ -1157,7 +1157,7 @@ The sign is visible at a stable diagonal reference point, where the selected dir
     =-\frac{\ee^{x/2}}{1-\ee^x}.
     \label{eq:trs_boson_reversed_mode}
 \end{equation}
-Thus the reference trace carries one minus sign for every negative entry of \(D\).  A bosonic coherent-state Gaussian integral evaluates Eq.~\eqref{eq:trs_boson_reduced_operator} when the positive and negative directions mix and when different slices do not commute~\cite{munn1978ensemble}.  The integral and the expression below agree on a nonempty open set of trace-convergent generators.  They are the same meromorphic function of the generator matrix elements and therefore agree at every point where \(\det(I_N-\mc M_{+\ii})\ne0\).  The exact continued weight is
+Thus the reference trace carries one minus sign for every negative entry of \(D\). A bosonic coherent-state Gaussian integral evaluates Eq.~\eqref{eq:trs_boson_reduced_operator} when the positive and negative directions mix and when different slices do not commute~\cite{munn1978ensemble}. In the trace-convergent domain, it gives the exact operator weight
 \begin{equation}
     W=(-1)^{N_-}
     \exp\!\left[\sum_\ell\left(\xi_\ell+\frac12\Tr A_{\ell,+\ii}\right)\right]
@@ -1214,10 +1214,12 @@ The first commutator is real because it is Hermitian.  To prove the second relat
 \end{equation}
 so \(z=0\).  Every selected creation-like operator therefore has an independent, orthogonal partner with the same negative commutator, and \(N_-\) is even.  Equations~\eqref{eq:trs_boson_reduced_weight} and~\eqref{eq:trs_Kramers_determinant} therefore give
 \begin{equation}
-    W>0\qquad\text{away from bosonic poles}.
+    W>0\qquad\text{whenever the operator trace is finite}.
     \label{eq:trs_kramers_class_positive}
 \end{equation}
 The second time reversal has supplied the independent operator space in which the single-Kramers pairing argument applies.
+
+The determinant pairing is algebraic. The inverse-determinant expressions in Eq.~\eqref{eq:trace_formula_number} for number-conserving Kramers symmetry and Eq.~\eqref{eq:trs_boson_reduced_weight} for the Nambu Kramers class therefore also remain positive under meromorphic continuation to nonsingular points satisfying the same symmetry constraints.
 
 \subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 
@@ -1269,7 +1271,7 @@ The last relation in Eq.~\eqref{eq:trs_P_properties} makes \(\Theta_+\) exchange
     =\mp\Theta_+\hat d.
     \label{eq:trs_P_sector_exchange}
 \end{equation}
-Since $\Theta_+$ is antiunitary and preserves every slice, it relates the two sector evolutions by complex conjugation. Let $W_+$ be the trace of the centered quadratic evolution in the $P=+1$ sector. The full weight factorizes as
+Since $\Theta_+$ is antiunitary and preserves every slice, it relates the two sector evolutions by complex conjugation. The trace-class tensor product has trace-class factors, so the two sector traces are finite. Let $W_+$ be the trace of the centered quadratic evolution in the $P=+1$ sector. The full weight factorizes as
 \begin{equation}
     W=\exp\!\left(\sum_\ell\xi_\ell\right)
        W_+\overline{W_+}
@@ -1282,7 +1284,7 @@ Using the bosonic trace formula separately in each sector gives
        \left|\det\!\left(I-\mc M\big|_{P=+1}\right)\right|^{-1}>0
     \label{eq:trs_majorana_determinants}
 \end{equation}
-away from poles. The conjugate factors fix the square-root sign even when the slices do not commute.
+whenever the operator trace is finite. The conjugate sector traces fix the square-root sign even when the slices do not commute.
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
@@ -1411,7 +1413,7 @@ Finally, Eqs.~\eqref{eq:trs_boson_reduced_weight}, \eqref{eq:trs_Nminus_half}, a
     W=\exp\!\left(\sum_\ell\xi_\ell\right)(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-away from bosonic poles.  The bosonic split-orthogonal class \(\{+,+,+\}\) therefore protects the full Gaussian weight.
+whenever the operator trace is finite. The bosonic split-orthogonal class \(\{+,+,+\}\) therefore protects the full Gaussian trace.
 
 \subsection{Completion of the periodic table}
 
@@ -1632,7 +1634,7 @@ which is reflection-positive term by term. Finally,
     \prod_a \ee^{\hat Y_a\theta(\hat Y_a)/n}
     \right]^n
 \end{equation}
-by the Lie-Trotter product formula~\cite{trotter1959product}. Each finite-$n$ factor is reflection-positive, and multiplication preserves reflection positivity. Thus Eq.~\eqref{eq:rp_generator_sm} is a sufficient condition for nonnegative weights whenever the trace is finite.
+by the Lie-Trotter product formula~\cite{trotter1959product}. Each finite-$n$ factor is reflection-positive, and multiplication preserves reflection positivity. Thus Eq.~\eqref{eq:rp_generator_sm} is a sufficient condition for nonnegative weights whenever the operator trace is finite.
 
 For Gaussian BAFQMC slices the criterion is easy to apply. Let
 \begin{equation}
