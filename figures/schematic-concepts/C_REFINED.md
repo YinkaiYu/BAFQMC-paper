@@ -1,3 +1,19 @@
+# Card refinement, version 7
+
+Current output: `pdf/schematic-concepts/C_refined_cards_v7` (PDF, SVG, PNG,
+manifest and source ZIP). Reproduce with `build_cards_v7.py` using the same
+WSL command and dependencies as version 6 below.
+
+The transition arrow is shorter and narrower, with a clear gap before the
+post-HS motif. Its widening perspective is retained. The silhouette halo uses
+broader diffusion and additional transparent padding to avoid clipped edges.
+The entire flat background is deepened to #d9dfe5; the uncovered lower-left
+region gains definition without adding another category color or raised panel.
+The physics, wording, card colors and opacity are unchanged. Version 6 remains
+available for comparison. The production manuscript figure is unchanged.
+
+---
+
 # Selected card design, version 6
 
 The current candidate is `C_refined_cards_v6`. It preserves the two physical
