@@ -1,3 +1,32 @@
+# Production figure: selected F
+
+The author-selected F candidate is now installed as `figures/schematic.pdf`,
+with a self-contained SVG companion at `figures/schematic.svg`. It retains
+aligned status labels, uniform font sizes, colored status text, the reduced
+lower-right motif, upper-left clearance, expanded halo and corrected mint overlap.
+
+The production builder is `build_cards_v13.py`. Its physical motif inputs are
+tracked in `figures/schematic-assets/`, so regeneration does not depend on
+ignored exploration outputs. The underlying geometry remains in
+`render_c_refined.py`.
+
+```powershell
+.\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 -W error figures/schematic-concepts/build_cards_v13.py --publish'
+.\scripts\build-manuscript.ps1
+```
+
+The caption briefly explains HS decoupling. The compiled manuscript and diff
+are `pdf/main.pdf` and `pdf/main-diff.pdf` (34 pages each at installation).
+The diff uses substantive manuscript baseline `e16f9a3b1024d43428bb828ebe412e5cf2186b52`,
+SM-aware latexpand and latexdiff with both old and new graphics. Its new graphic
+width allows space for the diff frame. Figure 1 was inspected on page 2 of both
+PDFs. Existing REVTeX/nameref notices and bibliography underfull warning remain;
+no new overflow or unresolved-reference warnings were introduced.
+
+The sections below record earlier design rounds and their historical status.
+
+---
+
 # Focused comparison of B and F
 
 Only B and F are retained in the current comparison. B's status labels are

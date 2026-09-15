@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 import subprocess
+import shutil
 
 import fitz
 import matplotlib
@@ -20,9 +21,10 @@ from matplotlib.path import Path as MplPath
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "pdf" / "schematic-concepts"
-ASSETS = OUT / "C_refined_v5_assets"
+ASSETS = ROOT / "figures" / "schematic-assets"
 parser = argparse.ArgumentParser()
 parser.add_argument("--background", choices=["glass", "cards"], default="cards")
+parser.add_argument("--publish", action="store_true", help="Update the manuscript figure")
 args = parser.parse_args()
 NAME = "C_refined_cards_v13_mint_raised_type"
 if args.background != "cards":
@@ -235,3 +237,8 @@ manifest = {
 (OUT / f"{NAME}_manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
 doc.close()
 print(json.dumps(manifest, indent=2))
+
+if args.publish:
+    shutil.copy2(pdf_path, ROOT / "figures" / "schematic.pdf")
+    shutil.copy2(OUT / f"{NAME}.svg", ROOT / "figures" / "schematic.svg")
+    print("Published selected F as figures/schematic.pdf and schematic.svg")
