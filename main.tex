@@ -173,8 +173,31 @@ If every number-conserving slice $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$ pr
 
 For number-conserving evolution, an eigenmode of the full propagation matrix $\mc B$ with eigenvalue $\lambda$ has a time-reversed partner with eigenvalue $\overline\lambda$~\cite{wu2005prb}. Because $\Theta^2=-I$, the partners remain linearly independent even when $\lambda$ is real. Each pair therefore contributes $(1-\lambda)(1-\overline\lambda)=|1-\lambda|^2$ to the determinant in Eq.~\eqref{eq:trace_formula_number}. The phases cancel pair by pair, giving $W=\prod_{\rm pairs}|1-\lambda|^{-2}>0$ wherever finite.
 
+For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$, so $N=2M$. With $\Theta(\hat b_i)=\hat c_i$, $\Theta(\hat c_i)=-\hat b_i$, and $\Theta(\ii)=-\ii$, the symmetry condition takes the transparent block form
+\begin{equation}
+    \hat h_\ell =
+    \hat{\bb a}^+
+    \begin{pmatrix}
+        D_\ell & F_\ell \\
+        -\overline{F_\ell} & \overline{D_\ell}
+    \end{pmatrix}
+    \hat{\bb a}\,,
+    \label{eq:block_TRS}
+\end{equation}
+with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The hopping geometry places no further restriction on this criterion.
+
+If the Hamiltonian contains pairing terms that create or annihilate pairs of bosons, particle number is no longer conserved. We then use the Nambu basis to treat creation and annihilation operators together. In the number-conserving limit, combining the original Kramers symmetry $\Theta_1$ with the phase rotation $\hat{\bb a}\mapsto\ii\hat{\bb a}$ automatically supplies a second symmetry $\Theta_2$, with $\Theta_2^2=-I$ and $\Theta_1\Theta_2=-\Theta_2\Theta_1$.
+
+This construction motivates a classification by mutually anticommuting time-reversal symmetries, using a strategy analogous to that of Ref.~\cite{li2016prl}. For general bosonic quadratic evolution, we establish exactly two fundamental sign-free classes, the Kramers class $\{-,-\}$ and the split-orthogonal class $\{+,+,+\}$, where each sign denotes $\Theta_a^2=\pm I$. These sets are fundamental because no proper subset guarantees positive weights.
+
+\emph{\underline{Kramers class}:} The product $Q=\Theta_1\Theta_2$, with $Q^2=-I$, splits the evolution into two invariant subspaces with eigenvalues $\pm\ii$, exchanged by Hermitian conjugation. Let $\mc M_{+\ii}$ denote the propagation matrix in the $+\ii$ subspace. Because $\Theta_1$ anticommutes with $Q$ and conjugates $\ii$, it preserves this subspace. Thus $\mc M_{+\ii}$ inherits Kramers eigenvalue pairing. A canonical basis of this subspace can contain both annihilation and creation operators. Each creation operator has commutator $-1$ with its adjoint and contributes a minus sign when expressing $W$ through $\det(I_N-\mc M_{+\ii})^{-1}$. These operators also form Kramers pairs, so their minus signs cancel and $W\propto\det(I_N-\mc M_{+\ii})^{-1}>0$, with a positive prefactor.
+
+\emph{\underline{Split-orthogonal class}:} The product $Q=\Theta_1\Theta_2$ again obeys $Q^2=-I$ and separates the two conjugate subspaces. In the $+\ii$ subspace, $\Theta_1$ acts as complex conjugation in a suitable basis, making $\mc M_{+\ii}$ real. The third symmetry, combined with Hermitian conjugation, exchanges annihilation and creation operators within the $+\ii$ subspace, fixing their numbers to $N/2$ each. It also constrains the propagation to preserve the form $\diag(I_{N/2},-I_{N/2})$. Real matrices preserving this form constitute the split orthogonal group $O(N/2,N/2)$, which gives this class its name. The evolution is continuously connected to the identity, and the group's determinant theorem gives $(-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0$~\cite{wang2015prl}. The $N/2$ minus signs from creation operators cancel this determinant sign, giving $W=\ee^{\sum_\ell\xi_\ell}(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0$. This sign cancellation follows from bosonic commutation relations and has no sign-protecting fermionic counterpart~\cite{li2016prl}.
+
+Every other sign-free class contains one of these two fundamental sets and inherits its protection. In particular, any set of four or more symmetries contains at least two with $\Theta_a^2=-I$ or three with $\Theta_a^2=+I$. Sets containing neither fundamental class admit negative weights. This completes the bosonic time-reversal periodic table summarized in Table~\ref{tab:trs_periodic}, with proofs and counterexamples in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
+
 \begin{table}[t]
-    \caption{\textbf{Bosonic time-reversal periodic table.} The Kramers class $\{-,-\}$ and split-orthogonal class $\{+,+,+\}$ are the two fundamental sign-problem-free symmetry classes, highlighted in bold blue. For general quadratic slices, including pairing, each sign denotes $\Theta_a^2=\pm I$. \emph{All} includes every sign assignment. Sign-problematic classes admit negative Gaussian weights.}
+    \caption{\textbf{Bosonic time-reversal periodic table.} The Kramers class $\{-,-\}$ and split-orthogonal class $\{+,+,+\}$ are the two fundamental sign-problem-free symmetry classes, highlighted in bold blue. For general quadratic slices, including pairing, each sign denotes $\Theta_a^2=\pm I$ for common, pairwise anticommuting time-reversal symmetries of every slice. \emph{All} includes every sign assignment. Sign-problematic classes admit negative Gaussian weights.}
     \label{tab:trs_periodic}
     \vspace{6pt}
     \fontencoding{T1}\sffamily
@@ -213,33 +236,6 @@ For number-conserving evolution, an eigenmode of the full propagation matrix $\m
     \end{tikzpicture}
 \end{table}
 
-For two flavors, let $\hat{\bb b}$ and $\hat{\bb c}$ collect the $M$ site operators and set $\hat{\bb a}=(\hat{\bb b},\hat{\bb c})^\trans$, so $N=2M$. With $\Theta(\hat b_i)=\hat c_i$, $\Theta(\hat c_i)=-\hat b_i$, and $\Theta(\ii)=-\ii$, the symmetry condition takes the transparent block form
-\begin{equation}
-    \hat h_\ell =
-    \hat{\bb a}^+
-    \begin{pmatrix}
-        D_\ell & F_\ell \\
-        -\overline{F_\ell} & \overline{D_\ell}
-    \end{pmatrix}
-    \hat{\bb a}\,,
-    \label{eq:block_TRS}
-\end{equation}
-with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The hopping geometry places no further restriction on this criterion.
-
-If the Hamiltonian contains pairing terms that create or annihilate pairs of bosons, particle number is no longer conserved. We then represent time reversal in the Nambu basis, treating creation and annihilation operators together. Table~\ref{tab:trs_periodic} classifies these symmetries by their squares $\Theta_a^2=\pm I$ and mutual anticommutation~\cite{li2016prl}.
-
-\emph{\underline{Kramers class} $\{-,-\}$.} The product $Q=\Theta_1\Theta_2$, with $Q^2=-I$, splits the evolution into two invariant subspaces with eigenvalues $\pm\ii$, exchanged by Hermitian conjugation. Let $\mc M_{+\ii}$ denote the propagation matrix in the $+\ii$ subspace. Because $\Theta_1$ anticommutes with $Q$ and conjugates $\ii$, it preserves this subspace. Thus $\mc M_{+\ii}$ inherits Kramers eigenvalue pairing. A canonical basis of this subspace can contain both annihilation and creation operators. Each creation operator has commutator $-1$ with its adjoint and contributes a minus sign when expressing $W$ through $\det(I_N-\mc M_{+\ii})^{-1}$. These operators also form Kramers pairs, so their minus signs cancel and $W\propto\det(I_N-\mc M_{+\ii})^{-1}>0$, with a positive prefactor. Particle-number conservation supplies the second symmetry in the number-conserving limit.
-
-\emph{\underline{Split-orthogonal class} $\{+,+,+\}$.} The same decomposition gives real $\mc M_{+\ii}$ in a basis where $\Theta_1$ acts as complex conjugation. The third symmetry, combined with Hermitian conjugation, exchanges annihilation and creation operators within the $+\ii$ subspace, fixing their numbers to $N/2$ each. It also constrains the propagation to preserve the form $\diag(I_{N/2},-I_{N/2})$. Real matrices preserving this form constitute the split orthogonal group $O(N/2,N/2)$, which gives this class its name. The evolution is continuously connected to the identity, and the group's determinant theorem gives $(-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0$~\cite{wang2015prl}. The $N/2$ minus signs from creation operators cancel this determinant sign, giving
-\begin{equation}
-    W=\ee^{\sum_\ell\xi_\ell}
-    \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
-    \label{eq:trs_split_weight}
-\end{equation}
-This sign cancellation follows from bosonic commutation relations and has no sign-protecting fermionic counterpart~\cite{li2016prl}.
-
-These are the only two fundamental sign-free classes in the classification by anticommuting time-reversal symmetries. Every other sign-free class in Table~\ref{tab:trs_periodic} contains one of these sets and inherits its protection. The classification and proofs are given in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
-
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_combined.pdf}
@@ -247,6 +243,7 @@ These are the only two fundamental sign-free classes in the classification by an
     \label{fig:benchmark}
 \end{figure*}
 
+\begin{samepage}
 \begin{theorem}[RP criterion]
 \label{thm:rp}
 Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta(\hat b_i)=\eta_i\hat c_i$, and $\theta(\hat b_i^+)=\overline{\eta_i}\hat c_i^+$, with $|\eta_i|=1$. If each HS-decoupled slice can be written as
@@ -259,6 +256,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
 \end{equation}
 with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and a Hermitian positive semidefinite matrix $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
 \end{theorem}
+\end{samepage}
 This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and grouping each flavor with its creation operators as $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, suppose every slice can be written as
 \begin{equation}
     \hat h_\ell = \hat\chi^\trans
