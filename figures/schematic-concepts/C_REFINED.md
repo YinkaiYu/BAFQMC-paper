@@ -1,4 +1,4 @@
-# Focused 3D revision of concept C, version 4
+# Focused 3D revision of concept C, version 5
 
 This candidate keeps the original classification and its overlapping half-planes.
 Only the upper-left and lower-right quadrants contain physical illustrations.
@@ -10,9 +10,18 @@ Visual reference inspected on 2026-09-15: https://developer.apple.com/design/.
 The hero artwork motivates rounded liquid-glass silhouettes, narrow bright
 refractive rims, pale tints, diffuse suspension shadows and restrained dark type.
 The artwork is original Blender geometry; no Apple assets or proprietary fonts
-are embedded. Version 4 retains the approved physics and equal projected margins.
-Broad illumination replaces the conspicuous circular spotlight, and the method
-names carry modest typographic emphasis. The reference is aesthetic, not scientific.
+are embedded. Version 5 retains the approved physics and equal projected margins.
+Both coverage labels are single lines in blue and gold, with WLQMC/SSE written
+explicitly. Glass uses uniform tint with no selective lighting or spotlight.
+The whole glass material has IOR 1.85; shadow rays receive 82 percent
+transparent mixing to restrain cast shadows. A faint cyan halo follows only
+the post-HS mesh and particle silhouettes; it is decorative, not physical data. The reference is aesthetic, not scientific.
+
+The alternate `--background cards` output uses vector cards with no thickness
+or refraction, retaining the same 28-unit layer offsets and restrained shadows.
+Both variants share the exact typography and physics composition. HS and phi
+labels are omitted; one curved arrow carries the transformation. The post-HS
+scene is enlarged relative to the preceding version.
 
 ## Visual meaning
 
@@ -61,7 +70,8 @@ From PowerShell:
 .\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 -W error figures/schematic-concepts/build_c_refined.py'
 ```
 
-The compositor requires NumPy, Matplotlib, Pillow, PyMuPDF and Poppler. The
+The compositor requires NumPy, Matplotlib, Pillow, PyMuPDF, Poppler and
+GNU FreeSans (registered from `/usr/share/fonts/truetype/freefont/FreeSans.ttf`). The
 `PYTHONPATH` above supplies the `packaging` dependency missing from this WSL
 installation. On a complete Python installation it can be omitted.
 
@@ -73,11 +83,18 @@ before- and after-decoupling scenes.
 
 Outputs remain in the ignored `pdf/schematic-concepts/` directory:
 
-- `C_refined_3d_v4.pdf`: one 86 mm square figure.
-- `C_refined_3d_v4.svg`: vector labels with embedded 3D renders.
-- `C_refined_3d_v4.png`: 450 dpi preview rendered from the PDF by Poppler.
-- `C_refined_v4_assets/`: four PNG renders and their editable `.blend` scenes.
-- `C_refined_3d_v4_manifest.json`: dimensions, font sizes and motif resolution.
+- `C_refined_3d_v5.pdf`: one 86 mm square figure.
+- `C_refined_3d_v5.svg`: vector labels with embedded 3D renders.
+- `C_refined_3d_v5.png`: 450 dpi preview rendered from the PDF by Poppler.
+- `C_refined_v5_assets/`: four PNG renders and their editable `.blend` scenes.
+- `C_refined_3d_v5_manifest.json`: dimensions, font sizes and motif resolution.
+- `C_refined_cards_v5.pdf`, `.svg`, `.png` and `_manifest.json`: card alternative.
+- `C_refined_v5_comparison.png`: side-by-side review preview.
+- `C_refined_v5_sources.zip`: both versions and reproducible source bundle.
+
+For the card alternative, append `--background cards` to the compositor command.
+The minimum text size is 7.6 pt. Both coverage headings are checked against the
+interior bounds of their panes, in addition to the page-bound checks.
 
 The previous version's outputs remain available under their original names.
 

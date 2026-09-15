@@ -17,7 +17,7 @@ from mathutils import Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v4_assets"
+OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v5_assets"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -277,38 +277,22 @@ def glass(name, color):
     mat = material(name, color, .045, 0)
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
     bsdf.inputs["Transmission Weight"].default_value = .98
-    bsdf.inputs["IOR"].default_value = 1.52
+    bsdf.inputs["IOR"].default_value = 1.85
     bsdf.inputs["Coat Weight"].default_value = .30
     bsdf.inputs["Coat Roughness"].default_value = .065
-    return mat
-
-
-def illuminated_blue():
-    """A soft pool of light singles out the newly accessible quadrant."""
-    mat = glass("Illuminated blue glass", "#c1dfff")
+    # Art-directed weak cast shadows preserve suspension without gray pools.
     nodes, links = mat.node_tree.nodes, mat.node_tree.links
-    coordinates = nodes.new("ShaderNodeTexCoord")
-    center = nodes.new("ShaderNodeVectorMath")
-    center.operation = "SUBTRACT"
-    center.inputs[1].default_value = (.25,.51,.5)
-    links.new(coordinates.outputs["Generated"], center.inputs[0])
-    flatten = nodes.new("ShaderNodeVectorMath")
-    flatten.operation = "MULTIPLY"
-    flatten.inputs[1].default_value = (1,1,0)
-    links.new(center.outputs["Vector"], flatten.inputs[0])
-    length = nodes.new("ShaderNodeVectorMath")
-    length.operation = "LENGTH"
-    links.new(flatten.outputs["Vector"], length.inputs[0])
-    ramp = nodes.new("ShaderNodeValToRGB")
-    ramp.color_ramp.interpolation = "EASE"
-    ramp.color_ramp.elements[0].position = .11
-    ramp.color_ramp.elements[0].color = (*linear_rgb("#e5f7ff"), 1)
-    ramp.color_ramp.elements[1].position = .8
-    ramp.color_ramp.elements[1].color = (*linear_rgb("#c4ddfa"), 1)
-    middle = ramp.color_ramp.elements.new(.56)
-    middle.color = (*linear_rgb("#d7ecff"), 1)
-    links.new(length.outputs["Value"], ramp.inputs["Fac"])
-    links.new(ramp.outputs["Color"], nodes.get("Principled BSDF").inputs["Base Color"])
+    ray = nodes.new("ShaderNodeLightPath")
+    strength = nodes.new("ShaderNodeMath")
+    strength.operation = "MULTIPLY"
+    strength.inputs[1].default_value = .82
+    links.new(ray.outputs["Is Shadow Ray"], strength.inputs[0])
+    clear = nodes.new("ShaderNodeBsdfTransparent")
+    mix = nodes.new("ShaderNodeMixShader")
+    links.new(strength.outputs[0], mix.inputs[0])
+    links.new(bsdf.outputs[0], mix.inputs[1])
+    links.new(clear.outputs[0], mix.inputs[2])
+    links.new(mix.outputs[0], nodes.get("Material Output").inputs["Surface"])
     return mat
 
 
@@ -340,17 +324,6 @@ def background_scene(quality):
     bpy.context.object.name = "White studio backdrop"
     bpy.context.object.data.materials.append(material("Matte white", "#ffffff", 1))
 
-    spotlight = bpy.data.lights.new("Soft spotlight on new territory", type="SPOT")
-    spotlight.energy = 0
-    spotlight.shadow_soft_size = 1.0
-    spotlight.color = (.76,.91,1.0)
-    spotlight.spot_size = math.radians(58)
-    spotlight.spot_blend = .85
-    light = bpy.data.objects.new("Soft spotlight on new territory", spotlight)
-    bpy.context.collection.objects.link(light)
-    light.location = (-.9, .82, 3.2)
-    light.rotation_euler = (0,0,0)
-
     # Projected outer edges: gray 906, amber 934, blue 962 (28-unit steps).
     # Matching top edges are 168, 140, 112. Internal half-plane edges stay fixed.
     angle = math.atan2(2,11.88)
@@ -363,10 +336,9 @@ def background_scene(quality):
     base.visible_shadow = False
     base.data.materials.append(diagram_ink("Flat neutral gray", "#e0e2e7"))
     amber = glass("Transparent amber glass", "#fff0cb")
-    projected_pane("Unfrustrated amber glass", (548,140,386,798), .29, .10, amber)
-    projected_pane("Upper symmetry blue glass", (108,112,854,426), .78, .11,
-                   illuminated_blue(), .041)
-    area_light("Broad light over new territory", (-1.2,1.2,5), 55, 4.0, (.85,.94,1))
+    projected_pane("Unfrustrated amber glass", (548,140,386,798), .29, .14, amber, .060)
+    projected_pane("Upper symmetry blue glass", (108,112,854,426), .78, .18,
+                   glass("Uniform pale blue glass", "#d2eaff"), .080)
     return scene
 
 
