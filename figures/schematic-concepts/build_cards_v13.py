@@ -147,8 +147,8 @@ for box,z in [((548,140,386,798),1.2),((108,112,854,426),2.3)]:
         boxstyle="round,pad=0,rounding_size=20",fill=False,
         linewidth=.35,edgecolor="white",alpha=.85,zorder=z))
 
-text(326, 72, "Frustrated", size=9.1)
-text(747, 72, "Unfrustrated", size=9.1)
+text(326, 72, "Frustrated", size=7.9)
+text(747, 72, "Unfrustrated", size=7.9)
 text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
 text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
 

@@ -1,7 +1,7 @@
 # Uniform quadrant typography
 
 All four quadrant status labels now use 7.6 pt FreeSans in every panel A-F.
-The axis labels retain their separate hierarchy. Positions, improved motif-caption
+The x- and y-axis labels are uniformly 7.9 pt; quadrant labels are 7.6 pt. Positions, improved motif-caption
 clearance and corrected mint overlap colors are preserved.
 
 Current individual output stems:
