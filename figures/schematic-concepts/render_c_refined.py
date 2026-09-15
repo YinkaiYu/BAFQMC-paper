@@ -17,7 +17,7 @@ from mathutils import Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v3_assets"
+OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v4_assets"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -245,11 +245,27 @@ def interaction_scene(quality):
 
 def pane(name, box, z, depth, mat, bevel=.046):
     x, y, width, height = box
-    bpy.ops.mesh.primitive_cube_add(size=1, location=((x+width/2-500)/200, (500-y-height/2)/200, z))
-    obj = bpy.context.object
-    obj.name = name
-    obj.dimensions = (width/200, height/200, depth)
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    # A rounded planform independent of thickness gives broad, liquid corners.
+    w,h = width/200,height/200
+    radius = .16
+    ring = []
+    for cx,cy,start in [(w/2-radius,h/2-radius,0),
+                        (-w/2+radius,h/2-radius,90),
+                        (-w/2+radius,-h/2+radius,180),
+                        (w/2-radius,-h/2+radius,270)]:
+        for k in range(25):
+            angle = math.radians(start+90*k/24)
+            ring.append((cx+radius*math.cos(angle),cy+radius*math.sin(angle)))
+    n=len(ring)
+    verts=[(px,py,dz) for dz in (-depth/2,depth/2) for px,py in ring]
+    faces=[tuple(reversed(range(n))),tuple(range(n,2*n))]
+    faces += [(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
+    mesh=bpy.data.meshes.new(name)
+    mesh.from_pydata(verts,[],faces)
+    mesh.update()
+    obj=bpy.data.objects.new(name,mesh)
+    bpy.context.collection.objects.link(obj)
+    obj.location=((x+width/2-500)/200,(500-y-height/2)/200,z)
     obj.data.materials.append(mat)
     edge = obj.modifiers.new("Rounded refractive edge", "BEVEL")
     edge.width, edge.segments = bevel, 10
@@ -258,18 +274,18 @@ def pane(name, box, z, depth, mat, bevel=.046):
 
 
 def glass(name, color):
-    mat = material(name, color, .085, 0)
+    mat = material(name, color, .045, 0)
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
-    bsdf.inputs["Transmission Weight"].default_value = .92
+    bsdf.inputs["Transmission Weight"].default_value = .98
     bsdf.inputs["IOR"].default_value = 1.52
-    bsdf.inputs["Coat Weight"].default_value = .22
+    bsdf.inputs["Coat Weight"].default_value = .30
     bsdf.inputs["Coat Roughness"].default_value = .065
     return mat
 
 
 def illuminated_blue():
     """A soft pool of light singles out the newly accessible quadrant."""
-    mat = glass("Illuminated blue glass", "#75b8d1")
+    mat = glass("Illuminated blue glass", "#c1dfff")
     nodes, links = mat.node_tree.nodes, mat.node_tree.links
     coordinates = nodes.new("ShaderNodeTexCoord")
     center = nodes.new("ShaderNodeVectorMath")
@@ -286,11 +302,11 @@ def illuminated_blue():
     ramp = nodes.new("ShaderNodeValToRGB")
     ramp.color_ramp.interpolation = "EASE"
     ramp.color_ramp.elements[0].position = .11
-    ramp.color_ramp.elements[0].color = (*linear_rgb("#bcecff"), 1)
+    ramp.color_ramp.elements[0].color = (*linear_rgb("#e5f7ff"), 1)
     ramp.color_ramp.elements[1].position = .8
-    ramp.color_ramp.elements[1].color = (*linear_rgb("#a3d2e4"), 1)
+    ramp.color_ramp.elements[1].color = (*linear_rgb("#c4ddfa"), 1)
     middle = ramp.color_ramp.elements.new(.56)
-    middle.color = (*linear_rgb("#b4dfec"), 1)
+    middle.color = (*linear_rgb("#d7ecff"), 1)
     links.new(length.outputs["Value"], ramp.inputs["Fac"])
     links.new(ramp.outputs["Color"], nodes.get("Principled BSDF").inputs["Base Color"])
     return mat
@@ -319,13 +335,13 @@ def background_scene(quality):
     key = bpy.data.objects["Large softbox"]
     key.location = (-3.5,4.5,7.5)
     key.rotation_euler = (-key.location).to_track_quat("-Z","Y").to_euler()
-    key.data.size = 3.2
+    key.data.size = 5.5
     bpy.ops.mesh.primitive_plane_add(size=200, location=(0,0,-.14))
     bpy.context.object.name = "White studio backdrop"
     bpy.context.object.data.materials.append(material("Matte white", "#ffffff", 1))
 
     spotlight = bpy.data.lights.new("Soft spotlight on new territory", type="SPOT")
-    spotlight.energy = 110
+    spotlight.energy = 0
     spotlight.shadow_soft_size = 1.0
     spotlight.color = (.76,.91,1.0)
     spotlight.spot_size = math.radians(58)
@@ -345,11 +361,12 @@ def background_scene(quality):
     base.name = "Flat gray background - zero thickness and no cast shadow"
     base.scale = (742/200,742/200/math.cos(angle),1)
     base.visible_shadow = False
-    base.data.materials.append(diagram_ink("Flat neutral gray", "#cfd3d6"))
-    amber = glass("Transparent amber glass", "#f6e5b9")
+    base.data.materials.append(diagram_ink("Flat neutral gray", "#e0e2e7"))
+    amber = glass("Transparent amber glass", "#fff0cb")
     projected_pane("Unfrustrated amber glass", (548,140,386,798), .29, .10, amber)
     projected_pane("Upper symmetry blue glass", (108,112,854,426), .78, .11,
                    illuminated_blue(), .041)
+    area_light("Broad light over new territory", (-1.2,1.2,5), 55, 4.0, (.85,.94,1))
     return scene
 
 

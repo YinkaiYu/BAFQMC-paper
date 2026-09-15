@@ -12,13 +12,13 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from matplotlib.patches import FancyArrowPatch
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "pdf" / "schematic-concepts"
-ASSETS = OUT / "C_refined_v3_assets"
-NAME = "C_refined_3d_v3"
+ASSETS = OUT / "C_refined_v4_assets"
+NAME = "C_refined_3d_v4"
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans",
@@ -37,7 +37,7 @@ ax.axis("off")
 texts = []
 
 
-def text(x, y, value, size=8.8, color="#23394c", weight="normal", **kwargs):
+def text(x, y, value, size=8.8, color="#282b32", weight="normal", **kwargs):
     obj = ax.text(x, y, value, fontsize=size, color=color,
                   ha=kwargs.pop("ha", "center"), va="center",
                   weight=weight, **kwargs)
@@ -78,28 +78,36 @@ background = Image.open(ASSETS / "background.png")
 ax.imshow(background, extent=(0,W,H,0),
           interpolation="antialiased", zorder=0)
 
+# A hairline rim keeps bright glass legible on the white paper at print scale.
+for box, color in [((548,140,386,798), "#c8bb94"),
+                   ((108,112,854,426), "#a5c8e3")]:
+    x,y,w,h=box
+    ax.add_patch(FancyBboxPatch((x,y),w,h,
+        boxstyle="round,pad=0,rounding_size=32", fill=False,
+        linewidth=.28, edgecolor=color, alpha=.52, zorder=1))
+
 text(326, 72, "Frustrated", size=9.1)
 text(747, 72, "Unfrustrated", size=9.1)
 text(65, 325, "TRS/RP", size=8.7, rotation=90)
 text(65, 737, "Non-TRS/RP", size=8.7, rotation=90)
 
-text(324, 145, "Sign-free for", size=8.4, color="#20586f")
-text(324, 183, "BAFQMC", size=9.8, color="#20586f", weight="medium")
-text(741, 339, "Sign-free for both", size=8.7, color="#284d57")
-text(747, 590, "Sign-free for", size=8.4, color="#65481f")
-text(747, 629, "WL / SSE", size=9.8, color="#65481f", weight="medium")
-text(356, 724, "Sign-problematic", size=8.7, color="#656b70")
+text(324, 161, "Sign-free for", size=8.4, color="#282b32")
+text(324, 195, "BAFQMC", size=9.5, color="#282b32", weight="semibold")
+text(741, 339, "Sign-free for both", size=8.7, color="#282b32")
+text(747, 590, "Sign-free for", size=8.4, color="#282b32")
+text(747, 629, "WL / SSE", size=9.5, color="#282b32", weight="semibold")
+text(356, 724, "Sign-problematic", size=8.7, color="#282b32")
 
 placements = [
-    motif(ASSETS / "interaction.png", (297, 207, 391, 273)),
-    motif(ASSETS / "field.png", (147, 326, 525, 512)),
+    motif(ASSETS / "interaction.png", (297, 221, 391, 287)),
+    motif(ASSETS / "field.png", (147, 341, 525, 514)),
     motif(ASSETS / "loop.png", (600, 678, 880, 870)),
 ]
 ax.add_patch(FancyArrowPatch(
-    (341, 279), (303, 328), arrowstyle="-|>", mutation_scale=7.5,
+    (341, 293), (303, 341), arrowstyle="-|>", mutation_scale=7.5,
     connectionstyle="arc3,rad=.12", linewidth=.8, color="#48616e", shrinkA=0, shrinkB=0, zorder=9,
 ))
-text(373, 303, "HS", size=8.0, color="#48616e")
+text(373, 317, "HS", size=8.0, color="#48616e")
 text(499, 463, r"$\phi$", size=8.5, color="#266a7d")
 
 fig.canvas.draw()

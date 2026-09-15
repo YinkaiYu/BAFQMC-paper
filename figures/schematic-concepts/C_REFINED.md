@@ -1,8 +1,18 @@
-# Focused 3D revision of concept C, version 3
+# Focused 3D revision of concept C, version 4
 
 This candidate keeps the original classification and its overlapping half-planes.
 Only the upper-left and lower-right quadrants contain physical illustrations.
 The production figure `figures/schematic.pdf` is unchanged.
+
+## Apple Design reference
+
+Visual reference inspected on 2026-09-15: https://developer.apple.com/design/.
+The hero artwork motivates rounded liquid-glass silhouettes, narrow bright
+refractive rims, pale tints, diffuse suspension shadows and restrained dark type.
+The artwork is original Blender geometry; no Apple assets or proprietary fonts
+are embedded. Version 4 retains the approved physics and equal projected margins.
+Broad illumination replaces the conspicuous circular spotlight, and the method
+names carry modest typographic emphasis. The reference is aesthetic, not scientific.
 
 ## Visual meaning
 
@@ -63,11 +73,11 @@ before- and after-decoupling scenes.
 
 Outputs remain in the ignored `pdf/schematic-concepts/` directory:
 
-- `C_refined_3d_v3.pdf`: one 86 mm square figure.
-- `C_refined_3d_v3.svg`: vector labels with embedded 3D renders.
-- `C_refined_3d_v3.png`: 450 dpi preview rendered from the PDF by Poppler.
-- `C_refined_v3_assets/`: four PNG renders and their editable `.blend` scenes.
-- `C_refined_3d_v3_manifest.json`: dimensions, font sizes and motif resolution.
+- `C_refined_3d_v4.pdf`: one 86 mm square figure.
+- `C_refined_3d_v4.svg`: vector labels with embedded 3D renders.
+- `C_refined_3d_v4.png`: 450 dpi preview rendered from the PDF by Poppler.
+- `C_refined_v4_assets/`: four PNG renders and their editable `.blend` scenes.
+- `C_refined_3d_v4_manifest.json`: dimensions, font sizes and motif resolution.
 
 The previous version's outputs remain available under their original names.
 
