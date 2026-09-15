@@ -1,3 +1,18 @@
+# Below-motif labels, version 9
+
+Current candidate: `pdf/schematic-concepts/C_refined_cards_v9` (PDF, SVG, PNG,
+manifest and source ZIP). Reproduce using `build_cards_v9.py` with the WSL
+compositor command documented below.
+
+Both colored sign-free labels are below their corresponding physical motifs.
+The upper-left transformation group and lower-right square are shifted upward
+to preserve internal margins. Version 8 retains the labels-above layout for
+comparison. Independent card colors, hidden-base-edge removal, physics content,
+small widening arrow and expanded halo are preserved. The production manuscript
+figure is unchanged.
+
+---
+
 # Independently colored cards, version 8
 
 Current candidate: `pdf/schematic-concepts/C_refined_cards_v8` (PDF, SVG, PNG,
