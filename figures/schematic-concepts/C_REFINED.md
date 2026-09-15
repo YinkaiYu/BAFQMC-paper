@@ -1,3 +1,18 @@
+# Diagonal neutral gradient, version 10
+
+Current candidate: `pdf/schematic-concepts/C_refined_cards_v10` (PDF, SVG, PNG,
+manifest and source ZIP). Reproduce with `build_cards_v10.py` and the same WSL
+compositor command documented below.
+
+The visible lower-left background changes smoothly from #c8d0d9 at the lower
+left to #eff2f6 at the upper right. The diagonal blend uses a smooth cubic ramp.
+It remains confined to the exposed neutral area, preserving the independently
+assigned blue, gold and mint colors and avoiding hidden base edges. Motifs and
+below-motif labels match version 9. All previous candidates are preserved.
+The production manuscript figure is unchanged.
+
+---
+
 # Below-motif labels, version 9
 
 Current candidate: `pdf/schematic-concepts/C_refined_cards_v9` (PDF, SVG, PNG,
