@@ -139,9 +139,9 @@ text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
 text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
 
 text(333, 493, "Sign-free for BAFQMC", size=7.6, color="#1265a2")
-text(741, 339, "Sign-free for both", size=7.6, color="#282b32")
+text(741, 339, "Sign-free for both", size=7.6, color="#24745b")
 text(741, 869, "Sign-free for WLQMC/SSE", size=7.6, color="#8b6006")
-text(356, 724, "Sign-problematic", size=7.6, color="#282b32")
+text(356, 724, "Sign-problematic", size=7.6, color="#626b75")
 
 placements = [
     motif(ASSETS / "interaction.png", (181, 157, 281, 227)),

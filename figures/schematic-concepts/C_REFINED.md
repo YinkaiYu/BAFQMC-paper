@@ -1,3 +1,12 @@
+# Status colors matched to regions
+
+In all current candidates A-F, the upper-right status label is dark green
+(#24745b), and the lower-left label is gray (#626b75). The existing blue and
+gold status labels retain their colors. All four labels remain 7.6 pt;
+axis typography, motif scale and placement are unchanged.
+
+---
+
 # Reduced lower-right motif
 
 All six current candidates scale the lower-right square motif to 80 percent
