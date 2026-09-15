@@ -1,4 +1,4 @@
-# Focused 3D revision of concept C, version 2
+# Focused 3D revision of concept C, version 3
 
 This candidate keeps the original classification and its overlapping half-planes.
 Only the upper-left and lower-right quadrants contain physical illustrations.
@@ -14,11 +14,15 @@ The production figure `figures/schematic.pdf` is unchanged.
 - **Lower right:** four identical particles with the same continuous wavy
   interaction notation on an unfrustrated square. There is no occupation contrast
   or hopping-direction arrow.
-- **Background:** a uniform gray support carries two suspended colored glass
-  half-planes. The blue pane is higher, with a larger right overhang; each casts
-  a shadow. No categorical color is painted on the support and there are no
+- **Background:** a flat, uniform gray plane has no thickness or cast shadow.
+  The two suspended colored glass half-planes are more transparent. The blue
+  pane is higher; gray, amber and blue have successively larger projected outer
+  extents with equal 28-unit steps (2.408 mm in the 86 mm figure). The gray
+  plane ends inside the amber pane's right and bottom edges. No categorical
+  color is painted on the background and there are no
   black coordinate-axis lines. “Sign-free for …” labels identify the coverage,
-  with TRS/RP and Non-TRS/RP row labels. The uncovered cell is Sign-problematic.
+  with identically colored TRS/RP and Non-TRS/RP row labels. Sign-free for both
+  and Sign-problematic are centered in their respective visible regions.
 
 The particle symbols represent bosons. The interaction sketch illustrates HS
 decoupling in general; its pairwise strokes are not a diagram of the onsite
@@ -59,11 +63,11 @@ before- and after-decoupling scenes.
 
 Outputs remain in the ignored `pdf/schematic-concepts/` directory:
 
-- `C_refined_3d_v2.pdf`: one 86 mm square figure.
-- `C_refined_3d_v2.svg`: vector labels with embedded 3D renders.
-- `C_refined_3d_v2.png`: 450 dpi preview rendered from the PDF by Poppler.
-- `C_refined_v2_assets/`: four PNG renders and their editable `.blend` scenes.
-- `C_refined_3d_v2_manifest.json`: dimensions, font sizes and motif resolution.
+- `C_refined_3d_v3.pdf`: one 86 mm square figure.
+- `C_refined_3d_v3.svg`: vector labels with embedded 3D renders.
+- `C_refined_3d_v3.png`: 450 dpi preview rendered from the PDF by Poppler.
+- `C_refined_v3_assets/`: four PNG renders and their editable `.blend` scenes.
+- `C_refined_3d_v3_manifest.json`: dimensions, font sizes and motif resolution.
 
 The previous version's outputs remain available under their original names.
 

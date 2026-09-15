@@ -17,7 +17,7 @@ from mathutils import Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v2_assets"
+OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v3_assets"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -258,11 +258,11 @@ def pane(name, box, z, depth, mat, bevel=.046):
 
 
 def glass(name, color):
-    mat = material(name, color, .17, 0)
+    mat = material(name, color, .085, 0)
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
-    bsdf.inputs["Transmission Weight"].default_value = .62
+    bsdf.inputs["Transmission Weight"].default_value = .92
     bsdf.inputs["IOR"].default_value = 1.52
-    bsdf.inputs["Coat Weight"].default_value = .30
+    bsdf.inputs["Coat Weight"].default_value = .22
     bsdf.inputs["Coat Roughness"].default_value = .065
     return mat
 
@@ -288,12 +288,22 @@ def illuminated_blue():
     ramp.color_ramp.elements[0].position = .11
     ramp.color_ramp.elements[0].color = (*linear_rgb("#bcecff"), 1)
     ramp.color_ramp.elements[1].position = .8
-    ramp.color_ramp.elements[1].color = (*linear_rgb("#6aaec9"), 1)
+    ramp.color_ramp.elements[1].color = (*linear_rgb("#a3d2e4"), 1)
     middle = ramp.color_ramp.elements.new(.56)
-    middle.color = (*linear_rgb("#8dc8df"), 1)
+    middle.color = (*linear_rgb("#b4dfec"), 1)
     links.new(length.outputs["Value"], ramp.inputs["Fac"])
     links.new(ramp.outputs["Color"], nodes.get("Principled BSDF").inputs["Base Color"])
     return mat
+
+
+def projected_pane(name, box, z, depth, mat, bevel=.038):
+    """Place panes by projected edges so successive overhangs are identical."""
+    x,y,w,h = box
+    angle = math.atan2(2,11.88)
+    center_y = ((500-y-h/2)/200-math.sin(angle)*(z+depth/2-.12))/math.cos(angle)
+    height = h/math.cos(angle)
+    corrected = (x,500-center_y*200-height/2,w,height)
+    return pane(name, corrected, z, depth, mat, bevel)
 
 
 def background_scene(quality):
@@ -325,15 +335,21 @@ def background_scene(quality):
     light.location = (-.9, .82, 3.2)
     light.rotation_euler = (0,0,0)
 
-    # A single neutral support. All categorical color belongs to the panes.
-    base = material("Uniform gray support", "#b9c0c5", .9)
-    base.node_tree.nodes.get("Principled BSDF").inputs["Coat Weight"].default_value = 0
-    pane("Uniform gray support", (148,161,780,783), -.035, .10, base, .035)
-    amber = glass("Amber glass", "#f1dbaa")
-    amber.node_tree.nodes.get("Principled BSDF").inputs["Transmission Weight"].default_value = .45
-    pane("Unfrustrated amber glass", (548,157,374,778), .29, .10, amber, .038)
-    pane("Upper symmetry blue glass", (116,116,850,425), .78, .11,
-         illuminated_blue(), .041)
+    # Projected outer edges: gray 906, amber 934, blue 962 (28-unit steps).
+    # Matching top edges are 168, 140, 112. Internal half-plane edges stay fixed.
+    angle = math.atan2(2,11.88)
+    z = -.13
+    y = ((500-168-742/2)/200-math.sin(angle)*(z-.12))/math.cos(angle)
+    bpy.ops.mesh.primitive_plane_add(size=1, location=((164+742/2-500)/200,y,z))
+    base = bpy.context.object
+    base.name = "Flat gray background - zero thickness and no cast shadow"
+    base.scale = (742/200,742/200/math.cos(angle),1)
+    base.visible_shadow = False
+    base.data.materials.append(diagram_ink("Flat neutral gray", "#cfd3d6"))
+    amber = glass("Transparent amber glass", "#f6e5b9")
+    projected_pane("Unfrustrated amber glass", (548,140,386,798), .29, .10, amber)
+    projected_pane("Upper symmetry blue glass", (108,112,854,426), .78, .11,
+                   illuminated_blue(), .041)
     return scene
 
 
@@ -351,8 +367,9 @@ def loop_scene(quality):
 
 
 def save_render(scene, name):
-    scene.render.filepath = str(OUT / f"{name}.png")
+    scene.render.filepath = f"//{name}.png"
     bpy.ops.wm.save_as_mainfile(filepath=str(OUT / f"{name}.blend"))
+    scene.render.filepath = str(OUT / f"{name}.png")
     result = bpy.ops.render.render(write_still=True)
     if "CANCELLED" in result:
         raise RuntimeError(f"Render cancelled: {name}")

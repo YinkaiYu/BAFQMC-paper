@@ -17,8 +17,8 @@ from matplotlib.patches import FancyArrowPatch
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "pdf" / "schematic-concepts"
-ASSETS = OUT / "C_refined_v2_assets"
-NAME = "C_refined_3d_v2"
+ASSETS = OUT / "C_refined_v3_assets"
+NAME = "C_refined_3d_v3"
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans",
@@ -80,15 +80,15 @@ ax.imshow(background, extent=(0,W,H,0),
 
 text(326, 72, "Frustrated", size=9.1)
 text(747, 72, "Unfrustrated", size=9.1)
-text(65, 315, "TRS/RP", size=8.7, rotation=90)
-text(65, 737, "Non-TRS/RP", size=8.7, color="#68747a", rotation=90)
+text(65, 325, "TRS/RP", size=8.7, rotation=90)
+text(65, 737, "Non-TRS/RP", size=8.7, rotation=90)
 
 text(324, 145, "Sign-free for", size=8.4, color="#20586f")
 text(324, 183, "BAFQMC", size=9.8, color="#20586f", weight="medium")
-text(747, 185, "Sign-free for both", size=8.7, color="#284d57")
+text(741, 339, "Sign-free for both", size=8.7, color="#284d57")
 text(747, 590, "Sign-free for", size=8.4, color="#65481f")
 text(747, 629, "WL / SSE", size=9.8, color="#65481f", weight="medium")
-text(343, 746, "Sign-problematic", size=8.7, color="#656b70")
+text(356, 724, "Sign-problematic", size=8.7, color="#656b70")
 
 placements = [
     motif(ASSETS / "interaction.png", (297, 207, 391, 273)),
