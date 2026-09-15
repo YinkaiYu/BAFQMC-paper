@@ -243,6 +243,8 @@ Every other sign-free class contains one of these two fundamental sets and inher
     \label{fig:benchmark}
 \end{figure*}
 
+Positive weights can survive couplings that break the protecting time-reversal symmetries. Consider two bosonic flavors with complex-conjugate evolutions: their decoupled traces multiply to a modulus square. Reflection positivity (RP) extends this mechanism to coupled flavors by organizing the full weight as a sum of modulus squares. The matrix of couplings between reflected operators is constrained to be positive semidefinite. The resulting propagators are closed under multiplication, without requiring closure under inversion, and thus form a semigroup. This provides a route beyond the TRS criteria, captured by the following criterion.
+
 \begin{samepage}
 \begin{theorem}[RP criterion]
 \label{thm:rp}
@@ -254,7 +256,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
     \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu}),
 \label{eq:rp_generator}
 \end{equation}
-with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and a Hermitian positive semidefinite matrix $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever this trace is finite.
+with $\hat q_\ell$ and $\hat X_{\ell\mu}$ built only from the $b$ bosons and $C_\ell=C_\ell^\hc\succeq0$, then $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is nonnegative whenever $W$ is finite.
 \end{theorem}
 \end{samepage}
 This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms,lieb1989prl,wei2016prl}. The proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian slices, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and grouping each flavor with its creation operators as $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, suppose every slice can be written as
@@ -269,9 +271,7 @@ This is the bosonic version of reflection positivity~\cite{osterwalder1973axioms
     F_\ell=F_\ell^\hc\succeq0,\quad \xi_\ell\in\mathbb R .
     \label{eq:rp_block_form}
 \end{equation}
-Then the complete BAFQMC configuration weight is nonnegative. The matrices $D_\ell$ and $\overline{D_\ell}$ describe quadratic terms within the $b$ and $c$ flavors, respectively, while $F_\ell$ couples the two flavors. This criterion is insensitive to geometric frustration and naturally includes pairing terms.
-
-For number-conserving Gaussian slices, RP requires $F_\ell=0$, leaving two conjugate flavor blocks and hence the Kramers symmetry of Eq.~\eqref{eq:block_TRS}. Pairing allows $F_\ell\ne0$, so RP also covers systems outside the sign-free TRS classes, as the benchmark below demonstrates. These relations are proved in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
+Then the complete BAFQMC configuration weight is nonnegative. The matrices $D_\ell$ and $\overline{D_\ell}$ describe quadratic terms within the $b$ and $c$ flavors, respectively, while $F_\ell$ couples the two flavors. This criterion is insensitive to geometric frustration and naturally includes pairing terms. In the number-conserving limit, $F_\ell=0$ recovers the conjugate Kramers blocks of Eq.~\eqref{eq:block_TRS}, as proved in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}.
 
 Together, TRS and RP define the sign-free region shown schematically in Fig.~\ref{fig:schematic}: these conditions protect the global auxiliary-field weights even on frustrated lattices.
 
