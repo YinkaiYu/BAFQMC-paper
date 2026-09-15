@@ -1,3 +1,18 @@
+# Independently colored cards, version 8
+
+Current candidate: `pdf/schematic-concepts/C_refined_cards_v8` (PDF, SVG, PNG,
+manifest and source ZIP). Run `build_cards_v8.py` with the WSL compositor
+command documented below. All earlier candidates are preserved.
+
+Gray is drawn only in the exposed lower-left region. Blue (#99d1f5), gold
+(#f8d479), and the mint intersection (#a2dccd) are independently assigned opaque
+colors, so the neutral background neither desaturates them nor reveals hidden
+edges. The intersection is clipped to both card silhouettes. Outer offsets,
+restrained shadows and exterior rims convey the layer order. The physical
+motifs, arrow, glow, labels and production manuscript figure are unchanged.
+
+---
+
 # Card refinement, version 7
 
 Current output: `pdf/schematic-concepts/C_refined_cards_v7` (PDF, SVG, PNG,
