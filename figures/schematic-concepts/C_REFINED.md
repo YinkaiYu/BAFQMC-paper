@@ -1,3 +1,37 @@
+# Uniform quadrant typography
+
+All four quadrant status labels now use 7.6 pt FreeSans in every panel A-F.
+The axis labels retain their separate hierarchy. Positions, improved motif-caption
+clearance and corrected mint overlap colors are preserved.
+
+Current individual output stems:
+- `C_refined_cards_v8_type`
+- `C_refined_cards_v9_raised_type`
+- `C_refined_cards_v10_raised_type`
+- `C_refined_cards_v11_mint_raised_type`
+- `C_refined_cards_v12_mint_raised_type`
+- `C_refined_cards_v13_mint_raised_type`
+
+Current comparison: `C_cards_comparison_v8-v13_uniform_type.pdf` and `.png`.
+Build all six current card builders then `compare_cards_v8_v13.py`.
+The production manuscript figure is unchanged.
+
+---
+
+# Increased clearance above the BAFQMC caption
+
+Panels B-F now move the complete upper-left transformation group upward by
+25 design units (2.15 mm at 86 mm width). The small triangle, tapered arrow,
+field and halo keep their relative placement and size. The field box ends at
+y=441 while the caption stays at y=493, doubling the nominal clearance from
+27 to 52 units. Panel A and all lower-right motifs are unchanged.
+
+Updated individual outputs append `_raised` to the previous name. The refreshed
+contact sheet is `C_cards_comparison_v8-v13_mint_raised.pdf` and `.png`.
+The production manuscript figure is unchanged.
+
+---
+
 # Mint intersection correction for panels D, E and F
 
 The version 11, 12 and 13 builders now export `_mint` suffixed outputs.

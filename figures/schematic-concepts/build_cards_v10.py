@@ -24,7 +24,7 @@ ASSETS = OUT / "C_refined_v5_assets"
 parser = argparse.ArgumentParser()
 parser.add_argument("--background", choices=["glass", "cards"], default="cards")
 args = parser.parse_args()
-NAME = "C_refined_cards_v10"
+NAME = "C_refined_cards_v10_raised_type"
 if args.background != "cards":
     raise ValueError("This revision targets the selected card design.")
 # Register an installed open font explicitly; Matplotlib's cache may predate it.
@@ -138,27 +138,27 @@ text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
 text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
 
 text(333, 493, "Sign-free for BAFQMC", size=7.6, color="#1265a2")
-text(741, 339, "Sign-free for both", size=8.7, color="#282b32")
+text(741, 339, "Sign-free for both", size=7.6, color="#282b32")
 text(741, 869, "Sign-free for WLQMC/SSE", size=7.6, color="#8b6006")
-text(356, 724, "Sign-problematic", size=8.7, color="#282b32")
+text(356, 724, "Sign-problematic", size=7.6, color="#282b32")
 
 placements = [
-    motif(ASSETS / "interaction.png", (181, 182, 281, 252)),
-    motif(ASSETS / "field.png", (191, 272, 548, 466), glow=True),
+    motif(ASSETS / "interaction.png", (181, 157, 281, 227)),
+    motif(ASSETS / "field.png", (191, 247, 548, 441), glow=True),
     motif(ASSETS / "loop.png", (600, 609, 880, 801)),
 ]
 # A curved ribbon widens toward the foreground; the distant end is almost a point.
 vertices=[(286,286),(300,288),(316,296),(329,306),
           (334,301),(349,326),(323,315),(328,312),
           (314,302),(299,292),(286,288),(286,286)]
-vertices=[(x,y-55) for x,y in vertices]
+vertices=[(x,y-80) for x,y in vertices]
 codes=[MplPath.MOVETO]+[MplPath.CURVE4]*3+[MplPath.LINETO]*4+[MplPath.CURVE4]*3+[MplPath.CLOSEPOLY]
 ribbon=PathPatch(MplPath(vertices,codes),facecolor="none",edgecolor="#377fab",linewidth=.25,zorder=8)
 ax.add_patch(ribbon)
 gradient=np.zeros((160,160,4))
 gradient[:,:,:3]=np.linspace([.53,.78,.92],[.12,.40,.62],160)[:,None,:]
 gradient[:,:,3]=np.linspace(.38,.92,160)[:,None]
-im=ax.imshow(gradient,extent=(258,373,293,218),zorder=7,interpolation="bicubic")
+im=ax.imshow(gradient,extent=(258,373,268,193),zorder=7,interpolation="bicubic")
 im.set_clip_path(ribbon)
 
 fig.canvas.draw()

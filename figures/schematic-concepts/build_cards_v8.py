@@ -24,7 +24,7 @@ ASSETS = OUT / "C_refined_v5_assets"
 parser = argparse.ArgumentParser()
 parser.add_argument("--background", choices=["glass", "cards"], default="cards")
 args = parser.parse_args()
-NAME = "C_refined_cards_v8"
+NAME = "C_refined_cards_v8_type"
 if args.background != "cards":
     raise ValueError("This revision targets the selected card design.")
 # Register an installed open font explicitly; Matplotlib's cache may predate it.
@@ -130,9 +130,9 @@ text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
 text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
 
 text(333, 198, "Sign-free for BAFQMC", size=7.6, color="#1265a2")
-text(741, 339, "Sign-free for both", size=8.7, color="#282b32")
+text(741, 339, "Sign-free for both", size=7.6, color="#282b32")
 text(741, 611, "Sign-free for WLQMC/SSE", size=7.6, color="#8b6006")
-text(356, 724, "Sign-problematic", size=8.7, color="#282b32")
+text(356, 724, "Sign-problematic", size=7.6, color="#282b32")
 
 placements = [
     motif(ASSETS / "interaction.png", (181, 237, 281, 307)),
