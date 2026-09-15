@@ -1,3 +1,13 @@
+# Reduced lower-right motif
+
+All six current candidates scale the lower-right square motif to 80 percent
+of its previous width and height, keeping its center fixed. Its area is reduced
+by 36 percent so the larger upper-left HS scene remains the focus. Labels,
+physics, colors, layer geometry and other placements are unchanged. Rebuild
+with the same current builders and comparison command below.
+
+---
+
 # Uniform quadrant typography
 
 All four quadrant status labels now use 7.6 pt FreeSans in every panel A-F.

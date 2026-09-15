@@ -137,7 +137,7 @@ text(356, 724, "Sign-problematic", size=7.6, color="#282b32")
 placements = [
     motif(ASSETS / "interaction.png", (181, 157, 281, 227)),
     motif(ASSETS / "field.png", (191, 247, 548, 441), glow=True),
-    motif(ASSETS / "loop.png", (600, 609, 880, 801)),
+    motif(ASSETS / "loop.png", (628, 628.2, 852, 781.8)),
 ]
 # A curved ribbon widens toward the foreground; the distant end is almost a point.
 vertices=[(286,286),(300,288),(316,296),(329,306),
