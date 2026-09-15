@@ -1,3 +1,18 @@
+# Gradient cards and aligned labels, versions 12 and 13
+
+Version 12 (`build_cards_v12.py`) adds real translucent color gradients: blue
+runs from light cyan at left to deeper blue at right; gold runs from pale yellow
+at bottom to deeper gold at top. Full neutral gradient and all prior composition
+remain. Version 13 (`build_cards_v13.py`) aligns each row's two status labels
+at y=493 and y=869, with consistent 7.6 pt type. Physics and color are identical.
+
+`compare_cards_v8_v13.py` generates the six-panel comparison PDF and PNG under
+`pdf/schematic-concepts/C_cards_comparison_v8-v13`. Panels E and F isolate the
+gradient-card and aligned-label changes. Earlier comparisons remain available.
+The manuscript production figure is unchanged.
+
+---
+
 # Full gradient and translucency, version 11
 
 Current alternative: `C_refined_cards_v11`, built with `build_cards_v11.py`.
