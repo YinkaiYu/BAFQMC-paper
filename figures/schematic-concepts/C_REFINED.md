@@ -1,3 +1,17 @@
+# Focused comparison of B and F
+
+Only B and F are retained in the current comparison. B's status labels are
+aligned to F at y=493 and y=869; motif positions, sizes, arrow and glow already
+match. The comparator asserts identical PDF text bounding boxes for every label.
+
+Build B with `build_cards_B_aligned.py`, F with `build_cards_v13.py`, then run
+`compare_cards_B_F.py` in WSL. Current comparison outputs are
+`pdf/schematic-concepts/C_cards_comparison_B_F.pdf` and `.png`. The B individual
+stem is `C_refined_cards_B_aligned`; F retains its current stem below.
+Older six-panel comparisons are preserved. The production figure is unchanged.
+
+---
+
 # Status colors matched to regions
 
 In all current candidates A-F, the upper-right status label is dark green
