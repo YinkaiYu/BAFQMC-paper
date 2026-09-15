@@ -1,3 +1,34 @@
+# Selected card design, version 6
+
+The current candidate is `C_refined_cards_v6`. It preserves the two physical
+motifs and classification of version 5 while refining the selected card style.
+The manuscript production figure remains unchanged.
+
+- Blue card: #39a8f5 at 48 percent opacity; gold card: #ffc342 at 64 percent.
+  The lower card remains visible through the upper card. Uniform flat gray base,
+  equal layer overhangs and restrained shadows are retained.
+- Row labels: Within symmetry criteria / Outside symmetry criteria.
+  These refer to the manuscript's existing sufficient criteria; the schematic
+  does not enlarge their scope or assert a necessary condition.
+- The small interacting triangle is in the upper left. A curved ribbon widens
+  toward the larger foreground auxiliary-field scene on its lower right.
+- A softly padded cyan-white halo follows the field and particle silhouettes.
+  The effect is illustrative, not numerical or physical emission data.
+
+Reproduce in WSL:
+
+```powershell
+.\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 -W error figures/schematic-concepts/build_cards_v6.py'
+```
+
+Outputs are `pdf/schematic-concepts/C_refined_cards_v6` with PDF, SVG, PNG and
+manifest extensions, plus `C_refined_cards_v6_sources.zip`. The compositor uses
+unchanged physical renders in `C_refined_v5_assets`. GNU FreeSans is required.
+Labels are checked against the page and card interiors. Older outputs and the
+version-5 builder are preserved.
+
+---
+
 # Focused 3D revision of concept C, version 5
 
 This candidate keeps the original classification and its overlapping half-planes.
