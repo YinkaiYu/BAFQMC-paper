@@ -24,7 +24,7 @@ ASSETS = OUT / "C_refined_v5_assets"
 parser = argparse.ArgumentParser()
 parser.add_argument("--background", choices=["glass", "cards"], default="cards")
 args = parser.parse_args()
-NAME = "C_refined_cards_v11"
+NAME = "C_refined_cards_v11_mint"
 if args.background != "cards":
     raise ValueError("This revision targets the selected card design.")
 # Register an installed open font explicitly; Matplotlib's cache may predate it.
@@ -120,7 +120,13 @@ for name,box,color,opacity,z in [("gold",(548,140,386,798),"#ffcb45",.64,1),
         linewidth=0,facecolor=color,alpha=opacity,zorder=z+.1)
     ax.add_patch(card)
     cards[name]=card
-# The intersection comes from actual alpha compositing, not a third painted hue.
+# Color-correct only the intersection to prevent a muddy blue/gold mixture.
+# The surrounding cards retain their transparency and directional gradients.
+overlap=FancyBboxPatch((548,140),386,798,
+    boxstyle="round,pad=0,rounding_size=20",linewidth=0,
+    facecolor="#a3e3cd",zorder=2.2)
+ax.add_patch(overlap)
+overlap.set_clip_path(cards["blue"])
 for box,z in [((548,140,386,798),1.2),((108,112,854,426),2.3)]:
     x,y,w,h=box
     ax.add_patch(FancyBboxPatch((x,y),w,h,

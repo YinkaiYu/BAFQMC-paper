@@ -1,3 +1,17 @@
+# Mint intersection correction for panels D, E and F
+
+The version 11, 12 and 13 builders now export `_mint` suffixed outputs.
+Only their overlap is color-corrected to #a3e3cd and clipped to the intersecting
+card shapes; this is an intentional compositing adjustment, not raw alpha
+mixing. Surrounding translucency, full gray gradients, directional blue/gold
+gradients, physics motifs and typography are preserved. Original outputs remain.
+
+The refreshed six-panel comparison is `C_cards_comparison_v8-v13_mint.pdf`
+and `.png`. Panels A-C are unchanged. Build with `compare_cards_v8_v13.py`
+after running the three updated builders. The production figure is unchanged.
+
+---
+
 # Gradient cards and aligned labels, versions 12 and 13
 
 Version 12 (`build_cards_v12.py`) adds real translucent color gradients: blue
