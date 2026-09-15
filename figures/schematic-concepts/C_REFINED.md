@@ -1,3 +1,20 @@
+# Full gradient and translucency, version 11
+
+Current alternative: `C_refined_cards_v11`, built with `build_cards_v11.py`.
+The full gray base again extends beneath both translucent cards. It varies from
+#c8d0d9 at lower left to paper white toward upper right, using a smooth ramp
+that reaches white early to soften the upper and right base boundaries.
+Blue (#3aaff8, 48 percent) and gold (#ffcb45, 64 percent) now use actual alpha
+compositing; the intersection is not assigned an independent hue. All motif
+placements and labels match version 10. The production figure is unchanged.
+
+`compare_cards_v8_v11.py` exports a single-page PDF and PNG contact sheet with
+four equally sized panels: version 8 (labels above), version 9 (labels below),
+version 10 (local gradient), and version 11 (full gradient and transparency).
+Output: `pdf/schematic-concepts/C_cards_comparison_v8-v11`.
+
+---
+
 # Diagonal neutral gradient, version 10
 
 Current candidate: `pdf/schematic-concepts/C_refined_cards_v10` (PDF, SVG, PNG,
