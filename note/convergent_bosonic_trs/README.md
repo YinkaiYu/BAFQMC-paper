@@ -1,6 +1,9 @@
 # Convergent bosonic traces and time reversal
 
 The standalone lecture is [ConvergentBosonicTRS.tex](../ConvergentBosonicTRS.tex).
+The complete Chinese edition is
+[ConvergentBosonicTRS_zh.tex](../ConvergentBosonicTRS_zh.tex), with matching
+equations, labels, theorem conditions, and references.
 It derives a sufficient positive-trace theorem from a normalizable Gaussian
 vacuum evolution and explains the two physical contraction-semigroup forms.
 It explicitly proves the required state condition for Hermitian,
@@ -22,6 +25,22 @@ From native Windows PowerShell:
 ~~~powershell
 .\scripts\run-in-wsl.ps1 'latexmk -pdf note/ConvergentBosonicTRS.tex'
 ~~~
+
+Build the Chinese edition with XeLaTeX (the bundled Fandol Chinese fonts
+are used):
+
+~~~sh
+latexmk -xelatex -interaction=nonstopmode -halt-on-error note/ConvergentBosonicTRS_zh.tex
+~~~
+
+Or from native Windows PowerShell:
+
+~~~powershell
+.\scripts\run-in-wsl.ps1 'latexmk -xelatex -interaction=nonstopmode -halt-on-error note/ConvergentBosonicTRS_zh.tex'
+~~~
+
+Its finished PDF is copied to pdf/ConvergentBosonicTRS_zh.pdf. Both editions
+use the same verification code below.
 
 ## Verification
 

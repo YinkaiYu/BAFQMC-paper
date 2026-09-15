@@ -1,0 +1,998 @@
+\documentclass[UTF8,11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype,bm,booktabs,array}
+\usepackage{float}
+\usepackage{xcolor}
+\definecolor{LinkBlue}{RGB}{35,58,115}
+\usepackage[colorlinks,linkcolor=LinkBlue,citecolor=LinkBlue,urlcolor=LinkBlue]{hyperref}
+\hypersetup{pdftitle={时间反演对称性与收敛玻色迹的正性},pdfauthor={}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\trans}{\mathsf T}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\bb}[1]{\bm{#1}}
+\newcommand{\hc}{\dagger}
+\newtheorem{theorem}{定理}
+\numberwithin{equation}{section}
+\allowdisplaybreaks[1]
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+
+\title{时间反演对称性与收敛玻色迹的正性}
+\author{}
+\date{2026年9月15日}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+\begin{abstract}
+玻色辅助场构型的多体迹需要同时满足收敛和符号确定，才能用作合适的统计权重。
+本讲义说明，一个物理时间反演对称性就可以保证收敛高斯迹为正，
+其在单粒子算符上的平方可以是 $+I$，也可以是 $-I$。
+粒子数守恒时，证明直接来自玻色占据数求和。
+存在配对项时，我们先跟踪压缩真空的演化，证明真空振幅为正，
+再连续压低激发态的贡献，把这一正性传递给完整的迹。
+文中给出态演化存在的具体条件，包括厄米、反厄米时间片以及耗散二次型演化。
+随后从态范数的衰减推导收缩矩阵不等式，说明玻色收缩半群的两种标准形式。
+这两种形式分别对应时间反演的两种平方，提供了上述正性机制的两种具体构造。
+\end{abstract}
+
+\section{物理问题是什么}
+
+固定辅助场之后，玻色量子蒙特卡洛需要计算一个有序乘积的迹，
+\begin{equation}
+ \hat G=\ee^{\hat h_1}\ee^{\hat h_2}\cdots\ee^{\hat h_L},
+ \qquad W=\Tr\hat G.
+ \label{eq:weight}
+\end{equation}
+模式数有限，但每个模式的占据数可以任意大。
+每个 $\hat h_\ell$ 都是产生、湮灭算符的二次型，
+其系数已包含时间步长和虚时间演化中的符号。
+我们允许成对产生和湮灭，也允许生成元非厄米。
+迹取遍完整的 Fock 空间，不投影到指定粒子数或指定宇称。
+二次型演化在演化后的态存在时保持谐振子波函数的高斯形式，
+因此也称为高斯演化。
+
+一个谐振子已经能说明收敛与符号之间的关系。记 $\hat n=\hat a^+\hat a$，则
+\begin{equation}
+ \Tr\ee^{-\beta\hat n}
+ =\sum_{n=0}^{\infty}\ee^{-\beta n}
+ =\frac{1}{1-\ee^{-\beta}}>0,\qquad \beta>0.
+ \label{eq:thermal_number}
+\end{equation}
+当 $\beta<0$ 时，占据数求和发散，尽管最右侧的表达式有限且为负。
+本讲义讨论通常意义下收敛的迹。
+这个负的解析延拓值不属于收敛的热占据数求和。
+
+对于非厄米乘积，我们用以下条件表达迹的收敛：
+$\hat G$ 的全部奇异值之和有限。
+奇异值是 $\hat G^\dagger\hat G$ 的本征值的非负平方根。
+这个条件通常称为算符属于\emph{迹类}（trace class）。
+它保证用任意正交归一基计算 $W$ 都得到相同结果，
+并允许对占据数作绝对收敛的求和。
+物理上，这要求完整演化对大占据数有足够强的抑制。
+
+时间反演由反幺正算符 $\Theta$ 表示。
+它对数值系数取复共轭，保持算符乘积的先后顺序，
+并把产生算符变为相应湮灭算符变换后的厄米共轭。
+我们要求所有时间片具有\emph{同一个}时间反演对称性，
+\begin{equation}
+ \Theta\hat h_\ell\Theta^{-1}=\hat h_\ell
+ \quad\text{对每个 }\ell\text{ 成立}.
+ \label{eq:slice_trs}
+\end{equation}
+这给出 $\Theta\hat G\Theta^{-1}=\hat G$，从而 $W=W^*$。
+实数性是第一步，核心问题是进一步证明这个实数为正。
+
+我们先处理无配对项的情况，再引入配对问题所需的对象：
+由成对玻色子修饰的真空。
+第~\ref{sec:vacuum}--\ref{sec:trace}~节给出正性证明。
+第~\ref{sec:contraction}--\ref{sec:standard}~节解释阻尼如何保证证明所需的条件，
+并由此得到收缩半群的两种标准形式。
+
+\section{粒子数守恒：收敛使一个时间反演就足够}
+\label{sec:number}
+
+考虑
+\begin{equation}
+ \hat h_\ell=\xi_\ell+
+ \sum_{ij}\hat a_i^+(K_\ell)_{ij}\hat a_j,
+ \qquad B=\ee^{K_1}\cdots\ee^{K_L}.
+ \label{eq:number_generator}
+\end{equation}
+时间反演使每个标量 $\xi_\ell$ 都是实数。
+它们的指数只贡献正因子，因此暂时略去。
+在单粒子空间中，$\hat G$ 的作用就是 $B$。
+在 $n$ 粒子空间中，它的作用是 $n$ 份 $B$ 的张量积，
+限制在满足玻色对称性的态上。
+因此，若 $B$ 的本征值为 $\lambda_1,\ldots,\lambda_N$，
+占据数求和给出
+\begin{equation}
+ W=\prod_{j=1}^{N}\sum_{n_j=0}^{\infty}\lambda_j^{n_j}
+   =\frac{1}{\det(I-B)}.
+ \label{eq:number_trace}
+\end{equation}
+对于不可对角化的 $B$，在收敛区域内从可对角化矩阵连续取极限，
+仍然得到同一公式。
+
+收敛要求所有 $|\lambda_j|$ 小于一。
+为得到更强的算符条件，作奇异值分解
+$B=V\diag(s_1,\ldots,s_N)W^\dagger$，
+并把分解应用于各个玻色粒子数空间。
+两端的幺正模式变换不改变奇异值，
+对多体算符剩余的奇异值求和得到
+\begin{equation}
+ \Tr\sqrt{\hat G^\dagger\hat G}
+ =\prod_j\sum_{n_j=0}^{\infty}s_j^{n_j}.
+ \label{eq:number_singular}
+\end{equation}
+所以真正收敛的迹要求每个 $s_j<1$，这也保证 $|\lambda_j|<1$。
+若 $B$ 非正规，即 $B^\dagger B\ne BB^\dagger$，
+仅凭本征值位于单位圆内，还不足以确定迹类意义下的收敛。
+
+在湮灭算符组成的基底中，把时间反演写为
+\begin{equation}
+ \Theta\hat a\Theta^{-1}=U\hat a,
+ \qquad U^\dagger U=I,\qquad \overline U U=\pm I.
+ \label{eq:trs_a}
+\end{equation}
+各时间片的不变性给出 $U^\dagger\overline B U=B$。
+因此 $B$ 的本征值或者为实数，或者成复共轭对。
+在式~\eqref{eq:number_trace} 中把这些因子分别放在一起，得到
+\begin{equation}
+ \det(I-B)=
+ \prod_{\lambda\in\mathbb R}(1-\lambda)
+ \prod_{\operatorname{Im}\lambda>0}|1-\lambda|^2>0.
+ \label{eq:number_positive}
+\end{equation}
+每个实本征值满足 $-1<\lambda<1$，所以相应因子也为正。
+这里不需要实本征值具有简并。
+只要迹收敛，式~\eqref{eq:trs_a} 中的任一种平方都足以保证 $W>0$。
+
+当时间反演在单粒子算符上的平方为 $-I$ 时，
+Kramers 配对仍然提供了另一种有用的论证。
+式~\eqref{eq:number_positive} 则说明了为什么收敛还能允许平方为 $+I$：
+收敛已经保证每个未配对的实因子为正。
+
+\section{存在配对项时，选择时间反演不变的真空}
+\label{sec:vacuum}
+
+配对项混合不同的粒子数空间，真空也随之演化。
+因此，我们需要显式跟踪真空振幅。
+把一般的正规序二次型生成元写为
+\begin{equation}
+ \hat h=\xi+(\hat a^+)^\trans K\hat a
+ +\frac12(\hat a^+)^\trans P\hat a^+
+ +\frac12\hat a^\trans Q\hat a,
+ \qquad P^\trans=P,\quad Q^\trans=Q.
+ \label{eq:normal_generator}
+\end{equation}
+列向量 $\hat a$ 和 $\hat a^+$ 分别包含 $N$ 个湮灭和产生算符，
+满足 $[\hat a_i,\hat a_j^+]=\delta_{ij}$。
+$P,Q,K$ 无须满足厄米性关系。
+
+我们选择一个在 $\Theta$ 下不变的高斯真空 $|0\rangle$。
+对于两种熟悉的时间反演作用
+\begin{equation}
+ \Theta_+\hat a_j\Theta_+^{-1}=\hat a_j,
+ \qquad
+ \Theta_-\hat b_j\Theta_-^{-1}=\hat c_j,
+ \quad \Theta_-\hat c_j\Theta_-^{-1}=-\hat b_j,
+ \label{eq:two_actions}
+\end{equation}
+通常的空真空就满足要求。
+第二种作用要求模式数为偶数；连续作用两次后，每个湮灭算符变号。
+在 Fock 空间中，这对应粒子数宇称，因此仍然保持偶宇称的真空不变。
+
+对于一般的物理正则时间反演，无论平方是哪一种，也都可以这样选真空。
+从任意一个正定、具有束缚作用的谐振子哈密顿量 $\hat H_0$ 出发，构造
+\begin{equation}
+ \hat H_{\rm ref}=\hat H_0+\Theta\hat H_0\Theta^{-1}.
+ \label{eq:reference_hamiltonian}
+\end{equation}
+两项都是正定束缚二次型，其和具有唯一的高斯基态。
+时间反演作用两次不改变二次型，所以 $\hat H_{\rm ref}$ 具有时间反演对称性。
+选取基态的相位，使 $\Theta|0\rangle=|0\rangle$。
+相应简正模式的湮灭算符满足式~\eqref{eq:trs_a}，
+因为时间反演必须把湮灭这个真空的算符变成同样湮灭它的算符。
+这就是选择一组谐振子简正模式，整个过程保持物理的厄米共轭关系。
+
+演化中的态始终没有位移，即 $\langle\hat a_j\rangle=0$。
+这样的纯高斯态可以写为
+\begin{equation}
+ |\psi\rangle=c\,|Z\rangle,
+ \qquad
+ |Z\rangle=\exp\!\left[\frac12(\hat a^+)^\trans Z\hat a^+\right]|0\rangle,
+ \qquad Z^\trans=Z.
+ \label{eq:squeezed_state}
+\end{equation}
+指数中的算符成对产生玻色子。
+其展开的常数项等于一，所以 $c=\langle0|\psi\rangle$
+恰好是真空振幅，包含它的符号或相位。
+这个约定固定了 $|Z\rangle$ 的相位，不允许在演化中任意改变它。
+
+对于单个模式，
+\begin{equation}
+ \langle Z|Z\rangle
+ =\sum_{n=0}^{\infty}\frac{(2n)!}{2^{2n}(n!)^2}|Z|^{2n}
+ =\frac{1}{\sqrt{1-|Z|^2}}.
+ \label{eq:squeezed_norm_one}
+\end{equation}
+态可归一化当且仅当 $|Z|<1$。
+对于多个模式，幺正模式变换可以把复对称矩阵 $Z$ 化为彼此独立的配对振幅 $z_j$，
+于是
+\begin{equation}
+ \langle Z|Z\rangle=\prod_j(1-|z_j|^2)^{-1/2},
+ \qquad \|Z\|<1.
+ \label{eq:squeezed_norm}
+\end{equation}
+这里 $|z_j|$ 是 $Z$ 的奇异值，$\|Z\|$ 表示其中最大的一个。
+后面的证明将通过这个简单条件检查态是否具有有限范数。
+
+\section{跟踪一个时间片内的真空振幅}
+\label{sec:evolution}
+
+令一个时间片从 $t=0$ 演化到 $t=1$，满足
+$\partial_t|\psi(t)\rangle=\hat h|\psi(t)\rangle$。
+二次型演化保持高斯形式，因此代入式~\eqref{eq:squeezed_state}，
+就可以确定 $c(t)$ 和 $Z(t)$。
+首先由对易关系得到
+\begin{align}
+ \hat a_i|Z\rangle&=\sum_j Z_{ij}\hat a_j^+|Z\rangle,
+ \label{eq:one_annihilator}\\
+ \hat a_i\hat a_j|Z\rangle
+ &=Z_{ij}|Z\rangle+
+   \sum_{kl}Z_{ik}Z_{jl}\hat a_k^+\hat a_l^+|Z\rangle.
+ \label{eq:two_annihilators}
+\end{align}
+式~\eqref{eq:two_annihilators} 的第一项能够改变真空振幅。
+把这些结果代入演化方程，分别比较两边不含产生算符和含两个产生算符的项，得到
+\begin{align}
+ \frac{\dot c}{c}&=\xi+\frac12\tr(QZ),
+ \label{eq:c_evolution}\\
+ \dot Z&=P+KZ+ZK^\trans+ZQZ.
+ \label{eq:z_evolution}
+\end{align}
+小写 $\tr$ 表示有限矩阵的迹，大写 $\Tr$ 表示多体迹。
+式~\eqref{eq:z_evolution} 决定配对成分如何变化；
+要确定符号，关键是式~\eqref{eq:c_evolution}。
+
+由于 $\Theta$ 同时保持 $\hat h$ 和初态不变，演化中的态也始终在 $\Theta$ 下不变。
+利用式~\eqref{eq:trs_a} 变换态中的配对指数，以及 $\hat h$ 中的成对湮灭项，得到
+\begin{equation}
+ Z=U^\dagger\overline Z\,\overline U,
+ \qquad Q=U^\trans\overline Q\,U,
+ \qquad \xi=\overline\xi.
+ \label{eq:qz_reality}
+\end{equation}
+这些关系使式~\eqref{eq:c_evolution} 右侧为实数。
+其中需要核实的一步是
+\begin{equation}
+ \overline{\tr(QZ)}
+ =\tr\!\left(\overline U Q U^\dagger UZ U^\trans\right)
+ =\tr(QZ),
+ \label{eq:trace_qz_real}
+\end{equation}
+最后一步使用了 $U^\trans\overline U=I$。
+整个计算没有用到 $\overline U U$ 的正负号。
+
+从真空出发时 $c(0)=1$。
+只要演化中的高斯态始终可归一化，$Z$ 就保持有限，从而
+\begin{equation}
+ c(t)=\exp\!\left\{\int_0^t
+ \left[\xi+\frac12\tr(QZ(\tau))\right]d\tau\right\}>0.
+ \label{eq:c_positive}
+\end{equation}
+这里没有平方根的符号选择：它是一个普通实积分的指数。
+按照实际作用顺序，从式~\eqref{eq:weight} 最右侧的因子开始，
+依次对每个时间片应用这一论证。
+上一个时间片结束时的正振幅，就是下一个时间片的初始振幅。
+因此
+\begin{equation}
+ \langle0|\hat G|0\rangle>0.
+ \label{eq:vacuum_positive}
+\end{equation}
+
+\subsection{怎样保证上述态演化存在}
+\label{sec:existence}
+
+证明中的态条件很具体：每个中间时刻得到的高斯态都应具有有限范数，
+等价地，$\|Z(t)\|<1$。
+有几种可以直接使用的方式来保证它。
+
+对于厄米时间片，只要完整时间片作用于输入态后得到的态存在，
+这个时间片内的所有中间态就都存在。
+为看清这一点，把输入态按 $\hat h$ 的本征值 $\lambda$ 作谱分解。
+对于 $0\leq t\leq1$，
+\begin{equation}
+ \|\ee^{t\hat h}\psi\|^2
+ =\int\ee^{2t\lambda}\,d\mu_\psi(\lambda)
+ \leq\int(1+\ee^{2\lambda})\,d\mu_\psi(\lambda)
+ =\|\psi\|^2+\|\ee^{\hat h}\psi\|^2.
+ \label{eq:hermitian_slice}
+\end{equation}
+$d\mu_\psi$ 表示该谱分解中态的振幅模方。
+这个不等式保证所有中间态范数有限，
+即使生成元包含 $+a\hat n$ 这样的放大作用也成立。
+反厄米时间片产生幺正演化，直接保持范数。
+因此，对由厄米和反厄米时间片组成的乘积，
+只要各次顺序作用得到的态存在，就无须额外检查中间时刻。
+
+另一种有用的选择是让时间片的厄米二次型部分非正。
+除了一个有限的标量因子外，它的演化使范数减小。
+这允许同一时间片同时包含厄米和反厄米部分，
+并导向第~\ref{sec:contraction}~节的收缩构造。
+更一般地，也可以选定参考真空，直接用式~\eqref{eq:z_evolution}
+检查 $\|Z(t)\|<1$。
+这种检查方式不要求瞬时厄米部分具有特定符号。
+
+上述检查跟踪每个时间片内的态。
+如果 $Z(t)$ 的某个奇异值达到一，式~\eqref{eq:squeezed_norm} 就会发散，
+这条真空演化轨迹也就无法用于证明。
+前面给出的具体构造保证整个时间片内的范数始终有限。
+
+\section{从真空振幅到完整的迹}
+\label{sec:trace}
+
+正的真空振幅只是占据数求和中的一项。
+现在需要说明，为什么它能确定整个高斯迹的符号。
+为此，我们逐渐增强对谐振子激发态的抑制。
+定义
+\begin{equation}
+ \hat N_0=\sum_j\hat a_j^+\hat a_j,
+ \qquad F(s)=\Tr\!\left(\ee^{-s\hat N_0}\hat G\right),
+ \qquad s\geq0.
+ \label{eq:thermal_filter}
+\end{equation}
+这里使用第~\ref{sec:vacuum}~节的参考模式，
+所以 $\hat N_0$ 具有时间反演对称性。
+$s=0$ 时得到所需的权重；$s$ 很大时，只有真空的贡献留下来。
+
+三个性质合在一起就能给出结论。
+首先，新增因子的算符范数不超过一，因此保持迹的收敛。
+在参考占据数基底中，
+\begin{equation}
+ F(s)=\sum_{\bb n}\ee^{-s\sum_jn_j}
+ \langle\bb n|\hat G|\bb n\rangle,
+ \quad
+ \lim_{s\to\infty}F(s)=\langle0|\hat G|0\rangle.
+ \label{eq:filter_limit}
+\end{equation}
+绝对收敛允许交换极限与求和，也使 $F(s)$ 连续。
+其次，时间反演同时保持两个因子不变，所以 $F(s)$ 始终为实数。
+第三，非零、无位移高斯演化的收敛迹不可能为零。
+下面用一个高斯积分证明第三个性质。
+
+\subsection{为什么有限的高斯迹不会经过零点}
+
+使用相干态
+\begin{equation}
+ |z\rangle=\ee^{-|z|^2/2}
+ \exp\!\left(\sum_jz_j\hat a_j^+\right)|0\rangle,
+ \qquad
+ \int\frac{d^{2N}z}{\pi^N}|z\rangle\langle z|=I.
+ \label{eq:coherent_states}
+\end{equation}
+二次型演化在相干态之间的矩阵元是高斯函数。
+对某些对称矩阵 $X,V$ 和矩阵 $Y$，去掉相干态归一化因子后的形式为
+\begin{equation}
+ \langle0|\ee^{\bar z^\trans\hat a}\hat G
+ \ee^{w^\trans\hat a^+}|0\rangle
+ =c\exp\!\left[
+ \frac12\bar z^\trans X\bar z+\bar z^\trans Yw
+ +\frac12w^\trans Vw\right].
+ \label{eq:gaussian_kernel}
+\end{equation}
+这里 $c=\langle0|\hat G|0\rangle\ne0$。
+与式~\eqref{eq:one_annihilator}--\eqref{eq:z_evolution}
+相同的产生、湮灭算符代数保证了二次指数的形式。
+附录~\ref{app:kernel} 给出这些系数的显式表达式。
+
+令 $w=z$，并补回相干态的归一化因子。
+把 $z$ 的实部和虚部组成实向量 $u$，
+迹就变成一个普通的高斯积分。
+它的绝对收敛由已经假定的 $\hat G$ 的迹类性质保证。
+具体地，作奇异值分解
+$\hat G=\sum_j s_j|u_j\rangle\langle v_j|$，
+其中各态归一化，且 $\sum_j s_j<\infty$。
+利用相干态完备性和 Cauchy--Schwarz 不等式，
+\begin{equation}
+ \int\frac{d^{2N}z}{\pi^N}|\langle z|\hat G|z\rangle|
+ \leq\sum_j s_j
+ \left[\int\frac{d^{2N}z}{\pi^N}|\langle z|u_j\rangle|^2
+       \int\frac{d^{2N}z}{\pi^N}|\langle v_j|z\rangle|^2\right]^{1/2}
+ =\sum_j s_j.
+ \label{eq:coherent_absolute}
+\end{equation}
+因此，这个积分的二次衰减矩阵的实部必须正定。
+结果为
+\begin{equation}
+ \Tr\hat G
+ =c\int\frac{d^{2N}u}{(2\pi)^N}
+       \exp\!\left(-\frac12u^\trans\mathcal A u\right)
+ =\frac{c}{\sqrt{\det\mathcal A}},
+ \qquad \operatorname{Re}\mathcal A>0.
+ \label{eq:gaussian_integral}
+\end{equation}
+这里的归一化对应 $z=(u_x+\ii u_p)/\sqrt2$。
+实部正定正是这个高斯积分的收敛条件，也保证 $\mathcal A$ 可逆。
+求积分时，可以把 $\mathcal A$ 从 $I$ 连续变到最终值，
+并在整个过程中保持其实部正定。
+因此，积分值有限且非零。
+收敛积分本身已经确定了平方根的取值，无须单独对行列式选择符号。
+
+对每个有限的 $s\geq0$，同样的推导适用于
+$\ee^{-s\hat N_0}\hat G$，其真空系数仍然为 $c$。
+所以 $F(s)$ 是一个连续的实函数，始终不等于零，
+并在 $s\to\infty$ 时趋于式~\eqref{eq:vacuum_positive} 中的正数。
+连续实函数要改变符号就必须经过零点，因此
+\begin{equation}
+ \boxed{W=F(0)>0.}
+ \label{eq:main_positive}
+\end{equation}
+这说明了配对问题中收敛的作用。
+我们可以连续压低激发态的贡献，使完整的迹与真空振幅相连，
+而不会在途中遇到发散的高斯积分。
+
+\subsection{可以直接使用的充分条件}
+
+\begin{theorem}[一个物理时间反演]
+\label{thm:one_trs}
+设 $\hat G=\prod_\ell\ee^{\hat h_\ell}$
+是有限个玻色模式上的实际有序二次型演化，
+在完整 Fock 空间上的迹收敛。
+所有生成元具有同一个物理反幺正对称性 $\Theta$，
+其在单粒子算符上的平方为 $+I$ 或 $-I$。
+若一个时间反演不变的高斯真空在依次通过这些时间片时始终可归一化，
+则 $\Tr\hat G>0$。
+
+特别地，只要各次作用得到的态存在，
+厄米与反厄米时间片的顺序乘积就满足这一态条件。
+第~\ref{sec:contraction}~节的耗散时间片也满足它。
+此外，还可以通过式~\eqref{eq:z_evolution} 直接检查。
+\end{theorem}
+
+因此，对厄米、反厄米时间片的构造，
+可以直接使用的条件就是共同的物理时间反演，
+以及各次实际顺序作用所得乘积的通常收敛迹。
+对于同一片内混合厄米和反厄米部分的耗散生成元，
+第~\ref{sec:contraction}~节的系数条件同时保证所需的态演化存在。
+共同对称性的任一种平方都足够，
+因为式~\eqref{eq:trace_qz_real} 只用到了时间反演的复共轭性质。
+
+在通常的分类记号中，花括号列出共同的、彼此反对易的时间反演的平方。
+定理~\ref{thm:one_trs} 给出表~\ref{tab:trs}。
+既然一个对称性就已足够，反对易关系便不再参与这个充分性证明。
+\begin{table}[H]
+ \centering
+ \begin{tabular}{ll}
+ \toprule
+ 共同的时间反演 & 定理~\ref{thm:one_trs} 中的收敛演化\\
+ \midrule
+ 无 & 不保证为正\\
+ $\{+\}$ & 为正\\
+ $\{-\}$ & 为正\\
+ $\{+,+\},\ \{+,-\},\ \{-,-\}$ & 均为正\\
+ 三个或更多 & 均为正\\
+ \bottomrule
+ \end{tabular}
+ \caption{最小的充分条件类为 $\{+\}$ 和 $\{-\}$。
+ 粒子数守恒时，收敛本身就给出所需的占据数界，见第~\ref{sec:number}~节。
+ 存在配对项时，所需的态演化条件及保证它成立的具体构造见定理~\ref{thm:one_trs}。}
+ \label{tab:trs}
+\end{table}
+
+\section{阻尼与收缩半群}
+\label{sec:contraction}
+
+前面解决了符号问题，现在进一步寻找方便控制收敛的演化构造。
+引入厄米的位置、动量算符，
+\begin{equation}
+ \hat a_j=\frac{\hat x_j+\ii\hat p_j}{\sqrt2},\qquad
+ \hat a_j^+=\frac{\hat x_j-\ii\hat p_j}{\sqrt2},\qquad
+ \hat r=\binom{\hat x}{\hat p},\qquad
+ [\hat r_\mu,\hat r_\nu]=\ii\Omega_{\mu\nu},\quad
+ \Omega=\begin{pmatrix}0&I\\-I&0\end{pmatrix}.
+ \label{eq:quadratures}
+\end{equation}
+略去一个实标量后，生成元可以写为
+\begin{equation}
+ \hat h=\frac12\hat r^\trans H\hat r,\qquad
+ H^\trans=H,\qquad H=H_R+\ii H_I,
+ \label{eq:quadrature_h}
+\end{equation}
+其中 $H_R,H_I$ 都是实对称矩阵。
+二者的物理作用可以分别写成
+\begin{equation}
+ \hat h=-\hat D+\ii\hat K,\qquad
+ \hat D=-\frac12\hat r^\trans H_R\hat r,\qquad
+ \hat K=\frac12\hat r^\trans H_I\hat r.
+ \label{eq:damping_unitary}
+\end{equation}
+当 $H_R\leq0$ 时，$\hat D$ 是一些厄米算符平方的非负线性组合，
+这些厄米算符由 $x,p$ 线性组合而成。
+因子 $\ee^{-t\hat D}$ 抑制大的涨落，而 $\ee^{\ii t\hat K}$ 为幺正演化。
+两者的 Trotter 乘积构造出混合演化，其范数满足
+\begin{equation}
+ \frac{d}{dt}\langle\psi(t)|\psi(t)\rangle
+ =-2\langle\psi(t)|\hat D|\psi(t)\rangle\leq0.
+ \label{eq:norm_damping}
+\end{equation}
+所以这些时间片保持每个输入态的可归一化性。
+若式~\eqref{eq:quadrature_h} 中略去的标量为实数，
+它只会给范数界乘上有限的正指数因子。
+
+\subsection{用有限矩阵表达同一种阻尼}
+
+正则算符的演化可以由一个对易子求出，
+\begin{equation}
+ [\hat h,\hat r]=-\ii\Omega H\hat r,
+ \qquad
+ \ee^{-t\hat h}\hat r\,\ee^{t\hat h}=M(t)\hat r,
+ \qquad M(t)=\ee^{\ii t\Omega H}.
+ \label{eq:propagation}
+\end{equation}
+传播矩阵 $M$ 保持正则对易关系，
+即 $M^\trans\Omega M=\Omega$。
+为了在矩阵层面描述阻尼，对下面的量求导，
+\begin{align}
+ \frac{d}{dt}\left[M(t)^\dagger(\ii\Omega)M(t)\right]
+ &=M(t)^\dagger(H+H^\dagger)M(t)\nonumber\\
+ &=2M(t)^\dagger H_R M(t)\leq0.
+ \label{eq:derivative_contraction}
+\end{align}
+由初值 $M(0)=I$ 得到
+\begin{equation}
+ \boxed{M^\dagger(\ii\Omega)M\leq\ii\Omega.}
+ \label{eq:contraction}
+\end{equation}
+这就是玻色收缩不等式。
+矩阵 $\ii\Omega$ 同时具有正、负本征值，
+这里的“收缩”指的是式~\eqref{eq:contraction} 对两个二次型的比较。
+它不要求 $M$ 的所有奇异值小于一。
+
+例如，对于 $\hat h=-\beta(\hat n+1/2)$，
+Nambu 列向量 $\hat\chi=(\hat a,\hat a^+)^\trans$ 的传播矩阵满足
+\begin{equation}
+ M_\chi=\diag(\ee^{-\beta},\ee^{\beta}),\qquad
+ \Sigma=\diag(1,-1),\qquad
+ M_\chi^\dagger\Sigma M_\chi-\Sigma
+ =\diag(\ee^{-2\beta}-1,1-\ee^{2\beta})<0.
+ \label{eq:oscillator_contraction}
+\end{equation}
+产生算符对应的矩阵元增大，是保持对易关系所必需的，
+与物理占据数权重的衰减完全相容。
+对于 $N$ 个模式，两种等价写法通过以下变换联系，
+\begin{equation}
+ \Sigma=\diag(I_N,-I_N),\qquad
+ T=\frac1{\sqrt2}\begin{pmatrix}I&I\\-\ii I&\ii I\end{pmatrix},
+ \qquad T\Sigma T^\dagger=\ii\Omega,
+ \qquad \hat r=T\hat\chi.
+ \label{eq:metric_dictionary}
+\end{equation}
+
+\subsection{为什么一个阻尼因子就可以足够}
+
+半群的意思就是一组对乘法封闭的对象：
+其中任意两个对象相乘，结果仍在这一组内。
+式~\eqref{eq:contraction} 确定的矩阵集合具有这一性质。
+记 $E=\ii\Omega$，则
+\begin{align}
+ E-(M_1M_2)^\dagger E(M_1M_2)
+ &=M_2^\dagger(E-M_1^\dagger EM_1)M_2
+   +(E-M_2^\dagger EM_2).
+ \label{eq:product_contraction}
+\end{align}
+若右侧两项均非负，则它们的和也非负。
+只要一个因子满足严格收缩不等式，其余因子满足非严格不等式，
+完整乘积就满足严格不等式。
+这是因为传播矩阵可逆，可逆矩阵左右共轭变换不会破坏正定性。
+
+满足 $M^\dagger EM=E$ 的因子组成\emph{最大子群}，
+因为它们的逆矩阵也满足同一个等式。
+在已经分离出标量因子的约定下，
+它们在物理上对应高斯幺正演化，这里由 $H_R=0$ 的生成元产生。
+因此，一个对所有方向都有阻尼的因子，
+可以与任意多个这样的幺正因子组合。
+更一般地，几个只抑制部分方向的因子，也可能合起来抑制全部方向。
+无须要求每个时间片都满足 $H_R<0$。
+
+严格收缩还排除了单位圆上的本征值。
+若 $Mv=\lambda v$ 且 $|\lambda|=1$，则
+\begin{equation}
+ v^\dagger(E-M^\dagger EM)v=(1-|\lambda|^2)v^\dagger Ev=0,
+\end{equation}
+与严格正定矛盾。
+特别地，玻色行列式极点对应的 $\lambda=1$ 被排除。
+
+\subsection{这些阻尼乘积的另一种直接正性证明}
+
+在上述构造内，还可以把各生成元连续变成普通热谐振子，
+从而直接确定正号。
+使用前面时间反演不变的参考模式，令
+\begin{equation}
+ \hat h_\ell(u)=u\hat h_\ell-(1-u)\delta
+ \sum_j(\hat a_j^+\hat a_j+1/2),
+ \qquad 0\leq u\leq1,\quad\delta>0.
+ \label{eq:thermal_deformation}
+\end{equation}
+这个连续变形保持时间反演对称性，也保持厄米部分非正。
+当 $u<1$ 时，每个模式都具有严格阻尼。
+在 $u=1$ 处，假定原来的完整乘积严格收缩，
+例如乘积中包含一个严格收缩因子。
+于是，整个变形过程中迹都保持收敛。
+收敛与严格收缩的等价性将在第~\ref{sec:endpoint}~节和
+附录~\ref{app:convergence} 中推导。
+
+迹随 $u$ 连续变化，由时间反演保持为实数，
+并由第~\ref{sec:trace}~节的高斯积分结论保证不会为零。
+在热谐振子端点，
+\begin{equation}
+ W(0)=\left[2\sinh(L\delta/2)\right]^{-N}>0.
+\end{equation}
+因此直到 $u=1$，迹都保持为正。
+这与前面压低激发态时使用的论证相同：
+一个连续、非零的实迹函数保持其符号。
+收缩条件提供了一条特别简单的、始终收敛的演化路径。
+
+\subsection{收敛是最终乘积的性质}
+\label{sec:endpoint}
+
+对于非零的有限模式高斯算符，
+若其正则传播矩阵有限且可逆，则它与实际 Fock 空间迹的关系为
+\begin{equation}
+ \boxed{\hat G\ \text{属于迹类}
+ \quad\Longleftrightarrow\quad
+ M_\chi^\dagger\Sigma M_\chi<\Sigma.}
+ \label{eq:trace_contraction_equivalence}
+\end{equation}
+式中的 $\Sigma$ 由物理关系 $\hat a^+=(\hat a)^\dagger$ 固定。
+附录~\ref{app:convergence} 用高斯积分证明这一等价性。
+它也属于高斯谐振子算符理论的标准结果~\cite{hilgert1989,derezinski2017}。
+
+式~\eqref{eq:trace_contraction_equivalence} 描述的是\emph{最终}算符。
+原始生成元无须逐一满足 $H_R\leq0$。
+一个简单例子是
+\begin{equation}
+ \ee^{a\hat n}\ee^{-(a+b)\hat n}=\ee^{-b\hat n},
+ \qquad a,b>0.
+ \label{eq:growth_cancellation}
+\end{equation}
+从右往左作用时，前面的阻尼提供了足够强的抑制，
+使后续放大仍然得到有限的态。
+最终的迹收敛且为正。
+这个例子满足定理~\ref{thm:one_trs} 中厄米时间片的条件，
+尽管放大生成元位于收缩锥之外。
+
+矩阵不等式控制收敛，正的真空振幅则确定实际高斯算符的整体符号。
+正迹定理中，这两部分均已得到保证。
+给算符乘上一个整体负号不会改变 $M$，
+这也解释了为什么我们先跟踪实际态的演化，再引入收缩矩阵。
+
+\section{收缩半群的两种标准形式}
+\label{sec:standard}
+
+现在可以把上述物理条件与另一份讲义《玻色收缩半群的两种标准形式》联系起来。
+该讲义的源文件为 \texttt{BosonicContractionSemigroups.md}，
+读者无须先了解其中的矩阵枚举。
+在厄米坐标上，把时间反演写为
+$\Theta\hat r\Theta^{-1}=R\hat r$。
+由于时间反演对 $\ii$ 取复共轭，
+保持对易关系要求 $R^\trans\Omega R=-\Omega$。
+各个二次型时间片的条件为
+\begin{equation}
+ \boxed{H^\trans=H,\qquad R^\trans\overline H R=H,
+ \qquad \operatorname{Re}H\leq0.}
+ \label{eq:standard_common}
+\end{equation}
+它们依次表达玻色二次型结构、物理时间反演和阻尼。
+
+在参考谐振子坐标中，时间反演的两种平方给出下面两种标准形式，
+只需对参考模式作幺正变换就能得到。
+平方为 $+I$ 时，单粒子空间存在一组在时间反演下不变的正交归一基：
+由向量及其时间反演像的适当线性组合，可以构成这样的实基底。
+平方为 $-I$ 时，一个向量与它的时间反演像正交，
+因为 $\langle v|\Theta v\rangle=-\langle v|\Theta v\rangle$。
+先选择这样一对向量，再在它们的正交补空间中重复，
+就得到熟悉的 Kramers 对。
+这两种模式变换都保持物理的产生、湮灭算符共轭关系。
+
+\subsection{时间反演作用于每个模式内部：平方为 \texorpdfstring{$+I$}{+I}}
+
+选取 $\Theta\hat x=\hat x$、$\Theta\hat p=-\hat p$，于是
+\begin{equation}
+ R_+=\begin{pmatrix}I&0\\0&-I\end{pmatrix},\qquad
+ H=\begin{pmatrix}H_{xx}&H_{xp}\\H_{xp}^\trans&H_{pp}\end{pmatrix}.
+\end{equation}
+代入式~\eqref{eq:standard_common} 得到
+\begin{equation}
+ \boxed{H_{xx},H_{pp}\ \text{为实矩阵},\qquad
+ H_{xp}\ \text{为纯虚矩阵},\qquad
+ H_{xx}\leq0,\quad H_{pp}\leq0.}
+ \label{eq:plus_standard}
+\end{equation}
+实的 $xx$ 和 $pp$ 项提供阻尼，
+纯虚的混合项产生保持同一时间反演的幺正演化。
+这对应另一份讲义的定理 1，也是 $\{+\}$ 的收缩半群构造。
+
+例如，取一个阻尼因子和一个压缩幺正因子，
+\begin{equation}
+ \hat G=\ee^{-\beta(\hat n+1/2)}
+ \ee^{\frac{s}{2}(\hat a^2-\hat a^{+2})},
+ \qquad \beta>0,\quad s\in\mathbb R.
+ \label{eq:plus_example}
+\end{equation}
+两个生成元在占据数基底中都为实矩阵，并保持 $\Theta_+$。
+其迹和真空振幅为
+\begin{equation}
+ W=\frac{1}{\sqrt{2\cosh\beta\cosh s-2}}>0,
+ \qquad
+ \langle0|\hat G|0\rangle=
+ \frac{\ee^{-\beta/2}}{\sqrt{\cosh s}}>0.
+ \label{eq:plus_example_trace}
+\end{equation}
+当 $s=0$ 时，结果退化为谐振子配分函数
+$[2\sinh(\beta/2)]^{-1}$。
+配对改变了各占据数成分，正的实真空振幅仍然固定整个迹的符号。
+
+\subsection{时间反演交换两组模式：平方为 \texorpdfstring{$-I$}{-I}}
+
+对于 $N=2m$ 个模式，采用式~\eqref{eq:two_actions} 中的 $b,c$ 变换，
+并按 $\hat r=(\hat r_b,\hat r_c)^\trans$ 排列坐标，
+其中 $\hat r_b=(\hat x_b,\hat p_b)^\trans$，$c$ 组类似。
+定义动量反号矩阵 $S=\diag(I_m,-I_m)$，则
+\begin{equation}
+ \Theta\hat r_b\Theta^{-1}=S\hat r_c,\qquad
+ \Theta\hat r_c\Theta^{-1}=-S\hat r_b.
+\end{equation}
+把 $H$ 按 $b,c$ 分块，式~\eqref{eq:standard_common} 变为
+\begin{equation}
+ \boxed{H_{cc}=S\overline{H_{bb}}S,\qquad
+ H_{bc}=-S H_{bc}^\dagger S,\qquad
+ \operatorname{Re}H\leq0.}
+ \label{eq:minus_standard}
+\end{equation}
+阻尼不等式作用于包含两组耦合的完整矩阵。
+两组模式无须独立演化。
+这对应另一份讲义的定理 2，也是 $\{-\}$ 的收缩半群构造。
+
+例如，一个共同的热阻尼可以与两个幺正生成元组合，
+\begin{align}
+ \hat h_0&=-\beta(\hat n_b+\hat n_c+1),\quad\beta>0,\nonumber\\
+ \hat h_1&=\ii\theta(\hat b^+\hat c+\hat c^+\hat b),
+ \quad\theta\in\mathbb R,\nonumber\\
+ \hat h_2&=\frac12\left(
+ \zeta\hat b^{+2}-\overline\zeta\hat b^2
+ +\overline\zeta\hat c^{+2}-\zeta\hat c^2\right).
+ \label{eq:minus_example}
+\end{align}
+逐项施加 $\Theta_-$，并对 $\ii$ 和 $\zeta$ 取复共轭，
+即可验证三个生成元都不变。
+后两个生成元为反厄米，$\hat h_0$ 则抑制两个模式。
+任何包含该阻尼因子、再配上任意顺序的这两类幺正因子的乘积，
+都具有收敛的正迹。
+这里无须把问题拆成两个独立组分。
+
+\subsection{这一对应说明了什么}
+
+两种标准形式对应的就是定理~\ref{thm:one_trs} 中时间反演平方的两种可能。
+另一份讲义原来的八个单元可以分成如下两组；
+单元编号只是查阅该讲义的索引，
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+物理时间反演类 & 标准形式 & 另一份讲义中的单元\\
+\midrule
+$\{+\}$ & 式~\eqref{eq:plus_standard} & B02, B05, B17, B22\\
+$\{-\}$ & 式~\eqref{eq:minus_standard} & B10, B13, B25, B30\\
+\bottomrule
+\end{tabular}
+\end{center}
+这套枚举还引入第二个反线性变换，
+通过 $E=-\overline{R_2}\Omega$ 表达收缩所用的矩阵 $E$。
+对于标准选择 $E=\ii\Omega$，得到 $R_2=\ii I$。
+它承担的是表达收缩条件的代数作用。
+若把厄米的 $x,p$ 乘以 $\ii$，其厄米共轭关系会改变，
+因此这个 $R_2$ 不构成完整耗散生成元的另一个物理时间反演。
+完整生成元只需满足式~\eqref{eq:standard_common} 中的那个物理对称性。
+
+本讲义证明为正的最终乘积，都具有严格收缩的物理传播矩阵，
+以及由实际演化选定的正真空振幅。
+在这个意义下，它们的正性都具有收缩半群的描述。
+另一份讲义提供了简单的生成元条件，
+使每次相乘都保持在这一类演化之内。
+同一个最终算符的其他原始分解可以含有放大时间片，
+如式~\eqref{eq:growth_cancellation}。
+最终乘积严格收缩，并不意味着这些原始时间片逐一满足
+式~\eqref{eq:standard_common}。
+
+因此，对定理~\ref{thm:one_trs} 覆盖的演化，
+原有的对称性集合 $\{-,-\}$、$\{+,-\}$ 和 $\{+,+,+\}$
+都包含在这里的充分条件类中。
+收缩构造允许更少的物理时间反演，
+同时提供实际可用的收敛判据。
+在这一范围内，两种标准形式表达的就是 $\{+\}$ 和 $\{-\}$
+对应的两种基本机制。
+它们没有穷尽缺少共同物理时间反演时，
+所有可能产生正玻色权重的方式。
+
+另一份讲义还利用复正则坐标变换，识别了八种代数描述之间的等价性。
+使用这样的变换时，需要把实际的厄米共轭关系与坐标一起变换。
+这里的物理判据始终使用厄米的 $x,p$，
+所以阻尼和 Fock 空间收敛保持通常的谐振子含义。
+
+\appendix
+\section{高斯核与传播矩阵}
+\label{app:kernel}
+
+本附录补充第~\ref{sec:trace}、\ref{sec:endpoint}~节使用的有限矩阵关系。
+它独立于通过真空振幅确定符号的论证。
+
+在 Nambu 基底中，用下式定义传播矩阵，
+\begin{equation}
+ \hat\chi\hat G=\hat G M_\chi\hat\chi,
+ \qquad
+ M_\chi=\begin{pmatrix}A&B\\C&D\end{pmatrix}.
+ \label{eq:kernel_intertwine}
+\end{equation}
+这些分块字母只在附录中使用，
+与式~\eqref{eq:normal_generator} 的正规序系数 $K,P,Q$ 不同。
+取独立复变量 $z,w$，把核写为
+\begin{equation}
+ \mathcal K(z,\bar w)=c\exp\!\left[
+ \frac12 z^\trans Xz+z^\trans Y\bar w
+ +\frac12\bar w^\trans V\bar w\right].
+ \label{eq:appendix_kernel}
+\end{equation}
+对这些未归一化相干态，产生算符对应乘法，湮灭算符对应求导。
+因此，式~\eqref{eq:kernel_intertwine} 的下方分块给出
+\begin{equation}
+ z\mathcal K=C\bar w\mathcal K+D\partial_{\bar w}\mathcal K,
+ \qquad DY^\trans=I,\qquad DV=-C.
+\end{equation}
+所以 $D$ 可逆，$Y=D^{-\trans}$，$V=-D^{-1}C$。
+上方分块给出 $X=BD^{-1}$，
+剩下的系数关系由保持对易关系得到。
+因此，对称高斯核矩阵为
+\begin{equation}
+ \mathcal S=
+ \begin{pmatrix}
+ BD^{-1}&D^{-\trans}\\
+ D^{-1}&-D^{-1}C
+ \end{pmatrix},
+ \qquad
+ \mathcal K=c\exp\!\left[\frac12
+ (z,\bar w)^\trans\mathcal S(z,\bar w)\right].
+ \label{eq:kernel_S}
+\end{equation}
+标量 $c$ 由实际算符给定，例如可由式~\eqref{eq:c_evolution} 求出。
+传播矩阵确定高斯核的形状。
+
+\section{推导收敛与严格收缩的等价性}
+\label{app:convergence}
+
+高斯核的收敛判据可以化为前面压缩态中使用的范数计算。
+算符的奇异值平方和为
+\begin{equation}
+ \Tr(\hat G^\dagger\hat G)
+ =|c|^2\int\frac{d^{4N}v}{\pi^{2N}}
+ \exp\!\left[-v^\dagger v+\operatorname{Re}(v^\trans\mathcal Sv)\right],
+ \label{eq:kernel_norm_integral}
+\end{equation}
+其中 $v=(z,\bar w)$ 遍历 $2N$ 个独立复变量。
+对这些变量作幺正变换，可以把对称二次型化为
+$\sum_js_jv_j^2$，其中 $s_j\geq0$ 为实数，
+就是 $\mathcal S$ 的奇异值。
+每个 $v_j$ 的实部和虚部对应的高斯衰减系数分别为
+$1-s_j$ 和 $1+s_j$。
+因此
+\begin{equation}
+ \Tr(\hat G^\dagger\hat G)<\infty
+ \quad\Longleftrightarrow\quad
+ I-\mathcal S^\dagger\mathcal S>0.
+ \label{eq:kernel_norm_test}
+\end{equation}
+迹类必然满足左侧条件，
+因为一列非负奇异值的和有限，其平方和也有限。
+
+反过来，在有限模式的高斯问题中，奇异值平方和有限也足以推出迹类。
+若 $\|\mathcal S\|<1$，选一个足够小的 $\epsilon>0$，使
+$\ee^{2\epsilon}\|\mathcal S\|<1$。
+在占据数矩阵元的左右两端分别乘上
+$\ee^{\epsilon\hat N_0}$，
+就把核矩阵变成 $\ee^{2\epsilon}\mathcal S$。
+它仍然定义一个有界算符 $\hat G_\epsilon$。
+于是
+\begin{equation}
+ \hat G=\ee^{-\epsilon\hat N_0}\hat G_\epsilon
+        \ee^{-\epsilon\hat N_0}.
+ \label{eq:traceclass_sandwich}
+\end{equation}
+两端因子的奇异值平方和都有限。
+奇异值的 Cauchy--Schwarz 不等式给出，
+这个乘积的奇异值之和不超过
+$\|\ee^{-\epsilon\hat N_0}\|_2^2\|\hat G_\epsilon\|$，因而有限。
+这里 $\|T\|_2^2=\Tr(T^\dagger T)$。
+这就证明了迹类性质。
+
+接下来把式~\eqref{eq:kernel_norm_test} 改写成 $M_\chi$ 的条件。
+定义可逆分块矩阵
+\begin{equation}
+ L_0=\begin{pmatrix}0&I\\D^{-1}&-D^{-1}C\end{pmatrix}.
+\end{equation}
+正则对易关系给出 $A-BD^{-1}C=D^{-\trans}$，因此
+\begin{equation}
+ L_0=\begin{pmatrix}0&I\\Y^\trans&V\end{pmatrix},
+ \qquad
+ M_\chi L_0=\begin{pmatrix}X&Y\\I&0\end{pmatrix}.
+\end{equation}
+利用这两个分块矩阵，可以直接计算
+\begin{align}
+ L_0^\dagger\Sigma L_0
+ &=\begin{pmatrix}
+ -\overline Y Y^\trans&-\overline Y V\\
+ -V^\dagger Y^\trans&I-V^\dagger V
+ \end{pmatrix},\nonumber\\
+ (M_\chi L_0)^\dagger\Sigma(M_\chi L_0)
+ &=\begin{pmatrix}
+ X^\dagger X-I&X^\dagger Y\\
+ Y^\dagger X&Y^\dagger Y
+ \end{pmatrix}.
+\end{align}
+两式相减，并使用
+$\mathcal S=\left(\begin{smallmatrix}X&Y\\Y^\trans&V\end{smallmatrix}\right)$，得到
+\begin{equation}
+ L_0^\dagger(\Sigma-M_\chi^\dagger\Sigma M_\chi)L_0
+ =I-\mathcal S^\dagger\mathcal S.
+ \label{eq:congruence_identity}
+\end{equation}
+由于 $L_0$ 可逆，两侧的正定性等价。
+式~\eqref{eq:kernel_norm_test}--\eqref{eq:congruence_identity}
+便证明了式~\eqref{eq:trace_contraction_equivalence}。
+
+还可以在构造高斯核之前，直接由严格收缩证明 $D$ 可逆。
+把 $\Sigma-M_\chi^\dagger\Sigma M_\chi>0$
+作用于向量 $(0,w)^\trans$，对任意非零 $w$ 得到
+$\|Dw\|^2>\|w\|^2+\|Bw\|^2$。
+所以 $Dw=0$ 只允许 $w=0$，$D$ 必然可逆。
+随后式~\eqref{eq:kernel_S} 就能为给定的矩阵构造收敛高斯核，
+整体标量则由物理演化确定。
+这里讨论的是有限个高斯指数乘积所给出的非退化算符；
+精确的真空投影是一个极限对象，没有有限可逆的 $M_\chi$。
+
+\section{核实单模式例子}
+
+对式~\eqref{eq:plus_example}，令 $q=\ee^{-\beta}$、$v=\tanh s$。
+传播矩阵和高斯核的分块为
+\begin{equation}
+ M_\chi=
+ \begin{pmatrix}q&0\\0&q^{-1}\end{pmatrix}
+ \begin{pmatrix}\cosh s&-\sinh s\\-\sinh s&\cosh s\end{pmatrix},
+ \quad X=-q^2v,\quad Y=\frac{q}{\cosh s},\quad V=v.
+\end{equation}
+真空振幅为 $c=\sqrt{q/\cosh s}$。
+把对角核代入式~\eqref{eq:gaussian_integral} 的二实变量积分，得到
+\begin{equation}
+ \frac{W}{c}=\frac{1}{\sqrt{(1-Y)^2-XV}},
+ \qquad
+ W^{-2}=q^{-1}\cosh s+q\cosh s-2.
+\end{equation}
+这就是式~\eqref{eq:plus_example_trace}。
+$c$ 和积分均为正，与一般证明的两个步骤一致。
+
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{hilgert1989}
+J.~Hilgert, A note on Howe's oscillator semigroup,
+\emph{Ann. Inst. Fourier} \textbf{39}, 663--688 (1989),
+\href{https://doi.org/10.5802/aif.1182}{doi:10.5802/aif.1182}.
+\bibitem{derezinski2017}
+J.~Derezi\'nski and M.~Karczmarczyk, Quantization of Gaussians (2017),
+\href{https://arxiv.org/abs/1701.07297}{arXiv:1701.07297}.
+\end{thebibliography}
+\end{document}
