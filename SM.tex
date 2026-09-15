@@ -1042,7 +1042,7 @@ A time reversal is an antilinear map on the bosonic operators,
     \Theta(\hat d^+)=[\Theta(\hat d)]^+.
     \label{eq:trs_time_reversal_definition}
 \end{equation}
-Here $\hat d$ is any linear combination of Nambu operators. The exchange matrix
+Here $\hat d$ is any linear combination of the creation and annihilation operators in $\hat\chi$. The exchange matrix
 \begin{equation}
     C=\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}
     \label{eq:trs_C_matrix}
@@ -1067,7 +1067,7 @@ Since the rows of $U$ specify the images of the operators, composition gives
     \label{eq:trs_TR_composition_order}
 \end{equation}
 The symmetry sets in Table~\ref{tab:trs_periodic} also satisfy
-$\overline U_bU_a=-\overline U_aU_b$ for $a\ne b$. We denote a map by $\Theta=U\mc K$, with Eq.~\eqref{eq:trs_time_reversal_definition} fixing this operator convention.
+$\overline U_bU_a=-\overline U_aU_b$ for $a\ne b$. We denote a map by $\Theta=U\mc K$, where $\mc K$ conjugates numerical coefficients and Eq.~\eqref{eq:trs_time_reversal_definition} fixes the operator convention.
 
 Products of two time reversals give linear symmetries. Their eigenspaces separate the Nambu evolution into sectors, which is the starting point of the next two proofs. For a basis change $\hat\chi=V\hat\chi'$, the generator becomes $V^{-1}A_\ell V$, while the bilinear form in the quadratic expression becomes $V^\trans\Omega V$. The transformed operator commutator is instead $V^{-1}\Omega V^{-\trans}$. The columns of $V$ can be chosen as matrix eigenvectors, and the rows of $V^{-1}$ give the corresponding operators.
 
@@ -1218,13 +1218,13 @@ so \(z=0\).  Every selected creation-like operator therefore has an independent,
     W>0\qquad\text{wherever the Gaussian weight is finite}.
     \label{eq:trs_kramers_class_positive}
 \end{equation}
-The second time reversal has supplied the independent operator space in which the single-Kramers pairing argument applies.
+The second time reversal has supplied the independent operator space in which the eigenvalue-pairing argument for a single Kramers symmetry applies.
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
-Three positive-square time reversals provide a second route to positive Gaussian weights. Their products again split the Nambu evolution into $Q=\pm\ii$ sectors, while the bosonic commutation relations constrain the reduced evolution to a real split orthogonal group.
+Three time-reversal symmetries with $\Theta_a^2=+I$ provide a second route to positive Gaussian weights. Their products again split the Nambu evolution into $Q=\pm\ii$ sectors, while the bosonic commutation relations constrain the reduced evolution to a real split orthogonal group.
 
-A positive-square time reversal defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
+A time-reversal symmetry with $\Theta^2=+I$ defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
 \begin{equation}
     \hat d+\Theta_1\hat d,
     \qquad
@@ -1373,7 +1373,7 @@ For $\kappa<0$, the occupation sum converges to $\ee^{\kappa/2}/(1-\ee^\kappa)$.
     \qquad \kappa>0.
     \label{eq:trs_boson_pp_counter_weight}
 \end{equation}
-This finite negative weight covers the $\{+,+\}$ and $\{+\}$ entries. It also shows why a single positive-square time reversal is insufficient in the number-conserving criterion.
+This finite negative weight covers the $\{+,+\}$ and $\{+\}$ entries. It also shows why a single time-reversal symmetry with $\Theta^2=+I$ is insufficient in the number-conserving criterion.
 
 For two modes, consider the real-parameter family
 \begin{equation}
@@ -1420,11 +1420,11 @@ The denominator is an even entire function of $\nu$, so this two-mode weight is 
 \end{equation}
 At these points $\det(I_4-\mc M)=16\sin^4(x/2)>0$; for example, $x=\pi$ gives $W=-1/4$. The two identical oscillator factors are real in the convergent domain and become imaginary under this continuation, producing the negative product above. This example covers $\{+,+,-\}$ and its $\{+,-\}$ and $\{-\}$ subsets. Together, the two examples supply all the entries marked \emph{Sign-problematic}, including the case with no imposed TRS.
 
-Among three time reversals, $\{+,-,-\}$ and $\{-,-,-\}$ contain a Kramers pair, while $\{+,+,+\}$ is protected by the split-orthogonal proof. Any set of four or more contains either two negative-square symmetries or at least three positive-square symmetries. It therefore contains $\{-,-\}$ or $\{+,+,+\}$ and guarantees positive Gaussian weights wherever they are finite. These two sets are the fundamental sign-free classes.
+Among three time reversals, $\{+,-,-\}$ and $\{-,-,-\}$ contain a Kramers pair, while $\{+,+,+\}$ is protected by the split-orthogonal proof. Any set of four or more contains either two symmetries with $\Theta_a^2=-I$ or at least three with $\Theta_a^2=+I$. It therefore contains $\{-,-\}$ or $\{+,+,+\}$ and guarantees positive Gaussian weights wherever they are finite. These two sets are the fundamental sign-free classes.
 
 \subsection{Recovery of the number-conserving criterion}
 
-For number-conserving slices, both fundamental Nambu classes reduce to the single-Kramers criterion of Sec.~\ref{app:trs_number}. The $\{-,-\}$ set already contains a negative-square symmetry. For $\{+,+,+\}$, the product of the three time reversals is antiunitary and satisfies
+For number-conserving slices, both fundamental TRS classes reduce to the number-conserving TRS criterion of Sec.~\ref{app:trs_number}. The $\{-,-\}$ set already contains a symmetry with $\Theta^2=-I$. For $\{+,+,+\}$, the product of the three time reversals is antiunitary and satisfies
 \begin{equation}
     \Theta_0=\Theta_1\Theta_2\Theta_3,
     \qquad
@@ -1456,7 +1456,7 @@ The commutator follows by combining the first equality with its complex conjugat
 \end{equation}
 Thus $\Theta(\hat{\bb a})=V\hat{\bb a}$ is a common Kramers symmetry on the physical annihilation operators.
 
-Conversely, number conservation supplies a second negative-square symmetry. Using the annihilation-space Kramers matrix $V$, let
+Conversely, number conservation supplies a second symmetry with $\Theta^2=-I$. Using the annihilation-space Kramers matrix $V$, let
 \begin{equation}
     U_1=\begin{pmatrix}V&0\\0&\overline V\end{pmatrix},
     \qquad
@@ -1622,9 +1622,9 @@ Particle-number conservation restricts the Gaussian RP block in Eq.~\eqref{eq:rp
      +\hat{\bb c}^+\overline{D_\ell}\hat{\bb c}+\xi_\ell.
     \label{eq:rp_number_kramers}
 \end{equation}
-This is Eq.~\eqref{eq:block_TRS} with its off-diagonal block zero. Thus, for the number-preserving reflection used here, the number-conserving Gaussian RP criterion is contained in the single-Kramers criterion.
+This is Eq.~\eqref{eq:block_TRS} with its off-diagonal block zero. Thus, for the number-preserving reflection used here, the number-conserving Gaussian RP criterion is contained in the number-conserving TRS criterion.
 
-Pairing makes the reflected cone nonzero and allows RP beyond the TRS classes. Consider Eq.~\eqref{eq:benchmark_pairing} with $\Delta>0$ and independently fluctuating relative-density fields. It preserves the antiunitary maps
+Pairing permits a nonzero coupling block $F\succeq0$ and allows RP beyond the TRS classes. Consider Eq.~\eqref{eq:benchmark_pairing} with $\Delta>0$ and independently fluctuating relative-density fields. It preserves the antiunitary maps
 \begin{equation}
     \Theta_u(\hat b_i)=u\hat c_i,\qquad
     \Theta_u(\hat c_i)=\overline u\,\hat b_i,\qquad |u|=1.
@@ -1639,7 +1639,7 @@ For $u=\pm1$ these square to $+I$, while $u=\pm\ii$ gives $-I$. However,
 \end{equation}
 Every pair therefore commutes, so these maps supply none of the sign-free sets in Table~\ref{tab:trs_periodic}.
 
-To see that additional Nambu time reversals cannot restore a sign-free set, first impose invariance of every local HS factor $\ee^{\ii\varphi_i(\hat n_{b,i}-\hat n_{c,i})}$. The independent fields force a common antiunitary to act within each site and exchange the two relative-charge sectors,
+To see that additional time-reversal symmetries acting on the Nambu operator vector cannot restore a sign-free set, first impose invariance of every local HS factor $\ee^{\ii\varphi_i(\hat n_{b,i}-\hat n_{c,i})}$. The independent fields force a common antiunitary to act within each site and exchange the two relative-charge sectors,
 \begin{equation}
     \Theta\begin{pmatrix}\hat b_i\\\hat c_i^+\end{pmatrix}
        =V_i\begin{pmatrix}\hat c_i\\\hat b_i^+\end{pmatrix}.
@@ -1737,7 +1737,7 @@ and $\ii\sigma_y$ is real, antiunitarity and Hermitian conjugation give
 \end{equation}
 For a nonzero complex bond amplitude, invariance requires $\Delta_{ij}^*(\det U)^*=\Delta_{ij}$. Thus all nonzero amplitudes preserved by a uniform internal time reversal share the same phase up to signs. Choosing that common phase to be real, preservation of the pair field requires $\det U=1$.
 
-A negative-square time reversal additionally satisfies $\overline U U=-I_2$. Unitarity then gives $U^\trans=-U$, and the determinant-one condition restricts it to
+A time-reversal symmetry with $\Theta^2=-I$ additionally satisfies $\overline U U=-I_2$. Unitarity then gives $U^\trans=-U$, and the determinant-one condition restricts it to
 \begin{equation}
     U=\pm\ii\sigma_y,
     \qquad \Theta_0=\ii\sigma_y\mc K.
@@ -1745,7 +1745,7 @@ A negative-square time reversal additionally satisfies $\overline U U=-I_2$. Uni
 \end{equation}
 These two maps differ only by a sign and cannot form an anticommuting Kramers pair.
 
-The three positive-square maps
+The three time-reversal symmetries with $\Theta_a^2=+I$,
 \begin{equation}
     \Theta_1=\mc K,\qquad
     \Theta_2=\ii\sigma_x\mc K,\qquad
