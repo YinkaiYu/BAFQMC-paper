@@ -17,8 +17,8 @@ from matplotlib.patches import FancyArrowPatch
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "pdf" / "schematic-concepts"
-ASSETS = OUT / "C_refined_assets"
-NAME = "C_refined_3d"
+ASSETS = OUT / "C_refined_v2_assets"
+NAME = "C_refined_3d_v2"
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans",
@@ -73,38 +73,34 @@ def motif(path, box):
 
 
 # Offset, beveled glass half-planes retain the original layered classification.
-# Their green overlap represents the two available sign-free routes.
+# Their overlap represents the two available sign-free routes.
 background = Image.open(ASSETS / "background.png")
 ax.imshow(background, extent=(0,W,H,0),
           interpolation="antialiased", zorder=0)
 
-# The two classificatory axes are the only straight annotations.
-ax.plot([548, 548], [153, 933], color="#33434b", lw=1.05, zorder=8)
-ax.plot([153, 927], [538, 538], color="#33434b", lw=1.05, zorder=8)
-
 text(326, 72, "Frustrated", size=9.1)
 text(747, 72, "Unfrustrated", size=9.1)
-text(59, 333, "Time-reversal symmetry\nor reflection positivity", size=7.8, rotation=90,
-     linespacing=1.16)
-text(65, 737, "Outside these criteria", size=8.0, color="#68747a", rotation=90)
+text(65, 315, "TRS/RP", size=8.7, rotation=90)
+text(65, 737, "Non-TRS/RP", size=8.7, color="#68747a", rotation=90)
 
-text(324, 164, "Sign-free for", size=8.4, color="#20586f")
-text(324, 202, "BAFQMC", size=9.8, color="#20586f", weight="medium")
-text(747, 185, "Sign-free for both", size=8.7, color="#587147")
-text(747, 590, "Sign-free for", size=8.4, color="#906d31")
-text(747, 629, "WL / SSE", size=9.8, color="#906d31", weight="medium")
+text(324, 145, "Sign-free for", size=8.4, color="#20586f")
+text(324, 183, "BAFQMC", size=9.8, color="#20586f", weight="medium")
+text(747, 185, "Sign-free for both", size=8.7, color="#284d57")
+text(747, 590, "Sign-free for", size=8.4, color="#65481f")
+text(747, 629, "WL / SSE", size=9.8, color="#65481f", weight="medium")
+text(343, 746, "Sign-problematic", size=8.7, color="#656b70")
 
 placements = [
-    motif(ASSETS / "interaction.png", (190, 223, 460, 338)),
-    motif(ASSETS / "field.png", (169, 379, 484, 526)),
-    motif(ASSETS / "loop.png", (598, 670, 902, 894)),
+    motif(ASSETS / "interaction.png", (297, 207, 391, 273)),
+    motif(ASSETS / "field.png", (147, 326, 525, 512)),
+    motif(ASSETS / "loop.png", (600, 678, 880, 870)),
 ]
 ax.add_patch(FancyArrowPatch(
-    (325, 341), (325, 372), arrowstyle="-|>", mutation_scale=6.0,
-    linewidth=.8, color="#48616e", shrinkA=0, shrinkB=0, zorder=9,
+    (341, 279), (303, 328), arrowstyle="-|>", mutation_scale=7.5,
+    connectionstyle="arc3,rad=.12", linewidth=.8, color="#48616e", shrinkA=0, shrinkB=0, zorder=9,
 ))
-text(367, 357, "HS", size=8.0, color="#48616e")
-text(474, 476, r"$\phi$", size=8.5, color="#266a7d")
+text(373, 303, "HS", size=8.0, color="#48616e")
+text(499, 463, r"$\phi$", size=8.5, color="#266a7d")
 
 fig.canvas.draw()
 renderer = fig.canvas.get_renderer()
@@ -123,7 +119,7 @@ fig.savefig(OUT / f"{NAME}.svg", dpi=900, metadata={
     "Description": (
         "Offset upper and right half-planes with two physical motifs only: "
         "an HS transformation into a fixed-field bosonic scene in the frustrated TRS/RP region and "
-        "a closed hopping path in the unfrustrated local-weight region."
+        "four equal interacting bosons in the unfrustrated local-weight region."
     ),
 })
 plt.close(fig)
@@ -145,7 +141,7 @@ manifest = {
     "text_count": len(texts),
     "illustrated_quadrants": ["upper-left", "lower-right"],
     "physical_motif_count": 2,
-    "directional_arrows": 2,
+    "directional_arrows": 1,
     "background_pixels": list(background.size),
     "background_dpi": round(background.width/(MM/25.4)),
     "render_placements": placements,

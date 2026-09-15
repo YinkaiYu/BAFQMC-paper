@@ -17,7 +17,7 @@ from mathutils import Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_assets"
+OUT = ROOT / "pdf" / "schematic-concepts" / "C_refined_v2_assets"
 OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -187,10 +187,13 @@ def field_net():
 
 def field_scene(quality):
     scene = setup("Bosons in an auxiliary-field background", quality)
-    scene.camera.data.ortho_scale = 4.5
+    scene.camera.data.type = "PERSP"
+    scene.camera.data.lens = 65
+    scene.camera.location = (4.6,-6.8,8.2)
+    scene.camera.rotation_euler = (Vector((0,0,.2))-scene.camera.location).to_track_quat("-Z","Y").to_euler()
     bpy.data.objects["Transparent shadow receiver"].hide_render = True
     copper = material("Boson - warm ceramic", "#c4634c", .25, .03)
-    coupling = diagram_ink("Particle-field interaction", "#79698f", .94)
+    coupling = diagram_ink("Particle-field interaction", "#79698f", 1)
     field_net()
     sites = [(-.76, -.49), (.74, -.49), (-.02, .65)]
     for i, (x, y) in enumerate(sites):
@@ -211,19 +214,18 @@ def field_scene(quality):
     return scene
 
 
-def rounded_square(size_x=.92, size_y=.85, radius=.13, z=.12):
-    pts = []
-    corners = [
-        (size_x-radius, size_y-radius, 0),
-        (-size_x+radius, size_y-radius, 90),
-        (-size_x+radius, -size_y+radius, 180),
-        (size_x-radius, -size_y+radius, 270),
-    ]
-    for cx, cy, degrees in corners:
-        for k in range(17):
-            a = math.radians(degrees + 90*k/16)
-            pts.append((cx+radius*math.cos(a), cy+radius*math.sin(a), z))
-    return pts
+def interaction_edge(name, a, b, coupling):
+    """The same continuous, unlit wavy notation for every direct interaction."""
+    delta = Vector((b[0]-a[0], b[1]-a[1], 0))
+    normal = Vector((-delta.y, delta.x, 0)).normalized()
+    points = []
+    for k in range(181):
+        t = k/180
+        lateral = .075*math.sin(8*math.pi*t)*math.sin(math.pi*t)**.3
+        points.append(Vector((a[0],a[1],.18))+t*delta+lateral*normal)
+    wave = tube(name, points, .012, coupling)
+    wave.visible_shadow = False
+    return wave
 
 
 def interaction_scene(quality):
@@ -231,24 +233,11 @@ def interaction_scene(quality):
     scene.camera.data.ortho_scale = 3.4
     bpy.data.objects["Transparent shadow receiver"].hide_render = True
     copper = material("Boson - warm ceramic", "#c4634c", .25, .03)
-    coupling = diagram_ink("Direct interaction - fine wavy ink", "#79698f", .9)
+    coupling = diagram_ink("Direct interaction - continuous wavy ink", "#79698f", 1)
     sites = [(-.76,-.49), (.74,-.49), (-.02,.65)]
     for i, a in enumerate(sites):
         b = sites[(i+1) % 3]
-        delta = Vector((b[0]-a[0], b[1]-a[1], 0))
-        normal = Vector((-delta.y, delta.x, 0)).normalized()
-        # A few short gaps and constant unlit color read as diagram notation,
-        # without the highlights or shadows of physical springs or sticks.
-        for segment in range(9):
-            pts = []
-            start, stop = .14 + .72*segment/9, .14 + .72*(segment+.77)/9
-            for k in range(25):
-                t = start + (stop-start)*k/24
-                lateral = .082*math.sin(2*math.pi*4*t)
-                p = Vector((a[0], a[1], .16)) + t*delta + lateral*normal
-                pts.append(p)
-            wave = tube(f"Interaction {i+1} stroke {segment+1}", pts, .0105, coupling)
-            wave.visible_shadow = False
+        interaction_edge(f"Interaction {i+1}", a, b, coupling)
     for i, (x,y) in enumerate(sites):
         sphere(f"Boson {i+1}", (x,y,.18), .18, copper)
     return scene
@@ -269,10 +258,10 @@ def pane(name, box, z, depth, mat, bevel=.046):
 
 
 def glass(name, color):
-    mat = material(name, color, .095, 0)
+    mat = material(name, color, .17, 0)
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
-    bsdf.inputs["Transmission Weight"].default_value = 1
-    bsdf.inputs["IOR"].default_value = 1.65
+    bsdf.inputs["Transmission Weight"].default_value = .62
+    bsdf.inputs["IOR"].default_value = 1.52
     bsdf.inputs["Coat Weight"].default_value = .30
     bsdf.inputs["Coat Roughness"].default_value = .065
     return mat
@@ -280,12 +269,12 @@ def glass(name, color):
 
 def illuminated_blue():
     """A soft pool of light singles out the newly accessible quadrant."""
-    mat = diagram_ink("Illuminated new territory", "#b2dce9")
+    mat = glass("Illuminated blue glass", "#75b8d1")
     nodes, links = mat.node_tree.nodes, mat.node_tree.links
     coordinates = nodes.new("ShaderNodeTexCoord")
     center = nodes.new("ShaderNodeVectorMath")
     center.operation = "SUBTRACT"
-    center.inputs[1].default_value = (.49,.53,.5)
+    center.inputs[1].default_value = (.25,.51,.5)
     links.new(coordinates.outputs["Generated"], center.inputs[0])
     flatten = nodes.new("ShaderNodeVectorMath")
     flatten.operation = "MULTIPLY"
@@ -297,13 +286,13 @@ def illuminated_blue():
     ramp = nodes.new("ShaderNodeValToRGB")
     ramp.color_ramp.interpolation = "EASE"
     ramp.color_ramp.elements[0].position = .11
-    ramp.color_ramp.elements[0].color = (*linear_rgb("#effdff"), 1)
+    ramp.color_ramp.elements[0].color = (*linear_rgb("#bcecff"), 1)
     ramp.color_ramp.elements[1].position = .8
-    ramp.color_ramp.elements[1].color = (*linear_rgb("#7ec5df"), 1)
+    ramp.color_ramp.elements[1].color = (*linear_rgb("#6aaec9"), 1)
     middle = ramp.color_ramp.elements.new(.56)
-    middle.color = (*linear_rgb("#b7e5f3"), 1)
+    middle.color = (*linear_rgb("#8dc8df"), 1)
     links.new(length.outputs["Value"], ramp.inputs["Fac"])
-    links.new(ramp.outputs["Color"], nodes.get("Emission").inputs["Color"])
+    links.new(ramp.outputs["Color"], nodes.get("Principled BSDF").inputs["Base Color"])
     return mat
 
 
@@ -314,15 +303,20 @@ def background_scene(quality):
     scene.cycles.max_bounces = 16
     scene.cycles.transmission_bounces = 12
     scene.cycles.samples = 96 if quality == "draft" else 128
-    scene.camera.location = (0,0,12)
-    scene.camera.rotation_euler = (0,0,0)
+    scene.camera.location = (0,-2,12)
+    scene.camera.rotation_euler = (Vector((0,0,.12))-scene.camera.location).to_track_quat("-Z","Y").to_euler()
     scene.camera.data.ortho_scale = 5
+    key = bpy.data.objects["Large softbox"]
+    key.location = (-3.5,4.5,7.5)
+    key.rotation_euler = (-key.location).to_track_quat("-Z","Y").to_euler()
+    key.data.size = 3.2
     bpy.ops.mesh.primitive_plane_add(size=200, location=(0,0,-.14))
     bpy.context.object.name = "White studio backdrop"
     bpy.context.object.data.materials.append(material("Matte white", "#ffffff", 1))
 
     spotlight = bpy.data.lights.new("Soft spotlight on new territory", type="SPOT")
     spotlight.energy = 110
+    spotlight.shadow_soft_size = 1.0
     spotlight.color = (.76,.91,1.0)
     spotlight.spot_size = math.radians(58)
     spotlight.spot_blend = .85
@@ -331,49 +325,28 @@ def background_scene(quality):
     light.location = (-.9, .82, 3.2)
     light.rotation_euler = (0,0,0)
 
-    # Quiet color reservoirs behind clear, refractive glass preserve the map's
-    # categorical colors without making the upper panel opaque.
-    pane("Neutral base", (151,151,791,780), -.045, .10,
-         diagram_ink("Neutral base tint", "#e4e9eb"), .045)
-    pane("Golden color reservoir", (548,151,398,797), .018, .012,
-         diagram_ink("Unfrustrated tint", "#f0e6cd"), .004)
-    pane("Blue color reservoir", (108,116,440,422), .02, .012,
-         illuminated_blue(), .004)
-    pane("Blue upper lip color", (548,116,400,35), .022, .012,
-         diagram_ink("Blue lip tint", "#c7e3ee"), .004)
-    pane("Green overlap", (548,151,398,387), .024, .012,
-         diagram_ink("Overlap tint", "#cfdec3"), .004)
-    pane("Unfrustrated glass half-plane", (548,151,398,797), .113, .16,
-         glass("Warm clear glass", "#fffaf0"), .062)
-    pane("Symmetry glass half-plane", (108,116,840,422), .283, .16,
-         glass("Cool clear glass", "#f3fbff"), .064)
+    # A single neutral support. All categorical color belongs to the panes.
+    base = material("Uniform gray support", "#b9c0c5", .9)
+    base.node_tree.nodes.get("Principled BSDF").inputs["Coat Weight"].default_value = 0
+    pane("Uniform gray support", (148,161,780,783), -.035, .10, base, .035)
+    amber = glass("Amber glass", "#f1dbaa")
+    amber.node_tree.nodes.get("Principled BSDF").inputs["Transmission Weight"].default_value = .45
+    pane("Unfrustrated amber glass", (548,157,374,778), .29, .10, amber, .038)
+    pane("Upper symmetry blue glass", (116,116,850,425), .78, .11,
+         illuminated_blue(), .041)
     return scene
 
 
 def loop_scene(quality):
-    scene = setup("Closed hopping path on an unfrustrated square", quality)
+    scene = setup("Four equal interacting bosons on an unfrustrated square", quality)
     scene.camera.data.ortho_scale = 3.8
-    bpy.data.objects["Transparent shadow receiver"].location.z = -.065
-    copper = material("Occupied site", "#c4634c", .25, .03)
-    porcelain = material("Lattice sites", "#e6e9e9", .26, .08)
-    gold = material("Closed hopping path", "#ad8036", .40, .06)
+    bpy.data.objects["Transparent shadow receiver"].hide_render = True
+    copper = material("Boson - warm ceramic", "#c4634c", .25, .03)
+    coupling = diagram_ink("Direct interaction - continuous wavy ink", "#79698f", 1)
     sites = [(-.85,-.78), (.85,-.78), (.85,.78), (-.85,.78)]
     for i, (x,y) in enumerate(sites):
-        sphere(f"Site {i+1}", (x,y,.022), .078, porcelain)
-    path = rounded_square(size_x=.85, size_y=.78, radius=.12, z=.095)
-    tube("One closed four-hop path", path, .035, gold, closed=True)
-    # One arrowhead supplies the only directional annotation in the artwork.
-    # The curve ordering traverses the right-hand edge in the +y direction.
-    center = Vector((.85, -.08, .095))
-    direction = Vector((0, 1, 0))
-    bpy.ops.mesh.primitive_cone_add(
-        vertices=48, radius1=.082, radius2=0, depth=.22, location=center
-    )
-    arrow = bpy.context.object
-    arrow.name = "Direction of the closed path"
-    arrow.rotation_euler = direction.to_track_quat("Z", "Y").to_euler()
-    smooth(arrow, gold)
-    sphere("Boson on the loop", (-.85,-.78,.201), .19, copper)
+        sphere(f"Boson {i+1}", (x,y,.18), .18, copper)
+        interaction_edge(f"Square interaction {i+1}", (x,y), sites[(i+1)%4], coupling)
     return scene
 
 

@@ -1,4 +1,4 @@
-# Focused 3D revision of concept C
+# Focused 3D revision of concept C, version 2
 
 This candidate keeps the original classification and its overlapping half-planes.
 Only the upper-left and lower-right quadrants contain physical illustrations.
@@ -6,28 +6,32 @@ The production figure `figures/schematic.pdf` is unchanged.
 
 ## Visual meaning
 
-- **Upper left:** fine, interrupted wavy strokes join interacting particles.
-  One HS arrow leads to particles coupled individually to a fluctuating,
+- **Upper left:** continuous wavy strokes join interacting particles.
+  The smaller, distant interacting configuration leads through one HS arrow to
+  the larger foreground view of particles coupled individually to a fluctuating,
   open two-dimensional auxiliary-field net. There are no particle-particle
   connections after the arrow. The net has no opaque filled surface.
-- **Lower right:** one closed hopping path on an unfrustrated square, with one
-  occupied-site symbol and one direction marker.
-- **Background:** blue and gold refractive glass half-planes overlap in green.
-  Explicit “Sign-free for …” labels identify the applicability regions. The
-  vertical labels spell out time-reversal symmetry and reflection positivity.
-  A soft pool of light and a brighter cyan glass edge emphasize the newly
-  accessible upper-left region without an additional annotation.
+- **Lower right:** four identical particles with the same continuous wavy
+  interaction notation on an unfrustrated square. There is no occupation contrast
+  or hopping-direction arrow.
+- **Background:** a uniform gray support carries two suspended colored glass
+  half-planes. The blue pane is higher, with a larger right overhang; each casts
+  a shadow. No categorical color is painted on the support and there are no
+  black coordinate-axis lines. “Sign-free for …” labels identify the coverage,
+  with TRS/RP and Non-TRS/RP row labels. The uncovered cell is Sign-problematic.
 
 The particle symbols represent bosons. The interaction sketch illustrates HS
 decoupling in general; its pairwise strokes are not a diagram of the onsite
 interaction used in the manuscript's benchmark. The auxiliary-field net is a
 schematic field configuration, not lattice bonds or numerical data. Its height
-variation only makes field fluctuations visible. The square is a schematic
-closed hopping sequence, not a full world-line configuration.
+variation only makes field fluctuations visible. The square shows the
+unfrustrated interaction geometry, not a sampled hopping trajectory.
 
 The HS transformation is contained in the region qualified by the manuscript's
-TRS/RP criteria. HS decoupling alone is not a sign-positivity criterion. The empty
-lower-left region makes no claim of a universal impossibility result.
+TRS/RP criteria. HS decoupling removes direct particle-particle interactions in
+the fixed-field representation, not geometrical frustration. HS alone is not a
+sign-positivity criterion. Sign-problematic labels the regime in the schematic's
+scope; it is not a universal impossibility theorem for every conceivable method.
 
 ## Reproduce
 
@@ -55,11 +59,13 @@ before- and after-decoupling scenes.
 
 Outputs remain in the ignored `pdf/schematic-concepts/` directory:
 
-- `C_refined_3d.pdf`: one 86 mm square figure.
-- `C_refined_3d.svg`: editable vector labels and axes with embedded 3D renders.
-- `C_refined_3d.png`: 450 dpi preview rendered from the PDF by Poppler.
-- `C_refined_assets/`: four PNG renders and their editable `.blend` scenes.
-- `C_refined_3d_manifest.json`: dimensions, font sizes and motif resolution.
+- `C_refined_3d_v2.pdf`: one 86 mm square figure.
+- `C_refined_3d_v2.svg`: vector labels with embedded 3D renders.
+- `C_refined_3d_v2.png`: 450 dpi preview rendered from the PDF by Poppler.
+- `C_refined_v2_assets/`: four PNG renders and their editable `.blend` scenes.
+- `C_refined_3d_v2_manifest.json`: dimensions, font sizes and motif resolution.
+
+The previous version's outputs remain available under their original names.
 
 The PDF/SVG combine raster 3D artwork with vector typography; they are not
 all-vector illustrations. Inspect both the enlarged preview and the figure at
