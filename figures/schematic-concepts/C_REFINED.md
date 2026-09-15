@@ -1,5 +1,9 @@
 # Production figure: selected F
 
+The four quadrant status labels now use FreeSans Oblique, retaining their
+7.6-point size, colors and aligned positions. Axis labels remain upright.
+This typography-only update is compared against `245e7ac` in the refreshed diff.
+
 The author-selected F candidate is now installed as `figures/schematic.pdf`,
 with a self-contained SVG companion at `figures/schematic.svg`. It retains
 aligned status labels, uniform font sizes, colored status text, the reduced

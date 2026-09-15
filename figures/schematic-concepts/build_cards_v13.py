@@ -30,9 +30,10 @@ NAME = "C_refined_cards_v13_mint_raised_type"
 if args.background != "cards":
     raise ValueError("This revision targets the selected card design.")
 # Register an installed open font explicitly; Matplotlib's cache may predate it.
-font_path = Path("/usr/share/fonts/truetype/freefont/FreeSans.ttf")
-if font_path.exists():
-    font_manager.fontManager.addfont(str(font_path))
+for font_name in ("FreeSans.ttf", "FreeSansOblique.ttf"):
+    font_path = Path("/usr/share/fonts/truetype/freefont") / font_name
+    if font_path.exists():
+        font_manager.fontManager.addfont(str(font_path))
 
 
 plt.rcParams.update({
@@ -154,10 +155,10 @@ text(747, 72, "Unfrustrated", size=7.9)
 text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
 text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
 
-text(333, 493, "Sign-free for BAFQMC", size=7.6, color="#1265a2")
-text(741, 493, "Sign-free for both", size=7.6, color="#24745b")
-text(741, 869, "Sign-free for WLQMC/SSE", size=7.6, color="#8b6006")
-text(356, 869, "Sign-problematic", size=7.6, color="#626b75")
+text(333, 493, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic")
+text(741, 493, "Sign-free for both", size=7.6, color="#24745b", fontstyle="italic")
+text(741, 869, "Sign-free for WLQMC/SSE", size=7.6, color="#8b6006", fontstyle="italic")
+text(356, 869, "Sign-problematic", size=7.6, color="#626b75", fontstyle="italic")
 
 placements = [
     motif(ASSETS / "interaction.png", (181, 157, 281, 227)),
