@@ -1,14 +1,22 @@
-# Convergent bosonic traces and time reversal
+# Contraction, time reversal, and positive bosonic traces
 
 The standalone lecture is [ConvergentBosonicTRS.tex](../ConvergentBosonicTRS.tex).
-The complete Chinese edition is
-[ConvergentBosonicTRS_zh.tex](../ConvergentBosonicTRS_zh.tex), with matching
-equations, labels, theorem conditions, and references.
-It derives a sufficient positive-trace theorem from a normalizable Gaussian
-vacuum evolution and explains the two physical contraction-semigroup forms.
-It explicitly proves the required state condition for Hermitian,
-anti-Hermitian, and dissipative slices. It does not replace that condition
-by finiteness of an arbitrary non-Hermitian endpoint matrix.
+The English lecture now derives positivity primarily from contraction,
+a common physical time reversal, and a continuous connection to the known
+positive partition function of independent harmonic oscillators.
+It includes the two standard forms, the explicit reflection-positive
+mode transformation and physical metric, and a stable paired
+auxiliary-field example.
+
+The extension to amplifying slices and its Gaussian-state proof are in
+Appendix C. Final trace-class convergence is distinguished from damping
+of each original slice. The reflected-pair proof states the
+matrix-element limiting condition for unbounded RP constructions.
+
+The [Chinese edition](../ConvergentBosonicTRS_zh.tex) currently presents
+the September 15 state-evolution proof and contraction correspondence.
+It has not yet incorporated the September 16 English reorganization and
+new RP section; equation numbering differs.
 
 ## Build
 
@@ -65,6 +73,14 @@ Only NumPy is required. The checks compare independent descriptions:
 - Forty-eight noncommuting Gaussian products in the two symmetry forms,
   testing physical contraction against convergence of the kernel and the
   explicit matrix identity in Appendix B.
+- Twenty-four RP block generators, checking the explicit change of modes,
+  canonical commutators, physical adjoints, transformed real coefficients,
+  and contraction in both bases.
+- Eighty-two points on continuous paths from independent oscillators to
+  products with unitary factors, for both squares of time reversal.
+- A noncommuting two-mode RP product with intra-flavor and inter-flavor
+  pairing and relative-density fields, comparing the Gaussian trace with
+  increasing finite-Fock cutoffs.
 
 The finite-Fock cutoffs test convergence of the examples. They are not used
 as proofs of the general theorem.

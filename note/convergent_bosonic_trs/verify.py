@@ -207,8 +207,164 @@ def check_general_matrices():
     print(f"{total} noncommuting Gaussian products; largest contraction/kernel residual {largest_residual:.3e}")
 
 
+def rp_basis(m):
+    eye, zero = np.eye(m), np.zeros((m, m))
+    return np.block([[eye, zero, eye, zero],
+                     [1j * eye, zero, -1j * eye, zero],
+                     [zero, eye, zero, eye],
+                     [zero, -1j * eye, zero, 1j * eye]]) / np.sqrt(2)
+
+
+def check_rp_basis():
+    """Check RP coefficients, commutators, adjoints, and real propagation."""
+    rng = np.random.default_rng(20260916)
+    largest_residual = 0.0
+    for m in (1, 2, 3):
+        eye, zero = np.eye(m), np.zeros((m, m))
+        j = np.block([[zero, eye], [-eye, zero]])
+        exchange = np.block([[zero, eye], [eye, zero]])
+        z2, i2 = np.zeros((2 * m, 2 * m)), np.eye(2 * m)
+        jr = np.block([[j, z2], [z2, j]])
+        jd = np.block([[z2, i2], [-i2, z2]])
+        eta = np.diag(np.tile(np.r_[np.ones(m), -np.ones(m)], 2))
+        sigma = np.diag(np.r_[np.ones(2 * m), -np.ones(2 * m)])
+        reflection = np.block([[z2, i2], [i2, z2]])
+        s = rp_basis(m)
+        t = np.block([[i2, i2], [-1j * i2, 1j * i2]]) / np.sqrt(2)
+        assert np.linalg.norm(s @ s.conj().T - np.eye(4 * m)) < 1e-12
+        assert np.linalg.norm(s @ jr @ s.T - jd) < 1e-12
+        assert np.linalg.norm(s @ eta @ s.conj().T - sigma) < 1e-12
+        assert np.linalg.norm(s.conj() @ reflection @ s.conj().T
+                              - np.eye(4 * m)) < 1e-12
+        for _ in range(8):
+            d = 0.06 * (rng.normal(size=(2 * m, 2 * m))
+                        + 1j * rng.normal(size=(2 * m, 2 * m)))
+            d = (d + d.T) / 2
+            v = rng.normal(size=(2 * m, 2 * m)) + 1j * rng.normal(size=(2 * m, 2 * m))
+            f = 0.02 * v @ v.conj().T
+            hrp = np.block([[d, f], [f.T, d.conj()]])
+            hd = s.conj() @ hrp @ s.conj().T
+            hquad = 2 * t.conj() @ hd @ t.conj().T
+            # Add ordinary thermal damping without changing the RP coupling F.
+            damping = np.linalg.norm(hquad.real, 2) + 0.3
+            d -= damping * exchange / 2
+            hrp = np.block([[d, f], [f.T, d.conj()]])
+            hd = s.conj() @ hrp @ s.conj().T
+            hquad = 2 * t.conj() @ hd @ t.conj().T
+            ar = 2 * jr @ hrp
+            ad = s @ ar @ s.conj().T
+            residual = max(np.linalg.norm(hd.imag), np.linalg.norm(ad.imag),
+                           np.linalg.norm(ad - 2 * jd @ hd))
+            largest_residual = max(largest_residual, residual)
+            assert residual < 1e-12
+            assert np.linalg.eigvalsh(hquad.real).max() < -0.29
+            mr = expm(ar)
+            md = s @ mr @ s.conj().T
+            assert np.linalg.eigvalsh(eta - mr.conj().T @ eta @ mr).min() > 0
+            assert np.linalg.norm(md.imag) < 1e-11
+            assert np.linalg.norm(md - expm(ad)) < 1e-11
+    print(f"24 RP basis/metric checks; largest generator residual {largest_residual:.3e}")
+
+
+def check_thermal_paths():
+    """Follow both symmetry forms from the known thermal trace to unitary boundaries."""
+    rng = np.random.default_rng(20260917)
+    delta, n = 0.4, 2
+    eye, zero = np.eye(n), np.zeros((n, n))
+    omega = np.block([[zero, eye], [-eye, zero]])
+    sigma = np.diag([1, 1, -1, -1])
+    t = np.block([[eye, eye], [-1j * eye, 1j * eye]]) / np.sqrt(2)
+    smallest_defect = np.inf
+    largest_jump = 0.0
+    for sign in (1, -1):
+        u = eye if sign == 1 else np.array([[0, 1], [-1, 0]])
+        r = np.block([[u, zero], [zero, -u]])
+        generators = []
+        for index in range(3):
+            b = rng.normal(size=(4, 4))
+            h = 0.12j * (b + b.T)
+            if index == 0:
+                a = rng.normal(size=(4, 4))
+                h -= 0.08 * a.T @ a + 0.35 * np.eye(4)
+            h = (h + r.T @ h.conj() @ r) / 2
+            generators.append(t.conj().T @ (1j * omega @ h) @ t)
+        previous = None
+        for position in np.linspace(0, 1, 41):
+            m = np.eye(4, dtype=complex)
+            for a in generators:
+                deformed = position * a - (1 - position) * delta * sigma
+                m = m @ expm(deformed)
+            s, _ = kernel(m)
+            defect = np.linalg.eigvalsh(sigma - m.conj().T @ sigma @ m).min()
+            smallest_defect = min(smallest_defect, defect)
+            assert defect > 0
+            ddet = np.linalg.det(m[n:, n:])
+            assert abs(ddet.imag) < 1e-11 and ddet.real > 0
+            trace = trace_from_kernel(s, 1 / np.sqrt(ddet.real))
+            assert trace > 0
+            if previous is None:
+                expected = (2 * np.sinh(len(generators) * delta / 2))**(-n)
+                assert abs(trace - expected) < 1e-12
+            else:
+                largest_jump = max(largest_jump, abs(trace - previous))
+            previous = trace
+        # Endpoint normalization from independent state evolution.
+        _, vacuum, _ = evolve_vacuum(generators)
+        assert abs(trace_from_kernel(s, vacuum) - trace) < 1e-11
+    print(f"82 points on TRS thermal paths; minimum contraction defect {smallest_defect:.6f}; "
+          f"largest neighboring trace change {largest_jump:.6f}")
+
+
+def check_rp_fock():
+    """Noncommuting RP damping and phase fields, checked in physical Fock space."""
+    epsilon, pairing, same_pairing, step = 1.8, 0.35, 0.24, 0.65
+    phases = (0.4, -0.27)
+    k = -step * epsilon * np.eye(2)
+    p = step * np.array([[same_pairing, pairing], [pairing, same_pairing]])
+    thermal = np.block([[k, p], [-p, -k.T]])
+    generators = []
+    for phase in phases:
+        generators.extend([thermal, 1j * phase * np.diag([1, -1, -1, 1])])
+    m = np.eye(4, dtype=complex)
+    for a in generators:
+        m = m @ expm(a)
+    s, _ = kernel(m)
+    _, vacuum, _ = evolve_vacuum(generators)
+    exact = trace_from_kernel(s, vacuum)
+    # Convert standard (b,c,b+,c+) order to the reflected-sector order first.
+    permutation = np.eye(4)[[0, 2, 1, 3]]
+    rotation = rp_basis(1) @ permutation
+    transformed = [rotation @ a @ rotation.conj().T for a in generators]
+    assert all(np.linalg.norm(a.imag) < 1e-12 for a in transformed)
+    assert np.linalg.norm(transformed[0] @ transformed[1]
+                          - transformed[1] @ transformed[0]) > 0.1
+    errors = []
+    for cutoff in (8, 12, 18):
+        a, eye = annihilator(cutoff), np.eye(cutoff)
+        b, c = np.kron(a, eye), np.kron(eye, a)
+        occupations = np.add.outer(np.arange(cutoff), np.arange(cutoff)).ravel()
+        difference = np.subtract.outer(np.arange(cutoff), np.arange(cutoff)).ravel()
+        hamiltonian = (epsilon * np.diag(occupations + 1)
+                       - pairing * (b.T @ c.T + b @ c)
+                       - same_pairing * (b.T @ b.T + b @ b + c.T @ c.T + c @ c) / 2)
+        eigenvalues, vectors = np.linalg.eigh(hamiltonian)
+        thermal_fock = (vectors * np.exp(-step * eigenvalues)) @ vectors.T
+        g = np.eye(cutoff**2, dtype=complex)
+        for phase in phases:
+            g = (g @ thermal_fock) * np.exp(1j * phase * difference)[None, :]
+        trace = np.trace(g)
+        assert abs(trace.imag) < 1e-12 and trace.real > 0
+        errors.append(abs(trace.real - exact))
+    assert errors[-1] < 2e-9
+    assert errors[-1] < errors[0] / 1000
+    print(f"RP noncommuting two-mode trace: {exact:.12f}; Fock errors {errors}")
+
+
 if __name__ == "__main__":
     check_plus_example()
     check_minus_example()
     check_general_matrices()
+    check_rp_basis()
+    check_thermal_paths()
+    check_rp_fock()
     print("All checks passed.")

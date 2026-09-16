@@ -7,7 +7,7 @@
 \usepackage{xcolor}
 \definecolor{LinkBlue}{RGB}{35,58,115}
 \usepackage[colorlinks,linkcolor=LinkBlue,citecolor=LinkBlue,urlcolor=LinkBlue]{hyperref}
-\hypersetup{pdftitle={Time reversal and positive convergent bosonic traces},pdfauthor={}}
+\hypersetup{pdftitle={Contraction, time reversal, and positive bosonic traces},pdfauthor={}}
 \newcommand{\Tr}{\operatorname{Tr}}
 \newcommand{\tr}{\operatorname{tr}}
 \newcommand{\diag}{\operatorname{diag}}
@@ -23,27 +23,26 @@
 \setlength{\parskip}{3pt}
 \setlength{\emergencystretch}{2em}
 
-\title{Time reversal and positive convergent bosonic traces}
+\title{Contraction, time reversal, and positive bosonic traces}
 \author{}
-\date{September 15, 2026}
+\date{September 16, 2026}
 
 \begin{document}
 \maketitle
 \vspace{-1.5em}
 \begin{abstract}
-A bosonic auxiliary-field configuration has a useful statistical weight only
-when its many-body trace exists and has a fixed sign. We explain how one
-physical time-reversal symmetry can ensure a positive convergent Gaussian
-trace, whether its square on the single-particle operators is $+I$ or $-I$.
-The number-conserving proof follows directly from the bosonic occupation sum.
-With pairing, we follow a squeezed vacuum through the evolution and then
-connect its positive vacuum amplitude to the full trace by suppressing excited
-states. We state explicit conditions under which this evolution exists,
-including Hermitian and anti-Hermitian time slices and dissipative quadratic
-evolution. Finally, we derive the contraction inequality and explain the two
-standard bosonic contraction semigroups. They provide two constructive
-realizations of the same positivity mechanism, one for each square of time
-reversal.
+Bosonic auxiliary-field weights require control of both convergence and
+sign. Damping suppresses high occupations and gives a contraction inequality
+for the finite propagation matrix. A common physical time reversal makes
+the trace real. We show that damped quadratic evolution can be connected
+continuously to independent harmonic oscillators while its trace stays finite
+and nonzero. The trace is therefore positive for either square, $+I$ or
+$-I$, of time reversal. This gives a direct interpretation of the two
+standard bosonic contraction semigroups. We also place reflection-positive
+Gaussian products in this framework by writing their physical metric and
+an explicit change of boson modes. A paired auxiliary-field example
+illustrates strict damping combined with unitary field factors.
+A state-evolution argument also permits amplifying slices.
 \end{abstract}
 
 \section{The physical question}
@@ -96,11 +95,13 @@ to the adjoint of the transformed annihilation operator. We require the
 This implies $\Theta\hat G\Theta^{-1}=\hat G$ and $W=W^*$. Reality is the
 first step. The central task is to show why the real number $W$ is positive.
 
-We first solve this task without pairing. We then introduce the additional
-object needed with pairing: a vacuum dressed by pairs of bosons. Sections
-\ref{sec:vacuum}--\ref{sec:trace} give the positive-sign proof. Sections
-\ref{sec:contraction}--\ref{sec:standard} explain how damping guarantees its
-conditions and leads to the two standard contraction semigroups.
+We first solve this task without pairing. With pairing, the useful physical
+picture is damping combined with unitary motion. Section~\ref{sec:contraction}
+translates damping into the contraction inequality, and Sec.~\ref{sec:trace}
+uses it to prove positivity by a continuous connection to an elementary
+harmonic-oscillator partition function. Sections~\ref{sec:standard} and
+\ref{sec:rp} identify the two
+standard forms and the place of reflection positivity within them.
 
 \section{Number conservation: convergence makes one time reversal sufficient}
 \label{sec:number}
@@ -163,341 +164,12 @@ useful alternative argument. Equation~\eqref{eq:number_positive} explains
 why convergence also permits $\Theta^2=+I$. It supplies the positive sign of
 each unpaired real factor.
 
-\section{Pairing and a time-reversal-invariant vacuum}
-\label{sec:vacuum}
-
-Pairing mixes different occupation sectors. The vacuum evolves, so its
-amplitude has to be followed explicitly. Write the general normally ordered
-quadratic generator as
-\begin{equation}
- \hat h=\xi+(\hat a^+)^\trans K\hat a
- +\frac12(\hat a^+)^\trans P\hat a^+
- +\frac12\hat a^\trans Q\hat a,
- \qquad P^\trans=P,\quad Q^\trans=Q.
- \label{eq:normal_generator}
-\end{equation}
-The columns $\hat a$ and $\hat a^+$ contain $N$ annihilation and creation
-operators, with $[\hat a_i,\hat a_j^+]=\delta_{ij}$. The matrices $P,Q,K$ need
-not obey Hermiticity relations.
-
-We choose a Gaussian vacuum $|0\rangle$ that is invariant under $\Theta$.
-For the two familiar actions
-\begin{equation}
- \Theta_+\hat a_j\Theta_+^{-1}=\hat a_j,
- \qquad
- \Theta_-\hat b_j\Theta_-^{-1}=\hat c_j,
- \quad \Theta_-\hat c_j\Theta_-^{-1}=-\hat b_j,
- \label{eq:two_actions}
-\end{equation}
-the usual empty vacuum already has this property. The second action requires
-an even number of modes. Its square changes the sign of every annihilation
-operator. On Fock space this is particle parity, so it still leaves the
-even vacuum invariant.
-
-This choice is available for a general physical canonical time reversal of
-either square. Start from any positive, confining oscillator Hamiltonian
-$\hat H_0$ and form
-\begin{equation}
- \hat H_{\rm ref}=\hat H_0+\Theta\hat H_0\Theta^{-1}.
- \label{eq:reference_hamiltonian}
-\end{equation}
-Both terms are positive confining quadratics. The sum has a unique Gaussian
-ground state and is time-reversal invariant, since applying $\Theta$ twice
-leaves a quadratic unchanged. Choose the ground-state phase so that
-$\Theta|0\rangle=|0\rangle$. Its normal-mode annihilation operators obey
-Eq.~\eqref{eq:trs_a}: time reversal must take operators annihilating this
-vacuum into other such operators. This is an ordinary choice of oscillator
-normal modes, with physical adjoints preserved.
-
-The state remains centered, meaning that it has no displacement
-$\langle\hat a_j\rangle$. A centered pure Gaussian state can be written as
-\begin{equation}
- |\psi\rangle=c\,|Z\rangle,
- \qquad
- |Z\rangle=\exp\!\left[\frac12(\hat a^+)^\trans Z\hat a^+\right]|0\rangle,
- \qquad Z^\trans=Z.
- \label{eq:squeezed_state}
-\end{equation}
-The exponential creates pairs. Its constant term is one, so
-$c=\langle0|\psi\rangle$ is exactly the vacuum amplitude, including its
-sign or phase. This convention removes any freedom to attach a changing
-phase to $|Z\rangle$.
-
-For one mode,
-\begin{equation}
- \langle Z|Z\rangle
- =\sum_{n=0}^{\infty}\frac{(2n)!}{2^{2n}(n!)^2}|Z|^{2n}
- =\frac{1}{\sqrt{1-|Z|^2}}.
- \label{eq:squeezed_norm_one}
-\end{equation}
-The state is normalizable exactly when $|Z|<1$. A unitary rotation of modes
-reduces a complex symmetric $Z$ to independent pair amplitudes $z_j$; in
-several modes,
-\begin{equation}
- \langle Z|Z\rangle=\prod_j(1-|z_j|^2)^{-1/2},
- \qquad \|Z\|<1.
- \label{eq:squeezed_norm}
-\end{equation}
-Here $|z_j|$ are the singular values of $Z$, and $\|Z\|$ is the largest
-one. This elementary condition is how normalizability will enter the proof.
-
-\section{Following the vacuum amplitude through a time slice}
-\label{sec:evolution}
-
-Let a slice act for $0\leq t\leq1$, with
-$\partial_t|\psi(t)\rangle=\hat h|\psi(t)\rangle$. Quadratic evolution
-preserves the Gaussian form, so insert Eq.~\eqref{eq:squeezed_state} and
-determine $c(t),Z(t)$. The commutation relation first gives
-\begin{align}
- \hat a_i|Z\rangle&=\sum_j Z_{ij}\hat a_j^+|Z\rangle,
- \label{eq:one_annihilator}\\
- \hat a_i\hat a_j|Z\rangle
- &=Z_{ij}|Z\rangle+
-   \sum_{kl}Z_{ik}Z_{jl}\hat a_k^+\hat a_l^+|Z\rangle.
- \label{eq:two_annihilators}
-\end{align}
-The first term in Eq.~\eqref{eq:two_annihilators} is the contribution that
-can change the vacuum amplitude. Comparing the terms with zero and two
-creation operators on the two sides of the evolution equation yields
-\begin{align}
- \frac{\dot c}{c}&=\xi+\frac12\tr(QZ),
- \label{eq:c_evolution}\\
- \dot Z&=P+KZ+ZK^\trans+ZQZ.
- \label{eq:z_evolution}
-\end{align}
-The symbol $\tr$ denotes a finite matrix trace; $\Tr$ denotes a many-body
-trace. Equation~\eqref{eq:z_evolution} determines the pair content. For the
-sign, only Eq.~\eqref{eq:c_evolution} is needed.
-
-Because $\Theta$ preserves $\hat h$ and the initial state, the evolving
-state is invariant. Acting with Eq.~\eqref{eq:trs_a} on its pair exponential
-and on the annihilation-pair term in $\hat h$ gives
-\begin{equation}
- Z=U^\dagger\overline Z\,\overline U,
- \qquad Q=U^\trans\overline Q\,U,
- \qquad \xi=\overline\xi.
- \label{eq:qz_reality}
-\end{equation}
-These relations make the coefficient in Eq.~\eqref{eq:c_evolution} real.
-The nontrivial check is
-\begin{equation}
- \overline{\tr(QZ)}
- =\tr\!\left(\overline U Q U^\dagger UZ U^\trans\right)
- =\tr(QZ),
- \label{eq:trace_qz_real}
-\end{equation}
-where $U^\trans\overline U=I$ was used in the last step. The sign of
-$\overline U U$ has not entered.
-
-Starting from the vacuum, $c(0)=1$. As long as the Gaussian state remains
-normalizable during the evolution, $Z$ stays finite and
-\begin{equation}
- c(t)=\exp\!\left\{\int_0^t
- \left[\xi+\frac12\tr(QZ(\tau))\right]d\tau\right\}>0.
- \label{eq:c_positive}
-\end{equation}
-There is no sign ambiguity in this equation: it is the exponential of an
-ordinary real integral. Apply this argument to the slices in their order of
-action, from the rightmost factor in Eq.~\eqref{eq:weight} to the leftmost.
-The positive amplitude at the end of one slice is the starting amplitude for
-the next. Therefore
-\begin{equation}
- \langle0|\hat G|0\rangle>0.
- \label{eq:vacuum_positive}
-\end{equation}
-
-\subsection{When does the required state evolution exist?}
-\label{sec:existence}
-
-The state condition in this proof is concrete: the Gaussian obtained at
-every intermediate time must have finite norm, equivalently $\|Z(t)\|<1$.
-There are several directly useful ways to ensure it.
-
-A Hermitian slice has this property whenever its complete action on the
-input state exists. To see this, resolve that state into spectral components
-of $\hat h$, of eigenvalue $\lambda$. For $0\leq t\leq1$,
-\begin{equation}
- \|\ee^{t\hat h}\psi\|^2
- =\int\ee^{2t\lambda}\,d\mu_\psi(\lambda)
- \leq\int(1+\ee^{2\lambda})\,d\mu_\psi(\lambda)
- =\|\psi\|^2+\|\ee^{\hat h}\psi\|^2.
- \label{eq:hermitian_slice}
-\end{equation}
-The measure $d\mu_\psi$ is the squared amplitude of the state in this
-spectral resolution. The inequality proves that all intermediate states
-exist, even for an amplifying Hermitian slice such as $+a\hat n$.
-An anti-Hermitian slice generates a unitary evolution and preserves the norm.
-Thus a product of Hermitian and anti-Hermitian slices needs no separate
-intermediate-state assumption when the stated successive actions exist.
-
-Another useful choice is a slice with a nonpositive Hermitian quadratic part.
-Its evolution decreases the norm, up to a finite scalar factor. This allows
-mixed, non-Hermitian slices and leads to the contraction construction in
-Sec.~\ref{sec:contraction}. More generally, one can use
-Eq.~\eqref{eq:z_evolution} and check $\|Z(t)\|<1$ for a chosen reference
-vacuum. This version places no sign restriction on the instantaneous
-Hermitian part.
-
-This check follows the state during each time slice. If a singular value of
-$Z(t)$ reaches one, Eq.~\eqref{eq:squeezed_norm} diverges, and that vacuum
-trajectory cannot be used in the proof. The constructions above ensure
-finite norm throughout the slice.
-
-\section{From the vacuum amplitude to the full trace}
-\label{sec:trace}
-
-A positive vacuum amplitude is only one term of the occupation sum. We now
-show why it fixes the sign of the whole Gaussian trace. The physical operation
-is to suppress excited oscillator states more and more strongly. Define
-\begin{equation}
- \hat N_0=\sum_j\hat a_j^+\hat a_j,
- \qquad F(s)=\Tr\!\left(\ee^{-s\hat N_0}\hat G\right),
- \qquad s\geq0.
- \label{eq:thermal_filter}
-\end{equation}
-The reference modes are those of Sec.~\ref{sec:vacuum}, so $\hat N_0$ is
-time-reversal invariant. At $s=0$ this is the required weight. At large $s$
-only the vacuum survives.
-
-Three properties give the result. First, the added factor has norm at most
-one, so it preserves convergence of the trace. In the reference occupation
-basis,
-\begin{equation}
- F(s)=\sum_{\bb n}\ee^{-s\sum_jn_j}
- \langle\bb n|\hat G|\bb n\rangle,
- \qquad
- \lim_{s\to\infty}F(s)=\langle0|\hat G|0\rangle.
- \label{eq:filter_limit}
-\end{equation}
-Absolute convergence permits this limit and makes $F(s)$ continuous.
-Second, time reversal preserves both factors, so $F(s)$ is real for all $s$.
-Third, a convergent trace of a nonzero centered Gaussian evolution cannot
-vanish. The following elementary integral explains the third property.
-
-\subsection{Why a finite Gaussian trace cannot pass through zero}
-
-Use coherent states
-\begin{equation}
- |z\rangle=\ee^{-|z|^2/2}
- \exp\!\left(\sum_jz_j\hat a_j^+\right)|0\rangle,
- \qquad
- \int\frac{d^{2N}z}{\pi^N}|z\rangle\langle z|=I.
- \label{eq:coherent_states}
-\end{equation}
-The matrix element of a quadratic evolution between coherent states is a
-Gaussian. For some symmetric matrices $X,V$ and a matrix $Y$, its unnormalized
-form is
-\begin{equation}
- \langle0|\ee^{\bar z^\trans\hat a}\hat G
- \ee^{w^\trans\hat a^+}|0\rangle
- =c\exp\!\left[
- \frac12\bar z^\trans X\bar z+\bar z^\trans Yw
- +\frac12w^\trans Vw\right].
- \label{eq:gaussian_kernel}
-\end{equation}
-Here $c=\langle0|\hat G|0\rangle\ne0$. Quadratic generators produce this
-quadratic exponent by the same creation-annihilation algebra used in
-Eqs.~\eqref{eq:one_annihilator}--\eqref{eq:z_evolution}; Appendix
-\ref{app:kernel} gives the coefficients explicitly.
-
-Set $w=z$ and include the coherent-state normalization. Writing the real and
-imaginary parts of $z$ as a real vector $u$ turns the trace into an ordinary
-Gaussian integral. Its absolute convergence follows from the convergence
-already assumed for $\hat G$. To see this explicitly, write a singular-value
-decomposition $\hat G=\sum_j s_j|u_j\rangle\langle v_j|$, with normalized
-states and $\sum_j s_j<\infty$. Coherent-state completeness and the
-Cauchy--Schwarz inequality give
-\begin{equation}
- \int\frac{d^{2N}z}{\pi^N}|\langle z|\hat G|z\rangle|
- \leq\sum_j s_j
- \left[\int\frac{d^{2N}z}{\pi^N}|\langle z|u_j\rangle|^2
-       \int\frac{d^{2N}z}{\pi^N}|\langle v_j|z\rangle|^2\right]^{1/2}
- =\sum_j s_j.
- \label{eq:coherent_absolute}
-\end{equation}
-Thus the real part of the quadratic decay matrix in this integral must be
-positive definite. The result is
-\begin{equation}
- \Tr\hat G
- =c\int\frac{d^{2N}u}{(2\pi)^N}
-       \exp\!\left(-\frac12u^\trans\mathcal A u\right)
- =\frac{c}{\sqrt{\det\mathcal A}},
- \qquad \operatorname{Re}\mathcal A>0.
- \label{eq:gaussian_integral}
-\end{equation}
-The normalization uses $z=(u_x+\ii u_p)/\sqrt2$. The positive real part is
-the convergence condition for this Gaussian integral. It also makes
-$\mathcal A$ nonsingular. One can evaluate the integral by continuously
-changing $\mathcal A$ from $I$ to its final value while keeping its real
-part positive. Hence its value is finite and nonzero. No sign choice from a
-standalone determinant is needed: the convergent integral defines the value.
-
-The same reasoning applies to $\ee^{-s\hat N_0}\hat G$ at every finite
-$s\geq0$. Its vacuum coefficient is still $c$. Thus $F(s)$ is a real,
-continuous function that never reaches zero and approaches the positive
-number in Eq.~\eqref{eq:vacuum_positive}. It follows that
-\begin{equation}
- \boxed{W=F(0)>0.}
- \label{eq:main_positive}
-\end{equation}
-This identifies the role of convergence in the pairing problem. It allows
-the excited states to be suppressed continuously, without a divergent
-Gaussian integral interrupting the connection to the vacuum.
-
-\subsection{The sufficient condition in a usable form}
-
-\begin{theorem}[One physical time reversal]
-\label{thm:one_trs}
-Let $\hat G=\prod_\ell\ee^{\hat h_\ell}$ be an actual ordered quadratic
-evolution on finitely many bosonic modes with a convergent full Fock-space
-trace. Suppose all generators preserve a common physical antiunitary
-$\Theta$, with square $+I$ or $-I$ on the single-particle operators.
-If a time-reversal-invariant Gaussian vacuum has normalizable evolution
-through these slices, then $\Tr\hat G>0$.
-
-In particular, this state condition holds for successive Hermitian and
-anti-Hermitian slices whose actions exist, and for the dissipative slices of
-Sec.~\ref{sec:contraction}. It can also be checked directly through
-Eq.~\eqref{eq:z_evolution}.
-\end{theorem}
-
-For Hermitian/anti-Hermitian slicing, the directly usable condition is
-therefore a common physical time reversal and an ordinary convergent trace
-of the successive actions. For mixed dissipative slices, the coefficient
-conditions in Sec.~\ref{sec:contraction} ensure the state evolution as well.
-Either square of the common symmetry suffices, because only its
-complex-conjugation property entered Eq.~\eqref{eq:trace_qz_real}.
-
-In the conventional notation, braces list the squares of common,
-mutually anticommuting time reversals. Theorem~\ref{thm:one_trs} gives
-Table~\ref{tab:trs}. Anticommutation plays no role once one symmetry is
-sufficient.
-\begin{table}[ht]
- \centering
- \begin{tabular}{ll}
- \toprule
- Common time reversals & Convergent evolution of Theorem~\ref{thm:one_trs}\\
- \midrule
- None & Positivity is not guaranteed\\
- $\{+\}$ & Positive\\
- $\{-\}$ & Positive\\
- $\{+,+\},\ \{+,-\},\ \{-,-\}$ & All positive\\
- Three or more & All positive\\
- \bottomrule
- \end{tabular}
- \caption{The minimal sufficient classes are $\{+\}$ and $\{-\}$.
- For number conservation, convergence alone supplies the needed occupation
- bound, as shown in Sec.~\ref{sec:number}. With pairing, the state-evolution
- condition and its explicit sufficient realizations are stated in
- Theorem~\ref{thm:one_trs}.}
- \label{tab:trs}
-\end{table}
-
 \section{Damping and the contraction semigroup}
 \label{sec:contraction}
 
-We now turn from a sign proof to a way of constructing evolutions for which
-convergence is under control. Introduce Hermitian positions and momenta,
+With pairing, the growing and decaying occupation sectors are mixed.
+Positions and momenta provide a simple way to identify what damps the
+evolution. Introduce Hermitian coordinates
 \begin{equation}
  \hat a_j=\frac{\hat x_j+\ii\hat p_j}{\sqrt2},\qquad
  \hat a_j^+=\frac{\hat x_j-\ii\hat p_j}{\sqrt2},\qquad
@@ -612,34 +284,6 @@ $Mv=\lambda v$ with $|\lambda|=1$, then
 contradicting strict positivity. In particular $\lambda=1$, the location of
 a bosonic determinant pole, is excluded.
 
-\subsection{A direct sign proof for these damped products}
-
-Inside this construction, the positive sign can also be seen by connecting
-the generators to ordinary thermal oscillators. Use the same invariant
-reference modes as before and put
-\begin{equation}
- \hat h_\ell(u)=u\hat h_\ell-(1-u)\delta
- \sum_j(\hat a_j^+\hat a_j+1/2),
- \qquad 0\leq u\leq1,\quad\delta>0.
- \label{eq:thermal_deformation}
-\end{equation}
-The deformation preserves time reversal and the nonpositive Hermitian part.
-For $u<1$, every mode has strict damping. At $u=1$, assume that the complete
-original product is strictly contracting, for example because it contains
-one strict factor. Its trace therefore stays convergent throughout the
-deformation; the equivalence with convergence is derived in
-Sec.~\ref{sec:endpoint} and Appendix~\ref{app:convergence}.
-
-The trace varies continuously, stays real by time reversal, and cannot
-vanish by the Gaussian integral in Sec.~\ref{sec:trace}. At the thermal endpoint,
-\begin{equation}
- W(0)=\left[2\sinh(L\delta/2)\right]^{-N}>0.
-\end{equation}
-It therefore remains positive up to $u=1$. This is the same real,
-continuous, nonzero-trace argument used in the thermal filter. The
-contraction conditions provide a particularly simple path of convergent
-evolutions.
-
 \subsection{Convergence is a property of the final product}
 \label{sec:endpoint}
 
@@ -666,23 +310,153 @@ $H_R\leq0$. A simple example is
 \end{equation}
 Acting from right to left, the first damping creates enough suppression to
 permit the later amplification. The final trace is positive and convergent.
-This example satisfies the Hermitian-slice version of
-Theorem~\ref{thm:one_trs}, although the amplifying generator is outside the
-contraction cone.
+The damping inequalities on the separate generators are therefore a
+simple sufficient construction of a convergent product. The strict
+inequality on the final matrix is the test for that product itself.
+We next use the construction to determine the sign.
 
-The matrix inequality controls convergence. The positive vacuum amplitude
-controls the overall sign of the actual Gaussian operator. Both pieces have
-been established in our positive-trace theorem. A real scalar sign would be
-invisible in $M$, which is why it was useful to follow the state before
-introducing the contraction matrix.
+\section{Fixing the sign by a continuous change of the generators}
+\label{sec:trace}
+Damping controls the sum over high occupations. The sign can then be
+determined by continuously turning the evolution into a simple example
+whose trace is known to be positive. During this change, time reversal
+keeps the trace real, and contraction keeps it convergent. A finite
+Gaussian trace is also nonzero, because it is a nonzero Gaussian
+normalization times a convergent Gaussian integral. Appendix
+\ref{app:gaussian_trace} derives this last fact explicitly.
+The real trace therefore keeps the same sign along the whole path.
+
+\subsection{Starting from a known positive partition function}
+
+The simple example is a set of independent harmonic oscillators.
+Choose physical oscillator modes for which
+$\hat N_0=\sum_j\hat a_j^+\hat a_j$ is invariant under the common time
+reversal. For the actions $\Theta_+\hat a_j\Theta_+^{-1}=\hat a_j$ and
+$\Theta_-\hat b_j\Theta_-^{-1}=\hat c_j,\
+\Theta_-\hat c_j\Theta_-^{-1}=-\hat b_j$, the ordinary
+total occupation already has this property. Appendix
+\ref{sec:reference} explains the choice for a general physical time
+reversal. This change of physical modes preserves
+$\operatorname{Re}H_\ell\leq0$: a nonpositive quadratic form remains
+nonpositive under the corresponding real change of $x,p$.
+The oscillator partition function is
+\begin{equation}
+ \Tr\ee^{-\alpha(\hat N_0+N/2)}
+ =\prod_{j=1}^N\sum_{n_j=0}^{\infty}
+   \ee^{-\alpha(n_j+1/2)}
+ =[2\sinh(\alpha/2)]^{-N}>0,\qquad\alpha>0.
+ \label{eq:oscillator_partition}
+\end{equation}
+
+Now take slices with $\operatorname{Re}H_\ell\leq0$, real scalar terms,
+and this common time reversal. Assume the final product is strictly
+contracting. To connect its trace to Eq.~\eqref{eq:oscillator_partition},
+multiply the original generator by $u$ and add ordinary oscillator
+damping with strength $(1-u)\delta$:
+\begin{equation}
+ \hat h_\ell(u)=u\hat h_\ell-(1-u)\delta
+ \sum_j(\hat a_j^+\hat a_j+1/2),
+ \qquad 0\leq u\leq1,\quad\delta>0.
+ \label{eq:thermal_deformation}
+\end{equation}
+At $u=0$ all original couplings are absent; at $u=1$ the original
+generators are recovered. In these oscillator quadratures,
+\begin{equation}
+ \operatorname{Re}H_\ell(u)
+ =u\operatorname{Re}H_\ell-(1-u)\delta I<0
+ \qquad (0\leq u<1).
+ \label{eq:deformation_damping}
+\end{equation}
+Thus every intermediate product has a convergent trace. At $u=1$ the
+assumed strict contraction of the complete product supplies convergence
+by Eq.~\eqref{eq:trace_contraction_equivalence}.
+
+Write $W(u)=\Tr\prod_\ell\ee^{\hat h_\ell(u)}$. The actual exponentials
+vary continuously. Strict contraction supplies a uniform Gaussian decay
+bound in a neighborhood of every $u$, including the endpoint $u=1$,
+so their Gaussian integrals make $W(u)$ continuous.
+Time reversal makes $W(u)$ real. Equation
+\eqref{eq:gaussian_integral} ensures that it is never zero. Its initial
+value is the oscillator partition function in
+Eq.~\eqref{eq:oscillator_partition}, with $\alpha=L\delta$:
+\begin{equation}
+ W(0)=\left[2\sinh(L\delta/2)\right]^{-N}>0.
+ \label{eq:thermal_reference_trace}
+\end{equation}
+A continuous real number can change sign only by passing through zero.
+We have therefore proved
+\begin{equation}
+ \boxed{\Tr\prod_\ell\ee^{\hat h_\ell}>0.}
+ \label{eq:main_positive}
+\end{equation}
+This proof uses damping, a common time reversal, and an ordinary
+Gaussian integral. It applies equally to the two squares of time reversal.
+
+\begin{theorem}[One time reversal in the contraction semigroup]
+\label{thm:contraction_trs}
+Let
+$\hat h_\ell=\frac12\hat r^\trans H_\ell\hat r+\xi_\ell$
+be quadratic generators on finitely many bosonic modes, with
+$H_\ell^\trans=H_\ell$, $\xi_\ell\in\mathbb R$, and
+$\operatorname{Re}H_\ell\leq0$. If all slices preserve a common physical
+linear canonical time reversal of square $+I$ or $-I$ on the operators, and
+the complete propagation matrix obeys
+$M^\dagger(\ii\Omega)M<\ii\Omega$, then the full Fock-space trace exists
+and is strictly positive.
+\end{theorem}
+
+\subsection{The convergent TRS table and its scope}
+
+Braces conventionally list the squares of common, mutually anticommuting
+time reversals. Theorem~\ref{thm:contraction_trs} gives
+Table~\ref{tab:trs}. Once one symmetry suffices, adding more symmetries
+preserves positivity, regardless of their mutual anticommutation.
+\begin{table}[ht]
+ \centering
+ \begin{tabular}{ll}
+ \toprule
+ Common time reversals & Convergent contraction construction\\
+ \midrule
+ None & Positivity is not guaranteed\\
+ $\{+\}$ & Positive\\
+ $\{-\}$ & Positive\\
+ $\{+,+\},\ \{+,-\},\ \{-,-\}$ & All positive\\
+ Three or more & All positive\\
+ \bottomrule
+ \end{tabular}
+ \caption{The minimal sufficient classes are $\{+\}$ and $\{-\}$.
+ The pairing result follows from Theorem~\ref{thm:contraction_trs}.
+ For number conservation, Sec.~\ref{sec:number} requires only convergence
+ of the final trace. The extension to amplifying slices is given in
+ Appendix~\ref{app:vacuum}.}
+ \label{tab:trs}
+\end{table}
+
+The table also holds for successive Hermitian and anti-Hermitian slices
+acting on a time-reversal-invariant Gaussian vacuum that remains
+normalizable through the slices, provided the final trace converges.
+Such a factorization can contain
+amplification, as in Eq.~\eqref{eq:growth_cancellation}. Appendix
+\ref{app:vacuum} supplies this extension and its proof by following a
+Gaussian state. The contraction proof above gives the direct route for
+damping combined with unitary evolution, which is the construction used
+in the examples below.
+
+The role of the path deserves one explicit observation. Multiplying a
+Gaussian operator by $-1$ leaves its canonical propagation matrix
+unchanged. The matrix inequality alone therefore controls convergence,
+while the continuous change of actual exponentials starting from
+Eq.~\eqref{eq:thermal_reference_trace} fixes the positive sign.
+This is why keeping the physical evolution matters when a trace is
+written as a square root of a determinant.
 
 \section{The two standard forms}
 \label{sec:standard}
 
 We can now state the connection to \emph{Two standard forms of bosonic
 contraction semigroups}, the companion note
-\texttt{BosonicContractionSemigroups.md}, without needing its original
-matrix enumeration. Write time reversal on the Hermitian coordinates as
+\texttt{BosonicContractionSemigroups.md}.
+Write time reversal on the Hermitian coordinates as
 $\Theta\hat r\Theta^{-1}=R\hat r$. Since it conjugates $\ii$, preservation
 of the commutators requires $R^\trans\Omega R=-\Omega$. The conditions on
 each quadratic slice are
@@ -692,7 +466,8 @@ each quadratic slice are
  \label{eq:standard_common}
 \end{equation}
 They respectively give a quadratic bosonic generator, its physical time
-reversal, and damping. In the reference oscillator coordinates, the two
+reversal, and damping. In the oscillator coordinates chosen in
+Sec.~\ref{sec:trace}, the two
 choices of the square of time reversal give the following forms.
 A unitary rotation of those modes is enough to obtain them. For square $+I$,
 the one-particle space has an orthonormal basis fixed by time reversal:
@@ -729,17 +504,15 @@ For an explicit example, take one damping factor and one squeezing unitary,
  \label{eq:plus_example}
 \end{equation}
 Both generators are real in the occupation basis and preserve $\Theta_+$.
-Their trace and vacuum amplitude are
+Their trace is
 \begin{equation}
- W=\frac{1}{\sqrt{2\cosh\beta\cosh s-2}}>0,
- \qquad
- \langle0|\hat G|0\rangle=
- \frac{\ee^{-\beta/2}}{\sqrt{\cosh s}}>0.
+ W=\frac{1}{\sqrt{2\cosh\beta\cosh s-2}}>0.
  \label{eq:plus_example_trace}
 \end{equation}
 At $s=0$ this reduces to the oscillator partition function
-$[2\sinh(\beta/2)]^{-1}$. Pairing has changed the occupation content, while
-the same real-positive vacuum amplitude fixes the sign.
+$[2\sinh(\beta/2)]^{-1}$. Pairing changes the occupation content.
+Along the path in Eq.~\eqref{eq:thermal_deformation}, the trace remains real, convergent,
+and nonzero, which fixes the positive square root shown here.
 
 \subsection{Time reversal exchanging two groups: square \texorpdfstring{$-I$}{-I}}
 
@@ -762,7 +535,7 @@ The damping inequality applies to the full matrix, including the coupling
 between the two groups. The groups need not evolve independently. This is
 Theorem 2 of the companion note and the contraction realization of $\{-\}$.
 
-For example, a common thermal damping can be combined with the two unitary
+For example, damping of both modes can be combined with the two unitary
 generators
 \begin{align}
  \hat h_0&=-\beta(\hat n_b+\hat n_c+1),\quad\beta>0,\nonumber\\
@@ -782,7 +555,7 @@ trace. No separation into two independent flavors is used.
 \subsection{What the correspondence establishes}
 
 The two forms are the same symmetry distinction that appears in
-Theorem~\ref{thm:one_trs}. In the original eight-cell enumeration they are
+Theorem~\ref{thm:contraction_trs}. In the original eight-cell enumeration they are
 grouped as follows; the cell labels serve as an index into the companion
 note:
 \begin{center}
@@ -803,24 +576,10 @@ dissipative generator: multiplying Hermitian $x,p$ by $\ii$ would change
 their adjoint relation. The full generator needs the one physical symmetry
 in Eq.~\eqref{eq:standard_common}.
 
-All the positive final products proved here have a strictly contracting
-physical propagation matrix and the positive vacuum amplitude selected by
-their evolution. In this sense their positivity has a contraction-semigroup
-description. The companion note supplies simple generator conditions that
-keep every multiplication inside this family. A different original
-factorization can include amplifying slices, as in
-Eq.~\eqref{eq:growth_cancellation}. Its final contraction does not imply
-that those original slices individually obey
-Eq.~\eqref{eq:standard_common}.
-
-Thus the older symmetry sets $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are
-all contained in these sufficient classes for the evolutions covered by
-Theorem~\ref{thm:one_trs}. The
-contraction construction permits fewer physical time reversals and also
-supplies a practical convergence test. Within this regime, its two standard
-forms express the same two elementary mechanisms as $\{+\}$ and $\{-\}$.
-They do not classify every possible way of obtaining positive bosonic
-weights in the absence of a common physical time reversal.
+The two standard forms therefore construct the minimal classes
+$\{+\}$ and $\{-\}$ of Table~\ref{tab:trs}. Their generator conditions
+keep every multiplication inside the contraction semigroup, while the
+connection to independent oscillators fixes the positive sign of the trace.
 
 The companion note additionally identifies eight algebraic descriptions by
 complex canonical coordinate changes. When such a change is used, the actual
@@ -828,13 +587,364 @@ adjoint relation must be transformed together with the coordinates. The
 physical criteria above use Hermitian $x,p$ throughout, so the damping and
 Fock-space convergence have their usual oscillator meaning.
 
+\section{Reflection positivity in the same contraction framework}
+\label{sec:rp}
+
+Reflection positivity (RP) starts from two groups of bosons. Its physical
+idea is to pair each amplitude in one group with its complex conjugate
+in the other group. We first recall this construction, then exhibit the
+oscillator basis and contraction metric explicitly.
+
+\subsection{The reflected pairs and their common time reversal}
+
+Let $\hat b_j,\hat c_j$, $j=1,\ldots,m$, generate two commuting Fock
+spaces. Choose the antilinear reflection
+$\theta(\hat b_j)=\hat c_j$,
+$\theta(\hat b_j^+)=\hat c_j^+$, and $\theta(\ii)=-\ii$.
+Fixed reflection phases can be absorbed into the definitions of the
+$c$ modes; this is a unitary mode redefinition preserving their adjoints.
+For the present derivation put
+\begin{equation}
+ \hat z=\binom{\hat b}{\hat b^+},\qquad
+ \hat\chi_R=\binom{\hat z}{\theta(\hat z)}
+ =(\hat b,\hat b^+,\hat c,\hat c^+)^\trans.
+ \label{eq:rp_basis}
+\end{equation}
+A quadratic RP slice has the form
+\begin{equation}
+ \hat h=\hat\chi_R^\trans
+ \begin{pmatrix}D&F\\F^\trans&\overline D\end{pmatrix}
+ \hat\chi_R+\xi,\qquad
+ D^\trans=D,\quad F=F^\dagger\geq0,\quad \xi\in\mathbb R.
+ \label{eq:rp_generator}
+\end{equation}
+Each block has dimension $2m$. A nonsymmetric $D$ can be symmetrized:
+its antisymmetric part contributes only a scalar, and the two reflected
+scalars sum to a real number. The coupling term is
+$2\hat z^\trans F\theta(\hat z)$.
+
+Extend the reflection to an antiunitary on the full Fock space by
+exchanging the groups in both directions:
+\begin{equation}
+ \Theta_R\hat b_j\Theta_R^{-1}=\hat c_j,\qquad
+ \Theta_R\hat c_j\Theta_R^{-1}=\hat b_j.
+ \label{eq:rp_time_reversal}
+\end{equation}
+It has square $+I$. The two diagonal terms in
+Eq.~\eqref{eq:rp_generator} are exchanged. For the mixed term, the
+commutation of the two groups and $F_{\nu\mu}=\overline F_{\mu\nu}$
+give
+\begin{align}
+ \Theta_R\!\left[\sum_{\mu\nu}F_{\mu\nu}
+       \hat z_\mu\theta(\hat z_\nu)\right]\Theta_R^{-1}
+ &=\sum_{\mu\nu}\overline F_{\mu\nu}
+       \theta(\hat z_\mu)\hat z_\nu\nonumber\\
+ &=\sum_{\mu\nu}F_{\mu\nu}
+       \hat z_\mu\theta(\hat z_\nu).
+ \label{eq:rp_reality}
+\end{align}
+Every RP slice therefore has this common physical time reversal.
+Hermiticity of $F$ gives the symmetry; its nonnegative eigenvalues
+supply the additional reflected-pair positivity.
+
+\subsection{The explicit basis and metric}
+
+In the order of Eq.~\eqref{eq:rp_basis}, the physical adjoint relation
+gives
+\begin{equation}
+ [(\hat\chi_R)_\mu,(\hat\chi_R)_\nu^\dagger]
+ =(\eta_R)_{\mu\nu},\qquad
+ \boxed{\eta_R=\diag(I_m,-I_m,I_m,-I_m).}
+ \label{eq:rp_metric}
+\end{equation}
+Define $M_R$ by $\hat\chi_R\hat G=\hat G M_R\hat\chi_R$.
+For a convergent Gaussian product,
+Eq.~\eqref{eq:trace_contraction_equivalence} reads
+\begin{equation}
+ \boxed{M_R^\dagger\eta_R M_R<\eta_R.}
+ \label{eq:rp_contraction}
+\end{equation}
+The metric is fixed by the physical boson operators.
+
+To put the symmetry itself in the first standard form, introduce ordinary
+annihilation operators
+\begin{equation}
+ \boxed{\hat d_1=\frac{\hat b+\hat c}{\sqrt2},\qquad
+        \hat d_2=\frac{\ii(\hat b-\hat c)}{\sqrt2}.}
+ \label{eq:rp_d_modes}
+\end{equation}
+Both obey $\Theta_R\hat d_\alpha\Theta_R^{-1}=\hat d_\alpha$.
+For $\hat d_2$, complex conjugation changes the sign of $\ii$, while
+the exchange of $b,c$ changes the sign of their difference. The two
+signs cancel. These are unitary combinations of annihilation operators,
+so the commutators and physical adjoints are preserved.
+
+In full Nambu notation, the transformation is
+\begin{equation}
+ \hat\chi_d=(\hat d_1,\hat d_2,\hat d_1^+,\hat d_2^+)^\trans
+ =S_R\hat\chi_R,\qquad
+ S_R=\frac1{\sqrt2}
+ \begin{pmatrix}
+ I&0&I&0\\
+ \ii I&0&-\ii I&0\\
+ 0&I&0&I\\
+ 0&-\ii I&0&\ii I
+ \end{pmatrix},
+ \label{eq:rp_basis_matrix}
+\end{equation}
+where each $I$ has dimension $m$. Thus
+\begin{equation}
+ S_R\eta_R S_R^\dagger=\Sigma_d,\qquad
+ \Sigma_d=\diag(I_{2m},-I_{2m}),\qquad
+ M_d=S_RM_RS_R^\dagger,
+ \label{eq:rp_metric_transform}
+\end{equation}
+and time reversal becomes ordinary coefficient conjugation:
+\begin{equation}
+ \overline M_d=M_d,\qquad M_d^\trans\Sigma_d M_d<\Sigma_d.
+ \label{eq:rp_real_contraction}
+\end{equation}
+Finally use the Hermitian quadratures
+$\hat r_d=(\hat x_{d_1},\hat x_{d_2},
+\hat p_{d_1},\hat p_{d_2})^\trans$.
+Their metric is $E=\ii\Omega_{2m}$, with
+$\Omega_{2m}=\left(\begin{smallmatrix}0&I_{2m}\\-I_{2m}&0\end{smallmatrix}\right)$.
+Time reversal fixes their positions and reverses their momenta.
+This is precisely the first standard form in
+Eq.~\eqref{eq:plus_standard} whenever the slices satisfy the damping
+condition. Even if the original factorization includes amplification,
+its convergent final matrix still satisfies
+Eq.~\eqref{eq:rp_real_contraction}.
+
+\subsection{How RP fixes the positive sign}
+
+Within the damping construction, Theorem~\ref{thm:contraction_trs}
+already proves positivity using the oscillator partition function and the symmetry
+in Eq.~\eqref{eq:rp_time_reversal}. RP also supplies a direct sign
+argument for its own generator cone.
+
+An elementary reflected pair is $\hat R\,\theta(\hat R)$, where
+$\hat R$ acts only on the $b$ space. Products of such pairs remain
+of the same form because operators on the two spaces commute:
+\begin{equation}
+ [\hat R\,\theta(\hat R)][\hat Q\,\theta(\hat Q)]
+ =(\hat R\hat Q)\theta(\hat R\hat Q).
+ \label{eq:rp_product}
+\end{equation}
+Sums with nonnegative coefficients are therefore closed under
+multiplication as well. Decompose
+$2F=\sum_\alpha v_\alpha v_\alpha^\dagger$ and set
+$\hat A_\alpha=\sum_\mu(v_\alpha)_\mu\hat z_\mu$.
+The mixed part of the generator is
+$\sum_\alpha\hat A_\alpha\theta(\hat A_\alpha)$.
+Its exponential expands in reflected pairs with nonnegative
+coefficients. The diagonal terms give
+$\ee^{\hat q+\theta(\hat q)}
+=\ee^{\hat q}\theta(\ee^{\hat q})$, where
+$\hat q=\hat z^\trans D\hat z$.
+A Trotter product combines these two pieces. For bounded operators this
+constructs limits of finite reflected sums, schematically
+\begin{equation}
+ \hat G^{(n)}=\ee^{\sum_\ell\xi_\ell}
+ \sum_\alpha\hat R_{\alpha,n}\theta(\hat R_{\alpha,n}),
+ \label{eq:rp_sum}
+\end{equation}
+where each sum is finite and positive coefficients are absorbed into
+the $\hat R_{\alpha,n}$.
+The RP property for an unbounded bosonic construction means that these
+finite sums $\hat G^{(n)}$ approach $\hat G$ in every finite-occupation
+matrix element.
+The series and Trotter argument establish the property at a finite
+occupation cutoff. Passing to the original evolution requires the
+regularized products to approach its matrix elements.
+Convergence of the final trace is then used to remove the cutoff in the
+trace, as follows.
+
+The trace of a reflected pair is a modulus square. This can be used
+without assuming that the separate factors have finite traces.
+Let $P_K$ project onto a finite occupation cutoff in the $b$ space
+and use the reflected projector in the $c$ space. With
+$\Pi_K=P_K\otimes\theta(P_K)$, the reflected sums give
+\begin{equation}
+ \Tr(\Pi_K\hat G\Pi_K)
+ =\lim_{n\to\infty}\ee^{\sum_\ell\xi_\ell}
+ \sum_\alpha
+ \left|\Tr_b(P_K\hat R_{\alpha,n}P_K)\right|^2\geq0.
+ \label{eq:rp_cutoff_trace}
+\end{equation}
+The fixed-$K$ trace is a finite sum of matrix elements, so the stated
+limit preserves its nonnegative sign.
+Since $\hat G$ is trace class, taking $K\to\infty$ yields
+$W\geq0$. Its Gaussian trace is nonzero by
+Eq.~\eqref{eq:gaussian_integral}, so $W>0$.
+In the contraction description, this reflected-pair construction fixes
+the positive scalar sign of the operator above the matrix $M_R$.
+
+The two nonnegative conditions have different jobs.
+$F\geq0$ pairs reflected amplitudes in Eq.~\eqref{eq:rp_cutoff_trace};
+$\operatorname{Re}H\leq0$ suppresses large oscillator fluctuations.
+An unrestricted $\hat q+\theta(\hat q)$ can amplify occupations, so
+the RP generator condition by itself does not imply slice-by-slice
+damping. For every convergent RP product, however, the final
+contraction and its positive sign have now both been identified.
+
+\subsection{A paired auxiliary-field example}
+
+The relation becomes particularly concrete for the stable two-flavor
+quadratic Hamiltonian
+\begin{equation}
+ \hat K_0=\sum_{ij}k_{ij}
+   (\hat b_i^+\hat b_j+\hat c_i^+\hat c_j)
+ -\Delta\sum_i(\hat b_i^+\hat c_i^++\hat b_i\hat c_i),
+ \quad k^\trans=k\ \text{real},\quad\Delta\geq0,
+ \label{eq:rp_example_hamiltonian}
+\end{equation}
+with relative-density auxiliary-field factors
+\begin{equation}
+ \hat T=\ee^{-\Delta\tau\hat K_0},\qquad
+ \hat V_\ell=\exp\!\left[
+ \ii\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})\right],
+ \quad \Delta\tau>0,\quad\varphi_{i\ell}\in\mathbb R.
+ \label{eq:rp_example_factors}
+\end{equation}
+The pair term in $-\Delta\tau\hat K_0$ has
+$F=(\Delta\tau\Delta/2)I_{2m}\geq0$.
+Both factors preserve $\Theta_R$.
+If $\lambda_{\min}(k)>\Delta$, all oscillator directions of
+$\hat K_0$ have positive energy and $\hat T$ is strictly damping.
+Every $\hat V_\ell$ is unitary, so it lies in the maximal subgroup.
+Equation~\eqref{eq:product_contraction} proves convergence for any
+ordered product containing a $\hat T$ factor and these field factors.
+
+The mode change in Eq.~\eqref{eq:rp_d_modes} gives
+\begin{align}
+ \hat b_i\hat c_i&=\frac12(\hat d_{1i}^2+\hat d_{2i}^2),\nonumber\\
+ \ii\varphi_i(\hat n_{b,i}-\hat n_{c,i})
+ &=\varphi_i(\hat d_{1i}^+\hat d_{2i}
+             -\hat d_{2i}^+\hat d_{1i}).
+ \label{eq:rp_example_transformed}
+\end{align}
+The pairing is real in each new mode. The field factor is a real
+unitary rotation of the two modes. More explicitly, each mode group
+has
+\begin{equation}
+ \hat K_{0,\alpha}
+ =\frac12\hat x_{d_\alpha}^\trans(k-\Delta I)\hat x_{d_\alpha}
+  +\frac12\hat p_{d_\alpha}^\trans(k+\Delta I)\hat p_{d_\alpha}
+  -\frac12\tr k.
+ \label{eq:rp_example_quadrature}
+\end{equation}
+Its negative imaginary-time generator has precisely the nonpositive
+$xx,pp$ blocks of Eq.~\eqref{eq:plus_standard}. The field generator
+has only imaginary $xp$ coefficients and zero Hermitian part.
+Here $\tr k$ is the finite matrix trace.
+The path in Eq.~\eqref{eq:thermal_deformation} proves the positive
+weight for every field configuration directly.
+
+For nearest-neighbor hopping $t>0$ on the triangular lattice,
+$k=tA_\triangle-\mu I$, where $A_\triangle$ is the adjacency matrix,
+has its spectrum bounded below by $-3t-\mu$.
+The sufficient stability bound becomes
+$\mu<-3t-|\Delta|$ after restoring a possible pairing phase.
+This stable RP example therefore realizes the first bosonic contraction
+semigroup explicitly, with strict damping and unitary field
+factors.
+
+\subsection{What is unified by the contraction description}
+
+The metric $\Sigma$ in Nambu coordinates, or $\ii\Omega$ in physical
+quadratures, expresses convergence for all the finite Gaussian products
+considered here. TRS selects real traces. A continuous connection
+to the positive oscillator partition function fixes their sign.
+RP supplies another
+explicit positive-sign construction through reflected amplitudes.
+The two standard forms distinguish square $+I$ from square $-I$ for
+the physical time reversal.
+
+For damping and unitary slices, the minimal convergent TRS classes are
+therefore $\{+\}$ and $\{-\}$, and the reflected-pair construction
+above lies in the first class after Eq.~\eqref{eq:rp_d_modes}.
+The symmetry sets $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are
+contained in these convergent sufficient classes. Extending a
+determinant formula analytically beyond convergence of the Fock trace
+removes the bound that keeps this path free of divergences.
+The positivity proof therefore applies to the convergent domain.
+
+The companion note gives local generator conditions that keep every
+factor inside either standard contraction semigroup. Convergence of
+the final product is more general than these local conditions:
+an amplifying factor can be compensated by another factor.
+Its final contraction uses the same physical metric; a valid sign
+construction, such as RP or the extension in Appendix~\ref{app:vacuum},
+specifies the positive operator trace.
+
 \appendix
-\section{The Gaussian kernel and its propagation matrix}
+\section{Why a finite Gaussian trace cannot pass through zero}
+\label{app:gaussian_trace}
+
+Use coherent states
+\begin{equation}
+ |z\rangle=\ee^{-|z|^2/2}
+ \exp\!\left(\sum_jz_j\hat a_j^+\right)|0\rangle,
+ \qquad
+ \int\frac{d^{2N}z}{\pi^N}|z\rangle\langle z|=I.
+ \label{eq:coherent_states}
+\end{equation}
+The matrix element of a quadratic evolution between coherent states is a
+Gaussian. For some symmetric matrices $X,V$ and a matrix $Y$, its unnormalized
+form is
+\begin{equation}
+ \langle0|\ee^{\bar z^\trans\hat a}\hat G
+ \ee^{w^\trans\hat a^+}|0\rangle
+ =c\exp\!\left[
+ \frac12\bar z^\trans X\bar z+\bar z^\trans Yw
+ +\frac12w^\trans Vw\right].
+ \label{eq:gaussian_kernel}
+\end{equation}
+Here $c=\langle0|\hat G|0\rangle\ne0$ for a nonzero finite Gaussian
+evolution. The Gaussian form follows by applying the linear propagation
+relations to the coherent-state kernel; Sec.~\ref{app:kernel} derives
+its coefficients. In particular, the kernel is a nonzero constant times
+an exponential, so its value at $z=w=0$ cannot vanish.
+
+Set $w=z$ and include the coherent-state normalization. Writing the real and
+imaginary parts of $z$ as a real vector $u$ turns the trace into an ordinary
+Gaussian integral. Its absolute convergence follows from the convergence
+already assumed for $\hat G$. To see this explicitly, write a singular-value
+decomposition $\hat G=\sum_j s_j|u_j\rangle\langle v_j|$, with normalized
+states and $\sum_j s_j<\infty$. Coherent-state completeness and the
+Cauchy--Schwarz inequality give
+\begin{equation}
+ \int\frac{d^{2N}z}{\pi^N}|\langle z|\hat G|z\rangle|
+ \leq\sum_j s_j
+ \left[\int\frac{d^{2N}z}{\pi^N}|\langle z|u_j\rangle|^2
+       \int\frac{d^{2N}z}{\pi^N}|\langle v_j|z\rangle|^2\right]^{1/2}
+ =\sum_j s_j.
+ \label{eq:coherent_absolute}
+\end{equation}
+Thus the real part of the quadratic decay matrix in this integral must be
+positive definite. The result is
+\begin{equation}
+ \Tr\hat G
+ =c\int\frac{d^{2N}u}{(2\pi)^N}
+       \exp\!\left(-\frac12u^\trans\mathcal A u\right)
+ =\frac{c}{\sqrt{\det\mathcal A}},
+ \qquad \operatorname{Re}\mathcal A>0.
+ \label{eq:gaussian_integral}
+\end{equation}
+The normalization uses $z=(u_x+\ii u_p)/\sqrt2$. The positive real part is
+the convergence condition for this Gaussian integral. It also makes
+$\mathcal A$ nonsingular. One can evaluate the integral by continuously
+changing $\mathcal A$ from $I$ to its final value while keeping its real
+part positive. Hence its value is finite and nonzero. No sign choice from a
+standalone determinant is needed: the convergent integral defines the value.
+
+\subsection{The Gaussian kernel and its propagation matrix}
 \label{app:kernel}
 
-This appendix supplies the finite-matrix connection used in
-Secs.~\ref{sec:trace} and \ref{sec:endpoint}. It is independent of the sign
-argument based on the vacuum amplitude.
+This calculation supplies the finite-matrix connection used in
+Secs.~\ref{sec:trace} and \ref{sec:endpoint}. Only linear propagation
+relations and coherent-state differentiation are needed.
 
 In the Nambu basis define the propagation by
 \begin{equation}
@@ -843,26 +953,36 @@ In the Nambu basis define the propagation by
  M_\chi=\begin{pmatrix}A&B\\C&D\end{pmatrix}.
  \label{eq:kernel_intertwine}
 \end{equation}
-These block letters are used only in the appendices. They do not denote
-the normally ordered coefficients $K,P,Q$ of
-Eq.~\eqref{eq:normal_generator}. With $z,w$ independent complex variables,
-write the kernel as
+The letters $A,B,C,D$ here denote propagation blocks, independently of
+the RP generator blocks in Sec.~\ref{sec:rp}.
+With $z,w$ independent complex variables, define
 \begin{equation}
- \mathcal K(z,\bar w)=c\exp\!\left[
- \frac12 z^\trans Xz+z^\trans Y\bar w
- +\frac12\bar w^\trans V\bar w\right].
+ \mathcal K(z,\bar w)=
+ \langle0|\ee^{z^\trans\hat a}\hat G
+ \ee^{\bar w^\trans\hat a^+}|0\rangle.
  \label{eq:appendix_kernel}
 \end{equation}
+This is an analytic, nonzero kernel when $\hat G$ is a nonzero bounded
+operator.
 Creation acts by multiplication and annihilation by differentiation on
 these unnormalized coherent states. The lower block of
 Eq.~\eqref{eq:kernel_intertwine} therefore gives
 \begin{equation}
- z\mathcal K=C\bar w\mathcal K+D\partial_{\bar w}\mathcal K,
- \qquad DY^\trans=I,\qquad DV=-C.
+ z\mathcal K=C\bar w\mathcal K+D\partial_{\bar w}\mathcal K.
 \end{equation}
-Thus $D$ is invertible, $Y=D^{-\trans}$ and $V=-D^{-1}C$. The upper block
-gives $X=BD^{-1}$. The remaining coefficient follows from preservation of
-the commutators. Consequently the symmetric kernel matrix is
+If $v^\trans D=0$, this equation would require
+$v^\trans(z-C\bar w)\mathcal K=0$ for all independent $z,w$.
+The kernel is analytic and nonzero, so $v=0$ and $D$ is invertible.
+Substituting its inverse and then using the upper propagation block gives
+\begin{align}
+ \partial_{\bar w}\mathcal K
+   &=(D^{-1}z-D^{-1}C\bar w)\mathcal K,\nonumber\\
+ \partial_z\mathcal K
+   &=(BD^{-1}z+D^{-\trans}\bar w)\mathcal K.
+\end{align}
+Here the canonical relations give
+$A-BD^{-1}C=D^{-\trans}$. These first-order equations fix the kernel
+up to a constant $c$, with the Gaussian form
 \begin{equation}
  \mathcal S=
  \begin{pmatrix}
@@ -874,16 +994,18 @@ the commutators. Consequently the symmetric kernel matrix is
  (z,\bar w)^\trans\mathcal S(z,\bar w)\right].
  \label{eq:kernel_S}
 \end{equation}
-The scalar $c$ is supplied by the actual operator, for example by
-Eq.~\eqref{eq:c_evolution}. The propagation matrix determines the shape of
-the Gaussian kernel.
+The coefficients in Eq.~\eqref{eq:gaussian_kernel} are therefore
+$X=BD^{-1}$, $Y=D^{-\trans}$, and $V=-D^{-1}C$.
+The constant $c$ cannot be zero, since that would make the whole kernel
+and the operator zero. Its value is supplied by the actual evolution,
+for example by Eq.~\eqref{eq:c_evolution}. The propagation matrix
+determines the shape of the Gaussian kernel.
 
 \section{Deriving the equivalence between convergence and strict contraction}
 \label{app:convergence}
 
-For a Gaussian kernel the convergence test can be reduced to the norm
-calculation already used for squeezed states. The sum of the squared
-singular values of the operator is
+For a Gaussian kernel the convergence test is another Gaussian integral.
+The sum of the squared singular values of the operator is
 \begin{equation}
  \Tr(\hat G^\dagger\hat G)
  =|c|^2\int\frac{d^{4N}v}{\pi^{2N}}
@@ -967,6 +1089,265 @@ physical evolution. Finite products of Gaussian exponentials are the
 nondegenerate operators under discussion; an exact vacuum projector is a
 limiting object rather than one with a finite invertible $M_\chi$.
 
+\section{An extension allowing amplifying slices}
+\label{app:vacuum}
+\subsection{Choosing oscillator coordinates that respect time reversal}
+\label{sec:reference}
+
+To use the independent-oscillator partition function in
+Sec.~\ref{sec:trace}, we need a total occupation that is invariant under
+time reversal. For the familiar actions
+\begin{equation}
+ \Theta_+\hat a_j\Theta_+^{-1}=\hat a_j,\qquad
+ \Theta_-\hat b_j\Theta_-^{-1}=\hat c_j,\quad
+ \Theta_-\hat c_j\Theta_-^{-1}=-\hat b_j,
+ \label{eq:two_actions}
+\end{equation}
+the total occupation is already invariant. The second action requires an
+even number of modes. Its square is $-I$ on the canonical operators and
+particle parity on Fock space.
+
+A general physical canonical time reversal can be put in this form after
+choosing suitable oscillator modes. To obtain a positive reference
+Hamiltonian, start from any positive confining oscillator $\hat H_0$ and
+take
+\begin{equation}
+ \hat H_{\rm ref}=\hat H_0+\Theta\hat H_0\Theta^{-1}.
+ \label{eq:reference_hamiltonian}
+\end{equation}
+Both terms are positive confining quadratics, and the sum is invariant
+because applying $\Theta$ twice leaves a quadratic unchanged. Diagonalize
+this stable oscillator Hamiltonian into normal modes. Time reversal
+mixes annihilation operators only with annihilation operators at the same
+positive frequency, as also follows from their commutator with
+$\hat H_{\rm ref}$. It therefore preserves the total normal-mode
+occupation $\hat N_0=\sum_j\hat a_j^+\hat a_j$.
+The mode frequencies can be replaced by one common positive frequency
+while preserving the symmetry. In these physical modes,
+$\hat N_0+N/2=\hat r^\trans\hat r/2$ is the desired reference.
+The change of modes preserves physical adjoints and the sign of the
+quadratic damping condition.
+
+\subsection{A normalizable reference state}
+\label{sec:vacuum}
+
+The continuous path in Sec.~\ref{sec:trace} gives a direct proof
+for damping and unitary slices. This appendix treats a broader evolution
+that may include amplification. The additional object is one normalizable
+Gaussian reference state followed through the slices. Write the general
+normally ordered quadratic generator as
+\begin{equation}
+ \hat h=\xi+(\hat a^+)^\trans K\hat a
+ +\frac12(\hat a^+)^\trans P\hat a^+
+ +\frac12\hat a^\trans Q\hat a,
+ \qquad P^\trans=P,\quad Q^\trans=Q.
+ \label{eq:normal_generator}
+\end{equation}
+The columns $\hat a$ and $\hat a^+$ contain $N$ annihilation and creation
+operators, with $[\hat a_i,\hat a_j^+]=\delta_{ij}$. The matrices $P,Q,K$ need
+not obey Hermiticity relations.
+
+Use the reference modes of Sec.~\ref{sec:reference} and choose the phase
+of their vacuum so that $\Theta|0\rangle=|0\rangle$.
+The unique ground state of Eq.~\eqref{eq:reference_hamiltonian} has
+this property. Time reversal acts on its annihilation operators as
+in Eq.~\eqref{eq:trs_a}.
+
+The state remains centered, meaning that it has no displacement
+$\langle\hat a_j\rangle$. A centered pure Gaussian state can be written as
+\begin{equation}
+ |\psi\rangle=c\,|Z\rangle,
+ \qquad
+ |Z\rangle=\exp\!\left[\frac12(\hat a^+)^\trans Z\hat a^+\right]|0\rangle,
+ \qquad Z^\trans=Z.
+ \label{eq:squeezed_state}
+\end{equation}
+The exponential creates pairs. Its constant term is one, so
+$c=\langle0|\psi\rangle$ is exactly the vacuum amplitude, including its
+sign or phase. This convention removes any freedom to attach a changing
+phase to $|Z\rangle$.
+
+For one mode,
+\begin{equation}
+ \langle Z|Z\rangle
+ =\sum_{n=0}^{\infty}\frac{(2n)!}{2^{2n}(n!)^2}|Z|^{2n}
+ =\frac{1}{\sqrt{1-|Z|^2}}.
+ \label{eq:squeezed_norm_one}
+\end{equation}
+The state is normalizable exactly when $|Z|<1$. A unitary rotation of modes
+reduces a complex symmetric $Z$ to independent pair amplitudes $z_j$; in
+several modes,
+\begin{equation}
+ \langle Z|Z\rangle=\prod_j(1-|z_j|^2)^{-1/2},
+ \qquad \|Z\|<1.
+ \label{eq:squeezed_norm}
+\end{equation}
+Here $|z_j|$ are the singular values of $Z$, and $\|Z\|$ is the largest
+one. This elementary condition is how normalizability will enter the proof.
+
+\subsection{Following the vacuum amplitude through a time slice}
+\label{sec:evolution}
+
+Let a slice act for $0\leq t\leq1$, with
+$\partial_t|\psi(t)\rangle=\hat h|\psi(t)\rangle$. Quadratic evolution
+preserves the Gaussian form, so insert Eq.~\eqref{eq:squeezed_state} and
+determine $c(t),Z(t)$. The commutation relation first gives
+\begin{align}
+ \hat a_i|Z\rangle&=\sum_j Z_{ij}\hat a_j^+|Z\rangle,
+ \label{eq:one_annihilator}\\
+ \hat a_i\hat a_j|Z\rangle
+ &=Z_{ij}|Z\rangle+
+   \sum_{kl}Z_{ik}Z_{jl}\hat a_k^+\hat a_l^+|Z\rangle.
+ \label{eq:two_annihilators}
+\end{align}
+The first term in Eq.~\eqref{eq:two_annihilators} is the contribution that
+can change the vacuum amplitude. Comparing the terms with zero and two
+creation operators on the two sides of the evolution equation yields
+\begin{align}
+ \frac{\dot c}{c}&=\xi+\frac12\tr(QZ),
+ \label{eq:c_evolution}\\
+ \dot Z&=P+KZ+ZK^\trans+ZQZ.
+ \label{eq:z_evolution}
+\end{align}
+The symbol $\tr$ denotes a finite matrix trace; $\Tr$ denotes a many-body
+trace. Equation~\eqref{eq:z_evolution} determines the pair content. For the
+sign, only Eq.~\eqref{eq:c_evolution} is needed.
+
+Because $\Theta$ preserves $\hat h$ and the initial state, the evolving
+state is invariant. Acting with Eq.~\eqref{eq:trs_a} on its pair exponential
+and on the annihilation-pair term in $\hat h$ gives
+\begin{equation}
+ Z=U^\dagger\overline Z\,\overline U,
+ \qquad Q=U^\trans\overline Q\,U,
+ \qquad \xi=\overline\xi.
+ \label{eq:qz_reality}
+\end{equation}
+These relations make the coefficient in Eq.~\eqref{eq:c_evolution} real.
+The nontrivial check is
+\begin{equation}
+ \overline{\tr(QZ)}
+ =\tr\!\left(\overline U Q U^\dagger UZ U^\trans\right)
+ =\tr(QZ),
+ \label{eq:trace_qz_real}
+\end{equation}
+where $U^\trans\overline U=I$ was used in the last step. The sign of
+$\overline U U$ has not entered.
+
+Starting from the vacuum, $c(0)=1$. As long as the Gaussian state remains
+normalizable during the evolution, $Z$ stays finite and
+\begin{equation}
+ c(t)=\exp\!\left\{\int_0^t
+ \left[\xi+\frac12\tr(QZ(\tau))\right]d\tau\right\}>0.
+ \label{eq:c_positive}
+\end{equation}
+There is no sign ambiguity in this equation: it is the exponential of an
+ordinary real integral. Apply this argument to the slices in their order of
+action, from the rightmost factor in Eq.~\eqref{eq:weight} to the leftmost.
+The positive amplitude at the end of one slice is the starting amplitude for
+the next. Therefore
+\begin{equation}
+ \langle0|\hat G|0\rangle>0.
+ \label{eq:vacuum_positive}
+\end{equation}
+
+\subsection{When does the required state evolution exist?}
+\label{sec:existence}
+
+The state condition in this proof is concrete: the Gaussian obtained at
+every intermediate time must have finite norm, equivalently $\|Z(t)\|<1$.
+There are several directly useful ways to ensure it.
+
+A Hermitian slice has this property whenever its complete action on the
+input state exists. To see this, resolve that state into spectral components
+of $\hat h$, of eigenvalue $\lambda$. For $0\leq t\leq1$,
+\begin{equation}
+ \|\ee^{t\hat h}\psi\|^2
+ =\int\ee^{2t\lambda}\,d\mu_\psi(\lambda)
+ \leq\int(1+\ee^{2\lambda})\,d\mu_\psi(\lambda)
+ =\|\psi\|^2+\|\ee^{\hat h}\psi\|^2.
+ \label{eq:hermitian_slice}
+\end{equation}
+The measure $d\mu_\psi$ is the squared amplitude of the state in this
+spectral resolution. The inequality proves that all intermediate states
+exist, even for an amplifying Hermitian slice such as $+a\hat n$.
+An anti-Hermitian slice generates a unitary evolution and preserves the norm.
+Thus a product of Hermitian and anti-Hermitian slices needs no separate
+intermediate-state assumption when the stated successive actions exist.
+
+Another useful choice is a slice with a nonpositive Hermitian quadratic part.
+Its evolution decreases the norm, up to a finite scalar factor. This allows
+mixed, non-Hermitian slices and is the contraction construction in
+Sec.~\ref{sec:contraction}. More generally, one can use
+Eq.~\eqref{eq:z_evolution} and check $\|Z(t)\|<1$ for a chosen reference
+vacuum. This version places no sign restriction on the instantaneous
+Hermitian part.
+
+This check follows the state during each time slice. If a singular value of
+$Z(t)$ reaches one, Eq.~\eqref{eq:squeezed_norm} diverges, and that vacuum
+trajectory cannot be used in the proof. The constructions above ensure
+finite norm throughout the slice.
+
+\subsection{From the vacuum amplitude to the full trace}
+\label{sec:filter}
+
+A positive vacuum amplitude is only one term of the occupation sum. We now
+show why it fixes the sign of the whole Gaussian trace. The physical operation
+is to suppress excited oscillator states more and more strongly. Define
+\begin{equation}
+ \hat N_0=\sum_j\hat a_j^+\hat a_j,
+ \qquad F(s)=\Tr\!\left(\ee^{-s\hat N_0}\hat G\right),
+ \qquad s\geq0.
+ \label{eq:thermal_filter}
+\end{equation}
+The reference modes are those of Sec.~\ref{sec:vacuum}, so $\hat N_0$ is
+time-reversal invariant. At $s=0$ this is the required weight. At large $s$
+only the vacuum survives.
+
+Three properties give the result. First, the added factor has norm at most
+one, so it preserves convergence of the trace. In the reference occupation
+basis,
+\begin{equation}
+ F(s)=\sum_{\bb n}\ee^{-s\sum_jn_j}
+ \langle\bb n|\hat G|\bb n\rangle,
+ \qquad
+ \lim_{s\to\infty}F(s)=\langle0|\hat G|0\rangle.
+ \label{eq:filter_limit}
+\end{equation}
+Absolute convergence permits this limit and makes $F(s)$ continuous.
+Second, time reversal preserves both factors, so $F(s)$ is real for all $s$.
+Third, a convergent trace of a nonzero centered Gaussian evolution cannot
+vanish. This was proved by the coherent-state integral in
+Appendix~\ref{app:gaussian_trace}.
+
+The same reasoning applies to $\ee^{-s\hat N_0}\hat G$ at every finite
+$s\geq0$. Its vacuum coefficient is still $c$. Thus $F(s)$ is a real,
+continuous function that never reaches zero and approaches the positive
+number in Eq.~\eqref{eq:vacuum_positive}. It follows that
+\begin{equation}
+ \boxed{W=F(0)>0.}
+ \label{eq:filter_positive}
+\end{equation}
+This identifies the role of convergence in the pairing problem. It allows
+the excited states to be suppressed continuously, without a divergent
+Gaussian integral interrupting the connection to the vacuum.
+
+\subsection{The extended sufficient condition}
+
+\begin{theorem}[One physical time reversal]
+\label{thm:one_trs}
+Let $\hat G=\prod_\ell\ee^{\hat h_\ell}$ be an actual ordered quadratic
+evolution on finitely many bosonic modes with a convergent full Fock-space
+trace. Suppose all generators preserve a common physical antiunitary
+$\Theta$, with square $+I$ or $-I$ on the single-particle operators.
+If a time-reversal-invariant Gaussian vacuum has normalizable evolution
+through these slices, then $\Tr\hat G>0$.
+
+In particular, this state condition holds for successive Hermitian and
+anti-Hermitian slices whose actions exist, and for the dissipative slices of
+Sec.~\ref{sec:contraction}. It can also be checked directly through
+Eq.~\eqref{eq:z_evolution}.
+\end{theorem}
+
 \section{Checking the one-mode example}
 
 For Eq.~\eqref{eq:plus_example}, put $q=\ee^{-\beta}$ and $v=\tanh s$.
@@ -985,8 +1366,9 @@ Eq.~\eqref{eq:gaussian_integral} gives
  \qquad
  W^{-2}=q^{-1}\cosh s+q\cosh s-2.
 \end{equation}
-This is Eq.~\eqref{eq:plus_example_trace}. Both $c$ and the integral are
-positive, in agreement with the two stages of the general proof.
+This is Eq.~\eqref{eq:plus_example_trace}. The direct integral agrees
+with the positive sign fixed by the path in
+Eq.~\eqref{eq:thermal_deformation}.
 
 \begin{thebibliography}{9}
 \bibitem{hilgert1989}
