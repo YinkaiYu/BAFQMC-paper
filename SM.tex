@@ -74,7 +74,7 @@ For a repulsive channel, $\lambda_\gamma>0$, the same real Gaussian field couple
 \end{equation}
 Applying these identities on every time slice gives the AFQMC integral in Eq.~\eqref{eq:Z_afqmc}. The factor $P_{\rm HS}(\phi)$ is the product of all elementary Gaussian weights $\ee^{-\phi_{\gamma\ell}^2/2}/\sqrt{2\pi}$, while the remaining exponential operators are one-body bosonic propagators in the auxiliary-field background.
 
-For the two-flavor models below, denote the total-density and relative-density interaction strengths by $U_1\le0$ and $U_2\ge0$. The main-text model in Eq.~\eqref{eq:benchmark_pairing} has $U_1=0$ and $U_2=U$, while the number-conserving model in Eq.~\eqref{eq:benchmark_attractive} retains both channels. Equations~\eqref{eq:hs_attractive} and~\eqref{eq:hs_repulsive} give
+For two bosonic flavors, attractive total-density and repulsive relative-density interactions generate conjugate auxiliary-field potentials. Denoting their strengths by $U_1\le0$ and $U_2\ge0$, Eqs.~\eqref{eq:hs_attractive} and~\eqref{eq:hs_repulsive} give
 \begin{equation}
     \ee^{-\Delta\tau U_1(\hat n_{b,i}+\hat n_{c,i})^2}
     =
@@ -265,7 +265,7 @@ The Metropolis step samples the full auxiliary-field measure, not only the deter
 \end{equation}
 Here the exponential factor is the ratio of the two Gaussian HS weights.
 
-For the number-conserving benchmarks, Eq.~\eqref{eq:benchmark_pairing} at $\Delta=0$ and Eq.~\eqref{eq:benchmark_attractive}, the HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} give a slice
+For two flavors with real hopping, the density-channel HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} give a number-conserving slice
 \begin{equation}
 \begin{aligned}
     \hat h_\ell^{(0)}
@@ -665,7 +665,7 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
 \end{equation}
 Whenever the paired ensemble satisfies the RP criterion and the operator traces converge, both $W$ and $W'$ are the nonnegative weights fixed in Sec.~\ref{app:rp_proof}. In the regularized determinant formulation one uses the same nonnegative representative. For configurations with nonzero denominator, the right-hand side of Eq.~\eqref{eq:update_ratio_main} is therefore the positive real ratio $W'/W$, and it equals one for the identity update $\Delta_\ell=0$ and $\delta\xi_\ell=0$.
 
-With pairing, the local update formulas accommodate both density channels in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}; the model in Eq.~\eqref{eq:benchmark_pairing} uses only the relative-density channel. The onsite Nambu basis is $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
+To derive local updates for the density channels in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} in the presence of pairing, use the onsite Nambu basis $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
 \begin{equation}
     \lambda_{1,i\ell}=\alpha_1\phi_{i\ell},\qquad
     \lambda_{2,i\ell}=\ii\alpha_2\varphi_{i\ell}.
@@ -1660,7 +1660,7 @@ The multiplication property in Eq.~\eqref{eq:rp_positive_set_sm} makes the RP pr
 
 \subsection{Repulsive model and observables}
 
-The main-text benchmark uses Eq.~\eqref{eq:benchmark_pairing}, with $U_1=0$ and $U_2=U$ in the HS notation of Sec.~\ref{app:hs_general}. The triangular lattice has primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. There are $N_s=9$ sites with periodic boundary conditions. The two flavors obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing.
+We benchmark the repulsive model in Eq.~\eqref{eq:benchmark_pairing} on a triangular lattice with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. There are $N_s=9$ sites with periodic boundary conditions. The two flavors obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing.
 
 At $\Delta=0$, the $b$ block of a number-conserving slice is
 \begin{equation}
@@ -1782,7 +1782,7 @@ where $x$ is the real HS field being updated. For the number-conserving benchmar
 
 The number-conserving data in Fig.~\ref{fig:benchmark}(a--d) use the algorithm in Sec.~\ref{app:update_number}, with $\Delta=0$, $\mu=-3.5$, and $\beta=4$, scanning $U=0,0.25,0.5,0.75,1,1.25,1.5,2$. The same algorithm gives Fig.~\ref{fig:benchmark_attractive}, which scans $U_1=-0.6,-0.5,\ldots,0$ at $U_2=1$, $\mu=-7$, and $\beta=1$. Both use the complex-conjugate relation between the two flavors in Eq.~\eqref{eq:conj_green_benchmark}.
 
-The finite-$\Delta$ data in Fig.~\ref{fig:benchmark}(e--h) use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U=1$, $\mu=-5$, $\beta=4$, and real $\Delta=0,0.05,\ldots,0.30$. Here $U_1=0$ and $U_2=U$, so the field-dependent normal-ordering constant in Eq.~\eqref{eq:nambu_hs_constant} is inactive. The only fluctuating field is the relative-density phase field, and the paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
+The finite-$\Delta$ data in Fig.~\ref{fig:benchmark}(e--h) use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U=1$, $\mu=-5$, $\beta=4$, and real $\Delta=0,0.05,\ldots,0.30$. The relative-density HS field couples with opposite signs to the two flavors, so its normal-ordering constants cancel. The paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
 
 The number-conserving references in Fig.~\ref{fig:benchmark}(a--d) are finite-temperature ED or, at $U=0$, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached. The low-density $U_1$ scan in Fig.~\ref{fig:benchmark_attractive} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark}(e--h) use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. The plotted error bars describe the statistical uncertainty of the BAFQMC means.
 
