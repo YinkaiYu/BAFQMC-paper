@@ -981,7 +981,7 @@ where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/
 \label{app:nonnegative_proofs}
 \label{app:trs_proof}
 
-Time reversal protects a Gaussian weight by pairing contributions that could otherwise carry a sign or phase. We develop the three mechanisms in the order of the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
+Time reversal protects a Gaussian weight by pairing contributions that could otherwise carry a sign or phase. We prove positivity for the three fundamental classes in the order of the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
 
 We use the Nambu operators and quadratic slices of Sec.~\ref{app:algebra},
 \begin{equation}
@@ -1081,7 +1081,7 @@ For the Kramers class, every creation direction has an independent time-reversed
     \qquad [\hat d,(\Theta_1\hat d)^+]=0.
     \label{eq:trs_commutator_Kramers_pair}
 \end{equation}
-The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is nonnegative, establishing $W>0$. A conserved charge has restored the familiar Kramers pairing mechanism for general quadratic evolution.
+The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is nonnegative, establishing $W>0$. The conserved charge thus allows the Kramers pairing argument to apply to general quadratic evolution.
 
 \subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 \label{app:trs_majorana}
@@ -1111,7 +1111,7 @@ The anticommutation of $P$ and $\Theta_1$ makes time reversal exchange these two
     W=W_+W_-=|W_+|^2\ge0.
     \label{eq:trs_majorana_weight}
 \end{equation}
-For divergent traces, the paired cutoffs in Sec.~\ref{app:regularization} preserve this relation between their finite parts. Equation~\eqref{eq:reg_conjugate_sectors} gives the corresponding positive determinant weight wherever finite. This is the bosonic counterpart of the Majorana mechanism in Ref.~\cite{li2016prl}. Pairing within either subsystem is fully compatible with the conjugacy of their weights.
+For divergent traces, the paired cutoffs in Sec.~\ref{app:regularization} preserve this relation between their finite parts. Equation~\eqref{eq:reg_conjugate_sectors} gives the corresponding positive determinant weight wherever finite. The Majorana class is therefore the bosonic counterpart of the fermionic Majorana class in Ref.~\cite{li2016prl}. Pairing within either subsystem is fully compatible with the conjugacy of their weights.
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
@@ -1163,12 +1163,12 @@ For even $N/2$, the two diagonal blocks of $-\mc M_{+\ii}$ have positive determi
     \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-The determinant sign is canceled by the sign from the $N/2$ creation directions. This cancellation supplies the bosonic positivity mechanism of the split-orthogonal class.
+The determinant sign is canceled by the sign from the $N/2$ creation directions. This cancellation establishes positivity for the split-orthogonal class.
 
 \subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
 
-The three mechanisms above determine the sign-free symmetry classes. A larger set inherits positivity whenever it contains a Kramers pair, a Majorana pair, or three positive-square time reversals. The remaining possibilities are $\{+,+\}$, $\{-\}$, and subsets of these sets. Two examples show why they do not guarantee positivity.
+The Kramers class, Majorana class, and split-orthogonal class determine the sign-free entries of the periodic table. A larger symmetry set guarantees positivity whenever it contains the symmetries of one of these three classes. The remaining possibilities are $\{+,+\}$, $\{-\}$, and subsets of these sets. Two examples show why they do not guarantee positivity.
 
 For $\{+,+\}$, take a single mode with
 \begin{equation}
@@ -1204,9 +1204,9 @@ The trace expression continues to $W=-1/4$ at $\alpha=0,x=\pi,t=0$. Along $\alph
     \qquad 0<t\le\pi/2,
     \label{eq:trs_boson_single_minus_weight}
 \end{equation}
-including $W=-1/2$ at $t=\pi/2$. The counterexample uses all three pairing directions. Its $t=0$ limit specifies the analytic branch. The extra Majorana symmetry exactly at that limit allows the separate-sector prescription of Sec.~\ref{app:regularization}.
+including $W=-1/2$ at $t=\pi/2$. The counterexample uses all three pairing directions. Its $t=0$ limit specifies the analytic branch. At that limit, an additional time reversal places the evolution in the Majorana class and allows the two conjugate sectors to be regularized separately as in Sec.~\ref{app:regularization}.
 
-Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers and Majorana mechanisms protect both statistics. Three positive-square symmetries suffice only for bosons, whose commutator signs cancel the split-orthogonal determinant sign.
+Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. The split-orthogonal class is sign-free only for bosons, whose commutator signs cancel the determinant sign.
 
 \begin{table}[ht]
     \centering
@@ -1227,7 +1227,7 @@ Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign
     \end{tabular}
 \end{table}
 
-For number-conserving slices with time reversals acting within the annihilation space, a Kramers symmetry immediately gives Eq.~\eqref{eq:trs_det_positive_sm}, and the phase rotation described above embeds it in $\{-,-\}$. Both $\{-,-\}$ and $\{+,-\}$ contain such a negative-square symmetry. For $\{+,+,+\}$, the product $\Theta_1\Theta_2\Theta_3$ is itself antiunitary and squares to $-I$, supplying the same Kramers pairing. Thus the three Nambu mechanisms recover the familiar number-conserving criterion in this setting.
+For number-conserving slices with time reversals acting within the annihilation space, a Kramers symmetry immediately gives Eq.~\eqref{eq:trs_det_positive_sm}, and the phase rotation described above embeds it in $\{-,-\}$. Both $\{-,-\}$ and $\{+,-\}$ contain such a negative-square symmetry. For $\{+,+,+\}$, the product $\Theta_1\Theta_2\Theta_3$ is itself antiunitary and squares to $-I$, supplying the same Kramers pairing. Thus all three fundamental classes recover the familiar number-conserving criterion in this setting.
 
 \section{Reflection-positivity criterion}
 \label{app:rp_proof}
@@ -1414,7 +1414,7 @@ This still allows arbitrary Bogoliubov mixing through the $2\times2$ matrix $V_i
     \sigma_z V_j=V_i\sigma_z
     \label{eq:rp_benchmark_hopping_TR}
 \end{equation}
-on every bond. Following this relation around an odd cycle gives $[V_i,\sigma_z]=0$, and connectivity makes $V_i$ uniform. The nonzero onsite pair field has a reduced generator proportional to $\ii\sigma_y$, so invariance also requires $[V_i,\ii\sigma_y]=0$. Hence $V_i=uI_2$. Canonical commutators fix $|u|=1$, and Hermitian conjugation gives precisely Eq.~\eqref{eq:rp_benchmark_TR}. A phase $\Delta=|\Delta|\ee^{\ii\varphi}$ inserts the common factor $\ee^{-\ii\varphi}$ in both images in that equation and leaves Eq.~\eqref{eq:rp_benchmark_commuting_TR} unchanged. Thus the triangular-lattice fixed-field ensemble lies outside all three fundamental sign-protecting TRS classes at nonzero pairing, while its reflected anomalous coupling is positive.
+on every bond. Following this relation around an odd cycle gives $[V_i,\sigma_z]=0$, and connectivity makes $V_i$ uniform. The nonzero onsite pair field has a reduced generator proportional to $\ii\sigma_y$, so invariance also requires $[V_i,\ii\sigma_y]=0$. Hence $V_i=uI_2$. Canonical commutators fix $|u|=1$, and Hermitian conjugation gives precisely Eq.~\eqref{eq:rp_benchmark_TR}. A phase $\Delta=|\Delta|\ee^{\ii\varphi}$ inserts the common factor $\ee^{-\ii\varphi}$ in both images in that equation and leaves Eq.~\eqref{eq:rp_benchmark_commuting_TR} unchanged. Thus the triangular-lattice fixed-field ensemble lies outside all three fundamental sign-free TRS classes at nonzero pairing, while its reflected anomalous coupling is positive.
 
 The multiplication property in Eq.~\eqref{eq:rp_positive_set_sm} makes the RP propagators a semigroup. The unrestricted generators $\hat q+\theta(\hat q)$ can have either sign, while the reflected coupling is restricted to $F\succeq0$. This cone is selected by the reflected-operator structure and differs from the fixed-metric contraction construction of Ref.~\cite{wei2024prb}. It points toward a broader semigroup theory of positive bosonic Gaussian weights.
 
@@ -1437,7 +1437,7 @@ For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, choose $\theta(\hat b_i)=\ee^{-\ii\va
     \Delta\tau|\Delta|\sum_i
     \left[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)\right].
 \end{equation}
-It gives $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$ in Eq.~\eqref{eq:rp_block_form}, establishing paired RP. With fluctuating relative-density fields, the absence of a protecting TRS set is proved in Sec.~\ref{app:rp_proof}.
+It gives $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$ in Eq.~\eqref{eq:rp_block_form}, establishing paired RP. With fluctuating relative-density fields, the slices belong to none of the three fundamental sign-free classes, as proved in Sec.~\ref{app:rp_proof}.
 
 The measured density is $\rho=\langle\hat N\rangle/N_s$, with $\hat N=\sum_i\hat n_i$ and $\hat n_i=\hat n_{b,i}+\hat n_{c,i}$. The energy $E=\langle\hat H\rangle$ excludes the chemical-potential term and is plotted as $-E$. At $K=(4\pi/3,0)$, we measure
 \begin{align}
@@ -1638,7 +1638,7 @@ A time-reversal symmetry with $\Theta^2=-I$ additionally satisfies $\overline U 
     \qquad \Theta_0=\ii\sigma_y\mc K.
     \label{eq:trs_unique_negative_pair_TR}
 \end{equation}
-These two maps differ only by a sign and cannot form an anticommuting Kramers pair.
+These two maps differ only by a sign and cannot supply the two anticommuting time reversals required by the Kramers class.
 
 The three time-reversal symmetries with $\Theta_a^2=+I$,
 \begin{equation}
@@ -1647,7 +1647,7 @@ The three time-reversal symmetries with $\Theta_a^2=+I$,
     \Theta_3=\ii\sigma_z\mc K
     \label{eq:trs_odd_pair_three_plus_TR}
 \end{equation}
-all preserve the pair because their matrices have determinant one. Their squares are $+I$, and the Pauli algebra gives pairwise anticommutation. Hence the odd-parity field realizes the $\{+,+,+\}$ class, which is its only available fundamental TRS protection under uniform internal time reversal. This conclusion follows from the flavor algebra and is independent of lattice geometry.
+all preserve the pair because their matrices have determinant one. Their squares are $+I$, and the Pauli algebra gives pairwise anticommutation. Hence the odd-parity field realizes the split-orthogonal class $\{+,+,+\}$, the only fundamental sign-free class compatible with this field under uniform internal time reversal. This conclusion follows from the flavor algebra and is independent of lattice geometry.
 
 An interacting lattice realization makes the criterion constructive. Broad interspecies $p$-wave resonances have been observed in Rb mixtures~\cite{dongCuiShen2016pwave}, and ultracold heteronuclear $p$-wave molecules have been created from Na and Rb atoms~\cite{jiaGuoHuangWang2026pwave}. A coherent molecular field supplies an atomic pair field with the structure in Eq.~\eqref{eq:trs_odd_pair}. Consider two flavors on the triangular lattice, with real $t>0$ and $\Delta_{\rm p}>0$,
 \begin{align}
