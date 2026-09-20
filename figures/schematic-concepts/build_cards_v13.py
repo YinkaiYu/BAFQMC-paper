@@ -152,8 +152,8 @@ for box,z in [((548,140,386,798),1.2),((108,112,854,426),2.3)]:
 
 text(326, 72, "Frustrated", size=7.9)
 text(747, 72, "Unfrustrated", size=7.9)
-text(65, 325, "Within symmetry criteria", size=7.9, rotation=90)
-text(65, 737, "Outside symmetry criteria", size=7.9, rotation=90)
+text(65, 325, "Respect TRS/RP criteria", size=7.9, rotation=90)
+text(65, 737, "Violate TRS/RP criteria", size=7.9, rotation=90)
 
 text(333, 493, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic")
 text(741, 493, "Sign-free for both", size=7.6, color="#24745b", fontstyle="italic")

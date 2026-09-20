@@ -214,7 +214,7 @@ The manuscript production figure remains unchanged.
 - Blue card: #39a8f5 at 48 percent opacity; gold card: #ffc342 at 64 percent.
   The lower card remains visible through the upper card. Uniform flat gray base,
   equal layer overhangs and restrained shadows are retained.
-- Row labels: Within symmetry criteria / Outside symmetry criteria.
+- Row labels: Respect TRS/RP criteria / Violate TRS/RP criteria.
   These refer to the manuscript's existing sufficient criteria; the schematic
   does not enlarge their scope or assert a necessary condition.
 - The small interacting triangle is in the upper left. A curved ribbon widens
@@ -278,7 +278,7 @@ scene is enlarged relative to the preceding version.
   plane ends inside the amber pane's right and bottom edges. No categorical
   color is painted on the background and there are no
   black coordinate-axis lines. “Sign-free for …” labels identify the coverage,
-  with identically colored TRS/RP and Non-TRS/RP row labels. Sign-free for both
+  with identically colored Respect TRS/RP criteria and Violate TRS/RP criteria row labels. Sign-free for both
   and Sign-problematic are centered in their respective visible regions.
 
 The particle symbols represent bosons. The interaction sketch illustrates HS
