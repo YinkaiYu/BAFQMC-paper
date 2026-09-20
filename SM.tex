@@ -1209,15 +1209,15 @@ including $W=-1/2$ at $t=\pi/2$. The counterexample uses all three pairing direc
 Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. The split-orthogonal class is sign-free only for bosons, whose commutator signs cancel the determinant sign.
 
 \begin{table}[ht]
-    \caption{\textbf{Time-reversal classes for bosonic and fermionic Gaussian evolution.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$, highlighted in gold, is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
+    \caption{\textbf{Time-reversal classes for bosonic and fermionic Gaussian evolution.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
     \label{tab:trs_boson_fermion}
     \vspace{8pt}
     {\fontencoding{T1}\sffamily
-    \begin{tikzpicture}[x=\linewidth,y=1pt,
-        every node/.style={inner sep=0pt,outer sep=0pt,font=\sffamily\small,align=center},
-        heading/.style={text=white,font=\sffamily\bfseries\small,align=center},
-        fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\small,align=center},
-        bosononly/.style={text=orange!75!black,font=\sffamily\bfseries\small,align=center}]
+    \begin{tikzpicture}[x=0.82\linewidth,y=1pt,
+        every node/.style={inner sep=0pt,outer sep=0pt,font=\sffamily\footnotesize,align=center},
+        heading/.style={text=white,font=\sffamily\bfseries\footnotesize,align=center},
+        fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize,align=center},
+        splitclass/.style={text=orange!75!black,font=\sffamily\bfseries\footnotesize,align=center}]
         \begin{scope}
             \clip[rounded corners=2pt] (0,0) rectangle (1,-126);
             \fill[TRSHeader]   (0,0)       rectangle (1,-24);
@@ -1225,22 +1225,20 @@ Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign
             \fill[TRSRowShade] (0,-42)     rectangle (1,-60);
             \fill[TRSRowLight] (0,-60)     rectangle (1,-96);
             \fill[TRSRowShade] (0,-96)     rectangle (1,-126);
-            \fill[orange!18]   (0.20,-60)  rectangle (0.70,-96);
-            \node[heading] at (0.10,-12) {No.\ of\\TRS};
+            \node[heading] at (0.12,-12) {No. of TRS};
             \node[heading] at (0.53,-12) {Bosons};
             \node[heading] at (0.84,-12) {Fermions};
-            \node at (0.10,-33) {0,1};
+            \node at (0.12,-33) {0,1};
             \node at (0.53,-33) {None};
             \node at (0.84,-33) {None};
-            \node at (0.10,-51) {2};
-            \node[fundamental] at (0.53,-51) {$\{-,-\}$, $\{+,-\}$};
-            \node[fundamental] at (0.84,-51) {$\{-,-\}$, $\{+,-\}$};
-            \node at (0.10,-78) {3};
-            \node at (0.53,-70) {$\{+,+,+\}$};
-            \node[bosononly] at (0.53,-84) {bosons only};
-            \node at (0.53,-92) {$\{+,+,-\}$, $\{+,-,-\}$, $\{-,-,-\}$};
-            \node at (0.84,-78) {$\{+,+,-\}$, $\{+,-,-\}$,\\$\{-,-,-\}$};
-            \node at (0.10,-111) {$\geq$\,4};
+            \node at (0.12,-51) {2};
+            \node[fundamental] at (0.53,-51) {$\{-,-\}$ = Kramers class,\\ $\{+,-\}$ = Majorana class};
+            \node[fundamental] at (0.84,-51) {$\{-,-\}$ = Kramers class,\\ $\{+,-\}$ = Majorana class};
+            \node at (0.12,-78) {3};
+            \node[splitclass] at (0.53,-70) {$\{+,+,+\}$ = Split-orthogonal class};
+            \node at (0.53,-86) {$\{+,+,-\}$, $\{+,-,-\}$, $\{-,-,-\}$};
+            \node at (0.84,-78) {$\{+,+,-\}$, $\{+,-,-\}$,\\ $\{-,-,-\}$};
+            \node at (0.12,-111) {$\geq$\,4};
             \node at (0.53,-111) {All};
             \node at (0.84,-111) {All};
         \end{scope}
