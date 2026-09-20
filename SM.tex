@@ -1176,12 +1176,12 @@ For $\{+,+\}$, take a single mode with
     \Theta_1(\hat b)=\hat b,\qquad \Theta_2(\hat b)=\ii\hat b.
     \label{eq:trs_boson_pp_counter_h}
 \end{equation}
-Both maps conjugate coefficients, preserve $\hat h$, square to $+I$, and anticommute. The occupation sum converges for $\kappa<0$ and gives $W=\ee^{\kappa/2}/(1-\ee^\kappa)$. Its continuation to $\kappa>0$ is
+Both maps conjugate coefficients, preserve $\hat h$, square to $+I$, and anticommute. The occupation sum converges for $\kappa<0$ and gives $W=\ee^{\kappa/2}/(1-\ee^\kappa)$. For $\kappa>0$, the corresponding regularized weight is
 \begin{equation}
     W=-\frac{1}{2\sinh(\kappa/2)}<0.
     \label{eq:trs_boson_pp_counter_weight}
 \end{equation}
-Two such time reversals can act on a single oscillator, providing no independent conjugate subsystem to protect a modulus-square weight. This example also covers $\{+\}$ and the absence of TRS.
+Two such time reversals can act on a single oscillator, providing no independent conjugate subsystem to protect a modulus-square weight. The same example also rules out a general positivity guarantee for the weaker classes with only one of these symmetries, or with no time-reversal symmetry.
 
 For $\{-\}$, consider the complete three-slice family
 \begin{align}
@@ -1192,21 +1192,17 @@ For $\{-\}$, consider the complete three-slice family
     \qquad \alpha,x,t\in\mathbb R.
     \label{eq:trs_boson_single_minus_counterexample}
 \end{align}
-Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\Theta^2=-I$. At $\alpha=0,x=\pi$ and $t\ne0$, the three different pairing directions have no common physical time reversals other than $\pm\Theta$, so they cannot be separated into independent conjugate subsystems. At $t=0$ and $\alpha>|x|$, Bogoliubov diagonalization gives two stable oscillators of frequency $\nu=\sqrt{\alpha^2-x^2}$ and
+Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\Theta^2=-I$. For $\alpha=0$ and $x=\pi$, all three pairing directions are present when $t\ne0$, and the family has no time-reversal symmetry beyond $\Theta^2=-I$. Direct multiplication of the three propagation matrices gives
 \begin{equation}
-    W=\Tr(\ee^{\hat h_1}\ee^{\hat h_2}\ee^{\hat h_3})
-    =\frac{1}{4\sinh^2(\nu/2)}.
-    \label{eq:trs_boson_paired_counter_stable}
-\end{equation}
-The trace expression continues to $W=-1/4$ at $\alpha=0,x=\pi,t=0$. Along $\alpha=0,x=\pi$, direct multiplication of the three propagation matrices gives $\det(I_4-\mc M)=4(1+\cos^2t)^2$, with no pole as $t$ increases. The same analytic branch therefore yields
-\begin{equation}
+    \det(I_4-\mc M)=4(1+\cos^2t)^2,
+    \qquad
     W=-\frac{1}{2(1+\cos^2t)}<0,
-    \qquad 0<t\le\pi/2,
+    \quad 0<t\le\frac{\pi}{2},
     \label{eq:trs_boson_single_minus_weight}
 \end{equation}
-including $W=-1/2$ at $t=\pi/2$. The counterexample uses all three pairing directions. Its $t=0$ limit specifies the analytic branch. At that limit, an additional time reversal places the evolution in the Majorana class and allows the two conjugate sectors to be regularized separately as in Sec.~\ref{app:regularization}.
+so, for example, $W=-1/2$ at $t=\pi/2$. This gives a negative weight in the single-$\{-\}$ class.
 
-Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. The split-orthogonal class is sign-free only for bosons, whose commutator signs cancel the determinant sign.
+Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a nonnegative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
 
 \begin{table}[ht]
     \caption{\textbf{Time-reversal classes for bosonic and fermionic Gaussian evolution.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
