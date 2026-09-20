@@ -1192,12 +1192,10 @@ For $\{-\}$, consider the complete three-slice family
     \qquad \alpha,x,t\in\mathbb R.
     \label{eq:trs_boson_single_minus_counterexample}
 \end{align}
-Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\Theta^2=-I$. For $\alpha=0$ and $x=\pi$, all three pairing directions are present when $t\ne0$, and the family has no time-reversal symmetry beyond $\Theta^2=-I$. Direct multiplication of the three propagation matrices gives
+Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\Theta^2=-I$. For $\alpha=0$ and $x=\pi$, all three pairing directions are present when $t\ne0$, and the family has no time-reversal symmetry beyond $\Theta^2=-I$. The resulting Gaussian weight is
 \begin{equation}
-    \det(I_4-\mc M)=4(1+\cos^2t)^2,
-    \qquad
     W=-\frac{1}{2(1+\cos^2t)}<0,
-    \quad 0<t\le\frac{\pi}{2},
+    \qquad 0<t\le\frac{\pi}{2},
     \label{eq:trs_boson_single_minus_weight}
 \end{equation}
 so, for example, $W=-1/2$ at $t=\pi/2$. This gives a negative weight in the single-$\{-\}$ class.
@@ -1528,9 +1526,9 @@ The number-conserving references in Fig.~\ref{fig:benchmark}(a--d) are finite-te
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models translate the RP and TRS criteria into practical choices of interactions and HS channels. Conjugate paired flavors realize RP, while odd-parity pairs illustrate the split-orthogonal TRS class.
+The following models translate the TRS criteria into practical choices of interactions and HS channels. Conjugate Bogoliubov copies realize the Majorana class, while odd-parity pairs illustrate the split-orthogonal TRS class.
 
-\subsection{Reflection-positive conjugate Bogoliubov copies}
+\subsection{Majorana class: conjugate Bogoliubov copies \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 
 Place two bosonic flavors \(\hat b_i\) and \(\hat c_i\) on each site and consider
 \begin{align}
@@ -1558,7 +1556,35 @@ where \(K=K^\hc\) and \(\Delta=\Delta^\trans\).  A sufficient stability conditio
 \end{equation}
 On a finite lattice this condition makes \(\ee^{-\Delta\tau\hat H_0}\) damp every large-occupation state.  The auxiliary-field factors below are unitary.  Their ordered products consequently have finite many-body traces, so the model weights do not encounter bosonic poles.
 
-Choose the reflection $\theta(\hat b_i)=\hat c_i$ and $\theta(\ii)=-\ii$. The two flavor terms in $-\Delta\tau\hat H_0$ are conjugate copies, so this generator has the form $\hat q_0+\theta(\hat q_0)$. The interaction admits the same reflected structure after decoupling.
+On the flavor doublet, define
+\begin{equation}
+    \widehat\Theta_+
+    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
+    \widehat\Theta_+^{-1}
+    =\sigma_x\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix},
+    \qquad
+    \widehat\Theta_-
+    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
+    \widehat\Theta_-^{-1}
+    =\ii\sigma_y\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}.
+    \label{eq:trs_conjugate_BdG_TR}
+\end{equation}
+Both transformations conjugate numerical coefficients. Their one-body operator maps obey
+\begin{equation}
+    \Theta_+^2=+I,
+    \qquad
+    \Theta_-^2=-I,
+    \qquad
+    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+    \label{eq:trs_conjugate_BdG_TR_algebra}
+\end{equation}
+The Fock-space transformations preserve $\hat H_0$ and send
+\begin{equation}
+    \hat n_{b,i}-\hat n_{c,i}
+    \longmapsto
+    -(\hat n_{b,i}-\hat n_{c,i}).
+    \label{eq:trs_conjugate_BdG_relative_density_odd}
+\end{equation}
 The continuous Hubbard--Stratonovich identity
 \begin{equation}
     \ee^{-\Delta\tau U(\hat n_{b,i}-\hat n_{c,i})^2}
@@ -1566,9 +1592,9 @@ The continuous Hubbard--Stratonovich identity
     \int_{-\infty}^{\infty}d\phi_i\,\ee^{-\phi_i^2/2}
     \ee^{\ii\sqrt{2\Delta\tau U}\,\phi_i
       (\hat n_{b,i}-\hat n_{c,i})}
-    \label{eq:trs_relative_density_HS}
+    \label{eq:trs_conjugate_BdG_relative_density_HS}
 \end{equation}
-has exponent $\hat q_i+\theta(\hat q_i)$ with $\hat q_i=\ii\sqrt{2\Delta\tau U}\,\phi_i\hat n_{b,i}$. Every quadratic and HS factor is therefore reflection positive. The stability condition in Eq.~\eqref{eq:trs_conjugate_BdG_stability} ensures convergence, so Theorem~\ref{thm:rp} applies to every configuration.
+therefore preserves both time reversals for every real value of $\phi_i$. Complex conjugation changes the sign of $\ii$, while Eq.~\eqref{eq:trs_conjugate_BdG_relative_density_odd} supplies the second sign change.
 
 At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and are exact complex conjugates.  Their many-body traces obey
 \begin{equation}
@@ -1576,9 +1602,9 @@ At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and ar
     =|W_b(\phi)|^2>0.
     \label{eq:trs_conjugate_BdG_weight}
 \end{equation}
-The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\).  Equation~\eqref{eq:trs_conjugate_BdG_weight} permits unbiased studies of paired correlations and the effects of interactions on density fluctuations and one-boson coherence on frustrated lattices.
+The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe two chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\). Equation~\eqref{eq:trs_conjugate_BdG_weight} is the Majorana-class modulus-square mechanism and permits unbiased studies of paired correlations and the effects of interactions on density fluctuations and one-boson coherence on frustrated lattices.
 
-\subsection{Odd-parity pairing on frustrated lattices}
+\subsection{Split-orthogonal class: odd-parity pairing on frustrated lattices}
 \label{sec:trs_odd_parity_two_flavor_bosons}
 \label{app:trs_two_flavor_odd_pairing}
 
