@@ -1,0 +1,7 @@
+{
+  "tab:trs_periodic": {
+    "lines": 9,
+    "sha256": "a1db3e89777ffa896aad3db0f6966ed4c5b23e549ea3849a0c6c44bf4d97ed99",
+    "review": "Two header lines; body rows occupy 1, 1, 2, 2, 1 lines. Verified against the rendered PDF on 2026-09-20."
+  }
+}

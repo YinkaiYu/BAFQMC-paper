@@ -7,6 +7,48 @@ finite-temperature exact diagonalization (ED), and the data and plotting code
 for the combined main-text benchmark and the attractive-density benchmark in
 the Supplemental Material.
 
+## Check the PRL length
+
+After editing, run in native Windows PowerShell:
+
+```powershell
+.\scripts\count-prl-words.ps1
+```
+
+Or directly in Linux/WSL:
+
+```bash
+python3 scripts/count-prl-words.py
+```
+
+The script incrementally builds the manuscript and prints text, equation,
+figure, and table equivalents using the [APS length rules](https://journals.aps.org/authors/length-guide)
+and APS-recommended `wordcount.tex`. It reports the difference from 3750 words
+and a conservative allowance for matrix rows. It excludes the abstract,
+acknowledgments, bibliography, and Supplemental Material. It changes no source
+and generates no report; temporary counting copies and logs stay in `.build/`.
+Dependencies are Linux/WSL TeX Live (`latexmk`, `pdflatex`, `wordcount`) and
+Python with PyMuPDF (`fitz`).
+
+Use `-NoBuild` / `--no-build` only for an already up-to-date build. Use `-Check`
+/ `--check` to return exit status 1 when the conservative total exceeds the
+limit (normal runs return 0; calculation errors return 2).
+
+The counter supports the manuscript's displayed-math environments and figures
+embedded as single combined PDFs. Inspect rendered equation rows after layout
+changes. New or changed table bodies require an explicit reviewed line count,
+including headers and wrapped lines, for example:
+
+```powershell
+.\scripts\count-prl-words.ps1 -TableLines 'tab:trs_periodic=9'
+```
+
+The Linux option is `--table-lines tab:trs_periodic=9`. Reviewed table counts
+and body fingerprints live in `scripts/prl-table-lines.json`; changing captions
+alone does not invalidate them. Unsupported layouts fail explicitly rather
+than silently omitting content. APS's public rules are an estimate and do not
+fully specify matrix-internal row counting; both totals are shown.
+
 ## Reproduce the complete benchmark data
 
 The default command **builds and runs BAFQMC and ED at all 22 paper parameter
