@@ -1219,28 +1219,32 @@ Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign
         fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize,align=center},
         splitclass/.style={text=orange!75!black,font=\sffamily\bfseries\footnotesize,align=center}]
         \begin{scope}
-            \clip[rounded corners=2pt] (0,0) rectangle (1,-126);
-            \fill[TRSHeader]   (0,0)       rectangle (1,-24);
-            \fill[TRSRowLight] (0,-24)     rectangle (1,-42);
-            \fill[TRSRowShade] (0,-42)     rectangle (1,-60);
-            \fill[TRSRowLight] (0,-60)     rectangle (1,-96);
-            \fill[TRSRowShade] (0,-96)     rectangle (1,-126);
-            \node[heading] at (0.12,-12) {No. of TRS};
-            \node[heading] at (0.53,-12) {Bosons};
-            \node[heading] at (0.84,-12) {Fermions};
-            \node at (0.12,-33) {0,1};
-            \node at (0.53,-33) {None};
-            \node at (0.84,-33) {None};
-            \node at (0.12,-51) {2};
-            \node[fundamental] at (0.53,-51) {$\{-,-\}$ = Kramers class,\\ $\{+,-\}$ = Majorana class};
-            \node[fundamental] at (0.84,-51) {$\{-,-\}$ = Kramers class,\\ $\{+,-\}$ = Majorana class};
-            \node at (0.12,-78) {3};
-            \node[splitclass] at (0.53,-70) {$\{+,+,+\}$ = Split-orthogonal class};
-            \node at (0.53,-86) {$\{+,+,-\}$, $\{+,-,-\}$, $\{-,-,-\}$};
-            \node at (0.84,-78) {$\{+,+,-\}$, $\{+,-,-\}$,\\ $\{-,-,-\}$};
-            \node at (0.12,-111) {$\geq$\,4};
-            \node at (0.53,-111) {All};
-            \node at (0.84,-111) {All};
+            \clip[rounded corners=2pt] (0,0) rectangle (1,-144);
+            \fill[TRSHeader]    (0,0)          rectangle (1,-24);
+            \fill[TRSRowLight]  (0,-24)        rectangle (1,-42);
+            \fill[TRSRowShade]  (0,-42)        rectangle (1,-68);
+            \fill[TRSRowLight]  (0,-68)        rectangle (1,-124);
+            \fill[TRSRowShade]  (0,-124)       rectangle (1,-144);
+            \node[heading] at (0.14,-12) {No. of TRS};
+            \node[heading] at (0.45,-12) {Bosons};
+            \node[heading] at (0.78,-12) {Fermions};
+            \node at (0.14,-33) {0,1};
+            \node at (0.45,-33) {None};
+            \node at (0.78,-33) {None};
+            \node at (0.14,-55) {2};
+            \node[fundamental] at (0.45,-55) {$\{-,-\}$ = Kramers class\\ $\{+,-\}$ = Majorana class};
+            \node[fundamental] at (0.78,-55) {$\{-,-\}$ = Kramers class\\ $\{+,-\}$ = Majorana class};
+            \node at (0.14,-96) {3};
+            \node[splitclass] at (0.45,-77) {$\{+,+,+\}$ = Split-orthogonal class};
+            \node at (0.45,-91) {$\{+,+,-\}$};
+            \node at (0.45,-105) {$\{+,-,-\}$};
+            \node at (0.45,-119) {$\{-,-,-\}$};
+            \node at (0.78,-91) {$\{+,+,-\}$};
+            \node at (0.78,-105) {$\{+,-,-\}$};
+            \node at (0.78,-119) {$\{-,-,-\}$};
+            \node at (0.14,-134) {$\geq$\,4};
+            \node at (0.45,-134) {All};
+            \node at (0.78,-134) {All};
         \end{scope}
     \end{tikzpicture}}
 \end{table}
