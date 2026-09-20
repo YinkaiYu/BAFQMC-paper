@@ -909,11 +909,11 @@ The terms with $n\lesssim n_*(\Lambda)=\ln\Lambda/\ln|r|$ are almost unchanged, 
 \end{equation}
 where $P_{\Lambda}$ contains the cutoff-dependent growing part. For $|r|<1$, the same finite term is obtained because the regulator becomes irrelevant in the convergent series. Applying the argument mode by mode gives
 \begin{equation}
-    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W(\phi)+o(1),
+    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W_{\rm reg}(\phi)+o(1),
 \end{equation}
 with
 \begin{equation}
-    W(\phi)
+    W_{\rm reg}(\phi)
     =
     \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)}
     =
@@ -937,7 +937,7 @@ The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\L
 \end{equation}
 The left-hand side tends to the physical partition function as $\Lambda\to\infty$. On the right-hand side, each fixed-field trace has the finite-part expansion displayed above. The cutoff-dependent terms have zero net contribution to the finite physical partition function after the full auxiliary-field integration, leaving the regularized AFQMC representation
 \begin{equation}
-    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W(\phi).
+    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
 \end{equation}
 This is the sampling weight represented by the determinant formula.
 
@@ -951,14 +951,14 @@ The same construction applies to Gaussian propagators with pairing. In a stable 
 \end{equation}
 The additional $\frac12\sum_j\varepsilon_j$ in the prefactor is the centered quadratic contribution in Eq.~\eqref{eq:hAdef}. Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
 \begin{equation}
-    W(\phi)
+    W_{\rm reg}(\phi)
     =
     \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)+\frac12\sum_j\varepsilon_j(\phi)\right]
     \prod_{j=1}^{N}\frac{1}{1-\ee^{\varepsilon_j(\phi)}}.
 \end{equation}
 In Nambu notation this finite part is written as
 \begin{equation}
-    W(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
+    W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
 \end{equation}
 where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
 
@@ -970,7 +970,7 @@ When time reversal separates every slice into two independent conjugate subsyste
 \end{equation}
 Remove the cutoff-dependent growing terms from each trace before multiplying the two finite parts. The same subtraction in both subsystems preserves $W_-=\overline{W_+}$ and gives
 \begin{equation}
-    W=W_+\overline{W_+}=|W_+|^2
+    W_{\rm reg}=W_+\overline{W_+}=|W_+|^2
     =\ee^{\sum_\ell\xi_\ell}
     \left|\det(I_N-\mc M_+)^{-1}\right|,
     \label{eq:reg_conjugate_sectors}
