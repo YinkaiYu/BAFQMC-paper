@@ -981,284 +981,132 @@ where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/
 \label{app:nonnegative_proofs}
 \label{app:trs_proof}
 
-We prove the bosonic TRS criterion by starting with particle-number conservation, where one Kramers symmetry pairs the eigenvalues of the propagation matrix. We then extend the argument to paired evolution in the Nambu notation of Sec.~\ref{app:paired_gaussian}. The three Nambu classes below establish the sign-free entries of Table~\ref{tab:trs_periodic}.
+Time reversal protects a Gaussian weight by pairing contributions that could otherwise carry a sign or phase. We develop the three mechanisms in the order of the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
 
-\subsection{Number-conserving slices: one Kramers time reversal}
-\label{app:trs_number}
-
-We begin with the number-conserving setting of Sec.~\ref{app:number_conserving_gaussian}, where positivity follows directly from the ordinary bosonic determinant. Consider
-\begin{equation}
-    \hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}.
-\end{equation}
-Let $\Theta(\hat{\bb a})=U\hat{\bb a}$ and $\Theta(\ii)=-\ii$, with unitary $U$. Invariance of every slice and the Kramers condition $\Theta^2=-I$ give
-\begin{equation}
-    U^\hc\overline{B_\ell}U=B_\ell,
-    \qquad
-    \overline U U=-I_N.
-    \label{eq:trs_slice_sm}
-\end{equation}
-The number-conserving trace formula gives
-\begin{equation}
-    W(\phi)=\det(I_N-\mc B)^{-1},
-    \qquad
-    \mc B=\ee^{B_1}\cdots\ee^{B_L}.
-\end{equation}
-Since complex conjugation commutes with the exponential, Eq.~\eqref{eq:trs_slice_sm} implies
-\begin{equation}
-    U^\hc\overline{\ee^{B_\ell}}U=\ee^{B_\ell}.
-\end{equation}
-Multiplying the slices in their imaginary-time order gives
-\begin{equation}
-    U^\hc\overline{\mc B}U=\mc B.
-    \label{eq:Bsym_prod}
-\end{equation}
-If $\mc Bv=\lambda v$, Eq.~\eqref{eq:Bsym_prod} gives
-\begin{equation}
-    \mc B(\overline U\,\overline v)
-    =\overline\lambda\,\overline U\,\overline v.
-\end{equation}
-Thus nonreal eigenvalues appear in complex-conjugate pairs. For a real eigenvalue $r$, its full generalized eigenspace
-\begin{equation}
-    \mc E_r=\ker[(\mc B-rI_N)^m]
-\end{equation}
-is invariant under $v\mapsto\overline U\,\overline v$, once $m$ is large enough for the kernel to stabilize. Applying this map twice gives $-v$. Hence $v$ and $\overline U\,\overline v$ cannot be proportional: proportionality would imply $-v=|\alpha|^2v$ for some complex $\alpha$. The map is antiunitary, so the orthogonal complement of each such pair is invariant as well. Iterating this construction shows that $\dim_\mathbb C\mc E_r$, the algebraic multiplicity $m_r$, is even. This argument includes nondiagonalizable propagation matrices.
-
-The characteristic polynomial can then be evaluated at $x=1$ as
-\begin{equation}
-    \det(I_N-\mc B)
-    =
-    \prod_{\lambda\notin\mathbb R}|1-\lambda|^2
-    \prod_{r\in\mathbb R}(1-r)^{m_r}
-    \ge0,
-    \label{eq:trs_det_positive_sm}
-\end{equation}
-where the first product includes one representative of each nonreal conjugate pair, with algebraic multiplicity. All $m_r$ are even. Away from a determinant pole, $\det(I_N-\mc B)$ is nonzero. Equation~\eqref{eq:trs_det_positive_sm} then implies $\det(I_N-\mc B)>0$, and therefore $W(\phi)>0$.
-
-\subsection{Time reversal in Nambu space}
-\label{app:trs_nambu}
-
-Pairing requires the full operator vector $\hat\chi$ and the symplectic matrix $\Omega$ defined in Sec.~\ref{app:algebra}. We keep the same quadratic generators and propagation matrices,
+We use the Nambu operators and quadratic slices of Sec.~\ref{app:algebra},
 \begin{equation}
     \hat h_\ell=-\frac12\hat\chi^\trans\Omega A_\ell\hat\chi+\xi_\ell,
-    \qquad
-    \Omega A_\ell+A_\ell^\trans\Omega=0,
-    \qquad
-    \mc M=\ee^{A_1}\cdots\ee^{A_L}.
+    \qquad \mc M=\ee^{A_1}\cdots\ee^{A_L}.
     \label{eq:trs_configuration_weight}
 \end{equation}
-The generators may be non-Hermitian after HS decoupling. We consider the Gaussian weight in Eq.~\eqref{eq:trace_formula_main}, with the trace and sector prescriptions of Secs.~\ref{app:trace_paired} and~\ref{app:regularization}. The proofs below establish positivity wherever this weight is finite.
-
-A time reversal is an antilinear map on the bosonic operators,
+A time reversal $\Theta$ conjugates numerical coefficients, preserves bosonic commutators, and sends $\hat d^+$ to $(\Theta\hat d)^+$. In the notation $\Theta(\hat\chi)=U\hat\chi$, these requirements and slice invariance read
 \begin{equation}
-    \Theta(\hat\chi)=U\hat\chi,
-    \qquad
-    \Theta(c\hat d)=\overline c\,\Theta(\hat d),
-    \qquad
-    \Theta(\hat d^+)=[\Theta(\hat d)]^+.
-    \label{eq:trs_time_reversal_definition}
-\end{equation}
-Here $\hat d$ is any linear combination of the creation and annihilation operators in $\hat\chi$. The exchange matrix
-\begin{equation}
-    C=\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}
-    \label{eq:trs_C_matrix}
-\end{equation}
-records Hermitian conjugation. Preserving the canonical algebra and each quadratic slice is equivalent to
-\begin{equation}
-    U^\trans\Omega U=\Omega,
-    \qquad C\overline U C=U,
-    \qquad U^{-1}\overline{A_\ell}U=A_\ell,
-    \qquad \xi_\ell\in\mathbb R.
+    U^\trans\Omega U=\Omega,\qquad
+    C\overline U C=U,\qquad
+    U^{-1}\overline{A_\ell}U=A_\ell,\qquad \xi_\ell\in\mathbb R,
+    \quad C=\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}.
     \label{eq:trs_physical_TR_conditions}
 \end{equation}
-The last two conditions follow by applying $\Theta$ to Eq.~\eqref{eq:trs_configuration_weight}. The real scalars give the positive factor $\exp(\sum_\ell\xi_\ell)$ and will be retained in the weight formulas.
-
-Since the rows of $U$ specify the images of the operators, composition gives
-\begin{equation}
-    (\Theta_a\Theta_b)(\hat\chi)=\overline U_bU_a\hat\chi,
-    \qquad
-    \Theta_a^2=\pm I
-    \ \Longleftrightarrow\
-    \overline U_aU_a=\pm I.
-    \label{eq:trs_TR_composition_order}
-\end{equation}
-The symmetry sets in Table~\ref{tab:trs_periodic} also satisfy
-$\overline U_bU_a=-\overline U_aU_b$ for $a\ne b$. We denote a map by $\Theta=U\mc K$, where $\mc K$ conjugates numerical coefficients and Eq.~\eqref{eq:trs_time_reversal_definition} fixes the operator convention.
-
-Products of two time reversals give linear symmetries. Their eigenspaces separate the Nambu evolution into sectors, which is the starting point of the following proofs. For a basis change $\hat\chi=V\hat\chi'$, the generator becomes $V^{-1}A_\ell V$, while the bilinear form in the quadratic expression becomes $V^\trans\Omega V$. The transformed operator commutator is instead $V^{-1}\Omega V^{-\trans}$. The columns of $V$ can be chosen as matrix eigenvectors, and the rows of $V^{-1}$ give the corresponding operators.
+Here $C$ exchanges creation and annihilation operators. All time reversals in a class preserve every slice and anticommute with one another. The weights use the trace prescription of Sec.~\ref{app:regularization}. Positivity is understood wherever they are finite.
 
 \subsection{Kramers class \texorpdfstring{\(\{-,-\}\)}{\{-,-\}}}
+\label{app:trs_kramers}
+\label{app:trs_number}
 
-Now take
+For number-conserving slices $\hat h_\ell=\hat{\bb a}^+B_\ell\hat{\bb a}$, suppose $\Theta(\hat{\bb a})=U\hat{\bb a}$ with unitary $U$ and $\Theta^2=-I$. Every slice and their ordered product obey
 \begin{equation}
-    \Theta_1^2=\Theta_2^2=-I,
-    \qquad
-    \Theta_1\Theta_2=-\Theta_2\Theta_1,
-    \qquad
-    Q=\Theta_1\Theta_2.
-    \label{eq:trs_kramers_class}
+    U^\hc\overline{B_\ell}U=B_\ell,\qquad
+    U^\hc\overline{\mc B}U=\mc B,\qquad
+    \mc B=\ee^{B_1}\cdots\ee^{B_L}.
+    \label{eq:Bsym_prod}
 \end{equation}
-The product \(Q\) is linear and obeys
+If $\mc Bv=\lambda v$, its time-reversed partner satisfies
 \begin{equation}
-    Q^2=-I,
-    \qquad
-    [Q,A_\ell]=0.
+    \mc B(\overline U\,\overline v)=\overline\lambda\,(\overline U\,\overline v).
+\end{equation}
+For real $\lambda$, the partners remain independent. If the partner were $cv$, applying time reversal twice would give $-v=|c|^2v$. Thus complex eigenvalues occur in conjugate pairs and real eigenvalues have Kramers degeneracy. Each pair contributes a nonnegative factor to the determinant,
+\begin{equation}
+    \det(I_N-\mc B)=\prod_{\rm pairs}|1-\lambda|^2\ge0,
+    \qquad W=\det(I_N-\mc B)^{-1}>0.
+    \label{eq:trs_det_positive_sm}
+\end{equation}
+The same conclusion holds at eigenvalue coalescences by continuity of the determinant. This is the bosonic version of the time-reversal argument in Ref.~\cite{wu2005prb}.
+
+Particle-number conservation supplies a second time reversal in Nambu space. Composing $\Theta_1=\Theta$ with $\hat{\bb a}\mapsto\ii\hat{\bb a}$ gives $\Theta_2^2=-I$ and $\Theta_1\Theta_2=-\Theta_2\Theta_1$. The Kramers class retains this pair even when physical particle number is not conserved. Define
+\begin{equation}
+    Q=\Theta_1\Theta_2,\qquad Q^2=-I,\qquad [Q,A_\ell]=0.
     \label{eq:trs_Q_properties}
 \end{equation}
-Its eigenvalues are \(+\ii\) and \(-\ii\).  Hermitian conjugation exchanges these two eigenspaces because \(Q\) is a physical unitary transformation:
+The corresponding quadratic charge is conserved,
 \begin{equation}
-    Q\hat d=\ii\hat d
-    \quad\Longrightarrow\quad
-    Q\hat d^+=(Q\hat d)^+=-\ii\hat d^+.
-    \label{eq:trs_Q_adjoint_pair}
-\end{equation}
-The \(Q=+\ii\) sector therefore contains exactly \(N\) independent one-body operators, while the \(Q=-\ii\) sector contains their Hermitian conjugates.  The matrix \(\ii Q\) generates a conserved quadratic charge because
-\begin{equation}
-    \left[-\frac12\hat\chi^\trans\Omega(\ii Q)\hat\chi,
-      \hat h_\ell\right]
-    =-\frac12\hat\chi^\trans\Omega[\ii Q,A_\ell]\hat\chi=0.
+    \hat Q=-\frac12\hat\chi^\trans\Omega(\ii Q)\hat\chi,
+    \qquad [\hat Q,\hat h_\ell]=0.
     \label{eq:trs_charge_conservation}
 \end{equation}
-Thus \(Q\) supplies the particle-number-like structure that a general Nambu problem lacks.
+Its two operator sectors have $Q=\pm\ii$. An operator $\hat d$ and its adjoint have opposite eigenvalues, since $Q\hat d=\ii\hat d$ implies $Q\hat d^+=-\ii\hat d^+$. We can therefore describe propagation using the $N$ operators in the $Q=+\ii$ sector, with the other sector fixed by Hermitian conjugation. Write their slice and full propagation matrices as $A_{\ell,+\ii}$ and $\mc M_{+\ii}$.
 
-Choose a column \(\hat{\bb d}=(\hat d_1,\ldots,\hat d_N)^\trans\) of one-body operators spanning the \(Q=+\ii\) sector.  We define the reduced slice generators and their ordered product by
+Time reversal acts within the selected sector. Its complex conjugation cancels the sign from anticommuting with $Q$,
 \begin{equation}
-    \ee^{-\hat h_\ell}\hat{\bb d}\,\ee^{\hat h_\ell}
-    =\ee^{A_{\ell,+\ii}}\hat{\bb d},
-    \qquad
-    \mc M_{+\ii}=\ee^{A_{1,+\ii}}\cdots\ee^{A_{L,+\ii}}.
-    \label{eq:trs_reduced_matrices}
+    Q(\Theta_1\hat d)=-\Theta_1(Q\hat d)
+    =-\Theta_1(\ii\hat d)=\ii\Theta_1\hat d.
+    \label{eq:trs_Kramers_in_reduced_space}
 \end{equation}
-Choose a basis in which the selected-operator commutator is
+The same Kramers argument therefore gives
 \begin{equation}
-    [\hat d_\mu,\hat d_\nu^+]=D_{\mu\nu},
-    \qquad D=\diag(I_{N-N_-},-I_{N_-}).
+    \det(I_N-\mc M_{+\ii})=\prod_{\rm pairs}|1-\lambda|^2\ge0,
+    \qquad \Tr A_{\ell,+\ii}\in\mathbb R.
+    \label{eq:trs_Kramers_determinant}
+\end{equation}
+
+One bosonic sign remains to be accounted for. The selected operators may include creation operators as well as annihilation operators. Normalize their commutators as
+\begin{equation}
+    [\hat d_\mu,\hat d_\nu^+]=D_{\mu\nu},\qquad
+    D=\diag(I_{N-N_-},-I_{N_-}),
     \label{eq:trs_reduced_commutator}
 \end{equation}
-\(N_-\) counts the selected operators with negative canonical commutator, which represent creation directions in the adapted basis. In a basis formed by the \(N\) selected operators followed by their Hermitian conjugates, every generator and the full propagation have the forms
-\begin{equation}
-    A_\ell\sim
-    \begin{pmatrix}
-        A_{\ell,+\ii}&0\\
-        0&-D A_{\ell,+\ii}^\trans D
-    \end{pmatrix},
-    \qquad
-    \mc M\sim
-    \begin{pmatrix}
-        \mc M_{+\ii}&0\\
-        0&D(\mc M_{+\ii}^\trans)^{-1}D
-    \end{pmatrix}.
-    \label{eq:trs_Q_block_propagation}
-\end{equation}
-Consequently,
-\begin{align}
-    (-1)^N\det(I_{2N}-\mc M)
-    &=\det(\mc M_{+\ii})^{-1}\det(I_N-\mc M_{+\ii})^2,
-    \label{eq:trs_boson_reduced_square}\\
-    \det(\mc M_{+\ii})
-    &=\exp\!\left[\sum_\ell\Tr A_{\ell,+\ii}\right].
-    \label{eq:trs_reduced_det_exp}
-\end{align}
-These identities determine the magnitude of the weight. Its sign follows from the physical meaning of the selected operators. Substituting the first block in Eq.~\eqref{eq:trs_Q_block_propagation} into Eq.~\eqref{eq:trs_configuration_weight} gives
-\begin{equation}
-    \hat h_\ell
-    =\sum_{\mu\nu}\hat d_\mu^+
-      (D A_{\ell,+\ii})_{\mu\nu}\hat d_\nu
-     +\frac12\Tr A_{\ell,+\ii}+\xi_\ell.
-    \label{eq:trs_boson_reduced_operator}
-\end{equation}
-The sign is visible at a stable diagonal reference point, where the selected directions do not mix.  If the selected operator is an annihilation operator and its propagation eigenvalue is \(\ee^x\), the trace contributes \(\ee^{x/2}(1-\ee^x)^{-1}\).  Selecting the creation operator reverses \(x\) and contributes
+where $N_-$ counts creation directions. Selecting a creation operator reverses the propagation exponent $x$ of its annihilation partner. Their centered oscillator factors satisfy
 \begin{equation}
     \frac{\ee^{-x/2}}{1-\ee^{-x}}
     =-\frac{\ee^{x/2}}{1-\ee^x}.
     \label{eq:trs_boson_reversed_mode}
 \end{equation}
-Thus the reference trace carries one minus sign for every negative entry of \(D\). A bosonic coherent-state Gaussian integral evaluates Eq.~\eqref{eq:trs_boson_reduced_operator} when the positive and negative directions mix and when different slices do not commute~\cite{munn1978ensemble}. The resulting weight is
+Thus each selected creation direction contributes one minus sign. To express this for a general product, preservation of commutators fixes its second Nambu block to $D(\mc M_{+\ii}^\trans)^{-1}D$, giving
+\begin{equation}
+    (-1)^N\det(I_{2N}-\mc M)
+    =\det(\mc M_{+\ii})^{-1}\det(I_N-\mc M_{+\ii})^2.
+    \label{eq:trs_boson_reduced_square}
+\end{equation}
+Together with $\det\mc M_{+\ii}=\exp(\sum_\ell\Tr A_{\ell,+\ii})$ and the oscillator signs above, the Gaussian trace formula yields
 \begin{equation}
     W=(-1)^{N_-}
     \exp\!\left[\sum_\ell\left(\xi_\ell+\frac12\Tr A_{\ell,+\ii}\right)\right]
     \det(I_N-\mc M_{+\ii})^{-1}.
     \label{eq:trs_boson_reduced_weight}
 \end{equation}
-This expression agrees with the convergent trace and is a single-valued meromorphic function of the slice generators at fixed $Q$. It therefore fixes the continued Gaussian weight at every nonsingular point. The reduction uses the conserved canonical transformation $Q$ with $Q^2=-I$ and will also apply to the $\{+,+,+\}$ class.
+This reduction applies to any conserved $Q$ with $Q^2=-I$ and will also be used for the split-orthogonal class.
 
-Although \(Q\Theta_1=-\Theta_1Q\), the anti-linearity of \(\Theta_1\) keeps the \(Q=+\ii\) sector invariant:
+For the Kramers class, every creation direction has an independent time-reversed partner with the same commutator sign,
 \begin{equation}
-    Q\hat d=\ii\hat d
-    \quad\Longrightarrow\quad
-    Q(\Theta_1\hat d)=-\Theta_1(Q\hat d)
-    =-\Theta_1(\ii\hat d)=\ii\Theta_1\hat d.
-    \label{eq:trs_Kramers_in_reduced_space}
-\end{equation}
-Hence \(\Theta_1^2=-I\) acts as ordinary Kramers time reversal on the independent operators.  If an eigenoperator of the complete one-body evolution obeys
-\begin{equation}
-    \ee^{-\hat h_L}\cdots\ee^{-\hat h_1}
-    \hat d\,
-    \ee^{\hat h_1}\cdots\ee^{\hat h_L}
-    =\lambda\hat d,
-    \quad\text{then}\quad
-    \ee^{-\hat h_L}\cdots\ee^{-\hat h_1}
-    (\Theta_1\hat d)
-    \ee^{\hat h_1}\cdots\ee^{\hat h_L}
-    =\overline\lambda\,\Theta_1\hat d.
-    \label{eq:trs_Kramers_eigenvalues}
-\end{equation}
-Nonreal eigenvalues appear in complex-conjugate pairs.  For a real eigenvalue, \(\hat d\) and \(\Theta_1\hat d\) are linearly independent because \(\Theta_1^2=-I\).  The same pairing holds for every vector in a Jordan chain, so each real eigenvalue has even algebraic multiplicity.  It follows that
-\begin{equation}
-    \det(I_N-\mc M_{+\ii})
-    =\prod_{\lambda\notin\mathbb R}|1-\lambda|^2
-     \prod_{\lambda\in\mathbb R}(1-\lambda)^2
-    \geq0,
-    \label{eq:trs_Kramers_determinant}
-\end{equation}
-where each conjugate or Kramers pair is included once.  The same symmetry gives \(\Tr A_{\ell,+\ii}\in\mathbb R\).
-
-The negative entries in Eq.~\eqref{eq:trs_reduced_commutator} also form Kramers pairs.  For any selected operator \(\hat d\), time reversal gives
-\begin{equation}
-    [\Theta_1\hat d,(\Theta_1\hat d)^+]
-    =\overline{[\hat d,\hat d^+]}
-    =[\hat d,\hat d^+],
-    \qquad
-    [\hat d,(\Theta_1\hat d)^+]=0.
+    [\Theta_1\hat d,(\Theta_1\hat d)^+]=[\hat d,\hat d^+],
+    \qquad [\hat d,(\Theta_1\hat d)^+]=0.
     \label{eq:trs_commutator_Kramers_pair}
 \end{equation}
-The first commutator is real because it is Hermitian.  To prove the second relation, denote \(z=[\hat d,(\Theta_1\hat d)^+]\).  Hermitian conjugation gives \(\overline z=[\Theta_1\hat d,\hat d^+]\).  Applying time reversal to the definition of \(z\) instead gives
-\begin{equation}
-    \overline z
-    =[\Theta_1\hat d,(\Theta_1^2\hat d)^+]
-    =-[\Theta_1\hat d,\hat d^+]
-    =-\overline z,
-\end{equation}
-so \(z=0\).  Every selected creation-like operator therefore has an independent, orthogonal partner with the same negative commutator, and \(N_-\) is even.  Equations~\eqref{eq:trs_boson_reduced_weight} and~\eqref{eq:trs_Kramers_determinant} therefore give
-\begin{equation}
-    W>0\qquad\text{wherever the Gaussian weight is finite}.
-    \label{eq:trs_kramers_class_positive}
-\end{equation}
-The second time reversal has supplied the independent operator space in which the eigenvalue-pairing argument for a single Kramers symmetry applies.
+The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is nonnegative, establishing $W>0$. A conserved charge has restored the familiar Kramers pairing mechanism for general quadratic evolution.
 
 \subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 \label{app:trs_majorana}
 
 Let every slice preserve two time reversals with
 \begin{equation}
-    \Theta_+^2=I,\qquad \Theta_-^2=-I,\qquad
-    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+    \Theta_1^2=I,\qquad \Theta_2^2=-I,\qquad
+    \Theta_1\Theta_2=-\Theta_2\Theta_1.
 \end{equation}
 Their product is a linear symmetry,
 \begin{equation}
-    P=\Theta_+\Theta_-,\qquad P^2=I,\qquad
-    [P,A_\ell]=0,\qquad P\Theta_+=-\Theta_+P.
+    P=\Theta_1\Theta_2,\qquad P^2=I,\qquad
+    [P,A_\ell]=0,\qquad P\Theta_1=-\Theta_1P.
 \end{equation}
 The $P=+1$ and $P=-1$ sectors therefore evolve independently. Since $P$ preserves Hermitian conjugation, an operator and its adjoint belong to the same sector. Operators from opposite sectors commute. Indeed, for $P\hat d_+=\hat d_+$ and $P\hat d_-=-\hat d_-$, preservation of the canonical algebra gives
 \begin{equation}
     [\hat d_+,\hat d_-]=[P\hat d_+,P\hat d_-]
     =-[\hat d_+,\hat d_-]=0.
 \end{equation}
-The canonical commutator is nondegenerate within each sector, so each contains a complete set of bosonic degrees of freedom. Consequently,
+An operator can only have its canonical conjugate within its own sector, so each sector describes a complete bosonic subsystem. Consequently,
 \begin{equation}
     \mathcal F=\mathcal F_+\otimes\mathcal F_-,\qquad
     \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}.
 \end{equation}
-The anticommutation of $P$ and $\Theta_+$ makes time reversal exchange these two subsystems. Their many-body traces are complex conjugates, giving
+The anticommutation of $P$ and $\Theta_1$ makes time reversal exchange these two subsystems. Denote their weights by $W_+$ and $W_-$. Time reversal gives $W_-=\overline{W_+}$, so
 \begin{equation}
     W=W_+W_-=|W_+|^2\ge0.
     \label{eq:trs_majorana_weight}
@@ -1267,249 +1115,119 @@ For divergent traces, the paired cutoffs in Sec.~\ref{app:regularization} preser
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
-Three time-reversal symmetries with $\Theta_a^2=+I$ provide a third route to positive Gaussian weights. Their products again split the Nambu evolution into $Q=\pm\ii$ sectors, while the bosonic commutation relations constrain the reduced evolution to a real split orthogonal group.
+Consider three mutually anticommuting time reversals with $\Theta_1^2=\Theta_2^2=\Theta_3^2=I$. The product $Q=\Theta_1\Theta_2$ again obeys $Q^2=-I$ and commutes with every slice. We select its $Q=+\ii$ operators as above. The three symmetries make their propagation real and relate equal numbers of annihilation and creation directions. These two properties fix the bosonic weight.
 
-A time-reversal symmetry with $\Theta^2=+I$ defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
+First choose canonical Nambu operators fixed by $\Theta_1$. They can be formed from $\hat d+\Theta_1\hat d$ and $\ii(\hat d-\Theta_1\hat d)$. In this basis,
 \begin{equation}
-    \hat d+\Theta_1\hat d,
-    \qquad
-    \ii(\hat d-\Theta_1\hat d).
-    \label{eq:trs_Theta1_real_operators}
-\end{equation}
-Both combinations are fixed by \(\Theta_1\).  They span the real subspace fixed by \(\Theta_1\), and a basis of that subspace is also a complex basis of Nambu space.  Since \(\Theta_1\) preserves bosonic commutators and Hermitian conjugation, these operators can be normalized in canonical conjugate pairs while staying inside this real span.  In the resulting basis, the three symmetries of the \(\{+,+,+\}\) class have the form
-\begin{equation}
-    \Theta_1=\mc K,
-    \qquad
-    \Theta_2=\ii R_2\mc K,
-    \qquad
+    \Theta_1=\mc K,\qquad \Theta_2=\ii R_2\mc K,\qquad
     \Theta_3=\ii R_3\mc K,
     \label{eq:trs_three_plus_basis}
 \end{equation}
-with real matrices \(R_2\) and \(R_3\).  The first equality follows from the construction above.  Anticommutation with \(\Theta_1=\mc K\) makes the other two one-body matrices purely imaginary, which accounts for the factors of \(\ii\).  Substituting Eq.~\eqref{eq:trs_three_plus_basis} into Eq.~\eqref{eq:trs_physical_TR_conditions} gives
+where $R_2,R_3$ are real and $\mc K$ conjugates coefficients. The factors of $\ii$ follow from anticommutation with $\Theta_1$. Slice invariance and preservation of the bosonic algebra give
 \begin{gather}
-    \overline{A_\ell}=A_\ell,
-    \qquad
-    [R_2,A_\ell]=[R_3,A_\ell]=0,
-    \qquad
-    R_2R_3=-R_3R_2,
-    \label{eq:trs_three_plus_A}\\
-    R_j^2=I,
-    \qquad
-    R_j^\trans \Omega R_j=-\Omega,
-    \qquad
-    CR_jC=-R_j,
-    \qquad j=2,3.
+    \overline{A_\ell}=A_\ell,\qquad [R_2,A_\ell]=[R_3,A_\ell]=0,
+    \qquad R_2R_3=-R_3R_2,\notag\\
+    R_j^2=I,\qquad R_j^\trans\Omega R_j=-\Omega,\qquad
+    CR_jC=-R_j,\qquad j=2,3.
     \label{eq:trs_three_plus_physical}
 \end{gather}
-The first two time reversals define
+Since $Q=-\ii R_2$, its two sectors admit real bases. Thus $A_{\ell,+\ii}$ and $\mc M_{+\ii}$ are real.
+
+The third symmetry pairs creation and annihilation directions within the selected sector. Indeed, $Q$ commutes with $\Theta_3$, so $\Theta_3(\hat d^+)$ has $Q=+\ii$ whenever $\hat d$ does. Their commutators have opposite signs,
 \begin{equation}
-    Q=\Theta_1\Theta_2=-\ii R_2,
-    \qquad Q^2=-I.
-    \label{eq:trs_three_plus_Q}
+    [\Theta_3(\hat d^+),(\Theta_3(\hat d^+))^+]=-[\hat d,\hat d^+].
 \end{equation}
-We again work in its \(Q=+\ii\) sector.  All \(A_{\ell,+\ii}\) and \(\mc M_{+\ii}\) are real in this basis.  The third time reversal supplies the real matrix
+This invertible pairing gives equal numbers of the two directions, fixing the creation-operator sign in Eq.~\eqref{eq:trs_boson_reduced_weight} to $(-1)^{N_-}=(-1)^{N/2}$.
+
+The determinant sign follows from the real symmetric matrix
 \begin{equation}
     \eta=(\Omega R_3)\big|_{Q=+\ii}.
     \label{eq:trs_eta_definition}
 \end{equation}
-It is invertible on this sector.  Indeed, \(Q^\trans(\Omega R_3)Q=-\Omega R_3\).  If \(Qv=+\ii v\) and \(Qw=-\ii w\), this identity gives \(v^\trans \Omega R_3w=-v^\trans \Omega R_3w=0\).  Thus \(\Omega R_3\) has no matrix elements between the two sectors and remains invertible inside each one.
-
-From \(R_3^\trans \Omega R_3=-\Omega\) and \(R_3^2=I\),
+Here the restriction means evaluating the bilinear form in a basis of the selected sector. Equation~\eqref{eq:trs_three_plus_physical} gives $(\Omega R_3)^\trans=\Omega R_3$. This form has no matrix elements between opposite $Q$ sectors and remains invertible within each one. Commutation of $R_3$ with every slice then yields
 \begin{equation}
-    R_3^\trans \Omega=-\Omega R_3.
-    \label{eq:trs_R3g_relation}
-\end{equation}
-Together with \(\Omega^\trans=-\Omega\), this makes \(\eta\) symmetric:
-\begin{equation}
-    \eta^\trans=\eta.
-    \label{eq:trs_eta_symmetric}
-\end{equation}
-Every reduced generator preserves this matrix because
-\begin{align}
-    A_{\ell,+\ii}^\trans\eta+\eta A_{\ell,+\ii}
-    &=\left.\Omega(R_3A_\ell-A_\ell R_3)\right|_{Q=+\ii}
-    \notag\\
-    &=\left.\Omega[R_3,A_\ell]\right|_{Q=+\ii}=0.
-    \label{eq:trs_eta_generator_relation}
-\end{align}
-
-In this canonical Nambu basis, the physical commutator matrix is
-\begin{equation}
-    [\hat\chi_i,\hat\chi_j^+]=(\Omega C)_{ij}.
-    \label{eq:trs_boson_commutator_matrix}
-\end{equation}
-Write this real symmetric matrix as \(\Sigma=\Omega C\), so \(\Sigma^{-1}=\Sigma\). Choose a real \(Q\)-adapted basis \(\hat\chi'=V^{-1}\hat\chi\). Its commutator matrix is
-\begin{equation}
-    \Sigma'=V^{-1}\Sigma V^{-\trans},
-    \qquad
-    (\Sigma')^{-1}=V^\trans\Sigma V.
-    \label{eq:trs_commutator_basis_change}
-\end{equation}
-The two \(Q\) sectors are separate blocks of the form on the right because \(R_2^\trans\Sigma R_2=\Sigma\). A real symmetric matrix and its inverse have the same numbers of positive and negative eigenvalues. The restriction of \(\Sigma\) to the \(Q=+\ii\) column eigenspace therefore has the same signature as the selected-operator commutator \(D\) in Eq.~\eqref{eq:trs_reduced_commutator}.
-The matrix
-\begin{equation}
-    S=(CR_3)\big|_{Q=+\ii}
-    \label{eq:trs_S_definition}
-\end{equation}
-stays within the \(Q=+\ii\) sector because \(R_2\) commutes with \(CR_3\).  Using \(C\Omega C=-\Omega\), \(CR_3C=-R_3\), and Eq.~\eqref{eq:trs_R3g_relation}, one finds
-\begin{align}
-    S^\trans\eta S
-    &=R_3^\trans(C\Omega R_3C)R_3
-      =R_3^\trans \Omega=-\Omega R_3=-\eta,
-    \notag\\
-    S^\trans\left.(\Omega C)\right|_{Q=+\ii}S
-    &=R_3^\trans C\Omega R_3
-      =-\left.(\Omega C)\right|_{Q=+\ii}.
-    \label{eq:trs_S_flips_forms}
-\end{align}
-An invertible change of basis cannot alter how many positive and negative directions a real symmetric matrix has.  The first equality says that \(S\) turns \(\eta\) into \(-\eta\), so those two numbers must be equal.  The second equality gives the same result for the commutator in Eq.~\eqref{eq:trs_boson_commutator_matrix}.  Hence \(N\) is even, both matrices have \(N/2\) positive and \(N/2\) negative directions, and the integer in Eq.~\eqref{eq:trs_boson_reduced_weight} is fixed to
-\begin{equation}
-    N_-=\frac N2.
-    \label{eq:trs_Nminus_half}
-\end{equation}
-
-After a real change of basis, take
-\begin{equation}
-    \eta=\diag(I_{N/2},-I_{N/2}).
-    \label{eq:trs_eta_diagonal}
-\end{equation}
-The two diagonal blocks of \(\eta\) label equal sets of positive and negative channels.  Equation~\eqref{eq:trs_eta_generator_relation} implies
-\begin{equation}
-    \mc M_{+\ii}^\trans\eta \mc M_{+\ii}=\eta,
-    \qquad
-    \Tr A_{\ell,+\ii}=0.
+    A_{\ell,+\ii}^\trans\eta+\eta A_{\ell,+\ii}=0,\qquad
+    \mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta.
     \label{eq:trs_eta_propagation}
 \end{equation}
-Real matrices satisfying the first relation form the split orthogonal group $O(N/2,N/2)$. Each factor $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{tA_{\ell,+\ii}}$, so the full product lies in its identity component, denoted $O^{++}$. The two superscripts record the positive determinants of the two diagonal $N/2\times N/2$ blocks. The split-orthogonal determinant theorem~\cite{wang2015prl} states that $\det(I+M)$ is nonnegative for $M\in O^{++}$ and nonpositive for $M\in O^{--}$.
+Moreover, $CR_3$ stays within the selected sector and transforms $\eta$ into $-\eta$. Its positive and negative directions therefore occur in equal numbers. A real basis change brings it to $\eta=\diag(I_{N/2},-I_{N/2})$. Propagation preserves the difference of squared amplitudes in these two sets of channels, the defining property of the split orthogonal group.
 
-To obtain the bosonic sign, apply this theorem to $-\mc M_{+\ii}$. Multiplying a matrix by $-1$ changes the determinant of each diagonal block by $(-1)^{N/2}$. Thus $-\mc M_{+\ii}$ belongs to $O^{++}$ for even $N/2$ and to $O^{--}$ for odd $N/2$. The two cases give the single result
+Each slice stays connected to the identity through $\ee^{sA_{\ell,+\ii}}$, $0\le s\le1$. The split-orthogonal determinant theorem~\cite{wang2015prl}, applied to $-\mc M_{+\ii}$, gives
 \begin{equation}
-    (-1)^{N/2}\det(I_N-\mc M_{+\ii})\geq0.
+    (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
-Finally, Eqs.~\eqref{eq:trs_boson_reduced_weight}, \eqref{eq:trs_Nminus_half}, and~\eqref{eq:trs_eta_propagation} give
+For even $N/2$, the two diagonal blocks of $-\mc M_{+\ii}$ have positive determinants and the theorem gives $\det(I_N-\mc M_{+\ii})\ge0$. For odd $N/2$, both block determinants are negative and the theorem gives the opposite sign. Equation~\eqref{eq:trs_eta_propagation} also implies $\Tr A_{\ell,+\ii}=0$. The reduced trace is consequently
 \begin{equation}
-    W=\exp\!\left(\sum_\ell\xi_\ell\right)(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0
+    W=\ee^{\sum_\ell\xi_\ell}
+    \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-wherever the Gaussian weight is finite. The bosonic split-orthogonal class \(\{+,+,+\}\) therefore protects the full weight, including its continuation beyond the trace-convergent domain.
+The determinant sign is canceled by the sign from the $N/2$ creation directions. This cancellation supplies the bosonic positivity mechanism of the split-orthogonal class.
 
-\subsection{Completion of the periodic table}
+\subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
 
-Two elementary examples determine the remaining entries of Table~\ref{tab:trs_periodic}. For one mode, let $\hat\chi=(\hat b,\hat b^+)^\trans$, $\Omega=\ii\sigma_y$, and $C=\sigma_x$. The time reversals
+The three mechanisms above determine the sign-free symmetry classes. A larger set inherits positivity whenever it contains a Kramers pair, a Majorana pair, or three positive-square time reversals. The remaining possibilities are $\{+,+\}$, $\{-\}$, and subsets of these sets. Two examples show why they do not guarantee positivity.
+
+For $\{+,+\}$, take a single mode with
 \begin{equation}
-    \Theta_1=\mc K,
-    \qquad
-    \Theta_2=\ii\sigma_z\mc K
-    \label{eq:trs_boson_pp_counter_TR}
-\end{equation}
-satisfy Eq.~\eqref{eq:trs_physical_TR_conditions}, square to $+I$, and anticommute. They both preserve
-\begin{equation}
-    A=\kappa\sigma_z,
-    \qquad \kappa\in\mathbb R,
-    \qquad
-    \hat h=\kappa\left(\hat n+\frac12\right).
+    \hat h=\kappa(\hat n_b+1/2),\qquad
+    \Theta_1(\hat b)=\hat b,\qquad \Theta_2(\hat b)=\ii\hat b.
     \label{eq:trs_boson_pp_counter_h}
 \end{equation}
-For $\kappa<0$, the occupation sum converges to $\ee^{\kappa/2}/(1-\ee^\kappa)$. Its meromorphic continuation gives
+Both maps conjugate coefficients, preserve $\hat h$, square to $+I$, and anticommute. The occupation sum converges for $\kappa<0$ and gives $W=\ee^{\kappa/2}/(1-\ee^\kappa)$. Its continuation to $\kappa>0$ is
 \begin{equation}
-    W=\frac{\ee^{\kappa/2}}{1-\ee^\kappa}
-    =-\frac{1}{2\sinh(\kappa/2)}<0,
-    \qquad \kappa>0.
+    W=-\frac{1}{2\sinh(\kappa/2)}<0.
     \label{eq:trs_boson_pp_counter_weight}
 \end{equation}
-This finite negative weight covers the $\{+,+\}$ and $\{+\}$ entries. It also shows why a single time-reversal symmetry with $\Theta^2=+I$ is insufficient in the number-conserving criterion.
+Two such time reversals can act on a single oscillator, providing no independent conjugate subsystem to protect a modulus-square weight. This example also covers $\{+\}$ and the absence of TRS.
 
-A single negative-square time reversal also permits a negative continued weight when pairing is present. Take two modes and the time reversal
-\begin{equation}
-    \Theta(\hat b)=\hat c,\qquad
-    \Theta(\hat c)=-\hat b,\qquad \Theta(\ii)=-\ii.
-\end{equation}
-It obeys $\Theta^2=-I$ and preserves each of the three pairing slices
+For $\{-\}$, consider the complete three-slice family
 \begin{align}
-    \hat h_1&=\frac{\pi}{2}
-    (\hat b^{+2}+\hat b^2+\hat c^{+2}+\hat c^2),\notag\\
+    \hat h_1&=-\alpha(\hat n_b+\hat n_c+1)
+    +\frac{x}{2}(\hat b^{+2}+\hat b^2+\hat c^{+2}+\hat c^2),\notag\\
     \hat h_2&=\ii t(\hat b^+\hat c^+-\hat b\hat c),\notag\\
-    \hat h_3&=\frac{\ii t}{2}
-    (\hat b^{+2}-\hat b^2-\hat c^{+2}+\hat c^2),
-    \qquad 0<t\le\pi/2.
+    \hat h_3&=\frac{\ii t}{2}(\hat b^{+2}-\hat b^2-\hat c^{+2}+\hat c^2),
+    \qquad \alpha,x,t\in\mathbb R.
     \label{eq:trs_boson_single_minus_counterexample}
 \end{align}
-These are three different pairing directions: equal single-flavor pairing, interflavor pairing, and opposite single-flavor pairing. Together they leave only $\Theta$ and $-\Theta$ as common physical time reversals, so no Majorana decomposition is available.
-
-The propagation and the absence of an additional time reversal can both be checked with small matrices. Let $\tau_a$ act in Nambu space and $\sigma_a$ in flavor space, in the order $\hat\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^\trans$. The three generators are $A_1=\pi G_1$, $A_2=tG_2$, and $A_3=tG_3$, with
+Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\Theta^2=-I$. At $\alpha=0,x=\pi$ and $t\ne0$, the three different pairing directions have no common physical time reversals other than $\pm\Theta$, so they cannot be separated into independent conjugate subsystems. At $t=0$ and $\alpha>|x|$, Bogoliubov diagonalization gives two stable oscillators of frequency $\nu=\sqrt{\alpha^2-x^2}$ and
 \begin{equation}
-    G_1=\ii\tau_y\otimes I_2,\qquad
-    G_2=\ii\tau_x\otimes\sigma_x,\qquad
-    G_3=\ii\tau_x\otimes\sigma_z.
-\end{equation}
-They satisfy $G_a^2=-I_4$ and anticommute. The full propagation obeys $\mc M+\mc M^{-1}=-2\cos^2t\,I_4$, so its eigenvalues form two identical reciprocal pairs. This gives
-\begin{equation}
-    \mc M=-(I_4\cos t+G_2\sin t)(I_4\cos t+G_3\sin t),
-    \qquad
-    \det(I_4-\mc M)=4(1+\cos^2t)^2.
-    \label{eq:trs_single_minus_det}
-\end{equation}
-For completeness, any matrix commuting with all three generators has the form $aI_4+bG_1G_2G_3$. Here $G_1G_2G_3=-\tau_y\otimes\sigma_y$ is symmetric, squares to $I_4$, commutes with $\Omega$, and changes sign under $C\overline{(\cdot)}C$. Preservation of adjoints therefore requires $a$ real and $b$ imaginary, while preservation of canonical commutators requires $a^2+b^2=1$ and $ab=0$. Only $\pm I_4$ remain. The product of any additional physical time reversal with $\Theta^{-1}$ would be such a linear symmetry, proving that the only common time reversals are $\pm\Theta$. This check includes transformations mixing creation and annihilation operators.
-
-To fix the sign of the continued trace, first set $t=0$. Add a damping term $-\alpha(\hat n_b+\hat n_c+1)$ to $\hat h_1$ and replace $\pi$ by $x$. For $\alpha>|x|$, Bogoliubov diagonalization gives two stable oscillators of frequency $\nu=\sqrt{\alpha^2-x^2}$ and
-\begin{equation}
-    W=\frac{1}{4\sinh^2(\nu/2)}.
+    W=\Tr(\ee^{\hat h_1}\ee^{\hat h_2}\ee^{\hat h_3})
+    =\frac{1}{4\sinh^2(\nu/2)}.
     \label{eq:trs_boson_paired_counter_stable}
 \end{equation}
-Its continuation to $\alpha=0$, $x=\pi$ is $W=-1/4$. This fixes the trace-continuation branch used for the three-slice family. Increasing $t$ encounters no zero of Eq.~\eqref{eq:trs_single_minus_det}, so this branch gives
+The trace expression continues to $W=-1/4$ at $\alpha=0,x=\pi,t=0$. Along $\alpha=0,x=\pi$, direct multiplication of the three propagation matrices gives $\det(I_4-\mc M)=4(1+\cos^2t)^2$, with no pole as $t$ increases. The same analytic branch therefore yields
 \begin{equation}
     W=-\frac{1}{2(1+\cos^2t)}<0,
-    \qquad W\big|_{t=\pi/2}=-\frac12.
+    \qquad 0<t\le\pi/2,
     \label{eq:trs_boson_single_minus_weight}
 \end{equation}
-The endpoint $t=0$ only fixes this analytic branch; the counterexample uses $t>0$, where all three pairing directions are present. At $t=0$, the additional Majorana symmetry instead permits the conjugate-sector prescription of Sec.~\ref{app:regularization}. The two counterexamples supply all entries marked \emph{Sign-problematic}.
+including $W=-1/2$ at $t=\pi/2$. The counterexample uses all three pairing directions. Its $t=0$ limit specifies the analytic branch. The extra Majorana symmetry exactly at that limit allows the separate-sector prescription of Sec.~\ref{app:regularization}.
 
-Among three time reversals, $\{+,+,-\}$ contains a Majorana pair, $\{+,-,-\}$ contains both a Majorana and a Kramers pair, and $\{-,-,-\}$ contains a Kramers pair. The remaining $\{+,+,+\}$ set has split-orthogonal protection. Every set of four or more time reversals contains one of these triples. The three fundamental sign-free sets are therefore $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$.
+Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers and Majorana mechanisms protect both statistics. Three positive-square symmetries suffice only for bosons, whose commutator signs cancel the split-orthogonal determinant sign.
 
-\subsection{Recovery of the number-conserving criterion}
+\begin{table}[ht]
+    \centering
+    \caption{Sign-free classes of mutually anticommuting time reversals for bosonic and fermionic Gaussian evolution. Each sign records $\Theta_a^2=\pm I$. Fundamental classes are in bold. Every unlisted class at the given number of symmetries admits negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
+    \label{tab:trs_boson_fermion}
+    \setlength{\tabcolsep}{12pt}
+    \begin{tabular}{ccc}
+        \hline\hline
+        No.\ of TRS & Bosons & Fermions \\
+        \hline
+        $0,1$ & None & None \\
+        $2$ & $\boldsymbol{\{-,-\}},\ \boldsymbol{\{+,-\}}$
+            & $\boldsymbol{\{-,-\}},\ \boldsymbol{\{+,-\}}$ \\
+        $3$ & $\boldsymbol{\{+,+,+\}},\ \{+,+,-\},\ \{+,-,-\},\ \{-,-,-\}$
+            & $\{+,+,-\},\ \{+,-,-\},\ \{-,-,-\}$ \\
+        $\ge4$ & All & All \\
+        \hline\hline
+    \end{tabular}
+\end{table}
 
-For number-conserving slices, all three fundamental TRS classes reduce to the number-conserving TRS criterion of Sec.~\ref{app:trs_number}. Both $\{-,-\}$ and $\{+,-\}$ already contain a symmetry with $\Theta^2=-I$. For $\{+,+,+\}$, the product of the three time reversals is antiunitary and satisfies
-\begin{equation}
-    \Theta_0=\Theta_1\Theta_2\Theta_3,
-    \qquad
-    \Theta_0^2=(-1)^3\Theta_1^2\Theta_2^2\Theta_3^2=-I.
-    \label{eq:trs_number_three_plus_reduction}
-\end{equation}
-If this symmetry acts within the annihilation space, its Kramers pairing gives positivity of $\det(I_N-\mc B)$ directly. Thus the extra Nambu symmetries impose no additional requirements in the number-conserving setting.
-
-The same conclusion holds when the original symmetry mixes annihilation and creation operators. To extract an annihilation-space symmetry, write its matrix as
-\begin{equation}
-    U=\begin{pmatrix}P&Q\\\overline Q&\overline P\end{pmatrix},
-    \qquad
-    \Sigma=\Omega C=\diag(I_N,-I_N).
-\end{equation}
-Preservation of commutators gives $U\Sigma U^\hc=\Sigma$, hence $PP^\hc-QQ^\hc=I_N$ and $P$ is invertible. Combining $U^{-1}=\Sigma U^\hc\Sigma$ with $\overline U U=-I_{2N}$ gives $P^\trans=-P$. Since $A_\ell=\diag(B_\ell,-B_\ell^\trans)$, slice invariance further gives
-\begin{equation}
-    \overline{B_\ell}P=PB_\ell,
-    \qquad
-    H=P^\hc P=-\overline P P>0,
-    \qquad [H,B_\ell]=0.
-    \label{eq:trs_number_polar_relations}
-\end{equation}
-The commutator follows by combining the first equality with its complex conjugate, so it does not require $B_\ell$ to be Hermitian. Define the unitary polar factor $V=PH^{-1/2}$. The identity $PH=\overline H P$ implies $V^\trans=-V$, and commutation of $H$ with all slices gives
-\begin{equation}
-    V^\hc V=I_N,
-    \qquad \overline V V=-I_N,
-    \qquad \overline{B_\ell}V=VB_\ell.
-    \label{eq:trs_number_polar_kramers}
-\end{equation}
-Thus $\Theta(\hat{\bb a})=V\hat{\bb a}$ is a common Kramers symmetry on the physical annihilation operators.
-
-Conversely, number conservation supplies a second symmetry with $\Theta^2=-I$. Using the annihilation-space Kramers matrix $V$, let
-\begin{equation}
-    U_1=\begin{pmatrix}V&0\\0&\overline V\end{pmatrix},
-    \qquad
-    U_2=\begin{pmatrix}\ii V&0\\0&-\ii\overline V\end{pmatrix}.
-    \label{eq:trs_number_second_symmetry}
-\end{equation}
-Both maps preserve every number-conserving slice and the canonical algebra. Direct multiplication gives \(\overline U_1U_1=\overline U_2U_2=-I_{2N}\) and \(\overline U_2U_1=-\overline U_1U_2\). Thus one-particle Kramers symmetry together with particle-number conservation realizes the \(\{-,-\}\) class of Theorem~\ref{thm:trs}.
+For number-conserving slices with time reversals acting within the annihilation space, a Kramers symmetry immediately gives Eq.~\eqref{eq:trs_det_positive_sm}, and the phase rotation described above embeds it in $\{-,-\}$. Both $\{-,-\}$ and $\{+,-\}$ contain such a negative-square symmetry. For $\{+,+,+\}$, the product $\Theta_1\Theta_2\Theta_3$ is itself antiunitary and squares to $-I$, supplying the same Kramers pairing. Thus the three Nambu mechanisms recover the familiar number-conserving criterion in this setting.
 
 \section{Reflection-positivity criterion}
 \label{app:rp_proof}
