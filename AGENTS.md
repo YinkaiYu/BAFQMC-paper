@@ -81,6 +81,8 @@ Before delivering any manuscript edit to the user:
 
 ## Git Working Practices
 
+- Follow `.gitattributes` and `.editorconfig`: use LF for text files except `.bat` and `.cmd` (CRLF). Preserve existing source content; do not change global Git settings to hide line-ending differences.
+- Before declaring this shared Windows/WSL checkout clean, check `git status --short --untracked-files=all` with both Windows Git and WSL Git. From native PowerShell, run the WSL check through `scripts/run-in-wsl.ps1`; from WSL, invoke Windows Git through Windows interoperability without nesting `wsl.exe`. If either check is unavailable, report that limitation rather than claiming both environments are clean. Investigate discrepancies with `git diff` and `git ls-files --eol` before attributing them to an editor refresh issue.
 - After completing and validating a coherent set of changes, commit it promptly. Each completed editing round must include its local Git commit.
 - Before delivering the result, inspect `git status --short` and resolve all remaining staged, unstaged, and untracked changes. Finish with a clean working tree. Do not leave completed work uncommitted or merely staged for a later turn.
 - Review remaining changes and group commits by purpose. Preserve existing source work, and keep local build output, previews, and temporary review files in ignored directories. Do not discard work just to make Git status clean.

@@ -1,3 +1,8 @@
+# Use the same text normalization in Windows and WSL, regardless of core.autocrlf.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
 # Linux scripts and scientific inputs must keep LF line endings on Windows clones.
 *.sh text eol=lf
 *.py text eol=lf
