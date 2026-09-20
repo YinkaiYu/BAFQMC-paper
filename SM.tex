@@ -579,7 +579,7 @@ For a stable, trace-convergent Gaussian product, the standard bosonic quadratic-
     \left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-Here the square root is fixed by the ordered operator product in the convergent domain. Continuing this branch defines the Gaussian weight $W$ in Eq.~\eqref{eq:trace_formula_main} beyond that domain. Together with the scalar prefactor, the Nambu propagation matrix determines the squared weight, while the continued branch fixes its sign. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here. The proofs in Sec.~\ref{app:trs_proof} determine the full Gaussian weight through reduced determinants. For trace-convergent RP products, the proof in Sec.~\ref{app:rp_proof} establishes nonnegativity of the operator trace.
+Here the square root is fixed by the ordered operator product in the convergent domain. Beyond that domain, the weight follows the prescription in Sec.~\ref{app:regularization}. Independent conjugate subsystems are regularized separately, preserving their modulus-square weight; otherwise we continue the operator-trace branch. Together with the scalar prefactor, the Nambu propagation matrix determines the squared weight. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here. The proofs in Sec.~\ref{app:trs_proof} determine the full Gaussian weight through reduced determinants. For trace-convergent RP products, the proof in Sec.~\ref{app:rp_proof} establishes nonnegativity of the operator trace.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
@@ -909,11 +909,11 @@ The terms with $n\lesssim n_*(\Lambda)=\ln\Lambda/\ln|r|$ are almost unchanged, 
 \end{equation}
 where $P_{\Lambda}$ contains the cutoff-dependent growing part. For $|r|<1$, the same finite term is obtained because the regulator becomes irrelevant in the convergent series. Applying the argument mode by mode gives
 \begin{equation}
-    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W_{\rm reg}(\phi)+o(1),
+    W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W(\phi)+o(1),
 \end{equation}
 with
 \begin{equation}
-    W_{\rm reg}(\phi)
+    W(\phi)
     =
     \prod_{i=1}^{N}\frac{1}{1-r_i(\phi)}
     =
@@ -937,7 +937,7 @@ The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\L
 \end{equation}
 The left-hand side tends to the physical partition function as $\Lambda\to\infty$. On the right-hand side, each fixed-field trace has the finite-part expansion displayed above. The cutoff-dependent terms have zero net contribution to the finite physical partition function after the full auxiliary-field integration, leaving the regularized AFQMC representation
 \begin{equation}
-    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
+    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W(\phi).
 \end{equation}
 This is the sampling weight represented by the determinant formula.
 
@@ -951,22 +951,37 @@ The same construction applies to Gaussian propagators with pairing. In a stable 
 \end{equation}
 The additional $\frac12\sum_j\varepsilon_j$ in the prefactor is the centered quadratic contribution in Eq.~\eqref{eq:hAdef}. Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
 \begin{equation}
-    W_{\rm reg}(\phi)
+    W(\phi)
     =
     \exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)+\frac12\sum_j\varepsilon_j(\phi)\right]
     \prod_{j=1}^{N}\frac{1}{1-\ee^{\varepsilon_j(\phi)}}.
 \end{equation}
 In Nambu notation this finite part is written as
 \begin{equation}
-    W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
+    W(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
 \end{equation}
 where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
+
+When time reversal separates every slice into two independent conjugate subsystems, as in the Majorana class proved in Sec.~\ref{app:trs_majorana}, the cutoff is applied to the two subsystems separately. Write $\mathcal F=\mathcal F_+\otimes\mathcal F_-$ and $\hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}$, assigning half of the real scalar $\xi_\ell$ to each subsystem. Choose cutoffs that treat every state and its time-reversed partner in the same way. The regulated traces then obey
+\begin{equation}
+    W_{\Lambda,\pm}=\Tr_{\mathcal F_\pm}
+    \left[R_{\Lambda,\pm}\prod_\ell\ee^{\hat h_{\ell,\pm}}\right],
+    \qquad W_{\Lambda,-}=\overline{W_{\Lambda,+}}.
+\end{equation}
+Remove the cutoff-dependent growing terms from each trace before multiplying the two finite parts. The same subtraction in both subsystems preserves $W_-=\overline{W_+}$ and gives
+\begin{equation}
+    W=W_+\overline{W_+}=|W_+|^2
+    =\ee^{\sum_\ell\xi_\ell}
+    \left|\det(I_N-\mc M_+)^{-1}\right|,
+    \label{eq:reg_conjugate_sectors}
+\end{equation}
+where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. Without such a common subsystem decomposition, the weight is obtained by continuation of the convergent trace as above. The Kramers and split-orthogonal proofs below fix the sign directly through their reduced determinants.
 
 \section{Time-reversal criterion and periodic table}
 \label{app:nonnegative_proofs}
 \label{app:trs_proof}
 
-We prove the bosonic TRS criterion by starting with particle-number conservation, where one Kramers symmetry pairs the eigenvalues of the propagation matrix. We then extend the argument to paired evolution in the Nambu notation of Sec.~\ref{app:paired_gaussian}. The two Nambu classes below establish the sign-free entries of Table~\ref{tab:trs_periodic}.
+We prove the bosonic TRS criterion by starting with particle-number conservation, where one Kramers symmetry pairs the eigenvalues of the propagation matrix. We then extend the argument to paired evolution in the Nambu notation of Sec.~\ref{app:paired_gaussian}. The three Nambu classes below establish the sign-free entries of Table~\ref{tab:trs_periodic}.
 
 \subsection{Number-conserving slices: one Kramers time reversal}
 \label{app:trs_number}
@@ -1031,7 +1046,7 @@ Pairing requires the full operator vector $\hat\chi$ and the symplectic matrix $
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
     \label{eq:trs_configuration_weight}
 \end{equation}
-The generators may be non-Hermitian after HS decoupling. We consider the Gaussian weight in Eq.~\eqref{eq:trace_formula_main}, with the branch inherited from the convergent ordered operator trace as in Sec.~\ref{app:trace_paired}. Positivity is required wherever this weight is finite, including its analytic continuation. The proofs below fix the sign of the complete weight.
+The generators may be non-Hermitian after HS decoupling. We consider the Gaussian weight in Eq.~\eqref{eq:trace_formula_main}, with the trace and sector prescriptions of Secs.~\ref{app:trace_paired} and~\ref{app:regularization}. The proofs below establish positivity wherever this weight is finite.
 
 A time reversal is an antilinear map on the bosonic operators,
 \begin{equation}
@@ -1069,7 +1084,7 @@ Since the rows of $U$ specify the images of the operators, composition gives
 The symmetry sets in Table~\ref{tab:trs_periodic} also satisfy
 $\overline U_bU_a=-\overline U_aU_b$ for $a\ne b$. We denote a map by $\Theta=U\mc K$, where $\mc K$ conjugates numerical coefficients and Eq.~\eqref{eq:trs_time_reversal_definition} fixes the operator convention.
 
-Products of two time reversals give linear symmetries. Their eigenspaces separate the Nambu evolution into sectors, which is the starting point of the next two proofs. For a basis change $\hat\chi=V\hat\chi'$, the generator becomes $V^{-1}A_\ell V$, while the bilinear form in the quadratic expression becomes $V^\trans\Omega V$. The transformed operator commutator is instead $V^{-1}\Omega V^{-\trans}$. The columns of $V$ can be chosen as matrix eigenvectors, and the rows of $V^{-1}$ give the corresponding operators.
+Products of two time reversals give linear symmetries. Their eigenspaces separate the Nambu evolution into sectors, which is the starting point of the following proofs. For a basis change $\hat\chi=V\hat\chi'$, the generator becomes $V^{-1}A_\ell V$, while the bilinear form in the quadratic expression becomes $V^\trans\Omega V$. The transformed operator commutator is instead $V^{-1}\Omega V^{-\trans}$. The columns of $V$ can be chosen as matrix eigenvectors, and the rows of $V^{-1}$ give the corresponding operators.
 
 \subsection{Kramers class \texorpdfstring{\(\{-,-\}\)}{\{-,-\}}}
 
@@ -1220,9 +1235,39 @@ so \(z=0\).  Every selected creation-like operator therefore has an independent,
 \end{equation}
 The second time reversal has supplied the independent operator space in which the eigenvalue-pairing argument for a single Kramers symmetry applies.
 
+\subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
+\label{app:trs_majorana}
+
+Let every slice preserve two time reversals with
+\begin{equation}
+    \Theta_+^2=I,\qquad \Theta_-^2=-I,\qquad
+    \Theta_+\Theta_-=-\Theta_-\Theta_+.
+\end{equation}
+Their product is a linear symmetry,
+\begin{equation}
+    P=\Theta_+\Theta_-,\qquad P^2=I,\qquad
+    [P,A_\ell]=0,\qquad P\Theta_+=-\Theta_+P.
+\end{equation}
+The $P=+1$ and $P=-1$ sectors therefore evolve independently. Since $P$ preserves Hermitian conjugation, an operator and its adjoint belong to the same sector. Operators from opposite sectors commute. Indeed, for $P\hat d_+=\hat d_+$ and $P\hat d_-=-\hat d_-$, preservation of the canonical algebra gives
+\begin{equation}
+    [\hat d_+,\hat d_-]=[P\hat d_+,P\hat d_-]
+    =-[\hat d_+,\hat d_-]=0.
+\end{equation}
+The canonical commutator is nondegenerate within each sector, so each contains a complete set of bosonic degrees of freedom. Consequently,
+\begin{equation}
+    \mathcal F=\mathcal F_+\otimes\mathcal F_-,\qquad
+    \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}.
+\end{equation}
+The anticommutation of $P$ and $\Theta_+$ makes time reversal exchange these two subsystems. Their many-body traces are complex conjugates, giving
+\begin{equation}
+    W=W_+W_-=|W_+|^2\ge0.
+    \label{eq:trs_majorana_weight}
+\end{equation}
+For divergent traces, the paired cutoffs in Sec.~\ref{app:regularization} preserve this relation between their finite parts. Equation~\eqref{eq:reg_conjugate_sectors} gives the corresponding positive determinant weight wherever finite. This is the bosonic counterpart of the Majorana mechanism in Ref.~\cite{li2016prl}. Pairing within either subsystem is fully compatible with the conjugacy of their weights.
+
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
-Three time-reversal symmetries with $\Theta_a^2=+I$ provide a second route to positive Gaussian weights. Their products again split the Nambu evolution into $Q=\pm\ii$ sectors, while the bosonic commutation relations constrain the reduced evolution to a real split orthogonal group.
+Three time-reversal symmetries with $\Theta_a^2=+I$ provide a third route to positive Gaussian weights. Their products again split the Nambu evolution into $Q=\pm\ii$ sectors, while the bosonic commutation relations constrain the reduced evolution to a real split orthogonal group.
 
 A time-reversal symmetry with $\Theta^2=+I$ defines a real set of canonical Nambu operators.  To construct it, start from any operator \(\hat d\) and form
 \begin{equation}
@@ -1376,56 +1421,56 @@ For $\kappa<0$, the occupation sum converges to $\ee^{\kappa/2}/(1-\ee^\kappa)$.
 \end{equation}
 This finite negative weight covers the $\{+,+\}$ and $\{+\}$ entries. It also shows why a single time-reversal symmetry with $\Theta^2=+I$ is insufficient in the number-conserving criterion.
 
-For two modes, consider the real-parameter family
+A single negative-square time reversal also permits a negative continued weight when pairing is present. Take two modes and the time reversal
 \begin{equation}
-    \hat h=-\alpha(\hat n_b+\hat n_c+1)
-    -\frac{x}{2}(\hat b^2+\hat b^{+2}+\hat c^2+\hat c^{+2}),
-    \qquad \alpha,x\in\mathbb R.
-    \label{eq:trs_boson_paired_counter_h}
+    \Theta(\hat b)=\hat c,\qquad
+    \Theta(\hat c)=-\hat b,\qquad \Theta(\ii)=-\ii.
 \end{equation}
-In the order $\hat\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^\trans$, its generator and three time-reversal matrices are
-\begin{gather}
-    A=\begin{pmatrix}-\alpha I_2&-xI_2\\xI_2&\alpha I_2\end{pmatrix},
-    \qquad \xi=0,
-    \label{eq:trs_boson_single_minus_counterexample}\\
-    U_1=I_2\otimes\sigma_z,\qquad
-    U_2=I_2\otimes\sigma_x,\qquad
-    U_3=I_2\otimes(\ii\sigma_y).
-    \label{eq:trs_boson_ppm_counter_TR}
-\end{gather}
-Here the Pauli matrices act on flavor. All three $U_a$ are real and obey the canonical, adjoint, and slice-invariance conditions in Eq.~\eqref{eq:trs_physical_TR_conditions}. The Pauli algebra gives
-\begin{equation}
-    \Theta_1^2=\Theta_2^2=+I,\qquad
-    \Theta_3^2=-I,\qquad
-    \Theta_a\Theta_b=-\Theta_b\Theta_a\quad(a\ne b).
-    \label{eq:trs_boson_ppm_counter_algebra}
-\end{equation}
-Thus every member of the family preserves the $\{+,+,-\}$ set.
+It obeys $\Theta^2=-I$ and preserves each of the three pairing slices
+\begin{align}
+    \hat h_1&=\frac{\pi}{2}
+    (\hat b^{+2}+\hat b^2+\hat c^{+2}+\hat c^2),\notag\\
+    \hat h_2&=\ii t(\hat b^+\hat c^+-\hat b\hat c),\notag\\
+    \hat h_3&=\frac{\ii t}{2}
+    (\hat b^{+2}-\hat b^2-\hat c^{+2}+\hat c^2),
+    \qquad 0<t\le\pi/2.
+    \label{eq:trs_boson_single_minus_counterexample}
+\end{align}
+These are three different pairing directions: equal single-flavor pairing, interflavor pairing, and opposite single-flavor pairing. Together they leave only $\Theta$ and $-\Theta$ as common physical time reversals, so no Majorana decomposition is available.
 
-For $\alpha>|x|$, each flavor is a stable oscillator. The Bogoliubov transformation with $\tanh(2r)=x/\alpha$ brings the quadratic operator to
+The propagation and the absence of an additional time reversal can both be checked with small matrices. Let $\tau_a$ act in Nambu space and $\sigma_a$ in flavor space, in the order $\hat\chi=(\hat b,\hat c,\hat b^+,\hat c^+)^\trans$. The three generators are $A_1=\pi G_1$, $A_2=tG_2$, and $A_3=tG_3$, with
 \begin{equation}
-    \hat h=-\nu(\hat\beta_b^+\hat\beta_b+\hat\beta_c^+\hat\beta_c+1),
-    \qquad \nu=\sqrt{\alpha^2-x^2}>0,
+    G_1=\ii\tau_y\otimes I_2,\qquad
+    G_2=\ii\tau_x\otimes\sigma_x,\qquad
+    G_3=\ii\tau_x\otimes\sigma_z.
 \end{equation}
-and hence
+They satisfy $G_a^2=-I_4$ and anticommute. The full propagation obeys $\mc M+\mc M^{-1}=-2\cos^2t\,I_4$, so its eigenvalues form two identical reciprocal pairs. This gives
 \begin{equation}
-    W(\alpha,x)=\frac{1}{4\sinh^2(\nu/2)}
-              =\frac{1}{2(\cosh\nu-1)}.
+    \mc M=-(I_4\cos t+G_2\sin t)(I_4\cos t+G_3\sin t),
+    \qquad
+    \det(I_4-\mc M)=4(1+\cos^2t)^2.
+    \label{eq:trs_single_minus_det}
+\end{equation}
+For completeness, any matrix commuting with all three generators has the form $aI_4+bG_1G_2G_3$. Here $G_1G_2G_3=-\tau_y\otimes\sigma_y$ is symmetric, squares to $I_4$, commutes with $\Omega$, and changes sign under $C\overline{(\cdot)}C$. Preservation of adjoints therefore requires $a$ real and $b$ imaginary, while preservation of canonical commutators requires $a^2+b^2=1$ and $ab=0$. Only $\pm I_4$ remain. The product of any additional physical time reversal with $\Theta^{-1}$ would be such a linear symmetry, proving that the only common time reversals are $\pm\Theta$. This check includes transformations mixing creation and annihilation operators.
+
+To fix the sign of the continued trace, first set $t=0$. Add a damping term $-\alpha(\hat n_b+\hat n_c+1)$ to $\hat h_1$ and replace $\pi$ by $x$. For $\alpha>|x|$, Bogoliubov diagonalization gives two stable oscillators of frequency $\nu=\sqrt{\alpha^2-x^2}$ and
+\begin{equation}
+    W=\frac{1}{4\sinh^2(\nu/2)}.
     \label{eq:trs_boson_paired_counter_stable}
 \end{equation}
-The denominator is an even entire function of $\nu$, so this two-mode weight is a single-valued meromorphic function of $\alpha^2-x^2$. Its continuation to $\alpha=0$ gives
+Its continuation to $\alpha=0$, $x=\pi$ is $W=-1/4$. This fixes the trace-continuation branch used for the three-slice family. Increasing $t$ encounters no zero of Eq.~\eqref{eq:trs_single_minus_det}, so this branch gives
 \begin{equation}
-    W(0,x)=-\frac{1}{4\sin^2(x/2)}<0,
-    \qquad x\notin2\pi\mathbb Z.
+    W=-\frac{1}{2(1+\cos^2t)}<0,
+    \qquad W\big|_{t=\pi/2}=-\frac12.
     \label{eq:trs_boson_single_minus_weight}
 \end{equation}
-At these points $\det(I_4-\mc M)=16\sin^4(x/2)>0$; for example, $x=\pi$ gives $W=-1/4$. The two identical oscillator factors are real in the convergent domain and become imaginary under this continuation, producing the negative product above. This example covers $\{+,+,-\}$ and its $\{+,-\}$ and $\{-\}$ subsets. Together, the two examples supply all the entries marked \emph{Sign-problematic}, including the case with no imposed TRS.
+The endpoint $t=0$ only fixes this analytic branch; the counterexample uses $t>0$, where all three pairing directions are present. At $t=0$, the additional Majorana symmetry instead permits the conjugate-sector prescription of Sec.~\ref{app:regularization}. The two counterexamples supply all entries marked \emph{Sign-problematic}.
 
-Among three time reversals, $\{+,-,-\}$ and $\{-,-,-\}$ contain a Kramers pair, while $\{+,+,+\}$ is protected by the split-orthogonal proof. Any set of four or more contains either two symmetries with $\Theta_a^2=-I$ or at least three with $\Theta_a^2=+I$. It therefore contains $\{-,-\}$ or $\{+,+,+\}$ and guarantees positive Gaussian weights wherever they are finite. These two sets are the fundamental sign-free classes.
+Among three time reversals, $\{+,+,-\}$ contains a Majorana pair, $\{+,-,-\}$ contains both a Majorana and a Kramers pair, and $\{-,-,-\}$ contains a Kramers pair. The remaining $\{+,+,+\}$ set has split-orthogonal protection. Every set of four or more time reversals contains one of these triples. The three fundamental sign-free sets are therefore $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$.
 
 \subsection{Recovery of the number-conserving criterion}
 
-For number-conserving slices, both fundamental TRS classes reduce to the number-conserving TRS criterion of Sec.~\ref{app:trs_number}. The $\{-,-\}$ set already contains a symmetry with $\Theta^2=-I$. For $\{+,+,+\}$, the product of the three time reversals is antiunitary and satisfies
+For number-conserving slices, all three fundamental TRS classes reduce to the number-conserving TRS criterion of Sec.~\ref{app:trs_number}. Both $\{-,-\}$ and $\{+,-\}$ already contain a symmetry with $\Theta^2=-I$. For $\{+,+,+\}$, the product of the three time reversals is antiunitary and satisfies
 \begin{equation}
     \Theta_0=\Theta_1\Theta_2\Theta_3,
     \qquad
@@ -1651,7 +1696,7 @@ This still allows arbitrary Bogoliubov mixing through the $2\times2$ matrix $V_i
     \sigma_z V_j=V_i\sigma_z
     \label{eq:rp_benchmark_hopping_TR}
 \end{equation}
-on every bond. Following this relation around an odd cycle gives $[V_i,\sigma_z]=0$, and connectivity makes $V_i$ uniform. The nonzero onsite pair field has a reduced generator proportional to $\ii\sigma_y$, so invariance also requires $[V_i,\ii\sigma_y]=0$. Hence $V_i=uI_2$. Canonical commutators fix $|u|=1$, and Hermitian conjugation gives precisely Eq.~\eqref{eq:rp_benchmark_TR}. A phase $\Delta=|\Delta|\ee^{\ii\varphi}$ inserts the common factor $\ee^{-\ii\varphi}$ in both images in that equation and leaves Eq.~\eqref{eq:rp_benchmark_commuting_TR} unchanged. Thus the triangular-lattice fixed-field ensemble lies outside both fundamental sign-protecting TRS classes at nonzero pairing, while its reflected anomalous coupling is positive.
+on every bond. Following this relation around an odd cycle gives $[V_i,\sigma_z]=0$, and connectivity makes $V_i$ uniform. The nonzero onsite pair field has a reduced generator proportional to $\ii\sigma_y$, so invariance also requires $[V_i,\ii\sigma_y]=0$. Hence $V_i=uI_2$. Canonical commutators fix $|u|=1$, and Hermitian conjugation gives precisely Eq.~\eqref{eq:rp_benchmark_TR}. A phase $\Delta=|\Delta|\ee^{\ii\varphi}$ inserts the common factor $\ee^{-\ii\varphi}$ in both images in that equation and leaves Eq.~\eqref{eq:rp_benchmark_commuting_TR} unchanged. Thus the triangular-lattice fixed-field ensemble lies outside all three fundamental sign-protecting TRS classes at nonzero pairing, while its reflected anomalous coupling is positive.
 
 The multiplication property in Eq.~\eqref{eq:rp_positive_set_sm} makes the RP propagators a semigroup. The unrestricted generators $\hat q+\theta(\hat q)$ can have either sign, while the reflected coupling is restricted to $F\succeq0$. This cone is selected by the reflected-operator structure and differs from the fixed-metric contraction construction of Ref.~\cite{wei2024prb}. It points toward a broader semigroup theory of positive bosonic Gaussian weights.
 

@@ -195,16 +195,18 @@ with arbitrary complex $M\times M$ matrices $D_\ell$ and $F_\ell$. The hopping g
 
 If the Hamiltonian contains pairing terms that create or annihilate pairs of bosons, particle number is no longer conserved. We then use the Nambu basis to treat creation and annihilation operators together. In the number-conserving limit, combining the original Kramers symmetry $\Theta_1$ with the phase rotation $\hat{\bb a}\mapsto\ii\hat{\bb a}$ automatically supplies a second symmetry $\Theta_2$, with $\Theta_2^2=-I$ and $\Theta_1\Theta_2=-\Theta_2\Theta_1$.
 
-This construction motivates a classification by mutually anticommuting time-reversal symmetries, using a strategy analogous to that of Ref.~\cite{li2016prl}. For general bosonic quadratic evolution, we establish exactly two fundamental sign-free classes, the Kramers class $\{-,-\}$ and the split-orthogonal class $\{+,+,+\}$, where each sign denotes $\Theta_a^2=\pm I$. These sets are fundamental because no proper subset guarantees positive weights. The physical mechanisms that protect positivity in these two classes are as follows.
+Mutually anticommuting time-reversal symmetries organize general bosonic quadratic evolution into three fundamental sign-free classes, the Kramers class $\{-,-\}$, the Majorana class $\{+,-\}$, and the split-orthogonal class $\{+,+,+\}$. Each sign denotes $\Theta_a^2=\pm I$, and no proper subset of these sets guarantees positive weights. The first two are the bosonic counterparts of the fermionic classes in Ref.~\cite{li2016prl}. The third supplies an additional positivity mechanism specific to bosonic statistics.
 
-\emph{\underline{Kramers class}:} The product $Q=\Theta_1\Theta_2$, with $Q^2=-I$, splits the evolution into two invariant subspaces with eigenvalues $\pm\ii$, exchanged by Hermitian conjugation. Let $\mc M_{+\ii}$ denote the propagation matrix in the $+\ii$ subspace. Because $\Theta_1$ anticommutes with $Q$ and conjugates $\ii$, it preserves this subspace. Thus $\mc M_{+\ii}$ inherits Kramers eigenvalue pairing. A canonical basis of this subspace can contain both annihilation and creation operators. Each creation operator has commutator $-1$ with its adjoint and contributes a minus sign when expressing $W$ through $\det(I_N-\mc M_{+\ii})^{-1}$. These operators also form Kramers pairs, so their minus signs cancel and $W\propto\det(I_N-\mc M_{+\ii})^{-1}>0$, with a positive prefactor.
+\emph{\underline{Kramers class}:} Two negative-square time reversals generate a conserved charge through $Q=\Theta_1\Theta_2$, with $Q^2=-I$. This charge separates the Nambu evolution into two subspaces exchanged by Hermitian conjugation. Within either subspace, time reversal pairs the propagation eigenvalues as $\lambda,\overline\lambda$, giving positive determinant factors $|1-\lambda|^2$. Creation operators selected in this subspace also occur in Kramers pairs, so the minus signs from their bosonic commutators cancel. The resulting weight is positive, extending the familiar number-conserving Kramers mechanism to paired evolution.
 
-\emph{\underline{Split-orthogonal class}:} The product $Q=\Theta_1\Theta_2$ again obeys $Q^2=-I$ and separates the two conjugate subspaces. In the $+\ii$ subspace, $\Theta_1$ acts as complex conjugation in a suitable basis, making $\mc M_{+\ii}$ real. The third symmetry, combined with Hermitian conjugation, exchanges annihilation and creation operators within the $+\ii$ subspace, fixing their numbers to $N/2$ each. It also constrains the propagation to preserve the form $\diag(I_{N/2},-I_{N/2})$. Real matrices preserving this form constitute the split orthogonal group $O(N/2,N/2)$, which gives this class its name. The evolution is continuously connected to the identity, and the group's determinant theorem gives $(-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0$~\cite{wang2015prl}. The $N/2$ minus signs from creation operators cancel this determinant sign, giving $W=\ee^{\sum_\ell\xi_\ell}(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0$. This sign cancellation follows from bosonic commutation relations and has no sign-protecting fermionic counterpart~\cite{li2016prl}.
+\emph{\underline{Majorana class}:} One positive-square and one negative-square time reversal generate $P=\Theta_+\Theta_-$, with $P^2=I$. Its two sectors describe independent bosonic subsystems exchanged by time reversal. Their weights are complex conjugates, so $W=W_+\overline{W_+}=|W_+|^2\ge0$. Pair creation and annihilation can occur within each subsystem without spoiling this cancellation of phases.
 
-Every other sign-free class contains one of these two fundamental sets and inherits its protection. In particular, any set of four or more symmetries contains at least two with $\Theta_a^2=-I$ or three with $\Theta_a^2=+I$. The $\{+,+\}$ and $\{+,+,-\}$ classes admit negative Gaussian weights, as demonstrated by explicit counterexamples in Sec.~\ref{app:trs_counterexamples} of the SM~\cite{SM}. Their subsets, including $\{+,-\}$, therefore cannot guarantee positivity. This completes the bosonic time-reversal periodic table summarized in Table~\ref{tab:trs_periodic}.
+\emph{\underline{Split-orthogonal class}:} Three positive-square time reversals link equal numbers of annihilation and creation operators. In the $Q=+\ii$ subspace of $Q=\Theta_1\Theta_2$, the propagation matrix $\mc M_{+\ii}$ is real and preserves their opposite commutator signs, $\diag(I_{N/2},-I_{N/2})$. This is the defining structure of the split orthogonal group. Evolution stays connected to the identity, so its determinant theorem fixes $(-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0$~\cite{wang2015prl}. The same $N/2$ creation operators contribute $(-1)^{N/2}$ to the bosonic trace, canceling the determinant sign and giving $W>0$. Bosonic commutation relations thus protect a class that permits negative fermionic weights~\cite{li2016prl}.
+
+Every class with three or more time reversals contains one of these fundamental sets and inherits its protection. The remaining $\{+,+\}$ and $\{-\}$ classes admit negative weights, as shown by the counterexamples in Sec.~\ref{app:trs_counterexamples} of the SM~\cite{SM}. Together with their subsets, they complete the classification in Table~\ref{tab:trs_periodic}.
 
 \begin{table}[t]
-    \caption{\textbf{Bosonic time-reversal periodic table.} The Kramers class $\{-,-\}$ and split-orthogonal class $\{+,+,+\}$ are the two fundamental sign-problem-free symmetry classes, highlighted in bold blue. For general quadratic slices, including pairing, each sign denotes $\Theta_a^2=\pm I$ for common, pairwise anticommuting time-reversal symmetries of every slice. \emph{All} includes every sign assignment. Sign-problematic classes admit negative Gaussian weights.}
+    \caption{\textbf{Bosonic time-reversal periodic table.} The Kramers class $\{-,-\}$, Majorana class $\{+,-\}$, and split-orthogonal class $\{+,+,+\}$ are the three fundamental sign-problem-free classes, highlighted in bold blue. Each sign denotes $\Theta_a^2=\pm I$ for common, pairwise anticommuting time reversals of every quadratic slice, including pairing. \emph{All} includes every sign assignment. Sign-problematic classes admit negative weights.}
     \label{tab:trs_periodic}
     \vspace{6pt}
     \fontencoding{T1}\sffamily
@@ -213,13 +215,13 @@ Every other sign-free class contains one of these two fundamental sets and inher
         heading/.style={text=white,font=\sffamily\bfseries\footnotesize,align=center},
         fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize}]
         \begin{scope}
-            \clip[rounded corners=2pt] (0,0) rectangle (1,-106);
+            \clip[rounded corners=2pt] (0,0) rectangle (1,-120);
             \fill[TRSHeader]   (0,0)     rectangle (1,-22);
             \fill[TRSRowLight] (0,-22)   rectangle (1,-36.5);
             \fill[TRSRowShade] (0,-36.5) rectangle (1,-51);
-            \fill[TRSRowLight] (0,-51)   rectangle (1,-65.5);
-            \fill[TRSRowShade] (0,-65.5) rectangle (1,-91.5);
-            \fill[TRSRowLight] (0,-91.5) rectangle (1,-106);
+            \fill[TRSRowLight] (0,-51)   rectangle (1,-78.5);
+            \fill[TRSRowShade] (0,-78.5) rectangle (1,-105.5);
+            \fill[TRSRowLight] (0,-105.5) rectangle (1,-120);
             \node[heading] at (0.075,-11) {No.\ of\\TRS};
             \node[heading] at (0.41,-11) {Sign-problem-free};
             \node[heading] at (0.835,-11) {Sign-problematic};
@@ -229,16 +231,17 @@ Every other sign-free class contains one of these two fundamental sets and inher
             \node at (0.075,-43.75) {1};
             \node at (0.41,-43.75) {None};
             \node at (0.835,-43.75) {\{+\}, \{\textminus\}};
-            \node at (0.075,-58.25) {2};
-            \node[fundamental] at (0.41,-58.25) {\{\textminus,\textminus\} = Kramers class};
-            \node at (0.835,-58.25) {\{+,+\}, \{+,\textminus\}};
-            \node at (0.075,-78.5) {3};
-            \node[fundamental] at (0.41,-72.5) {\{+,+,+\} = Split-orthogonal class};
-            \node at (0.41,-84.5) {\{+,\textminus,\textminus\}, \{\textminus,\textminus,\textminus\}};
-            \node at (0.835,-78.5) {\{+,+,\textminus\}};
-            \node at (0.075,-98.75) {\(\geq\)\,4};
-            \node at (0.41,-98.75) {All};
-            \node at (0.835,-98.75) {None};
+            \node at (0.075,-64.75) {2};
+            \node[fundamental] at (0.41,-59) {\{\textminus,\textminus\} = Kramers class};
+            \node[fundamental] at (0.41,-71) {\{+,\textminus\} = Majorana class};
+            \node at (0.835,-64.75) {\{+,+\}};
+            \node at (0.075,-92) {3};
+            \node[fundamental] at (0.41,-86) {\{+,+,+\} = Split-orthogonal class};
+            \node at (0.41,-98) {\{+,+,\textminus\}, \{+,\textminus,\textminus\}, \{\textminus,\textminus,\textminus\}};
+            \node at (0.835,-92) {None};
+            \node at (0.075,-112.75) {\(\geq\)\,4};
+            \node at (0.41,-112.75) {All};
+            \node at (0.835,-112.75) {None};
         \end{scope}
     \end{tikzpicture}
 \end{table}
