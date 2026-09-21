@@ -1,5 +1,38 @@
 # Lattice color comparison
 
+## Balanced alternatives
+
+The current review offers four gently softened palettes using the same rendered
+geometry, highlight shapes, alpha channel, and peripheral fade. Color grading
+retains 88 percent of the motif and halo OKLab chroma, and 94 percent of the arrow
+and label chroma. Colored midtones receive a small perceptual lightness lift
+(at most 0.035 for the motif and 0.015 for the annotations); neutral tones and
+near-white highlights receive less lift. This retains clear color while slightly
+softening its contrast with the card backgrounds.
+
+| Option | Bosons | Hopping arrow and label |
+| --- | --- | --- |
+| A | Coral red | Purple |
+| B | Purple | Red |
+| C | Blue | Purple |
+| D | Blue | Blue |
+
+```bash
+PYTHONPATH=.build/schematic-exploration/vendor python3 figures/schematic-concepts/compare_lattice_colors.py --balanced
+```
+
+These outputs are under `pdf/schematic-color-study/balanced/`, with the same
+contact-sheet and PDF filenames as the original study. The original comparison
+and manuscript figure are retained. This is a color-grading study of the existing
+renders rather than a change to the Blender material parameters.
+
+The earlier strong desaturation can be reproduced with `--muted`, which retains
+52 percent motif chroma and 70 percent annotation chroma without a lightness lift.
+Its outputs remain in `pdf/schematic-color-study/muted/` for comparison; this
+treatment was rejected because the spheres and arrows looked gray.
+
+## Original alternatives
+
 The four alternatives keep the current card backgrounds, geometry, positions,
 type, arrows, outlines, material roughness, lighting, and fading fixed. Only the
 boson base color, corresponding halo, and hopping annotation colors change.

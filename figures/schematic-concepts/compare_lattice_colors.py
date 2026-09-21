@@ -9,11 +9,12 @@ import subprocess
 import sys
 
 import fitz
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
-OUT = ROOT / "pdf" / "schematic-color-study"
+STUDY = ROOT / "pdf" / "schematic-color-study"
 ASSETS = ROOT / "figures" / "schematic-assets"
 BLENDER = ROOT / ".build" / "tools" / "blender-4.3.2-linux-x64" / "blender"
 PALETTES = [
@@ -33,8 +34,55 @@ PALETTES = [
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--render", action="store_true", help="Render both new sphere colors with Blender first")
+tone = parser.add_mutually_exclusive_group()
+tone.add_argument("--muted", action="store_true", help="Strong chroma reduction for the earlier review")
+tone.add_argument("--balanced", action="store_true", help="Gently soften and brighten colors while retaining color clarity")
 args = parser.parse_args()
+graded = args.muted or args.balanced
+OUT = STUDY / "balanced" if args.balanced else STUDY / "muted" if args.muted else STUDY
+motif_chroma = .88 if args.balanced else .52
+annotation_chroma = .94 if args.balanced else .70
+motif_lightness = .035 if args.balanced else 0
+annotation_lightness = .015 if args.balanced else 0
 OUT.mkdir(parents=True, exist_ok=True)
+
+
+def grade_rgb(rgb, factor, lightness_lift=0):
+    """Grade OKLab chroma and colored midtones; rgb is an sRGB array in [0, 1]."""
+    linear = np.where(rgb <= .04045, rgb/12.92, ((rgb+.055)/1.055)**2.4)
+    rgb_to_lms = np.array([[.4122214708, .5363325363, .0514459929],
+                           [.2119034982, .6806995451, .1073969566],
+                           [.0883024619, .2817188376, .6299787005]])
+    lms_to_lab = np.array([[.2104542553, .7936177850, -.0040720468],
+                           [1.9779984951, -2.4285922050, .4505937099],
+                           [.0259040371, .7827717662, -.8086757660]])
+    lab = np.cbrt(linear @ rgb_to_lms.T) @ lms_to_lab.T
+    color_strength = np.clip(np.linalg.norm(lab[..., 1:], axis=-1)/.06, 0, 1)
+    lab[..., 0] += lightness_lift*color_strength*4*lab[..., 0]*(1-lab[..., 0])
+    lab[..., 1:] *= factor
+    result = (lab @ np.linalg.inv(lms_to_lab).T)**3 @ np.linalg.inv(rgb_to_lms).T
+    result = np.clip(result, 0, 1)
+    srgb = np.where(result <= .0031308, 12.92*result, 1.055*result**(1/2.4)-.055)
+    return np.clip(np.rint(srgb*255), 0, 255).astype(np.uint8)
+
+
+def graded_hex(value):
+    rgb = np.array([int(value[k:k+2], 16) for k in (1, 3, 5)])/255
+    return "#"+"".join(f"{int(channel):02X}" for channel in grade_rgb(rgb, annotation_chroma, annotation_lightness))
+
+
+if graded:
+    names = (["珊瑚红小球 · 紫色跃迁", "紫色小球 · 红色跃迁",
+              "蓝色小球 · 紫色跃迁", "蓝色小球 · 蓝色跃迁"] if args.balanced else
+             ["柔和砖红小球 · 灰梅紫跃迁", "灰紫小球 · 陶土红跃迁",
+              "石板蓝小球 · 灰梅紫跃迁", "石板蓝小球 · 灰蓝跃迁"])
+    for palette, title in zip(PALETTES, names):
+        palette["title"] = f"{palette['id']}  {title}"
+        palette["english"] = palette["english"].replace("Current: ", "")+(" (balanced)" if args.balanced else " (muted)")
+        palette["arrow"] = graded_hex(palette["arrow"])
+        palette["label"] = graded_hex(palette["label"])
+        palette["motif_chroma_scale"] = motif_chroma
+        palette["motif_lightness_lift"] = motif_lightness
 
 
 def run(command, logfile):
@@ -46,6 +94,7 @@ def run(command, logfile):
 production = {suffix: hashlib.sha256((ROOT / "figures" / f"schematic.{suffix}").read_bytes()).hexdigest()
               for suffix in ("pdf", "svg", "png")}
 prepared = {}
+graded_assets = {}
 layout_reference = None
 for palette in PALETTES:
     render_name = palette["render"]
@@ -54,7 +103,7 @@ for palette in PALETTES:
     elif render_name in prepared:
         asset_dir = prepared[render_name]
     else:
-        render_dir = OUT / f"render-{render_name}"
+        render_dir = STUDY / f"render-{render_name}"
         if args.render:
             run([BLENDER, "-b", "--threads", "8", "--python", HERE / "render_triangle_focus.py",
                  "--", "--final", "--output-dir", render_dir, "--sphere-color", palette["sphere"]],
@@ -74,6 +123,19 @@ for palette in PALETTES:
         assert json.loads((asset_dir / "triangle-annotation.json").read_text()) == json.loads(
             (ASSETS / "triangle-annotation.json").read_text()), "Projected hopping geometry changed"
         prepared[render_name] = asset_dir
+    if graded:
+        key = render_name or "coral"
+        if key not in graded_assets:
+            graded_dir = OUT / f"assets-{key}"
+            graded_dir.mkdir(exist_ok=True)
+            pixels = np.array(Image.open(asset_dir / "triangle-lattice.png").convert("RGBA"))
+            rgba = pixels.copy()
+            rgba[..., :3] = grade_rgb(pixels[..., :3]/255, motif_chroma, motif_lightness)
+            assert np.array_equal(rgba[..., 3], pixels[..., 3]), "Opacity or fading changed"
+            Image.fromarray(rgba).save(graded_dir / "triangle-lattice.png")
+            shutil.copy2(asset_dir / "triangle-annotation.json", graded_dir / "triangle-annotation.json")
+            graded_assets[key] = graded_dir
+        asset_dir = graded_assets[key]
     stem = f"{palette['id']}_{palette['name']}"
     run([sys.executable, "-W", "error", HERE / "build_cards_v14.py", "--asset-dir", asset_dir,
          "--output-dir", OUT, "--name", stem, "--arrow-color", palette["arrow"],
@@ -89,7 +151,8 @@ for palette in PALETTES:
     print(f"Completed palette {palette['id']}", flush=True)
 
 # The default palette must remain identical to the current production preview.
-assert Image.open(OUT / "A_current.png").tobytes() == Image.open(ROOT / "figures/schematic.png").tobytes()
+if not graded:
+    assert Image.open(OUT / "A_current.png").tobytes() == Image.open(ROOT / "figures/schematic.png").tobytes()
 
 font_path = "/mnt/c/Windows/Fonts/msyh.ttc"
 title_font = ImageFont.truetype(font_path, 28)
@@ -131,6 +194,10 @@ for suffix, original in production.items():
 (OUT / "palette-manifest.json").write_text(json.dumps({
     "palettes": PALETTES, "layout_comparison": "identical", "production_preview": "unchanged",
     "render_settings": "2000 x 1545, 128 Cycles samples, identical geometry, lighting and materials except base color",
+    "color_grading": {"motif_chroma_scale": motif_chroma, "annotation_chroma_scale": annotation_chroma,
+                      "motif_max_lightness_lift": motif_lightness,
+                      "annotation_max_lightness_lift": annotation_lightness,
+                      "alpha": "preserved"} if graded else "none",
 }, ensure_ascii=False, indent=2)+"\n")
 print(full)
 print(detail)
