@@ -25,6 +25,8 @@ NAME = "C_cards_v14_this_work"
 MM, W, H = 86, 1000, 1000
 CARD_RADIUS = 20
 SPLIT_X, SPLIT_Y = 626, 662
+PLAQUE_MARGIN = 28
+PLAQUE_BOX = (108+PLAQUE_MARGIN, 112+PLAQUE_MARGIN, 330, 54)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--publish", action="store_true")
@@ -45,7 +47,7 @@ texts = []
 
 def text(x, y, value, size=7.9, color="#282b32", **kwargs):
     obj = ax.text(x, y, value, fontsize=size, color=color, ha="center", va="center",
-                  linespacing=1.25, **kwargs)
+                  linespacing=1.6, **kwargs)
     texts.append(obj)
     return obj
 
@@ -114,23 +116,24 @@ def inset_plaque(box):
     rgba[:, :, 3] = (mask*255).astype(np.uint8)
     padding = pad/scale
     ax.imshow(rgba, extent=(x-padding, x+w+padding, y+h+padding, y-padding), zorder=7)
-    text(x+w/2, y+h/2+1, "This work", size=8.8, color="#164F72", weight="bold", zorder=8)
+    text(x+w/2, y+h/2+1, "New sign-free regime", size=7.2, color="#164F72", weight="bold", zorder=8)
 
 
-inset_plaque((252, 149, 230, 70))
+inset_plaque(PLAQUE_BOX)
 
 # The rendered lattice remains RGBA; the card shows through all faded pixels.
 motif = Image.open(args.asset_dir / "triangle-lattice.png").convert("RGBA")
 annotation = json.loads((args.asset_dir / "triangle-annotation.json").read_text())
 pixels = np.asarray(motif).copy()
 pixel_h, pixel_w = pixels.shape[:2]
-left, top, motif_w = -35, 107, 800
+left, top, motif_w = 71, 168, 640
 motif_h = motif_w*pixel_h/pixel_w
 yy, xx = np.mgrid[0:pixel_h, 0:pixel_w]
 canvas_x = left+(xx+.5)/pixel_w*motif_w
 canvas_y = top+(yy+.5)/pixel_h*motif_h
-edge = np.minimum.reduce([(canvas_x-122)/36, (619-canvas_x)/36,
-                          (canvas_y-236)/24, (584-canvas_y)/42])
+# Leave breathing room inside the grey backing card and the quadrant boundary.
+edge = np.minimum.reduce([(canvas_x-196)/32, (594-canvas_x)/32,
+                          (canvas_y-270)/24, (550-canvas_y)/36])
 edge = np.clip(edge, 0, 1)
 edge = edge*edge*(3-2*edge)
 pixels[:, :, 3] = (pixels[:, :, 3]*edge).astype(np.uint8)
@@ -180,7 +183,7 @@ fig.savefig(pdf_path, dpi=650, metadata={"Title": "Sign-free bosonic QMC: frustr
 svg_path = OUT / f"{NAME}.svg"
 fig.savefig(svg_path, dpi=650, metadata={
     "Title": "Sign-free bosonic QMC classification",
-    "Description": "Enlarged frustrated TRS/RP region, recessed This work plaque, and triangular-lattice hopping."})
+    "Description": "Enlarged frustrated TRS/RP region, recessed New sign-free regime plaque, and triangular-lattice hopping."})
 svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines())+"\n")
 plt.close(fig)
 subprocess.run(["pdftoppm", "-singlefile", "-r", "450", "-png", str(pdf_path), str(OUT / NAME)], check=True)
@@ -189,6 +192,9 @@ with fitz.open(pdf_path) as doc:
 manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLIT_Y,
             "upper_left_area_fraction": round((SPLIT_X-108)*(SPLIT_Y-112)/(854*826), 3),
             "card_radius": CARD_RADIUS, "plaque_radius": CARD_RADIUS,
+            "plaque_text": "New sign-free regime", "plaque_left_top_margin": PLAQUE_MARGIN,
+            "motif_width": motif_w, "motif_fade_bounds": [196, 594, 270, 550],
+            "status_linespacing": 1.6,
             "illustrated_quadrants": ["upper-left"], "hopping_arrows": len(annotation["arrows"]),
             "font_min_pt": min(t.get_fontsize() for t in texts), "bounds_check": "pass",
             "lattice_effective_dpi": round(pixel_w/(motif_w/W*MM/25.4)),

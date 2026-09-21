@@ -2,15 +2,18 @@
 
 The current production builder is `build_cards_v14.py`. It retains the selected
 overlapping-card design, shifts the boundaries to give the upper-left region
-about 40 percent of the classification map, and adds a recessed `This work`
-plaque with exactly the same 20-unit corner radius as the cards.
+about 40 percent of the classification map, and adds a recessed
+`New sign-free regime` plaque with exactly the same 20-unit corner radius as
+the cards. The compact plaque has equal 28-unit left and top margins.
 
 Only the upper-left region contains an illustration. It uses the independently
 developed triangular lattice with coral bosons, matte grey bonds, and one tapered
-hopping arrow. Transparent peripheral fading blends into the blue card; the
-arrow and `t > 0` remain vector artwork. The lower-right interaction sketch has
-been removed. Coverage labels use the original 7.6-point typography, with the
-right-column labels wrapped for the narrower regions.
+hopping arrow. The motif is reduced by 20 percent from its initial integration,
+with transparent peripheral fading kept inside the grey backing card and clear
+of the quadrant boundary. The arrow and `t > 0` remain vector artwork. The
+lower-right interaction sketch has been removed. Coverage labels use the original
+7.6-point typography, with the right-column labels wrapped for the narrower
+regions and a 1.6 line-spacing factor.
 
 The RGBA motif and annotation coordinates are tracked in
 `figures/schematic-assets/triangle-lattice.png` and `triangle-annotation.json`.
