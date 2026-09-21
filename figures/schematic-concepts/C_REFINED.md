@@ -5,7 +5,8 @@ overlapping-card design, shifts the boundaries to give the upper-left region
 about 40 percent of the classification map, and adds a recessed
 `New sign-free regime` plaque with the same 20-unit corner radius and vector
 corner path as the cards. The compact plaque has equal 28-unit left and top
-margins, regular 6.6-point text, and a restrained shallow recess. Its transparent
+margins, regular 6.6-point text, and a shallow recess defined by a tight upper/left
+inner shadow and a narrow, subdued lower/right highlight. Its transparent
 tint preserves the underlying card gradient and gently darkens toward the lower
 right, following the overall illumination.
 

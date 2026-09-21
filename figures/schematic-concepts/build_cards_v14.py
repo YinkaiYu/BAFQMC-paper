@@ -144,15 +144,15 @@ def inset_plaque(box):
         canvas = Image.new("L", shape)
         canvas.paste(mask_image, (round(dx*scale), round(dy*scale)))
         return np.asarray(canvas.filter(ImageFilter.GaussianBlur(blur*scale)), dtype=float)/255
-    shadow = mask*(1-shifted(1.3, 1.3, 2.0))
-    light = mask*(1-shifted(-.8, -.8, 1.5))
+    shadow = mask*(1-shifted(2.4, 3.0, 1.35))
+    light = mask*(1-shifted(-.45, -.55, .65))
     diagonal = np.clip(.62*(xx-pad)/(w*scale)+.38*(yy-pad)/(h*scale), 0, 1)
     # Transparent tint preserves the actual blue-card gradient and its backing.
     # A very small additional darkening toward the lower right follows the light.
     overlay = Image.new("RGBA", shape)
-    for color, alpha in [([50, 109, 139], mask*(.035+.025*diagonal)),
-                          ([33, 76, 102], .15*shadow),
-                          ([255, 255, 255], .18*light)]:
+    for color, alpha in [([50, 109, 139], mask*(.075+.025*diagonal)),
+                          ([33, 76, 102], .44*shadow),
+                          ([255, 255, 255], .11*light)]:
         rgba = np.empty((*mask.shape, 4), dtype=np.uint8)
         rgba[:, :, :3] = color
         rgba[:, :, 3] = (alpha*255).astype(np.uint8)
