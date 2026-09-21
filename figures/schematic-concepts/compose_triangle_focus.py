@@ -126,7 +126,8 @@ x, y = data["hopping_label"]
     "source_sites": data["hopping_sites"],
     "convention": data["convention"],
 }, indent=2)+"\n")
-ax.text(x, y, r"$t>0$", ha="center", va="center", fontsize=40,
+# Match the production label's optical spacing around the relation symbol.
+ax.text(x, y, r"$t\,>0$", ha="center", va="center", fontsize=40,
         color="#6B278F", zorder=4,
         path_effects=[path_effects.Stroke(linewidth=4, foreground="white"),
                       path_effects.Stroke(linewidth=.9, foreground="#6B278F"),

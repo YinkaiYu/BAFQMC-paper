@@ -28,7 +28,9 @@ with transparent peripheral fading kept inside the grey backing card and clear
 of the quadrant boundary. A broad quintic feather fades the outer bonds smoothly;
 the four directional fades multiply for smooth corners. The motif and its BAFQMC
 coverage label are both shifted upward by 40 design units. The arrow and `t > 0`
-remain vector artwork. The lower-right interaction sketch has been removed.
+remain vector artwork. A thin space after the italic `t` balances the visible
+gaps on either side of `>` despite the broad white outline. The lower-right
+interaction sketch has been removed.
 Coverage labels use the original
 7.6-point typography, with the right-column labels wrapped for the narrower
 regions and a 1.6 line-spacing factor.

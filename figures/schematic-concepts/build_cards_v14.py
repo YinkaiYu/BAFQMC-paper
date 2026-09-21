@@ -196,7 +196,8 @@ for outline in annotation["arrows"]:
                            zorder=5, path_effects=[patheffects.Stroke(linewidth=.7, foreground="white"),
                                                   patheffects.Normal()]))
 label_x, label_y = motif_coords(annotation["label"])
-text(label_x, label_y, r"$t>0$", size=9.8, color="#6B278F", zorder=6,
+# Optical correction for the italic t overhang plus the broad white outline.
+text(label_x, label_y, r"$t\,>0$", size=9.8, color="#6B278F", zorder=6,
      path_effects=[patheffects.Stroke(linewidth=1.0, foreground="white"),
                    patheffects.Stroke(linewidth=.23, foreground="#6B278F"), patheffects.Normal()])
 
