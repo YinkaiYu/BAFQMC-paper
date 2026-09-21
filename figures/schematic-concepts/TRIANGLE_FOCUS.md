@@ -22,8 +22,8 @@ The arrow does not indicate a circulating current or remove the reverse hopping
 term. All spheres have the same physical radius; their apparent sizes follow the
 perspective projection. Every bond uses the same opaque material and radius;
 all spheres share one opaque material with a restrained broad highlight and no
-clear-coat layer. The violet annotation has a thin light separation from the
-grey lattice, and its label is enlarged for visibility.
+clear-coat layer. The violet arrow and label use bold strokes with a broad white
+outline to remain distinct from the grey lattice.
 They have filled centres and a soft halo. These are qualitative images
 of bosons, not calculated wavefunctions, occupations, or phase patterns.
 The surrounding lattice is faded

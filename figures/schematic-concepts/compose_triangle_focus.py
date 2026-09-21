@@ -101,20 +101,24 @@ for points in data["arcs"]:
     length = np.concatenate([[0], np.cumsum(np.linalg.norm(np.diff(center, axis=0), axis=1))])
     fraction = length/length[-1]
     neck = int(np.searchsorted(fraction, .865))
-    half_width = width*(.0003 + .0048*np.sin(np.pi*fraction)**.85)
+    half_width = width*(.0004 + .0068*np.sin(np.pi*fraction)**.85)
     upper = center[:neck+1] + normal[:neck+1]*half_width[:neck+1, None]
     lower = center[:neck+1] - normal[:neck+1]*half_width[:neck+1, None]
-    head_width = width*.0105
+    head_width = width*.0145
     outline = np.vstack([upper, center[neck]+normal[neck]*head_width,
                          center[-1], center[neck]-normal[neck]*head_width,
                          lower[::-1], upper[:1]])/scale
     codes = [MplPath.MOVETO] + [MplPath.LINETO]*(len(outline)-2) + [MplPath.CLOSEPOLY]
     ax.add_patch(PathPatch(MplPath(outline, codes), facecolor="#7835A0",
-                           edgecolor="white", linewidth=.65, zorder=3))
+                           edgecolor="none", zorder=3,
+                           path_effects=[path_effects.Stroke(linewidth=2.2, foreground="white"),
+                                         path_effects.Normal()]))
 x, y = data["hopping_label"]
 ax.text(x, y, r"$t>0$", ha="center", va="center", fontsize=40,
         color="#6B278F", zorder=4,
-        path_effects=[path_effects.withStroke(linewidth=1, foreground="white")])
+        path_effects=[path_effects.Stroke(linewidth=4, foreground="white"),
+                      path_effects.Stroke(linewidth=.9, foreground="#6B278F"),
+                      path_effects.Normal()])
 fig.savefig(OUT / "triangle-focus-draft.png", dpi=200)
 fig.savefig(OUT / "triangle-focus-draft.pdf", dpi=400,
             metadata={"Title": "Frustrated triangular-lattice hopping: standalone design study"})
