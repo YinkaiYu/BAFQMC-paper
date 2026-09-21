@@ -26,7 +26,8 @@ MM, W, H = 86, 1000, 1000
 CARD_RADIUS = 20
 SPLIT_X, SPLIT_Y = 626, 662
 PLAQUE_MARGIN = 28
-PLAQUE_BOX = (108+PLAQUE_MARGIN, 112+PLAQUE_MARGIN, 330, 54)
+PLAQUE_BOX = (108+PLAQUE_MARGIN, 112+PLAQUE_MARGIN, 300, 50)
+CONTENT_SHIFT_Y = -40
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--publish", action="store_true")
@@ -128,29 +129,37 @@ for name, z in [("gold", 1), ("blue", 2)]:
 
 
 def inset_plaque(box):
-    """A recessed plate: shadow on its upper/left inner rim, light below/right."""
+    """A shallow transparent recess following the card's surface and corner path."""
     x, y, w, h = box
     scale, pad = 4, 40
     shape = (round(w*scale)+2*pad, round(h*scale)+2*pad)
-    mask_image = Image.new("L", shape)
-    ImageDraw.Draw(mask_image).rounded_rectangle(
-        (pad, pad, shape[0]-pad-1, shape[1]-pad-1), radius=CARD_RADIUS*scale, fill=255)
-    mask = np.asarray(mask_image, dtype=float)/255
+    padding = pad/scale
+    clip = rounded(box, linewidth=0, facecolor="none", zorder=7)
+    yy, xx = np.mgrid[0:shape[1], 0:shape[0]]
+    positions = np.column_stack(((x-padding+(xx+.5)/scale).ravel(),
+                                 (y-padding+(yy+.5)/scale).ravel()))
+    mask = clip.get_path().contains_points(positions).reshape(yy.shape).astype(float)
+    mask_image = Image.fromarray((mask*255).astype(np.uint8))
     def shifted(dx, dy, blur):
         canvas = Image.new("L", shape)
         canvas.paste(mask_image, (round(dx*scale), round(dy*scale)))
         return np.asarray(canvas.filter(ImageFilter.GaussianBlur(blur*scale)), dtype=float)/255
-    shadow = mask*(1-shifted(3.0, 3.0, 2.3))
-    light = mask*(1-shifted(-1.6, -1.6, 1.2))
-    rgba = np.empty((*mask.shape, 4), dtype=np.uint8)
-    color = np.array([133, 191, 224])/255
-    rgb = color[None, None, :]*(1-.30*shadow[:, :, None])
-    rgb = rgb*(1-.40*light[:, :, None])+.40*light[:, :, None]
-    rgba[:, :, :3] = np.clip(rgb*255, 0, 255).astype(np.uint8)
-    rgba[:, :, 3] = (mask*255).astype(np.uint8)
-    padding = pad/scale
-    ax.imshow(rgba, extent=(x-padding, x+w+padding, y+h+padding, y-padding), zorder=7)
-    text(x+w/2, y+h/2+1, "New sign-free regime", size=7.2, color="#164F72", weight="bold", zorder=8)
+    shadow = mask*(1-shifted(1.3, 1.3, 2.0))
+    light = mask*(1-shifted(-.8, -.8, 1.5))
+    diagonal = np.clip(.62*(xx-pad)/(w*scale)+.38*(yy-pad)/(h*scale), 0, 1)
+    # Transparent tint preserves the actual blue-card gradient and its backing.
+    # A very small additional darkening toward the lower right follows the light.
+    overlay = Image.new("RGBA", shape)
+    for color, alpha in [([50, 109, 139], mask*(.035+.025*diagonal)),
+                          ([33, 76, 102], .15*shadow),
+                          ([255, 255, 255], .18*light)]:
+        rgba = np.empty((*mask.shape, 4), dtype=np.uint8)
+        rgba[:, :, :3] = color
+        rgba[:, :, 3] = (alpha*255).astype(np.uint8)
+        overlay = Image.alpha_composite(overlay, Image.fromarray(rgba))
+    im = ax.imshow(overlay, extent=(x-padding, x+w+padding, y+h+padding, y-padding), zorder=7)
+    im.set_clip_path(clip)
+    text(x+w/2, y+h/2+1, "New sign-free regime", size=6.6, color="#285D76", zorder=8)
 
 
 inset_plaque(PLAQUE_BOX)
@@ -160,16 +169,19 @@ motif = Image.open(args.asset_dir / "triangle-lattice.png").convert("RGBA")
 annotation = json.loads((args.asset_dir / "triangle-annotation.json").read_text())
 pixels = np.asarray(motif).copy()
 pixel_h, pixel_w = pixels.shape[:2]
-left, top, motif_w = 71, 168, 640
+left, top, motif_w = 71, 168+CONTENT_SHIFT_Y, 640
 motif_h = motif_w*pixel_h/pixel_w
 yy, xx = np.mgrid[0:pixel_h, 0:pixel_w]
 canvas_x = left+(xx+.5)/pixel_w*motif_w
 canvas_y = top+(yy+.5)/pixel_h*motif_h
-# Leave breathing room inside the grey backing card and the quadrant boundary.
-edge = np.minimum.reduce([(canvas_x-196)/32, (594-canvas_x)/32,
-                          (canvas_y-270)/24, (550-canvas_y)/36])
-edge = np.clip(edge, 0, 1)
-edge = edge*edge*(3-2*edge)
+# Wider, twice-smooth feathering removes abrupt peripheral rod endings.
+# Multiply the edge fades so their corners also transition smoothly.
+edge = np.ones_like(canvas_x)
+for distance in [(canvas_x-196)/66, (594-canvas_x)/66,
+                 (canvas_y-(270+CONTENT_SHIFT_Y))/48,
+                 (550+CONTENT_SHIFT_Y-canvas_y)/64]:
+    s = np.clip(distance, 0, 1)
+    edge *= s*s*s*(s*(6*s-15)+10)
 pixels[:, :, 3] = (pixels[:, :, 3]*edge).astype(np.uint8)
 ax.imshow(pixels, extent=(left, left+motif_w, top+motif_h, top), zorder=4)
 
@@ -193,7 +205,7 @@ text((SPLIT_X+934)/2, 72, "Unfrustrated")
 text(65, (112+SPLIT_Y)/2, "Respect TRS/RP criteria", rotation=90)
 text(65, (SPLIT_Y+938)/2, "Violate TRS/RP criteria", rotation=90)
 status_texts = [
-    (text(367, 612, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic"),
+    (text(367, 612+CONTENT_SHIFT_Y, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic"),
      (130, 596)),
     (text(780, 400, "Sign-free\nfor both", size=7.6, color="#24745b", fontstyle="italic"),
      (646, 914)),
@@ -227,7 +239,12 @@ manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLI
             "upper_left_area_fraction": round((SPLIT_X-108)*(SPLIT_Y-112)/(854*826), 3),
             "card_radius": CARD_RADIUS, "plaque_radius": CARD_RADIUS,
             "plaque_text": "New sign-free regime", "plaque_left_top_margin": PLAQUE_MARGIN,
-            "motif_width": motif_w, "motif_fade_bounds": [196, 594, 270, 550],
+            "plaque_corner_path": "same FancyBboxPatch path as cards",
+            "plaque_font_pt": 6.6, "plaque_weight": "normal",
+            "content_shift_y": CONTENT_SHIFT_Y,
+            "motif_width": motif_w,
+            "motif_fade_bounds": [196, 594, 270+CONTENT_SHIFT_Y, 550+CONTENT_SHIFT_Y],
+            "motif_feather_widths": [66, 66, 48, 64],
             "status_linespacing": 1.6,
             "card_stack": ["grey backing", "translucent gold", "translucent blue"],
             "overlap_color": "source-over composite of two continuous 2D gradients",

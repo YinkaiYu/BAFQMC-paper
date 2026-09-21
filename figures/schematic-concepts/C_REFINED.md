@@ -3,8 +3,11 @@
 The current production builder is `build_cards_v14.py`. It retains the selected
 overlapping-card design, shifts the boundaries to give the upper-left region
 about 40 percent of the classification map, and adds a recessed
-`New sign-free regime` plaque with exactly the same 20-unit corner radius as
-the cards. The compact plaque has equal 28-unit left and top margins.
+`New sign-free regime` plaque with the same 20-unit corner radius and vector
+corner path as the cards. The compact plaque has equal 28-unit left and top
+margins, regular 6.6-point text, and a restrained shallow recess. Its transparent
+tint preserves the underlying card gradient and gently darkens toward the lower
+right, following the overall illumination.
 
 The background consists of a grey backing, a translucent gold card, and a
 translucent blue card on top. Both cards use continuous two-dimensional color
@@ -13,13 +16,19 @@ comes directly from alpha compositing, without a separate filled patch.
 The gold rim is tinted by the overlying blue surface; the blue card has a
 continuous bright lower rim and a diffuse shadow falling onto the gold card
 and grey backing to make the stacking order visible.
+The overlap is warmer at the upper left and cooler at the lower right because
+the gold is stronger toward its top and the blue becomes deeper and less
+transparent toward its lower right; this hue direction follows their gradients.
 
 Only the upper-left region contains an illustration. It uses the independently
 developed triangular lattice with coral bosons, matte grey bonds, and one tapered
 hopping arrow. The motif is reduced by 20 percent from its initial integration,
 with transparent peripheral fading kept inside the grey backing card and clear
-of the quadrant boundary. The arrow and `t > 0` remain vector artwork. The
-lower-right interaction sketch has been removed. Coverage labels use the original
+of the quadrant boundary. A broad quintic feather fades the outer bonds smoothly;
+the four directional fades multiply for smooth corners. The motif and its BAFQMC
+coverage label are both shifted upward by 40 design units. The arrow and `t > 0`
+remain vector artwork. The lower-right interaction sketch has been removed.
+Coverage labels use the original
 7.6-point typography, with the right-column labels wrapped for the narrower
 regions and a 1.6 line-spacing factor.
 
