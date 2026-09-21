@@ -1,5 +1,6 @@
 """Overlay crisp hopping notation on the standalone Blender design study."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -13,7 +14,13 @@ import numpy as np
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "triangle-focus-draft"
+parser = argparse.ArgumentParser()
+parser.add_argument("--output-dir", type=Path, default=ROOT / "pdf" / "triangle-focus-draft")
+parser.add_argument("--halo-color", default="#EF8372")
+parser.add_argument("--arrow-color", default="#7835A0")
+parser.add_argument("--label-color", default="#6B278F")
+args = parser.parse_args()
+OUT = args.output_dir
 data = json.loads((OUT / "projection.json").read_text())
 render = Image.open(OUT / "lattice-render.png").convert("RGBA")
 width, height = render.size
@@ -62,7 +69,7 @@ for site in data["halo_sites"]:
     squared_radius = ((u-cx)/rx)**2 + ((v-cy)/ry)**2
     halo_alpha = np.maximum(halo_alpha, .48*np.exp(-squared_radius/(2*1.20**2)))
 halo = np.zeros((height, width, 4), dtype=np.uint8)
-halo[:, :, :3] = [239, 131, 114]
+halo[:, :, :3] = [int(args.halo_color[k:k+2], 16) for k in (1, 3, 5)]
 halo[:, :, 3] = (255*halo_alpha*fade*lattice_fade).astype(np.uint8)
 # Transparent artwork and vector annotation geometry are also exported for the
 # production classification figure, without baking in a white rectangle.
@@ -114,7 +121,7 @@ for points in data["arcs"]:
                          lower[::-1], upper[:1]])/scale
     annotation_outlines.append(outline.tolist())
     codes = [MplPath.MOVETO] + [MplPath.LINETO]*(len(outline)-2) + [MplPath.CLOSEPOLY]
-    ax.add_patch(PathPatch(MplPath(outline, codes), facecolor="#7835A0",
+    ax.add_patch(PathPatch(MplPath(outline, codes), facecolor=args.arrow_color,
                            edgecolor="none", zorder=3,
                            path_effects=[path_effects.Stroke(linewidth=2.2, foreground="white"),
                                          path_effects.Normal()]))
@@ -128,9 +135,9 @@ x, y = data["hopping_label"]
 }, indent=2)+"\n")
 # Match the production label's optical spacing around the relation symbol.
 ax.text(x, y, r"$t\,>0$", ha="center", va="center", fontsize=40,
-        color="#6B278F", zorder=4,
+        color=args.label_color, zorder=4,
         path_effects=[path_effects.Stroke(linewidth=4, foreground="white"),
-                      path_effects.Stroke(linewidth=.9, foreground="#6B278F"),
+                      path_effects.Stroke(linewidth=.9, foreground=args.label_color),
                       path_effects.Normal()])
 fig.savefig(OUT / "triangle-focus-draft.png", dpi=200)
 fig.savefig(OUT / "triangle-focus-draft.pdf", dpi=400,

@@ -8,6 +8,10 @@ one triangular-lattice illustration, a recessed `New sign-free regime` plaque,
 and overlapping colored cards. The A/B/C studies below retain the initial
 exploration.
 
+[Four lattice color alternatives](COLOR_STUDY.md) compare the current coral/purple
+palette with purple/red, deep-blue/purple, and deep-blue/deep-blue combinations
+using identical geometry, lighting, and card backgrounds.
+
 The scientific job is to make the change in the sampled object visible: a negative
 closed hopping path assembled from local matrix elements versus an auxiliary-field
 configuration whose full bosonic trace has a nonnegative weight under the paper's

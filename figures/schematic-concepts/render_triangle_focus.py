@@ -18,12 +18,14 @@ from mathutils import Matrix, Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "pdf" / "triangle-focus-draft"
-OUT.mkdir(parents=True, exist_ok=True)
 parser = argparse.ArgumentParser()
 parser.add_argument("--final", action="store_true")
 parser.add_argument("--metadata-only", action="store_true")
+parser.add_argument("--output-dir", type=Path, default=ROOT / "pdf" / "triangle-focus-draft")
+parser.add_argument("--sphere-color", default="#C75B4F")
 args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
+OUT = args.output_dir
+OUT.mkdir(parents=True, exist_ok=True)
 
 
 def linear(hex_color):
@@ -46,7 +48,7 @@ def material(name, color, roughness=.26, metal=.0):
 
 
 def highlighted_boson():
-    mat = material("All bosons - coral with restrained highlights", "#C75B4F", roughness=.26)
+    mat = material("All bosons - restrained highlights", args.sphere_color, roughness=.26)
     tree = mat.node_tree
     bsdf = tree.nodes.get("Principled BSDF")
     bsdf.inputs["Coat Weight"].default_value = 0
@@ -220,6 +222,7 @@ metadata = {"sites": [project(sites[k]) for k in core], "arcs": arcs,
                                 for x, y in [(0, 0), (1, 0), (1, 1), (0, 1)]],
             "hopping_label": label,
             "equal_boson_radius": .245, "bond_length": 2,
+            "sphere_color": args.sphere_color,
             "bond_radius": .032, "uniform_bond_material": True,
             "lattice_site_count": len(sites), "boson_count": len(sites),
             "camera_lens_mm": cam.data.lens,

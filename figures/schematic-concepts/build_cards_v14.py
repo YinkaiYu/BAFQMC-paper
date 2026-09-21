@@ -33,7 +33,12 @@ YLABEL_SHIFT_Y = -55
 parser = argparse.ArgumentParser()
 parser.add_argument("--publish", action="store_true")
 parser.add_argument("--asset-dir", type=Path, default=ASSETS)
+parser.add_argument("--output-dir", type=Path, default=OUT)
+parser.add_argument("--name", default=NAME)
+parser.add_argument("--arrow-color", default="#7835A0")
+parser.add_argument("--label-color", default="#6B278F")
 args = parser.parse_args()
+OUT, NAME = args.output_dir, args.name
 OUT.mkdir(parents=True, exist_ok=True)
 for name in ("FreeSans.ttf", "FreeSansOblique.ttf", "FreeSansBold.ttf"):
     font_manager.fontManager.addfont(f"/usr/share/fonts/truetype/freefont/{name}")
@@ -192,14 +197,14 @@ def motif_coords(points):
 for outline in annotation["arrows"]:
     points = motif_coords(outline)
     codes = [MplPath.MOVETO]+[MplPath.LINETO]*(len(points)-2)+[MplPath.CLOSEPOLY]
-    ax.add_patch(PathPatch(MplPath(points, codes), facecolor="#7835A0", edgecolor="none",
+    ax.add_patch(PathPatch(MplPath(points, codes), facecolor=args.arrow_color, edgecolor="none",
                            zorder=5, path_effects=[patheffects.Stroke(linewidth=.7, foreground="white"),
                                                   patheffects.Normal()]))
 label_x, label_y = motif_coords(annotation["label"])
 # Optical correction for the italic t overhang plus the broad white outline.
-text(label_x, label_y, r"$t\,>0$", size=9.8, color="#6B278F", zorder=6,
+text(label_x, label_y, r"$t\,>0$", size=9.8, color=args.label_color, zorder=6,
      path_effects=[patheffects.Stroke(linewidth=1.0, foreground="white"),
-                   patheffects.Stroke(linewidth=.23, foreground="#6B278F"), patheffects.Normal()])
+                   patheffects.Stroke(linewidth=.23, foreground=args.label_color), patheffects.Normal()])
 
 # Centres and text wrapping follow the revised region sizes.
 text((108+SPLIT_X)/2, 72, "Frustrated", color="#1265a2", weight="bold")
@@ -251,6 +256,7 @@ manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLI
             "status_linespacing": 1.6,
             "card_stack": ["grey backing", "translucent gold", "translucent blue"],
             "overlap_color": "source-over composite of two continuous 2D gradients",
+            "arrow_color": args.arrow_color, "hopping_label_color": args.label_color,
             "illustrated_quadrants": ["upper-left"], "hopping_arrows": len(annotation["arrows"]),
             "font_min_pt": min(t.get_fontsize() for t in texts), "bounds_check": "pass",
             "lattice_effective_dpi": round(pixel_w/(motif_w/W*MM/25.4)),
