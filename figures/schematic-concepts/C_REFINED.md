@@ -6,6 +6,14 @@ about 40 percent of the classification map, and adds a recessed
 `New sign-free regime` plaque with exactly the same 20-unit corner radius as
 the cards. The compact plaque has equal 28-unit left and top margins.
 
+The background consists of a grey backing, a translucent gold card, and a
+translucent blue card on top. Both cards use continuous two-dimensional color
+and opacity gradients with a restrained broad reflection. Their green overlap
+comes directly from alpha compositing, without a separate filled patch.
+The gold rim is tinted by the overlying blue surface; the blue card has a
+continuous bright lower rim and a diffuse shadow falling onto the gold card
+and grey backing to make the stacking order visible.
+
 Only the upper-left region contains an illustration. It uses the independently
 developed triangular lattice with coral bosons, matte grey bonds, and one tapered
 hopping arrow. The motif is reduced by 20 percent from its initial integration,

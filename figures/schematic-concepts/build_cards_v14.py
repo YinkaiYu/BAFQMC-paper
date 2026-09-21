@@ -61,7 +61,26 @@ def rounded(box, **kwargs):
     return patch
 
 
-# Keep the selected overlapping half-plane cards and their layer order.
+def card_shadow(box, offset, blur, opacity, zorder):
+    """A single diffuse edge shadow, strongest below the raised card."""
+    x, y, w, h = box
+    scale, pad = 2, 42
+    shape = (round((w+2*pad)*scale), round((h+2*pad)*scale))
+    mask = Image.new("L", shape)
+    bounds = (pad*scale, pad*scale, (pad+w)*scale, (pad+h)*scale)
+    ImageDraw.Draw(mask).rounded_rectangle(bounds, radius=CARD_RADIUS*scale, fill=255)
+    shifted = Image.new("L", shape)
+    shifted.paste(mask, (0, round(offset*scale)))
+    shadow = np.asarray(shifted.filter(ImageFilter.GaussianBlur(blur*scale)), dtype=float)/255
+    shadow *= 1-np.asarray(mask, dtype=float)/255
+    rgba = np.zeros((*shadow.shape, 4), dtype=np.uint8)
+    rgba[:, :, :3] = [47, 67, 80]
+    rgba[:, :, 3] = (shadow*opacity*255).astype(np.uint8)
+    ax.imshow(rgba, extent=(x-pad, x+w+pad, y+h+pad, y-pad), zorder=zorder)
+
+
+# Stack actual translucent gradients: grey backing, gold, then blue.
+# The overlap is solely the source-over composite of these layers.
 gy, gx = np.mgrid[0:600, 0:600]/599
 blend = np.clip((gx+1-gy)/1.44, 0, 1)
 blend = blend*blend*(3-2*blend)
@@ -70,27 +89,42 @@ ax.imshow(gray, extent=(164, 906, 910, 168), interpolation="bicubic", zorder=0)
 boxes = {"gold": (SPLIT_X, 140, 934-SPLIT_X, 798),
          "blue": (108, 112, 854, SPLIT_Y-112)}
 cards = {}
-for name, opacity, z in [("gold", .64, 1), ("blue", .48, 2)]:
+for name, z in [("gold", 1), ("blue", 2)]:
     x, y, w, h = boxes[name]
-    for spread in range(12, 0, -1):
-        rounded((x-spread, y+8-spread, w+2*spread, h+2*spread),
-                linewidth=0, facecolor="#344253", alpha=.003, zorder=z)
+    card_shadow(boxes[name], offset=9 if name == "blue" else 6,
+                blur=7 if name == "blue" else 6,
+                opacity=.20 if name == "blue" else .13, zorder=z)
     cards[name] = rounded(boxes[name], linewidth=0, facecolor="none", zorder=z+.1)
-    t = np.linspace(0, 1, 700)
+    v, u = np.mgrid[0:600, 0:800]/np.array([599, 799])[:, None, None]
     if name == "blue":
-        t = t[None, :, None]
-        light, deep = np.array([104, 203, 255])/255, np.array([15, 119, 207])/255
+        t = .62*u+.38*v
+        light, deep = np.array([124, 218, 250])/255, np.array([30, 159, 215])/255
+        opacity = .40+.13*t+.04*v
     else:
-        t = (1-t)[:, None, None]
-        light, deep = np.array([255, 226, 142])/255, np.array([232, 163, 12])/255
+        t = .23*u+.77*(1-v)
+        light, deep = np.array([255, 225, 128])/255, np.array([247, 188, 41])/255
+        opacity = .54+.14*t
+    t = (t*t*(3-2*t))[:, :, None]
     rgb = light*(1-t)+deep*t
-    rgba = np.concatenate([rgb, np.full((*rgb.shape[:2], 1), opacity)], axis=2)
+    # Broad, restrained reflection across the same continuous card surface.
+    sheen = (.08*np.exp(-((v-(.07+.13*u))/.29)**2))[:, :, None]
+    rgb = rgb*(1-sheen)+sheen
+    rgba = np.concatenate([rgb, opacity[:, :, None]], axis=2)
     im = ax.imshow(rgba, extent=(x, x+w, y+h, y), interpolation="bicubic", zorder=z+.1)
     im.set_clip_path(cards[name])
-overlap = rounded(boxes["gold"], linewidth=0, facecolor="#a3e3cd", zorder=2.2)
-overlap.set_clip_path(cards["blue"])
-for name, z in [("gold", 1.2), ("blue", 2.3)]:
-    rounded(boxes[name], fill=False, linewidth=.35, edgecolor="white", alpha=.85, zorder=z)
+    # The gold rim is seen through the blue layer. The blue lower edge stays
+    # uninterrupted across both underlying regions and casts its shadow.
+    if name == "blue":
+        r, bottom = CARD_RADIUS, y+h+1.2
+        rim = MplPath([(x, bottom-r), (x, bottom), (x+r, bottom),
+                       (x+w-r, bottom), (x+w, bottom), (x+w, bottom-r),
+                       (x+w, y+r)],
+                      [MplPath.MOVETO, MplPath.CURVE3, MplPath.CURVE3,
+                       MplPath.LINETO, MplPath.CURVE3, MplPath.CURVE3, MplPath.LINETO])
+        ax.add_patch(PathPatch(rim, fill=False, linewidth=.55, edgecolor="#4E87A7",
+                               alpha=.26, zorder=z+.2))
+    rounded(boxes[name], fill=False, linewidth=.45 if name == "blue" else .35,
+            edgecolor="white", alpha=.78 if name == "blue" else .62, zorder=z+.3)
 
 
 def inset_plaque(box):
@@ -195,6 +229,8 @@ manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLI
             "plaque_text": "New sign-free regime", "plaque_left_top_margin": PLAQUE_MARGIN,
             "motif_width": motif_w, "motif_fade_bounds": [196, 594, 270, 550],
             "status_linespacing": 1.6,
+            "card_stack": ["grey backing", "translucent gold", "translucent blue"],
+            "overlap_color": "source-over composite of two continuous 2D gradients",
             "illustrated_quadrants": ["upper-left"], "hopping_arrows": len(annotation["arrows"]),
             "font_min_pt": min(t.get_fontsize() for t in texts), "bounds_check": "pass",
             "lattice_effective_dpi": round(pixel_w/(motif_w/W*MM/25.4)),
