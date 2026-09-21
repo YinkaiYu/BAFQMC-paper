@@ -10,7 +10,8 @@ provide diffuse illumination. Bond and floor reflections are excluded, and the
 glossy environment is dimmed to avoid a white sphere rim. Caustics are disabled.
 Every lattice site has a sphere, including those that fade toward the perimeter.
 Warm coral halos follow their projected sizes and fade with the lattice.
-It is not included in the manuscript schematic.
+The standalone draft is also the source of the upper-left inset used by
+`build_cards_v14.py` in the manuscript schematic.
 
 One tall, tapered, single-headed violet arrow illustrates an example hop, with
 the label above its crest. The lattice is rotated 60 degrees clockwise to bring
@@ -61,7 +62,13 @@ Outputs are under the ignored `pdf/triangle-focus-draft/` directory:
 - `triangle-focus.blend`: editable scene.
 - `lattice-render.png`: transparent lattice render before compositing.
 - `projection.json`: projected geometry and annotation positions.
+- `lattice-motif.png`: transparent lattice and halo layers for card placement.
+- `motif-annotation.json`: vector arrow outline and label position.
 
 Omit `--final` for a quicker preview. The compositor preserves the camera's
 projection, adds the single hopping arrow, and fades the lattice at the perimeter.
 Neither script edits the production schematic or builds the manuscript.
+After rendering and composing an approved change, copy `lattice-motif.png` and
+`motif-annotation.json` to `figures/schematic-assets/triangle-lattice.png` and
+`triangle-annotation.json`, then run `build_cards_v14.py --publish` to update the
+production PDF, SVG, and PNG together.

@@ -1,4 +1,36 @@
-# Production figure: selected F
+# Production figure: enlarged frustrated region
+
+The current production builder is `build_cards_v14.py`. It retains the selected
+overlapping-card design, shifts the boundaries to give the upper-left region
+about 40 percent of the classification map, and adds a recessed `This work`
+plaque with exactly the same 20-unit corner radius as the cards.
+
+Only the upper-left region contains an illustration. It uses the independently
+developed triangular lattice with coral bosons, matte grey bonds, and one tapered
+hopping arrow. Transparent peripheral fading blends into the blue card; the
+arrow and `t > 0` remain vector artwork. The lower-right interaction sketch has
+been removed. Coverage labels use the original 7.6-point typography, with the
+right-column labels wrapped for the narrower regions.
+
+The RGBA motif and annotation coordinates are tracked in
+`figures/schematic-assets/triangle-lattice.png` and `triangle-annotation.json`.
+Regenerate those from the standalone study as documented in `TRIANGLE_FOCUS.md`.
+The production builder requires only those tracked assets, not Blender or ignored
+draft outputs.
+
+```powershell
+.\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 -W error figures/schematic-concepts/build_cards_v14.py --publish'
+.\scripts\build-manuscript.ps1
+```
+
+Publishing synchronizes `figures/schematic.pdf`, its self-contained SVG, and the
+ignored PNG preview. Figure-only rounds do not refresh the diff PDF, following the
+author's instruction. The caption identifies the triangular-lattice hopping and
+uses `regions` for the unequal divisions. Earlier compositions follow below.
+
+---
+
+# Previous production figure: selected F
 
 The four quadrant status labels now use FreeSans Oblique, retaining their
 7.6-point size, colors and aligned positions. Axis labels remain upright.

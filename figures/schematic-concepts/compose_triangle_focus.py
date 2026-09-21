@@ -64,6 +64,10 @@ for site in data["halo_sites"]:
 halo = np.zeros((height, width, 4), dtype=np.uint8)
 halo[:, :, :3] = [239, 131, 114]
 halo[:, :, 3] = (255*halo_alpha*fade*lattice_fade).astype(np.uint8)
+# Transparent artwork and vector annotation geometry are also exported for the
+# production classification figure, without baking in a white rectangle.
+Image.alpha_composite(Image.fromarray(halo), render).save(OUT / "lattice-motif.png")
+annotation_outlines = []
 plt.rcParams.update({"font.family": "DejaVu Sans", "mathtext.fontset": "stixsans",
                      "svg.fonttype": "path", "pdf.fonttype": 42})
 crop = (0, 1, .15, .98)
@@ -108,12 +112,20 @@ for points in data["arcs"]:
     outline = np.vstack([upper, center[neck]+normal[neck]*head_width,
                          center[-1], center[neck]-normal[neck]*head_width,
                          lower[::-1], upper[:1]])/scale
+    annotation_outlines.append(outline.tolist())
     codes = [MplPath.MOVETO] + [MplPath.LINETO]*(len(outline)-2) + [MplPath.CLOSEPOLY]
     ax.add_patch(PathPatch(MplPath(outline, codes), facecolor="#7835A0",
                            edgecolor="none", zorder=3,
                            path_effects=[path_effects.Stroke(linewidth=2.2, foreground="white"),
                                          path_effects.Normal()]))
 x, y = data["hopping_label"]
+(OUT / "motif-annotation.json").write_text(json.dumps({
+    "image_size": [width, height],
+    "arrows": annotation_outlines,
+    "label": [x, y],
+    "source_sites": data["hopping_sites"],
+    "convention": data["convention"],
+}, indent=2)+"\n")
 ax.text(x, y, r"$t>0$", ha="center", va="center", fontsize=40,
         color="#6B278F", zorder=4,
         path_effects=[path_effects.Stroke(linewidth=4, foreground="white"),
