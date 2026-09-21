@@ -19,11 +19,11 @@ ASSETS = ROOT / "figures" / "schematic-assets"
 BLENDER = ROOT / ".build" / "tools" / "blender-4.3.2-linux-x64" / "blender"
 PALETTES = [
     dict(id="A", name="current", sphere="#C75B4F", halo="#EF8372",
-         arrow="#7835A0", label="#6B278F", render=None,
-         title="A  现有：珊瑚红小球 · 紫色跃迁", english="A  Current: coral / purple"),
+         arrow="#7835A0", label="#6B278F", render="coral",
+         title="A  珊瑚红小球 · 紫色跃迁", english="A  Coral / purple"),
     dict(id="B", name="purple_red", sphere="#7851A8", halo="#AC8ACE",
          arrow="#C8473B", label="#B43B31", render="purple",
-         title="B  紫色小球 · 红色跃迁", english="B  Purple / red"),
+         title="B  现有：紫色小球 · 红色跃迁", english="B  Current: purple / red"),
     dict(id="C", name="blue_purple", sphere="#274780", halo="#688ED0",
          arrow="#7835A0", label="#6B278F", render="blue",
          title="C  深蓝小球 · 紫色跃迁", english="C  Deep blue / purple"),
@@ -33,7 +33,7 @@ PALETTES = [
 ]
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--render", action="store_true", help="Render both new sphere colors with Blender first")
+parser.add_argument("--render", action="store_true", help="Render all three sphere colors with Blender first")
 tone = parser.add_mutually_exclusive_group()
 tone.add_argument("--muted", action="store_true", help="Strong chroma reduction for the earlier review")
 tone.add_argument("--balanced", action="store_true", help="Gently soften and brighten colors while retaining color clarity")
@@ -98,9 +98,7 @@ graded_assets = {}
 layout_reference = None
 for palette in PALETTES:
     render_name = palette["render"]
-    if render_name is None:
-        asset_dir = ASSETS
-    elif render_name in prepared:
+    if render_name in prepared:
         asset_dir = prepared[render_name]
     else:
         render_dir = STUDY / f"render-{render_name}"
@@ -152,7 +150,7 @@ for palette in PALETTES:
 
 # The default palette must remain identical to the current production preview.
 if not graded:
-    assert Image.open(OUT / "A_current.png").tobytes() == Image.open(ROOT / "figures/schematic.png").tobytes()
+    assert Image.open(OUT / "B_purple_red.png").tobytes() == Image.open(ROOT / "figures/schematic.png").tobytes()
 
 font_path = "/mnt/c/Windows/Fonts/msyh.ttc"
 title_font = ImageFont.truetype(font_path, 28)

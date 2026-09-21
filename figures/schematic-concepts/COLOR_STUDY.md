@@ -1,8 +1,15 @@
 # Lattice color comparison
 
+## Production choice
+
+The manuscript uses option B from the original, ungraded comparison
+`pdf/schematic-color-study/four-palettes-comparison.pdf`: purple bosons
+(`#7851A8`), purple halos (`#AC8ACE`), a red arrow (`#C8473B`), and a red label
+(`#B43B31`). These are the defaults in the render, composition, and card builders.
+
 ## Balanced alternatives
 
-The current review offers four gently softened palettes using the same rendered
+This alternative review offers four gently softened palettes using the same rendered
 geometry, highlight shapes, alpha channel, and peripheral fade. Color grading
 retains 88 percent of the motif and halo OKLab chroma, and 94 percent of the arrow
 and label chroma. Colored midtones receive a small perceptual lightness lift
@@ -39,12 +46,12 @@ boson base color, corresponding halo, and hopping annotation colors change.
 
 | Option | Bosons | Hopping arrow and label |
 | --- | --- | --- |
-| A, current | Coral red | Purple |
-| B | Purple | Red |
+| A | Coral red | Purple |
+| B, current | Purple | Red |
 | C | Deep blue | Purple |
 | D | Deep blue | Deep blue |
 
-Purple and blue bosons are rerendered in Blender at the production resolution
+Coral, purple, and blue bosons are rendered in Blender at the production resolution
 of 2000 x 1545 with 128 Cycles samples. C and D reuse the same blue render.
 The arrows and labels remain vector artwork. Exact color values appear in
 `compare_lattice_colors.py` and the output `palette-manifest.json`.
@@ -67,6 +74,6 @@ Outputs under the ignored `pdf/schematic-color-study/` directory include:
 - Individual PDFs, SVGs, PNGs, transparent renders, and Blender scenes.
 
 The workflow checks that all four figures have identical text positions and
-that A matches the current production PNG pixel for pixel. It also verifies
+that ungraded B matches the current production PNG pixel for pixel. It also verifies
 that the production figure files remain unchanged; none of these alternatives
 is installed automatically.

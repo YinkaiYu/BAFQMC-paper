@@ -16,9 +16,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser()
 parser.add_argument("--output-dir", type=Path, default=ROOT / "pdf" / "triangle-focus-draft")
-parser.add_argument("--halo-color", default="#EF8372")
-parser.add_argument("--arrow-color", default="#7835A0")
-parser.add_argument("--label-color", default="#6B278F")
+parser.add_argument("--halo-color", default="#AC8ACE")
+parser.add_argument("--arrow-color", default="#C8473B")
+parser.add_argument("--label-color", default="#B43B31")
 args = parser.parse_args()
 OUT = args.output_dir
 data = json.loads((OUT / "projection.json").read_text())
@@ -60,7 +60,7 @@ fade = np.clip((1.0-radius)/.34, 0, 1)
 fade = fade*fade*(3-2*fade)
 pixels[:, :, 3] = (pixels[:, :, 3]*fade*lattice_fade).astype(np.uint8)
 render = Image.fromarray(pixels)
-# Warm, low-intensity halos follow the projected sphere sizes and the same fade.
+# Low-intensity halos follow the projected sphere sizes and the same fade.
 halo_alpha = np.zeros((height, width))
 for site in data["halo_sites"]:
     cx, cy = site["center"]

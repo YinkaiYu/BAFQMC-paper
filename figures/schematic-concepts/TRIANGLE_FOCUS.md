@@ -1,7 +1,7 @@
 # Standalone triangular-lattice draft
 
 This study focuses on one equilateral plaquette, with a wide-angle perspective,
-coral-red bosons with restrained highlights, matte graphite nearest-neighbour bonds,
+purple bosons with restrained highlights, matte graphite nearest-neighbour bonds,
 and a fading surrounding lattice. The central triangle dominates, with its three
 neighbouring triangles visible at lower contrast. Soft contact
 shadows and offset bond shadows give the motif depth on a clean white background.
@@ -9,11 +9,11 @@ Only one broad light casts shadows and surface highlights; the rim and fill ligh
 provide diffuse illumination. Bond and floor reflections are excluded, and the
 glossy environment is dimmed to avoid a white sphere rim. Caustics are disabled.
 Every lattice site has a sphere, including those that fade toward the perimeter.
-Warm coral halos follow their projected sizes and fade with the lattice.
+Purple halos follow their projected sizes and fade with the lattice.
 The standalone draft is also the source of the upper-left inset used by
 `build_cards_v14.py` in the manuscript schematic.
 
-One tall, tapered, single-headed violet arrow illustrates an example hop, with
+One tall, tapered, single-headed red arrow illustrates an example hop, with
 the label above its crest. The lattice is rotated 60 degrees clockwise to bring
 the hopping bond toward the camera. The curve connects the exact site centres
 and is trimmed to the projected sphere edges. The label `t > 0`
@@ -23,7 +23,7 @@ The arrow does not indicate a circulating current or remove the reverse hopping
 term. All spheres have the same physical radius; their apparent sizes follow the
 perspective projection. Every bond uses the same opaque material and radius;
 all spheres share one opaque material with a restrained broad highlight and no
-clear-coat layer. The violet arrow and label use bold strokes with a broad white
+clear-coat layer. The red arrow and label use bold strokes with a broad white
 outline to remain distinct from the grey lattice.
 They have filled centres and a soft halo. These are qualitative images
 of bosons, not calculated wavefunctions, occupations, or phase patterns.

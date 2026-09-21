@@ -1,6 +1,6 @@
 """Standalone perspective study; never replaces the manuscript schematic.
 
-Render in WSL with Blender, then run compose_triangle_focus.py. Identical coral
+Render in WSL with Blender, then run compose_triangle_focus.py. Identical purple
 spheres denote bosons, opaque bonds the equilateral triangular lattice, and one
 arrow an example hop in H_t = +t sum_<ij> (b_i^+ b_j + b_j^+ b_i).
 The geometry is illustrative, not an occupation snapshot or a chiral current.
@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--final", action="store_true")
 parser.add_argument("--metadata-only", action="store_true")
 parser.add_argument("--output-dir", type=Path, default=ROOT / "pdf" / "triangle-focus-draft")
-parser.add_argument("--sphere-color", default="#C75B4F")
+parser.add_argument("--sphere-color", default="#7851A8")
 args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 OUT = args.output_dir
 OUT.mkdir(parents=True, exist_ok=True)
