@@ -201,10 +201,10 @@ text(label_x, label_y, r"$t>0$", size=9.8, color="#6B278F", zorder=6,
                    patheffects.Stroke(linewidth=.23, foreground="#6B278F"), patheffects.Normal()])
 
 # Centres and text wrapping follow the revised region sizes.
-text((108+SPLIT_X)/2, 72, "Frustrated", color="#1265a2")
-text((SPLIT_X+934)/2, 72, "Unfrustrated", color="#8b6006")
-text(65, (112+SPLIT_Y)/2+YLABEL_SHIFT_Y, "Respect TRS/RP criteria", color="#1265a2", rotation=90)
-text(65, (SPLIT_Y+938)/2+YLABEL_SHIFT_Y, "Violate TRS/RP criteria", color="#626b75", rotation=90)
+text((108+SPLIT_X)/2, 72, "Frustrated", color="#1265a2", weight="bold")
+text((SPLIT_X+934)/2, 72, "Unfrustrated", color="#8b6006", weight="bold")
+text(65, (112+SPLIT_Y)/2+YLABEL_SHIFT_Y, "Satisfy TRS/RP criteria", color="#1265a2", weight="bold", rotation=90)
+text(65, (SPLIT_Y+938)/2+YLABEL_SHIFT_Y, "Violate TRS/RP criteria", color="#626b75", weight="bold", rotation=90)
 status_texts = [
     (text(367, 612+CONTENT_SHIFT_Y, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic"),
      (130, 596)),
