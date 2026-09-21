@@ -35,8 +35,9 @@ renders rather than a change to the Blender material parameters.
 
 The earlier strong desaturation can be reproduced with `--muted`, which retains
 52 percent motif chroma and 70 percent annotation chroma without a lightness lift.
-Its outputs remain in `pdf/schematic-color-study/muted/` for comparison; this
-treatment was rejected because the spheres and arrows looked gray.
+This treatment was rejected because the spheres and arrows looked gray.
+Generated `balanced/` and `muted/` outputs were cleaned after approval; either
+command recreates them from the retained render caches.
 
 ## Original alternatives
 

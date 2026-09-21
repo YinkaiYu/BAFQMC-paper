@@ -1,5 +1,8 @@
 # Figure 1 exploration review
 
+Historical review of the initial A/B/C concepts. These are not the final palette
+choices; see [the current production guide](README.md).
+
 ## Outcome
 
 Three alternatives were completed without replacing the manuscript's current

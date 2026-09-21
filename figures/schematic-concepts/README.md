@@ -1,79 +1,59 @@
-# Figure 1 concept studies
+# Finalized Figure 1
 
-These are alternative compositions for author review. The manuscript still uses
-`figures/schematic.pdf`; no candidate is selected automatically.
+The confirmed manuscript schematic is `figures/schematic.pdf`, with an editable,
+self-contained `figures/schematic.svg` and an ignored `figures/schematic.png`
+preview. The final design uses overlapping blue and yellow cards, an enlarged
+upper-left sign-free region, and one triangular lattice with purple bosons and
+a red hopping arrow. Its palette is the original color-study option B, without
+the later color grading. `build_cards_v14.py` is the production builder.
 
-The selected direction now has [an enlarged frustrated region](C_REFINED.md):
-one triangular-lattice illustration, a recessed `New sign-free regime` plaque,
-and overlapping colored cards. The A/B/C studies below retain the initial
-exploration.
+The figure maps frustration against satisfaction of the TRS/RP criteria and
+highlights the frustrated region accessible to BAFQMC. The single arrow depicts
+an example nearest-neighbor hop in
+`H_t = +t sum_<ij> (b_i^+ b_j + b_j^+ b_i)`, with `t > 0`. It does not denote a
+directed-only Hamiltonian, a circulating current, or numerical occupation data.
 
-[Four lattice color alternatives](COLOR_STUDY.md) compare the current coral/purple
-palette with purple/red, deep-blue/purple, and deep-blue/deep-blue combinations
-using identical geometry, lighting, and card backgrounds.
+## Production files and regeneration
 
-The scientific job is to make the change in the sampled object visible: a negative
-closed hopping path assembled from local matrix elements versus an auxiliary-field
-configuration whose full bosonic trace has a nonnegative weight under the paper's
-TRS or RP criterion. The reader is assumed to know a lattice and particles but not
-the determinant formula. The figures introduce the mechanism and then show its
-consequence in the existing frustration/criterion classification.
+The builder reads only the tracked `triangle-lattice.png` and
+`triangle-annotation.json` in `figures/schematic-assets/`. It does not require
+Blender or any ignored study output to rebuild the confirmed schematic.
 
-## Render
-
-From native PowerShell, use the repository's Linux launcher:
+From native PowerShell:
 
 ```powershell
-.\scripts\run-in-wsl.ps1 'python3 figures/schematic-concepts/build_schematics.py'
+.\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 -W error figures/schematic-concepts/build_cards_v14.py --publish'
+.\scripts\build-manuscript.ps1
 ```
 
-The generator uses NumPy, Matplotlib (including its `packaging` dependency) and PyMuPDF. Editable SVGs and vector PDFs,
-PNG previews, an author comparison sheet, and a manifest are written to the ignored
-`pdf/schematic-concepts/` directory. PDF widths are 86 mm (A), 178 mm (B), and
-128 mm (C). B explores a two-column composition; C uses an intermediate width
-for comparison and would need a layout decision before manuscript adoption.
+Run the corresponding Python command and `bash scripts/build-manuscript.sh`
+directly in Linux/WSL. Dependencies are NumPy, Pillow, Matplotlib, PyMuPDF, Poppler
+(`pdftoppm`), and the FreeSans fonts. The local vendor directory supplies the
+Python dependencies missing from the system installation.
 
-In the current WSL environment, Matplotlib is installed but its pure-Python
-`packaging` dependency was absent. A copy from the bundled Codex Python runtime
-is available in the ignored `.build/schematic-exploration/vendor/` directory.
-The verified command in this checkout is:
+Publishing updates the PDF, SVG, and PNG together. The builder checks label
+bounds, the 86 mm page size, and exports its layout manifest under
+`pdf/schematic-concepts/`. The manuscript caption is next to `fig:schematic` in
+`main.tex`. Figure revisions do not refresh `pdf/main-diff.pdf`, following the
+author's preference.
 
-```powershell
-.\scripts\run-in-wsl.ps1 'PYTHONPATH=.build/schematic-exploration/vendor python3 figures/schematic-concepts/build_schematics.py'
-```
+For further changes:
 
-## Compositions
+- [Final card layout and materials](C_REFINED.md).
+- [Blender lattice source and regeneration](TRIANGLE_FOCUS.md).
+- [Palette values and optional comparisons](COLOR_STUDY.md).
+- [Tracked motif assets](../schematic-assets/README.md).
 
-- **A — local loop and global field:** a compact physical contrast above a reduced
-  classification map. The field is flat and the artwork remains legible at 86 mm.
-- **B — auxiliary-field landscape:** a local frustrated cycle, HS decoupling and
-  a stack of field slices, followed by the smaller classification. The whole stack
-  is grouped above the global weight. All depth is vector geometry.
-- **C — illustrated classification:** physical objects inhabit the four regions.
-  The HS arrow stays within the TRS/RP row and therefore cannot imply that
-  decoupling creates a symmetry absent from the model.
+## Historical studies and temporary outputs
 
-## Physical conventions
+The other builders and comparators are retained as historical source material;
+they do not define the current manuscript figure. Initial A/B/C concept labels
+and later card-layout labels are separate from the final palette choice B.
+[Early concepts](archive/EARLY_CONCEPTS.md), their [review](REVIEW.md), and the
+[design history](archive/DESIGN_HISTORY.md) record those earlier rounds.
 
-- The red triangle is a closed three-hop path for positive hopping in the
-  Hamiltonian. Each off-diagonal factor in the expansion of `exp(-beta H)` is
-  negative; positive scalar factors are omitted in the sketch.
-- HS decoupling replaces the direct interaction by coupling to an auxiliary field.
-  The field surface is a schematic background, not a physical membrane or a
-  specific sampled numerical configuration. Lattice bonds remain present.
-- The positive object is the complete fixed-field trace `W(phi)`, conditional on
-  the manuscript's TRS or RP criterion. A field sheet or HS arrow alone does not
-  assert positivity. No individual path or one-body matrix element is recolored
-  as positive by the transformation.
-- The classification retains the original orientation: frustrated on the left,
-  unfrustrated on the right, the TRS/RP criterion above and neither criterion
-  below. The blank lower-left cell makes no universal impossibility claim.
-- The figures summarize sign positivity, not convergence or variance behavior.
-  Detailed theorem assumptions and pole conventions remain in the manuscript.
-
-## Review
-
-Check both the large previews and the 86 mm PDF: arrows should make a closed path,
-the HS diagram must distinguish a direct interaction from a field coupling, and
-the criterion must visibly qualify the nonnegative global weight. Labels are kept
-short; the caption will carry the remaining explanation after a design is chosen.
+Redundant generated drafts, color-grading variants, temporary checks, and logs
+were removed after approval. The original four-palette comparison, final
+standalone lattice, and reusable render caches remain under `pdf/`. Historical
+generated previews mentioned in the archive may need to be regenerated. Runtime
+dependencies and reference images are retained.
