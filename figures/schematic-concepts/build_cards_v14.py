@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager, patheffects
 from matplotlib.patches import FancyBboxPatch, PathPatch
 from matplotlib.path import Path as MplPath
+from matplotlib.transforms import Bbox
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
@@ -23,6 +24,7 @@ OUT = ROOT / "pdf" / "schematic-concepts"
 ASSETS = ROOT / "figures" / "schematic-assets"
 NAME = "C_cards_v14_this_work"
 MM, W, H = 86, 1000, 1000
+EXPORT_TOP, EXPORT_BOTTOM = 45, 965
 CARD_RADIUS = 20
 SPLIT_X, SPLIT_Y = 626, 662
 PLAQUE_MARGIN = 28
@@ -223,18 +225,23 @@ status_texts = [
 ]
 fig.canvas.draw()
 renderer = fig.canvas.get_renderer()
+# Crop only the outer vertical whitespace; preserve artwork and type at full size.
+export_bbox = Bbox.from_extents(0, (H-EXPORT_BOTTOM)/H*MM/25.4,
+                               MM/25.4, (H-EXPORT_TOP)/H*MM/25.4)
+export_bounds = export_bbox.transformed(fig.dpi_scale_trans)
 for obj, (xmin, xmax) in status_texts:
     bounds = obj.get_window_extent(renderer).transformed(ax.transData.inverted())
     assert bounds.x0 >= xmin and bounds.x1 <= xmax, obj.get_text()
 for obj in texts:
     bounds = obj.get_window_extent(renderer)
-    assert bounds.x0 >= 0 and bounds.y0 >= 0, obj.get_text()
-    assert bounds.x1 <= fig.bbox.x1 and bounds.y1 <= fig.bbox.y1, obj.get_text()
+    assert bounds.x0 >= export_bounds.x0 and bounds.y0 >= export_bounds.y0, obj.get_text()
+    assert bounds.x1 <= export_bounds.x1 and bounds.y1 <= export_bounds.y1, obj.get_text()
 
 pdf_path = OUT / f"{NAME}.pdf"
-fig.savefig(pdf_path, dpi=650, metadata={"Title": "Sign-free bosonic QMC: frustrated territory unlocked by BAFQMC"})
+fig.savefig(pdf_path, dpi=650, bbox_inches=export_bbox, pad_inches=0,
+            metadata={"Title": "Sign-free bosonic QMC: frustrated territory unlocked by BAFQMC"})
 svg_path = OUT / f"{NAME}.svg"
-fig.savefig(svg_path, dpi=650, metadata={
+fig.savefig(svg_path, dpi=650, bbox_inches=export_bbox, pad_inches=0, metadata={
     "Title": "Sign-free bosonic QMC classification",
     "Description": "Enlarged frustrated TRS/RP region, recessed New sign-free regime plaque, and triangular-lattice hopping."})
 svg_path.write_text("\n".join(line.rstrip() for line in svg_path.read_text().splitlines())+"\n")
@@ -242,7 +249,10 @@ plt.close(fig)
 subprocess.run(["pdftoppm", "-singlefile", "-r", "450", "-png", str(pdf_path), str(OUT / NAME)], check=True)
 with fitz.open(pdf_path) as doc:
     assert len(doc) == 1 and abs(doc[0].rect.width*25.4/72-MM) < .01
-manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLIT_Y,
+    assert abs(doc[0].rect.height*25.4/72-MM*(EXPORT_BOTTOM-EXPORT_TOP)/H) < .01
+manifest = {"width_mm": MM, "height_mm": MM*(EXPORT_BOTTOM-EXPORT_TOP)/H,
+            "canvas_crop": [0, EXPORT_TOP, W, EXPORT_BOTTOM],
+            "split_x": SPLIT_X, "split_y": SPLIT_Y,
             "upper_left_area_fraction": round((SPLIT_X-108)*(SPLIT_Y-112)/(854*826), 3),
             "card_radius": CARD_RADIUS, "plaque_radius": CARD_RADIUS,
             "plaque_text": "New sign-free regime", "plaque_left_top_margin": PLAQUE_MARGIN,

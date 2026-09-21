@@ -166,7 +166,10 @@ def make_board(focus):
         draw.text((x+14, y+10), palette["title"], font=title_font, fill="#263747")
         image = Image.open(OUT / f"{palette['id']}_{palette['name']}.png").convert("RGB")
         if focus:
-            image = image.crop(tuple(round(value*image.width/1000) for value in (108, 112, 626, 645)))
+            manifest = json.loads((OUT / f"{palette['id']}_{palette['name']}_manifest.json").read_text())
+            crop_top = manifest["canvas_crop"][1]
+            image = image.crop(tuple(round(value*image.width/1000)
+                                     for value in (108, 112-crop_top, 626, 645-crop_top)))
         image.thumbnail((tile_w, tile_h), Image.Resampling.LANCZOS)
         board.paste(image, (x+(tile_w-image.width)//2, y+heading+(tile_h-image.height)//2))
     path = OUT / ("four-palettes-detail.png" if focus else "four-palettes-full.png")

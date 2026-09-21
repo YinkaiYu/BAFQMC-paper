@@ -40,6 +40,12 @@ All four axis labels are bold. Their colors match the region text: blue for
 `Frustrated` and `Satisfy TRS/RP criteria`, dark gold for `Unfrustrated`, and grey for
 `Violate TRS/RP criteria`.
 
+The export crops the 1000-unit design canvas vertically to `y = 45..965`,
+leaving approximately 1 mm above the top labels and below the diffuse shadow.
+The PDF and SVG are 86 mm wide and 79.12 mm high, saving 6.88 mm of manuscript
+height. Artwork, text sizes, and internal spacing are unchanged by this crop.
+The PNG preview uses the same crop.
+
 The RGBA motif and annotation coordinates are tracked in
 `figures/schematic-assets/triangle-lattice.png` and `triangle-annotation.json`.
 Regenerate those from the standalone study as documented in `TRIANGLE_FOCUS.md`.

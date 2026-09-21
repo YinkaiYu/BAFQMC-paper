@@ -32,7 +32,7 @@ directly in Linux/WSL. Dependencies are NumPy, Pillow, Matplotlib, PyMuPDF, Popp
 Python dependencies missing from the system installation.
 
 Publishing updates the PDF, SVG, and PNG together. The builder checks label
-bounds, the 86 mm page size, and exports its layout manifest under
+bounds within the cropped 86 x 79.12 mm page, and exports its layout manifest under
 `pdf/schematic-concepts/`. The manuscript caption is next to `fig:schematic` in
 `main.tex`. Figure revisions do not refresh `pdf/main-diff.pdf`, following the
 author's preference.
