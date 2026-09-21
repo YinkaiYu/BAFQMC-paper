@@ -45,12 +45,12 @@ def material(name, color, roughness=.26, metal=.0):
     return mat
 
 
-def metallic_boson():
-    mat = material("All bosons - coral copper", "#C14F43", roughness=.19, metal=.48)
+def highlighted_boson():
+    mat = material("All bosons - coral with restrained highlights", "#C75B4F", roughness=.26)
     tree = mat.node_tree
     bsdf = tree.nodes.get("Principled BSDF")
-    bsdf.inputs["Coat Weight"].default_value = .32
-    bsdf.inputs["Coat Roughness"].default_value = .16
+    bsdf.inputs["Coat Weight"].default_value = 0
+    bsdf.inputs["Specular IOR Level"].default_value = .38
     return mat
 
 
@@ -67,6 +67,7 @@ def tube(name, a, b, radius, mat):
     bpy.context.collection.objects.link(obj)
     obj.data.materials.append(mat)
     obj.visible_shadow = True
+    obj.visible_glossy = False
 
 
 def sphere(name, p, mat):
@@ -79,11 +80,12 @@ def sphere(name, p, mat):
         face.use_smooth = True
 
 
-def area(name, position, power, size, color, shadow=True):
+def area(name, position, power, size, color, shadow=True, specular=1):
     light = bpy.data.lights.new(name, "AREA")
     light.energy, light.shape, light.size = power, "DISK", size
     light.color = color
     light.use_shadow = shadow
+    light.specular_factor = specular
     obj = bpy.data.objects.new(name, light)
     bpy.context.collection.objects.link(obj)
     obj.location = position
@@ -114,6 +116,18 @@ scene.view_settings.look = "Medium High Contrast"
 scene.world.use_nodes = True
 scene.world.node_tree.nodes["Background"].inputs["Color"].default_value = (.87, .93, 1, 1)
 scene.world.node_tree.nodes["Background"].inputs["Strength"].default_value = .75
+# Preserve diffuse illumination while suppressing a bright environment rim.
+world_nodes = scene.world.node_tree.nodes
+world_links = scene.world.node_tree.links
+reflection_background = world_nodes.new("ShaderNodeBackground")
+reflection_background.inputs["Color"].default_value = (.87, .93, 1, 1)
+reflection_background.inputs["Strength"].default_value = .08
+ray_type = world_nodes.new("ShaderNodeLightPath")
+world_mix = world_nodes.new("ShaderNodeMixShader")
+world_links.new(ray_type.outputs["Is Glossy Ray"], world_mix.inputs[0])
+world_links.new(world_nodes["Background"].outputs[0], world_mix.inputs[1])
+world_links.new(reflection_background.outputs[0], world_mix.inputs[2])
+world_links.new(world_mix.outputs[0], world_nodes["World Output"].inputs["Surface"])
 
 cam = bpy.data.objects.new("Wide perspective", bpy.data.cameras.new("Wide perspective"))
 bpy.context.collection.objects.link(cam)
@@ -124,8 +138,10 @@ cam.data.lens = 19
 cam.data.sensor_width = 36
 scene.camera = cam
 area("Only shadow-casting key", (-3, -4, 8), 320, 4.5, (1, .98, .95))
-area("Soft rim - no shadows", (3, 2, 5), 170, 3.5, (.90, .95, 1), shadow=False)
-area("Front fill - no shadows", (1, -5, 2), 35, 3, (.95, .97, 1), shadow=False)
+area("Soft rim - diffuse only", (3, 2, 5), 170, 3.5, (.90, .95, 1),
+     shadow=False, specular=0)
+area("Front fill - diffuse only", (1, -5, 2), 35, 3, (.95, .97, 1),
+     shadow=False, specular=0)
 
 # A neutral shadow catcher conveys depth without introducing a visible platform.
 # The spheres sit just above it; bonds cast slightly offset, soft shadows.
@@ -133,6 +149,7 @@ bpy.ops.mesh.primitive_plane_add(size=200, location=(0, 0, -.265))
 ground = bpy.context.object
 ground.name = "Invisible floor - soft contact shadows"
 ground.is_shadow_catcher = True
+ground.visible_glossy = False
 ground.data.materials.append(material("Matte white floor", "#ffffff", roughness=1))
 
 # Exact equilateral lattice: a1=(2,0), a2=(1,sqrt(3)). Rotate clockwise to bring
@@ -154,7 +171,7 @@ bond_mat = material("All bonds - opaque matte graphite", "#505259", roughness=.7
 bond_shader = bond_mat.node_tree.nodes.get("Principled BSDF")
 bond_shader.inputs["Coat Weight"].default_value = 0
 bond_shader.inputs["Specular IOR Level"].default_value = .25
-ball_mat = metallic_boson()
+ball_mat = highlighted_boson()
 for left, right in sorted(edges):
     a, b = sites[left], sites[right]
     assert abs((b-a).length-2) < 1e-6
@@ -181,8 +198,8 @@ for left, right in [(core[0], core[2])]:
         points.append(project(p))
     arcs.append(points)
 label = list(min(arcs[0], key=lambda point: point[1]))
-label[0] -= .055
-label[1] -= .048
+label[0] -= .038
+label[1] -= .054
 camera_right = cam.matrix_world.to_quaternion() @ Vector((1, 0, 0))
 halo_sites = []
 for p in sites.values():

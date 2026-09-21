@@ -1,17 +1,18 @@
 # Standalone triangular-lattice draft
 
 This study focuses on one equilateral plaquette, with a wide-angle perspective,
-glossy coral-red metallic bosons, matte graphite nearest-neighbour bonds,
+coral-red bosons with restrained highlights, matte graphite nearest-neighbour bonds,
 and a fading surrounding lattice. The central triangle dominates, with its three
 neighbouring triangles visible at lower contrast. Soft contact
 shadows and offset bond shadows give the motif depth on a clean white background.
-Only one broad light casts shadows; the rim and fill lights do not. Caustics are
-disabled to keep the floor quiet.
+Only one broad light casts shadows and surface highlights; the rim and fill lights
+provide diffuse illumination. Bond and floor reflections are excluded, and the
+glossy environment is dimmed to avoid a white sphere rim. Caustics are disabled.
 Every lattice site has a sphere, including those that fade toward the perimeter.
 Warm coral halos follow their projected sizes and fade with the lattice.
 It is not included in the manuscript schematic.
 
-One tall, tapered, single-headed charcoal arrow illustrates an example hop, with
+One tall, tapered, single-headed violet arrow illustrates an example hop, with
 the label above its crest. The lattice is rotated 60 degrees clockwise to bring
 the hopping bond toward the camera. The curve connects the exact site centres
 and is trimmed to the projected sphere edges. The label `t > 0`
@@ -20,7 +21,9 @@ uses the manuscript convention
 The arrow does not indicate a circulating current or remove the reverse hopping
 term. All spheres have the same physical radius; their apparent sizes follow the
 perspective projection. Every bond uses the same opaque material and radius;
-all spheres share one opaque metallic material with bright, broad highlights.
+all spheres share one opaque material with a restrained broad highlight and no
+clear-coat layer. The violet annotation has a thin light separation from the
+grey lattice, and its label is enlarged for visibility.
 They have filled centres and a soft halo. These are qualitative images
 of bosons, not calculated wavefunctions, occupations, or phase patterns.
 The surrounding lattice is faded
