@@ -1,26 +1,27 @@
 # Standalone triangular-lattice draft
 
 This study focuses on one equilateral plaquette, with a wide-angle perspective,
-softly shaded amber bosons, matte graphite nearest-neighbour bonds,
+glossy coral-red metallic bosons, matte graphite nearest-neighbour bonds,
 and a fading surrounding lattice. The central triangle dominates, with its three
 neighbouring triangles visible at lower contrast. Soft contact
 shadows and offset bond shadows give the motif depth on a clean white background.
 Only one broad light casts shadows; the rim and fill lights do not. Caustics are
 disabled to keep the floor quiet.
 Every lattice site has a sphere, including those that fade toward the perimeter.
-Subtle warm halos follow their projected sizes and fade with the lattice.
+Warm coral halos follow their projected sizes and fade with the lattice.
 It is not included in the manuscript schematic.
 
-One tall, tapered, single-headed vermilion arrow illustrates an example hop, with
-the label above its crest. The label `t > 0`
+One tall, tapered, single-headed charcoal arrow illustrates an example hop, with
+the label above its crest. The lattice is rotated 60 degrees clockwise to bring
+the hopping bond toward the camera. The curve connects the exact site centres
+and is trimmed to the projected sphere edges. The label `t > 0`
 uses the manuscript convention
 `H_t = +t sum_<ij> (b_i^+ b_j + b_j^+ b_i)`, which is frustrated on this lattice.
 The arrow does not indicate a circulating current or remove the reverse hopping
 term. All spheres have the same physical radius; their apparent sizes follow the
 perspective projection. Every bond uses the same opaque material and radius;
-all spheres share a mostly opaque material with soft highlights, slight subsurface
-scattering, and restrained transmission. They have filled centres and a gentle
-halo, rather than hollow shells or diffuse clouds. These are qualitative images
+all spheres share one opaque metallic material with bright, broad highlights.
+They have filled centres and a soft halo. These are qualitative images
 of bosons, not calculated wavefunctions, occupations, or phase patterns.
 The surrounding lattice is faded
 during compositing, according to distance from the central triangle in the lattice

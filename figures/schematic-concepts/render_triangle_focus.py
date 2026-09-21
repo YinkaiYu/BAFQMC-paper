@@ -1,6 +1,6 @@
 """Standalone perspective study; never replaces the manuscript schematic.
 
-Render in WSL with Blender, then run compose_triangle_focus.py. Identical amber
+Render in WSL with Blender, then run compose_triangle_focus.py. Identical coral
 spheres denote bosons, opaque bonds the equilateral triangular lattice, and one
 arrow an example hop in H_t = +t sum_<ij> (b_i^+ b_j + b_j^+ b_i).
 The geometry is illustrative, not an occupation snapshot or a chiral current.
@@ -14,7 +14,7 @@ import sys
 
 import bpy
 from bpy_extras.object_utils import world_to_camera_view
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,19 +45,12 @@ def material(name, color, roughness=.26, metal=.0):
     return mat
 
 
-def soft_boson():
-    mat = material("All bosons - soft amber", "#CE984F", roughness=.42)
+def metallic_boson():
+    mat = material("All bosons - coral copper", "#C14F43", roughness=.19, metal=.48)
     tree = mat.node_tree
     bsdf = tree.nodes.get("Principled BSDF")
-    bsdf.inputs["Transmission Weight"].default_value = .12
-    bsdf.inputs["IOR"].default_value = 1.30
-    bsdf.inputs["Coat Weight"].default_value = .025
-    bsdf.inputs["Subsurface Weight"].default_value = .055
-    bsdf.inputs["Subsurface Radius"].default_value = (.12, .075, .04)
-    absorption = tree.nodes.new("ShaderNodeVolumeAbsorption")
-    absorption.inputs["Color"].default_value = (*linear("#DFB475"), 1)
-    absorption.inputs["Density"].default_value = 1.8
-    tree.links.new(absorption.outputs[0], tree.nodes.get("Material Output").inputs["Volume"])
+    bsdf.inputs["Coat Weight"].default_value = .32
+    bsdf.inputs["Coat Roughness"].default_value = .16
     return mat
 
 
@@ -142,11 +135,13 @@ ground.name = "Invisible floor - soft contact shadows"
 ground.is_shadow_catcher = True
 ground.data.materials.append(material("Matte white floor", "#ffffff", roughness=1))
 
-# Exact equilateral lattice: a1=(2,0), a2=(1,sqrt(3)); central triangle points
-# toward the viewer. Every bond is a true nearest neighbour of length 2.
+# Exact equilateral lattice: a1=(2,0), a2=(1,sqrt(3)). Rotate clockwise to bring
+# the hopping bond to the foreground. All nearest-neighbour bonds have length 2.
 offset = Vector((0, -2*math.sqrt(3)/3, .0))
 sites = {(i, j): Vector((2*i+j, math.sqrt(3)*j, 0))+offset
          for j in range(-1, 4) for i in range(-3, 3)}
+rotation = Matrix.Rotation(-math.pi/3, 3, "Z")
+sites = {key: rotation @ point for key, point in sites.items()}
 core = [(0, 0), (-1, 1), (0, 1)]
 edges = set()
 for key in sites:
@@ -159,7 +154,7 @@ bond_mat = material("All bonds - opaque matte graphite", "#505259", roughness=.7
 bond_shader = bond_mat.node_tree.nodes.get("Principled BSDF")
 bond_shader.inputs["Coat Weight"].default_value = 0
 bond_shader.inputs["Specular IOR Level"].default_value = .25
-ball_mat = soft_boson()
+ball_mat = metallic_boson()
 for left, right in sorted(edges):
     a, b = sites[left], sites[right]
     assert abs((b-a).length-2) < 1e-6
@@ -179,22 +174,28 @@ arcs = []
 for left, right in [(core[0], core[2])]:
     a, b = sites[left], sites[right]
     points = []
-    for n in range(101):
-        t = .16 + .68*n/100
+    for n in range(301):
+        t = n/300
         p = a.lerp(b, t)
-        p.z += .07 + .78*math.sin(math.pi*(t-.16)/.68)
+        p.z += .78*math.sin(math.pi*t)
         points.append(project(p))
     arcs.append(points)
 label = list(min(arcs[0], key=lambda point: point[1]))
-label[0] += .060
-label[1] -= .039
+label[0] -= .055
+label[1] -= .048
 camera_right = cam.matrix_world.to_quaternion() @ Vector((1, 0, 0))
 halo_sites = []
 for p in sites.values():
     center = project(p)
     radius_x = abs(project(p + .245*camera_right)[0] - center[0])
     halo_sites.append({"center": center, "radius_x": radius_x})
+hopping_sites = []
+for key in (core[0], core[2]):
+    center = project(sites[key])
+    radius_x = abs(project(sites[key] + .245*camera_right)[0] - center[0])
+    hopping_sites.append({"center": center, "radius_x": radius_x})
 metadata = {"sites": [project(sites[k]) for k in core], "arcs": arcs,
+            "hopping_sites": hopping_sites, "lattice_rotation_degrees": -60,
             "halo_sites": halo_sites,
             "adjacent_sites": [project(sites[k]) for k in adjacent],
             "core_world": [[float(sites[k].x), float(sites[k].y)] for k in core],
