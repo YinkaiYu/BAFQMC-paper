@@ -28,6 +28,7 @@ SPLIT_X, SPLIT_Y = 626, 662
 PLAQUE_MARGIN = 28
 PLAQUE_BOX = (108+PLAQUE_MARGIN, 112+PLAQUE_MARGIN, 300, 50)
 CONTENT_SHIFT_Y = -40
+YLABEL_SHIFT_Y = -55
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--publish", action="store_true")
@@ -200,10 +201,10 @@ text(label_x, label_y, r"$t>0$", size=9.8, color="#6B278F", zorder=6,
                    patheffects.Stroke(linewidth=.23, foreground="#6B278F"), patheffects.Normal()])
 
 # Centres and text wrapping follow the revised region sizes.
-text((108+SPLIT_X)/2, 72, "Frustrated")
-text((SPLIT_X+934)/2, 72, "Unfrustrated")
-text(65, (112+SPLIT_Y)/2, "Respect TRS/RP criteria", rotation=90)
-text(65, (SPLIT_Y+938)/2, "Violate TRS/RP criteria", rotation=90)
+text((108+SPLIT_X)/2, 72, "Frustrated", color="#1265a2")
+text((SPLIT_X+934)/2, 72, "Unfrustrated", color="#8b6006")
+text(65, (112+SPLIT_Y)/2+YLABEL_SHIFT_Y, "Respect TRS/RP criteria", color="#1265a2", rotation=90)
+text(65, (SPLIT_Y+938)/2+YLABEL_SHIFT_Y, "Violate TRS/RP criteria", color="#626b75", rotation=90)
 status_texts = [
     (text(367, 612+CONTENT_SHIFT_Y, "Sign-free for BAFQMC", size=7.6, color="#1265a2", fontstyle="italic"),
      (130, 596)),
@@ -242,6 +243,7 @@ manifest = {"width_mm": MM, "height_mm": MM, "split_x": SPLIT_X, "split_y": SPLI
             "plaque_corner_path": "same FancyBboxPatch path as cards",
             "plaque_font_pt": 6.6, "plaque_weight": "normal",
             "content_shift_y": CONTENT_SHIFT_Y,
+            "ylabel_shift_y": YLABEL_SHIFT_Y,
             "motif_width": motif_w,
             "motif_fade_bounds": [196, 594, 270+CONTENT_SHIFT_Y, 550+CONTENT_SHIFT_Y],
             "motif_feather_widths": [66, 66, 48, 64],

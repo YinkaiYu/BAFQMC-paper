@@ -32,6 +32,11 @@ remain vector artwork. The lower-right interaction sketch has been removed.
 Coverage labels use the original
 7.6-point typography, with the right-column labels wrapped for the narrower
 regions and a 1.6 line-spacing factor.
+Both vertical axis labels are shifted upward by 55 design units to give the
+long lower label clearance from the bottom edge.
+Axis-label colors match the region text: blue for `Frustrated` and
+`Respect TRS/RP criteria`, dark gold for `Unfrustrated`, and grey for
+`Violate TRS/RP criteria`.
 
 The RGBA motif and annotation coordinates are tracked in
 `figures/schematic-assets/triangle-lattice.png` and `triangle-annotation.json`.
