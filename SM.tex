@@ -1170,11 +1170,12 @@ In this basis, Eq.~\eqref{eq:trs_eta_propagation} identifies $\mc M_{+\ii}$ as a
 
 If $\mc M$ belongs to the split-orthogonal group $O(N/2,N/2)$, the split-orthogonal determinant theorem~\cite{wang2015prl} gives
 \begin{equation}
-    \begin{aligned}
-        \det(I_N+\mc M)&\ge 0, && \text{if }\mc M\in O^{++}(N/2,N/2),\\
-        \det(I_N+\mc M)&\le 0, && \text{if }\mc M\in O^{--}(N/2,N/2),\\
-        \det(I_N+\mc M)&=0, && \text{otherwise}.
-    \end{aligned}
+    \det(I_N+\mc M)
+    \begin{cases}
+        \ge 0, & \text{if }\mc M\in O^{++}(N/2,N/2),\\
+        \le 0, & \text{if }\mc M\in O^{--}(N/2,N/2),\\
+        =0, & \text{otherwise}.
+    \end{cases}
 \end{equation}
 Here the signs in $O^{\pm\pm}(N/2,N/2)$ are the signs of the determinants of the two diagonal $N/2\times N/2$ blocks, which are always nonzero; they therefore distinguish the four connected components.
 
