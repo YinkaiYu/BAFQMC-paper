@@ -60,16 +60,18 @@ Before delivering any manuscript edit to the user:
 - Present benchmarks as validation of the construction, not as a detached numerical report. A conclusion should synthesize the new organizing principle, the demonstrated evidence, the separate pole/variance issue, and concrete next algorithmic directions.
 - The central framing follows Fig. 1: bosonic sign-problem-free regions are classified by the presence of RP/TRS and by lattice frustration. BAFQMC covers the RP/TRS half-plane; SSE/WLQMC covers the unfrustrated half-plane; the frustrated but RP/TRS quadrant is the new computable territory revealed by this work.
 - For substantial PRL restructuring, style analysis, Section IV rewriting, Introduction rewriting, or post-edit review, use the project-level skill at `.codex/skills/bafqmc-prl-revision/SKILL.md`.
-- Write for the paper's actual audience: readers, referees, and editors. The manuscript should read as a coherent scientific story, not as a record of the author-assistant collaboration.
+- Write for a broad physics readership with no access to our collaboration context. Build the argument sequentially from physical motivation, explain necessary concepts before using them, and avoid logical jumps so readers can follow the theory and appreciate its significance.
 - Do not insert sentences or paragraphs that explicitly answer the user's prompt, advertise the revision, or call attention to the fact that a requested change was made. Such text is inappropriate in the manuscript because readers do not have the collaboration context.
 - Preserve mathematical precision. Do not simplify sign-positivity, regularization, or branch-choice arguments in ways that weaken the claims.
 - Keep notation consistent with the current draft: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.
 - When communicating with the user, write all inline and display mathematics in standard LaTeX and do not use the manuscript's custom macros, so formulas render correctly in ChatGPT Desktop.
 - For new or revised manuscript formulas, write bosonic creation operators as `^+` rather than `^\dagger` or `^{\hc}` when this matches the surrounding notation. In physical model Hamiltonians, prefer explicit `b,c` operators and explicit Hermitian-conjugate terms over introducing short-lived flavor aliases such as `a_{\alpha i}`.
 - Use `Eq.~\eqref{...}`, `Fig.~\ref{...}`, and `Sec.~\ref{...}` in manuscript prose unless the surrounding style changes globally.
-- Prefer concise PRL-style paragraphs in the main text. Put longer derivations, caveats, and implementation details in the Supplemental Material.
-- Gradually move the tone from a mathematics-paper style toward a theoretical-physics style. Maintain rigor, but avoid unnecessarily obscure mathematical jargon and explain the physical picture whenever it helps the reader understand the formal result.
-- Write with appropriate confidence: the sign-problem-free bosonic auxiliary-field quantum Monte Carlo method proposed here is a highly innovative and important contribution. The prose should make the significance clear.
+- Prefer concise PRL-style paragraphs in the main text. Make the Supplemental Material a detailed, lecture-style account with the intermediate steps, assumptions, and implementation details needed to learn and reproduce the work.
+- Explain formal results and derivations through their physical meaning while maintaining rigor. Avoid obscure mathematical jargon, strings of technical terms, invented labels, internal shorthand, and unnecessary abbreviations that shift effort to the reader.
+- Introduce new variables, notation, and concepts only when needed; prefer familiar conventions and reuse established notation to minimize the reader's burden.
+- State supported contributions directly and confidently. Avoid unnecessary defensive qualifications that obscure or weaken their significance, while retaining essential assumptions and limits.
+- Avoid negative-then-positive constructions such as "not X, but Y"; state the intended point directly. Use semicolons, colons, and dashes sparingly.
 - Reference coverage should be broad, correct, and purposeful. Add references whenever a condensed logical step relies on known background or when the reader needs a route to the underlying literature.
 
 ## Current Manuscript State
@@ -91,7 +93,7 @@ Before delivering any manuscript edit to the user:
 ## Collaboration Guidelines
 
 - Discuss physics-level changes explicitly when they affect claims, assumptions, or theorem conditions.
-- For editing requests, make minimal, coherent source changes and preserve unrelated author text.
+- For editing requests, make minimal, coherent source changes and preserve unrelated author text. Check the surrounding paragraphs for continuity, physical motivation, and logical progression even after a local edit.
 - For polishing, prioritize clarity, concision, and APS tone over decorative phrasing.
 - When adding references, update `references.bib` with complete BibTeX fields and cite them from the text. Verify bibliographic metadata against a reliable source such as the publisher page, DOI record, arXiv record, or other authoritative database before adding or editing a BibTeX entry.
 - Reference metadata must not be guessed. Before adding or changing any bibliography entry, check author list, title, journal, volume, page/article number, year, DOI, and arXiv identifier where applicable. Report newly added or modified references to the user for author review.
