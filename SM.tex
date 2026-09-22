@@ -1054,13 +1054,17 @@ One bosonic sign remains to be accounted for. The selected operators may include
     D=\diag(I_{N-N_-},-I_{N_-}),
     \label{eq:trs_reduced_commutator}
 \end{equation}
-where $N_-$ counts creation directions. The contribution of a creation direction is easiest to see for a single mode. If its annihilation operator propagates with factor $\ee^x$, its centered Bose factor is $\ee^{x/2}/(1-\ee^x)$. The creation partner propagates with the inverse factor $\ee^{-x}$, and its centered factor is
+where $N_-$ counts creation directions. The contribution of a creation direction is easiest to see for one diagonal bosonic mode. Let $x$ denote the logarithm of the mode's full one-body propagation factor, so that its annihilation and creation directions propagate with factors $\ee^x$ and $\ee^{-x}$, respectively. In the convergent occupation-number sum, the annihilation direction contributes the usual Bose factor $(1-\ee^x)^{-1}$. In the Nambu trace formula, the normal-ordering factor is split symmetrically between the two directions, so the corresponding centered factor is
 \begin{equation}
-    \frac{\ee^{-x/2}}{1-\ee^{-x}}
+    F(x)=\frac{\ee^{x/2}}{1-\ee^x}.
+\end{equation}
+The creation direction has $x\to-x$ and therefore contributes
+\begin{equation}
+    F(-x)=\frac{\ee^{-x/2}}{1-\ee^{-x}}
     =-\frac{\ee^{x/2}}{1-\ee^x}.
     \label{eq:trs_boson_reversed_mode}
 \end{equation}
-Thus replacing an annihilation direction by its creation partner changes the sign of that mode's contribution. Each selected creation direction therefore contributes one minus sign. For the full product, preservation of the canonical commutators fixes the complementary Nambu block to $D(\mc M_{+\ii}^\trans)^{-1}D$, giving
+Thus exchanging an annihilation direction for its creation partner changes the sign of the mode contribution while leaving its magnitude unchanged. Each selected creation direction therefore contributes one minus sign. The same relation extends to the regularized determinant representation. For the full product, preservation of the canonical commutators fixes the complementary Nambu block to $D(\mc M_{+\ii}^\trans)^{-1}D$, giving
 \begin{equation}
     (-1)^N\det(I_{2N}-\mc M)
     =\det(\mc M_{+\ii})^{-1}\det(I_N-\mc M_{+\ii})^2.
