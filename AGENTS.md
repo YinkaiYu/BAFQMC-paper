@@ -64,6 +64,7 @@ Before delivering any manuscript edit to the user:
 - Do not insert sentences or paragraphs that explicitly answer the user's prompt, advertise the revision, or call attention to the fact that a requested change was made. Such text is inappropriate in the manuscript because readers do not have the collaboration context.
 - Preserve mathematical precision. Do not simplify sign-positivity, regularization, or branch-choice arguments in ways that weaken the claims.
 - Keep notation consistent with the current draft: `\mc`, `\bb`, `\Tr`, `\ee`, `\ii`, `\hc`, `\trans`, and `\Omega`.
+- When communicating with the user, write all inline and display mathematics in standard LaTeX and do not use the manuscript's custom macros, so formulas render correctly in ChatGPT Desktop.
 - For new or revised manuscript formulas, write bosonic creation operators as `^+` rather than `^\dagger` or `^{\hc}` when this matches the surrounding notation. In physical model Hamiltonians, prefer explicit `b,c` operators and explicit Hermitian-conjugate terms over introducing short-lived flavor aliases such as `a_{\alpha i}`.
 - Use `Eq.~\eqref{...}`, `Fig.~\ref{...}`, and `Sec.~\ref{...}` in manuscript prose unless the surrounding style changes globally.
 - Prefer concise PRL-style paragraphs in the main text. Put longer derivations, caveats, and implementation details in the Supplemental Material.
