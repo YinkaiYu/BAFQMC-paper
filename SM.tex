@@ -1162,19 +1162,26 @@ Here, the restriction denotes evaluating the bilinear form within the $Q=+\ii$ s
     \mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta.
     \label{eq:trs_eta_propagation}
 \end{equation}
-The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, so it maps every positive-$\eta$ direction to a negative-$\eta$ direction and vice versa. Hence $\eta$ has equal numbers of positive and negative eigenvalues. In a real basis,
+The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, transforming $\eta$ into $-\eta$. Thus every positive-$\eta$ eigenvector is paired with a negative-$\eta$ eigenvector, and vice versa. Since $CR_3$ is invertible, these pairings are one-to-one, so $\eta$ has equal numbers of positive and negative eigenvalues. A real change of basis then brings $\eta$ to the canonical form
 \begin{equation}
     \eta=\diag(I_{N/2},-I_{N/2}).
 \end{equation}
-Equation~\eqref{eq:trs_eta_propagation} then identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
+In this basis, Eq.~\eqref{eq:trs_eta_propagation} identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
 
-Each slice propagator $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{sA_{\ell,+\ii}}$, so $\mc M_{+\ii}$ lies in the identity component of $O(N/2,N/2)$. We use the split-orthogonal determinant theorem~\cite{wang2015prl} in the following form: if $G$ lies in the identity component of $O(p,p)$, then
+Set $p=N/2$ and write a split-orthogonal matrix in block form as $G=\left(\begin{smallmatrix}A_G&B_G\\ C_G&D_G\end{smallmatrix}\right)$. The split-orthogonal determinant theorem~\cite{wang2015prl} states that
 \begin{equation}
-    (-1)^p\det(I_{2p}-G)\ge0.
+    \det(A_G)\det(I_{2p}+G)\ge0
 \end{equation}
-Applying it with $p=N/2$ and $G=\mc M_{+\ii}$ gives
+for $G\in O(p,p)$; equivalently, away from zeros of the determinant, $\det(I_{2p}+G)$ has the same sign as the diagonal block determinant $\det A_G$. Each slice propagator $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{sA_{\ell,+\ii}}$, so $\mc M_{+\ii}$ lies in the identity component and its corresponding block $A$ has $\det A>0$.
+
+Our weight contains $I_N-\mc M_{+\ii}$ rather than $I_N+\mc M_{+\ii}$, so we apply the theorem to $G=-\mc M_{+\ii}$. Its upper-left block is $-A$, whose determinant is
 \begin{equation}
-    (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
+    \det(-A)=(-1)^p\det A.
+\end{equation}
+The theorem therefore fixes the sign of the determinant in the weight as
+\begin{equation}
+    (-1)^p\det(I_{2p}-\mc M_{+\ii})\ge0,
+    \qquad p=\frac{N}{2},
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
 
