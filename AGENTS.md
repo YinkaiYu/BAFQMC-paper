@@ -1,6 +1,6 @@
 # Project Notes
 
-This repository contains a theoretical physics manuscript on sign-problem-free bosonic auxiliary-field quantum Monte Carlo, intended to be developed toward a Physical Review Letters style presentation.
+This repository contains a theoretical physics manuscript on sign-problem-free bosonic auxiliary-field quantum Monte Carlo, already substantially written in Physical Review Letters style and undergoing further refinement to sharpen its presentation and engage the broadest physics readership.
 
 ## Main Files
 
@@ -70,7 +70,7 @@ Before delivering any manuscript edit to the user:
 - Prefer concise PRL-style paragraphs in the main text. Make the Supplemental Material a detailed, lecture-style account with the intermediate steps, assumptions, and implementation details needed to learn and reproduce the work.
 - Explain formal results and derivations through their physical meaning while maintaining rigor. Avoid obscure mathematical jargon, strings of technical terms, invented labels, internal shorthand, and unnecessary abbreviations that shift effort to the reader.
 - Introduce new variables, notation, and concepts only when needed; prefer familiar conventions and reuse established notation to minimize the reader's burden.
-- State supported contributions directly and confidently. Avoid unnecessary defensive qualifications that obscure or weaken their significance, while retaining essential assumptions and limits.
+- Present the work's substantial originality and major breakthrough confidently and firmly to the broadest physics readership, making the advance and its physical significance clear through the established results. Avoid unnecessary defensive qualifications that obscure or weaken their significance, while retaining essential assumptions and limits.
 - Avoid negative-then-positive constructions such as "not X, but Y"; state the intended point directly. Use semicolons, colons, and dashes sparingly.
 - Reference coverage should be broad, correct, and purposeful. Add references whenever a condensed logical step relies on known background or when the reader needs a route to the underlying literature.
 
