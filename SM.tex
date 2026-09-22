@@ -1168,20 +1168,9 @@ The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, 
 \end{equation}
 In this basis, Eq.~\eqref{eq:trs_eta_propagation} identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
 
-Set $p=N/2$ and write a split-orthogonal matrix in block form as $G=\left(\begin{smallmatrix}A_G&B_G\\ C_G&D_G\end{smallmatrix}\right)$. The split-orthogonal determinant theorem~\cite{wang2015prl} states that
+Each slice propagator $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{sA_{\ell,+\ii}}$, so $\mc M_{+\ii}$ lies in the identity component of $O(N/2,N/2)$. The split-orthogonal determinant theorem~\cite{wang2015prl} is usually stated for $\det(I+\mc M_{+\ii})$, whose sign is fixed by the determinants of the two diagonal blocks. Since our weight contains $I-\mc M_{+\ii}$, we apply the theorem to $-\mc M_{+\ii}$. Multiplying either $N/2\times N/2$ diagonal block by $-1$ contributes the factor $(-1)^{N/2}$, and hence
 \begin{equation}
-    \det(A_G)\det(I_{2p}+G)\ge0
-\end{equation}
-for $G\in O(p,p)$; equivalently, away from zeros of the determinant, $\det(I_{2p}+G)$ has the same sign as the diagonal block determinant $\det A_G$. Each slice propagator $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{sA_{\ell,+\ii}}$, so $\mc M_{+\ii}$ lies in the identity component and its corresponding block $A$ has $\det A>0$.
-
-Our weight contains $I_N-\mc M_{+\ii}$ rather than $I_N+\mc M_{+\ii}$, so we apply the theorem to $G=-\mc M_{+\ii}$. Its upper-left block is $-A$, whose determinant is
-\begin{equation}
-    \det(-A)=(-1)^p\det A.
-\end{equation}
-The theorem therefore fixes the sign of the determinant in the weight as
-\begin{equation}
-    (-1)^p\det(I_{2p}-\mc M_{+\ii})\ge0,
-    \qquad p=\frac{N}{2},
+    (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
 
