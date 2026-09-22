@@ -1168,19 +1168,19 @@ The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, 
 \end{equation}
 In this basis, Eq.~\eqref{eq:trs_eta_propagation} identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
 
-Because the physical time evolution is continuously connected to the identity (via $\ee^{sA_{\ell,+\ii}}$ for $0\le s\le1$), the two $N/2\times N/2$ diagonal blocks of $\mc M_{+\ii}$ have strictly positive determinants. However, our formula requires the determinant of $I_N-\mc M_{+\ii}$, so we apply the split-orthogonal determinant theorem~\cite{wang2015prl} to $-\mc M_{+\ii}$. Multiplying each $N/2\times N/2$ diagonal block by $-1$ contributes the factor $(-1)^{N/2}$, and the theorem therefore gives
+Because the physical time evolution is continuously connected to the identity (via $\ee^{sA_{\ell,+\ii}}$ for $0\le s\le1$), the two $N/2 \times N/2$ diagonal blocks of $\mc M_{+\ii}$ have strictly positive determinants. However, our formula requires the determinant of $(I_N - \mc M_{+\ii})$, meaning we must apply the split-orthogonal determinant theorem~\cite{wang2015prl} to the negative matrix, $-\mc M_{+\ii}$. Multiplying an $N/2 \times N/2$ matrix block by $-1$ scales its determinant by exactly $(-1)^{N/2}$. The theorem dictates that the sign of the overall determinant $\det(I_N - \mc M_{+\ii})$ tracks this block sign, yielding:
 \begin{equation}
     (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
 
-Taking the trace of the first relation in Eq.~\eqref{eq:trs_eta_propagation} gives $\Tr A_{\ell,+\ii}=0$. Equation~\eqref{eq:trs_boson_three_plus_reduced_weight} therefore reduces to
+Finally, Eq.~\eqref{eq:trs_eta_propagation} dictates that $\Tr A_{\ell,+\ii}=0$. According to the \Eq{eq:trs_boson_reduced_weight}, the overall Boltzmann weight is simplified as:
 \begin{equation}
     W=\ee^{\sum_\ell\xi_\ell}
     (-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0.
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-The determinant sign cancels the factor from the $N/2$ creation directions, establishing strict positivity.
+As explicitly shown, the determinant inherently carries a sign of $(-1)^{N/2}$, which perfectly cancels the $(-1)^{N/2}$ factor originating from the $N/2$ creation directions. This exact cancellation establishes the strict positivity of the Boltzmann weight, proving that the split-orthogonal symmetry class is sign-problem-free.
 
 \subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
