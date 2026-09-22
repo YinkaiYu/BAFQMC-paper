@@ -1168,7 +1168,15 @@ The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, 
 \end{equation}
 In this basis, Eq.~\eqref{eq:trs_eta_propagation} identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
 
-The four connected components of $O(N/2,N/2)$ are distinguished by the signs of the determinants of the two $N/2\times N/2$ diagonal blocks, which are always nonzero. The split-orthogonal determinant theorem~\cite{wang2015prl} states that $\det(I_N+\mc M_{+\ii})$ is nonnegative when both block determinants are positive, nonpositive when both are negative, and zero when they have opposite signs.
+The split-orthogonal determinant theorem~\cite{wang2015prl} states that, for $\mc M\in O(N/2,N/2)$,
+\begin{equation}
+    \begin{aligned}
+        \det(I_N+\mc M)&\ge 0, && \mc M\in O^{++}(N/2,N/2),\\
+        \det(I_N+\mc M)&\le 0, && \mc M\in O^{--}(N/2,N/2),\\
+        \det(I_N+\mc M)&=0, && \text{otherwise}.
+    \end{aligned}
+\end{equation}
+Here the signs in $O^{\pm\pm}(N/2,N/2)$ are the signs of the determinants of the two diagonal $N/2\times N/2$ blocks, which are always nonzero; they therefore distinguish the four connected components.
 
 Because the physical time evolution is continuously connected to the identity (via $\ee^{sA_{\ell,+\ii}}$ for $0\le s\le1$), the two $N/2 \times N/2$ diagonal blocks of $\mc M_{+\ii}$ have strictly positive determinants. However, our formula requires the determinant of $(I_N - \mc M_{+\ii})$, meaning we must apply the theorem to the negative matrix, $-\mc M_{+\ii}$. Multiplying an $N/2 \times N/2$ matrix block by $-1$ scales its determinant by exactly $(-1)^{N/2}$. Both diagonal-block determinants of $-\mc M_{+\ii}$ therefore have sign $(-1)^{N/2}$, and the theorem yields:
 \begin{equation}
