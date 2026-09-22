@@ -1054,13 +1054,13 @@ One bosonic sign remains to be accounted for. The selected operators may include
     D=\diag(I_{N-N_-},-I_{N_-}),
     \label{eq:trs_reduced_commutator}
 \end{equation}
-where $N_-$ counts creation directions. Selecting a creation operator reverses the propagation exponent $x$ of its annihilation partner. Their centered oscillator factors satisfy
+where $N_-$ counts creation directions. The contribution of a creation direction is easiest to see for a single mode. If its annihilation operator propagates with factor $\ee^x$, its centered Bose factor is $\ee^{x/2}/(1-\ee^x)$. The creation partner propagates with the inverse factor $\ee^{-x}$, and its centered factor is
 \begin{equation}
     \frac{\ee^{-x/2}}{1-\ee^{-x}}
     =-\frac{\ee^{x/2}}{1-\ee^x}.
     \label{eq:trs_boson_reversed_mode}
 \end{equation}
-Thus each selected creation direction contributes one minus sign. To express this for a general product, preservation of commutators fixes its second Nambu block to $D(\mc M_{+\ii}^\trans)^{-1}D$, giving
+Thus replacing an annihilation direction by its creation partner changes the sign of that mode's contribution. Each selected creation direction therefore contributes one minus sign. For the full product, preservation of the canonical commutators fixes the complementary Nambu block to $D(\mc M_{+\ii}^\trans)^{-1}D$, giving
 \begin{equation}
     (-1)^N\det(I_{2N}-\mc M)
     =\det(\mc M_{+\ii})^{-1}\det(I_N-\mc M_{+\ii})^2.
@@ -1115,7 +1115,7 @@ In cases involving divergent traces, the paired cutoffs introduced in Sec.~\ref{
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
-Consider three mutually anticommuting time-reversal symmetries satisfying $\Theta_1^2=\Theta_2^2=\Theta_3^2=I$. Their product $Q=\Theta_1\Theta_2$ obeys $Q^2=-I$ and commutes with every time slice. As before, we project onto the selected $Q=+\ii$ sector. These three symmetries ensure that the propagation matrices are real and that there are equal numbers of annihilation and creation directions. Together, these two properties strictly determine the sign of the bosonic weight.
+Consider three mutually anticommuting time-reversal symmetries satisfying $\Theta_1^2=\Theta_2^2=\Theta_3^2=I$. Their product $Q=\Theta_1\Theta_2$ obeys $Q^2=-I$ and commutes with every time slice. As before, we project onto the selected $Q=+\ii$ sector. The proof has two ingredients: the third symmetry balances creation and annihilation directions in this sector, while the resulting propagation matrix belongs to a split-orthogonal group whose determinant sign is fixed.
 
 Let us first choose a basis of canonical Nambu operators invariant under $\Theta_1$, which can be constructed using combinations of the form $\hat d+\Theta_1\hat d$ and $\ii(\hat d-\Theta_1\hat d)$. In this basis, the symmetries take the form
 \begin{equation}
@@ -1133,39 +1133,53 @@ where $R_2$ and $R_3$ are real matrices and $\mc K$ denotes complex conjugation.
 \end{gather}
 Because $Q=-\ii R_2$, the two eigenspaces of $Q$ admit purely real bases. Consequently, both the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ in the selected sector are real-valued.
 
-The third symmetry, $\Theta_3$, pairs creation and annihilation directions within the selected sector. Since $Q$ commutes with $\Theta_3$, the transformed operator $\Theta_3(\hat d^+)$ belongs to the $Q=+\ii$ sector if and only if $\hat d$ does. Furthermore, their commutators have opposite signs:
+The third symmetry supplies the balance between creation and annihilation directions. Let $\hat d$ be an annihilation direction in the selected sector, so that $Q\hat d=\ii\hat d$. Hermitian conjugation gives $Q\hat d^+=-\ii\hat d^+$. Since $Q$ commutes with the antiunitary $\Theta_3$, complex conjugation of the eigenvalue returns $\Theta_3(\hat d^+)$ to the $Q=+\ii$ sector. Thus $\Theta_3$ maps every annihilation direction in the selected sector to a creation direction in the same sector. Their commutators have opposite signs:
 \begin{equation}
     [\Theta_3(\hat d^+),(\Theta_3(\hat d^+))^+]=-[\hat d,\hat d^+].
 \end{equation}
-This invertible pairing guarantees an equal number of creation and annihilation directions, thereby fixing the overall creation-operator sign in Eq.~\eqref{eq:trs_boson_reduced_weight} to $(-1)^{N_-}=(-1)^{N/2}$.
+Because $\Theta_3$ is invertible, this pairing is one-to-one. The selected sector therefore contains $N/2$ annihilation and $N/2$ creation directions, so Eq.~\eqref{eq:trs_boson_reduced_weight} becomes
+\begin{equation}
+    W=(-1)^{N/2}
+    \exp\!\left[\sum_\ell\left(\xi_\ell+\frac12\Tr A_{\ell,+\ii}\right)\right]
+    \det(I_N-\mc M_{+\ii})^{-1}.
+    \label{eq:trs_boson_three_plus_reduced_weight}
+\end{equation}
+The exponential is positive, and the remaining sign is fixed by the split-orthogonal structure of $\mc M_{+\ii}$.
 
-To systematically determine the sign of the determinant $\det(I_N-\mc M_{+\ii})$, we construct a real symmetric matrix $\eta$ that acts as a pseudo-metric for the selected sector:
+To determine this structure, define the real symmetric matrix $\eta$ on the selected sector by
 \begin{equation}
     \eta=(\Omega R_3)\big|_{Q=+\ii}.
     \label{eq:trs_eta_definition}
 \end{equation}
-Here, the restriction denotes evaluating the bilinear form strictly within the basis of the $Q=+\ii$ sector. Equation~\eqref{eq:trs_three_plus_physical} implies $(\Omega R_3)^\trans=\Omega R_3$, making $\eta$ manifestly symmetric. Because $R_3$ commutes with every time slice, the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ inherently preserve this metric:
+Here, the restriction denotes evaluating the bilinear form within the $Q=+\ii$ sector. Equation~\eqref{eq:trs_three_plus_physical} implies $(\Omega R_3)^\trans=\Omega R_3$. Because $R_3$ commutes with every time slice, the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ preserve this metric:
 \begin{equation}
     A_{\ell,+\ii}^\trans\eta+\eta A_{\ell,+\ii}=0,\qquad
     \mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta.
     \label{eq:trs_eta_propagation}
 \end{equation}
+The operator $CR_3$ preserves the $Q=+\ii$ sector and anticommutes with $\eta$, so it maps every positive-$\eta$ direction to a negative-$\eta$ direction and vice versa. Hence $\eta$ has equal numbers of positive and negative eigenvalues. In a real basis,
+\begin{equation}
+    \eta=\diag(I_{N/2},-I_{N/2}).
+\end{equation}
+Equation~\eqref{eq:trs_eta_propagation} then identifies $\mc M_{+\ii}$ as an element of the split-orthogonal group $O(N/2,N/2)$.
 
-Crucially, the operator $CR_3$ preserves the $Q=+\ii$ sector but anti-commutes with $\eta$, transforming it into $-\eta$. This guarantees that $\eta$ possesses an exactly equal number of positive and negative eigenvalues. Through a real change of basis, $\eta$ can thus be cast into the canonical block-diagonal form $\eta=\diag(I_{N/2},-I_{N/2})$. The invariant property $\mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta$ then formally identifies the propagation matrix as an element of the split-orthogonal group $O(N/2,N/2)$.
-
-Because the physical time evolution is continuously connected to the identity (via $\ee^{sA_{\ell,+\ii}}$ for $0\le s\le1$), the two $N/2 \times N/2$ diagonal blocks of $\mc M_{+\ii}$ have strictly positive determinants. However, our formula requires the determinant of $(I_N - \mc M_{+\ii})$, meaning we must apply the split-orthogonal determinant theorem~\cite{wang2015prl} to the negative matrix, $-\mc M_{+\ii}$. Multiplying an $N/2 \times N/2$ matrix block by $-1$ scales its determinant by exactly $(-1)^{N/2}$. The theorem dictates that the sign of the overall determinant $\det(I_N - \mc M_{+\ii})$ tracks this block sign, yielding:
+Each slice propagator $\ee^{A_{\ell,+\ii}}$ is continuously connected to the identity through $\ee^{sA_{\ell,+\ii}}$, so $\mc M_{+\ii}$ lies in the identity component of $O(N/2,N/2)$. We use the split-orthogonal determinant theorem~\cite{wang2015prl} in the following form: if $G$ lies in the identity component of $O(p,p)$, then
+\begin{equation}
+    (-1)^p\det(I_{2p}-G)\ge0.
+\end{equation}
+Applying it with $p=N/2$ and $G=\mc M_{+\ii}$ gives
 \begin{equation}
     (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
 
-Finally, Eq.~\eqref{eq:trs_eta_propagation} dictates that $\Tr A_{\ell,+\ii}=0$. According to the \Eq{eq:trs_boson_reduced_weight}, the overall Boltzmann weight is simplified as:
+Taking the trace of the first relation in Eq.~\eqref{eq:trs_eta_propagation} gives $\Tr A_{\ell,+\ii}=0$. Equation~\eqref{eq:trs_boson_three_plus_reduced_weight} therefore reduces to
 \begin{equation}
     W=\ee^{\sum_\ell\xi_\ell}
-    \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
+    (-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}>0.
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-As explicitly shown, the determinant inherently carries a sign of $(-1)^{N/2}$, which perfectly cancels the $(-1)^{N/2}$ factor originating from the $N/2$ creation directions. This exact cancellation establishes the strict positivity of the Boltzmann weight, proving that the split-orthogonal symmetry class is sign-problem-free.
+The determinant sign cancels the factor from the $N/2$ creation directions, establishing strict positivity.
 
 \subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
