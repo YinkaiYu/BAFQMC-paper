@@ -1054,11 +1054,12 @@ One bosonic sign remains to be accounted for. The selected operators may include
     D=\diag(I_{N-N_-},-I_{N_-}),
     \label{eq:trs_reduced_commutator}
 \end{equation}
-where $N_-$ counts creation directions. The sign is easiest to understand for one diagonal bosonic mode. Let $\ee^x$ be the propagation factor for adding one boson to this mode over the full imaginary-time evolution. Summing over all occupations gives the usual Bose factor
+where $N_-$ counts creation directions. The sign is easiest to understand for one diagonal bosonic mode. Let $\ee^x$ be the propagation factor for adding one boson to this mode over the full imaginary-time evolution. Including the zero-point contribution, the mode weight is
 \begin{equation}
-    \sum_{n=0}^{\infty}\ee^{nx}=\frac{1}{1-\ee^x}.
+    \sum_{n=0}^{\infty}\ee^{(n+1/2)x}
+    =\frac{\ee^{x/2}}{1-\ee^x}.
 \end{equation}
-In Nambu language the same oscillator appears as a reciprocal pair of directions, with propagation factors $\ee^x$ and $\ee^{-x}$; the normal-ordering scalar distributes the factor $\ee^{x}$ symmetrically between them. The annihilation direction therefore contributes $\ee^{x/2}/(1-\ee^x)$, whereas choosing the creation direction reverses $x$ and gives
+In Nambu language the same oscillator appears as a reciprocal pair of directions, with propagation factors $\ee^x$ and $\ee^{-x}$. Choosing the creation direction reverses $x$ and gives
 \begin{equation}
     \frac{\ee^{-x/2}}{1-\ee^{-x}}
     =-\frac{\ee^{x/2}}{1-\ee^x}.
