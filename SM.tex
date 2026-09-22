@@ -981,15 +981,15 @@ where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/
 \label{app:nonnegative_proofs}
 \label{app:trs_proof}
 
-Time reversal protects a Gaussian weight by pairing contributions that could otherwise carry a sign or phase. We prove positivity for the three fundamental classes in the order of the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
+Time-reversal symmetry (TRS) ensures the positivity of Boltzmann weights that might otherwise acquire an unphysical sign or complex phase. In this section, we provide detailed proofs demonstrating how the identified symmetry classes rigorously eliminate the sign problem. We establish positivity for the three fundamental classes in the order introduced in the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
 
-We use the Nambu operators and quadratic slices of Sec.~\ref{app:algebra},
+Following the formalism of Sec.~\ref{app:algebra}, we express the Hamiltonian slices and the propagation matrix using Nambu operators:
 \begin{equation}
     \hat h_\ell=-\frac12\hat\chi^\trans\Omega A_\ell\hat\chi+\xi_\ell,
     \qquad \mc M=\ee^{A_1}\cdots\ee^{A_L}.
     \label{eq:trs_configuration_weight}
 \end{equation}
-A time reversal $\Theta$ conjugates numerical coefficients, preserves bosonic commutators, and sends $\hat d^+$ to $(\Theta\hat d)^+$. In the notation $\Theta(\hat\chi)=U\hat\chi$, these requirements and slice invariance read
+The antiunitary time reversal $\Theta$ complex-conjugates numerical coefficients, preserves bosonic commutators, and maps $\hat d^+$ to $(\Theta\hat d)^+$. Representing its action on the Nambu basis as $\Theta(\hat\chi)=U\hat\chi$, these requirements—combined with the condition of slice invariance—impose the following constraints:
 \begin{equation}
     U^\trans\Omega U=\Omega,\qquad
     C\overline U C=U,\qquad
@@ -997,7 +997,7 @@ A time reversal $\Theta$ conjugates numerical coefficients, preserves bosonic co
     \quad C=\begin{pmatrix}0&I_N\\I_N&0\end{pmatrix}.
     \label{eq:trs_physical_TR_conditions}
 \end{equation}
-Here $C$ exchanges creation and annihilation operators. All time reversals in a class preserve every slice and anticommute with one another. The weights use the trace prescription of Sec.~\ref{app:regularization}. Positivity is understood wherever they are finite.
+Here, the matrix $C$ exchanges creation and annihilation operators. By definition, all TRSs within a given class leave every time slice invariant and mutually anticommute. The statistical weights are evaluated using the trace prescription detailed in Sec.~\ref{app:regularization}, and our proofs of positivity apply wherever these traces remain finite.
 
 \subsection{Kramers class \texorpdfstring{\(\{-,-\}\)}{\{-,-\}}}
 \label{app:trs_kramers}
@@ -1086,44 +1086,44 @@ The second equality follows by applying $\Theta_1$ once more and using $\Theta_1
 \subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 \label{app:trs_majorana}
 
-Let every slice preserve two time reversals with
+Assume that every time slice preserves two time-reversal symmetries subject to the constraints
 \begin{equation}
     \Theta_1^2=I,\qquad \Theta_2^2=-I,\qquad
     \Theta_1\Theta_2=-\Theta_2\Theta_1.
 \end{equation}
-Their product is a linear symmetry,
+Because $\Theta_1$ and $\Theta_2$ are both antiunitary, their product constitutes a unitary involution,
 \begin{equation}
     P=\Theta_1\Theta_2,\qquad P^2=I,\qquad
     [P,A_\ell]=0,\qquad P\Theta_1=-\Theta_1P.
 \end{equation}
-The $P=+1$ and $P=-1$ sectors therefore evolve independently. Since $P$ preserves Hermitian conjugation, an operator and its adjoint belong to the same sector. Operators from opposite sectors commute. Indeed, for $P\hat d_+=\hat d_+$ and $P\hat d_-=-\hat d_-$, preservation of the canonical algebra gives
+The commutation relation $[P,A_\ell]=0$ ensures that the $P=+1$ and $P=-1$ eigenspaces decouple and evolve independently. Since $P$ commutes with Hermitian conjugation, any operator and its adjoint must reside in the same sector. Moreover, operators belonging to opposite sectors strictly commute. For instance, given $P\hat d_+=\hat d_+$ and $P\hat d_-=-\hat d_-$, preserving the canonical bosonic algebra gives
 \begin{equation}
     [\hat d_+,\hat d_-]=[P\hat d_+,P\hat d_-]
     =-[\hat d_+,\hat d_-]=0.
 \end{equation}
-An operator can only have its canonical conjugate within its own sector, so each sector describes a complete bosonic subsystem. Consequently,
+An operator can thus only have a canonical conjugate within its own sector, implying that each sector describes a complete, independent bosonic subsystem. The total Fock space and the Hamiltonian therefore decompose as
 \begin{equation}
     \mathcal F=\mathcal F_+\otimes\mathcal F_-,\qquad
     \hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}.
 \end{equation}
-The anticommutation of $P$ and $\Theta_1$ makes time reversal exchange these two subsystems. Denote their weights by $W_+$ and $W_-$. Time reversal gives $W_-=\overline{W_+}$, so
+Because $P$ and $\Theta_1$ anticommute, the time-reversal operation $\Theta_1$ exchanges these two subsystems. Denoting their respective statistical weights by $W_+$ and $W_-$, the application of $\Theta_1$ ensures that $W_-=\overline{W_+}$. The total weight is therefore inherently non-negative:
 \begin{equation}
     W=W_+W_-=|W_+|^2\ge0.
     \label{eq:trs_majorana_weight}
 \end{equation}
-For divergent traces, the paired cutoffs in Sec.~\ref{app:regularization} preserve this relation between their finite parts. Equation~\eqref{eq:reg_conjugate_sectors} gives the corresponding positive determinant weight wherever finite. The Majorana class is therefore the bosonic counterpart of the fermionic Majorana class in Ref.~\cite{li2016prl}. Pairing within either subsystem is fully compatible with the conjugacy of their weights.
+In cases involving divergent traces, the paired cutoffs introduced in Sec.~\ref{app:regularization} preserve this conjugacy relation between their finite parts. Consequently, Eq.~\eqref{eq:reg_conjugate_sectors} yields a strictly positive determinantal weight. This symmetry class is therefore the bosonic counterpart to the fermionic Majorana class identified in Ref.~\cite{li2016prl}. Pairing interactions within either subsystem remain fully compatible with this conjugacy relation, preserving the positivity of the total weight.
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
-Consider three mutually anticommuting time reversals with $\Theta_1^2=\Theta_2^2=\Theta_3^2=I$. The product $Q=\Theta_1\Theta_2$ again obeys $Q^2=-I$ and commutes with every slice. We select its $Q=+\ii$ operators as above. The three symmetries make their propagation real and relate equal numbers of annihilation and creation directions. These two properties fix the bosonic weight.
+Consider three mutually anticommuting time-reversal symmetries satisfying $\Theta_1^2=\Theta_2^2=\Theta_3^2=I$. Their product $Q=\Theta_1\Theta_2$ obeys $Q^2=-I$ and commutes with every time slice. As before, we project onto the selected $Q=+\ii$ sector. These three symmetries ensure that the propagation matrices are real and that there are equal numbers of annihilation and creation directions. Together, these two properties strictly determine the sign of the bosonic weight.
 
-First choose canonical Nambu operators fixed by $\Theta_1$. They can be formed from $\hat d+\Theta_1\hat d$ and $\ii(\hat d-\Theta_1\hat d)$. In this basis,
+Let us first choose a basis of canonical Nambu operators invariant under $\Theta_1$, which can be constructed using combinations of the form $\hat d+\Theta_1\hat d$ and $\ii(\hat d-\Theta_1\hat d)$. In this basis, the symmetries take the form
 \begin{equation}
     \Theta_1=\mc K,\qquad \Theta_2=\ii R_2\mc K,\qquad
     \Theta_3=\ii R_3\mc K,
     \label{eq:trs_three_plus_basis}
 \end{equation}
-where $R_2,R_3$ are real and $\mc K$ conjugates coefficients. The factors of $\ii$ follow from anticommutation with $\Theta_1$. Slice invariance and preservation of the bosonic algebra give
+where $R_2$ and $R_3$ are real matrices and $\mc K$ denotes complex conjugation. The factors of $\ii$ arise necessarily from the anticommutation relations with $\Theta_1$. Invariance of each time slice and preservation of the bosonic algebra impose the following constraints:
 \begin{gather}
     \overline{A_\ell}=A_\ell,\qquad [R_2,A_\ell]=[R_3,A_\ell]=0,
     \qquad R_2R_3=-R_3R_2,\notag\\
@@ -1131,57 +1131,59 @@ where $R_2,R_3$ are real and $\mc K$ conjugates coefficients. The factors of $\i
     CR_jC=-R_j,\qquad j=2,3.
     \label{eq:trs_three_plus_physical}
 \end{gather}
-Since $Q=-\ii R_2$, its two sectors admit real bases. Thus $A_{\ell,+\ii}$ and $\mc M_{+\ii}$ are real.
+Because $Q=-\ii R_2$, the two eigenspaces of $Q$ admit purely real bases. Consequently, both the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ in the selected sector are real-valued.
 
-The third symmetry pairs creation and annihilation directions within the selected sector. Indeed, $Q$ commutes with $\Theta_3$, so $\Theta_3(\hat d^+)$ has $Q=+\ii$ whenever $\hat d$ does. Their commutators have opposite signs,
+The third symmetry, $\Theta_3$, pairs creation and annihilation directions within the selected sector. Since $Q$ commutes with $\Theta_3$, the transformed operator $\Theta_3(\hat d^+)$ belongs to the $Q=+\ii$ sector if and only if $\hat d$ does. Furthermore, their commutators have opposite signs:
 \begin{equation}
     [\Theta_3(\hat d^+),(\Theta_3(\hat d^+))^+]=-[\hat d,\hat d^+].
 \end{equation}
-This invertible pairing gives equal numbers of the two directions, fixing the creation-operator sign in Eq.~\eqref{eq:trs_boson_reduced_weight} to $(-1)^{N_-}=(-1)^{N/2}$.
+This invertible pairing guarantees an equal number of creation and annihilation directions, thereby fixing the overall creation-operator sign in Eq.~\eqref{eq:trs_boson_reduced_weight} to $(-1)^{N_-}=(-1)^{N/2}$.
 
-The determinant sign follows from the real symmetric matrix
+To systematically determine the sign of the determinant $\det(I_N-\mc M_{+\ii})$, we construct a real symmetric matrix $\eta$ that acts as a pseudo-metric for the selected sector:
 \begin{equation}
     \eta=(\Omega R_3)\big|_{Q=+\ii}.
     \label{eq:trs_eta_definition}
 \end{equation}
-Here the restriction means evaluating the bilinear form in a basis of the selected sector. Equation~\eqref{eq:trs_three_plus_physical} gives $(\Omega R_3)^\trans=\Omega R_3$. This form has no matrix elements between opposite $Q$ sectors and remains invertible within each one. Commutation of $R_3$ with every slice then yields
+Here, the restriction denotes evaluating the bilinear form strictly within the basis of the $Q=+\ii$ sector. Equation~\eqref{eq:trs_three_plus_physical} implies $(\Omega R_3)^\trans=\Omega R_3$, making $\eta$ manifestly symmetric. Because $R_3$ commutes with every time slice, the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ inherently preserve this metric:
 \begin{equation}
     A_{\ell,+\ii}^\trans\eta+\eta A_{\ell,+\ii}=0,\qquad
     \mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta.
     \label{eq:trs_eta_propagation}
 \end{equation}
-Moreover, $CR_3$ stays within the selected sector and transforms $\eta$ into $-\eta$. Its positive and negative directions therefore occur in equal numbers. A real basis change brings it to $\eta=\diag(I_{N/2},-I_{N/2})$. Propagation preserves the difference of squared amplitudes in these two sets of channels, the defining property of the split orthogonal group.
 
-Each slice stays connected to the identity through $\ee^{sA_{\ell,+\ii}}$, $0\le s\le1$. The split-orthogonal determinant theorem~\cite{wang2015prl}, applied to $-\mc M_{+\ii}$, gives
+Crucially, the operator $CR_3$ preserves the $Q=+\ii$ sector but anti-commutes with $\eta$, transforming it into $-\eta$. This guarantees that $\eta$ possesses an exactly equal number of positive and negative eigenvalues. Through a real change of basis, $\eta$ can thus be cast into the canonical block-diagonal form $\eta=\diag(I_{N/2},-I_{N/2})$. The invariant property $\mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta$ then formally identifies the propagation matrix as an element of the split-orthogonal group $O(N/2,N/2)$.
+
+Because the physical time evolution is continuously connected to the identity (via $\ee^{sA_{\ell,+\ii}}$ for $0\le s\le1$), the two $N/2 \times N/2$ diagonal blocks of $\mc M_{+\ii}$ have strictly positive determinants. However, our formula requires the determinant of $(I_N - \mc M_{+\ii})$, meaning we must apply the split-orthogonal determinant theorem~\cite{wang2015prl} to the negative matrix, $-\mc M_{+\ii}$. Multiplying an $N/2 \times N/2$ matrix block by $-1$ scales its determinant by exactly $(-1)^{N/2}$. The theorem dictates that the sign of the overall determinant $\det(I_N - \mc M_{+\ii})$ tracks this block sign, yielding:
 \begin{equation}
     (-1)^{N/2}\det(I_N-\mc M_{+\ii})\ge0.
     \label{eq:trs_boson_three_plus_det_sign}
 \end{equation}
-For even $N/2$, the two diagonal blocks of $-\mc M_{+\ii}$ have positive determinants and the theorem gives $\det(I_N-\mc M_{+\ii})\ge0$. For odd $N/2$, both block determinants are negative and the theorem gives the opposite sign. Equation~\eqref{eq:trs_eta_propagation} also implies $\Tr A_{\ell,+\ii}=0$. The reduced trace is consequently
+
+Finally, Eq.~\eqref{eq:trs_eta_propagation} dictates that $\Tr A_{\ell,+\ii}=0$. According to the \Eq{eq:trs_boson_reduced_weight}, the overall Boltzmann weight is simplified as:
 \begin{equation}
     W=\ee^{\sum_\ell\xi_\ell}
     \frac{(-1)^{N/2}}{\det(I_N-\mc M_{+\ii})}>0.
     \label{eq:trs_boson_three_plus_weight}
 \end{equation}
-The determinant sign is canceled by the sign from the $N/2$ creation directions. This cancellation establishes positivity for the split-orthogonal class.
+As explicitly shown, the determinant inherently carries a sign of $(-1)^{N/2}$, which perfectly cancels the $(-1)^{N/2}$ factor originating from the $N/2$ creation directions. This exact cancellation establishes the strict positivity of the Boltzmann weight, proving that the split-orthogonal symmetry class is sign-problem-free.
 
 \subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
 
-The Kramers class, Majorana class, and split-orthogonal class determine the sign-free entries of the periodic table. A larger symmetry set guarantees positivity whenever it contains the symmetries of one of these three classes. The remaining possibilities are $\{+,+\}$, $\{-\}$, and subsets of these sets. Two examples show why they do not guarantee positivity.
+The Kramers, Majorana, and split-orthogonal classes constitute the fundamental sign-problem-free entries of the periodic table. Any larger symmetry set guarantees positivity provided it contains the symmetries of at least one of these three classes. The remaining possibilities are the $\{+,+\}$ and $\{-\}$ classes, along with their subsets. The following counterexamples demonstrate why these classes fail to guarantee positivity.
 
-For $\{+,+\}$, take a single mode with
+For the $\{+,+\}$ class, consider a single bosonic mode described by
 \begin{equation}
     \hat h=\kappa(\hat n_b+1/2),\qquad
     \Theta_1(\hat b)=\hat b,\qquad \Theta_2(\hat b)=\ii\hat b.
     \label{eq:trs_boson_pp_counter_h}
 \end{equation}
-Both maps conjugate coefficients, preserve $\hat h$, square to $+I$, and anticommute. The occupation sum converges for $\kappa<0$ and gives $W=\ee^{\kappa/2}/(1-\ee^\kappa)$. For $\kappa>0$, the corresponding regularized weight is
+Both symmetry operations are antiunitary (complex-conjugating numerical coefficients), preserve $\hat h$, square to $+I$, and mutually anticommute. For $\kappa<0$, the sum over particle occupations converges, yielding $W=\ee^{\kappa/2}/(1-\ee^\kappa)$. However, for $\kappa>0$, the corresponding regularized weight becomes
 \begin{equation}
     W=-\frac{1}{2\sinh(\kappa/2)}<0.
     \label{eq:trs_boson_pp_counter_weight}
 \end{equation}
-Two such time reversals can act on a single oscillator, providing no independent conjugate subsystem to protect a modulus-square weight. The same example also rules out a general positivity guarantee for the weaker classes with only one of these symmetries, or with no time-reversal symmetry.
+Because two such time-reversal symmetries can act on a single oscillator, they do not necessitate an independent conjugate subsystem to protect a modulus-squared (and thus non-negative) weight. This single-mode counterexample also rules out any general positivity guarantee for weaker symmetry classes containing only one such TRS, or lacking time-reversal symmetry entirely.
 
 For $\{-\}$, consider the complete three-slice family
 \begin{align}
@@ -1203,7 +1205,7 @@ so, for example, $W=-1/2$ at $t=\pi/2$. This gives a negative weight in the sing
 Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a nonnegative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
 
 \begin{table}[ht]
-    \caption{\textbf{Time-reversal classes for bosonic and fermionic Gaussian evolution.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
+    \caption{\textbf{Time-reversal symmetry classes for sign-problem-free bosonic and fermionic AFQMC.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
     \label{tab:trs_boson_fermion}
     \vspace{8pt}
     {\fontencoding{T1}\sffamily
