@@ -1138,20 +1138,20 @@ where $R_2$ and $R_3$ are real matrices and $\mc K$ denotes complex conjugation.
 \end{gather}
 Because $Q=-\ii R_2$, the two eigenspaces of $Q$ admit purely real bases. Consequently, both the generator $A_{\ell,+\ii}$ and the propagation matrix $\mc M_{+\ii}$ in the selected sector are real-valued.
 
-The third symmetry supplies the balance between creation and annihilation directions. If $\hat d$ is an annihilation direction in the selected sector, then $\Theta_3(\hat d^+)$ is a creation direction in the same sector. Their commutators have opposite signs:
+As in the Kramers class, we describe propagation using the $N$ operators in the $Q=+\ii$ sector, with slice and full propagation matrices $A_{\ell,+\ii}$ and $\mc M_{+\ii}$. If $\hat d$ is an annihilation direction in the selected $Q=+\ii$ sector, then $\Theta_3(\hat d^+)$ is a creation direction in the same sector. Their commutators have opposite signs:
 \begin{equation}
     [\Theta_3(\hat d^+),(\Theta_3(\hat d^+))^+]=-[\hat d,\hat d^+].
 \end{equation}
-Because $\Theta_3$ is invertible, this pairing is one-to-one. The selected sector therefore contains $N/2$ annihilation and $N/2$ creation directions, so Eq.~\eqref{eq:trs_boson_reduced_weight} becomes
+Because $\Theta_3$ is invertible, this pairing is one-to-one. The selected $Q=+\ii$ sector therefore contains $N/2$ annihilation and $N/2$ creation directions, so $N_-=N/2$. Substituting this into Eq.~\eqref{eq:trs_boson_reduced_weight} gives the complete Boltzmann weight
 \begin{equation}
     W=(-1)^{N/2}
     \exp\!\left[\sum_\ell\left(\xi_\ell+\frac12\Tr A_{\ell,+\ii}\right)\right]
     \det(I_N-\mc M_{+\ii})^{-1}.
     \label{eq:trs_boson_three_plus_reduced_weight}
 \end{equation}
-The exponential is positive, and the remaining sign is fixed by the split-orthogonal structure of $\mc M_{+\ii}$.
+The scalar exponential is positive. It remains to determine the sign of $(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}$.
 
-To determine this structure, define the real symmetric matrix $\eta$ on the selected sector by
+We determine this sign by identifying the structure preserved by $\mc M_{+\ii}$. Define the real symmetric matrix $\eta$ on the selected $Q=+\ii$ sector by
 \begin{equation}
     \eta=(\Omega R_3)\big|_{Q=+\ii}.
     \label{eq:trs_eta_definition}
