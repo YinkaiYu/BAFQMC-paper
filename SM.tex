@@ -106,46 +106,46 @@ $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 \section{Number-conserving Gaussian formulas}
 \label{app:number_conserving_gaussian}
 
+For a fixed auxiliary-field configuration, the HS transformation reduces the interacting problem to bosons propagating in an external field. When this propagation conserves particle number, the sum over all boson occupations and the equal-time correlations can both be evaluated from an $N\times N$ single-particle matrix. These two quantities determine the configuration weight, the observable estimators, and the acceptance of local field updates.
+
 \subsection{Trace formula}
 \label{app:trace_number}
 
-For fixed auxiliary fields, a number-conserving Gaussian product has the form
+Let $\hat{\bb a}=(\hat a_1,\ldots,\hat a_N)^\trans$ collect the annihilation operators of the $N$ bosonic modes. At fixed auxiliary fields, the many-body propagator and its single-particle matrix are
 \begin{equation}
     \hat U=\prod_{\ell=1}^{L}\exp[\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}],
     \qquad
-    \mc B=\ee^{B_1(\phi_1)}\cdots\ee^{B_L(\phi_L)} .
+    \mc B=\ee^{B_1(\phi_1)}\cdots\ee^{B_L(\phi_L)}.
 \end{equation}
-The determinant trace formula is most transparent when $\mc B$ is already diagonal. If its eigenvalues are $r_1,\ldots,r_N$, the Fock-space trace is the product of ordinary geometric sums over boson occupation numbers,
+Here $B_\ell$ is the coefficient matrix of the quadratic generator, $\ee^{B_\ell}$ propagates a single particle through that factor, and $\mc B$ describes the complete imaginary-time evolution. We suppress the field dependence below.
+
+The bosonic trace sums over every occupation of the single-particle modes. If $\mc B$ is diagonal with eigenvalues $r_1,\ldots,r_N$, a state with $n_i$ bosons in mode $i$ acquires the factor $r_i^{n_i}$. Summing these factors gives
 \begin{equation}
     \Tr\,\hat U
     =
     \sum_{n_1,\ldots,n_N\ge0}\prod_{i=1}^{N}r_i^{n_i}
     =
     \prod_{i=1}^{N}\frac{1}{1-r_i},
-    \qquad |r_i|<1 .
+    \qquad |r_i|<1.
 \end{equation}
-This occupation-number derivation shows the physical origin of the inverse determinant: each single-particle mode contributes all nonnegative boson occupations. The finite-temperature bosonic AFQMC construction in Ref.~\cite{rubenstein2012pra} uses the same geometric-series argument.
+Thus the inverse determinant arises from the unrestricted bosonic occupations, with each mode contributing a geometric series~\cite{rubenstein2012pra}.
 
-The coherent-state derivation gives the matrix form of this result without choosing a diagonal basis. We use unnormalized coherent states $|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$, for which
+Coherent states extend this occupation-number picture to a general propagation matrix. We use the unnormalized states $|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$, where $z$ is a vector of complex amplitudes. Their overlap and resolution of the identity are
 \begin{equation}
-    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,|z\rangle\langle z|,
+    \langle z|w\rangle=\ee^{z^\hc w},
     \qquad
-    \langle z|w\rangle=\ee^{z^\hc w}.
+    I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,|z\rangle\langle z|.
 \end{equation}
-For a single slice,
+The quadratic propagator acts linearly on these amplitudes. Indeed,
 \begin{equation}
-    [\hat{\bb a}^+C\hat{\bb a},\hat a_i^+]
-    =\sum_j \hat a_j^+ C_{ji},
+    [\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i^+]
+    =\sum_j\hat a_j^+(B_\ell)_{ji},
     \qquad
-    \ee^{\hat{\bb a}^+C\hat{\bb a}}\hat{\bb a}^+
-    \ee^{-\hat{\bb a}^+C\hat{\bb a}}
-    =\hat{\bb a}^+\ee^{C}.
+    \ee^{\hat{\bb a}^+B_\ell\hat{\bb a}}\hat{\bb a}^+
+    \ee^{-\hat{\bb a}^+B_\ell\hat{\bb a}}
+    =\hat{\bb a}^+\ee^{B_\ell}.
 \end{equation}
-The vacuum is invariant, and applying this relation slice by slice gives
-\begin{equation}
-    \hat U|z\rangle=|\mc B z\rangle .
-\end{equation}
-Substituting the coherent-state identity into the trace then gives
+Since the vacuum is invariant, each factor sends $|z\rangle$ to $|\ee^{B_\ell}z\rangle$, and the full evolution gives $\hat U|z\rangle=|\mc B z\rangle$. The Fock-space trace therefore becomes an integral over the coherent-state amplitudes,
 \begin{equation}
     \Tr\,\hat U
     =
@@ -155,283 +155,217 @@ Substituting the coherent-state identity into the trace then gives
     \int\frac{\dd^{2N}z}{\pi^N}
     \exp[-z^\hc(I_N-\mc B)z].
 \end{equation}
-When the Hermitian part of $I_N-\mc B$ is positive definite, this is an ordinary convergent complex Gaussian integral. The standard complex Gaussian identity,
+When the Hermitian part of $I_N-\mc B$ is positive definite, this Gaussian integral converges. Applying the complex Gaussian identity $\int\dd^2z\,\ee^{-a|z|^2}/\pi=a^{-1}$ for $\operatorname{Re}a>0$ successively after Schur triangularization yields
 \begin{equation}
-    \int\frac{\dd^2 z}{\pi}\,\ee^{-a|z|^2}=\frac{1}{a},
-    \qquad \operatorname{Re}a>0.
-\end{equation}
-generalizes to matrices as $\int \dd^{2N}z\,\exp(-z^\hc A z)/\pi^N=\det A^{-1}$ in this convergent domain, for example by Schur triangularization and successive Gaussian integration. The result is
-\begin{equation}
-    \Tr\,\hat U
-    =
-    \det(I_N-\mc B)^{-1}.
+    \Tr\,\hat U=\det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-The diagonal occupation-number derivation and the coherent-state Gaussian integral agree in their common convergent domain. Stable nondiagonal products follow by continuity from diagonalizable products, including limits in which the single-particle matrix develops Jordan blocks while its eigenvalues remain inside the unit circle. The Gaussian-cutoff construction in Sec.~\ref{app:regularization} uses the same occupation-number series to define the determinant finite part for fixed-field configurations whose bare trace does not converge. Equation~\eqref{eq:number_trace_product} is Eq.~\eqref{eq:trace_formula_number}.
+This reproduces Eq.~\eqref{eq:trace_formula_number} and agrees with the occupation-number sum wherever both representations converge. The matrix expression also extends continuously to nondiagonalizable products within the convergent domain. For fixed-field configurations with divergent bare traces, Sec.~\ref{app:regularization} derives the same determinant expression as the finite part of a Gaussian-regulated occupation sum.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
 
-At fixed $\phi$, define
+The same propagation matrix determines the particle density and equal-time correlations in each auxiliary-field configuration. Define
 \begin{equation}
-    G_{ij}=\langle \hat a_i\hat a_j^+\rangle_\phi,\qquad
-    \bar G_{ij}=\langle \hat a_j^+\hat a_i\rangle_\phi,
+    G_{ij}=\langle\hat a_i\hat a_j^+\rangle_\phi,
+    \qquad
+    \bar G_{ij}=\langle\hat a_j^+\hat a_i\rangle_\phi,
 \end{equation}
-where $\langle\cdots\rangle_\phi=\Tr[(\cdots)\hat U]/\Tr\hat U$. The linear action of a single slice follows from
-$[\hat{\bb a}^+B\hat{\bb a},\hat a_i]=-\sum_jB_{ij}\hat a_j$, giving
+where $\langle\hat O\rangle_\phi=\Tr(\hat O\hat U)/\Tr\hat U$. The diagonal element $\bar G_{ii}$ is the occupation of mode $i$ at fixed fields, while the off-diagonal elements describe one-body coherence. Here the bar in $\bar G$ denotes the reversed operator ordering. Complex conjugation is written explicitly as $\overline{G}$ below.
+
+To evaluate these correlations, move an annihilation operator through the imaginary-time evolution. The commutator $[\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i]=-\sum_j(B_\ell)_{ij}\hat a_j$ implies
 \begin{equation}
-    \hat{\bb a}\,\ee^{\hat{\bb a}^+B\hat{\bb a}}
-    =
-    \ee^{\hat{\bb a}^+B\hat{\bb a}}\,\ee^B\hat{\bb a}.
-\end{equation}
-Applying this relation through all slices gives
-\begin{equation}
+    \hat{\bb a}\,\ee^{\hat{\bb a}^+B_\ell\hat{\bb a}}
+    =\ee^{\hat{\bb a}^+B_\ell\hat{\bb a}}\ee^{B_\ell}\hat{\bb a},
+    \qquad
     \hat{\bb a}\hat U=\hat U\,\mc B\hat{\bb a}.
 \end{equation}
-Now
+Cyclicity of the trace then relates the two operator orderings,
 \begin{equation}
-    \bar G_{ij}=\frac{\Tr(\hat a_j^+\hat a_i\hat U)}{\Tr\hat U}
+    \bar G_{ij}
+    =\frac{\Tr(\hat a_j^+\hat a_i\hat U)}{\Tr\hat U}
     =\frac{\Tr(\hat a_i\hat U\hat a_j^+)}{\Tr\hat U}
-    =\sum_k\mc B_{ik}G_{kj},
+    =\sum_k\mc B_{ik}G_{kj}.
 \end{equation}
-where the second equality is cyclicity of the trace and the third uses the linear action above. Thus $\bar G=\mc B G$. The canonical commutator also gives $G=I_N+\bar G$. Combining the two equations yields
+Thus $\bar G=\mc B G$, while the bosonic commutator gives $G=I_N+\bar G$. Together these relations yield
 \begin{equation}
-    G=(I_N-\mc B)^{-1},\qquad
-    \bar G=\mc B(I_N-\mc B)^{-1},
+    G=(I_N-\mc B)^{-1},
+    \qquad
+    \bar G=\mc B(I_N-\mc B)^{-1}=G-I_N,
 \end{equation}
-which is Eq.~\eqref{eq:number_green_blocks}. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian.
+in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\bar G_{ii}=r_i/(1-r_i)$ is the mean occupation obtained from the geometric series above. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian. The Green function also determines how the configuration weight changes under a local auxiliary-field update.
 
 \subsection{Local update and Metropolis ratio}
 \label{app:update_number}
 
-Suppose a local proposal changes only slice $\ell$ and, after cyclically ordering the product from that slice, changes the single-particle matrix as
+A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Both operations can be expressed through the few single-particle components affected by the field change.
+
+To place the proposed change at the beginning of the matrix product, use cyclicity of the trace and define
 \begin{equation}
-    \ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell},\qquad
-    \mc B_\ell=\ee^{B_\ell}\ee^{B_{\ell+1}}\cdots\ee^{B_L}\ee^{B_1}\cdots\ee^{B_{\ell-1}}.
+    \mc B_\ell=\ee^{B_\ell}\ee^{B_{\ell+1}}\cdots\ee^{B_L}\ee^{B_1}\cdots\ee^{B_{\ell-1}},
+    \qquad
+    G_\ell=(I_N-\mc B_\ell)^{-1}.
 \end{equation}
-Then $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. With $G_\ell=(I_N-\mc B_\ell)^{-1}$,
+The matrix $\mc B_\ell$ contains the full imaginary-time evolution, ordered from slice $\ell$. The corresponding $G_\ell$ measures equal-time correlations at the boundary of that slice, referred to as the equal-time cut. All cyclic orderings give the same configuration weight.
+
+\emph{Weight ratio.} Suppose the proposal changes the single-particle propagator according to $\ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell}$, so that $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. Using $G_\ell\mc B_\ell=G_\ell-I_N$ gives
 \begin{equation}
     I_N-\mc B_\ell'
-    =\left[I_N+\Delta_\ell(I_N-G_\ell)\right](I_N-\mc B_\ell),
+    =\left[I_N+\Delta_\ell(I_N-G_\ell)\right](I_N-\mc B_\ell).
 \end{equation}
-where we used $G_\ell\mc B_\ell=G_\ell-I_N$. Thus the determinant part of the number-conserving weight ratio is
+Taking determinants yields the ratio of the bosonic weights,
 \begin{equation}
     \frac{W'}{W}
-    =
-    \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1},
+    =\det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}.
     \label{eq:update_ratio_number}
 \end{equation}
-The same factorization gives the updated equal-time Green function. Let
-\begin{equation}
-    C_\ell=I_N+\Delta_\ell(I_N-G_\ell).
-\end{equation}
-Since $I_N-\mc B_\ell'=C_\ell(I_N-\mc B_\ell)$,
-\begin{equation}
-    G_\ell'=(I_N-\mc B_\ell')^{-1}=G_\ell C_\ell^{-1}.
-    \label{eq:number_green_update_general}
-\end{equation}
-For a proposal that changes a single onsite field in a single flavor,
-\begin{equation}
-    \Delta_\ell=\delta\ket{i}\bra{i}.
-\end{equation}
-Then
-\begin{equation}
-    C_\ell=I_N+\delta\ket{i}\bra{i}(I_N-G_\ell),
-\end{equation}
-so the matrix determinant lemma gives
-\begin{equation}
-    \det C_\ell=1+\delta(1-G_{\ell;ii}),
-\end{equation}
-and the Sherman-Morrison formula gives
-\begin{equation}
-    C_\ell^{-1}
-    =
-    I_N
-    -
-    \frac{\delta\ket{i}(\bra{i}-\bra{i}G_\ell)}
-         {1+\delta(1-G_{\ell;ii})}.
-    \label{eq:number_sherman_morrison}
-\end{equation}
-Substituting Eq.~\eqref{eq:number_sherman_morrison} into Eq.~\eqref{eq:number_green_update_general} gives the rank-one accepted-update formula below. If the proposal changes several local single-particle components, the same derivation gives a determinant and a Woodbury update in that local block.
+For an onsite change acting on one mode, $\Delta_\ell=\delta\ket{i}\bra{i}$, where $\ket{i}$ is the corresponding single-particle basis vector and $1+\delta$ is the change in its propagation factor. The matrix determinant lemma reduces the weight ratio to $W'/W=[1+\delta(1-G_{\ell;ii})]^{-1}$, which requires only one diagonal element of $G_\ell$.
 
-The Metropolis step samples the full auxiliary-field measure, not only the determinant. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in our sign-problem-free simulation, the acceptance probability is
+The acceptance probability includes the Gaussian HS measure as well as the bosonic weight. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in a sign-problem-free calculation,
 \begin{equation}
     p(\phi\to\phi')
-    =
-    \min\left(1,
+    =\min\left(1,
     \exp\left[-\frac12(\phi_{i\ell}'^{\,2}-\phi_{i\ell}^{2})\right]
     \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}
     \right).
 \end{equation}
-Here the exponential factor is the ratio of the two Gaussian HS weights.
+The exponential is the ratio of the Gaussian weights for the field being updated. When a field acts on several flavors, $W'/W$ includes all of their contributions.
 
-For two flavors with real hopping, the density-channel HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} give a number-conserving slice
+\emph{Green-function update.} Once a proposal is accepted, the preceding factorization also determines the new correlations. Defining $C_\ell=I_N+\Delta_\ell(I_N-G_\ell)$ gives
+\begin{equation}
+    G_\ell'=(I_N-\mc B_\ell')^{-1}=G_\ell C_\ell^{-1}.
+    \label{eq:number_green_update_general}
+\end{equation}
+For the onsite change, $C_\ell=I_N+\delta\ket{i}\bra{i}(I_N-G_\ell)$. The Sherman-Morrison identity yields
+\begin{equation}
+    C_\ell^{-1}
+    =I_N-\frac{\delta\ket{i}(\bra{i}-\bra{i}G_\ell)}
+                    {1+\delta(1-G_{\ell;ii})},
+    \label{eq:number_sherman_morrison}
+\end{equation}
+and hence
+\begin{equation}
+    G_\ell'
+    =G_\ell-\frac{\delta\,G_\ell\ket{i}(\bra{i}-\bra{i}G_\ell)}
+                       {1+\delta(1-G_{\ell;ii})}.
+\end{equation}
+The accepted update therefore requires only a rank-one correction to the stored Green function. For a change acting on several local components, the determinant lemma and the Woodbury identity give the corresponding weight ratio and Green-function correction within that local subspace.
+
+\emph{Two-flavor realization.} In the number-conserving benchmark~\cite{bafqmc_code}, the two bosonic flavors experience complex-conjugate HS potentials. The quadratic terms entering each slice are
 \begin{equation}
 \begin{aligned}
     \hat h_\ell^{(0)}
-    ={}&
-    \sum_{ij}\hat b_i^+K_{ij}\hat b_j
-    +\sum_i v_{b,i\ell}\hat n_{b,i} \\
-    &+\sum_{ij}\hat c_i^+K_{ij}\hat c_j
-    +\sum_i v_{c,i\ell}\hat n_{c,i}.
+    ={}&\sum_{ij}\hat b_i^+K_{ij}\hat b_j
+       +\sum_i v_{b,i\ell}\hat n_{b,i}\\
+       &+\sum_{ij}\hat c_i^+K_{ij}\hat c_j
+       +\sum_i v_{c,i\ell}\hat n_{c,i},
 \end{aligned}
     \label{eq:number_benchmark_slice}
 \end{equation}
-Here $K$ contains the hopping and chemical-potential contribution in the one-body Trotter slice, and
-\begin{equation}
-    v_{b,i\ell}=\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell},
-    \qquad
-    v_{c,i\ell}=\alpha_1\phi_{i\ell}-\ii\alpha_2\varphi_{i\ell}.
-\end{equation}
-Thus the two flavors see complex-conjugate onsite fields. Let $B_{b,\ell}$ and $B_{c,\ell}$ denote the complete single-particle slice propagators generated by the $b$ and $c$ parts of Eq.~\eqref{eq:number_benchmark_slice}, including the kinetic, chemical-potential, and onsite HS factors in the chosen Trotter order. For a sweep whose equal-time cut is at slice $\ell$, define the cyclic products
+where the real matrix $K$ contains the hopping and chemical-potential contributions, including their imaginary-time step. The potentials $v_{b,i\ell}=\alpha_1\phi_{i\ell}+\ii\alpha_2\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$ follow from Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}.
+
+On a lattice of $N_s$ sites, the two flavors contain $N=2N_s$ modes, and each flavor propagates in an $N_s$-dimensional single-particle space. Let $\ee^{B_{b,\ell}}$ and $\ee^{B_{c,\ell}}$ denote the ordered products of kinetic and onsite propagators on one slice. For local updates, choose the equal-time cut immediately before the onsite factor, so that its change acts by left multiplication. The cyclic products are
 \begin{equation}
 \begin{aligned}
     \mc B_{b,\ell}
-    &=
-    B_{b,\ell}B_{b,\ell+1}\cdots B_{b,L}B_{b,1}\cdots B_{b,\ell-1},\\
+    &=\ee^{B_{b,\ell}}\ee^{B_{b,\ell+1}}\cdots\ee^{B_{b,L}}\ee^{B_{b,1}}\cdots\ee^{B_{b,\ell-1}},\\
     \mc B_{c,\ell}
-    &=
-    B_{c,\ell}B_{c,\ell+1}\cdots B_{c,L}B_{c,1}\cdots B_{c,\ell-1},
+    &=\ee^{B_{c,\ell}}\ee^{B_{c,\ell+1}}\cdots\ee^{B_{c,L}}\ee^{B_{c,1}}\cdots\ee^{B_{c,\ell-1}},
 \end{aligned}
     \label{eq:number_cyclic_products_benchmark}
 \end{equation}
-and the equal-time Green functions
+with Green functions
 \begin{equation}
-    G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1},
+    G_{b,\ell}=(I_{N_s}-\mc B_{b,\ell})^{-1},
     \qquad
-    G_{c,\ell}=(I_N-\mc B_{c,\ell})^{-1}.
+    G_{c,\ell}=(I_{N_s}-\mc B_{c,\ell})^{-1}.
     \label{eq:number_green_bc_def}
 \end{equation}
-Since the same real matrix $K$ appears in both sectors and the onsite fields are complex conjugates, the slice propagators satisfy
-\begin{equation}
-    B_{c,\ell}=\overline{B_{b,\ell}},
-\end{equation}
-and therefore
+The real hopping and conjugate onsite potentials imply $\ee^{B_{c,\ell}}=\overline{\ee^{B_{b,\ell}}}$ at every slice. Consequently,
 \begin{equation}
     \mc B_{c,\ell}=\overline{\mc B_{b,\ell}},
     \qquad
-    G_{c,\ell}
-    =\overline{G_{b,\ell}}.
+    G_{c,\ell}=\overline{G_{b,\ell}}.
     \label{eq:conj_green_benchmark}
 \end{equation}
-Therefore the production calculation only needs to carry the $b$-sector stabilized matrix product and Green function explicitly. The $c$-sector determinant ratio, Green function, and local update are obtained by complex conjugation. This reduces the matrix work without changing the sampled two-flavor weight.
+It is therefore sufficient to evaluate and stabilize the $b$-flavor propagation matrix and Green function. The corresponding $c$-flavor quantities follow by complex conjugation.
 
-A local proposal at site $i$ changes the $b$-sector slice by a diagonal factor $1+\delta_b$ at that site. The single-flavor determinant ratio is
+A local field proposal multiplies the $b$-flavor onsite propagator by $1+\delta_b$. For a total-density field change, $\delta_b=\ee^{\alpha_1(\phi_{i\ell}'-\phi_{i\ell})}-1$. For a relative-density field change, $\delta_b=\ee^{\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})}-1$. The resulting single-flavor weight ratio is
 \begin{equation}
-    r_b=
-    \left[
-    1+\delta_b(1-G_{b,\ell;ii})
-    \right]^{-1},
+    r_b=\left[1+\delta_b(1-G_{b,\ell;ii})\right]^{-1}.
     \label{eq:single_flavor_local_ratio}
 \end{equation}
-where $G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1}$ is the cyclic equal-time Green function. For a $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$,
-\begin{equation}
-    \delta_b=\ee^{\alpha_1(\phi_{i\ell}'-\phi_{i\ell})}-1,
-\end{equation}
-whereas for a $U_2$-field proposal $\varphi_{i\ell}\to\varphi_{i\ell}'$,
-\begin{equation}
-    \delta_b=\ee^{\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})}-1.
-\end{equation}
-The $c$-flavor ratio is $r_c=\overline{r_b}$, so the determinant part of the two-flavor ratio is
-\begin{equation}
-    r_b r_c=|r_b|^2,
-\end{equation}
-and the local Metropolis probability used for the $\Delta=0$ benchmark is
+Since $r_c=\overline{r_b}$, the full two-flavor ratio is $W'/W=r_b r_c=|r_b|^2$. Combining it with the Gaussian HS ratio gives the acceptance probability used for the $\Delta=0$ benchmark,
 \begin{equation}
     p=\min\left(1,
     \exp\left[-\frac12(x_{i\ell}'^{\,2}-x_{i\ell}^{2})\right]
-    |r_b|^2
-    \right),
+    |r_b|^2\right),
     \label{eq:benchmark_number_local_ratio}
 \end{equation}
-where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$.
-
-After an accepted proposal, the $b$-sector Green function is updated by the rank-one formula
+where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$. After acceptance, the Green function becomes
 \begin{equation}
-    G_{b,\ell}'=
-    G_{b,\ell}
-    -
-    \delta_b r_b\,
-    G_{b,\ell}\ket{i}
+    G_{b,\ell}'=G_{b,\ell}
+    -\delta_b r_b\,G_{b,\ell}\ket{i}
     \left(\bra{i}-\bra{i}G_{b,\ell}\right).
     \label{eq:number_green_rank_one}
 \end{equation}
-The $c$-sector update is the complex conjugate of Eq.~\eqref{eq:number_green_rank_one}.
+The $c$-flavor update is the complex conjugate of Eq.~\eqref{eq:number_green_rank_one}.
 
 \subsection{Numerical stabilization in the number-conserving calculation}
 \label{app:stabilization_number}
 
-The local-update formulas above are exact algebraic identities, but long imaginary-time products cannot be formed by naive multiplication. At time slice $\ell$ the algorithm works with the cyclic product
+At low temperature, the single-particle propagation spans many imaginary-time slices. Repeated multiplication amplifies some directions and suppresses others exponentially, so finite-precision arithmetic can lose the smaller contributions needed to evaluate $(I_{N_s}-\mc B_{b,\ell})^{-1}$. Stable sampling therefore combines local Green-function updates with periodic reconstruction from a factorized full propagation matrix.
+
+During a sweep, accepted proposals update $G_{b,\ell}$ through Eq.~\eqref{eq:number_green_rank_one}. Advancing the equal-time cut to slice $\ell+1$ cyclically permutes the product in Eq.~\eqref{eq:number_cyclic_products_benchmark},
 \begin{equation}
-    \mc B_{b,\ell}
-    =
-    B_{b,\ell}B_{b,\ell+1}\cdots B_{b,L}B_{b,1}\cdots B_{b,\ell-1}
+    \mc B_{b,\ell+1}=\ee^{-B_{b,\ell}}\mc B_{b,\ell}\ee^{B_{b,\ell}}.
 \end{equation}
-and the Green function $G_{b,\ell}=(I_N-\mc B_{b,\ell})^{-1}$. During a sweep, accepted local proposals are incorporated with Eq.~\eqref{eq:number_green_rank_one}. Advancing the equal-time cut from $\ell$ to $\ell+1$ replaces $\mc B_{b,\ell}$ by the cyclically permuted product
+The Green function transforms accordingly,
 \begin{equation}
-    \mc B_{b,\ell+1}=B_{b,\ell}^{-1}\mc B_{b,\ell}B_{b,\ell}.
-\end{equation}
-Thus, in exact arithmetic,
-\begin{equation}
-    G_{b,\ell+1}=B_{b,\ell}^{-1}G_{b,\ell}B_{b,\ell}.
+    G_{b,\ell+1}=\ee^{-B_{b,\ell}}G_{b,\ell}\ee^{B_{b,\ell}}.
     \label{eq:number_wrap_similarity}
 \end{equation}
-Equation~\eqref{eq:number_wrap_similarity} is cheap and is used within a short propagation window. Repeating it over many slices is unstable because the product contains exponentially growing and decaying directions.
+These updates propagate the correlations between nearby slices. To control accumulated roundoff error, the sweep is divided into windows of $N_{\rm wrap}$ slices, with $N_{\rm wrap}=10$ in the reported benchmarks. At each window boundary, $G_{b,\ell}$ is recomputed from the stabilized full cyclic product.
 
-The sweep is therefore organized into windows of $N_{\rm wrap}$ time slices. In the production runs reported here $N_{\rm wrap}=10$. At the end of each window, the Green function obtained by local and cut-propagation updates is replaced by one recomputed from a stabilized representation of the full cyclic product.
-
-To construct that representation, let
+The stabilization separates the magnitudes generated by imaginary-time evolution from the remaining matrix factors. For a window beginning at slice $j$, take the factors in the order used in Eq.~\eqref{eq:number_cyclic_products_benchmark},
 \begin{equation}
-    X_j=B_{b,j+N_{\rm wrap}-1}\cdots B_{b,j+1}B_{b,j}
+    X_j=\ee^{B_{b,j}}\ee^{B_{b,j+1}}\cdots\ee^{B_{b,j+N_{\rm wrap}-1}},
 \end{equation}
-be the product of the slice propagators inside one window, with time indices understood modulo $L$. A column-pivoted QR factorization gives
+with indices understood modulo $L$. A column-pivoted QR factorization, $X_jP_j=Q_jR_j$, gives a unitary $Q_j$, an upper-triangular $R_j$, and a permutation matrix $P_j$. Extracting the diagonal magnitudes $(D_j)_{ii}=|(R_j)_{ii}|$ gives
 \begin{equation}
-    X_jP_j=Q_jR_j,
-\end{equation}
-where $P_j$ is a permutation matrix and $Q_j$ is unitary. The diagonal magnitudes of $R_j$ are pulled out into a positive diagonal matrix $D_j$, and the remaining triangular and permutation factors are collected into $V_j$. Thus the same window product is stored as
-\begin{equation}
-    X_j=U_jD_jV_j,\qquad U_j=Q_j.
+    X_j=U_jD_jV_j,
+    \qquad U_j=Q_j,
+    \qquad V_j=D_j^{-1}R_jP_j^\trans.
     \label{eq:window_udv_number}
 \end{equation}
-Multiplying windows in the form of Eq.~\eqref{eq:window_udv_number} keeps the large scales in the diagonal matrices instead of allowing them to overwhelm the small scales in ordinary matrix multiplication.
+Successive window products are accumulated with repeated factorizations, retaining their large and small scales explicitly in the diagonal factors.
 
-At an equal-time cut, the stabilized left and right products of these windows are accumulated with the orientation
+At a given equal-time cut, group the consecutive windows into two ordered products. Factor the first as $U_RD_RV_R$ and the second as $V_LD_LU_L$, with unitary $U_R$ and $U_L$. This orientation places the unitary matrices at the outer ends of the full product,
 \begin{equation}
-    \mc B_{b,\ell}=U_RD_RV_RV_LD_LU_L,
+    \mc B_{b,\ell}=U_RD_RV_RV_LD_LU_L.
     \label{eq:number_stab_product}
 \end{equation}
-where $U_L$ and $U_R$ are unitary. Therefore
+The matrix needed for the Green function then factors as
 \begin{equation}
-    I_N-\mc B_{b,\ell}
-    =
-    U_R
-    \left[(U_LU_R)^{-1}-D_RV_RV_LD_L\right]
-    U_L.
+    I_{N_s}-\mc B_{b,\ell}
+    =U_R\left[U_R^\hc U_L^\hc-D_RV_RV_LD_L\right]U_L.
 \end{equation}
-The bracketed matrix is the stabilized matrix that must be solved to obtain $G_{b,\ell}$:
+Define the matrix between the two unitary factors by
 \begin{equation}
-    M_{\rm stab}=(U_LU_R)^{-1}-D_RV_RV_LD_L
-    =U_R^\hc U_L^\hc-D_RV_RV_LD_L,
+    M_{\rm stab}=U_R^\hc U_L^\hc-D_RV_RV_LD_L.
     \label{eq:number_mstab_def}
 \end{equation}
-so
+The reconstructed Green function is therefore
 \begin{equation}
     G_{b,\ell}=U_L^\hc M_{\rm stab}^{-1}U_R^\hc.
     \label{eq:number_stab_green}
 \end{equation}
-The inverse in Eq.~\eqref{eq:number_stab_green} is evaluated by factorizing $M_{\rm stab}$ in the same scaled form,
-\begin{equation}
-    M_{\rm stab}=U_MD_MV_M,
-\end{equation}
-and applying
+To evaluate it, factor $M_{\rm stab}=U_MD_MV_M$ in the same scaled form and apply
 \begin{equation}
     M_{\rm stab}^{-1}U_R^\hc
-    =
-    V_M^{-1}D_M^{-1}U_M^\hc U_R^\hc.
+    =V_M^{-1}D_M^{-1}U_M^\hc U_R^\hc.
 \end{equation}
-Here $D_M^{-1}$ is only a diagonal rescaling, and $V_M^{-1}$ is applied by a triangular solve with the stored permutation factors. No dense inverse of the long product $\mc B_{b,\ell}$ is formed.
-
-Equations~\eqref{eq:number_stab_product}--\eqref{eq:number_stab_green} are exact identities if the scaled factors are multiplied back together. Stabilization changes the representation used in floating-point arithmetic, not the cyclic product, the AFQMC weight, or the equal-time Green function. The $c$-sector Green function is then reconstructed as $G_{c,\ell}=\overline{G_{b,\ell}}$.
+The diagonal factor $D_M^{-1}$ rescales the rows, and $V_M^{-1}$ is applied through triangular solves and the stored permutation. This evaluates the Green function directly from the scaled factors while preserving the cyclic product in Eq.~\eqref{eq:number_stab_product}. The conjugacy relation then gives $G_{c,\ell}=\overline{G_{b,\ell}}$ for the second flavor.
 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
@@ -815,7 +749,7 @@ where $M_\ell=\ee^{A_\ell}$ is the single-slice Nambu matrix. In the benchmark w
 
 The Nambu calculation therefore follows the same short-window stabilization scheme as the number-conserving calculation. The sweep is divided into windows of $N_{\rm wrap}$ slices, and the reported finite-$\Delta$ runs use $N_{\rm wrap}=10$. For a window beginning at time slice $j$, define the ordered Nambu product
 \begin{equation}
-    Y_j=M_{j+N_{\rm wrap}-1}\cdots M_{j+1}M_j ,
+    Y_j=M_jM_{j+1}\cdots M_{j+N_{\rm wrap}-1} ,
 \end{equation}
 with time indices understood modulo $L$. A column-pivoted QR factorization gives
 \begin{equation}
