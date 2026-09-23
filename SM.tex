@@ -136,7 +136,7 @@ In general, successive imaginary-time slices mix the single-particle modes, so t
     \qquad
     I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,|z\rangle\langle z|.
 \end{equation}
-This follows from the action of each quadratic factor on the creation operators,
+Each quadratic factor acts linearly on the creation operators,
 \begin{equation}
     [\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i^+]
     =\sum_j\hat a_j^+(B_\ell)_{ji},
@@ -366,7 +366,7 @@ The interval factorizations preserve the information in the long propagation. Th
     M_{\rm stab}^{-1}U_R^\hc
     =V_M^{-1}D_M^{-1}U_M^\hc U_R^\hc.
 \end{equation}
-To apply this expression, first multiply $U_R^\hc$ by $U_M^\hc$, then divide each row by the corresponding entry of $D_M$. The final action of $V_M^{-1}$ is evaluated by solving the triangular equations from the QR factorization and applying the permutation. Multiplication by $U_L^\hc$ completes the reconstruction of $G_{b,\ell}$. These operations evaluate the same Green function as the full cyclic product, with the propagation scales stored separately during accumulation. The second flavor follows from $G_{c,\ell}=\overline{G_{b,\ell}}$.
+To apply this expression, first form the product $U_M^\hc U_R^\hc$, then divide each row by the corresponding entry of $D_M$. The final action of $V_M^{-1}$ is evaluated by solving the triangular equations from the QR factorization and applying the permutation. Multiplication by $U_L^\hc$ completes the reconstruction of $G_{b,\ell}$. These operations evaluate the same Green function as the full cyclic product, with the propagation scales stored separately during accumulation. The second flavor follows from $G_{c,\ell}=\overline{G_{b,\ell}}$.
 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
