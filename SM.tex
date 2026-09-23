@@ -125,12 +125,12 @@ The bosonic trace sums over every occupation of the single-particle modes. If $\
     =
     \sum_{n_1,\ldots,n_N\ge0}\prod_{i=1}^{N}r_i^{n_i}
     =
-    \prod_{i=1}^{N}\frac{1}{1-r_i},
+    \prod_{i=1}^{N}\frac{1}{1-r_i}=\det(I_N-\mc B)^{-1},
     \qquad |r_i|<1.
 \end{equation}
 Thus the inverse determinant arises from the unrestricted bosonic occupations, with each mode contributing a geometric series~\cite{rubenstein2012pra}.
 
-Coherent states extend this occupation-number picture to a general propagation matrix. We use the unnormalized states $|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$, where $z$ is a vector of complex amplitudes. Their overlap and resolution of the identity are
+In general, successive imaginary-time slices mix the single-particle modes, so their evolution need not be diagonal in the chosen basis. Coherent states provide a direct way to evaluate the trace in this case because a number-conserving quadratic propagator maps a coherent state to another coherent state, with linearly transformed amplitudes. We use the unnormalized states $|z\rangle=\exp(\hat{\bb a}^+z)|0\rangle$, where $z$ is a vector of complex amplitudes. Their overlap and resolution of the identity are
 \begin{equation}
     \langle z|w\rangle=\ee^{z^\hc w},
     \qquad
@@ -155,12 +155,12 @@ Since the vacuum is invariant, each factor sends $|z\rangle$ to $|\ee^{B_\ell}z\
     \int\frac{\dd^{2N}z}{\pi^N}
     \exp[-z^\hc(I_N-\mc B)z].
 \end{equation}
-When the Hermitian part of $I_N-\mc B$ is positive definite, this Gaussian integral converges. Applying the complex Gaussian identity $\int\dd^2z\,\ee^{-a|z|^2}/\pi=a^{-1}$ for $\operatorname{Re}a>0$ successively after Schur triangularization yields
+When the Hermitian part of $I_N-\mc B$ is positive definite, this Gaussian integral converges. The standard complex Gaussian integral then gives
 \begin{equation}
     \Tr\,\hat U=\det(I_N-\mc B)^{-1}.
     \label{eq:number_trace_product}
 \end{equation}
-This reproduces Eq.~\eqref{eq:trace_formula_number} and agrees with the occupation-number sum wherever both representations converge. The matrix expression also extends continuously to nondiagonalizable products within the convergent domain. For fixed-field configurations with divergent bare traces, Sec.~\ref{app:regularization} derives the same determinant expression as the finite part of a Gaussian-regulated occupation sum.
+Thus the sum over bosonic occupations becomes a Gaussian integral over coherent-state amplitudes, giving the same inverse determinant for a general propagation matrix. This is Eq.~\eqref{eq:trace_formula_number}. For fixed-field configurations with divergent bare traces, Sec.~\ref{app:regularization} derives the same determinant expression as the finite part of a Gaussian-regulated occupation sum.
 
 \subsection{Equal-time Green function}
 \label{app:green_number}
