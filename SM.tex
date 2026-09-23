@@ -868,7 +868,7 @@ The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the 
 \section{Gaussian-cutoff regularization of determinant weights}
 \label{app:regularization}
 
-For a stable bosonic system, the grand-canonical thermal operator has a finite trace, $Z=\Tr\,\ee^{-\beta(\hat H-\mu\hat N)}<\infty$. For free bosons, choosing $\mu$ below the lowest single-particle energy ensures that adding particles costs energy, so large occupations are thermally suppressed. The HS transformation rewrites the interacting evolution as an integral over quadratic propagators through exact operator identities on each time slice,
+Consider a stable many-body Hamiltonian with a finite grand-canonical partition function, $Z=\Tr\,\ee^{-\beta(\hat H-\mu\hat N)}<\infty$. The HS transformation expresses its Boltzmann factor as an integral over quadratic propagators through exact operator identities on each imaginary-time slice,
 \begin{equation}
     \ee^{-\beta(\hat H-\mu\hat N)}
     =\lim_{\Delta\tau\to0}
@@ -877,11 +877,11 @@ For a stable bosonic system, the grand-canonical thermal operator has a finite t
     \qquad
     \hat U(\phi)=\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}.
 \end{equation}
-Here the limit removes the Trotter error. Because the HS transformation is exact, the full auxiliary-field integral recovers the original thermal operator and hence the same finite partition function.
+The limit removes the Trotter error, while the HS transformation introduces no approximation. The complete auxiliary-field integral therefore recovers the original Boltzmann factor and its finite trace.
 
-At fixed auxiliary fields, however, the quadratic evolution can amplify large occupations. A number-conserving mode with propagation factor $r(\phi)$ contributes $\sum_{n=0}^{\infty}r(\phi)^n$ to $W_{\rm bare}(\phi)=\Tr\hat U(\phi)$, which diverges when $|r(\phi)|>1$. Thus convergence of the interacting partition function does not require every auxiliary-field configuration to have a convergent trace. The auxiliary-field integral restores the finite interacting partition function by combining these large-occupation contributions before the infinite occupation sum is completed.
+For some fixed auxiliary-field configurations, however, the bare weight $W_{\rm bare}(\phi)=\Tr\hat U(\phi)$ diverges. For example, a mode with propagation factor $r(\phi)$ contributes $\sum_{n=0}^{\infty}r(\phi)^n$, which diverges when $|r(\phi)|>1$. How should these divergent configuration weights be understood when the full auxiliary-field integral recovers a finite partition function? This section provides a regularization interpretation of this apparent mismatch.
 
-Regularization makes this order explicit by suppressing large occupations with a cutoff, performing the auxiliary-field integral, and then removing the cutoff. This connects the finite physical partition function to the fixed-field trace formulas of Secs.~\ref{app:trace_number} and~\ref{app:trace_paired}. Below we use a Gaussian cutoff to identify the finite determinant contribution of the regulated occupation sum.
+The weights sampled in BAFQMC through Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main} are the regularized weights $W_{\rm reg}(\phi)$. Wherever the bare trace converges, these determinant expressions give $W_{\rm reg}(\phi)=W_{\rm bare}(\phi)$. For configurations with divergent bare traces, they represent the finite part of the regularized occupation sum. A Gaussian cutoff allows us to separate this finite part from the divergent contributions and describe how the latter cancel upon auxiliary-field integration.
 
 Consider first a number-conserving fixed-field product with single-particle eigenvalues $r_1(\phi),\ldots,r_N(\phi)$. In a diagonal normal-mode basis the bare fixed-field trace is the generating series
 \begin{equation}
@@ -946,7 +946,7 @@ The left-hand side tends to the physical partition function as $\Lambda\to\infty
 \begin{equation}
     Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
 \end{equation}
-This is the sampling weight represented by the determinant formula.
+BAFQMC evaluates $W_{\rm reg}(\phi)$ directly from the determinant expressions in Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main}. The cutoff provides an interpretation of these weights and introduces no occupation cutoff or additional truncation approximation into the sampling algorithm.
 
 The same construction applies to Gaussian propagators with pairing. In a stable quasiparticle basis,
 \begin{equation}
