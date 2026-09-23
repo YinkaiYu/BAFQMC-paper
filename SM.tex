@@ -868,13 +868,20 @@ The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the 
 \section{Gaussian-cutoff regularization of determinant weights}
 \label{app:regularization}
 
-The determinant weights used in BAFQMC have a natural finite-part interpretation obtained by damping large boson occupations before the auxiliary fields are integrated. Start from a physical bosonic Hamiltonian for which the grand-canonical partition function is finite. After Trotter and HS decompositions,
+For a stable bosonic system, the grand-canonical thermal operator has a finite trace, $Z=\Tr\,\ee^{-\beta(\hat H-\mu\hat N)}<\infty$. For free bosons, choosing $\mu$ below the lowest single-particle energy ensures that adding particles costs energy, so large occupations are thermally suppressed. The HS transformation rewrites the interacting evolution as an integral over quadratic propagators through exact operator identities on each time slice,
 \begin{equation}
-    Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm bare}(\phi),
+    \ee^{-\beta(\hat H-\mu\hat N)}
+    =\lim_{\Delta\tau\to0}
+    \int\mc D\phi\;P_{\rm HS}(\phi)\,
+    \hat U(\phi),
     \qquad
-    W_{\rm bare}(\phi)=\Tr\left[\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}\right].
+    \hat U(\phi)=\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}.
 \end{equation}
-For a fixed auxiliary-field configuration, the Gaussian trace may fail to converge even though the full partition function is finite. The determinant formula is then understood as the cutoff-independent part of the same occupation-number sum.
+Here the limit removes the Trotter error. Because the HS transformation is exact, the full auxiliary-field integral recovers the original thermal operator and hence the same finite partition function.
+
+At fixed auxiliary fields, however, the quadratic evolution can amplify large occupations. A number-conserving mode with propagation factor $r(\phi)$ contributes $\sum_{n=0}^{\infty}r(\phi)^n$ to $W_{\rm bare}(\phi)=\Tr\hat U(\phi)$, which diverges when $|r(\phi)|>1$. Thus convergence of the interacting partition function does not require every auxiliary-field configuration to have a convergent trace. The auxiliary-field integral restores the finite interacting partition function by combining these large-occupation contributions before the infinite occupation sum is completed.
+
+Regularization makes this order explicit by suppressing large occupations with a cutoff, performing the auxiliary-field integral, and then removing the cutoff. This connects the finite physical partition function to the fixed-field trace formulas of Secs.~\ref{app:trace_number} and~\ref{app:trace_paired}. Below we use a Gaussian cutoff to identify the finite determinant contribution of the regulated occupation sum.
 
 Consider first a number-conserving fixed-field product with single-particle eigenvalues $r_1(\phi),\ldots,r_N(\phi)$. In a diagonal normal-mode basis the bare fixed-field trace is the generating series
 \begin{equation}
@@ -975,7 +982,7 @@ Remove the cutoff-dependent growing terms from each trace before multiplying the
     \left|\det(I_N-\mc M_+)^{-1}\right|,
     \label{eq:reg_conjugate_sectors}
 \end{equation}
-where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. Without such a common subsystem decomposition, the weight is obtained by continuation of the convergent trace as above. The Kramers and split-orthogonal proofs below fix the sign directly through their reduced determinants.
+where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. Without such a common subsystem decomposition, the weight is obtained by continuation of the convergent trace as above. The TRS criteria proved in Sec.~\ref{app:trs_proof} apply to these regularized weights and do not require the bare trace to converge for every fixed auxiliary-field configuration. The Kramers and split-orthogonal proofs fix the sign directly through their reduced determinants.
 
 \section{Proof of the time-reversal criterion}
 \label{app:nonnegative_proofs}
