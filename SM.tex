@@ -173,7 +173,7 @@ The same propagation matrix determines the particle density and equal-time corre
 \end{equation}
 where $\langle\hat O\rangle_\phi=\Tr(\hat O\hat U)/\Tr\hat U$. The diagonal element $\bar G_{ii}$ is the occupation of mode $i$ at fixed fields, while the off-diagonal elements describe one-body coherence. Here the bar in $\bar G$ denotes the reversed operator ordering. Complex conjugation is written explicitly as $\overline{G}$ below.
 
-To evaluate these correlations, move an annihilation operator through the imaginary-time evolution. The commutator $[\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i]=-\sum_j(B_\ell)_{ij}\hat a_j$ implies
+The two operator orderings differ by the bosonic commutator. They are also related by moving an annihilation operator through the full imaginary-time evolution and using cyclicity of the trace. These two relations determine the Green function. To obtain the propagation relation, the commutator $[\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i]=-\sum_j(B_\ell)_{ij}\hat a_j$ implies
 \begin{equation}
     \hat{\bb a}\,\ee^{\hat{\bb a}^+B_\ell\hat{\bb a}}
     =\ee^{\hat{\bb a}^+B_\ell\hat{\bb a}}\ee^{B_\ell}\hat{\bb a},
@@ -198,9 +198,9 @@ in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\ba
 \subsection{Local update and Metropolis ratio}
 \label{app:update_number}
 
-A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Both operations can be expressed through the few single-particle components affected by the field change.
+A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Consider first an onsite factor $\ee^{v_{i\ell}\hat n_i}$, where $v_{i\ell}$ is the dimensionless HS potential on mode $i$ at slice $\ell$. Changing the field sends $v_{i\ell}$ to $v_{i\ell}'$, multiplying the single-particle amplitude on that mode by $1+\delta=\ee^{v_{i\ell}'-v_{i\ell}}$. In single-particle space, the change is therefore $I_N+\Delta_\ell$, with $\Delta_\ell=\delta\ket{i}\bra{i}$ and $\ket{i}$ the basis vector for that mode.
 
-To place the proposed change at the beginning of the matrix product, use cyclicity of the trace and define
+Cyclicity of the trace allows the changed onsite factor to be placed at the left end of the full product without changing the weight. With the slice boundaries chosen so that this factor is leftmost in $\ee^{B_\ell}$, define
 \begin{equation}
     \mc B_\ell=\ee^{B_\ell}\ee^{B_{\ell+1}}\cdots\ee^{B_L}\ee^{B_1}\cdots\ee^{B_{\ell-1}},
     \qquad
@@ -208,7 +208,7 @@ To place the proposed change at the beginning of the matrix product, use cyclici
 \end{equation}
 The matrix $\mc B_\ell$ contains the full imaginary-time evolution, ordered from slice $\ell$. The corresponding $G_\ell$ measures equal-time correlations at the boundary of that slice, referred to as the equal-time cut. All cyclic orderings give the same configuration weight.
 
-\emph{Weight ratio.} Suppose the proposal changes the single-particle propagator according to $\ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell}$, so that $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. Using $G_\ell\mc B_\ell=G_\ell-I_N$ gives
+\emph{Weight ratio.} At this cut, the onsite change gives $\ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell}$ and hence $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. A field acting on several local modes has the same form, with $\Delta_\ell$ supported on those modes. Using $G_\ell\mc B_\ell=G_\ell-I_N$ gives
 \begin{equation}
     I_N-\mc B_\ell'
     =\left[I_N+\Delta_\ell(I_N-G_\ell)\right](I_N-\mc B_\ell).
@@ -219,7 +219,7 @@ Taking determinants yields the ratio of the bosonic weights,
     =\det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}.
     \label{eq:update_ratio_number}
 \end{equation}
-For an onsite change acting on one mode, $\Delta_\ell=\delta\ket{i}\bra{i}$, where $\ket{i}$ is the corresponding single-particle basis vector and $1+\delta$ is the change in its propagation factor. The matrix determinant lemma reduces the weight ratio to $W'/W=[1+\delta(1-G_{\ell;ii})]^{-1}$, which requires only one diagonal element of $G_\ell$.
+For the single-mode change $\Delta_\ell=\delta\ket{i}\bra{i}$, the matrix determinant lemma reduces the weight ratio to $W'/W=[1+\delta(1-G_{\ell;ii})]^{-1}$, which requires only one diagonal element of $G_\ell$.
 
 The acceptance probability includes the Gaussian HS measure as well as the bosonic weight. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in a sign-problem-free calculation,
 \begin{equation}
@@ -249,7 +249,7 @@ and hence
     =G_\ell-\frac{\delta\,G_\ell\ket{i}(\bra{i}-\bra{i}G_\ell)}
                        {1+\delta(1-G_{\ell;ii})}.
 \end{equation}
-The accepted update therefore requires only a rank-one correction to the stored Green function. For a change acting on several local components, the determinant lemma and the Woodbury identity give the corresponding weight ratio and Green-function correction within that local subspace.
+The local potential change modifies correlations throughout the system through the column $G_\ell\ket{i}$ and the row $\bra{i}(I_N-G_\ell)$, which connect the other modes to the updated mode $i$. Their outer product gives a rank-one correction to the full Green function. For a change acting on several local modes, the determinant lemma and the Woodbury identity reduce the calculation to that local subspace and its correlations with the rest of the system.
 
 \emph{Two-flavor realization.} In the number-conserving benchmark~\cite{bafqmc_code}, the two bosonic flavors experience complex-conjugate HS potentials. The quadratic terms entering each slice are
 \begin{equation}
@@ -266,12 +266,9 @@ where the real matrix $K$ contains the hopping and chemical-potential contributi
 
 On a lattice of $N_s$ sites, the two flavors contain $N=2N_s$ modes, and each flavor propagates in an $N_s$-dimensional single-particle space. Let $\ee^{B_{b,\ell}}$ and $\ee^{B_{c,\ell}}$ denote the ordered products of kinetic and onsite propagators on one slice. For local updates, choose the equal-time cut immediately before the onsite factor, so that its change acts by left multiplication. The cyclic products are
 \begin{equation}
-\begin{aligned}
-    \mc B_{b,\ell}
-    &=\ee^{B_{b,\ell}}\ee^{B_{b,\ell+1}}\cdots\ee^{B_{b,L}}\ee^{B_{b,1}}\cdots\ee^{B_{b,\ell-1}},\\
-    \mc B_{c,\ell}
-    &=\ee^{B_{c,\ell}}\ee^{B_{c,\ell+1}}\cdots\ee^{B_{c,L}}\ee^{B_{c,1}}\cdots\ee^{B_{c,\ell-1}},
-\end{aligned}
+    \mc B_{\sigma,\ell}
+    =\ee^{B_{\sigma,\ell}}\ee^{B_{\sigma,\ell+1}}\cdots\ee^{B_{\sigma,L}}\ee^{B_{\sigma,1}}\cdots\ee^{B_{\sigma,\ell-1}},
+    \qquad \sigma=b,c.
     \label{eq:number_cyclic_products_benchmark}
 \end{equation}
 with Green functions
