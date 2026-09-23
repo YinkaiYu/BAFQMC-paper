@@ -198,7 +198,7 @@ in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\ba
 \subsection{Local update and Metropolis ratio}
 \label{app:update_number}
 
-A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Consider first an onsite factor $\ee^{v_{i\ell}\hat n_i}$, where $v_{i\ell}$ is the dimensionless HS potential on mode $i$ at slice $\ell$. Changing the field sends $v_{i\ell}$ to $v_{i\ell}'$, multiplying the single-particle amplitude on that mode by $1+\delta=\ee^{v_{i\ell}'-v_{i\ell}}$. In single-particle space, the change is therefore $I_N+\Delta_\ell$, with $\Delta_\ell=\delta\ket{i}\bra{i}$ and $\ket{i}$ the basis vector for that mode.
+A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Consider a local proposal $\phi_{i\ell}\to\phi_{i\ell}'$ that changes the onsite potential of mode $i$ at slice $\ell$. This multiplies the single-particle propagation amplitude on that mode by a factor $1+\delta$, whose dependence on the field change is specified by the HS transformation. In single-particle space, the change is therefore $I_N+\Delta_\ell$, with $\Delta_\ell=\delta\ket{i}\bra{i}$ and $\ket{i}$ the basis vector for that mode.
 
 Cyclicity of the trace allows the changed onsite factor to be placed at the left end of the full product without changing the weight. With the slice boundaries chosen so that this factor is leftmost in $\ee^{B_\ell}$, define
 \begin{equation}
