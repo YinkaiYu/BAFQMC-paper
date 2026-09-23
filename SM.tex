@@ -445,18 +445,18 @@ For a fixed auxiliary-field configuration, define
     \qquad
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
 \end{equation}
-The trace again sums the weights of all bosonic occupations. To see how this sum is represented in Nambu space, first consider one stable quasiparticle mode $\hat\beta$ with generator $\hat h=\varepsilon\hat\beta^+\hat\beta$. The dimensionless exponent $\varepsilon$ is the change in the Boltzmann exponent on adding one quasiparticle, so a state with occupation $n$ contributes $\ee^{n\varepsilon}$. For an oscillator of excitation energy $E>0$, $\varepsilon=-\beta E$. More generally, the occupation sum converges for $\operatorname{Re}\varepsilon<0$ and gives
+The trace again sums the weights of all bosonic occupations. To see how this sum is represented in Nambu space, first consider one stable quasiparticle mode $\hat\beta$, including its zero-point contribution, with generator $\hat h=\varepsilon(\hat\beta^+\hat\beta+\frac12)$. The dimensionless exponent $\varepsilon$ is the change in the Boltzmann exponent on adding one quasiparticle, so occupation $n$ contributes $\ee^{(n+1/2)\varepsilon}$. For an oscillator of excitation energy $E>0$, $\varepsilon=-\beta E$. The occupation sum converges for $\operatorname{Re}\varepsilon<0$ and gives
 \begin{equation}
     \Tr\,\ee^{\hat h}
-    =\sum_{n=0}^{\infty}\ee^{n\varepsilon}
-    =(1-\ee^\varepsilon)^{-1}.
+    =\sum_{n=0}^{\infty}\ee^{(n+1/2)\varepsilon}
+    =\frac{\ee^{\varepsilon/2}}{1-\ee^\varepsilon}.
 \end{equation}
 In the Nambu basis $(\hat\beta,\hat\beta^+)^\trans$, the same generator is represented by
 \begin{equation}
     A=\begin{pmatrix}\varepsilon&0\\0&-\varepsilon\end{pmatrix},
-    \qquad \xi=-\frac{\varepsilon}{2}.
+    \qquad \xi=0.
 \end{equation}
-Its quadratic Nambu term is $\varepsilon(\hat\beta^+\hat\beta+\frac12)$, with the usual oscillator zero-point contribution, which $\xi$ cancels for the normally ordered generator chosen above. The annihilation and creation components consequently have reciprocal propagation factors,
+The annihilation and creation components have reciprocal propagation factors,
 \begin{equation}
     \mc M=\begin{pmatrix}\ee^\varepsilon&0\\0&\ee^{-\varepsilon}\end{pmatrix}.
 \end{equation}
@@ -470,15 +470,15 @@ The square root removes this doubling. Choosing it to reproduce the occupation s
     [-\det(I_2-\mc M)]^{1/2}
     =\ee^{-\varepsilon/2}(1-\ee^\varepsilon),
     \qquad
-    \ee^\xi[-\det(I_2-\mc M)]^{-1/2}
-    =(1-\ee^\varepsilon)^{-1}.
+    [-\det(I_2-\mc M)]^{-1/2}
+    =\frac{\ee^{\varepsilon/2}}{1-\ee^\varepsilon}.
 \end{equation}
 This fixes both the magnitude and the sign of the square root from the bosonic trace.
 
 For $N$ independent stable quasiparticle modes, the occupation sums multiply,
 \begin{equation}
-    \Tr\,\ee^{\sum_j\varepsilon_j\hat\beta_j^+\hat\beta_j}
-    =\prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
+    \Tr\,\ee^{\sum_j\varepsilon_j(\hat\beta_j^+\hat\beta_j+1/2)}
+    =\prod_{j=1}^{N}\frac{\ee^{\varepsilon_j/2}}{1-\ee^{\varepsilon_j}}.
 \end{equation}
 A canonical change to the quasiparticle basis brings the Nambu propagation matrix to
 \begin{equation}
@@ -493,13 +493,13 @@ A canonical change to the quasiparticle basis brings the Nambu propagation matri
 \end{equation}
 Each physical mode again supplies one reciprocal pair. Multiplying the one-mode identities therefore yields
 \begin{equation}
-    \left[(-1)^N\det(I_{2N}-\mc M)\right]_{\rm op}^{1/2}
+    \left[(-1)^N\det(I_{2N}-\mc M)\right]^{1/2}
     =\exp\!\left(-\frac12\sum_j\varepsilon_j\right)
-    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j}),
+    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j}).
 \end{equation}
-where the subscript denotes the square root fixed by the occupation sums. Combining its inverse with $\ee^\xi$, where $\xi=-\frac12\sum_j\varepsilon_j$ for this normally ordered generator, reproduces the trace above.
+Its inverse reproduces the quasiparticle occupation sum, including the zero-point contribution of every mode.
 
-Successive quadratic evolution steps compose into another Gaussian operator, whose Nambu propagation matrix is the ordered product in Eq.~\eqref{eq:Mdef}. The Gaussian trace identity therefore applies to the full evolution, including mixing between modes. For a stable, trace-convergent product it gives~\cite{munn1978ensemble}
+Successive quadratic evolution steps compose into another Gaussian operator, whose Nambu propagation matrix is the ordered product in Eq.~\eqref{eq:Mdef}. The Gaussian trace identity therefore applies to the full evolution, including mixing between modes. For a stable, trace-convergent product, including the scalar factors $\ee^{\xi_\ell}$ from the original generators gives~\cite{munn1978ensemble}
 \begin{equation}
     \Tr\,\hat U
     =\exp\!\left(\sum_\ell\xi_\ell\right)
