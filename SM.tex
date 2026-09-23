@@ -1424,27 +1424,7 @@ This is the practical Gaussian RP test quoted in the main text. It is written in
 
 The relation to the TRS criterion is direct. For a number-conserving Hamiltonian, the absence of anomalous pairing terms sets $F=0$ in the RP block form. The remaining flavor blocks are complex conjugates. In the flavor space spanned by $(\hat b_i,\hat c_i)^\trans$, this structure is invariant under the TRS $\Theta=\ii\sigma_y K$, which satisfies $\Theta^2=-I$ and realizes the Kramers class; number-conserving RP is thus contained in the Kramers TRS criterion. Allowing pairing admits $F\succeq0$ and extends RP beyond the TRS classes. In the triangular-lattice paired benchmark, the antiunitary maps relating the two flavors commute and hence do not form any sign-free class in Table~\ref{tab:trs_periodic}, whereas the reflected anomalous coupling remains positive. RP is thus the mechanism that protects its weight.
 
-The multiplication property in Eq.~\eqref{eq:rp_multiplication_sm} gives the RP propagators a semigroup structure, with nonnegative traces whenever they exist. For fermions, the Majorana-RP coupling condition is equivalent, within the reflection-symmetric sector, to contraction with respect to a fixed indefinite Hermitian metric $\eta$~\cite{wei2024prb}:
-\begin{equation}
-    A^\hc\eta+\eta A\preceq0
-    \quad\Longrightarrow\quad
-    (\ee^{tA})^\hc\eta\ee^{tA}\preceq\eta,
-    \qquad t\ge0.
-    \label{eq:fixed_metric_contraction_sm}
-\end{equation}
-The inequality means that evolution can only decrease the quadratic form defined by $\eta$. To see the bosonic distinction, use the generator $A$ of Eq.~\eqref{eq:hAdef} in the reflected-sector order of Eq.~\eqref{eq:rp_block_sm}, taking $D=D^\trans$ after absorbing its antisymmetric part into $\xi$. A direct calculation gives
-\begin{equation}
-    \eta=\begin{pmatrix}
-        0&0&0&I\\
-        0&0&-I&0\\
-        0&-I&0&0\\
-        I&0&0&0
-    \end{pmatrix},
-    \qquad
-    A^\hc\eta+\eta A
-    =4\begin{pmatrix}-\overline F&0\\0&F\end{pmatrix}.
-\end{equation}
-The unrestricted terms $\hat q+\theta(\hat q)$ cancel from this expression. For nonzero $F\succeq0$, the two reflected sectors contribute opposite signs, so the metric quadratic form can both increase and decrease while RP still protects weight positivity. More generally, no single fixed Hermitian metric can make the contraction inequality equivalent to the full algebraic condition $F\succeq0$.\footnote{At $D=0,F=I$, $A$ is anti-Hermitian, so $\Tr(A^\hc\eta+\eta A)=0$ for any Hermitian $\eta$. If the contraction inequality holds for every $F\succeq0$, this matrix must therefore vanish at $F=I$. Small Hermitian perturbations of $I$ with either sign remain positive definite. Linearity then forces $A^\hc\eta+\eta A=0$ for every Hermitian $F$ at $D=0$, leaving the inequality unable to distinguish positive from negative couplings.} The bosonic RP cone thus provides a concrete insight for developing a broader semigroup theory of sign-free quantum Monte Carlo beyond the fixed-metric contraction framework of Ref.~\cite{wei2024prb}.
+RP propagators form a semigroup: multiplying any two of them yields another RP propagator, as shown in Eq.~\eqref{eq:rp_multiplication_sm}. For fermions, Majorana RP within the reflection-symmetric sector can be expressed as the contraction condition $A^\hc\eta+\eta A\preceq0$ for a fixed indefinite Hermitian metric $\eta$~\cite{wei2024prb}. This requires every eigenvalue of the matrix on the left to be nonpositive. In the analogous bosonic construction, the two reflected sectors instead give blocks proportional to $-\overline F$ and $F$. A nonzero RP coupling $F\succeq0$ therefore produces eigenvalues of both signs, while RP still guarantees nonnegative weights whenever the traces exist. The full algebraic bosonic RP cone cannot be characterized by a single fixed-metric contraction condition. The bosonic RP cone revealed here may provide key insight for the future development of a broader semigroup theory of sign-free quantum Monte Carlo beyond the fixed-metric contraction framework of Ref.~\cite{wei2024prb}.
 
 \section{Benchmark models and numerical details}
 \label{app:benchmark_details}
