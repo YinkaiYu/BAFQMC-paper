@@ -1296,6 +1296,7 @@ They have two elementary properties. First, they are closed under multiplication
     \hat R\theta(\hat R)\,\hat S\theta(\hat S)
     =
     \hat R\hat S\,\theta(\hat R\hat S),
+    \label{eq:rp_multiplication_sm}
 \end{equation}
 where we used the commutation of left and right boson operators and the multiplicative property of $\theta$. Sums follow by bilinearity. Second, whenever the traces exist,
 \begin{equation}
@@ -1416,7 +1417,26 @@ This is the practical Gaussian RP test quoted in the main text. It is written in
 
 The relation to the TRS criterion is direct. For a number-conserving Hamiltonian, the absence of anomalous pairing terms sets $F=0$ in the RP block form. The remaining flavor blocks are complex conjugates. In the flavor space spanned by $(\hat b_i,\hat c_i)^\trans$, this structure is invariant under the TRS $\Theta=\ii\sigma_y K$, which satisfies $\Theta^2=-I$ and realizes the Kramers class; number-conserving RP is thus contained in the Kramers TRS criterion. Allowing pairing admits $F\succeq0$ and extends RP beyond the TRS classes. In the triangular-lattice paired benchmark, the antiunitary maps relating the two flavors commute and hence do not form any sign-free class in Table~\ref{tab:trs_periodic}, whereas the reflected anomalous coupling remains positive. RP is thus the mechanism that protects its weight.
 
-The multiplication property in Eq.~\eqref{eq:rp_positive_set_sm} gives the RP propagators a semigroup structure, with nonnegative traces whenever they exist. For fermions, the Majorana-RP coupling condition can be written as a contraction condition with respect to a fixed indefinite metric within the reflection-symmetric sector~\cite{wei2024prb}. The bosonic RP condition has a different structure: the unrestricted generators $\hat q+\theta(\hat q)$ preserve a natural indefinite metric, whereas the reflected coupling $F\succeq0$ produces metric changes of opposite sign in the two reflected sectors. Thus the full bosonic RP cone cannot be characterized by a single fixed-metric contraction inequality in the Nambu representation. This distinction suggests a broader semigroup framework for sign-problem-free bosonic Gaussian weights beyond the specific contraction characterization of Ref.~\cite{wei2024prb}; developing such a framework lies beyond the scope of the present work.
+The multiplication property in Eq.~\eqref{eq:rp_multiplication_sm} gives the RP propagators a semigroup structure, with nonnegative traces whenever they exist. For fermions, the Majorana-RP condition can be written as a fixed-indefinite-metric contraction condition
+\begin{equation}
+    \mathcal A^\dagger\eta+\eta\mathcal A\preceq0,
+    \qquad \eta^\dagger=\eta,
+    \label{eq:fixed_metric_contraction_sm}
+\end{equation}
+within the reflection-symmetric sector~\cite{wei2024prb}. The bosonic RP cone has a different structure. In the Nambu representation, let $\mathcal A_0$ denote the contribution from $\hat q+\theta(\hat q)$ and $\mathcal A_F$ the contribution from the reflected coupling $F$. For the natural indefinite metric
+\begin{equation}
+    \eta_{\rm RP}=\begin{pmatrix}0&J\\-J&0\end{pmatrix},
+    \qquad
+    J=\begin{pmatrix}0&I\\-I&0\end{pmatrix},
+\end{equation}
+one finds
+\begin{equation}
+    \mathcal A_0^\dagger\eta_{\rm RP}+\eta_{\rm RP}\mathcal A_0=0,
+    \qquad
+    \mathcal A_F^\dagger\eta_{\rm RP}+\eta_{\rm RP}\mathcal A_F
+    =4\begin{pmatrix}-\overline F&0\\0&F\end{pmatrix}.
+\end{equation}
+Thus $F\succeq0$ produces opposite-sign metric changes in the two reflected sectors, so the full bosonic RP cone cannot be a single fixed-metric contraction cone. This reflected-cone structure provides an important starting point for a broader semigroup theory of sign-problem-free bosonic Gaussian weights beyond the contraction framework of Ref.~\cite{wei2024prb}.
 
 \section{Benchmark models and numerical details}
 \label{app:benchmark_details}
