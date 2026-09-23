@@ -877,20 +877,16 @@ Consider a stable many-body Hamiltonian with a finite grand-canonical partition 
     \qquad
     \hat U(\phi)=\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}.
 \end{equation}
-The limit removes the Trotter error, while the HS transformation introduces no approximation. The complete auxiliary-field integral therefore recovers the original Boltzmann factor and its finite trace.
+The limit removes the Trotter error, while the HS transformation introduces no approximation. The complete auxiliary-field integral therefore recovers the original Boltzmann factor and its finite trace. Nevertheless, for some fixed auxiliary-field configurations, the bare weight $W_{\rm bare}(\phi)=\Tr\hat U(\phi)$ diverges. How do these divergent configuration weights combine under auxiliary-field integration to recover the finite many-body partition function? A Gaussian-cutoff regularization provides an interpretation by separating the finite contribution of each configuration from the divergent terms that cancel upon integration.
 
-For some fixed auxiliary-field configurations, however, the bare weight $W_{\rm bare}(\phi)=\Tr\hat U(\phi)$ diverges. For example, a mode with propagation factor $r(\phi)$ contributes $\sum_{n=0}^{\infty}r(\phi)^n$, which diverges when $|r(\phi)|>1$. How should these divergent configuration weights be understood when the full auxiliary-field integral recovers a finite partition function? This section provides a regularization interpretation of this apparent mismatch.
-
-The weights sampled in BAFQMC through Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main} are the regularized weights $W_{\rm reg}(\phi)$. Wherever the bare trace converges, these determinant expressions give $W_{\rm reg}(\phi)=W_{\rm bare}(\phi)$. For configurations with divergent bare traces, they represent the finite part of the regularized occupation sum. A Gaussian cutoff allows us to separate this finite part from the divergent contributions and describe how the latter cancel upon auxiliary-field integration.
-
-Consider first a number-conserving fixed-field product with single-particle eigenvalues $r_1(\phi),\ldots,r_N(\phi)$. In a diagonal normal-mode basis the bare fixed-field trace is the generating series
+For number-conserving evolution, let $r_1(\phi),\ldots,r_N(\phi)$ be the eigenvalues of the single-particle propagation matrix $\mc B(\phi)$. In a diagonal normal-mode basis, occupying mode $i$ with $n_i$ bosons contributes $r_i(\phi)^{n_i}$ to the many-body weight. Summing over all occupations gives the bare trace
 \begin{equation}
     W_{\rm bare}(\phi)=\sum_{\bb n\ge0} a_{\bb n}(\phi),
     \qquad
     a_{\bb n}(\phi)=\prod_{i=1}^{N}r_i(\phi)^{n_i},
     \label{eq:bare_occupation_series}
 \end{equation}
-where $\bb n=(n_1,\ldots,n_N)$. For $|r_i|<1$ in every mode, Eq.~\eqref{eq:bare_occupation_series} converges to $\prod_i(1-r_i)^{-1}$. If some mode amplifies large occupations, the same series is regulated by a Gaussian cutoff on the occupation-sector contribution,
+where $\bb n=(n_1,\ldots,n_N)$ labels the boson occupations. When $|r_i|<1$ for every mode, each occupation sum is a convergent geometric series and Eq.~\eqref{eq:bare_occupation_series} equals $\prod_i(1-r_i)^{-1}$. If $|r_i|>1$ for any mode, its contribution grows with $n_i$ and the bare trace diverges. To identify its finite part, introduce the Gaussian regulator
 \begin{equation}
     W_{\Lambda}(\phi)
     =
@@ -900,21 +896,21 @@ where $\bb n=(n_1,\ldots,n_N)$. For $|r_i|<1$ in every mode, Eq.~\eqref{eq:bare_
     \exp\!\left[-\frac{|r_i(\phi)|^{2n_i}}{\Lambda^2}\right].
     \label{eq:gaussian_cutoff_weight}
 \end{equation}
-The cutoff is placed in Fock space and damps large occupations in each amplifying mode.
+For finite $\Lambda$, the Gaussian factor renders the growing occupation sums convergent.
 
-The one-mode case shows how the determinant emerges. For $W_{\rm bare}(r)=\sum_{n\ge0}r^n$ with $|r|>1$,
+The finite part can be identified first for a single mode with eigenvalue $r$ and $|r|>1$. Its regulated occupation sum is
 \begin{equation}
     W_{\Lambda}(r)
     =
     \sum_{n\ge0}r^n
     \exp\!\left(-\frac{|r|^{2n}}{\Lambda^2}\right).
 \end{equation}
-The terms with $n\lesssim n_*(\Lambda)=\ln\Lambda/\ln|r|$ are almost unchanged, while larger occupations are smoothly suppressed. The regulated sum therefore has the large-$\Lambda$ form
+The regulator becomes effective near $|r|^n\sim\Lambda$, corresponding to the occupation scale $n_*(\Lambda)=\ln\Lambda/\ln|r|$. As $\Lambda$ increases, the regulated sum separates into a cutoff-dependent contribution and a finite term,
 \begin{equation}
     W_{\Lambda}(r)=P_{\Lambda}(r)+\frac{1}{1-r}+o(1),
     \qquad r\ne1,
 \end{equation}
-where $P_{\Lambda}$ contains the cutoff-dependent growing part. For $|r|<1$, the same finite term is obtained because the regulator becomes irrelevant in the convergent series. Applying the argument mode by mode gives
+where $P_{\Lambda}$ collects the terms that grow with the cutoff. For $|r|<1$, the regulator can be removed directly, and the finite term $(1-r)^{-1}$ equals the convergent occupation sum. For multiple modes, this separation gives
 \begin{equation}
     W_{\Lambda}(\phi)=P_{\Lambda}(\phi)+W_{\rm reg}(\phi)+o(1),
 \end{equation}
@@ -927,9 +923,9 @@ with
     \det[I_N-\mc B(\phi)]^{-1}.
     \label{eq:reg_weight_appendix}
 \end{equation}
-The determinant weight is the cutoff-independent finite part of the fixed-field bosonic occupation sum.
+The inverse determinant thus represents the cutoff-independent finite part of the bosonic occupation sum.
 
-The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\Lambda$ denote the corresponding Fock-space regulator. With finite $\Lambda$,
+To relate this finite part to the interacting partition function, retain the regulator until the auxiliary fields have been integrated. Denoting the Fock-space regulator by $R_\Lambda$, the regulated partition function is
 \begin{equation}
     Z_{\Lambda}
     =
@@ -942,13 +938,12 @@ The cutoff is removed after the auxiliary-field integral is assembled. Let $R_\L
     R_\Lambda\prod_{\ell}\ee^{\hat h_\ell(\phi_\ell)}
     \right].
 \end{equation}
-The left-hand side tends to the physical partition function as $\Lambda\to\infty$. On the right-hand side, each fixed-field trace has the finite-part expansion displayed above. The cutoff-dependent terms have zero net contribution to the finite physical partition function after the full auxiliary-field integration, leaving the regularized AFQMC representation
+As $\Lambda\to\infty$, the left-hand side recovers the finite physical partition function. In the auxiliary-field representation, the fixed-field traces separate into cutoff-dependent contributions and finite parts. The divergent contributions cancel upon integration over the complete auxiliary-field domain, leaving
 \begin{equation}
     Z=\int\mc D\phi\;P_{\rm HS}(\phi)\,W_{\rm reg}(\phi).
 \end{equation}
-BAFQMC evaluates $W_{\rm reg}(\phi)$ directly from the determinant expressions in Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main}. The cutoff provides an interpretation of these weights and introduces no occupation cutoff or additional truncation approximation into the sampling algorithm.
 
-The same construction applies to Gaussian propagators with pairing. In a stable quasiparticle basis,
+For evolution with pairing, the quasiparticle occupation sum has the same structure. In the quasiparticle basis of Sec.~\ref{app:trace_paired}, $\ee^{\varepsilon_j(\phi)}$ is the factor associated with adding one quasiparticle to mode $j$, and
 \begin{equation}
     W_{\rm bare}(\phi)
     =
@@ -956,7 +951,7 @@ The same construction applies to Gaussian propagators with pairing. In a stable 
     \sum_{n_1,\ldots,n_N\ge0}
     \prod_{j=1}^{N}\ee^{n_j\varepsilon_j(\phi)}.
 \end{equation}
-The additional $\frac12\sum_j\varepsilon_j$ in the prefactor is the centered quadratic contribution in Eq.~\eqref{eq:hAdef}. Applying the Gaussian cutoff to the quasiparticle occupation sectors and keeping the finite part gives
+The factor $\exp(\frac12\sum_j\varepsilon_j)$ accounts for the zero-point contribution of the quasiparticle modes, while $\exp(\sum_\ell\xi_\ell)$ retains the scalar terms in the original generators. Regularizing the quasiparticle occupation sums gives the finite part
 \begin{equation}
     W_{\rm reg}(\phi)
     =
@@ -967,22 +962,26 @@ In Nambu notation this finite part is written as
 \begin{equation}
     W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
 \end{equation}
-where the normal-ordering scalar and the square-root representative are fixed as in Sec.~\ref{app:trace_paired}. In RP applications the representative is the nonnegative operator weight selected by the reflection-positivity proof.
+where the scalar prefactor and the choice of square root are fixed as in Sec.~\ref{app:trace_paired}. For trace-convergent RP products, reflection positivity fixes the nonnegative operator weight.
 
-When time reversal separates every slice into two independent conjugate subsystems, as in the Majorana class proved in Sec.~\ref{app:trs_majorana}, the cutoff is applied to the two subsystems separately. Write $\mathcal F=\mathcal F_+\otimes\mathcal F_-$ and $\hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}$, assigning half of the real scalar $\xi_\ell$ to each subsystem. Choose cutoffs that treat every state and its time-reversed partner in the same way. The regulated traces then obey
+The determinant expressions in Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main} therefore give the regularized weights $W_{\rm reg}(\phi)$ sampled in BAFQMC. Wherever the bare trace converges, $W_{\rm reg}(\phi)=W_{\rm bare}(\phi)$. For configurations with divergent bare traces, the determinant expressions represent the finite parts identified above.
+
+When time reversal separates every slice into two independent conjugate subsystems, as in the Majorana class proved in Sec.~\ref{app:trs_majorana}, the cutoff is applied to the two subsystems separately. The Fock space and slice generators decompose as $\mathcal F=\mathcal F_+\otimes\mathcal F_-$ and $\hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}$, with half of the real scalar $\xi_\ell$ assigned to each subsystem. Using identical cutoffs for each state and its time-reversed partner preserves the conjugacy of the regulated traces,
 \begin{equation}
     W_{\Lambda,\pm}=\Tr_{\mathcal F_\pm}
     \left[R_{\Lambda,\pm}\prod_\ell\ee^{\hat h_{\ell,\pm}}\right],
     \qquad W_{\Lambda,-}=\overline{W_{\Lambda,+}}.
 \end{equation}
-Remove the cutoff-dependent growing terms from each trace before multiplying the two finite parts. The same subtraction in both subsystems preserves $W_-=\overline{W_+}$ and gives
+Subtracting the cutoff-dependent growing terms separately from each trace preserves $W_-=\overline{W_+}$ for their finite parts. Multiplying these finite parts gives
 \begin{equation}
     W_{\rm reg}=W_+\overline{W_+}=|W_+|^2
     =\ee^{\sum_\ell\xi_\ell}
     \left|\det(I_N-\mc M_+)^{-1}\right|,
     \label{eq:reg_conjugate_sectors}
 \end{equation}
-where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. When the evolution cannot be separated into two independent conjugate subsystems, this separate regularization of conjugate traces does not apply. The TRS criteria proved in Sec.~\ref{app:trs_proof} apply to these regularized weights and do not require the bare trace to converge for every fixed auxiliary-field configuration. The Kramers and split-orthogonal proofs fix the sign directly through their reduced determinants.
+where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. When the evolution cannot be separated into two independent conjugate subsystems, this separate regularization of conjugate traces does not apply.
+
+The TRS criteria proved in Sec.~\ref{app:trs_proof} apply to these regularized weights and do not require the bare trace to converge for every fixed auxiliary-field configuration. The Kramers and split-orthogonal proofs fix the sign directly through their reduced determinants.
 
 \section{Proof of the time-reversal criterion}
 \label{app:nonnegative_proofs}
