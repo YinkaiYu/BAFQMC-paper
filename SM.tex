@@ -368,7 +368,7 @@ To apply this expression, first form the product $U_M^\hc U_R^\hc$, then divide 
 \section{Nambu Gaussian formalism}
 \label{app:paired_gaussian}
 
-Pair creation and annihilation mix the operators $\hat a_i$ and $\hat a_i^+$ during imaginary-time evolution. The Gaussian construction of Sec.~\ref{app:number_conserving_gaussian} therefore extends to a Nambu space containing both sets of operators. We first obtain their propagation matrix, then derive the trace and equal-time correlations, and finally use these results to construct local Monte Carlo updates and their numerical stabilization.
+Pair creation and annihilation mix the operators $\hat a_i$ and $\hat a_i^+$ during imaginary-time evolution. The Gaussian construction of Sec.~\ref{app:number_conserving_gaussian} therefore extends to a Nambu space containing both sets of operators. We first obtain their propagation matrix, then derive the trace and equal-time correlations, and finally use these results to construct local Monte Carlo updates and their numerical stabilization. The paired implementation and benchmark scripts are available in Ref.~\cite{bafqmc_code}.
 
 \subsection{Nambu algebra}
 \label{app:algebra}
@@ -1294,18 +1294,18 @@ Every coefficient is nonnegative and can be absorbed into the two reflected fact
 \end{equation}
 Each factor is built from reflected products, and Eq.~\eqref{eq:rp_multiplication_sm} preserves their form throughout the multiplication. The exponential series and Trotter limit therefore establish Eq.~\eqref{eq:rp_generator_sm} as a sufficient condition for nonnegative weights in the trace-convergent regime.
 
-For Gaussian slices, this condition becomes a test on the matrix coupling the two flavors. Choose the reflection convention $\eta_i=1$ and collect the left-sector operators into $\hat{\bb z}=(\hat{\bb b},\hat{\bb b}^+)^\trans$, with $\theta(\hat{\bb z})=(\hat{\bb c},\hat{\bb c}^+)^\trans$. The within-sector quadratic terms are $\hat q=\hat{\bb z}^\trans D\hat{\bb z}$ and $\theta(\hat q)=\theta(\hat{\bb z})^\trans\overline D\,\theta(\hat{\bb z})$. Taking $\hat X_\mu=\hat z_\mu$ in Eq.~\eqref{eq:rp_generator_sm} makes $C$ the interflavor coupling matrix. Write $C=2F$, so that $F=F^\hc\succeq0$. Because the two flavors commute, this coupling can be written symmetrically as
+The Gaussian form makes this criterion especially transparent. Choose the reflection convention $\eta_i=1$ and collect the operators in the left sector as
 \begin{equation}
-    2\sum_{\mu,\nu}F_{\mu\nu}\hat z_\mu\theta(\hat z_\nu)
-    =\hat{\bb z}^\trans F\theta(\hat{\bb z})
-    +\theta(\hat{\bb z})^\trans F^\trans\hat{\bb z}.
+    \hat{\bb z}=(\hat{\bb b},\hat{\bb b}^+)^\trans,
+    \qquad
+    \theta(\hat{\bb z})=(\hat{\bb c},\hat{\bb c}^+)^\trans.
 \end{equation}
-Grouping the Nambu components by flavor,
+A quadratic term acting within the left sector has the form $\hat q=\hat{\bb z}^\trans D\hat{\bb z}$; its reflected partner acts within the right sector with the conjugate matrix $\overline D$. The terms that couple the two sectors are collected in a matrix $F$. Grouping each flavor with its creation operators gives
 \begin{equation}
     \hat\chi=(\hat{\bb z},\theta(\hat{\bb z}))^\trans
-    =(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans,
+    = (\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans,
 \end{equation}
-yields the block form
+and the slice generator takes the block form
 \begin{equation}
     \hat h=
     \hat\chi^\trans
@@ -1318,8 +1318,7 @@ yields the block form
     F=F^\hc\succeq0,\quad \xi\in\mathbb R.
     \label{eq:rp_block_sm}
 \end{equation}
-The diagonal blocks describe conjugate quadratic evolution within the two flavors. The two off-diagonal blocks together reproduce the coupling $C=2F$, so positivity of $F$ is precisely the generator condition above. This gives Eq.~\eqref{eq:rp_block_form} of the main text. The flavor grouping is related to the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$ by a fixed permutation of components. For a reflection with phases $\eta_i$, the same construction uses $\theta(\hat{\bb z})$ as the right-sector components.
-
+The diagonal blocks describe the conjugate evolution within the two sectors, while $F$ describes their coupling. The single condition $F\succeq0$ is therefore the Gaussian form of the reflection-positive generator criterion. This is Eq.~\eqref{eq:rp_block_form} in the main text. The flavor-grouped order used here differs from the conventional Nambu order $(\hat{\bb b},\hat{\bb c},\hat{\bb b}^+,\hat{\bb c}^+)^\trans$ used elsewhere in the SM only by a fixed permutation of components. A reflection with phases $\eta_i$ is incorporated by the corresponding phase factors in $\theta(\hat{\bb z})$.
 The relation to the TRS criterion is direct. For a number-conserving Hamiltonian, the absence of anomalous pairing terms sets $F=0$ in the RP block form. The remaining flavor blocks are complex conjugates. In the flavor space spanned by $(\hat b_i,\hat c_i)^\trans$, this structure is invariant under the TRS $\Theta=\ii\sigma_y K$, which satisfies $\Theta^2=-I$ and realizes the Kramers class; number-conserving RP is thus contained in the Kramers TRS criterion. Allowing pairing admits $F\succeq0$ and extends RP beyond the TRS classes. In the triangular-lattice paired benchmark, the antiunitary maps relating the two flavors commute and hence do not form any sign-free class in Table~\ref{tab:trs_periodic}, whereas the reflected anomalous coupling remains positive. RP is thus the mechanism that protects its weight.
 
 Successive RP evolution steps combine into another RP propagator, as shown in Eq.~\eqref{eq:rp_multiplication_sm}. Such a set, closed under associative composition without requiring inverse propagators to belong to it, is called a semigroup. For fermions, Majorana RP within the reflection-symmetric sector can be expressed as the contraction condition $A^\hc\eta+\eta A\preceq0$ for a fixed indefinite Hermitian metric $\eta$~\cite{wei2024prb}. For bosons, no fixed Hermitian metric $\eta$ makes this contraction condition equivalent to the full algebraic RP condition $F\succeq0$. To prove this by contradiction, suppose such a metric existed. At $D=0,F=I$ in Eq.~\eqref{eq:rp_block_sm}, the Nambu generator satisfies $A^\hc=-A$, hence $\Tr(A^\hc\eta+\eta A)=0$. The contraction inequality then forces $A^\hc\eta+\eta A=0$, since nonpositive eigenvalues with zero sum must all vanish. Reversing the coupling to $F=-I$ sends $A$ to $-A$ and preserves this equality. The same metric would therefore admit a coupling that violates $F\succeq0$, contradicting the assumed equivalence. Thus the bosonic RP cone defines a semigroup that admits no equivalent description as a contraction semigroup with a fixed Hermitian metric. The bosonic RP cone revealed here may provide key insight for the future development of a broader semigroup theory of sign-free quantum Monte Carlo beyond the fixed-metric contraction framework of Ref.~\cite{wei2024prb}.
