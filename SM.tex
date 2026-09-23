@@ -103,7 +103,7 @@ For fixed auxiliary fields on time slice $\ell$, these transformations generate 
 The grand-canonical sampling weight contains $\hat H-\mu\hat N$, so the chemical potential adds
 $+\Delta\tau\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$ to the slice generator.
 
-\section{Number-conserving Gaussian formulas}
+\section{Number-conserving Gaussian formalism}
 \label{app:number_conserving_gaussian}
 
 For a fixed auxiliary-field configuration, the HS transformation reduces the interacting problem to bosons propagating in an external field. When this propagation conserves particle number, the sum over all boson occupations and the equal-time correlations can both be evaluated from an $N\times N$ single-particle matrix. These two quantities determine the configuration weight, the observable estimators, and the acceptance of local field updates.
@@ -193,7 +193,7 @@ Equating this result with $G_{ij}-\delta_{ij}$ gives $G-I_N=\mc B G$. Solving fo
 \end{equation}
 in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\langle\hat n_i\rangle_\phi=r_i/(1-r_i)$ is the mean occupation obtained from the geometric series above. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian. The Green function also determines how the configuration weight changes under a local auxiliary-field update.
 
-\subsection{Local update and Metropolis ratio}
+\subsection{Local updates and Metropolis ratio}
 \label{app:update_number}
 
 A Monte Carlo sweep proposes local changes of the auxiliary fields. Each proposal requires a weight ratio to decide acceptance and, if accepted, an updated Green function for subsequent proposals and measurements. Consider a local proposal $\phi_{i\ell}\to\phi_{i\ell}'$ that changes the onsite potential of mode $i$ at slice $\ell$. This multiplies the single-particle propagation amplitude on that mode by a factor $1+\delta$, whose dependence on the field change is specified by the HS transformation. In single-particle space, the change is therefore $I_N+\Delta_\ell$, with $\Delta_\ell=\delta\ket{i}\bra{i}$ and $\ket{i}$ the basis vector for that mode.
@@ -306,7 +306,7 @@ where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$
 \end{equation}
 The $c$-flavor update is the complex conjugate of Eq.~\eqref{eq:number_green_rank_one}.
 
-\subsection{Numerical stabilization in the number-conserving calculation}
+\subsection{Numerical stabilization}
 \label{app:stabilization_number}
 
 Different single-particle components grow or decay at different rates under imaginary-time evolution. At low temperature, the long propagation can make their amplitudes differ by many orders of magnitude. Direct matrix multiplication then loses information about the smaller components through roundoff error, compromising the Green function $(I_{N_s}-\mc B_{b,\ell})^{-1}$. We retain this information by periodically factorizing the propagation matrix and storing its large and small scales separately, following the stabilization strategy used in determinantal QMC~\cite{assaadEvertz2008}.
@@ -368,7 +368,7 @@ The interval factorizations preserve the information in the long propagation. Th
 \end{equation}
 To apply this expression, first form the product $U_M^\hc U_R^\hc$, then divide each row by the corresponding entry of $D_M$. The final action of $V_M^{-1}$ is evaluated by solving the triangular equations from the QR factorization and applying the permutation. Multiplication by $U_L^\hc$ completes the reconstruction of $G_{b,\ell}$. These operations evaluate the same Green function as the full cyclic product, with the propagation scales stored separately during accumulation. The second flavor follows from $G_{c,\ell}=\overline{G_{b,\ell}}$.
 
-\section{Paired Gaussian formulas}
+\section{Nambu Gaussian formalism}
 \label{app:paired_gaussian}
 
 Pair creation and annihilation mix the operators $\hat a_i$ and $\hat a_i^+$ during imaginary-time evolution. The Gaussian construction of Sec.~\ref{app:number_conserving_gaussian} therefore extends to a Nambu space containing both sets of operators. We first obtain their propagation matrix, then derive the trace and equal-time correlations, and finally use these results to construct local Monte Carlo updates and their numerical stabilization.
@@ -436,7 +436,7 @@ Passing the operators through successive slices yields
 \end{equation}
 Thus the full imaginary-time evolution is encoded by an ordered product of $2N\times2N$ matrices. Each slice satisfies $(\ee^A)^\trans\Omega\ee^A=\Omega$, expressing preservation of the canonical commutators.
 
-\subsection{Trace formula and square-root sign}
+\subsection{Trace formula}
 \label{app:trace_paired}
 
 For a fixed auxiliary-field configuration, define
@@ -510,10 +510,10 @@ The scalar contributions multiply across the slices, and the ordered operator pr
 
 For configurations whose bare traces diverge, Sec.~\ref{app:regularization} gives the finite-part interpretation of this weight. When every slice separates into the same two independent conjugate bosonic subsystems, their traces can be regularized separately and multiplied to retain a modulus-square weight. This connects the Nambu trace formula to the regularized weights used in the symmetry criteria.
 
-\subsection{Nambu Green function and update ratio}
+\subsection{Equal-time Nambu Green function}
 \label{app:green_paired}
 
-\emph{Equal-time correlations.} Pairing introduces correlations such as $\langle\hat a_i\hat a_j\rangle_\phi$ alongside the number-conserving correlations $\langle\hat a_i^+\hat a_j\rangle_\phi$. The Nambu Green function collects all of them in one matrix,
+Pairing introduces correlations such as $\langle\hat a_i\hat a_j\rangle_\phi$ alongside the number-conserving correlations $\langle\hat a_i^+\hat a_j\rangle_\phi$. The Nambu Green function collects all of them in one matrix,
 \begin{equation}
     G_{\mu\nu}
     =
@@ -551,6 +551,9 @@ where we used $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$. Hence $\mc M G=G-\O
     \label{eq:Gformula}
 \end{equation}
 Thus the full set of normal and pair correlations follows from the same propagation matrix that determines the weight. Higher-order observables follow by Wick contraction, including the pair correlations.
+
+\subsection{Local updates and Metropolis ratio}
+\label{app:update_paired}
 
 \emph{Weight ratio.} A local auxiliary-field proposal changes both the Nambu propagation and, when present, the scalar term $\xi_\ell$. As in Sec.~\ref{app:update_number}, choose the equal-time cut immediately before the onsite factor being updated, so that its change multiplies the propagation from the left. Write
 \begin{equation}
@@ -736,7 +739,7 @@ The columns of $\widetilde G_\ell S_i$ connect the updated site to the rest of t
 \end{equation}
 Each proposal therefore requires a four-dimensional determinant for the acceptance probability. On acceptance, Eq.~\eqref{eq:paired_green_update} updates the full resolvent through the same local block, and $G_\ell'=\widetilde G_\ell'\Omega$ gives the updated physical correlations.
 
-\subsection{Numerical stabilization in the paired calculation}
+\subsection{Numerical stabilization}
 \label{app:stabilization_paired}
 
 The local updates require an accurate equal-time resolvent $\widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1}$. Pairing mixes creation and annihilation components, whose propagation can develop widely separated scales over long imaginary times. As in Sec.~\ref{app:stabilization_number}, these scales are stored separately during matrix multiplication, and the resolvent is periodically reconstructed from the full propagation.
@@ -1479,7 +1482,7 @@ where $x$ is the real HS field being updated. For the number-conserving benchmar
 
 The number-conserving data in Fig.~\ref{fig:benchmark}(a--d) use the algorithm in Sec.~\ref{app:update_number}, with $\Delta=0$, $\mu=-3.5$, and $\beta=4$, scanning $U=0,0.25,0.5,0.75,1,1.25,1.5,2$. The same algorithm gives Fig.~\ref{fig:benchmark_attractive}, which scans $U_1=-0.6,-0.5,\ldots,0$ at $U_2=1$, $\mu=-7$, and $\beta=1$. Both use the complex-conjugate relation between the two flavors in Eq.~\eqref{eq:conj_green_benchmark}.
 
-The finite-$\Delta$ data in Fig.~\ref{fig:benchmark}(e--h) use the Nambu algorithm in Sec.~\ref{app:green_paired}, with $U=1$, $\mu=-5$, $\beta=4$, and real $\Delta=0,0.05,\ldots,0.30$. The relative-density HS field couples with opposite signs to the two flavors, so its normal-ordering constants cancel. The paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
+The finite-$\Delta$ data in Fig.~\ref{fig:benchmark}(e--h) use the Nambu algorithm in Sec.~\ref{app:update_paired}, with $U=1$, $\mu=-5$, $\beta=4$, and real $\Delta=0,0.05,\ldots,0.30$. The relative-density HS field couples with opposite signs to the two flavors, so its normal-ordering constants cancel. The paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
 
 The number-conserving references in Fig.~\ref{fig:benchmark}(a--d) are finite-temperature ED or, at $U=0$, exact free-boson results. The ED calculations keep fixed-total-particle sectors until convergence with respect to the retained sectors is reached. The low-density $U_1$ scan in Fig.~\ref{fig:benchmark_attractive} uses a six-shell total-particle truncation. The finite-$\Delta$ ED references in Fig.~\ref{fig:benchmark}(e--h) use a truncated occupation basis with $n_{\max}=3$, $n_{\rm cut}=4$, basis size $7297$, and maximum boundary weight $1.101\times10^{-4}$. The plotted error bars describe the statistical uncertainty of the BAFQMC means.
 
