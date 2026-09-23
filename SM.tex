@@ -371,10 +371,12 @@ To apply this expression, first form the product $U_M^\hc U_R^\hc$, then divide 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
 
+Pair creation and annihilation mix the operators $\hat a_i$ and $\hat a_i^+$ during imaginary-time evolution. The Gaussian construction of Sec.~\ref{app:number_conserving_gaussian} therefore extends to a Nambu space containing both sets of operators. We first obtain their propagation matrix, then derive the trace and equal-time correlations, and finally use these results to construct local Monte Carlo updates and their numerical stabilization.
+
 \subsection{Nambu algebra}
 \label{app:algebra}
 
-Let $\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans$, with
+For $N$ bosonic modes, collect the annihilation and creation operators into $\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans$. Their canonical commutators take the matrix form
 \begin{equation}
     [\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu},
     \qquad
@@ -384,14 +386,14 @@ Let $\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans$, with
         -I_N&0
     \end{pmatrix}.
 \end{equation}
-A general quadratic generator can be written as
+As in the number-conserving calculation, each imaginary-time factor is the exponential of a dimensionless quadratic generator. Including pairing, this generator can be written as
 \begin{equation}
     \hat h(A,\xi)=-\frac12\hat\chi^\trans\Omega A\hat\chi+\xi,
     \qquad
     \Omega A+A^\trans\Omega=0.
     \label{eq:hAdef}
 \end{equation}
-In block form,
+The condition on $A$ makes $\Omega A$ symmetric and ensures that the induced evolution preserves the bosonic commutators. To identify the physical terms, write
 \begin{equation}
     A=
     \begin{pmatrix}
@@ -401,9 +403,9 @@ In block form,
     \qquad
     \Delta^\trans=\Delta,
     \qquad
-    \Delta'^\trans=\Delta',
+    \Delta'^\trans=\Delta'.
 \end{equation}
-which gives
+Here $K$ describes number-conserving propagation, while $\Delta$ and $\overline{\Delta'}$ describe pair creation and annihilation. The two pairing matrices are independent for a general auxiliary-field generator. Each is symmetric because the two bosons in a pair obey Bose exchange symmetry. Expanding Eq.~\eqref{eq:hAdef} gives
 \begin{equation}
     \hat h(A,\xi)=\hat{\bb a}^+K\hat{\bb a}
     +\frac12\hat{\bb a}^+\Delta(\hat{\bb a}^+)^\trans
@@ -411,20 +413,20 @@ which gives
     +\xi+\frac12\Tr K.
 \label{eq:block_form_h}
 \end{equation}
-The scalar $\xi$ absorbs the normal-ordering constant when a physical quadratic Hamiltonian is represented in Nambu form. This constant is invisible in the single-particle matrix $\ee^A$, but it multiplies the Monte Carlo weight.
+The term $\frac12\Tr K$ arises when the annihilation and creation operators are put in normal order. Thus a quadratic generator with no scalar term in normal order has $\xi=-\frac12\Tr K$. Keeping $\xi$ explicitly retains the scalar contribution to the Monte Carlo weight.
 
-Using $[XY,Z]=X[Y,Z]+[X,Z]Y$ and the symplectic condition, one finds
+Under quadratic evolution, each creation or annihilation operator becomes a linear combination of these same $2N$ operators. Using $[XY,Z]=X[Y,Z]+[X,Z]Y$ in Eq.~\eqref{eq:hAdef} gives
 \begin{equation}
     [\hat h(A,\xi),\hat\chi]=-A\hat\chi.
     \label{eq:appendix_commutator}
 \end{equation}
-Therefore
+Repeated commutation therefore exponentiates the matrix $A$,
 \begin{equation}
     \ee^{\hat h(A,\xi)}\hat\chi\,\ee^{-\hat h(A,\xi)}=\ee^{-A}\hat\chi,
     \qquad
     \hat\chi\,\ee^{\hat h(A,\xi)}=\ee^{\hat h(A,\xi)}\ee^A\hat\chi.
 \end{equation}
-For an ordered product,
+Passing the operators through successive slices yields
 \begin{equation}
     \hat\chi\,\prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)}
     =
@@ -432,111 +434,111 @@ For an ordered product,
     \left(\prod_{\ell=1}^{L}\ee^{A_\ell}\right)\hat\chi.
     \label{eq:Mdef}
 \end{equation}
+Thus the full imaginary-time evolution is encoded by an ordered product of $2N\times2N$ matrices. Each slice satisfies $(\ee^A)^\trans\Omega\ee^A=\Omega$, expressing preservation of the canonical commutators.
 
 \subsection{Trace formula and square-root sign}
 \label{app:trace_paired}
 
-Let
+For a fixed auxiliary-field configuration, define
 \begin{equation}
     \hat U=\prod_{\ell=1}^{L}\ee^{\hat h(A_\ell,\xi_\ell)},
     \qquad
     \mc M=\ee^{A_1}\cdots\ee^{A_L}.
 \end{equation}
-The Nambu trace formula follows from the same occupation-number sum after the quadratic operator is brought to stable quasiparticle form. For one mode,
-\begin{equation}
-    \hat h=\varepsilon\hat\beta^+\hat\beta,
-    \qquad \operatorname{Re}\varepsilon<0.
-\end{equation}
-The trace is
+The trace again sums the weights of all bosonic occupations. To see how this sum is represented in Nambu space, first consider one stable quasiparticle mode $\hat\beta$ with generator $\hat h=\varepsilon\hat\beta^+\hat\beta$. The dimensionless exponent $\varepsilon$ is the change in the Boltzmann exponent on adding one quasiparticle, so a state with occupation $n$ contributes $\ee^{n\varepsilon}$. For an oscillator of excitation energy $E>0$, $\varepsilon=-\beta E$. More generally, the occupation sum converges for $\operatorname{Re}\varepsilon<0$ and gives
 \begin{equation}
     \Tr\,\ee^{\hat h}
-    =
-    \sum_{n=0}^{\infty}\ee^{n\varepsilon}
-    =
-    (1-\ee^\varepsilon)^{-1}.
+    =\sum_{n=0}^{\infty}\ee^{n\varepsilon}
+    =(1-\ee^\varepsilon)^{-1}.
 \end{equation}
-In the Nambu convention of Eq.~\eqref{eq:hAdef}, the same operator is written as
+In the Nambu basis $(\hat\beta,\hat\beta^+)^\trans$, the same generator is represented by
 \begin{equation}
-    \hat h=-\frac12\hat\chi^\trans\Omega A\hat\chi+\xi,
-    \qquad
     A=\begin{pmatrix}\varepsilon&0\\0&-\varepsilon\end{pmatrix},
+    \qquad \xi=-\frac{\varepsilon}{2}.
+\end{equation}
+Its quadratic Nambu term is $\varepsilon(\hat\beta^+\hat\beta+\frac12)$, with the usual oscillator zero-point contribution, which $\xi$ cancels for the normally ordered generator chosen above. The annihilation and creation components consequently have reciprocal propagation factors,
+\begin{equation}
+    \mc M=\begin{pmatrix}\ee^\varepsilon&0\\0&\ee^{-\varepsilon}\end{pmatrix}.
+\end{equation}
+Thus one physical mode contributes two Nambu eigenvalues. The determinant gives
+\begin{equation}
+    -\det(I_2-\mc M)
+    =\ee^{-\varepsilon}(1-\ee^\varepsilon)^2.
+\end{equation}
+The square root removes this doubling. Choosing it to reproduce the occupation sum gives
+\begin{equation}
+    [-\det(I_2-\mc M)]^{1/2}
+    =\ee^{-\varepsilon/2}(1-\ee^\varepsilon),
     \qquad
-    \xi=-\frac{\varepsilon}{2}.
+    \ee^\xi[-\det(I_2-\mc M)]^{-1/2}
+    =(1-\ee^\varepsilon)^{-1}.
 \end{equation}
-The scalar $\xi$ removes the normal-ordering constant because
-$-\frac12\hat\chi^\trans\Omega A\hat\chi=\varepsilon\hat\beta^+\hat\beta+\varepsilon/2$.
-The corresponding Nambu propagation matrix is $M=\diag(\ee^\varepsilon,\ee^{-\varepsilon})$, and
-\begin{equation}
-    -\det(I_2-M)
-    =
-    \ee^{-\varepsilon}(1-\ee^\varepsilon)^2.
-\end{equation}
-The square-root representative associated with this operator trace is
-\begin{equation}
-    [-\det(I_2-M)]^{1/2}
-    =
-    \ee^{-\varepsilon/2}(1-\ee^\varepsilon)
-\end{equation}
-in this stable region. With this representative,
-\begin{equation}
-    \ee^{\xi}[-\det(I_2-M)]^{-1/2}
-    =
-    (1-\ee^\varepsilon)^{-1},
-\end{equation}
-which reproduces the ordinary trace.
-This calculation also shows where the square root enters: one physical bosonic mode appears as two reciprocal Nambu eigenvalues, $\ee^\varepsilon$ and $\ee^{-\varepsilon}$.
+This fixes both the magnitude and the sign of the square root from the bosonic trace.
 
-For $N$ stable quasiparticle modes,
+For $N$ independent stable quasiparticle modes, the occupation sums multiply,
 \begin{equation}
     \Tr\,\ee^{\sum_j\varepsilon_j\hat\beta_j^+\hat\beta_j}
-    =
-    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
+    =\prod_{j=1}^{N}(1-\ee^{\varepsilon_j})^{-1}.
 \end{equation}
-In Nambu space the propagation matrix is similar to
+A canonical change to the quasiparticle basis brings the Nambu propagation matrix to
 \begin{equation}
-    \diag(\ee^{\varepsilon_1},\ldots,\ee^{\varepsilon_N},
-          \ee^{-\varepsilon_1},\ldots,\ee^{-\varepsilon_N}),
+    \begin{pmatrix}
+        \ee^{\varepsilon_1}&&0&&&\\
+        &\ddots&&&0&\\
+        0&&\ee^{\varepsilon_N}&&&\\
+        &&&\ee^{-\varepsilon_1}&&0\\
+        &0&&&\ddots&\\
+        &&&0&&\ee^{-\varepsilon_N}
+    \end{pmatrix}.
 \end{equation}
-and the scalar in Eq.~\eqref{eq:hAdef} is $\xi=-\frac12\sum_j\varepsilon_j$. Multiplying the one-mode square-root choices gives
+Each physical mode again supplies one reciprocal pair. Multiplying the one-mode identities therefore yields
 \begin{equation}
-    \left[(-1)^N\det(I_{2N}-M)\right]_{\rm op}^{1/2}
-    =
-    \exp\!\left(-\frac12\sum_j\varepsilon_j\right)
-    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j})
+    \left[(-1)^N\det(I_{2N}-\mc M)\right]_{\rm op}^{1/2}
+    =\exp\!\left(-\frac12\sum_j\varepsilon_j\right)
+    \prod_{j=1}^{N}(1-\ee^{\varepsilon_j}),
 \end{equation}
-where the subscript indicates the representative fixed by the operator trace. Combining this representative with the normal-ordering scalar gives the product of Bose occupation factors above.
+where the subscript denotes the square root fixed by the occupation sums. Combining its inverse with $\ee^\xi$, where $\xi=-\frac12\sum_j\varepsilon_j$ for this normally ordered generator, reproduces the trace above.
 
-For a stable, trace-convergent Gaussian product, the standard bosonic quadratic-operator trace formula gives~\cite{munn1978ensemble}
+Successive quadratic evolution steps compose into another Gaussian operator, whose Nambu propagation matrix is the ordered product in Eq.~\eqref{eq:Mdef}. The Gaussian trace identity therefore applies to the full evolution, including mixing between modes. For a stable, trace-convergent product it gives~\cite{munn1978ensemble}
 \begin{equation}
     \Tr\,\hat U
-    =
-    \exp\!\left(\sum_\ell\xi_\ell\right)
+    =\exp\!\left(\sum_\ell\xi_\ell\right)
     \left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-Here the square root is fixed by the ordered operator product in the convergent domain. Beyond that domain, the weight follows the prescription in Sec.~\ref{app:regularization}. When the evolution separates into two independent conjugate subsystems, their traces are regularized separately and then multiplied, preserving the modulus-square weight. This construction requires the same subsystem decomposition for every time slice. Together with the scalar prefactor, the Nambu propagation matrix determines the squared weight. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here. The proofs in Sec.~\ref{app:trs_proof} determine the full Gaussian weight through reduced determinants. For trace-convergent RP products, the proof in Sec.~\ref{app:rp_proof} establishes nonnegativity of the operator trace.
+The scalar contributions multiply across the slices, and the ordered operator product fixes the square-root sign. Together with the scalar prefactor, the determinant specifies the squared weight. The sign-free criteria complete this information: the TRS proofs in Sec.~\ref{app:trs_proof} express the full weight through reduced determinants, and reflection positivity establishes a nonnegative operator trace in Sec.~\ref{app:rp_proof}. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here.
+
+For configurations whose bare traces diverge, Sec.~\ref{app:regularization} gives the finite-part interpretation of this weight. When every slice separates into the same two independent conjugate bosonic subsystems, their traces can be regularized separately and multiplied to retain a modulus-square weight. This connects the Nambu trace formula to the regularized weights used in the symmetry criteria.
 
 \subsection{Nambu Green function and update ratio}
 \label{app:green_paired}
 
-Define the Nambu Green function by
+\emph{Equal-time correlations.} Pairing introduces correlations such as $\langle\hat a_i\hat a_j\rangle_\phi$ alongside the number-conserving correlations $\langle\hat a_i^+\hat a_j\rangle_\phi$. The Nambu Green function collects all of them in one matrix,
 \begin{equation}
     G_{\mu\nu}
     =
     \frac{\Tr(\hat\chi_\mu\hat\chi_\nu\hat U)}{\Tr\,\hat U}.
     \label{eq:Gdef}
 \end{equation}
-From Eq.~\eqref{eq:Mdef},
+Its four $N\times N$ blocks have entries
+\begin{equation}
+    G=
+    \begin{pmatrix}
+        [\langle\hat a_i\hat a_j\rangle_\phi]_{ij}&[\langle\hat a_i\hat a_j^+\rangle_\phi]_{ij}\\
+        [\langle\hat a_i^+\hat a_j\rangle_\phi]_{ij}&[\langle\hat a_i^+\hat a_j^+\rangle_\phi]_{ij}
+    \end{pmatrix}.
+\end{equation}
+The off-diagonal blocks contain the number-conserving correlations, while the diagonal blocks describe pair annihilation and creation. To determine them, use Eq.~\eqref{eq:Mdef} to pass a Nambu operator through the full imaginary-time evolution,
 \begin{equation}
     \hat\chi\hat U=\hat U\mc M\hat\chi.
     \label{eq:chiUappendix}
 \end{equation}
-In components, multiplying by $\hat\chi_\nu$ on the right and taking the trace gives
+Multiplying component $\mu$ by $\hat\chi_\nu$ on the right and taking the trace gives
 \begin{equation}
     \frac{\Tr(\hat\chi_\mu\hat U\hat\chi_\nu)}{\Tr\hat U}
     =(\mc M G)_{\mu\nu}.
 \end{equation}
-Cyclicity gives the same trace as
+Cyclicity places the two Nambu operators next to each other. Exchanging their order then introduces the canonical commutator,
 \begin{equation}
     \frac{\Tr(\hat U\hat\chi_\nu\hat\chi_\mu)}{\Tr\hat U}
     =G_{\mu\nu}-\Omega_{\mu\nu},
@@ -548,15 +550,15 @@ where we used $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$. Hence $\mc M G=G-\O
     G=(I_{2N}-\mc M)^{-1}\Omega,
     \label{eq:Gformula}
 \end{equation}
-which gives the equal-time Nambu Green function in matrix form.
+Thus the full set of normal and pair correlations follows from the same propagation matrix that determines the weight. Higher-order observables follow by Wick contraction, including the pair correlations.
 
-For a local update in a paired/Nambu simulation, suppose
+\emph{Weight ratio.} A local auxiliary-field proposal changes both the Nambu propagation and, when present, the scalar term $\xi_\ell$. As in Sec.~\ref{app:update_number}, choose the equal-time cut immediately before the onsite factor being updated, so that its change multiplies the propagation from the left. Write
 \begin{equation}
     \ee^{A_\ell'}=(I_{2N}+\Delta_\ell)\ee^{A_\ell},\qquad
-    \delta\xi_\ell=\xi_\ell'-\xi_\ell,
+    \delta\xi_\ell=\xi_\ell'-\xi_\ell.
     \label{eq:delta_def}
 \end{equation}
-and define the cyclic product
+The propagation beginning at this cut is the cyclic product
 \begin{equation}
     \mc M_\ell=\ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}}.
 \end{equation}
@@ -598,47 +600,41 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-Whenever the paired ensemble satisfies the RP criterion and the operator traces converge, both $W$ and $W'$ are the nonnegative weights fixed in Sec.~\ref{app:rp_proof}. In the regularized determinant formulation one uses the same nonnegative representative. For configurations with nonzero denominator, the right-hand side of Eq.~\eqref{eq:update_ratio_main} is therefore the positive real ratio $W'/W$, and it equals one for the identity update $\Delta_\ell=0$ and $\delta\xi_\ell=0$.
+The square root inherits the sign fixed for each full weight in Sec.~\ref{app:trace_paired}. In the paired benchmarks, the RP criterion and the trace convergence established in Sec.~\ref{app:benchmark_convergence} ensure that $W$ and $W'$ are nonnegative, fixing the positive ratio for nonzero weights. The identity update, $\Delta_\ell=0$ and $\delta\xi_\ell=0$, gives $W'/W=1$.
 
-To derive local updates for the density channels in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} in the presence of pairing, use the onsite Nambu basis $(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The two HS coefficients on site $i$ and time slice $\ell$ are
+\emph{Onsite density updates.} For the two-flavor model, a field proposal changes the density term on one site even when the propagation between updates includes pairing. The affected operators are $\hat\chi_i=(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$. The total- and relative-density channels in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative} have coefficients
 \begin{equation}
     \lambda_{1,i\ell}=\alpha_1\phi_{i\ell},\qquad
     \lambda_{2,i\ell}=\ii\alpha_2\varphi_{i\ell}.
 \end{equation}
-The density part of the HS slice obeys
+In the Nambu representation, a density coefficient multiplies $\hat n+\frac12$, as in Eq.~\eqref{eq:block_form_h}. Writing the onsite density terms in this form gives
 \begin{equation}
 \begin{aligned}
     &\lambda_{1,i\ell}(\hat n_{b,i}+\hat n_{c,i})
     +\lambda_{2,i\ell}(\hat n_{b,i}-\hat n_{c,i}) \\
     &\quad =
-    -\frac12\hat\chi_i^\trans\Omega
-    \begin{pmatrix}
-        \lambda_{1,i\ell}+\lambda_{2,i\ell}&0&0&0\\
-        0&\lambda_{1,i\ell}-\lambda_{2,i\ell}&0&0\\
-        0&0&-\lambda_{1,i\ell}-\lambda_{2,i\ell}&0\\
-        0&0&0&-\lambda_{1,i\ell}+\lambda_{2,i\ell}
-    \end{pmatrix}
-    \hat\chi_i
+    (\lambda_{1,i\ell}+\lambda_{2,i\ell})\left(\hat n_{b,i}+\frac12\right)
+    +(\lambda_{1,i\ell}-\lambda_{2,i\ell})\left(\hat n_{c,i}+\frac12\right)
     -\lambda_{1,i\ell}.
 \end{aligned}
     \label{eq:nambu_hs_constant}
 \end{equation}
-The final term is the normal-ordering constant and contributes to the scalar factor $\xi_\ell$. Thus a local $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$ has
+The two $\frac12$ terms contribute $\lambda_{1,i\ell}$ in total. The scalar $-\lambda_{1,i\ell}$ cancels this contribution and enters $\xi_\ell$. Thus a local $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$ has
 \begin{equation}
     R_{\rm const}=\exp[-\alpha_1(\phi_{i\ell}'-\phi_{i\ell})],
 \end{equation}
 whereas a local $U_2$-field proposal $\varphi_{i\ell}\to\varphi_{i\ell}'$ has $R_{\rm const}=1$.
 
-We next reduce the determinant in Eq.~\eqref{eq:update_ratio_main} to the local four-component Nambu block that is affected by the proposal. Let
+The determinant ratio can also be evaluated using only these four onsite components. For this calculation it is convenient to store
 \begin{equation}
-    \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1}
+    \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1},
+    \qquad G_\ell=\widetilde G_\ell\Omega.
 \end{equation}
-and let $e_{i,\rho}$ be the basis vector in the full Nambu single-particle space corresponding to site $i$ and local component $\rho\in\mathcal I$, with
-$\mathcal I=\{b,c,b^+,c^+\}$. Define the $2N\times4$ embedding matrix
+The matrix $\widetilde G_\ell$ is the resolvent of the propagation matrix. Multiplication by the fixed commutator matrix $\Omega$ recovers the physical correlations. Let $e_{i,\rho}$ select site $i$ and component $\rho\in\mathcal I=\{b,c,b^+,c^+\}$ in the full Nambu space. Collecting these four basis vectors gives
 \begin{equation}
     S_i=(e_{i,b},e_{i,c},e_{i,b^+},e_{i,c^+}).
 \end{equation}
-For a proposal that changes one site and one HS channel, the update matrix has support only on this local subspace:
+The columns of $S_i$ insert the onsite components into the full system, and $S_i^\hc$ extracts them. Since the proposal changes only these components, its update matrix is
 \begin{equation}
     \Delta_\ell=S_iD_iS_i^\hc,
 \end{equation}
@@ -648,7 +644,7 @@ where $D_i$ is a $4\times4$ matrix in the onsite Nambu basis. The determinant ma
     =
     I_{2N}+S_iD_i S_i^\hc(I_{2N}-\widetilde G_\ell).
 \end{equation}
-The matrix determinant lemma gives
+The matrix determinant lemma then reduces the full determinant to a $4\times4$ determinant,
 \begin{equation}
     \det C_\ell
     =
@@ -673,7 +669,7 @@ In components,
     \rho,\sigma\in\mathcal I.
     \label{eq:paired_local_block}
 \end{equation}
-For the HS updates used here, $D_i$ is diagonal in the local Nambu basis. For a local $U_1$ update $\phi_{i\ell}\to\phi_{i\ell}'$ with $\delta\lambda_1=\alpha_1(\phi_{i\ell}'-\phi_{i\ell})$,
+A density field rescales each onsite operator, with inverse factors for creation and annihilation. Thus $D_i$ is diagonal in this basis. For a local $U_1$ update $\phi_{i\ell}\to\phi_{i\ell}'$ with $\delta\lambda_1=\alpha_1(\phi_{i\ell}'-\phi_{i\ell})$,
 \begin{equation}
     D_i^{(1)}=
     \begin{pmatrix}
@@ -693,11 +689,7 @@ while for a local $U_2$ update $\varphi_{i\ell}\to\varphi_{i\ell}'$ with $\delta
         0&0&0&\ee^{\delta\lambda_2}-1
     \end{pmatrix}.
 \end{equation}
-The determinant contribution to a local proposal is therefore
-\begin{equation}
-    R_{\rm det}=(\det P_i)^{-1/2},
-\end{equation}
-with the nonnegative square-root representative specified above. Combining this determinant factor with the Gaussian HS measure and the normal-ordering constant gives the full local Metropolis ratio
+The determinant contribution to a local proposal is $(\det P_i)^{-1/2}$, with the positive square root for the RP ensemble specified above. Combining it with the Gaussian HS measure and the normal-ordering constant gives the full local Metropolis ratio
 \begin{equation}
     R=
     \exp\left[-\frac12(x'^{\,2}-x^2)\right]
@@ -707,8 +699,9 @@ with the nonnegative square-root representative specified above. Combining this 
     p(x\to x')=\min(1,R),
     \label{eq:paired_metropolis_ratio}
 \end{equation}
-where $x$ is the real HS field being updated.
-The same local block controls the accepted resolvent update. From Eq.~\eqref{eq:paired_factorization},
+Here $x$ denotes the real field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$, and the proposal distribution is symmetric as in Sec.~\ref{app:update_number}. The reported paired benchmarks use $U_1=0$, so only the relative-density field is sampled and $R_{\rm const}=1$.
+
+\emph{Green-function update.} Once the proposal is accepted, the correlations throughout the system must be updated. The same onsite matrix $P_i$ determines this change. From Eq.~\eqref{eq:paired_factorization},
 \begin{equation}
     \widetilde G_\ell'
     =
@@ -723,7 +716,13 @@ Applying the Woodbury identity to $C_\ell=I_{2N}+S_iD_i S_i^\hc(I_{2N}-\widetild
     S_i P_i^{-1}D_i S_i^\hc(I_{2N}-\widetilde G_\ell).
     \label{eq:paired_woodbury}
 \end{equation}
-Therefore
+Multiplying by $\widetilde G_\ell$ gives the rank-four correction
+\begin{equation}
+    \widetilde G_\ell'
+    =\widetilde G_\ell
+    -\widetilde G_\ell S_i P_i^{-1}D_i S_i^\hc(I_{2N}-\widetilde G_\ell).
+\end{equation}
+The columns of $\widetilde G_\ell S_i$ connect the updated site to the rest of the system, while $S_i^\hc(I_{2N}-\widetilde G_\ell)$ supplies the corresponding rows. Their product spreads the local change to all matrix elements. In components,
 \begin{equation}
     \widetilde G_\ell'
     =
@@ -735,70 +734,63 @@ Therefore
     \left(e_{i,\tau}^\hc-e_{i,\tau}^\hc\widetilde G_\ell\right).
     \label{eq:paired_green_update}
 \end{equation}
-Together, Eqs.~\eqref{eq:paired_metropolis_ratio}, \eqref{eq:paired_local_block}, and~\eqref{eq:paired_green_update} give the local paired-BAFQMC step in terms of the Gaussian HS ratio, the normal-ordering constant ratio, the Nambu determinant ratio, and the low-rank update of the equal-time resolvent.
+Each proposal therefore requires a four-dimensional determinant for the acceptance probability. On acceptance, Eq.~\eqref{eq:paired_green_update} updates the full resolvent through the same local block, and $G_\ell'=\widetilde G_\ell'\Omega$ gives the updated physical correlations.
 
 \subsection{Numerical stabilization in the paired calculation}
 \label{app:stabilization_paired}
 
-The paired calculation stabilizes the same object that appears in the update formulas, namely the equal-time Nambu resolvent
+The local updates require an accurate equal-time resolvent $\widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1}$. Pairing mixes creation and annihilation components, whose propagation can develop widely separated scales over long imaginary times. As in Sec.~\ref{app:stabilization_number}, these scales are stored separately during matrix multiplication, and the resolvent is periodically reconstructed from the full propagation.
+
+Write the single-slice matrix as $M_\ell=\ee^{A_\ell}$, so that the cyclic product is
 \begin{equation}
-    \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1},
+    \mc M_\ell=M_\ell M_{\ell+1}\cdots M_LM_1\cdots M_{\ell-1}.
+\end{equation}
+For two flavors on $N_s$ sites, $N=2N_s$ and these matrices have dimension $4N_s$. Accepted field proposals update $\widetilde G_\ell$ through Eq.~\eqref{eq:paired_green_update}. Moving the equal-time cut to the next slice moves $M_\ell$ from the beginning to the end of the product, giving
+\begin{equation}
+    \mc M_{\ell+1}=M_\ell^{-1}\mc M_\ell M_\ell,
     \qquad
-    \mc M_\ell=M_\ell M_{\ell+1}\cdots M_LM_1\cdots M_{\ell-1},
+    \widetilde G_{\ell+1}=M_\ell^{-1}\widetilde G_\ell M_\ell.
 \end{equation}
-where $M_\ell=\ee^{A_\ell}$ is the single-slice Nambu matrix. In the benchmark with two flavors on $N_s$ sites, this matrix acts on a $4N_s$-dimensional space. During a sweep, accepted HS proposals are incorporated into $\widetilde G_\ell$ by Eq.~\eqref{eq:paired_green_update}. Moving the equal-time cut to the next slice cyclically permutes the product $\mc M_\ell$. In exact arithmetic this is a similarity transformation of the same full imaginary-time product, but repeated propagation is numerically unstable for long products.
+These local updates and propagations accumulate roundoff error. We therefore reconstruct the resolvent after each window of $N_{\rm wrap}$ slices, with $N_{\rm wrap}=10$ in the reported paired benchmarks.
 
-The Nambu calculation therefore follows the same short-window stabilization scheme as the number-conserving calculation. The sweep is divided into windows of $N_{\rm wrap}$ slices, and the reported finite-$\Delta$ runs use $N_{\rm wrap}=10$. For a window beginning at time slice $j$, define the ordered Nambu product
+For a window beginning at slice $j$, form
 \begin{equation}
-    Y_j=M_jM_{j+1}\cdots M_{j+N_{\rm wrap}-1} ,
+    Y_j=M_jM_{j+1}\cdots M_{j+N_{\rm wrap}-1},
 \end{equation}
-with time indices understood modulo $L$. A column-pivoted QR factorization gives
+with indices understood modulo $L$. The column-pivoted QR factorization $Y_jP_j=Q_jR_j$ separates the unitary mixing $Q_j$ from the triangular factor $R_j$. Extracting $(D_j)_{ii}=|(R_j)_{ii}|$ gives
 \begin{equation}
-    Y_jP_j=Q_jR_j .
+    Y_j=U_jD_jV_j,
+    \qquad U_j=Q_j,
+    \qquad V_j=D_j^{-1}R_jP_j^\trans.
 \end{equation}
-As in Sec.~\ref{app:stabilization_number}, the diagonal magnitudes of $R_j$ are stored in a positive diagonal matrix $D_j$, while the remaining triangular and permutation factors are stored in $V_j$. Thus the window product is represented as
-\begin{equation}
-    Y_j=U_jD_jV_j,\qquad U_j=Q_j.
-\end{equation}
-The exact product is unchanged by this rewriting; the purpose is only to keep exponentially large and small singular scales separated during floating-point multiplication.
+The positive diagonal matrix $D_j$ stores the propagation scales, while $V_j$ contains the normalized triangular factor and the column permutation. Longer intervals are accumulated by the repeated factorization described in Sec.~\ref{app:stabilization_number}: each new window is multiplied into the stored unitary factor, its columns are rescaled by the stored $D$, and a new QR factorization extracts the updated scales.
 
-At a wrapping point the stabilized window products on the two sides of the equal-time cut are accumulated into left and right factors. With the same orientation convention as in Sec.~\ref{app:stabilization_number}, the Nambu cyclic product is represented as
+At a window boundary, reconstruct the two intervals that meet at the equal-time cut,
 \begin{equation}
-    \mc M_\ell=U_RD_RV_RV_LD_LU_L,
+    M_\ell\cdots M_L=U_RD_RV_R,
+    \qquad
+    M_1\cdots M_{\ell-1}=V_LD_LU_L.
 \end{equation}
-and hence
+The second factorization is obtained through the Hermitian-conjugate product, as in Sec.~\ref{app:stabilization_number}. This places the unitary factors at the outer ends of the full cyclic product,
 \begin{equation}
-    M_{\rm stab}^{\rm Nambu}
-    =
-    (U_LU_R)^{-1}-D_RV_RV_LD_L
-    =
-    U_R^\hc U_L^\hc-D_RV_RV_LD_L.
+    \mc M_\ell=U_RD_RV_RV_LD_LU_L.
 \end{equation}
-Equivalently,
+Removing these outer factors from $I_{2N}-\mc M_\ell$ leaves the matrix needed for the Green-function solve,
 \begin{equation}
-    I_{2N}-\mc M_\ell
-    =
-    U_R M_{\rm stab}^{\rm Nambu}U_L.
+    I_{2N}-\mc M_\ell=U_R M_{\rm stab}U_L,
+    \qquad
+    M_{\rm stab}=U_R^\hc U_L^\hc-D_RV_RV_LD_L.
 \end{equation}
-The resolvent used in Eqs.~\eqref{eq:paired_local_block} and~\eqref{eq:paired_green_update} is therefore recomputed as
+Here $M_{\rm stab}$ is the $2N$-dimensional counterpart of Eq.~\eqref{eq:number_mstab_def}. The reconstructed resolvent is
 \begin{equation}
-    \widetilde G_\ell
-    =
-    U_L^\hc\left(M_{\rm stab}^{\rm Nambu}\right)^{-1}U_R^\hc.
+    \widetilde G_\ell=U_L^\hc M_{\rm stab}^{-1}U_R^\hc.
 \end{equation}
-As in the number-conserving calculation, the inverse of $M_{\rm stab}^{\rm Nambu}$ is applied after another scaled QR factorization,
+To evaluate it, first form $V_RV_L$ and rescale its rows and columns by $D_R$ and $D_L$. A further scaled QR factorization, $M_{\rm stab}=U_MD_MV_M$, gives
 \begin{equation}
-    M_{\rm stab}^{\rm Nambu}=U_ND_NV_N .
+    M_{\rm stab}^{-1}U_R^\hc
+    =V_M^{-1}D_M^{-1}U_M^\hc U_R^\hc.
 \end{equation}
-For example,
-\begin{equation}
-    \left(M_{\rm stab}^{\rm Nambu}\right)^{-1}U_R^\hc
-    =
-    V_N^{-1}D_N^{-1}U_N^\hc U_R^\hc,
-\end{equation}
-where $D_N^{-1}$ is a diagonal rescaling and $V_N^{-1}$ is applied by a triangular solve with the stored permutation factors. This stabilized solve is a rescaled evaluation of $(I_{2N}-\mc M_\ell)^{-1}$. It therefore leaves the trace formula, the Metropolis ratio, and the equal-time Green functions unchanged in exact arithmetic.
-
-The exact Nambu generators satisfy the symplectic Lie-algebra condition, so the exact slice matrices and their products obey the corresponding symplectic relation. The stabilization above does not introduce an additional symplectic projection or a different physical evolution. It stores the same product in a scaled form and periodically replaces the locally propagated resolvent by the stabilized one, which controls roundoff without changing the AFQMC integrand being sampled.
+The solve starts from $U_M^\hc U_R^\hc$, divides each row by the corresponding entry of $D_M$, and applies $V_M^{-1}$ through triangular equations and the stored permutation. Multiplication by $U_L^\hc$ completes the reconstruction. This periodically replaces the locally propagated resolvent with one evaluated from the full factorized product. The same reconstructed matrix supplies both the local acceptance ratios and the physical correlations $G_\ell=\widetilde G_\ell\Omega$.
 
 \section{Gaussian-cutoff regularization of determinant weights}
 \label{app:regularization}
