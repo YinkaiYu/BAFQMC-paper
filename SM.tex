@@ -167,7 +167,7 @@ Thus the sum over bosonic occupations becomes a Gaussian integral over coherent-
 
 The same propagation matrix determines the particle density and equal-time correlations in each auxiliary-field configuration. Define
 \begin{equation}
-    G_{ij}=\langle\hat a_i\hat a_j^+\rangle_\phi.
+    G_{ij}=\langle\hat a_i\hat a_j^+\rangle_\phi,
 \end{equation}
 where $\langle\hat O\rangle_\phi=\Tr(\hat O\hat U)/\Tr\hat U$. The bosonic commutator gives $\langle\hat a_j^+\hat a_i\rangle_\phi=G_{ij}-\delta_{ij}$. Thus $G_{ii}-1$ is the occupation of mode $i$ at fixed fields, while the off-diagonal elements describe one-body coherence.
 
@@ -217,15 +217,14 @@ Taking determinants yields the ratio of the bosonic weights,
     =\det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}.
     \label{eq:update_ratio_number}
 \end{equation}
-For the single-mode change $\Delta_\ell=\delta\ket{i}\bra{i}$, the matrix determinant lemma reduces the weight ratio to $W'/W=[1+\delta(1-G_{\ell;ii})]^{-1}$, which requires only one diagonal element of $G_\ell$.
+For the single-mode change $\Delta_\ell=\delta\ket{i}\bra{i}$, the matrix determinant lemma reduces the weight ratio to $W'/W=[1+\delta(1-(G_\ell)_{ii})]^{-1}$, which requires only the diagonal element $(G_\ell)_{ii}=\bra{i}G_\ell\ket{i}$ at the updated mode.
 
 The acceptance probability includes the Gaussian HS measure as well as the bosonic weight. For a symmetric proposal $\phi_{i\ell}\to\phi_{i\ell}'$ in a sign-problem-free calculation,
 \begin{equation}
-    p(\phi\to\phi')
-    =\min\left(1,
-    \exp\left[-\frac12(\phi_{i\ell}'^{\,2}-\phi_{i\ell}^{2})\right]
-    \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1}
-    \right).
+    R=\exp\left[-\frac12(\phi_{i\ell}'^{\,2}-\phi_{i\ell}^{2})\right]
+    \det\!\left[I_N+\Delta_\ell(I_N-G_\ell)\right]^{-1},
+    \qquad
+    p(\phi_{i\ell}\to\phi_{i\ell}')=\min(1,R).
 \end{equation}
 The exponential is the ratio of the Gaussian weights for the field being updated. When a field acts on several flavors, $W'/W$ includes all of their contributions.
 
@@ -238,14 +237,14 @@ For the onsite change, $C_\ell=I_N+\delta\ket{i}\bra{i}(I_N-G_\ell)$. The Sherma
 \begin{equation}
     C_\ell^{-1}
     =I_N-\frac{\delta\ket{i}(\bra{i}-\bra{i}G_\ell)}
-                    {1+\delta(1-G_{\ell;ii})},
+                    {1+\delta(1-(G_\ell)_{ii})},
     \label{eq:number_sherman_morrison}
 \end{equation}
 and hence
 \begin{equation}
     G_\ell'
     =G_\ell-\frac{\delta\,G_\ell\ket{i}(\bra{i}-\bra{i}G_\ell)}
-                       {1+\delta(1-G_{\ell;ii})}.
+                       {1+\delta(1-(G_\ell)_{ii})}.
 \end{equation}
 The local potential change modifies correlations throughout the system through the column $G_\ell\ket{i}$ and the row $\bra{i}(I_N-G_\ell)$, which connect the other modes to the updated mode $i$. Their outer product gives a rank-one correction to the full Green function. For a change acting on several local modes, the determinant lemma and the Woodbury identity reduce the calculation to that local subspace and its correlations with the rest of the system.
 
@@ -266,7 +265,7 @@ On a lattice of $N_s$ sites, the two flavors contain $N=2N_s$ modes, and each fl
 \begin{equation}
     \mc B_{\sigma,\ell}
     =\ee^{B_{\sigma,\ell}}\ee^{B_{\sigma,\ell+1}}\cdots\ee^{B_{\sigma,L}}\ee^{B_{\sigma,1}}\cdots\ee^{B_{\sigma,\ell-1}},
-    \qquad \sigma=b,c.
+    \qquad \sigma=b,c,
     \label{eq:number_cyclic_products_benchmark}
 \end{equation}
 with Green functions
@@ -287,14 +286,14 @@ It is therefore sufficient to evaluate and stabilize the $b$-flavor propagation 
 
 A local field proposal multiplies the $b$-flavor onsite propagator by $1+\delta_b$. For a total-density field change, $\delta_b=\ee^{\alpha_1(\phi_{i\ell}'-\phi_{i\ell})}-1$. For a relative-density field change, $\delta_b=\ee^{\ii\alpha_2(\varphi_{i\ell}'-\varphi_{i\ell})}-1$. The resulting single-flavor weight ratio is
 \begin{equation}
-    r_b=\left[1+\delta_b(1-G_{b,\ell;ii})\right]^{-1}.
+    r_b=\left[1+\delta_b(1-(G_{b,\ell})_{ii})\right]^{-1}.
     \label{eq:single_flavor_local_ratio}
 \end{equation}
-Since $r_c=\overline{r_b}$, the full two-flavor ratio is $W'/W=r_b r_c=|r_b|^2$. Combining it with the Gaussian HS ratio gives the acceptance probability used for the $\Delta=0$ benchmark,
+Since $r_c=\overline{r_b}$, the full two-flavor ratio is $W'/W=r_b r_c=|r_b|^2$. Combining it with the Gaussian HS ratio gives the Metropolis ratio and acceptance probability used for the $\Delta=0$ benchmark,
 \begin{equation}
-    p=\min\left(1,
-    \exp\left[-\frac12(x_{i\ell}'^{\,2}-x_{i\ell}^{2})\right]
-    |r_b|^2\right),
+    R=\exp\left[-\frac12(x_{i\ell}'^{\,2}-x_{i\ell}^{2})\right]|r_b|^2,
+    \qquad
+    p(x_{i\ell}\to x_{i\ell}')=\min(1,R),
     \label{eq:benchmark_number_local_ratio}
 \end{equation}
 where $x_{i\ell}$ denotes the real HS field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$. After acceptance, the Green function becomes
@@ -516,8 +515,8 @@ For configurations whose bare traces diverge, Sec.~\ref{app:regularization} give
 Pairing introduces correlations such as $\langle\hat a_i\hat a_j\rangle_\phi$ alongside the number-conserving correlations $\langle\hat a_i^+\hat a_j\rangle_\phi$. The Nambu Green function collects all of them in one matrix,
 \begin{equation}
     G_{\mu\nu}
-    =
-    \frac{\Tr(\hat\chi_\mu\hat\chi_\nu\hat U)}{\Tr\,\hat U}.
+    =\langle\hat\chi_\mu\hat\chi_\nu\rangle_\phi
+    =\frac{\Tr(\hat\chi_\mu\hat\chi_\nu\hat U)}{\Tr\,\hat U}.
     \label{eq:Gdef}
 \end{equation}
 Its four $N\times N$ blocks have entries
@@ -528,7 +527,7 @@ Its four $N\times N$ blocks have entries
         [\langle\hat a_i^+\hat a_j\rangle_\phi]_{ij}&[\langle\hat a_i^+\hat a_j^+\rangle_\phi]_{ij}
     \end{pmatrix}.
 \end{equation}
-The off-diagonal blocks contain the number-conserving correlations, while the diagonal blocks describe pair annihilation and creation. To determine them, use Eq.~\eqref{eq:Mdef} to pass a Nambu operator through the full imaginary-time evolution,
+The upper-right block contains the correlations $\langle\hat a_i\hat a_j^+\rangle_\phi$ used to define the Green function in Sec.~\ref{app:green_number}, and the lower-left block contains $\langle\hat a_i^+\hat a_j\rangle_\phi$. The diagonal blocks describe pair annihilation and creation. To determine them, use Eq.~\eqref{eq:Mdef} to pass a Nambu operator through the full imaginary-time evolution,
 \begin{equation}
     \hat\chi\hat U=\hat U\mc M\hat\chi.
     \label{eq:chiUappendix}
@@ -547,7 +546,7 @@ where we used $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$. Hence $\mc M G=G-\O
 \begin{equation}
     (I_{2N}-\mc M)G=\Omega,
     \qquad
-    G=(I_{2N}-\mc M)^{-1}\Omega,
+    G=(I_{2N}-\mc M)^{-1}\Omega.
     \label{eq:Gformula}
 \end{equation}
 Thus the full set of normal and pair correlations follows from the same propagation matrix that determines the weight. Higher-order observables follow by Wick contraction, including the pair correlations.
@@ -610,7 +609,7 @@ The square root inherits the sign fixed for each full weight in Sec.~\ref{app:tr
     \lambda_{1,i\ell}=\alpha_1\phi_{i\ell},\qquad
     \lambda_{2,i\ell}=\ii\alpha_2\varphi_{i\ell}.
 \end{equation}
-In the Nambu representation, a density coefficient multiplies $\hat n+\frac12$, as in Eq.~\eqref{eq:block_form_h}. Writing the onsite density terms in this form gives
+The onsite potentials of Sec.~\ref{app:update_number} are therefore $v_{b,i\ell}=\lambda_{1,i\ell}+\lambda_{2,i\ell}$ and $v_{c,i\ell}=\lambda_{1,i\ell}-\lambda_{2,i\ell}$. In the Nambu representation, a density coefficient multiplies $\hat n+\frac12$, as in Eq.~\eqref{eq:block_form_h}. Writing the onsite density terms in this form gives
 \begin{equation}
 \begin{aligned}
     &\lambda_{1,i\ell}(\hat n_{b,i}+\hat n_{c,i})
@@ -624,7 +623,7 @@ In the Nambu representation, a density coefficient multiplies $\hat n+\frac12$, 
 \end{equation}
 The two $\frac12$ terms contribute $\lambda_{1,i\ell}$ in total. The scalar $-\lambda_{1,i\ell}$ cancels this contribution and enters $\xi_\ell$. Thus a local $U_1$-field proposal $\phi_{i\ell}\to\phi_{i\ell}'$ has
 \begin{equation}
-    R_{\rm const}=\exp[-\alpha_1(\phi_{i\ell}'-\phi_{i\ell})],
+    R_{\rm const}=\ee^{\delta\xi_\ell}=\exp[-\alpha_1(\phi_{i\ell}'-\phi_{i\ell})],
 \end{equation}
 whereas a local $U_2$-field proposal $\varphi_{i\ell}\to\varphi_{i\ell}'$ has $R_{\rm const}=1$.
 
@@ -633,13 +632,14 @@ The determinant ratio can also be evaluated using only these four onsite compone
     \widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1},
     \qquad G_\ell=\widetilde G_\ell\Omega.
 \end{equation}
-The matrix $\widetilde G_\ell$ is the resolvent of the propagation matrix. Multiplication by the fixed commutator matrix $\Omega$ recovers the physical correlations. Let $e_{i,\rho}$ select site $i$ and component $\rho\in\mathcal I=\{b,c,b^+,c^+\}$ in the full Nambu space. Collecting these four basis vectors gives
+The matrix $\widetilde G_\ell$ plays the same role in the local-update formulas as $(I_N-\mc B_\ell)^{-1}$ in Sec.~\ref{app:update_number}. Multiplication by $\Omega$ gives the Nambu correlations. Let $\ket{i,\rho}$ be the basis vector for site $i$ and component $\rho\in\mathcal I=\{b,c,b^+,c^+\}$ in the $2N$-dimensional Nambu space. Collecting these four basis vectors gives
 \begin{equation}
-    S_i=(e_{i,b},e_{i,c},e_{i,b^+},e_{i,c^+}).
+    S_i=(\ket{i,b},\ket{i,c},\ket{i,b^+},\ket{i,c^+}).
 \end{equation}
 The columns of $S_i$ insert the onsite components into the full system, and $S_i^\hc$ extracts them. Since the proposal changes only these components, its update matrix is
 \begin{equation}
-    \Delta_\ell=S_iD_iS_i^\hc,
+    \Delta_\ell=S_iD_iS_i^\hc
+    =\sum_{\rho,\sigma\in\mathcal I}\ket{i,\rho}(D_i)_{\rho\sigma}\bra{i,\sigma},
 \end{equation}
 where $D_i$ is a $4\times4$ matrix in the onsite Nambu basis. The determinant matrix in Eq.~\eqref{eq:update_ratio_main} is
 \begin{equation}
@@ -666,7 +666,7 @@ In components,
     (D_i)_{\rho\tau}
     \left[
     \delta_{\tau\sigma}
-    -(\widetilde G_\ell)_{i\tau,i\sigma}
+    -\bra{i,\tau}\widetilde G_\ell\ket{i,\sigma}
     \right],
     \qquad
     \rho,\sigma\in\mathcal I.
@@ -695,14 +695,14 @@ while for a local $U_2$ update $\varphi_{i\ell}\to\varphi_{i\ell}'$ with $\delta
 The determinant contribution to a local proposal is $(\det P_i)^{-1/2}$, with the positive square root for the RP ensemble specified above. Combining it with the Gaussian HS measure and the normal-ordering constant gives the full local Metropolis ratio
 \begin{equation}
     R=
-    \exp\left[-\frac12(x'^{\,2}-x^2)\right]
+    \exp\left[-\frac12(x_{i\ell}'^{\,2}-x_{i\ell}^{2})\right]
     R_{\rm const}
     (\det P_i)^{-1/2},
     \qquad
-    p(x\to x')=\min(1,R),
+    p(x_{i\ell}\to x_{i\ell}')=\min(1,R),
     \label{eq:paired_metropolis_ratio}
 \end{equation}
-Here $x$ denotes the real field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$, and the proposal distribution is symmetric as in Sec.~\ref{app:update_number}. The reported paired benchmarks use $U_1=0$, so only the relative-density field is sampled and $R_{\rm const}=1$.
+where $x_{i\ell}$ denotes the real field being updated, either $\phi_{i\ell}$ or $\varphi_{i\ell}$, and the proposal distribution is symmetric as in Sec.~\ref{app:update_number}. The reported paired benchmarks use $U_1=0$, so only the relative-density field is sampled and $R_{\rm const}=1$.
 
 \emph{Green-function update.} Once the proposal is accepted, the correlations throughout the system must be updated. The same onsite matrix $P_i$ determines this change. From Eq.~\eqref{eq:paired_factorization},
 \begin{equation}
@@ -732,9 +732,9 @@ The columns of $\widetilde G_\ell S_i$ connect the updated site to the rest of t
     \widetilde G_\ell
     -
     \sum_{\rho,\sigma,\tau\in\mathcal I}
-    \widetilde G_\ell e_{i,\rho}
+    \widetilde G_\ell\ket{i,\rho}
     (P_i^{-1})_{\rho\sigma}(D_i)_{\sigma\tau}
-    \left(e_{i,\tau}^\hc-e_{i,\tau}^\hc\widetilde G_\ell\right).
+    \left(\bra{i,\tau}-\bra{i,\tau}\widetilde G_\ell\right).
     \label{eq:paired_green_update}
 \end{equation}
 Each proposal therefore requires a four-dimensional determinant for the acceptance probability. On acceptance, Eq.~\eqref{eq:paired_green_update} updates the full resolvent through the same local block, and $G_\ell'=\widetilde G_\ell'\Omega$ gives the updated physical correlations.
@@ -744,25 +744,25 @@ Each proposal therefore requires a four-dimensional determinant for the acceptan
 
 The local updates require an accurate equal-time resolvent $\widetilde G_\ell=(I_{2N}-\mc M_\ell)^{-1}$. Pairing mixes creation and annihilation components, whose propagation can develop widely separated scales over long imaginary times. As in Sec.~\ref{app:stabilization_number}, these scales are stored separately during matrix multiplication, and the resolvent is periodically reconstructed from the full propagation.
 
-Write the single-slice matrix as $M_\ell=\ee^{A_\ell}$, so that the cyclic product is
+The cyclic propagation matrix is
 \begin{equation}
-    \mc M_\ell=M_\ell M_{\ell+1}\cdots M_LM_1\cdots M_{\ell-1}.
+    \mc M_\ell=\ee^{A_\ell}\ee^{A_{\ell+1}}\cdots\ee^{A_L}\ee^{A_1}\cdots\ee^{A_{\ell-1}}.
 \end{equation}
-For two flavors on $N_s$ sites, $N=2N_s$ and these matrices have dimension $4N_s$. Accepted field proposals update $\widetilde G_\ell$ through Eq.~\eqref{eq:paired_green_update}. Moving the equal-time cut to the next slice moves $M_\ell$ from the beginning to the end of the product, giving
+For two flavors on $N_s$ sites, $N=2N_s$ and these matrices have dimension $4N_s$. Accepted field proposals update $\widetilde G_\ell$ through Eq.~\eqref{eq:paired_green_update}. Moving the equal-time cut to the next slice moves $\ee^{A_\ell}$ from the beginning to the end of the product, giving
 \begin{equation}
-    \mc M_{\ell+1}=M_\ell^{-1}\mc M_\ell M_\ell,
+    \mc M_{\ell+1}=\ee^{-A_\ell}\mc M_\ell\ee^{A_\ell},
     \qquad
-    \widetilde G_{\ell+1}=M_\ell^{-1}\widetilde G_\ell M_\ell.
+    \widetilde G_{\ell+1}=\ee^{-A_\ell}\widetilde G_\ell\ee^{A_\ell}.
 \end{equation}
 These local updates and propagations accumulate roundoff error. We therefore reconstruct the resolvent after each window of $N_{\rm wrap}$ slices, with $N_{\rm wrap}=10$ in the reported paired benchmarks.
 
 For a window beginning at slice $j$, form
 \begin{equation}
-    Y_j=M_jM_{j+1}\cdots M_{j+N_{\rm wrap}-1},
+    X_j=\ee^{A_j}\ee^{A_{j+1}}\cdots\ee^{A_{j+N_{\rm wrap}-1}},
 \end{equation}
-with indices understood modulo $L$. The column-pivoted QR factorization $Y_jP_j=Q_jR_j$ separates the unitary mixing $Q_j$ from the triangular factor $R_j$. Extracting $(D_j)_{ii}=|(R_j)_{ii}|$ gives
+with indices understood modulo $L$. The column-pivoted QR factorization $X_jP_j=Q_jR_j$ separates the unitary mixing $Q_j$ from the triangular factor $R_j$. Extracting $(D_j)_{ii}=|(R_j)_{ii}|$ gives
 \begin{equation}
-    Y_j=U_jD_jV_j,
+    X_j=U_jD_jV_j,
     \qquad U_j=Q_j,
     \qquad V_j=D_j^{-1}R_jP_j^\trans.
 \end{equation}
@@ -770,9 +770,9 @@ The positive diagonal matrix $D_j$ stores the propagation scales, while $V_j$ co
 
 At a window boundary, reconstruct the two intervals that meet at the equal-time cut,
 \begin{equation}
-    M_\ell\cdots M_L=U_RD_RV_R,
+    \ee^{A_\ell}\cdots\ee^{A_L}=U_RD_RV_R,
     \qquad
-    M_1\cdots M_{\ell-1}=V_LD_LU_L.
+    \ee^{A_1}\cdots\ee^{A_{\ell-1}}=V_LD_LU_L.
 \end{equation}
 The second factorization is obtained through the Hermitian-conjugate product, as in Sec.~\ref{app:stabilization_number}. This places the unitary factors at the outer ends of the full cyclic product,
 \begin{equation}
