@@ -136,7 +136,7 @@ In general, successive imaginary-time slices mix the single-particle modes, so t
     \qquad
     I=\int\frac{\dd^{2N}z}{\pi^N}\,\ee^{-z^\hc z}\,|z\rangle\langle z|.
 \end{equation}
-The quadratic propagator acts linearly on these amplitudes. Indeed,
+This follows from the action of each quadratic factor on the creation operators,
 \begin{equation}
     [\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i^+]
     =\sum_j\hat a_j^+(B_\ell)_{ji},
@@ -167,11 +167,9 @@ Thus the sum over bosonic occupations becomes a Gaussian integral over coherent-
 
 The same propagation matrix determines the particle density and equal-time correlations in each auxiliary-field configuration. Define
 \begin{equation}
-    G_{ij}=\langle\hat a_i\hat a_j^+\rangle_\phi,
-    \qquad
-    \bar G_{ij}=\langle\hat a_j^+\hat a_i\rangle_\phi,
+    G_{ij}=\langle\hat a_i\hat a_j^+\rangle_\phi.
 \end{equation}
-where $\langle\hat O\rangle_\phi=\Tr(\hat O\hat U)/\Tr\hat U$. The diagonal element $\bar G_{ii}$ is the occupation of mode $i$ at fixed fields, while the off-diagonal elements describe one-body coherence. Here the bar in $\bar G$ denotes the reversed operator ordering. Complex conjugation is written explicitly as $\overline{G}$ below.
+where $\langle\hat O\rangle_\phi=\Tr(\hat O\hat U)/\Tr\hat U$. The bosonic commutator gives $\langle\hat a_j^+\hat a_i\rangle_\phi=G_{ij}-\delta_{ij}$. Thus $G_{ii}-1$ is the occupation of mode $i$ at fixed fields, while the off-diagonal elements describe one-body coherence.
 
 The two operator orderings differ by the bosonic commutator. They are also related by moving an annihilation operator through the full imaginary-time evolution and using cyclicity of the trace. These two relations determine the Green function. To obtain the propagation relation, the commutator $[\hat{\bb a}^+B_\ell\hat{\bb a},\hat a_i]=-\sum_j(B_\ell)_{ij}\hat a_j$ implies
 \begin{equation}
@@ -182,18 +180,18 @@ The two operator orderings differ by the bosonic commutator. They are also relat
 \end{equation}
 Cyclicity of the trace then relates the two operator orderings,
 \begin{equation}
-    \bar G_{ij}
+    \langle\hat a_j^+\hat a_i\rangle_\phi
     =\frac{\Tr(\hat a_j^+\hat a_i\hat U)}{\Tr\hat U}
     =\frac{\Tr(\hat a_i\hat U\hat a_j^+)}{\Tr\hat U}
     =\sum_k\mc B_{ik}G_{kj}.
 \end{equation}
-Thus $\bar G=\mc B G$, while the bosonic commutator gives $G=I_N+\bar G$. Together these relations yield
+Equating this result with $G_{ij}-\delta_{ij}$ gives $G-I_N=\mc B G$. Solving for $G$ yields
 \begin{equation}
     G=(I_N-\mc B)^{-1},
     \qquad
-    \bar G=\mc B(I_N-\mc B)^{-1}=G-I_N,
+    \langle\hat a_j^+\hat a_i\rangle_\phi=[\mc B(I_N-\mc B)^{-1}]_{ij}=G_{ij}-\delta_{ij},
 \end{equation}
-in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\bar G_{ii}=r_i/(1-r_i)$ is the mean occupation obtained from the geometric series above. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian. The Green function also determines how the configuration weight changes under a local auxiliary-field update.
+in agreement with Eq.~\eqref{eq:number_green_blocks}. In the diagonal case, $\langle\hat n_i\rangle_\phi=r_i/(1-r_i)$ is the mean occupation obtained from the geometric series above. Higher equal-time correlators follow from Wick's theorem because $\hat U$ is Gaussian. The Green function also determines how the configuration weight changes under a local auxiliary-field update.
 
 \subsection{Local update and Metropolis ratio}
 \label{app:update_number}
@@ -206,9 +204,9 @@ Cyclicity of the trace allows the changed onsite factor to be placed at the left
     \qquad
     G_\ell=(I_N-\mc B_\ell)^{-1}.
 \end{equation}
-The matrix $\mc B_\ell$ contains the full imaginary-time evolution, ordered from slice $\ell$. The corresponding $G_\ell$ measures equal-time correlations at the boundary of that slice, referred to as the equal-time cut. All cyclic orderings give the same configuration weight.
+The matrix $\mc B_\ell$ contains the full imaginary-time evolution, ordered from slice $\ell$. The corresponding $G_\ell$ measures correlations at the imaginary-time position where this product begins, called the equal-time cut. All cyclic orderings give the same configuration weight.
 
-\emph{Weight ratio.} At this cut, the onsite change gives $\ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell}$ and hence $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. A field acting on several local modes has the same form, with $\Delta_\ell$ supported on those modes. Using $G_\ell\mc B_\ell=G_\ell-I_N$ gives
+\emph{Weight ratio.} At this cut, the onsite change gives $\ee^{B_\ell'}=(I_N+\Delta_\ell)\ee^{B_\ell}$ and hence $\mc B_\ell'=(I_N+\Delta_\ell)\mc B_\ell$. A field acting on several local modes has the same form, with nonzero matrix elements of $\Delta_\ell$ confined to those modes. Using $G_\ell\mc B_\ell=G_\ell-I_N$ gives
 \begin{equation}
     I_N-\mc B_\ell'
     =\left[I_N+\Delta_\ell(I_N-G_\ell)\right](I_N-\mc B_\ell).
@@ -311,7 +309,7 @@ The $c$-flavor update is the complex conjugate of Eq.~\eqref{eq:number_green_ran
 \subsection{Numerical stabilization in the number-conserving calculation}
 \label{app:stabilization_number}
 
-At low temperature, the single-particle propagation spans many imaginary-time slices. Repeated multiplication amplifies some directions and suppresses others exponentially, so finite-precision arithmetic can lose the smaller contributions needed to evaluate $(I_{N_s}-\mc B_{b,\ell})^{-1}$. Stable sampling therefore combines local Green-function updates with periodic reconstruction from a factorized full propagation matrix.
+Different single-particle components grow or decay at different rates under imaginary-time evolution. At low temperature, the long propagation can make their amplitudes differ by many orders of magnitude. Direct matrix multiplication then loses information about the smaller components through roundoff error, compromising the Green function $(I_{N_s}-\mc B_{b,\ell})^{-1}$. We retain this information by periodically factorizing the propagation matrix and storing its large and small scales separately, following the stabilization strategy used in determinantal QMC~\cite{assaadEvertz2008}.
 
 During a sweep, accepted proposals update $G_{b,\ell}$ through Eq.~\eqref{eq:number_green_rank_one}. Advancing the equal-time cut to slice $\ell+1$ cyclically permutes the product in Eq.~\eqref{eq:number_cyclic_products_benchmark},
 \begin{equation}
@@ -324,7 +322,7 @@ The Green function transforms accordingly,
 \end{equation}
 These updates propagate the correlations between nearby slices. To control accumulated roundoff error, the sweep is divided into windows of $N_{\rm wrap}$ slices, with $N_{\rm wrap}=10$ in the reported benchmarks. At each window boundary, $G_{b,\ell}$ is recomputed from the stabilized full cyclic product.
 
-The stabilization separates the magnitudes generated by imaginary-time evolution from the remaining matrix factors. For a window beginning at slice $j$, take the factors in the order used in Eq.~\eqref{eq:number_cyclic_products_benchmark},
+The factorization records the scales accumulated during propagation in a diagonal matrix $D$, while the remaining factors describe the mixing of single-particle components. To construct it, consider a short window beginning at slice $j$, with the same ordering as Eq.~\eqref{eq:number_cyclic_products_benchmark},
 \begin{equation}
     X_j=\ee^{B_{b,j}}\ee^{B_{b,j+1}}\cdots\ee^{B_{b,j+N_{\rm wrap}-1}},
 \end{equation}
@@ -335,14 +333,20 @@ with indices understood modulo $L$. A column-pivoted QR factorization, $X_jP_j=Q
     \qquad V_j=D_j^{-1}R_jP_j^\trans.
     \label{eq:window_udv_number}
 \end{equation}
-Successive window products are accumulated with repeated factorizations, retaining their large and small scales explicitly in the diagonal factors.
+Here $U_j$ is unitary, while $V_j$ is a normalized upper-triangular factor followed by a permutation. To accumulate a new window on the left of a stored product $UDV$, first multiply the window into $U$ and scale the resulting columns by $D$. Factor this matrix by pivoted QR and extract its diagonal magnitudes to obtain the new $U$ and $D$. Absorb the remaining triangular factor and permutation into the stored $V$. Repeating this procedure after each window keeps the propagation scales explicit throughout the accumulation.
 
-At a given equal-time cut, group the consecutive windows into two ordered products. Factor the first as $U_RD_RV_R$ and the second as $V_LD_LU_L$, with unitary $U_R$ and $U_L$. This orientation places the unitary matrices at the outer ends of the full product,
+To reconstruct the Green function at slice $\ell$, combine the two intervals that make up its cyclic product: slices $\ell,\ldots,L$ and slices $1,\ldots,\ell-1$. Their factorizations are
+\begin{equation}
+    \ee^{B_{b,\ell}}\cdots\ee^{B_{b,L}}=U_RD_RV_R,
+    \qquad
+    \ee^{B_{b,1}}\cdots\ee^{B_{b,\ell-1}}=V_LD_LU_L.
+\end{equation}
+The second ordering follows by factorizing the Hermitian conjugate of that interval's product and then taking the Hermitian conjugate back. Both $U_R$ and $U_L$ are unitary. With this choice, the complete propagation has unitary factors at its outer ends,
 \begin{equation}
     \mc B_{b,\ell}=U_RD_RV_RV_LD_LU_L.
     \label{eq:number_stab_product}
 \end{equation}
-The matrix needed for the Green function then factors as
+The outer unitary factors can be removed by their Hermitian conjugates, leaving a middle matrix formed directly from the stored $V_R$, $V_L$, and diagonal scales. Explicitly,
 \begin{equation}
     I_{N_s}-\mc B_{b,\ell}
     =U_R\left[U_R^\hc U_L^\hc-D_RV_RV_LD_L\right]U_L.
@@ -357,12 +361,12 @@ The reconstructed Green function is therefore
     G_{b,\ell}=U_L^\hc M_{\rm stab}^{-1}U_R^\hc.
     \label{eq:number_stab_green}
 \end{equation}
-To evaluate it, factor $M_{\rm stab}=U_MD_MV_M$ in the same scaled form and apply
+The interval factorizations preserve the information in the long propagation. The remaining task is to solve the linear equations involving $M_{\rm stab}$ that enter Eq.~\eqref{eq:number_stab_green}. We form its propagation term by multiplying $V_RV_L$ and rescaling its rows and columns with $D_R$ and $D_L$, respectively. A further pivoted QR factorization gives $M_{\rm stab}=U_MD_MV_M$, so that
 \begin{equation}
     M_{\rm stab}^{-1}U_R^\hc
     =V_M^{-1}D_M^{-1}U_M^\hc U_R^\hc.
 \end{equation}
-The diagonal factor $D_M^{-1}$ rescales the rows, and $V_M^{-1}$ is applied through triangular solves and the stored permutation. This evaluates the Green function directly from the scaled factors while preserving the cyclic product in Eq.~\eqref{eq:number_stab_product}. The conjugacy relation then gives $G_{c,\ell}=\overline{G_{b,\ell}}$ for the second flavor.
+To apply this expression, first multiply $U_R^\hc$ by $U_M^\hc$, then divide each row by the corresponding entry of $D_M$. The final action of $V_M^{-1}$ is evaluated by solving the triangular equations from the QR factorization and applying the permutation. Multiplication by $U_L^\hc$ completes the reconstruction of $G_{b,\ell}$. These operations evaluate the same Green function as the full cyclic product, with the propagation scales stored separately during accumulation. The second flavor follows from $G_{c,\ell}=\overline{G_{b,\ell}}$.
 
 \section{Paired Gaussian formulas}
 \label{app:paired_gaussian}
