@@ -1417,26 +1417,27 @@ This is the practical Gaussian RP test quoted in the main text. It is written in
 
 The relation to the TRS criterion is direct. For a number-conserving Hamiltonian, the absence of anomalous pairing terms sets $F=0$ in the RP block form. The remaining flavor blocks are complex conjugates. In the flavor space spanned by $(\hat b_i,\hat c_i)^\trans$, this structure is invariant under the TRS $\Theta=\ii\sigma_y K$, which satisfies $\Theta^2=-I$ and realizes the Kramers class; number-conserving RP is thus contained in the Kramers TRS criterion. Allowing pairing admits $F\succeq0$ and extends RP beyond the TRS classes. In the triangular-lattice paired benchmark, the antiunitary maps relating the two flavors commute and hence do not form any sign-free class in Table~\ref{tab:trs_periodic}, whereas the reflected anomalous coupling remains positive. RP is thus the mechanism that protects its weight.
 
-The multiplication property in Eq.~\eqref{eq:rp_multiplication_sm} gives the RP propagators a semigroup structure, with nonnegative traces whenever they exist. For fermions, the Majorana-RP condition can be written as a fixed-indefinite-metric contraction condition
+The multiplication property in Eq.~\eqref{eq:rp_multiplication_sm} gives the RP propagators a semigroup structure, with nonnegative traces whenever they exist. For fermions, the Majorana-RP coupling condition is equivalent, within the reflection-symmetric sector, to contraction with respect to a fixed indefinite Hermitian metric $\eta$~\cite{wei2024prb}:
 \begin{equation}
-    \mathcal A^\dagger\eta+\eta\mathcal A\preceq0,
-    \qquad \eta^\dagger=\eta,
+    A^\hc\eta+\eta A\preceq0
+    \quad\Longrightarrow\quad
+    (\ee^{tA})^\hc\eta\ee^{tA}\preceq\eta,
+    \qquad t\ge0.
     \label{eq:fixed_metric_contraction_sm}
 \end{equation}
-within the reflection-symmetric sector~\cite{wei2024prb}. The bosonic RP cone has a different structure. In the Nambu representation, let $\mathcal A_0$ denote the contribution from $\hat q+\theta(\hat q)$ and $\mathcal A_F$ the contribution from the reflected coupling $F$. For the natural indefinite metric
+The inequality means that evolution can only decrease the quadratic form defined by $\eta$. To see the bosonic distinction, use the generator $A$ of Eq.~\eqref{eq:hAdef} in the reflected-sector order of Eq.~\eqref{eq:rp_block_sm}, taking $D=D^\trans$ after absorbing its antisymmetric part into $\xi$. A direct calculation gives
 \begin{equation}
-    \eta_{\rm RP}=\begin{pmatrix}0&J\\-J&0\end{pmatrix},
+    \eta=\begin{pmatrix}
+        0&0&0&I\\
+        0&0&-I&0\\
+        0&-I&0&0\\
+        I&0&0&0
+    \end{pmatrix},
     \qquad
-    J=\begin{pmatrix}0&I\\-I&0\end{pmatrix},
-\end{equation}
-one finds
-\begin{equation}
-    \mathcal A_0^\dagger\eta_{\rm RP}+\eta_{\rm RP}\mathcal A_0=0,
-    \qquad
-    \mathcal A_F^\dagger\eta_{\rm RP}+\eta_{\rm RP}\mathcal A_F
+    A^\hc\eta+\eta A
     =4\begin{pmatrix}-\overline F&0\\0&F\end{pmatrix}.
 \end{equation}
-Thus $F\succeq0$ produces opposite-sign metric changes in the two reflected sectors, so the full bosonic RP cone cannot be a single fixed-metric contraction cone. This reflected-cone structure provides an important starting point for a broader semigroup theory of sign-problem-free bosonic Gaussian weights beyond the contraction framework of Ref.~\cite{wei2024prb}.
+The unrestricted terms $\hat q+\theta(\hat q)$ cancel from this expression. For nonzero $F\succeq0$, the two reflected sectors contribute opposite signs, so the metric quadratic form can both increase and decrease while RP still protects weight positivity. More generally, no single fixed Hermitian metric can make the contraction inequality equivalent to the full algebraic condition $F\succeq0$.\footnote{At $D=0,F=I$, $A$ is anti-Hermitian, so $\Tr(A^\hc\eta+\eta A)=0$ for any Hermitian $\eta$. If the contraction inequality holds for every $F\succeq0$, this matrix must therefore vanish at $F=I$. Small Hermitian perturbations of $I$ with either sign remain positive definite. Linearity then forces $A^\hc\eta+\eta A=0$ for every Hermitian $F$ at $D=0$, leaving the inequality unable to distinguish positive from negative couplings.} The bosonic RP cone thus provides a concrete insight for developing a broader semigroup theory of sign-free quantum Monte Carlo beyond the fixed-metric contraction framework of Ref.~\cite{wei2024prb}.
 
 \section{Benchmark models and numerical details}
 \label{app:benchmark_details}
