@@ -1456,7 +1456,52 @@ For the paired reference data in Fig.~\ref{fig:benchmark}(e--h), pairing couples
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models show how the TRS criteria make complex pairing and geometrical frustration accessible to BAFQMC. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+The following models show how the TRS criteria make complex pairing, orbital order, and geometrical frustration accessible to BAFQMC. The Kramers-class example places frustrated $p$-orbital and orbital-stripe physics in a strictly positive auxiliary-field formulation. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+
+\subsection{Kramers class: orbital-stripe physics}
+\label{app:trs_kramers_orbital_stripe}
+
+Orbital bosons on a frustrated lattice realize an especially rich form of superfluidity. Experiments on $p$-orbital bosons in a triangular optical lattice found three degenerate band minima at the inequivalent $M$ points and observed condensation at two of them, together with spontaneous rotational-symmetry breaking and the momentum-space signatures of stripe and loop-current order~\cite{wangLuoLiu2023stripe}. The underlying orbital Hund interaction favors complex combinations $p_x\pm\ii p_y$ carrying opposite orbital angular momenta~\cite{wu2009unconventional}. These ingredients make the orbital stripe superfluid a direct platform for studying intertwined finite-momentum coherence, orbital magnetism, and lattice symmetry breaking.
+
+We construct a two-flavor extension that retains this orbital physics while realizing the Kramers class. Let $\hat{\bb p}_{f,i}=(\hat f_{x,i},\hat f_{y,i})^\trans$ for $f=b,c$, and let $\bb e_{ij}$ denote the unit vector along a nearest-neighbor bond. A real, direction-dependent $p$-orbital hopping can be written as
+\begin{equation}
+    \hat H_0=\epsilon_p\sum_{i,f}\hat n_{f,i}
+    -\sum_{\langle i,j\rangle,f}
+    \left(\hat{\bb p}_{f,i}^{+}\mc T_{ij}\hat{\bb p}_{f,j}+\hc\right),
+    \qquad
+    \mc T_{ij}=t_\sigma\bb e_{ij}\bb e_{ij}^{\trans}
+    -t_\pi\left(I_2-\bb e_{ij}\bb e_{ij}^{\trans}\right),
+    \label{eq:trs_kramers_orbital_H0}
+\end{equation}
+where $\hat n_{f,i}=\hat{\bb p}_{f,i}^{+}\hat{\bb p}_{f,i}$. We take $t_\sigma,t_\pi>0$ in the standard triangular $p$-orbital regime and choose $\epsilon_p$ so that the lowest single-particle energy is positive. For each flavor define the local orbital bilinears
+\begin{align}
+    \hat Q_{1f,i}&=\hat f_{x,i}^{+}\hat f_{x,i}-\hat f_{y,i}^{+}\hat f_{y,i},
+    &\hat Q_{2f,i}&=\hat f_{x,i}^{+}\hat f_{y,i}+\hat f_{y,i}^{+}\hat f_{x,i},\notag\\
+    \hat L_{f,i}&=-\ii\left(\hat f_{x,i}^{+}\hat f_{y,i}-\hat f_{y,i}^{+}\hat f_{x,i}\right).
+    \label{eq:trs_kramers_orbital_bilinears}
+\end{align}
+The interaction is chosen as
+\begin{equation}
+\begin{aligned}
+    \hat H_I=\sum_i\Big\{&
+    \left(\frac U3-\lambda\right)(\hat n_{b,i}-\hat n_{c,i})^2\\
+    &+\left(\frac U6+\lambda\right)
+    \left[(\hat Q_{1b,i}-\hat Q_{1c,i})^2
+    +(\hat Q_{2b,i}-\hat Q_{2c,i})^2\right]
+    +\lambda(\hat L_{b,i}+\hat L_{c,i})^2\Big\},
+    \qquad U>0,\quad 0\leq\lambda\leq\frac U3 .
+    \label{eq:trs_kramers_orbital_HI}
+\end{aligned}
+\end{equation}
+Every coefficient in Eq.~\eqref{eq:trs_kramers_orbital_HI} is nonnegative, so the interaction is positive semidefinite. Its one-flavor quadratic terms contain $U\hat n_{f,i}^2/2-U\hat L_{f,i}^2/6$, up to a linear density term and couplings between the two flavors. Thus it retains the orbital Hund structure while the $\lambda$ term favors opposite local orbital angular momenta in the two conjugate flavors.
+
+The sign-free structure is immediate in the flavor doublet. The antiunitary transformation $\Theta=\ii\tau_y\mc K$ obeys $\Theta^2=-I$ and leaves the real hopping in Eq.~\eqref{eq:trs_kramers_orbital_H0} invariant. Under $\Theta$, each of $\hat n_b-\hat n_c$, $\hat Q_{1b}-\hat Q_{1c}$, $\hat Q_{2b}-\hat Q_{2c}$, and $\hat L_b+\hat L_c$ changes sign. The positive squares in Eq.~\eqref{eq:trs_kramers_orbital_HI} therefore admit imaginary Hubbard--Stratonovich fields whose couplings are invariant under $\Theta$. Every auxiliary-field slice belongs to the Kramers class, and Theorem~\ref{thm:trs} gives a nonnegative weight for every field configuration,
+\begin{equation}
+    W_{\rm reg}(\phi)=\det\!\left[I-\mc B(\phi)\right]^{-1}\geq0 .
+    \label{eq:trs_kramers_orbital_weight}
+\end{equation}
+
+For this hopping regime, the single-particle spectrum of Eq.~\eqref{eq:trs_kramers_orbital_H0} has the three symmetry-related $M$-point minima characteristic of the triangular $p$-orbital band. A coherent superposition of two minima with relative phase $\pm\pi/2$, schematically $\Phi_{M_1}\pm\ii\Phi_{M_2}$, produces the complex local orbital combinations and the alternating orbital-angular-momentum pattern identified in the stripe state. The conjugate flavor carries the opposite pattern, so the two flavors form a flavor-staggered, counterpropagating orbital texture while their total density remains uniform. This sign-free construction lets BAFQMC determine how the stripe superfluid and its competing orders are selected and evolve under quantum and thermal fluctuations: how superfluid coherence, lattice-rotation breaking, and flavor-staggered loop-current order are related, and how orbital correlations compete with interflavor pairing. Momentum distributions and noise correlations connect directly to time-of-flight signatures, while orbital and bond-current correlators provide complementary probes of the ordered state. The Kramers-class construction therefore opens an unbiased route to the strongly correlated orbital-stripe problem in a frustrated lattice.
 
 \subsection{Majorana class: pairing-induced chiral bands}
 
