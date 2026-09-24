@@ -1482,35 +1482,7 @@ Here $\omega_0>0$ is the onsite energy, $t>0$ is the hopping amplitude, and $\De
 
 A simple sufficient stability condition is $\omega_0>4t+\Delta_{\rm s}$, since the kagome coordination number is four. It makes the Nambu quadratic form positive definite, while $\hat H_I\ge0$ preserves stability. On a finite lattice, $\ee^{-\Delta\tau\hat H_0}$ then has a convergent trace. The auxiliary-field factors below are unitary, so their products with these quadratic factors also have finite traces.
 
-On the flavor doublet, define
-\begin{equation}
-    \widehat\Theta_+
-    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
-    \widehat\Theta_+^{-1}
-    =\sigma_x\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix},
-    \qquad
-    \widehat\Theta_-
-    \begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
-    \widehat\Theta_-^{-1}
-    =\ii\sigma_y\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}.
-    \label{eq:trs_conjugate_BdG_TR}
-\end{equation}
-Both transformations conjugate numerical coefficients. Their one-body operator maps obey
-\begin{equation}
-    \Theta_+^2=+I,
-    \qquad
-    \Theta_-^2=-I,
-    \qquad
-    \Theta_+\Theta_-=-\Theta_-\Theta_+.
-    \label{eq:trs_conjugate_BdG_TR_algebra}
-\end{equation}
-The Fock-space transformations preserve $\hat H_0$ and send
-\begin{equation}
-    \hat n_{b,i}-\hat n_{c,i}
-    \longmapsto
-    -(\hat n_{b,i}-\hat n_{c,i}).
-    \label{eq:trs_conjugate_BdG_relative_density_odd}
-\end{equation}
+On the flavor doublet $(\hat b_i,\hat c_i)^\trans$, the two time reversals $\Theta_1=\sigma_x\mc K$ and $\Theta_2=\ii\sigma_y\mc K$ obey $\Theta_1^2=+I$, $\Theta_2^2=-I$, and $\Theta_1\Theta_2=-\Theta_2\Theta_1$. Both preserve $\hat H_0$ and reverse the number imbalance, $\hat n_{b,i}-\hat n_{c,i}\mapsto-(\hat n_{b,i}-\hat n_{c,i})$.
 The continuous Hubbard--Stratonovich identity
 \begin{equation}
     \ee^{-\Delta\tau U(\hat n_{b,i}-\hat n_{c,i})^2}
@@ -1520,15 +1492,17 @@ The continuous Hubbard--Stratonovich identity
       (\hat n_{b,i}-\hat n_{c,i})}
     \label{eq:trs_conjugate_BdG_relative_density_HS}
 \end{equation}
-therefore preserves both time reversals for every real value of $\phi_i$. Complex conjugation changes the sign of $\ii$, while Eq.~\eqref{eq:trs_conjugate_BdG_relative_density_odd} supplies the second sign change.
+therefore preserves both time reversals for every real value of $\phi_i$. Complex conjugation changes the sign of $\ii$, while the exchange of $b$ and $c$ supplies the second sign change.
 
-At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and are exact complex conjugates.  Their many-body traces obey
+At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and are exact complex conjugates. Their many-body traces obey
 \begin{equation}
     W(\phi)=W_b(\phi)\overline{W_b(\phi)}
     =|W_b(\phi)|^2>0.
     \label{eq:trs_conjugate_BdG_weight}
 \end{equation}
-The interaction introduces a concrete competition with the pairing field. Creating a same-flavor pair changes the local number imbalance by two, while $U$ penalizes this imbalance and favors matched flavor populations. Normal and anomalous Green functions measure how this constraint modifies the chiral quadratic state. The interflavor pair correlator $\langle\hat b_i^+\hat c_i^+\hat c_j\hat b_j\rangle$ additionally tests collective coherence between the two sectors. The Hamiltonian preserves the separate parities $\hat b_i\mapsto-\hat b_i$ and $\hat c_i\mapsto-\hat c_i$, so long-range interflavor pair coherence would break a symmetry that the imposed same-flavor pairing leaves intact. Equation~\eqref{eq:trs_conjugate_BdG_weight} makes the interacting regime sign-problem-free, providing access to the fate of the chiral excitation gaps and to interflavor pair correlations beyond the quadratic Bogoliubov description.
+This example connects directly to proposals for nonlinear photonic crystals and superconducting cavity arrays~\cite{peanoHoudeBrendel2016squeezing}. A parametric pump creates two photons at a time, and its phase sets $\varphi_i$. In the rotating frame, $\omega_0$ is the cavity frequency measured relative to half the pump frequency. Patterning the pump phases therefore controls the chirality of the excitations without a magnetic field. Reversing the phase winding reverses the edge propagation, while particle--hole mixing allows a boundary excitation to emerge at a different frequency. The equilibrium Hamiltonian above makes the interacting counterpart of this pairing-induced topology accessible to BAFQMC.
+
+The interaction couples topology to a distinct many-body ordering problem. Expanding $U(\hat n_{b,i}-\hat n_{c,i})^2$ gives an interflavor attraction $-2U\hat n_{b,i}\hat n_{c,i}$ together with repulsion within each flavor. It favors equal populations, whereas each same-flavor pair-creation event changes the imbalance by two. This competition motivates a phase with coherent interflavor pairs, $\langle\hat b_i\hat c_i\rangle\ne0$, but no single-boson condensate. Such order breaks the separate flavor parities and is distinct from the same-flavor pairing imposed by the pump. Its onset and its competition with the chiral excitation spectrum are concrete targets for the interacting phase diagram. The model opens a route to exploring topological bosonic excitations and spontaneous interflavor pair coherence in the strongly correlated regime.
 
 \subsection{Split-orthogonal class: flavor-singlet odd-parity pairing}
 \label{sec:trs_odd_parity_two_flavor_bosons}
@@ -1590,7 +1564,7 @@ An interacting lattice realization makes the criterion constructive. Broad inter
                        +\hat c_i^+\hat c_j-\hat c_j^+\hat c_i).
     \label{eq:trs_three_plus_total_current}
 \end{align}
-Each bond is counted once, oriented along $\bb a_1=(1,0)$, $\bb a_2=(1/2,\sqrt3/2)$, or $\bb a_2-\bb a_1$. This fixes the signs of the odd-parity bond field. Real bond-dependent amplitudes obey the same symmetry criterion. In particular, amplitudes $\Delta_{\rm p}(1,\tfrac12,-\tfrac12)$ along these three directions realize a pure $p_x$ pairing field. The current square combines density interactions, pair hopping, and coupling between the two flavor currents. The second square contains pair scattering and coherent creation or removal of two bond pairs. Both interactions preserve global flavor $SU(2)$, as does $\hat H_0$.
+Each bond is counted once, oriented along $\bb a_1=(1,0)$, $\bb a_2=(1/2,\sqrt3/2)$, or $\bb a_2-\bb a_1$. This fixes the signs of the odd-parity bond field. The current square combines density interactions, pair hopping, and coupling between the two flavor currents. The second square contains pair scattering and coherent creation or removal of two bond pairs. Both interactions preserve global flavor $SU(2)$, as does $\hat H_0$.
 
 The quadratic part is invariant under all three maps in Eq.~\eqref{eq:trs_odd_pair_three_plus_TR}. Each map reverses $\hat J_{ij}$ and $-\ii(\hat P_{ij}^+-\hat P_{ij})$: complex conjugation reverses the explicit $\ii$, while the flavor transformations preserve the total hopping and the singlet pair. For either Hermitian operator $\hat O$, the HS identity
 \begin{equation}
@@ -1616,15 +1590,17 @@ For a stable grand-canonical realization, choose $\mu$ so that the quadratic Bog
 \end{align}
 The thermal quadratic factor then damps large occupations, and the HS factors are unitary. Their finite-lattice products have convergent traces.
 
-The equal-amplitude model favors a specific relation between momentum and flavor. The hopping dispersion has two minima at $\pm\bb K=\pm(4\pi/3,0)$, and the odd pair amplitude couples opposite momenta in a flavor singlet. To see the associated spatial pattern, compare coherent states at a fixed total density $\rho$, shared equally by the two flavors. Opposite-valley amplitudes can be chosen as
+The physical starting point is a paired state without an atomic condensate. The triangular-lattice hopping has two minima at $\pm\bb K=\pm(4\pi/3,0)$, and the odd-parity field pairs $b$ bosons near one valley with $c$ bosons near the other. In the stable noninteracting ground state, $\langle\hat b_{\bb K}\rangle=\langle\hat c_{-\bb K}\rangle=0$, but $\langle\hat b_{\bb K}\hat c_{-\bb K}\rangle\ne0$. The atoms are correlated in pairs before they acquire individual phase coherence. A central zero-temperature question is whether interactions drive a transition to an atomic condensate with both $\langle\hat b_{\bb K}\rangle\ne0$ and $\langle\hat c_{-\bb K}\rangle\ne0$, spontaneously breaking the flavor $SU(2)$ symmetry.
+
+The spatial structure of this candidate condensate follows directly from the two valleys. At a fixed total density $\rho$, shared equally by the two flavors, take the coherent-state amplitudes
 \begin{equation}
-    b_i=\sqrt{\rho/2}\,\ee^{\ii\bb K\cdot\bb r_i},
+    \langle\hat b_i\rangle=\sqrt{\rho/2}\,\ee^{\ii\bb K\cdot\bb r_i},
     \qquad
-    c_i=-\ii\sqrt{\rho/2}\,\ee^{-\ii\bb K\cdot\bb r_i}.
+    \langle\hat c_i\rangle=-\ii\sqrt{\rho/2}\,\ee^{-\ii\bb K\cdot\bb r_i}.
     \label{eq:trs_odd_pair_counterflow}
 \end{equation}
 On a bond $j=i+\bb\delta$, the two flavor currents are $\rho\sin(\bb K\cdot\bb\delta)$ and $-\rho\sin(\bb K\cdot\bb\delta)$. Their sum vanishes, and the singlet amplitude $\langle\hat P_{ij}\rangle=-\rho\sin(\bb K\cdot\bb\delta)$ is real. In contrast, placing both flavors in the same valley gives a nonzero total current and zero singlet amplitude. Relative to that same-valley state, Eq.~\eqref{eq:trs_odd_pair_counterflow} lowers the coherent-state energy per site by $9g_1\rho^2+\sqrt3\Delta_{\rm p}\rho$. The current-square interaction and the pair field therefore both favor opposite flavor currents in this fixed-density comparison.
 
-These opposite currents have a direct connection to frustrated magnetic order. The transverse flavor coherence is $b_i^*c_i=-\ii(\rho/2)\ee^{-2\ii\bb K\cdot\bb r_i}$, whose phase rotates by $120^\circ$ between the three triangular sublattices. Interpreting $b,c$ as two spin states, this is a coplanar $120^\circ$ spin texture. Opposite-valley occupation and flavor counterflow also underlie the chiral spin superfluid studied in Ref.~\cite{liNatuParamekanti2014chiral}.
+These opposite currents have a direct connection to frustrated magnetic order. In this coherent state, $\langle\hat b_i^+\hat c_i\rangle=-\ii(\rho/2)\ee^{-2\ii\bb K\cdot\bb r_i}$, whose phase rotates by $120^\circ$ between the three triangular sublattices. Interpreting $b,c$ as two spin states, this is a coplanar $120^\circ$ spin texture. Opposite-valley occupation and flavor counterflow also underlie the chiral spin superfluid studied in Ref.~\cite{liNatuParamekanti2014chiral}. Pairing further shifts the low-energy momenta through $E_{\bb k}=\sqrt{\xi_{\bb k}^2-|\Delta_{\bb k}|^2}$, opening the possibility of incommensurate spin textures. The resulting quantum phase diagram connects singlet pairing, atomic condensation, and spiral magnetism.
 
-The pairing field fixes the singlet-pair phase while preserving global flavor $SU(2)$. Consequently, $\langle\hat P_{ij}\rangle$ measures induced pairing, whereas flavor order is diagnosed by $\langle\hat b_i^+\hat c_i\hat c_j^+\hat b_j\rangle$ and its momentum-dependent structure factor. The $120^\circ$ reference texture gives peaks at $\pm2\bb K$. The full quadratic excitation energy $E_{\bb k}=\sqrt{\xi_{\bb k}^2-|\Delta_{\bb k}|^2}$ also shows how pairing shifts the low-energy momenta away from the hopping minima, allowing incommensurate flavor correlations. Tracking the structure-factor peaks as $\Delta_{\rm p}$ and the interactions vary distinguishes these spatial patterns. In BAFQMC, their finite-size and low-temperature scaling can be compared with the single-particle correlator $\langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle$. This establishes whether the ground state develops flavor order without atomic coherence and how pairing and interactions determine its ordering wave vector.
+The relation between atomic coherence and composite order is also central to thermal melting in unconventional Bose fluids. Theory predicts a chiral normal fluid between the superfluid and fully disordered phases in an orbital lattice model~\cite{liParamekantiHemmerich2014chiral}, whereas recent double-valley atomic experiments report the opposite sequence, with a time-reversal-symmetric superfluid as the intermediate phase~\cite{yuWuZhang2025vestigial}. These contrasting sequences make the hierarchy of coherence and ordering scales an important many-body problem. In the present two-component model, the singlet source sustains pair correlations while flavor $SU(2)$ remains unbroken by the Hamiltonian. Its zero-temperature ordering and the thermal evolution of atomic and spin correlations provide a sign-problem-free setting for exploring how frustration and pairing separate these scales.
