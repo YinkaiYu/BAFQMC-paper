@@ -1456,32 +1456,31 @@ For the paired reference data in Fig.~\ref{fig:benchmark}(e--h), pairing couples
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models turn the TRS criteria into interacting Bose systems with physically motivated paired and chiral orders. The first realizes the Majorana class in a pair of time-reversed chiral Bose fluids, while the second realizes the split-orthogonal class through flavor-singlet odd-parity pairing.
+The following models show how the TRS criteria make complex pairing and geometrical frustration accessible to BAFQMC. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
 
-\subsection{Majorana class: chiral paired Bose fluids}
+\subsection{Majorana class: pairing-induced chiral bands}
 
-Chiral bosonic fluids with frustrated hopping, loop currents, and competing paired order have been proposed as routes to chiral Mott and chiral superfluid phases~\cite{zaletel2014prb,dhar2013,liParamekantiHemmerich2014chiral,liNatuParamekanti2014chiral}. To place such physics within a sign-problem-free auxiliary-field formulation, place two bosonic flavors \(\hat b_i\) and \(\hat c_i\) on each site and consider
+Pair creation with spatially varying phases can produce topological bosonic excitation bands even when all hopping amplitudes are real. On the kagome lattice, this mechanism yields chiral edge modes that mediate both elastic and inelastic photon transport, as established for parametrically coupled photonic cavities~\cite{peanoHoudeBrendel2016squeezing}. We construct an equilibrium interacting extension by coupling two flavors with conjugate pairing patterns.
+
+Place bosons $\hat b_i$ and $\hat c_i$ on the sites of a kagome lattice, with sublattices $A,B,C$ labelled counterclockwise around an upward triangle. The pairing phases are $(\varphi_A,\varphi_B,\varphi_C)=(0,2\pi/3,4\pi/3)$, and $\varphi_i$ is the phase of the sublattice containing site $i$. Consider $\hat H=\hat H_0+\hat H_I$, with
 \begin{align}
-    \hat H_0={}&\sum_{ij}\left(
-      \hat b_i^+K_{ij}\hat b_j
-      +\hat c_i^+\overline{K}_{ij}\hat c_j
-    \right)+\frac12\sum_{ij}\left(
-      \Delta_{ij}\hat b_i^+\hat b_j^+
-      +\overline\Delta_{ij}\hat c_i^+\hat c_j^+
-      +\overline\Delta_{ij}\hat b_j\hat b_i
-      +\Delta_{ij}\hat c_j\hat c_i
-    \right),
+    \hat H_0={}&\omega_0\sum_i(\hat n_{b,i}+\hat n_{c,i})
+       -t\sum_{\langle i,j\rangle}
+       (\hat b_i^+\hat b_j+\hat b_j^+\hat b_i
+        +\hat c_i^+\hat c_j+\hat c_j^+\hat c_i)\notag\\
+       &-\frac{\Delta_{\rm s}}{2}\sum_i\left[
+         \ee^{\ii\varphi_i}(\hat b_i^+)^2
+        +\ee^{-\ii\varphi_i}(\hat c_i^+)^2
+        +\ee^{-\ii\varphi_i}\hat b_i^2
+        +\ee^{\ii\varphi_i}\hat c_i^2\right],
     \label{eq:trs_conjugate_BdG_H0}\\
     \hat H_I={}&U\sum_i(\hat n_{b,i}-\hat n_{c,i})^2,
     \qquad U>0,
     \label{eq:trs_conjugate_BdG_HI}
 \end{align}
-where \(K=K^\hc\) and \(\Delta=\Delta^\trans\).  A sufficient stability condition for the quadratic part is
-\begin{equation}
-    \begin{pmatrix}K&\Delta\\ \Delta^\hc&K^\trans\end{pmatrix}>0.
-    \label{eq:trs_conjugate_BdG_stability}
-\end{equation}
-On a finite lattice this condition makes \(\ee^{-\Delta\tau\hat H_0}\) damp every large-occupation state.  The auxiliary-field factors below are unitary.  Their ordered products consequently have finite many-body traces, so the model weights do not encounter bosonic poles.
+Here $\omega_0>0$ is the onsite energy, $t>0$ is the hopping amplitude, and $\Delta_{\rm s}>0$ is the pair-creation amplitude. Each nearest-neighbor bond is counted once. The onsite pairing creates two bosons of the same flavor, with a phase that winds in opposite directions for $b$ and $c$ around a triangle. At $U=0$, each flavor realizes the kagome squeezing model of Ref.~\cite{peanoHoudeBrendel2016squeezing} with onsite pair creation. The phase pattern opens gaps and produces Bogoliubov bands with nonzero Chern numbers. Complex conjugation reverses those Chern numbers, so the two flavors carry oppositely propagating edge modes. Chirality is thus resolved by flavor in this time-reversal-invariant two-component system.
+
+A simple sufficient stability condition is $\omega_0>4t+\Delta_{\rm s}$, since the kagome coordination number is four. It makes the Nambu quadratic form positive definite, while $\hat H_I\ge0$ preserves stability. On a finite lattice, $\ee^{-\Delta\tau\hat H_0}$ then has a convergent trace. The auxiliary-field factors below are unitary, so their products with these quadratic factors also have finite traces.
 
 On the flavor doublet, define
 \begin{equation}
@@ -1529,7 +1528,7 @@ At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and ar
     =|W_b(\phi)|^2>0.
     \label{eq:trs_conjugate_BdG_weight}
 \end{equation}
-The matrix \(K\) may describe frustrated hopping or flux, while \(\Delta\) may describe conjugate chiral pairing patterns such as \(d+\ii d\) and \(d-\ii d\). The resulting model captures the competition among paired order, relative-density order, and one-boson coherence that underlies chiral bosonic phases~\cite{zaletel2014prb,dhar2013,liNatuParamekanti2014chiral,liParamekantiHemmerich2014chiral}. Equation~\eqref{eq:trs_conjugate_BdG_weight} supplies the Majorana-class modulus-square weight, making these interaction-driven transitions accessible to unbiased auxiliary-field simulations.
+The interaction introduces a concrete competition with the pairing field. Creating a same-flavor pair changes the local number imbalance by two, while $U$ penalizes this imbalance and favors matched flavor populations. Normal and anomalous Green functions measure how this constraint modifies the chiral quadratic state. The interflavor pair correlator $\langle\hat b_i^+\hat c_i^+\hat c_j\hat b_j\rangle$ additionally tests collective coherence between the two sectors. The Hamiltonian preserves the separate parities $\hat b_i\mapsto-\hat b_i$ and $\hat c_i\mapsto-\hat c_i$, so long-range interflavor pair coherence would break a symmetry that the imposed same-flavor pairing leaves intact. Equation~\eqref{eq:trs_conjugate_BdG_weight} makes the interacting regime sign-problem-free, providing access to the fate of the chiral excitation gaps and to interflavor pair correlations beyond the quadratic Bogoliubov description.
 
 \subsection{Split-orthogonal class: flavor-singlet odd-parity pairing}
 \label{sec:trs_odd_parity_two_flavor_bosons}
@@ -1617,4 +1616,15 @@ For a stable grand-canonical realization, choose $\mu$ so that the quadratic Bog
 \end{align}
 The thermal quadratic factor then damps large occupations, and the HS factors are unitary. Their finite-lattice products have convergent traces.
 
-The physical competition is already visible in these terms. Frustrated hopping has two minima at $\pm\bb K=\pm(4\pi/3,0)$, while $\Delta_{\bb k}$ is odd and pairs opposite momenta with an antisymmetric flavor amplitude. Within a two-valley condensate, opposite flavor currents cancel the total current and lower the leading current-square energy relative to a same-valley state. The pair field also favors opposite-valley coherence. Such competing valley and flavor orders occur in related two-component bosonic systems~\cite{liNatuParamekanti2014chiral}. Here BAFQMC can determine how interactions reorganize the paired state and whether one-boson coherence or composite flavor order develops, using the normal and anomalous correlators of Secs.~\ref{app:green_number} and~\ref{app:green_paired}.
+The equal-amplitude model favors a specific relation between momentum and flavor. The hopping dispersion has two minima at $\pm\bb K=\pm(4\pi/3,0)$, and the odd pair amplitude couples opposite momenta in a flavor singlet. To see the associated spatial pattern, compare coherent states at a fixed total density $\rho$, shared equally by the two flavors. Opposite-valley amplitudes can be chosen as
+\begin{equation}
+    b_i=\sqrt{\rho/2}\,\ee^{\ii\bb K\cdot\bb r_i},
+    \qquad
+    c_i=-\ii\sqrt{\rho/2}\,\ee^{-\ii\bb K\cdot\bb r_i}.
+    \label{eq:trs_odd_pair_counterflow}
+\end{equation}
+On a bond $j=i+\bb\delta$, the two flavor currents are $\rho\sin(\bb K\cdot\bb\delta)$ and $-\rho\sin(\bb K\cdot\bb\delta)$. Their sum vanishes, and the singlet amplitude $\langle\hat P_{ij}\rangle=-\rho\sin(\bb K\cdot\bb\delta)$ is real. In contrast, placing both flavors in the same valley gives a nonzero total current and zero singlet amplitude. Relative to that same-valley state, Eq.~\eqref{eq:trs_odd_pair_counterflow} lowers the coherent-state energy per site by $9g_1\rho^2+\sqrt3\Delta_{\rm p}\rho$. The current-square interaction and the pair field therefore both favor opposite flavor currents in this fixed-density comparison.
+
+These opposite currents have a direct connection to frustrated magnetic order. The transverse flavor coherence is $b_i^*c_i=-\ii(\rho/2)\ee^{-2\ii\bb K\cdot\bb r_i}$, whose phase rotates by $120^\circ$ between the three triangular sublattices. Interpreting $b,c$ as two spin states, this is a coplanar $120^\circ$ spin texture. Opposite-valley occupation and flavor counterflow also underlie the chiral spin superfluid studied in Ref.~\cite{liNatuParamekanti2014chiral}.
+
+The pairing field fixes the singlet-pair phase while preserving global flavor $SU(2)$. Consequently, $\langle\hat P_{ij}\rangle$ measures induced pairing, whereas flavor order is diagnosed by $\langle\hat b_i^+\hat c_i\hat c_j^+\hat b_j\rangle$ and its momentum-dependent structure factor. The $120^\circ$ reference texture gives peaks at $\pm2\bb K$. The full quadratic excitation energy $E_{\bb k}=\sqrt{\xi_{\bb k}^2-|\Delta_{\bb k}|^2}$ also shows how pairing shifts the low-energy momenta away from the hopping minima, allowing incommensurate flavor correlations. Tracking the structure-factor peaks as $\Delta_{\rm p}$ and the interactions vary distinguishes these spatial patterns. In BAFQMC, their finite-size and low-temperature scaling can be compared with the single-particle correlator $\langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle$. This establishes whether the ground state develops flavor order without atomic coherence and how pairing and interactions determine its ordering wave vector.
