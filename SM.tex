@@ -1395,53 +1395,7 @@ The attractive-density data use $U_1=1$, $\mu=-7$, and $\beta=1$; the same obser
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models show how the TRS criteria make complex pairing, orbital order, and geometrical frustration accessible to BAFQMC. The Kramers-class example realizes an orbital stripe superfluid in a frustrated triangular band. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
-
-\subsection{Kramers class: orbital stripe superfluid}
-\label{app:trs_kramers_orbital_stripe}
-
-Orbital bosons on a triangular lattice provide a direct setting for finite-momentum condensation and orbital stripe order. Experiments have observed three degenerate minima at the inequivalent $M$ points and condensation at two of them, accompanied by broken lattice-rotation symmetry and momentum-space signatures of stripe and loop-current order~\cite{wangLuoLiu2023stripe}. The underlying orbital Hund interaction favors complex combinations $p_x\pm\ii p_y$ carrying orbital angular momentum~\cite{wu2009unconventional}. These ingredients make the orbital stripe superfluid a concrete platform for studying intertwined finite-momentum coherence, orbital magnetism, and lattice-symmetry breaking.
-
-To place this physics in a sign-problem-free Kramers framework, retain the three $M$-point modes and introduce two conjugate flavors, denoted by $\hat b_\alpha$ and $\hat c_\alpha$ with $\alpha=1,2,3$. Define $\hat n_{\alpha f}=\hat f_\alpha^+\hat f_\alpha$ and
-\begin{equation}
-    \hat J_{\alpha\beta,f}
-    =-\ii\left(\hat f_\alpha^+\hat f_\beta
-    -\hat f_\beta^+\hat f_\alpha\right),
-    \qquad f=b,c,\quad \alpha<\beta .
-    \label{eq:trs_kramers_stripe_current}
-\end{equation}
-Here $\hat J_{\alpha\beta,f}$ measures the phase coherence between two $M$-point modes. Consider the projected Hamiltonian
-\begin{equation}
-\begin{aligned}
-    \hat H={}&\epsilon_M\hat N_{\rm tot}
-    +\frac{\kappa_0}{2V}\hat N_{\rm tot}^{\,2}
-    -\frac{u}{2V}\sum_{\alpha=1}^{3}
-       (\hat n_{\alpha b}+\hat n_{\alpha c})^2\\
-    &-\frac{g}{2V}\sum_{\alpha<\beta}
-       \left(\hat J_{\alpha\beta,b}-\hat J_{\alpha\beta,c}\right)^2,
-    \qquad u,g>0,
-\end{aligned}
-\label{eq:trs_kramers_stripe_H}
-\end{equation}
-where $\hat N_f=\sum_\alpha\hat n_{\alpha f}$, $\hat N_{\rm tot}=\hat N_b+\hat N_c$, and $V$ is the number of lattice sites. The first two terms fix the energy and stabilize the total density; $\kappa_0>u+3g$ is a simple sufficient stability condition. At fixed total particle number, the $u$ term favors concentration in fewer $M$ points, while the $g$ term favors opposite phase coherence in the two conjugate flavors. At the coherent-state level, a single-$M$ configuration contributes $u$, whereas a two-$M$ configuration with relative phase $\pm\pi/2$ contributes $u/2+g$ to the interaction energy gain. Thus $g>u/2$ selects the stripe state.
-
-The stripe structure is transparent in a two-mode subspace. Define
-\begin{equation}
-    \hat a_{f,\pm}^{+}
-    =\frac{\hat f_1^+\pm\ii\hat f_2^+}{\sqrt2},
-    \qquad f=b,c .
-    \label{eq:trs_kramers_stripe_modes}
-\end{equation}
-Occupying $\hat a_{b,+}^+$ and $\hat a_{c,-}^+$ gives $\hat J_{12,b}=-\hat J_{12,c}$ with maximal magnitude. The two flavors therefore condense at the same pair of $M$ points with relative phases $+\pi/2$ and $-\pi/2$. In real space this produces opposite local orbital angular momenta in the two conjugate flavors, while their total density can remain uniform. The three choices of the $M$-point pair give the three stripe orientations seen in the triangular-lattice problem.
-
-The sign-free structure follows directly from the flavor doublet. Let $\Theta=\ii\tau_y\mc K$ exchange $b$ and $c$, so that $\Theta^2=-I$. Complex conjugation reverses each $\hat J_{\alpha\beta,f}$, and flavor exchange then leaves $\hat J_{\alpha\beta,b}-\hat J_{\alpha\beta,c}$ invariant; the density combinations $\hat n_{\alpha b}+\hat n_{\alpha c}$ are invariant as well. The negative squares in Eq.~\eqref{eq:trs_kramers_stripe_H} consequently admit real Hubbard--Stratonovich fields that preserve $\Theta$ on every time slice. The Kramers criterion therefore gives nonnegative BAFQMC weights. In the canonical sector $N_b=N_c=N$, this conjugate structure is explicit, with $\hat{\mathcal U}_b(\phi)$ denoting the $b$-flavor evolution in the $N$-particle sector:
-\begin{equation}
-    W_{N,N}(\phi)=P_{\rm HS}(\phi)
-    \left|\Tr_N\hat{\mathcal U}_b(\phi)\right|^2\geq0 .
-    \label{eq:trs_kramers_stripe_weight}
-\end{equation}
-
-This construction turns the experimentally established two-$M$ stripe mechanism into a concrete sign-problem-free many-body problem. BAFQMC can determine how the three stripe orientations, single-boson coherence, flavor-staggered orbital angular momentum, and thermal melting emerge from their competition, and can connect momentum distributions with orbital and bond-current correlations. It provides an unbiased route to the strongly correlated orbital-stripe phase diagram in a frustrated lattice.
+The following models show how the TRS criteria make complex pairing and geometrical frustration accessible to BAFQMC. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
 
 \subsection{Majorana class: pairing-induced chiral bands}
 
