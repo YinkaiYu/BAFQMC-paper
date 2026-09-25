@@ -596,7 +596,7 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-The square root inherits the sign fixed for each full weight in Sec.~\ref{app:trace_paired}. In the paired benchmarks, the RP criterion and the trace convergence established in Sec.~\ref{app:benchmark_convergence} ensure that $W$ and $W'$ are nonnegative, fixing the positive ratio for nonzero weights. The identity update, $\Delta_\ell=0$ and $\delta\xi_\ell=0$, gives $W'/W=1$.
+The square root inherits the sign fixed for each full weight in Sec.~\ref{app:trace_paired}. In the paired benchmarks, the RP criterion and the trace convergence established in Sec.~\ref{app:benchmark_details} ensure that $W$ and $W'$ are nonnegative, fixing the positive ratio for nonzero weights. The identity update, $\Delta_\ell=0$ and $\delta\xi_\ell=0$, gives $W'/W=1$.
 
 \emph{Onsite density updates.} A local density-field proposal acts on the four onsite Nambu components $\hat\chi_i=(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$, even when the propagation between updates includes pairing. We retain the total- and relative-density channels of Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}, with $U_1=0$ and $U_2=U$ for the main-text model. Their coefficients are
 \begin{equation}
@@ -1322,136 +1322,75 @@ Successive RP evolution steps combine into another RP propagator, as shown in Eq
 \section{Benchmark models and numerical details}
 \label{app:benchmark_details}
 
-\subsection{Repulsive model and observables}
+\subsection{Model and main benchmark}
 
-We benchmark the repulsive model in Eq.~\eqref{eq:benchmark_pairing} on a triangular lattice with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$. There are $N_s=9$ sites with periodic boundary conditions. The two flavors obey $[\hat b_i,\hat b_j^+]=[\hat c_i,\hat c_j^+]=\delta_{ij}$, with all other commutators vanishing.
-
-At $\Delta=0$, the two flavors propagate independently in complex-conjugate auxiliary-field potentials. The quadratic terms for the $b$ flavor on slice $\ell$ have coefficient matrix
-\begin{equation}
-    (D_\ell)_{ij}=-\Delta\tau\,t(A_\triangle)_{ij}
-    +\delta_{ij}\left(\Delta\tau\mu+\ii\sqrt{2\Delta\tau U}\,\varphi_{i\ell}\right),
-\end{equation}
-where $A_\triangle$ is the nearest-neighbor adjacency matrix. The $c$-flavor matrix is $\overline{D_\ell}$. The number-conserving slice is therefore invariant under the TRS $\Theta=\ii\sigma_y K$, with $\Theta^2=-I$, and realizes the Kramers class. Independently, choosing $\theta(\hat b_i)=\hat c_i$ and $\hat q_\ell=\hat{\bb b}^+D_\ell\hat{\bb b}$ puts the same slice in the RP form $\hat q_\ell+\theta(\hat q_\ell)$.
-
-For $\Delta=|\Delta|\ee^{\ii\varphi}\ne0$, choose $\theta(\hat b_i)=\ee^{-\ii\varphi}\hat c_i$. The pairing contribution to the slice generator is
-\begin{equation}
-    \Delta\tau|\Delta|\sum_i
-    \left[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)\right].
-\end{equation}
-It gives $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$ in Eq.~\eqref{eq:rp_block_form}, establishing paired RP. With fluctuating relative-density fields, the slices belong to none of the three fundamental sign-free classes, as proved in Sec.~\ref{app:rp_proof}.
-
-The measured density is $\rho=\langle\hat N\rangle/N_s$, with $\hat N=\sum_i\hat n_i$ and $\hat n_i=\hat n_{b,i}+\hat n_{c,i}$. The energy $E=\langle\hat H\rangle$ excludes the chemical-potential term and is plotted as $-E$. One-body coherence and density modulation are measured through the structure factors at the Brillouin-zone corner $K=(4\pi/3,0)$,
-\begin{align}
-    S_{\rm SF}(K)&=N_s^{-2}\sum_{ij}
-    \ee^{\ii K\cdot(r_i-r_j)}
-    \langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle,\\
-    S_{\rm DW}(K)&=N_s^{-2}\sum_{ij}
-    \ee^{\ii K\cdot(r_i-r_j)}\langle\hat n_i\hat n_j\rangle.
-\end{align}
-Here $r_i$ is the position of site $i$. These observables are also used for the attractive-density benchmark in Sec.~\ref{app:benchmark_attractive}.
-
-\subsection{Convergence throughout the auxiliary-field domain}
-\label{app:benchmark_convergence}
-
-For the repulsive model in Eq.~\eqref{eq:benchmark_pairing}, a sufficiently low chemical potential makes the quadratic Hamiltonian stable. Its Boltzmann factor suppresses high occupations, while the relative-density HS factors only change their phases. We use this unitary character to bound the weight for every auxiliary-field configuration by the same finite quadratic partition function.
-
-Let $\hat K_0$ be the quadratic part of $\hat H-\mu\hat N$, including the pairing term. The hopping dispersion is
-\begin{equation}
-    \epsilon_{\bb k}=2t\left[\cos(\bb k\cdot\bb a_1)+\cos(\bb k\cdot\bb a_2)
-    +\cos\bigl(\bb k\cdot(\bb a_2-\bb a_1)\bigr)\right].
-\end{equation}
-For $t>0$, the identity $\epsilon_{\bb k}=t\left|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}\right|^2-3t$ gives $\epsilon_{\bb k}\ge-3t$, with equality at the $K$ points present on the $3\times3$ cluster. Hence the condition
-\begin{equation}
-    \mu<-3t-|\Delta|
-    \label{eq:benchmark_convergence_condition}
-\end{equation}
-ensures $\xi_{\bb k}=\epsilon_{\bb k}-\mu>|\Delta|$. A two-flavor Bogoliubov transformation diagonalizes $\hat K_0$ into oscillators with positive energies $\omega_{\bb k}=\sqrt{\xi_{\bb k}^2-|\Delta|^2}$. Its partition function is finite:
-\begin{equation}
-    Z_0=\Tr\,\ee^{-\beta\hat K_0}
-    =\prod_{\bb k}\frac{\ee^{\beta(\xi_{\bb k}-\omega_{\bb k})}}
-    {(1-\ee^{-\beta\omega_{\bb k}})^2}<\infty.
-    \label{eq:benchmark_free_partition}
-\end{equation}
-
-At fixed auxiliary fields, the Trotter product takes the form
-\begin{equation}
-    \prod_{\ell=1}^{L_\tau}T V_\ell,
-    \qquad T=\ee^{-\Delta\tau\hat K_0},
-    \qquad V_\ell=\exp\!\left[\ii\sqrt{2\Delta\tau U}
-    \sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})\right],
-    \label{eq:benchmark_unitary_HS}
-\end{equation}
-where $L_\tau\Delta\tau=\beta$. Every $V_\ell$ is unitary for arbitrary real fields and $U\ge0$. Multiplication by $V_\ell$ therefore preserves the singular values of $T$. To bound the full product, define the Schatten norm $\|X\|_p=[\Tr(X^\hc X)^{p/2}]^{1/p}$. For $p=1$, this is the sum of singular values and bounds the absolute trace, $|\Tr X|\le\|X\|_1$. H\"older's inequality reduces the norm of the product to norms of the individual slices, from which the unitary field factors drop out,
-
-\begin{equation}
-    \left\|\prod_{\ell=1}^{L_\tau}T V_\ell\right\|_1
-    \le\prod_{\ell=1}^{L_\tau}\|T V_\ell\|_{L_\tau}
-    =\|T\|_{L_\tau}^{L_\tau}
-    =Z_0.
-    \label{eq:benchmark_trace_bound}
-\end{equation}
-The last equality uses $T=\ee^{-\Delta\tau\hat K_0}$ and $L_\tau\Delta\tau=\beta$, so that $\|T\|_{L_\tau}^{L_\tau}=\Tr\,\ee^{-\beta\hat K_0}=Z_0$. The full propagator thus has a finite trace norm, and $|W(\phi)|\le Z_0$ for every field configuration. Since the Gaussian HS measure is normalized, $\int\mc D\phi\,P_{\rm HS}(\phi)|W(\phi)|\le Z_0$ as well. Both the operator trace and the auxiliary-field integral therefore converge absolutely.
-
-The same bound also gives an explicit separation from determinant poles. The relative-density field has zero one-body trace, so the scalar in Eq.~\eqref{eq:trace_formula_main} is field independent, with $\sum_\ell\xi_\ell=\beta\sum_{\bb k}\xi_{\bb k}$. Starting from zero fields, where $W=Z_0$, the Gaussian trace formula and Eq.~\eqref{eq:benchmark_trace_bound} give
-\begin{equation}
-    |\det(I_{2N}-\mc M(\phi))|
-    =\frac{\ee^{2\sum_\ell\xi_\ell}}{|W(\phi)|^2}
-    \ge\frac{\ee^{2\beta\sum_{\bb k}\xi_{\bb k}}}{Z_0^2}
-    =\prod_{\bb k}\left[2\sinh\!\left(\frac{\beta\omega_{\bb k}}2\right)\right]^4>0.
-    \label{eq:benchmark_pole_gap}
-\end{equation}
-This field-independent lower bound prevents any continuous variation of the real auxiliary fields from reaching a determinant zero. No bosonic pole lies in the integration domain.
-
-Both rows of Fig.~\ref{fig:benchmark} satisfy Eq.~\eqref{eq:benchmark_convergence_condition}. The interaction scan has $\mu=-3.5<-3$ at $\Delta=0$, for every plotted $U$. The pairing scan has $\mu=-5<-3-|\Delta|$ for $0\le\Delta\le0.30$. The entire sampled domain in both benchmarks is therefore free of poles.
-
-\subsection{Attractive-density model}
-\label{app:benchmark_attractive}
-
-A second number-conserving benchmark includes both density channels,
+We use the triangular lattice with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$, keeping $N_s=9$ sites with periodic boundary conditions. The general two-flavor benchmark Hamiltonian is
 \begin{equation}
 \begin{aligned}
     \hat H={}&t\sum_{\langle ij\rangle}
     \left(\hat b_i^+\hat b_j+\hat b_j^+\hat b_i
-    +\hat c_i^+\hat c_j+\hat c_j^+\hat c_i\right)\\
+    +\hat c_i^+\hat c_j+\hat c_j^+\hat c_i\right)
+    -\sum_i\left(\Delta\hat b_i^+\hat c_i^+ +\Delta^*\hat b_i\hat c_i\right)\\
     &+U_1\sum_i(\hat n_{b,i}+\hat n_{c,i})^2
-    +U_2\sum_i(\hat n_{b,i}-\hat n_{c,i})^2.
+    +U_2\sum_i(\hat n_{b,i}-\hat n_{c,i})^2,
 \end{aligned}
-\label{eq:benchmark_attractive}
+\label{eq:benchmark_general}
 \end{equation}
-For $U_1\le0$ and $U_2\ge0$, the total-density channel gives a real HS potential and the relative-density channel gives conjugate imaginary potentials. The full potentials in Eq.~\eqref{eq:benchmark_hs_potentials} therefore satisfy both the number-conserving TRS and RP criteria. Figure~\ref{fig:benchmark_attractive} scans $U_1$ at $U_2=1$, $\mu=-7$, and $\beta=1$ in a dilute regime on the same frustrated lattice.
+where $t>0$, $\hat n_{b,i}=\hat b_i^+\hat b_i$, and $\hat n_{c,i}=\hat c_i^+\hat c_i$. We sample $\hat H-\mu\hat N$ in the grand-canonical ensemble, with $\hat N=\sum_i(\hat n_{b,i}+\hat n_{c,i})$. The model in the main text is the special case $U_1=0$ and $U_2=U$. The benchmark calculations use $U_1\le0$ and $U_2\ge0$, for which the two density channels have the HS decouplings in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}.
+
+For the main-text case $U_1=0$, the $b$ and $c$ flavors experience conjugate HS potentials when $\Delta=0$. At finite pairing, the same slices satisfy the paired RP criterion with $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Thus the number-conserving and paired calculations test the Kramers/TRS and RP implementations on the same frustrated cluster.
+
+The absence of poles in these benchmarks follows directly from stability of the quadratic part. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
+\begin{equation}
+    \epsilon_{\bb k}=t\left|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}\right|^2-3t\ge-3t.
+\end{equation}
+Consequently, $\mu<-3t-|\Delta|$ gives positive Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ and a finite quadratic partition function
+\begin{equation}
+    Z_0=\Tr\,\ee^{-\beta\hat K_0}
+    =\prod_{\bb k}\frac{\ee^{\beta(\epsilon_{\bb k}-\mu-\omega_{\bb k})}}
+    {(1-\ee^{-\beta\omega_{\bb k}})^2}<\infty.
+    \label{eq:benchmark_free_partition}
+\end{equation}
+For any real relative-density HS configuration, the field factors
+\begin{equation}
+    V_\ell=\exp\!\left[\ii\sqrt{2\Delta\tau U_2}\sum_i\varphi_{i\ell}
+    (\hat n_{b,i}-\hat n_{c,i})\right]
+\end{equation}
+only rotate occupation-state phases and are unitary. Writing $T=\ee^{-\Delta\tau\hat K_0}$ and $L_\tau\Delta\tau=\beta$, H\"older's inequality for $\|X\|_p=[\Tr(X^\hc X)^{p/2}]^{1/p}$ gives
+\begin{equation}
+    \left|\Tr\prod_{\ell=1}^{L_\tau}TV_\ell\right|
+    \le\left\|\prod_{\ell=1}^{L_\tau}TV_\ell\right\|_1
+    \le\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0.
+    \label{eq:benchmark_trace_bound}
+\end{equation}
+Thus every auxiliary-field configuration in the $U_1=0$ benchmarks has a convergent trace, and its determinant representation contains no bosonic pole.
+
+The measured density is $\rho=\langle\hat N\rangle/N_s$. The energy $E=\langle\hat H\rangle$ excludes the chemical-potential term and is plotted as $-E$. We also measure the superfluid and density-wave structure factors at $K=(4\pi/3,0)$,
+\begin{align}
+    S_{\rm SF}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
+    \langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle,\\
+    S_{\rm DW}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
+    \langle(\hat n_{b,i}+\hat n_{c,i})(\hat n_{b,j}+\hat n_{c,j})\rangle.
+\end{align}
+Here $r_i$ is the position of site $i$.
+
+The main-text scans use $t=1$, $\beta=4$, and $\Delta\tau=0.01$ on this cluster. The number-conserving scan sets $\Delta=0$ and $\mu=-3.5$, while the paired scan sets $U_2=1$, $\mu=-5$, and varies the real pairing amplitude. Both satisfy $\mu<-3t-|\Delta|$. Each parameter point uses $500$ warmup sweeps followed by $10^5$ measurement sweeps, with errors obtained from blocks of $10^4$ sweeps. Local field proposals are uniform shifts in $[-0.75,0.75]$ for the number-conserving runs and $[-0.5,0.5]$ for the paired runs. The initial warmup uses the Gaussian HS ratio, followed by measurement sweeps using the full Metropolis ratio. Products are stabilized every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
+
+Finite-temperature ED provides the reference values in Fig.~\ref{fig:benchmark}. At $U_2=0$ and $\Delta=0$, the reference is the exact free-boson result. For $\Delta=0$, particle-number conservation permits separate diagonalization in each total-particle-number sector, included until the observables converge. For finite $\Delta$, the ED basis retains $n_{b,i},n_{c,i}\le3$ and total particle number at most four; the highest retained sector has thermal probability below $1.2\times10^{-4}$.
+
+\subsection{Attractive-density extension}
+\label{app:benchmark_attractive}
+
+We also set $\Delta=0$ and turn on the attractive total-density channel $U_1\le0$ while retaining the repulsive relative-density channel $U_2\ge0$ in Eq.~\eqref{eq:benchmark_general}. The total-density HS field is real, whereas the relative-density field enters with opposite imaginary potentials for the two flavors. The resulting slices satisfy both the number-conserving TRS and RP criteria, so the same BAFQMC algorithm applies throughout the scan.
 
 \begin{figure}[b]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
-    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_attractive} on the periodic $3\times3$ triangular lattice at $t=1$, $U_2=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_1$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
+    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_2=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_1$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
     \label{fig:benchmark_attractive}
 \end{figure}
 
-\subsection{Sampling parameters and reference calculations}
-
-The BAFQMC implementations, ED programs, and benchmark scripts are available in Ref.~\cite{bafqmc_code}. All BAFQMC benchmarks are grand-canonical simulations of $\hat H-\mu\hat N$ on the $3\times3$ triangular lattice with periodic boundary conditions and $t=1$. The imaginary-time step is $\Delta\tau=0.01$, giving $L_\tau=400$ for $\beta=4$ and $L_\tau=100$ for $\beta=1$. For each parameter point, $500$ warmup sweeps are followed by $10^5$ measurement sweeps. Statistical errors are estimated from block averages, each containing $10^4$ consecutive sweeps. Matrix products are stabilized every $N_{\rm wrap}=10$ slices using the procedures in Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}.
-
-For a fresh simulation, each sampled real field $x_{i\ell}$, denoting either $\phi_{i\ell}$ or $\varphi_{i\ell}$, is initialized independently according to
-\begin{equation}
-    x_{i\ell}\sim\mathcal{N}(0,0.1^2).
-\end{equation}
-Local proposals are additive symmetric shifts,
-\begin{equation}
-    x_{i\ell}'=x_{i\ell}+(u-\tfrac12)s,
-    \qquad
-    u\sim\mathrm{Uniform}[0,1).
-\end{equation}
-For the number-conserving benchmark $s=1.5$, so proposals are uniform in $[-0.75,0.75]$. For the finite-$\Delta$ benchmark $s=1.0$, so proposals are uniform in $[-0.5,0.5]$. During the initial warmup stage, these shifts are accepted using the Gaussian HS ratio. Measurement sweeps use the full Metropolis ratio, including the bosonic determinant weight.
-
-Both scans in Fig.~\ref{fig:benchmark} use $U_1=0$ and $U_2=U$. The number-conserving data in Fig.~\ref{fig:benchmark}(a--d) use the algorithm in Sec.~\ref{app:update_number}, with $\Delta=0$, $\mu=-3.5$, and $\beta=4$, scanning $U=0,0.25,0.5,0.75,1,1.25,1.5,2$.
-
-The finite-$\Delta$ data in Fig.~\ref{fig:benchmark}(e--h) use the Nambu algorithm in Sec.~\ref{app:update_paired}, with $U=1$, $\mu=-5$, $\beta=4$, and real $\Delta=0,0.05,\ldots,0.30$. The relative-density HS field couples with opposite signs to the two flavors, so its normal-ordering constants cancel. The paired RP criterion fixes the nonnegative determinant representative used in the Metropolis ratio.
-
-The number-conserving algorithm also gives Fig.~\ref{fig:benchmark_attractive}, which scans $U_1=-0.6,-0.5,\ldots,0$ at $U_2=1$, $\mu=-7$, and $\beta=1$. Both number-conserving scans use the complex-conjugate relation between the two flavors in Eq.~\eqref{eq:conj_green_benchmark}.
-
-The number-conserving reference data in Fig.~\ref{fig:benchmark}(a--d) are obtained by finite-temperature ED, with exact free-boson results at $U=0$. Particle-number conservation allows separate diagonalization in each total-particle-number sector. These sectors are included successively until the thermal observables converge. The low-density attractive scan in Fig.~\ref{fig:benchmark_attractive} retains total particle numbers from zero through six.
-
-For the paired reference data in Fig.~\ref{fig:benchmark}(e--h), pairing couples sectors with different particle numbers. The ED basis retains occupations $n_{b,i},n_{c,i}\le3$ for each flavor at every site, together with the total-particle constraint $\sum_i(n_{b,i}+n_{c,i})\le4$. Across the pairing scan, the thermal probability of the highest retained sector, with four particles, remains below $1.2\times10^{-4}$. The plotted error bars describe the statistical uncertainty of the BAFQMC means.
+The attractive-density data use $U_2=1$, $\mu=-7$, and $\beta=1$; the same observables are shown in Fig.~\ref{fig:benchmark_attractive}. The time step, sweep counts, error analysis, and stabilization interval are the same as in the main-text benchmarks. The finite-occupation ED reference retains total particle numbers from zero through six. The comparison tests the two-channel number-conserving implementation through the density, energy, and both structure factors.
 
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
