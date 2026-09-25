@@ -1,7 +1,8 @@
-"""Main-text U/Delta benchmark and the supplemental U1 scan.
+"""Main-text U1/Delta benchmarks and the supplemental U2 scan.
 
 All points and error bars come from the archived or freshly processed records.
-The original model parameters remain unchanged; the main-text U denotes U2.
+The archived solver parameters remain unchanged; the manuscript labels the
+repulsive relative-density scan by U1 and the attractive total-density scan by U2.
 """
 from __future__ import annotations
 
@@ -61,7 +62,7 @@ def _draw(plt, output: Path, rows: list[tuple[dict, list[dict]]], stem: str) -> 
             top=0.970, wspace=0.24, hspace=0.18,
         )
         for row_index, (description, records) in enumerate(rows):
-            xlabel = {"U": r"$U$", "Delta": r"$\Delta$", "U1": r"$U_1$"}[description["scan_parameter"]]
+            xlabel = {"U1": r"$U_1$", "Delta": r"$\Delta$", "U2": r"$U_2$"}[description["scan_parameter"]]
             for column, observable in enumerate(OBSERVABLES):
                 ax = axes[row_index, column]
                 plot_number._plot_observable_axis(ax, records, observable, plot_checkpoints=False)

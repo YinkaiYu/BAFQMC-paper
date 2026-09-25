@@ -32,9 +32,9 @@ class ManuscriptTests(unittest.TestCase):
             groups.setdefault(case["manuscript"]["benchmark"], []).append(case)
         self.assertEqual(set(groups), {"repulsive_u", "pairing_delta", "attractive_u1"})
         expected = {
-            "repulsive_u": ([0, .25, .5, .75, 1, 1.25, 1.5, 2], "U2", "U", "main", "benchmark_combined", 0, "a-d", -3.5, 4),
+            "repulsive_u": ([0, .25, .5, .75, 1, 1.25, 1.5, 2], "U2", "U1", "main", "benchmark_combined", 0, "a-d", -3.5, 4),
             "pairing_delta": ([0, .05, .1, .15, .2, .25, .3], "Delta", "Delta", "main", "benchmark_combined", 1, "e-h", -5, 4),
-            "attractive_u1": ([-.6, -.5, -.4, -.3, -.2, -.1, 0], "U1", "U1", "supplement", "benchmark_attractive", 0, "a-d", -7, 1),
+            "attractive_u1": ([-.6, -.5, -.4, -.3, -.2, -.1, 0], "U1", "U2", "supplement", "benchmark_attractive", 0, "a-d", -7, 1),
         }
         for group, (grid, solver_parameter, scan_parameter, section, figure, row, panels, mu, beta) in expected.items():
             with self.subTest(benchmark=group):
@@ -48,10 +48,13 @@ class ManuscriptTests(unittest.TestCase):
                     self.assertEqual(case["x"], params[solver_parameter])
                     if section == "main":
                         self.assertEqual(params["U1"], 0)
-                        self.assertEqual(mapping["U"], params["U2"])
+                        if group == "repulsive_u":
+                            self.assertEqual(mapping["U"], params["U2"])
+                        else:
+                            self.assertIsNone(mapping["U"])
                         self.assertLess(params["mu"], -3 * params["t"] - abs(params.get("Delta", 0)))
                     else:
-                        self.assertIsNone(mapping["U"])
+                        self.assertEqual(mapping["U"], params["U1"])
                     if group != "repulsive_u":
                         self.assertEqual(params["U2"], 1)
                     if group == "pairing_delta":
@@ -144,10 +147,10 @@ class ManuscriptTests(unittest.TestCase):
 
         selections = (
             (("number_conserving", "pairing"), "all", {
-                "benchmark_combined": ([r"$U$"] * 4 + [r"$\Delta$"] * 4, "abcdefgh"),
-                "benchmark_attractive": ([r"$U_1$"] * 4, "abcd"),
+                "benchmark_combined": ([r"$U_1$"] * 4 + [r"$\Delta$"] * 4, "abcdefgh"),
+                "benchmark_attractive": ([r"$U_2$"] * 4, "abcd"),
             }),
-            (("number_conserving",), "main", {"benchmark_combined_number_conserving": ([r"$U$"] * 4, "abcd")}),
+            (("number_conserving",), "main", {"benchmark_combined_number_conserving": ([r"$U_1$"] * 4, "abcd")}),
             (("pairing",), "main", {"benchmark_combined_pairing": ([r"$\Delta$"] * 4, "efgh")}),
         )
         with tempfile.TemporaryDirectory() as temporary:

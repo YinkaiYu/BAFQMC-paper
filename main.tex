@@ -235,7 +235,7 @@ Without the requirement of particle-number conservation, we can classify generic
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_combined.pdf}
-    \caption{\textbf{BAFQMC versus exact diagonalization (ED) on a frustrated triangular lattice.} Results for Eq.~\eqref{eq:benchmark_pairing} on a periodic $3\times3$ lattice with $t=1$ and inverse temperature $\beta=4$. The simulations use $\hat H-\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$, where $\mu$ is the chemical potential. (a--d) Interaction scan at $\Delta=0$ and $\mu=-3.5$. (e--h) Pairing scan at $U=1$ and $\mu=-5$. The columns show the density per site $\rho$, negative energy $-E=-\langle\hat H\rangle$, and superfluid and density-wave structure factors $S_{\rm SF}(K)$ and $S_{\rm DW}(K)$ at a Brillouin-zone corner $K$. Red points are ED results; blue open circles are BAFQMC means with standard-error bars.}
+    \caption{\textbf{BAFQMC versus exact diagonalization (ED) on a frustrated triangular lattice.} Results for Eq.~\eqref{eq:benchmark_pairing} on a periodic $3\times3$ lattice with $t=1$ and inverse temperature $\beta=4$. The simulations use $\hat H-\mu\sum_i(\hat n_{b,i}+\hat n_{c,i})$, where $\mu$ is the chemical potential. (a--d) Interaction scan at $\Delta=0$, $U_2=0$, and $\mu=-3.5$. (e--h) Pairing scan at $U_1=1$, $U_2=0$, and $\mu=-5$. The columns show the density per site $\rho$, negative energy $-E=-\langle\hat H\rangle$, and superfluid and density-wave structure factors $S_{\rm SF}(K)$ and $S_{\rm DW}(K)$ at a Brillouin-zone corner $K$. Red points are ED results; blue open circles are BAFQMC means with standard-error bars.}
     \label{fig:benchmark}
 \end{figure*}
 
@@ -278,22 +278,19 @@ A crucial frustrated model identified in our framework is a two-flavor Bose-Hubb
     t\sum_{\langle ij\rangle}
     \left(
     \hat b_i^+\hat b_j+\hat b_j^+\hat b_i
-    \right)
-    +t\sum_{\langle ij\rangle}
-    \left(
-    \hat c_i^+\hat c_j+\hat c_j^+\hat c_i
-    \right)\\
+    +\hat c_i^+\hat c_j+\hat c_j^+\hat c_i\right)\\
     &-\sum_i\left(\Delta\,\hat b_i^+\hat c_i^+
-    +\Delta^*\,\hat b_i\hat c_i\right)
-    +U\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2,
+    +\Delta^*\,\hat b_i\hat c_i\right)\\
+    &+U_1\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2
+    +U_2\sum_i\left(\hat n_{b,i}+\hat n_{c,i}\right)^2,
 \end{aligned}
 \label{eq:benchmark_pairing}
 \end{equation}
-Here $\langle ij\rangle$ denotes nearest-neighbor bonds, $t$ is the hopping amplitude, $U$ the interaction strength, and $\Delta$ the pairing amplitude. For $t>0$, the hopping is frustrated and produces a sign problem in world-line QMC and SSE. BAFQMC is sign-free for $U\ge0$, with or without pairing.
+Here $\langle ij\rangle$ denotes nearest-neighbor bonds, $t$ is the hopping amplitude, and $\Delta$ is the pairing amplitude. The relative-density interaction is repulsive for $U_1\ge0$, while the total-density interaction is attractive for $U_2\le0$. We focus on the repulsive channel with $U_2=0$ in the main-text benchmarks; the attractive channel is examined in the SM. For $t>0$, the hopping is frustrated and produces a sign problem in world-line QMC and SSE. BAFQMC is sign-free throughout this interaction sector, with or without pairing.
 
 Decoupling the repulsive interaction gives an imaginary HS field coupled to $\hat n_{b,i}-\hat n_{c,i}$, so the two flavors experience conjugate potentials. At $\Delta=0$, every slice is invariant under the TRS $\Theta=\ii\sigma_y K$ in flavor space, with $\Theta^2=-I$, and realizes the Kramers class; it also satisfies RP. For $\Delta\ne0$, a reflection adapted to the phase of $\Delta$ gives the positive coupling block $F=(\Delta\tau|\Delta|/2)I$ in Eq.~\eqref{eq:rp_block_form}, ensuring sign-free sampling by RP. Here $\Delta\tau$ is the imaginary-time step.
 
-Figure~\ref{fig:benchmark} compares BAFQMC with finite-temperature exact diagonalization (ED) on a $3\times3$ cluster. Scanning $U$ at $\Delta=0$ and then $\Delta$ at $U=1$ validates both the number-conserving and paired Gaussian implementations through quantitative agreement in the density, energy, and two structure factors. Every auxiliary-field configuration in these scans has a convergent trace and avoids bosonic poles. The convergence proof, observable definitions, simulation details, and an additional attractive-density benchmark are given in Sec.~\ref{app:benchmark_details} of the SM~\cite{SM}.
+Figure~\ref{fig:benchmark} compares BAFQMC with finite-temperature exact diagonalization (ED) on a $3\times3$ cluster. Scanning $U_1$ at $\Delta=0$ with $U_2=0$ and then $\Delta$ at $U_1=1$, $U_2=0$ validates both the number-conserving and paired Gaussian implementations through quantitative agreement in the density, energy, and two structure factors. Every auxiliary-field configuration in these scans has a convergent trace and avoids bosonic poles. The convergence proof, observable definitions, simulation details, and an additional attractive-density benchmark are given in Sec.~\ref{app:benchmark_details} of the SM~\cite{SM}.
 
 Another important application of our symmetry criterion is odd-parity bosonic pairing. Bose exchange symmetry requires an odd spatial pair to be antisymmetric in flavor, giving $\hat P_{ij}^+=\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+$. Our symmetry analysis identifies the split-orthogonal class $\{+,+,+\}$ as the unique fundamental TRS class that guarantees sign-free odd-parity bosonic pairing. The exclusion proof and a concrete frustrated-lattice $p$-wave realization are given in Sec.~\ref{app:trs_models} of the SM~\cite{SM}. This establishes interacting sign-free families with $p$-wave pairing even on frustrated lattices. Odd-parity pairing underlies finite-momentum superfluidity in resonant Bose gases~\cite{radzihovskyChoi2009pwave}, exact paired states in rotating two-component gases~\cite{papenbrockReimannKavoulakis2012pwave}, and the singlet bonds of Schwinger-boson theories of quantum spin liquids~\cite{readSachdev1991frustrated,sachdev1992kagome}. These models bring the competition between odd-parity pairing, condensation, and flavor order within reach of unbiased simulations.
 

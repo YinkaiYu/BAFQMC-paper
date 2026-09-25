@@ -12,12 +12,13 @@ the separate attractive-density benchmark in the Supplemental Material.
 
 | Figure / row | Varying parameter | Fixed parameters | Reference |
 |---|---|---|---|
-| Main Fig. 2(a–d) | U = U2 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | U1 = 0, mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U = 0 |
-| Main Fig. 2(e–h) | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 0, U = U2 = 1, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
-| Supplemental Fig. S1(a–d) | U1 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U2 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U1 < 0 |
+| Main Fig. 2(a–d) | U1 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | U2 = 0, mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U1 = 0 |
+| Main Fig. 2(e–h) | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 1, U2 = 0, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
+| Supplemental Fig. S1(a–d) | U2 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U1 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U2 < 0 |
 
-The stored input and data keys retain `U1` and `U2`. Only the main-text notation
-uses `U` for `U2`; the supplemental model keeps both interaction coefficients.
+The stored input and data keys retain the historical solver convention. The
+manuscript uses `U1` for the repulsive relative-density channel and `U2` for
+the attractive total-density channel in both the main text and the supplement.
 No values, error bars, or reference selections change under this rearrangement.
 
 `--scope main` selects the 15 points in the main-text figure, and
@@ -26,17 +27,17 @@ No values, error bars, or reference selections change under this rearrangement.
 
 | Selection | Points | Scan |
 |---|---|---|
-| `--scope main` | 15 | U and Delta |
-| `--scope main --model number_conserving` | 8 | U |
+| `--scope main` | 15 | U1 and Delta |
+| `--scope main --model number_conserving` | 8 | U1 |
 | `--scope main --model pairing` | 7 | Delta |
-| `--scope supplement` | 7 | U1 |
-| `--model number_conserving` | 15 | U and U1 |
+| `--scope supplement` | 7 | U2 |
+| `--model number_conserving` | 15 | U1 and U2 |
 
 The main-text model satisfies `mu < -3*t - abs(Delta)` at every plotted point.
 As proved in the SM subsection "Convergence throughout the auxiliary-field
 domain", its quadratic propagation and unitary relative-density HS factors
 give a finite trace throughout the auxiliary-field domain. This result applies
-to the repulsive model with `U1=0`; the supplemental scan uses the separate
+to the main repulsive model with `U2=0`; the supplemental scan uses the separate
 two-channel model and its stated finite-occupation references.
 
 The pairing implementation writes the real pair term with a positive input
@@ -60,10 +61,10 @@ use their real parts and show the physical total energy as -E = -9 e, with the
 energy standard error multiplied by 9. The chemical-potential term is excluded
 from E. No statistical acceptance criterion removes points during reproduction.
 
-The supplemental negative-U1 reference uses the original low-density occupation
+The supplemental negative-U2 reference uses the original low-density occupation
 window: six completed particle shells, with a configured maximum of eight.
 This is the finite-window comparison encoded by `low_density_cutoff_accepted`
-in the ED records. The U = 0 reference in the main-text interaction scan is computed
+in the ED records. The U1 = 0 reference in the main-text interaction scan is computed
 analytically; its original truncated ED JSON is retained for provenance but is
 not used for that red point. All other reference values are read from the
 archived ED results.
@@ -80,7 +81,7 @@ data/<model>/inputs/<case>/      exact initial input files and ED parameters
 data/<model>/ed/<case>.json      original ED results
 data/<model>/raw/<case>.tar.gz   optional local raw archives, ignored by Git
 analysis.py                     raw-data statistics, references, tables, plot dispatch
-plot_manuscript.py               main U/Delta grid and supplemental U1 scan
+plot_manuscript.py               main U1/Delta grid and supplemental U2 scan
 plot_number.py                  original 2 x 4 number-conserving layout
 plot_pairing.py                 original 1 x 4 paired layout
 plot_style.py                   shared original figure style
@@ -107,7 +108,7 @@ provenance and comparisons to earlier manuscript versions.
 Generated tables include `benchmark`, `section`, `figure`, `figure_row`, and
 `panels` to locate each point in the current manuscript. `scan_parameter`
 is the plotted symbol, `solver_parameter` is its input key, and `U` gives the
-main-text interaction coefficient. The JSON records collect these fields under
+scanned interaction coefficient. The JSON records collect these fields under
 `manuscript`. Existing case IDs and the archived `row` field retain their
 historical meaning; use `figure_row` for the current figure arrangement.
 

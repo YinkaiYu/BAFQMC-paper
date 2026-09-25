@@ -2,7 +2,10 @@
 
 The archive's ``row`` identifies a row of the original solver-specific figures.
 It remains part of the provenance; ``figure_row`` identifies the current layout.
-Neither the solver couplings nor the original case order/seeds are rewritten.
+The archived solver uses the historical ``U1``/``U2`` labels, while the
+manuscript uses ``U1`` for the repulsive relative-density channel and ``U2``
+for the attractive total-density channel. Neither the solver couplings nor the
+original case order/seeds are rewritten.
 """
 from __future__ import annotations
 
@@ -15,7 +18,7 @@ BENCHMARKS = {
         "benchmark": "repulsive_u", "section": "main",
         "figure": "benchmark_combined", "figure_label": "fig:benchmark",
         "figure_row": 0, "panels": "a-d",
-        "scan_parameter": "U", "solver_parameter": "U2",
+        "scan_parameter": "U1", "solver_parameter": "U2",
     },
     ("pairing", 0): {
         "benchmark": "pairing_delta", "section": "main",
@@ -27,7 +30,7 @@ BENCHMARKS = {
         "benchmark": "attractive_u1", "section": "supplement",
         "figure": "benchmark_attractive", "figure_label": "fig:benchmark_attractive",
         "figure_row": 0, "panels": "a-d",
-        "scan_parameter": "U1", "solver_parameter": "U1",
+        "scan_parameter": "U2", "solver_parameter": "U1",
     },
 }
 
@@ -40,10 +43,15 @@ def describe_case(case):
     description = dict(BENCHMARKS[key])
     params = case["parameters"]
     if description["section"] == "main" and params["U1"] != 0:
-        raise ValueError(f"main-text U requires U1=0: {case['id']}")
+        raise ValueError(f"archived main-text cases require historical U1=0: {case['id']}")
     if case["x"] != params[description["solver_parameter"]]:
         raise ValueError(f"scan coordinate differs from solver input: {case['id']}")
-    description["U"] = params["U2"] if description["section"] == "main" else None
+    if description["benchmark"] == "repulsive_u":
+        description["U"] = params["U2"]
+    elif description["benchmark"] == "attractive_u1":
+        description["U"] = params["U1"]
+    else:
+        description["U"] = None
     return description
 
 
