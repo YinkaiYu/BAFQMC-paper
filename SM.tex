@@ -1383,7 +1383,7 @@ Finite-temperature ED provides the reference values in Fig.~\ref{fig:benchmark}.
 
 We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0$ while retaining the repulsive relative-density channel $U_1\ge0$ in Eq.~\eqref{eq:benchmark_general}. The total-density HS field is real, whereas the relative-density field enters with opposite imaginary potentials for the two flavors. The resulting slices satisfy both the number-conserving TRS and RP criteria, so the same BAFQMC algorithm applies throughout the scan.
 
-\begin{figure}[!ht]
+\begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
     \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
@@ -1392,7 +1392,7 @@ We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0
 
 The attractive-density data use $U_1=1$, $\mu=-7$, and $\beta=1$; the same observables are shown in Fig.~\ref{fig:benchmark_attractive}. The time step, sweep counts, error analysis, and stabilization interval are the same as in the main-text benchmarks. The finite-occupation ED reference retains total particle numbers from zero through six. The comparison tests the two-channel number-conserving implementation through the density, energy, and both structure factors.
 
-\clearpage
+\FloatBarrier
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
