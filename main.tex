@@ -243,7 +243,7 @@ The TRS criteria guarantee positive global weights through symmetry-group constr
 
 \begin{theorem}[RP criterion]
 \label{thm:rp}
-Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta(\hat b_i)=\eta_i\hat c_i$, and $\theta(\hat b_i^+)=\overline{\eta_i}\hat c_i^+$, with phase factors $|\eta_i|=1$. If the HS-decoupled Hamiltonian at each imaginary-time slice takes the form
+Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta(\hat b_i)=\eta_i\hat c_i$, and $\theta(\hat b_i^+)=\overline{\eta_i}\hat c_i^+$, with phase factors $|\eta_i|=1$. If each $\hat h_\ell$ has the form
 \begin{equation}
     \hat h_\ell =
     \hat q_\ell+\theta(\hat q_\ell)
@@ -251,7 +251,7 @@ Let $\theta$ be the antilinear reflection defined by $\theta(\ii)=-\ii$, $\theta
     \hat X_{\ell\mu}\,\theta(\hat X_{\ell\nu}),
 \label{eq:rp_generator}
 \end{equation}
-where $\hat q_\ell$ and $\hat X_{\ell\mu}$ are constructed exclusively from the $b$-boson operators and $C_\ell=C_\ell^\hc\succeq0$ is a positive semi-definite Hermitian matrix, then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is strictly positive.
+where $\hat q_\ell$ and $\hat X_{\ell\mu}$ are constructed exclusively from the $b$-boson operators and $C_\ell\succeq0$, then the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is strictly positive whenever it is finite.
 \end{theorem}
 The detailed proof of Theorem~\ref{thm:rp} is given in Sec.~\ref{app:rp_proof} of the SM~\cite{SM}. For Gaussian Hamiltonian, Eq.~\eqref{eq:rp_generator} becomes a simple block test. Choosing the phase convention $\eta_i=1$ and grouping each flavor with its creation operators as $\hat\chi=(\hat{\bb b},\hat{\bb b}^+,\hat{\bb c},\hat{\bb c}^+)^\trans$, suppose every slice can be written as
 \begin{equation}
