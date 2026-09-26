@@ -1555,15 +1555,22 @@ An interacting lattice realization makes the criterion constructive. Broad inter
 \end{align}
 Each bond is counted once, oriented along $\bb a_1=(1,0)$, $\bb a_2=(1/2,\sqrt3/2)$, or $\bb a_2-\bb a_1$. This fixes the signs of the odd-parity bond field. The current square combines density interactions, pair hopping, and coupling between the two flavor currents. The second square contains pair scattering and coherent creation or removal of two bond pairs. Both interactions preserve global flavor $SU(2)$, as does $\hat H_0$.
 
-The quadratic part is invariant under all three maps in Eq.~\eqref{eq:trs_odd_pair_three_plus_TR}. Each map reverses $\hat J_{ij}$ and $-\ii(\hat P_{ij}^+-\hat P_{ij})$: complex conjugation reverses the explicit $\ii$, while the flavor transformations preserve the total hopping and the singlet pair. For either Hermitian operator $\hat O$, the HS identity
+The quadratic part is invariant under all three maps in Eq.~\eqref{eq:trs_odd_pair_three_plus_TR}. Each map reverses $\hat J_{ij}$ and $-\ii(\hat P_{ij}^+-\hat P_{ij})$: complex conjugation reverses the explicit $\ii$, while the flavor transformations preserve the total hopping and the singlet pair. Decoupling the two bond-interaction factors separately gives
 \begin{equation}
-    \ee^{-\Delta\tau g\hat O^2}
-    =\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\dd\phi\,
-       \ee^{-\phi^2/2}\ee^{\ii\sqrt{2\Delta\tau g}\,\phi\hat O},
-    \qquad g=g_1\ \text{or}\ g_2,
+\begin{aligned}
+    \ee^{-\Delta\tau g_1\hat J_{ij}^2}
+    &=\int\frac{\dd\phi_{ij}}{\sqrt{2\pi}}\,
+      \ee^{-\phi_{ij}^2/2}
+      \ee^{\ii\sqrt{2\Delta\tau g_1}\,\phi_{ij}\hat J_{ij}},\\
+    \ee^{-\Delta\tau g_2[-\ii(\hat P_{ij}^+-\hat P_{ij})]^2}
+    &=\int\frac{\dd\varphi_{ij}}{\sqrt{2\pi}}\,
+      \ee^{-\varphi_{ij}^2/2}
+      \ee^{\ii\sqrt{2\Delta\tau g_2}\,\varphi_{ij}
+        [-\ii(\hat P_{ij}^+-\hat P_{ij})]}.
     \label{eq:trs_three_plus_HS}
+\end{aligned}
 \end{equation}
-preserves the three symmetries for every real $\phi$. Antiunitarity and the odd operator supply two cancelling minus signs. Theorem~\ref{thm:trs} therefore guarantees positive configuration weights despite frustrated hopping and odd-parity pairing.
+Here $\phi_{ij}$ and $\varphi_{ij}$ are independent real fields, one for each bond and interaction channel. Each field value preserves all three time reversals: antiunitarity reverses $\ii$, and the corresponding Hermitian operator is odd under every symmetry, so the two sign changes cancel. Theorem~\ref{thm:trs} therefore guarantees positive configuration weights despite frustrated hopping and odd-parity pairing.
 
 For a stable grand-canonical realization, choose $\mu$ so that the quadratic Bogoliubov energies are positive. For the equal-amplitude model in Eq.~\eqref{eq:trs_three_plus_model_H0}, the normal dispersion and pair amplitude are
 \begin{align}
