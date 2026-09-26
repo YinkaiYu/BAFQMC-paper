@@ -1424,16 +1424,16 @@ Here $\bb e_{ij}$ is the unit vector along a nearest-neighbor bond, and each bon
 Expanding Eq.~\eqref{eq:trs_minimal_pband_HI} gives the familiar Hund interaction $\frac U2\sum_\sigma(\hat n_{i\sigma}^2-\hat L_{i\sigma}^2/3)$ within each component, together with $-U\hat n_{i\uparrow}\hat n_{i\downarrow}+(U/3)\hat L_{i\uparrow}\hat L_{i\downarrow}$ between components. Linear normal-ordering terms can be absorbed into $\mu$. This is a local effective density-and-angular-momentum model: it retains the single-component contact Hund interaction and describes intercomponent coupling through these two channels. The density square penalizes population imbalance, whereas the negative angular-momentum square favors locally circulating orbitals with opposite circulation in the two components. The ratio $1/3$ is the standard single-component Hund coefficient.
 
 On each internal-state doublet, take $\Theta=\ii\sigma_y\mc K$, with $\Theta^2=-I$. The hopping is real and component independent. Under $\Theta$, the density difference is odd, while the angular-momentum difference is even, since $\hat L_{i\uparrow}\mapsto-\hat L_{i\downarrow}$. The two commuting onsite squares have the exact HS decomposition
-\begin{align}
+\begin{equation}
     \ee^{-\Delta\tau\hat H_{I,i}}
     =\int\frac{\dd\phi\,\dd\eta}{2\pi}\,
        \ee^{-(\phi^2+\eta^2)/2}
-       \exp\Bigl[&\ii\sqrt{U\Delta\tau}\,\phi
-                 (\hat n_{i\uparrow}-\hat n_{i\downarrow})\notag\\
-                 &+\sqrt{U\Delta\tau/3}\,\eta
+       \exp\Bigl[\ii\sqrt{U\Delta\tau}\,\phi
+                 (\hat n_{i\uparrow}-\hat n_{i\downarrow})
+                 +\sqrt{U\Delta\tau/3}\,\eta
                  (\hat L_{i\uparrow}-\hat L_{i\downarrow})\Bigr].
     \label{eq:trs_minimal_orbital_HS}
-\end{align}
+\end{equation}
 Every field value preserves $\Theta$: the odd density channel has an imaginary coupling, and the even angular-momentum channel has a real coupling. Particle-number conservation supplies the second anticommuting time reversal in Nambu space. In fact, the two component propagators remain complex conjugates, $\mc B_{\downarrow}=\mc B_{\uparrow}^{*}$, giving $W=|\det(I-\mc B_{\uparrow})|^{-2}>0$. Thus only two real auxiliary fields per site are needed despite the frustrated orbital hopping.
 
 The band structure connects local circulation to orbital stripes. The lower band has three symmetry-related minima at the Brillouin-zone edge centers $M_1,M_2,M_3$~\cite{wuLiuMoore2006stripe}. A coherent equal-weight superposition of two minima with relative phase $\pi/2$, together with its complex conjugate in the other component, gives a representative counter-rotating stripe condensate. At density $\rho$ per component, choosing horizontal stripes yields
@@ -1486,7 +1486,8 @@ The continuous Hubbard--Stratonovich identity
 \end{equation}
 therefore preserves both time reversals for every real value of $\phi_i$. Complex conjugation changes the sign of $\ii$, while the exchange of $b$ and $c$ supplies the second sign change. At fixed auxiliary fields, the \(b\) and \(c\) evolutions remain separate and are exact complex conjugates. Their many-body traces obey
 \begin{equation}
-    W(\phi)=W_b(\phi)\overline{W_b(\phi)}=|W_b(\phi)|^2>0.
+    W(\phi)=W_b(\phi)\overline{W_b(\phi)}
+    =|W_b(\phi)|^2>0.
     \label{eq:trs_conjugate_BdG_weight}
 \end{equation}
 
