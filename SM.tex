@@ -1345,7 +1345,7 @@ For all benchmarks, we measure the density $\rho=\langle\hat N\rangle/N_s$, the 
 \end{align}
 Here $r_i$ is the position of site $i$.
 
-We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the two flavors experience complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, while their hopping and chemical-potential terms are identical. Every slice is therefore invariant under the antiunitary map $\Theta=\ii\sigma_yK$, which exchanges $b$ and $c$ and satisfies $\Theta^2=-I$. Together with particle-number conservation, this realizes the Kramers class $\{-,-\}$ of Sec.~\ref{app:trs_kramers}. Physically, the fixed-field $b$ and $c$ evolutions are exact complex conjugates. Their configuration weights and equal-time Green functions obey $W_c=\overline{W_b}$ and $G_c=\overline{G_b}$, so the full weight is simply $W=W_bW_c=|W_b|^2\ge0$. We evaluate only the $b$-flavor propagation and reconstruct the $c$-flavor weight factor and Green function by complex conjugation. The TRS criterion fixes the same nonnegative sign for the regularized weights when the bare trace of a fixed configuration diverges; see Sec.~\ref{app:regularization}. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
+We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the two flavors experience complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, while their hopping and chemical-potential terms are identical. Every slice is therefore invariant under the antiunitary map $\Theta=\ii\sigma_yK$, which exchanges $b$ and $c$ and satisfies $\Theta^2=-I$. Together with particle-number conservation, this realizes the Kramers class $\{-,-\}$ of Sec.~\ref{app:trs_kramers}. Physically, the fixed-field $b$ and $c$ evolutions are exact complex conjugates. Their configuration weights and equal-time Green functions obey $W_c=\overline{W_b}$ and $G_c=\overline{G_b}$, so the full weight is simply $W=W_bW_c=|W_b|^2\ge0$. We evaluate only the $b$-flavor propagation and reconstruct the $c$-flavor weight factor and Green function by complex conjugation. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
 
 \begin{figure}[tb]
     \centering
@@ -1354,37 +1354,30 @@ We first consider the number-conserving benchmarks, with $\Delta=0$. For each re
     \label{fig:benchmark_attractive}
 \end{figure}
 
-The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a nonnegative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is nonnegative. We verify convergence for every auxiliary-field configuration below.
+The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a nonnegative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is nonnegative.
 
-For this paired benchmark, the trace is finite for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
-\begin{equation}
-    \epsilon_{\bb k}=t\left|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}\right|^2-3t\ge-3t.
-\end{equation}
-Consequently, $\mu<-3t-|\Delta|$ gives positive Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ and a finite quadratic partition function
+We now prove that the imaginary-time evolution operator has a convergent trace for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice dispersion is $\epsilon_{\bb k}=t|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}|^2-3t\ge-3t$. Thus $\mu<-3t-|\Delta|$ makes all Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ positive, and the quadratic propagator $T=\ee^{-\Delta\tau\hat K_0}$ is trace class, with
 \begin{equation}
     Z_0=\Tr\,\ee^{-\beta\hat K_0}
     =\prod_{\bb k}\frac{\ee^{\beta(\epsilon_{\bb k}-\mu-\omega_{\bb k})}}
     {(1-\ee^{-\beta\omega_{\bb k}})^2}<\infty.
     \label{eq:benchmark_free_partition}
 \end{equation}
-For any real relative-density HS configuration, the field factors
+For real HS fields, $V_\ell=\exp[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]$ is unitary: in the occupation basis it only changes phases and preserves norms. Each time slice therefore contains the same positive thermal propagator $T$, with such a phase rotation inserted between successive propagators. Writing $L_\tau\Delta\tau=\beta$ and $\hat U(\phi)=\prod_{\ell=1}^{L_\tau}TV_\ell$, the trace of this product is bounded by
 \begin{equation}
-    V_\ell=\exp\!\left[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}
-    (\hat n_{b,i}-\hat n_{c,i})\right]
-\end{equation}
-only rotate occupation-state phases and are unitary. Writing $T=\ee^{-\Delta\tau\hat K_0}$ and $L_\tau\Delta\tau=\beta$, H\"older's inequality for $\|X\|_p=[\Tr(X^\hc X)^{p/2}]^{1/p}$ gives
-\begin{equation}
-    \left|\Tr\prod_{\ell=1}^{L_\tau}TV_\ell\right|
-    \le\left\|\prod_{\ell=1}^{L_\tau}TV_\ell\right\|_1
-    \le\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0.
+    |\Tr\hat U(\phi)|
+    \le\|\hat U(\phi)\|_1
+    \le\prod_{\ell=1}^{L_\tau}\|TV_\ell\|_{L_\tau}
+    =\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0,
     \label{eq:benchmark_trace_bound}
 \end{equation}
-The field-independent bound establishes trace convergence throughout the auxiliary-field domain. For every finite auxiliary-field configuration, the scalar factor $\ee^{\sum_\ell\xi_\ell}$ in Eq.~\eqref{eq:paired_trace_formula_appendix} is strictly positive. Combining that trace formula with Eq.~\eqref{eq:benchmark_trace_bound} gives
+Here $\|X\|_p=[\Tr(X^\hc X)^{p/2}]^{1/p}$ is a positive measure of the singular values of $X$. Multiplying by $V_\ell$ only rotates phases, so $\|TV_\ell\|_{L_\tau}=\|T\|_{L_\tau}$. Also, $\|T\|_{L_\tau}^{L_\tau}=\Tr(T^{L_\tau})=Z_0$. The right-hand side is therefore finite and independent of the auxiliary fields. This proves convergence of the imaginary-time trace for every configuration. Since the reflection-positive weight is nonnegative, the same bound gives $0\le W(\phi)\le Z_0$. Inserting this into the paired trace formula yields
 \begin{equation}
     |\det(I_{2N}-\mc M)|\ge
     \frac{\ee^{2\sum_\ell\xi_\ell}}{Z_0^2}>0.
+    \label{eq:benchmark_no_pole}
 \end{equation}
-Thus the same stability condition also keeps the determinant away from a bosonic pole and its associated infinite-variance singularity for every auxiliary-field configuration.
+Hence the same stability condition keeps the Nambu determinant strictly away from every bosonic pole, so the associated infinite-variance singularity is absent for every auxiliary-field configuration.
 
 Each parameter point uses $\Delta\tau=0.01$, giving $L_\tau=400$ slices at $\beta=4$ and $L_\tau=100$ at $\beta=1$. We perform $500$ warmup sweeps, followed by $10^5$ measurement sweeps with one measurement bin per sweep. Statistical errors are standard errors over ten blocks of $10^4$ bins. Local field proposals are uniform shifts in $[-0.75,0.75]$ for number-conserving runs and $[-0.5,0.5]$ for paired runs. The initial warmup uses the Gaussian HS ratio; production measurements use the full Metropolis ratio. We stabilize matrix products every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
 
