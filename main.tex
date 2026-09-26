@@ -146,17 +146,8 @@ $\hat{\bb a}=(\hat a_1,\ldots,\hat a_N)^\trans$ collects the annihilation operat
     \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
     \label{eq:trace_formula_number}
 \end{equation}
-Here $\mc B(\phi)=\ee^{B_1(\phi_1)}\ee^{B_2(\phi_2)}\cdots\ee^{B_L(\phi_L)}$ is the propagation coefficient matrix in the single-particle space. The derivation is given in Sec.~\ref{app:trace_number} of the SM~\cite{SM}. In Monte Carlo sampling, a local update of one auxiliary field changes only a low-rank part of the single-particle matrix product, so the acceptance ratio reduces to a small determinant; details are given in Sec.~\ref{app:update_number} of the SM~\cite{SM}.
-
-Denoting the normalized trace at fixed auxiliary fields by $\langle\hat O\rangle_\phi=\Tr[\hat O\prod_\ell\ee^{\hat h_\ell}]/W(\phi)$, the equal-time Green functions take the simple form
-\begin{equation}
-    \langle \hat a_i\hat a_j^+\rangle_\phi=(I_N-\mc B)^{-1}_{ij},
-    \quad
-    \langle \hat a_j^+\hat a_i\rangle_\phi=
-    \left[\mc B(I_N-\mc B)^{-1}\right]_{ij}.
-    \label{eq:number_green_blocks}
-\end{equation}
-Sec.~\ref{app:green_number} of the SM~\cite{SM} derives this single-particle Green-function formula. Because the fixed-field problem is Gaussian, higher equal-time correlators can then be computed by Wick's theorem.
+Here $\mc B(\phi)=\ee^{B_1(\phi_1)}\ee^{B_2(\phi_2)}\cdots\ee^{B_L(\phi_L)}$ is the propagation coefficient matrix in the single-particle space. The derivation is given in Sec.~\ref{app:trace_number} of the SM~\cite{SM}.
+Local auxiliary-field updates modify the single-particle propagation by low rank, so their Metropolis ratios reduce to small determinants; implementation details are given in Sec.~\ref{app:update_number} of the SM~\cite{SM}.
 
 If $\hat h_\ell$ contains pairing terms, particle number is not conserved and the one-body evolution is written in Nambu space. With
 $\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans$, $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$, and
@@ -168,7 +159,7 @@ $\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes
     \left[(-1)^N\det\!\left(I_{2N}-\mc M(\phi)\right)\right]^{-1/2}.
     \label{eq:trace_formula_main}
 \end{equation}
-Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. This Gaussian weight with pairing allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula and Nambu Green functions are detailed in Secs.~\ref{app:trace_paired} and~\ref{app:green_paired} of the SM~\cite{SM}.
+Here $\mc M(\phi)=\ee^{A_1(\phi_1)}\ee^{A_2(\phi_2)}\cdots\ee^{A_L(\phi_L)}$. This Gaussian weight with pairing allows BAFQMC to treat Hamiltonians with explicit pairing terms. The trace formula and its derivation are given in Sec.~\ref{app:trace_paired} of the SM~\cite{SM}.
 
 \phantomsection\label{sec:positive}
 \runinsection{Sign-problem-free Conditions}
