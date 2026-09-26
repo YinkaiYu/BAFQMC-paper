@@ -1345,9 +1345,36 @@ For all benchmarks, we measure the density $\rho=\langle\hat N\rangle/N_s$, the 
 \end{align}
 Here $r_i$ is the position of site $i$.
 
-We first consider the number-conserving benchmarks, with $\Delta=0$. For $U_1\ge0$ and $U_2\le0$, every HS-decoupled slice obeys the Kramers time-reversal criterion, which guarantees nonnegative regularized weights in both scans; see Sec.~\ref{app:regularization}. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
+We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the relative-density field gives the two flavors complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, as in Eq.~\eqref{eq:benchmark_hs_potentials}. The real hopping and chemical-potential terms are identical for the two flavors. Consequently, every slice is invariant under the antiunitary time reversal
+\begin{equation}
+    \Theta\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
+    =\ii\sigma_y K\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix},
+    \qquad \Theta^2=-I,
+\end{equation}
+where $K$ complex conjugates coefficients and $\sigma_y$ acts on flavor. This symmetry squares to $-I$ and exchanges the two conjugate flavor propagators. In the number-conserving Nambu formulation, particle-number conservation supplies the second anticommuting time reversal, so each configuration belongs to the Kramers class $\{-,-\}$ described in Sec.~\ref{app:trs_kramers}. In particular, if $\mc B_b$ and $\mc B_c$ are the single-particle propagation matrices for the two flavors, then $\mc B_c=\overline{\mc B_b}$ and the convergent-trace weight takes the form
+\begin{equation}
+    W(\phi)=\frac{\ee^{\sum_\ell\xi_\ell(\phi_\ell)}}
+    {\det(I_{N_s}-\mc B_b)\det(I_{N_s}-\mc B_c)}
+    =\ee^{\sum_\ell\xi_\ell(\phi_\ell)}
+    \left|\det(I_{N_s}-\mc B_b)\right|^{-2}\ge0,
+\end{equation}
+where the scalar factor is real and positive. The TRS criterion fixes the same nonnegative sign for the regularized weights when the bare trace of a fixed configuration diverges; see Sec.~\ref{app:regularization}. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
 
-The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the real pairing amplitude varied. The BAFQMC observables agree with finite-temperature exact diagonalization within statistical errors. At finite pairing, each HS-decoupled slice satisfies the RP criterion with $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. We verify the trace convergence required for this RP construction below.
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
+    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
+    \label{fig:benchmark_attractive}
+\end{figure}
+
+The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the real pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. To see how reflection positivity applies, reflect between the two flavors according to $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\eta\hat c_i^+$, where $\eta=\operatorname{sgn}(\Delta)$ for real nonzero $\Delta$. The pairing contribution to one slice generator is
+\begin{equation}
+    \Delta\tau\Delta\sum_i
+    \left(\hat b_i^+\hat c_i^+ + \hat b_i\hat c_i\right)
+    =\Delta\tau|\Delta|\sum_i
+    \left[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)\right].
+\end{equation}
+Under this reflection, each pair-creation term is the product of a creation operator and its reflected partner, and likewise for pair annihilation. Their common coefficient is $\Delta\tau|\Delta|\ge0$. In the symmetric Gaussian block form of Eq.~\eqref{eq:rp_block_sm}, each cross term is counted twice, so the coupling block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The hopping, chemical-potential, and relative-density-field terms occupy the two conjugate diagonal blocks. This is precisely the RP generator condition, and hence the convergent trace weight is nonnegative. We verify convergence for every auxiliary-field configuration below.
 
 For this paired benchmark, the trace is finite for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
 \begin{equation}
@@ -1372,18 +1399,17 @@ only rotate occupation-state phases and are unitary. Writing $T=\ee^{-\Delta\tau
     \le\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0.
     \label{eq:benchmark_trace_bound}
 \end{equation}
-Thus the paired benchmark has a convergent trace and no bosonic pole in its determinant representation.
+The field-independent bound establishes trace convergence throughout the auxiliary-field domain. For every finite auxiliary-field configuration, the scalar factor $\ee^{\sum_\ell\xi_\ell}$ in Eq.~\eqref{eq:paired_trace_formula_appendix} is strictly positive. Combining that trace formula with Eq.~\eqref{eq:benchmark_trace_bound} gives
+\begin{equation}
+    |\det(I_{2N}-\mc M)|\ge
+    \frac{\ee^{2\sum_\ell\xi_\ell}}{Z_0^2}>0.
+\end{equation}
+Thus the same stability condition also keeps the determinant away from a bosonic pole and its associated infinite-variance singularity for every auxiliary-field configuration.
 
-Each parameter point uses $500$ warmup sweeps followed by $10^5$ measurement sweeps, with errors obtained from blocks of $10^4$ sweeps. Local field proposals are uniform shifts in $[-0.75,0.75]$ for the number-conserving runs and $[-0.5,0.5]$ for the paired runs. The initial warmup uses the Gaussian HS ratio, followed by measurement sweeps using the full Metropolis ratio. Products are stabilized every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
+Each parameter point uses $\Delta\tau=0.01$, giving $L_\tau=400$ slices at $\beta=4$ and $L_\tau=100$ at $\beta=1$. We perform $500$ warmup sweeps, followed by $10^5$ measurement sweeps with one measurement bin per sweep. Statistical errors are standard errors over ten blocks of $10^4$ bins. Local field proposals are uniform shifts in $[-0.75,0.75]$ for number-conserving runs and $[-0.5,0.5]$ for paired runs. The initial warmup uses the Gaussian HS ratio; production measurements use the full Metropolis ratio. We stabilize matrix products every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
 
-Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark} and~\ref{fig:benchmark_attractive}. At $U_1=U_2=0$ and $\Delta=0$, the reference is the exact free-boson result. For $\Delta=0$, particle-number conservation permits separate diagonalization in each total-particle-number sector; the sectors are retained until the observables converge, with sectors from zero through six included for the attractive-density data. For finite $\Delta$, the ED basis retains $n_{b,i},n_{c,i}\le3$ and total particle number at most four; the highest retained sector has thermal probability below $1.2\times10^{-4}$.
+Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark} and~\ref{fig:benchmark_attractive}. At $U_1=U_2=0$ and $\Delta=0$, we use the exact free-boson result. For the repulsive $U_1$ scan, we diagonalize separately in each total-particle-number sector and include sectors through $N_{\rm tot}=10$; the last-shell contributions to the plotted observables are below $10^{-4}$ relative to their accumulated values. For the attractive $U_2$ scan, we include six complete particle shells, up to the configured cutoff $N_{\rm tot}=8$. We accept these low-density reference values when the last-shell contribution to each observable is below $10^{-5}$ relative to its accumulated value and the total density is below $0.05$. For finite pairing, the ED basis imposes the local cutoffs $n_{b,i},n_{c,i}\le3$ and the total-particle cutoff $N_{\rm tot}\le4$, giving 7297 states at the largest pairing amplitude. At this endpoint, the thermal weight on the total-particle cutoff boundary is $1.1\times10^{-4}$, while that on the local-occupation boundary is below $4\times10^{-14}$.
 
-\begin{figure}[b]
-    \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
-    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
-    \label{fig:benchmark_attractive}
-\end{figure}
 
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
