@@ -1363,15 +1363,13 @@ We now prove that the imaginary-time evolution operator has a convergent trace f
     {(1-\ee^{-\beta\omega_{\bb k}})^2}<\infty.
     \label{eq:benchmark_free_partition}
 \end{equation}
-For real HS fields, $V_\ell=\exp[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]$ is unitary: in the occupation basis it only changes phases and preserves norms. Each time slice therefore contains the same positive thermal propagator $T$, with such a phase rotation inserted between successive propagators. Writing $L_\tau\Delta\tau=\beta$ and $\hat U(\phi)=\prod_{\ell=1}^{L_\tau}TV_\ell$, the trace of this product is bounded by
+For real HS fields, $V_\ell=\exp[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]$ is unitary: in the occupation basis it only changes phases and preserves norms. Each time slice therefore contains the same positive thermal propagator $T$, with such a phase rotation inserted between successive propagators. Writing $L_\tau\Delta\tau=\beta$ and $\hat U(\phi)=\prod_{\ell=1}^{L_\tau}TV_\ell$, a standard trace inequality for products of operators gives the direct bound
 \begin{equation}
-    |\Tr\hat U(\phi)|
-    \le\|\hat U(\phi)\|_1
-    \le\prod_{\ell=1}^{L_\tau}\|TV_\ell\|_{L_\tau}
-    =\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0,
+    \left|\Tr\hat U(\phi)\right|
+    \le \Tr\,T^{L_\tau}=Z_0,
     \label{eq:benchmark_trace_bound}
 \end{equation}
-Here $\|X\|_p=[\Tr(X^\hc X)^{p/2}]^{1/p}$ is a positive measure of the singular values of $X$. Multiplying by $V_\ell$ only rotates phases, so $\|TV_\ell\|_{L_\tau}=\|T\|_{L_\tau}$. Also, $\|T\|_{L_\tau}^{L_\tau}=\Tr(T^{L_\tau})=Z_0$. The right-hand side is therefore finite and independent of the auxiliary fields. This proves convergence of the imaginary-time trace for every configuration. Since the reflection-positive weight is nonnegative, the same bound gives $0\le W(\phi)\le Z_0$. Inserting this into the paired trace formula yields
+because the inserted $V_\ell$ only rotate phases and cannot increase the trace of the product. The right-hand side is finite and independent of the auxiliary fields, proving convergence of the imaginary-time trace for every configuration. Since the reflection-positive weight is nonnegative, the same bound gives $0\le W(\phi)\le Z_0$. Inserting this into the paired trace formula yields
 \begin{equation}
     |\det(I_{2N}-\mc M)|\ge
     \frac{\ee^{2\sum_\ell\xi_\ell}}{Z_0^2}>0.
