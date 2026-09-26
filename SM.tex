@@ -1378,11 +1378,6 @@ The main-text scans use $t=1$, $\beta=4$, and $\Delta\tau=0.01$ on this cluster.
 
 Finite-temperature ED provides the reference values in Fig.~\ref{fig:benchmark}. At $U_1=U_2=0$ and $\Delta=0$, the reference is the exact free-boson result. For $\Delta=0$, particle-number conservation permits separate diagonalization in each total-particle-number sector, included until the observables converge. For finite $\Delta$, the ED basis retains $n_{b,i},n_{c,i}\le3$ and total particle number at most four; the highest retained sector has thermal probability below $1.2\times10^{-4}$.
 
-\subsection{Attractive-density extension}
-\label{app:benchmark_attractive}
-
-We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0$ while retaining the repulsive relative-density channel $U_1\ge0$ in Eq.~\eqref{eq:benchmark_general}. The total-density HS field is real, whereas the relative-density field enters with opposite imaginary potentials for the two flavors. The resulting slices satisfy both the number-conserving TRS and RP criteria, so the same BAFQMC algorithm applies throughout the scan.
-
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
@@ -1390,9 +1385,13 @@ We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0
     \label{fig:benchmark_attractive}
 \end{figure}
 
+\subsection{Attractive-density extension}
+\label{app:benchmark_attractive}
+
+We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0$ while retaining the repulsive relative-density channel $U_1\ge0$ in Eq.~\eqref{eq:benchmark_general}. The total-density HS field is real, whereas the relative-density field enters with opposite imaginary potentials for the two flavors. The resulting slices satisfy both the number-conserving TRS and RP criteria, so the same BAFQMC algorithm applies throughout the scan.
+
 The attractive-density data use $U_1=1$, $\mu=-7$, and $\beta=1$; the same observables are shown in Fig.~\ref{fig:benchmark_attractive}. The time step, sweep counts, error analysis, and stabilization interval are the same as in the main-text benchmarks. The finite-occupation ED reference retains total particle numbers from zero through six. The comparison tests the two-channel number-conserving implementation through the density, energy, and both structure factors.
 
-\FloatBarrier
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
