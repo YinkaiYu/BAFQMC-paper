@@ -1322,8 +1322,6 @@ Successive RP evolution steps combine into another RP propagator, as shown in Eq
 \section{Benchmark models and numerical details}
 \label{app:benchmark_details}
 
-\subsection{Model and main benchmark}
-
 We use the triangular lattice with primitive vectors $\bb a_1=(1,0)$ and $\bb a_2=(1/2,\sqrt3/2)$, keeping $N_s=9$ sites with periodic boundary conditions. The general two-flavor benchmark Hamiltonian is
 \begin{equation}
 \begin{aligned}
@@ -1336,11 +1334,22 @@ We use the triangular lattice with primitive vectors $\bb a_1=(1,0)$ and $\bb a_
 \end{aligned}
 \label{eq:benchmark_general}
 \end{equation}
-where $t>0$, $\hat n_{b,i}=\hat b_i^+\hat b_i$, and $\hat n_{c,i}=\hat c_i^+\hat c_i$. We sample $\hat H-\mu\hat N$ in the grand-canonical ensemble, with $\hat N=\sum_i(\hat n_{b,i}+\hat n_{c,i})$. The main-text benchmarks set $U_2=0$ and vary the repulsive coupling $U_1$. The benchmark calculations use $U_1\ge0$ and $U_2\le0$, for which the two density channels have the HS decouplings in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}.
+where $t>0$, $\hat n_{b,i}=\hat b_i^+\hat b_i$, and $\hat n_{c,i}=\hat c_i^+\hat c_i$. We sample $\hat H-\mu\hat N$ in the grand-canonical ensemble, with $\hat N=\sum_i(\hat n_{b,i}+\hat n_{c,i})$. The two density channels are decoupled by the HS transformations in Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}.
 
-For the main-text case $U_2=0$, the $b$ and $c$ flavors experience conjugate HS potentials when $\Delta=0$. At finite pairing, the same slices satisfy the paired RP criterion with $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Thus the number-conserving and paired calculations test the Kramers/TRS and RP implementations on the same frustrated cluster.
+For all benchmarks, we measure the density $\rho=\langle\hat N\rangle/N_s$, the energy $E=\langle\hat H\rangle$ excluding the chemical-potential term, and the superfluid and density-wave structure factors at $K=(4\pi/3,0)$. We plot the energy as $-E$,
+\begin{align}
+    S_{\rm SF}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
+    \langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle,\\
+    S_{\rm DW}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
+    \langle(\hat n_{b,i}+\hat n_{c,i})(\hat n_{b,j}+\hat n_{c,j})\rangle.
+\end{align}
+Here $r_i$ is the position of site $i$.
 
-The absence of poles in these benchmarks follows directly from stability of the quadratic part. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
+We first consider the number-conserving benchmarks, with $\Delta=0$. For $U_1\ge0$ and $U_2\le0$, every HS-decoupled slice obeys the Kramers time-reversal criterion, so the BAFQMC weights are positive throughout the auxiliary-field integration. The repulsive relative-density benchmark shown in Fig.~\ref{fig:benchmark} sets $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$ while varying $U_1$. We then benchmark the attractive total-density channel by setting $U_1=1$, $t=1$, $\mu=-7$, and $\beta=1$ while varying $U_2\le0$; the results are shown in Fig.~\ref{fig:benchmark_attractive}. The same observables are used in both scans. The BAFQMC data agree with finite-temperature exact diagonalization within statistical errors.
+
+The paired benchmark in Fig.~\ref{fig:benchmark} sets $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, and $\Delta\tau=0.01$ at $\mu=-5$ while varying the real pairing amplitude. At finite pairing, each HS-decoupled slice satisfies the RP criterion with $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The number-conserving and paired calculations therefore test the Kramers/TRS and RP implementations on the same frustrated cluster.
+
+For this paired benchmark, the trace is finite for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
 \begin{equation}
     \epsilon_{\bb k}=t\left|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}\right|^2-3t\ge-3t.
 \end{equation}
@@ -1363,39 +1372,83 @@ only rotate occupation-state phases and are unitary. Writing $T=\ee^{-\Delta\tau
     \le\prod_{\ell=1}^{L_\tau}\|T\|_{L_\tau}=Z_0.
     \label{eq:benchmark_trace_bound}
 \end{equation}
-Thus every auxiliary-field configuration in the $U_2=0$ benchmarks has a convergent trace, and its determinant representation contains no bosonic pole.
+Thus the paired benchmark has a convergent trace and no bosonic pole in its determinant representation.
 
-The measured density is $\rho=\langle\hat N\rangle/N_s$. The energy $E=\langle\hat H\rangle$ excludes the chemical-potential term and is plotted as $-E$. We also measure the superfluid and density-wave structure factors at $K=(4\pi/3,0)$,
-\begin{align}
-    S_{\rm SF}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
-    \langle\hat b_i^+\hat b_j+\hat c_i^+\hat c_j\rangle,\\
-    S_{\rm DW}(K)&=N_s^{-2}\sum_{ij}\ee^{\ii K\cdot(r_i-r_j)}
-    \langle(\hat n_{b,i}+\hat n_{c,i})(\hat n_{b,j}+\hat n_{c,j})\rangle.
-\end{align}
-Here $r_i$ is the position of site $i$.
+Each parameter point uses $500$ warmup sweeps followed by $10^5$ measurement sweeps, with errors obtained from blocks of $10^4$ sweeps. Local field proposals are uniform shifts in $[-0.75,0.75]$ for the number-conserving runs and $[-0.5,0.5]$ for the paired runs. The initial warmup uses the Gaussian HS ratio, followed by measurement sweeps using the full Metropolis ratio. Products are stabilized every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
 
-The main-text scans use $t=1$, $\beta=4$, and $\Delta\tau=0.01$ on this cluster. The number-conserving scan sets $\Delta=0$, $U_2=0$, and $\mu=-3.5$, while the paired scan sets $U_1=1$, $U_2=0$, $\mu=-5$, and varies the real pairing amplitude. Both satisfy $\mu<-3t-|\Delta|$. Each parameter point uses $500$ warmup sweeps followed by $10^5$ measurement sweeps, with errors obtained from blocks of $10^4$ sweeps. Local field proposals are uniform shifts in $[-0.75,0.75]$ for the number-conserving runs and $[-0.5,0.5]$ for the paired runs. The initial warmup uses the Gaussian HS ratio, followed by measurement sweeps using the full Metropolis ratio. Products are stabilized every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
+Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark} and~\ref{fig:benchmark_attractive}. At $U_1=U_2=0$ and $\Delta=0$, the reference is the exact free-boson result. For $\Delta=0$, particle-number conservation permits separate diagonalization in each total-particle-number sector; the sectors are retained until the observables converge, with sectors from zero through six included for the attractive-density data. For finite $\Delta$, the ED basis retains $n_{b,i},n_{c,i}\le3$ and total particle number at most four; the highest retained sector has thermal probability below $1.2\times10^{-4}$. The BAFQMC results coincide with the ED values within statistical errors for every observable shown.
 
-Finite-temperature ED provides the reference values in Fig.~\ref{fig:benchmark}. At $U_1=U_2=0$ and $\Delta=0$, the reference is the exact free-boson result. For $\Delta=0$, particle-number conservation permits separate diagonalization in each total-particle-number sector, included until the observables converge. For finite $\Delta$, the ED basis retains $n_{b,i},n_{c,i}\le3$ and total particle number at most four; the highest retained sector has thermal probability below $1.2\times10^{-4}$.
-
-\begin{figure}[t]
+\begin{figure}[b]
     \centering
     \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
     \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
     \label{fig:benchmark_attractive}
 \end{figure}
 
-\subsection{Attractive-density extension}
-\label{app:benchmark_attractive}
-
-We also set $\Delta=0$ and turn on the attractive total-density channel $U_2\le0$ while retaining the repulsive relative-density channel $U_1\ge0$ in Eq.~\eqref{eq:benchmark_general}. The total-density HS field is real, whereas the relative-density field enters with opposite imaginary potentials for the two flavors. The resulting slices satisfy both the number-conserving TRS and RP criteria, so the same BAFQMC algorithm applies throughout the scan.
-
-The attractive-density data use $U_1=1$, $\mu=-7$, and $\beta=1$; the same observables are shown in Fig.~\ref{fig:benchmark_attractive}. The time step, sweep counts, error analysis, and stabilization interval are the same as in the main-text benchmarks. The finite-occupation ED reference retains total particle numbers from zero through six. The comparison tests the two-channel number-conserving implementation through the density, energy, and both structure factors.
-
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models show how the TRS criteria make complex pairing and geometrical frustration accessible to BAFQMC. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+The following models show how the TRS criteria make orbital ordering, complex pairing, and geometrical frustration accessible to BAFQMC. The Kramers-class example combines directional $p$-orbital hopping with a minimal local Hund interaction to study counter-rotating orbital order. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+
+\subsection{Kramers class: orbital Hund's coupling and counter-rotating stripes}
+\label{sec:trs_orbital_hund}
+
+Orbital degrees of freedom allow bosons to develop spontaneous circulation without an imposed gauge field. Repulsive contact interactions favor angular-momentum-carrying $p_x\pm\ii p_y$ orbitals, the bosonic analogue of Hund's rule, while directional tunneling organizes these local moments into spatial patterns~\cite{liuWu2006orbital,wuLiuMoore2006stripe,wu2009unconventional}. Evidence for orbital stripe ordering in a triangular optical lattice~\cite{wangLuoLiu2023stripe} motivates a minimal two-component model that combines this orbital mechanism with Kramers-protected positivity.
+
+Place two internal states $\sigma=\uparrow,\downarrow$ in the $p_x,p_y$ orbitals of each triangular-lattice site. Write $\hat{\bb p}_{i\sigma}=(\hat p_{ix\sigma},\hat p_{iy\sigma})$ and define the occupation and orbital angular momentum, in units of $\hbar$, by
+\begin{equation}
+    \hat n_{i\sigma}=\hat p_{ix\sigma}^{+}\hat p_{ix\sigma}
+       +\hat p_{iy\sigma}^{+}\hat p_{iy\sigma},
+    \qquad
+    \hat L_{i\sigma}=-\ii\bigl(
+       \hat p_{ix\sigma}^{+}\hat p_{iy\sigma}
+       -\hat p_{iy\sigma}^{+}\hat p_{ix\sigma}\bigr).
+    \label{eq:trs_minimal_orbital_operators}
+\end{equation}
+The Hamiltonian $\hat H=\hat H_0+\hat H_I$ is
+\begin{align}
+    \hat H_0={}&t\sum_{\langle i,j\rangle,\sigma}
+       \Bigl[(\bb e_{ij}\cdot\hat{\bb p}_{i\sigma}^{+})
+             (\bb e_{ij}\cdot\hat{\bb p}_{j\sigma})
+             +\hc\Bigr]
+       -\mu\sum_{i,\sigma}\hat n_{i\sigma},
+       \label{eq:trs_minimal_pband_H0}\\
+    \hat H_I={}&\frac U2\sum_i
+       \left[(\hat n_{i\uparrow}-\hat n_{i\downarrow})^2
+       -\frac13(\hat L_{i\uparrow}-\hat L_{i\downarrow})^2\right],
+       \qquad t,U>0.
+       \label{eq:trs_minimal_pband_HI}
+\end{align}
+Here $\bb e_{ij}$ is the unit vector along a nearest-neighbor bond, and each bond is counted once. The hopping retains only the dominant longitudinal overlap; its positive sign follows from the odd parity of the $p$ orbitals~\cite{wuLiuMoore2006stripe}. Apart from the chemical potential controlling filling, the model has just two energy scales, $t$ and $U$.
+
+Expanding Eq.~\eqref{eq:trs_minimal_pband_HI} gives the familiar Hund interaction $\frac U2\sum_\sigma(\hat n_{i\sigma}^2-\hat L_{i\sigma}^2/3)$ within each component, together with $-U\hat n_{i\uparrow}\hat n_{i\downarrow}+(U/3)\hat L_{i\uparrow}\hat L_{i\downarrow}$ between components. Linear normal-ordering terms can be absorbed into $\mu$. This is a local effective density-and-angular-momentum model: it retains the single-component contact Hund interaction and describes intercomponent coupling through these two channels. The density square penalizes population imbalance, whereas the negative angular-momentum square favors locally circulating orbitals with opposite circulation in the two components. The ratio $1/3$ is the standard single-component Hund coefficient.
+
+On each internal-state doublet, take $\Theta=\ii\sigma_y\mc K$, with $\Theta^2=-I$. The hopping is real and component independent. Under $\Theta$, the density difference is odd, while the angular-momentum difference is even, since $\hat L_{i\uparrow}\mapsto-\hat L_{i\downarrow}$. The two commuting onsite squares have the exact HS decomposition
+\begin{align}
+    \ee^{-\Delta\tau\hat H_{I,i}}
+    =\int\frac{\dd\phi\,\dd\eta}{2\pi}\,
+       \ee^{-(\phi^2+\eta^2)/2}
+       \exp\Bigl[&\ii\sqrt{U\Delta\tau}\,\phi
+                 (\hat n_{i\uparrow}-\hat n_{i\downarrow})\notag\\
+                 &+\sqrt{U\Delta\tau/3}\,\eta
+                 (\hat L_{i\uparrow}-\hat L_{i\downarrow})\Bigr].
+    \label{eq:trs_minimal_orbital_HS}
+\end{align}
+Every field value preserves $\Theta$: the odd density channel has an imaginary coupling, and the even angular-momentum channel has a real coupling. Particle-number conservation supplies the second anticommuting time reversal in Nambu space. In fact, the two component propagators remain complex conjugates, $\mc B_{\downarrow}=\mc B_{\uparrow}^{*}$, giving $W=|\det(I-\mc B_{\uparrow})|^{-2}>0$. Thus only two real auxiliary fields per site are needed despite the frustrated orbital hopping.
+
+The band structure connects local circulation to orbital stripes. The lower band has three symmetry-related minima at the Brillouin-zone edge centers $M_1,M_2,M_3$~\cite{wuLiuMoore2006stripe}. A coherent equal-weight superposition of two minima with relative phase $\pi/2$, together with its complex conjugate in the other component, gives a representative counter-rotating stripe condensate. At density $\rho$ per component, choosing horizontal stripes yields
+\begin{equation}
+    \langle\hat n_{i\uparrow}\rangle
+       =\langle\hat n_{i\downarrow}\rangle=\rho,
+    \qquad
+    \langle\hat L_{i\uparrow}\rangle
+       =-\langle\hat L_{i\downarrow}\rangle
+       =\frac{\sqrt3}{2}\rho\,(-1)^m,
+    \label{eq:trs_minimal_orbital_stripe}
+\end{equation}
+where $m$ labels horizontal lattice rows; the factor $(-1)^m$ is the interference pattern from the momentum difference of the two selected $M$ points. The site density is uniform, but the circulation reverses between adjacent rows and between components. Relative to a noncirculating single-$M$ condensate at the same filling, this coherent state lowers the interaction energy per site by $U\rho^2/2$ while retaining the band-minimum kinetic energy. The linear contributions from the operator squares are identical in this comparison. The Hund channel therefore gives a direct energetic advantage to counter-rotating orbital order without imposing a spatial pattern in the Hamiltonian.
+
+This minimal model brings the selection of orbital textures and their thermal melting into a sign-free setting. Single-particle correlations probe phase coherence, while correlations of $\hat L_{i\uparrow}-\hat L_{i\downarrow}$ detect orbital order even when the total angular momentum cancels. BAFQMC can determine the spatial order selected by interactions and quantum fluctuations, and whether orbital stripes persist after superfluid coherence is lost. The result connects a two-scale local Hamiltonian to the experimentally motivated problem of intertwined orbital and superfluid order.
 
 \subsection{Majorana class: pairing-induced chiral bands}
 
