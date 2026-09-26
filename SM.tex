@@ -1345,20 +1345,7 @@ For all benchmarks, we measure the density $\rho=\langle\hat N\rangle/N_s$, the 
 \end{align}
 Here $r_i$ is the position of site $i$.
 
-We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the relative-density field gives the two flavors complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, as in Eq.~\eqref{eq:benchmark_hs_potentials}. The real hopping and chemical-potential terms are identical for the two flavors. Consequently, every slice is invariant under the antiunitary time reversal
-\begin{equation}
-    \Theta\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix}
-    =\ii\sigma_y K\begin{pmatrix}\hat b_i\\\hat c_i\end{pmatrix},
-    \qquad \Theta^2=-I,
-\end{equation}
-where $K$ complex conjugates coefficients and $\sigma_y$ acts on flavor. This symmetry squares to $-I$ and exchanges the two conjugate flavor propagators. In the number-conserving Nambu formulation, particle-number conservation supplies the second anticommuting time reversal, so each configuration belongs to the Kramers class $\{-,-\}$ described in Sec.~\ref{app:trs_kramers}. In particular, if $\mc B_b$ and $\mc B_c$ are the single-particle propagation matrices for the two flavors, then $\mc B_c=\overline{\mc B_b}$ and the convergent-trace weight takes the form
-\begin{equation}
-    W(\phi)=\frac{\ee^{\sum_\ell\xi_\ell(\phi_\ell)}}
-    {\det(I_{N_s}-\mc B_b)\det(I_{N_s}-\mc B_c)}
-    =\ee^{\sum_\ell\xi_\ell(\phi_\ell)}
-    \left|\det(I_{N_s}-\mc B_b)\right|^{-2}\ge0,
-\end{equation}
-where the scalar factor is real and positive. The TRS criterion fixes the same nonnegative sign for the regularized weights when the bare trace of a fixed configuration diverges; see Sec.~\ref{app:regularization}. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
+We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the two flavors experience complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, while their hopping and chemical-potential terms are identical. Every slice is therefore invariant under the antiunitary map $\Theta=\ii\sigma_yK$, which exchanges $b$ and $c$ and satisfies $\Theta^2=-I$. Together with particle-number conservation, this realizes the Kramers class $\{-,-\}$ of Sec.~\ref{app:trs_kramers}. Physically, the fixed-field $b$ and $c$ evolutions are exact complex conjugates. Their configuration weights and equal-time Green functions obey $W_c=\overline{W_b}$ and $G_c=\overline{G_b}$, so the full weight is simply $W=W_bW_c=|W_b|^2\ge0$. We evaluate only the $b$-flavor propagation and reconstruct the $c$-flavor weight factor and Green function by complex conjugation. The TRS criterion fixes the same nonnegative sign for the regularized weights when the bare trace of a fixed configuration diverges; see Sec.~\ref{app:regularization}. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
 
 \begin{figure}[tb]
     \centering
@@ -1367,14 +1354,7 @@ where the scalar factor is real and positive. The TRS criterion fixes the same n
     \label{fig:benchmark_attractive}
 \end{figure}
 
-The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the real pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. To see how reflection positivity applies, reflect between the two flavors according to $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\eta\hat c_i^+$, where $\eta=\operatorname{sgn}(\Delta)$ for real nonzero $\Delta$. The pairing contribution to one slice generator is
-\begin{equation}
-    \Delta\tau\Delta\sum_i
-    \left(\hat b_i^+\hat c_i^+ + \hat b_i\hat c_i\right)
-    =\Delta\tau|\Delta|\sum_i
-    \left[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)\right].
-\end{equation}
-Under this reflection, each pair-creation term is the product of a creation operator and its reflected partner, and likewise for pair annihilation. Their common coefficient is $\Delta\tau|\Delta|\ge0$. In the symmetric Gaussian block form of Eq.~\eqref{eq:rp_block_sm}, each cross term is counted twice, so the coupling block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. The hopping, chemical-potential, and relative-density-field terms occupy the two conjugate diagonal blocks. This is precisely the RP generator condition, and hence the convergent trace weight is nonnegative. We verify convergence for every auxiliary-field configuration below.
+The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a nonnegative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is nonnegative. We verify convergence for every auxiliary-field configuration below.
 
 For this paired benchmark, the trace is finite for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice hopping dispersion obeys
 \begin{equation}
