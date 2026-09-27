@@ -890,7 +890,7 @@ where the scalar prefactor and the choice of square root are fixed as in Sec.~\r
 
 The determinant expressions in Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main} therefore give the regularized weights $W_{\rm reg}(\phi)$ sampled in BAFQMC. Wherever the bare trace converges, $W_{\rm reg}(\phi)=W_{\rm bare}(\phi)$. For configurations with divergent bare traces, the determinant expressions represent the finite parts identified above.
 
-When time reversal separates every slice into two independent conjugate subsystems, as in the Majorana class proved in Sec.~\ref{app:trs_majorana}, the cutoff is applied to the two subsystems separately. The Fock space and slice generators decompose as $\mathcal F=\mathcal F_+\otimes\mathcal F_-$ and $\hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}$, with half of the real scalar $\xi_\ell$ assigned to each subsystem. Using identical cutoffs for each state and its time-reversed partner preserves the conjugacy of the regulated traces,
+When time reversal separates every slice into two independent conjugate subsystems, as in the pairing class proved in Sec.~\ref{app:trs_pairing}, the cutoff is applied to the two subsystems separately. The Fock space and slice generators decompose as $\mathcal F=\mathcal F_+\otimes\mathcal F_-$ and $\hat h_\ell=\hat h_{\ell,+}+\hat h_{\ell,-}$, with half of the real scalar $\xi_\ell$ assigned to each subsystem. Using identical cutoffs for each state and its time-reversed partner preserves the conjugacy of the regulated traces,
 \begin{equation}
     W_{\Lambda,\pm}=\Tr_{\mathcal F_\pm}
     \left[R_{\Lambda,\pm}\prod_\ell\ee^{\hat h_{\ell,\pm}}\right],
@@ -1018,8 +1018,8 @@ For the Kramers class, every creation direction has an independent time-reversed
 \end{equation}
 The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is nonnegative, establishing $W>0$. The conserved charge thus allows the Kramers pairing argument to apply to general quadratic evolution.
 
-\subsection{Majorana class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
-\label{app:trs_majorana}
+\subsection{Pairing class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
+\label{app:trs_pairing}
 
 Assume that every time slice preserves two time-reversal symmetries subject to the constraints
 \begin{equation}
@@ -1044,9 +1044,9 @@ An operator can thus only have a canonical conjugate within its own sector, impl
 Because $P$ and $\Theta_1$ anticommute, the time-reversal operation $\Theta_1$ exchanges these two subsystems. Denoting their respective statistical weights by $W_+$ and $W_-$, the application of $\Theta_1$ ensures that $W_-=\overline{W_+}$. The total weight is therefore inherently non-negative:
 \begin{equation}
     W=W_+W_-=|W_+|^2\ge0.
-    \label{eq:trs_majorana_weight}
+    \label{eq:trs_pairing_weight}
 \end{equation}
-In cases involving divergent traces, the paired cutoffs introduced in Sec.~\ref{app:regularization} preserve this conjugacy relation between their finite parts. Consequently, Eq.~\eqref{eq:reg_conjugate_sectors} yields a strictly positive determinantal weight. This symmetry class is therefore the bosonic counterpart to the fermionic Majorana class identified in Ref.~\cite{li2016prl}. Pairing interactions within either subsystem remain fully compatible with this conjugacy relation, preserving the positivity of the total weight.
+In cases involving divergent traces, the paired cutoffs introduced in Sec.~\ref{app:regularization} preserve this conjugacy relation between their finite parts. Consequently, Eq.~\eqref{eq:reg_conjugate_sectors} yields a strictly positive determinantal weight. This pairing class is therefore the bosonic counterpart to the fermionic Majorana class identified in Ref.~\cite{li2016prl}. Pairing interactions within either subsystem remain fully compatible with this conjugacy relation, preserving the positivity of the total weight.
 
 \subsection{Split-orthogonal class \texorpdfstring{\(\{+,+,+\}\)}{\{+,+,+\}}}
 
@@ -1124,7 +1124,7 @@ As explicitly shown, the determinant inherently carries a sign of $(-1)^{N/2}$, 
 \subsection{Time-reversal periodic table}
 \label{app:trs_counterexamples}
 
-The Kramers, Majorana, and split-orthogonal classes constitute the fundamental sign-problem-free entries of the periodic table. Any larger symmetry set guarantees positivity provided it contains the symmetries of at least one of these three classes. The remaining possibilities are the $\{+,+\}$ and $\{-\}$ classes, along with their subsets. The following counterexamples demonstrate why these classes fail to guarantee positivity.
+The Kramers, pairing, and split-orthogonal classes constitute the fundamental sign-problem-free entries of the periodic table. Any larger symmetry set guarantees positivity provided it contains the symmetries of at least one of these three classes. The remaining possibilities are the $\{+,+\}$ and $\{-\}$ classes, along with their subsets. The following counterexamples demonstrate why these classes fail to guarantee positivity.
 
 For the $\{+,+\}$ class, consider a single bosonic mode described by
 \begin{equation}
@@ -1137,7 +1137,7 @@ Both symmetry operations are antiunitary (complex-conjugating numerical coeffici
     W=-\frac{1}{2\sinh(\kappa/2)}<0.
     \label{eq:trs_boson_pp_counter_weight}
 \end{equation}
-Both time-reversal symmetries act on the same oscillator, which cannot be separated into two independent conjugate bosonic subsystems. Its weight therefore lacks the modulus-square structure $W=W_+\overline{W_+}$ that preserves positivity under analytic continuation in the Majorana class. This single-mode counterexample also rules out any general positivity guarantee for weaker symmetry classes containing only one such TRS, or lacking time-reversal symmetry entirely.
+Both time-reversal symmetries act on the same oscillator, which cannot be separated into two independent conjugate bosonic subsystems. Its weight therefore lacks the modulus-square structure $W=W_+\overline{W_+}$ that preserves positivity under analytic continuation in the pairing class. This single-mode counterexample also rules out any general positivity guarantee for weaker symmetry classes containing only one such TRS, or lacking time-reversal symmetry entirely.
 
 For $\{-\}$, consider the complete three-slice family
 \begin{align}
@@ -1156,10 +1156,10 @@ Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\
 \end{equation}
 so, for example, $W=-1/2$ at $t=\pi/2$. This gives a negative weight in the single-$\{-\}$ class.
 
-Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and Majorana class are sign-free for both bosons and fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a nonnegative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
+Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and the $\{+,-\}$ class are sign-free for both statistics; we call the latter the pairing class for bosons and the Majorana class for fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a nonnegative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
 
 \begin{table}[ht]
-    \caption{\textbf{Time-reversal symmetry classes for sign-problem-free bosonic and fermionic AFQMC.} The Kramers class $\{-,-\}$ and Majorana class $\{+,-\}$ are sign-free for both statistics. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
+    \caption{\textbf{Time-reversal symmetry classes for sign-problem-free bosonic and fermionic AFQMC.} The Kramers class $\{-,-\}$ and the $\{+,-\}$ class are sign-free for both statistics; the latter is called the pairing class for bosons and the Majorana class for fermions. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
     \label{tab:trs_boson_fermion}
     \vspace{8pt}
     {\fontencoding{T1}\sffamily
@@ -1182,10 +1182,10 @@ Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign
             \node at (0.45,-33) {None};
             \node at (0.78,-33) {None};
             \node at (0.14,-55) {2};
-            \node[fundamental] at (0.45,-55) {\{\textminus,\textminus\} = Kramers class\\ \{+,\textminus\} = Majorana class};
+            \node[fundamental] at (0.45,-55) {\{\textminus,\textminus\} = Kramers class\\ \{+,\textminus\} = pairing class};
             \node[fundamental] at (0.78,-55) {\{\textminus,\textminus\} = Kramers class\\ \{+,\textminus\} = Majorana class};
             \node at (0.14,-89) {3};
-            \node[splitclass] at (0.45,-75) {\{+,+,+\} = Split-orthogonal class};
+            \node[splitclass] at (0.45,-75) {\{+,+,+\} = split-orthogonal class};
             \node at (0.45,-84) {\{+,+,\textminus\}};
             \node at (0.45,-93) {\{+,\textminus,\textminus\}};
             \node at (0.45,-102) {\{\textminus,\textminus,\textminus\}};
@@ -1381,7 +1381,7 @@ Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark}
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models show how the TRS criteria make orbital ordering, complex pairing, and geometrical frustration accessible to BAFQMC. The Kramers-class example combines directional $p$-orbital hopping with a minimal local Hund interaction to study counter-rotating orbital order. The Majorana-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+The following models show how the TRS criteria make orbital ordering, complex pairing, and geometrical frustration accessible to BAFQMC. The Kramers-class example combines directional $p$-orbital hopping with a minimal local Hund interaction to study counter-rotating orbital order. The pairing-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
 
 \subsection{Kramers class: orbital Hund's coupling and counter-rotating stripes}
 \label{sec:trs_orbital_hund}
@@ -1443,7 +1443,7 @@ where $m$ labels horizontal lattice rows; the factor $(-1)^m$ is the interferenc
 
 This minimal model brings the selection of orbital textures and their thermal melting into a sign-free setting. Single-particle correlations probe phase coherence, while correlations of $\hat L_{i\uparrow}-\hat L_{i\downarrow}$ detect orbital order even when the total angular momentum cancels. BAFQMC can determine the spatial order selected by interactions and quantum fluctuations, and whether orbital stripes persist after superfluid coherence is lost. The result connects a two-scale local Hamiltonian to the experimentally motivated problem of intertwined orbital and superfluid order.
 
-\subsection{Majorana class: pairing-induced chiral bands}
+\subsection{Pairing class: pairing-induced chiral bands}
 
 Pair creation with spatially varying phases can produce topological bosonic excitation bands even when all hopping amplitudes are real. On the kagome lattice, this mechanism yields chiral edge modes that mediate both elastic and inelastic photon transport, as established for parametrically coupled photonic cavities~\cite{peanoHoudeBrendel2016squeezing}. We construct an equilibrium interacting extension by coupling two flavors with conjugate pairing patterns.
 
@@ -1516,7 +1516,7 @@ and $\ii\sigma_y$ is real, antiunitarity and Hermitian conjugation give
 \end{equation}
 For a nonzero complex bond amplitude, invariance requires $\Delta_{ij}^*(\det U)^*=\Delta_{ij}$. Thus all nonzero amplitudes preserved by a uniform internal time reversal share the same phase up to signs. Choosing that common phase to be real, preservation of the pair field requires $\det U=1$.
 
-A time-reversal symmetry with $\Theta^2=-I$ additionally satisfies $\overline U U=-I_2$. Unitarity then gives $U^\trans=-U$, and the determinant-one condition restricts it to $U=\pm\ii\sigma_y$. The corresponding time reversals $\pm\Theta_0$, with $\Theta_0=\ii\sigma_y\mc K$, differ only by a sign and cannot supply the two anticommuting time reversals required by the Kramers class. A time reversal $\Theta=U\mc K$ with $\Theta^2=+I$ must also satisfy $\det U=1$ to preserve the pair field. Together with unitarity, this gives $U(\ii\sigma_y)=(\ii\sigma_y)\overline U$, and hence $\Theta\Theta_0=\Theta_0\Theta$. It therefore cannot supply the anticommuting partner of $\Theta_0$ required by the Majorana class.
+A time-reversal symmetry with $\Theta^2=-I$ additionally satisfies $\overline U U=-I_2$. Unitarity then gives $U^\trans=-U$, and the determinant-one condition restricts it to $U=\pm\ii\sigma_y$. The corresponding time reversals $\pm\Theta_0$, with $\Theta_0=\ii\sigma_y\mc K$, differ only by a sign and cannot supply the two anticommuting time reversals required by the Kramers class. A time reversal $\Theta=U\mc K$ with $\Theta^2=+I$ must also satisfy $\det U=1$ to preserve the pair field. Together with unitarity, this gives $U(\ii\sigma_y)=(\ii\sigma_y)\overline U$, and hence $\Theta\Theta_0=\Theta_0\Theta$. It therefore cannot supply the anticommuting partner of $\Theta_0$ required by the pairing class.
 
 The three time-reversal symmetries with $\Theta_a^2=+I$,
 \begin{equation}
