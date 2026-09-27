@@ -1347,7 +1347,12 @@ Here $r_i$ is the position of site $i$.
 
 We first consider the number-conserving benchmarks, with $\Delta=0$. For each real auxiliary-field configuration, the two flavors experience complex-conjugate potentials, $v_{b,i\ell}=\alpha_2\phi_{i\ell}+\ii\alpha_1\varphi_{i\ell}$ and $v_{c,i\ell}=\overline{v_{b,i\ell}}$, while their hopping and chemical-potential terms are identical. Every slice is therefore invariant under the antiunitary map $\Theta=\ii\sigma_yK$, which exchanges $b$ and $c$ and satisfies $\Theta^2=-I$. Together with particle-number conservation, this realizes the Kramers class $\{-,-\}$ of Sec.~\ref{app:trs_kramers}. Physically, the fixed-field $b$ and $c$ evolutions are exact complex conjugates. Their configuration weights and equal-time Green functions obey $W_c=\overline{W_b}$ and $G_c=\overline{G_b}$, so the full weight is simply $W=W_bW_c=|W_b|^2\ge0$. We evaluate only the $b$-flavor propagation and reconstruct the $c$-flavor weight factor and Green function by complex conjugation. The repulsive relative-density benchmark in Fig.~\ref{fig:benchmark} uses $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-3.5$, with $U_1$ varied. The attractive total-density benchmark in Fig.~\ref{fig:benchmark_attractive} uses $U_1=1$, $t=1$, $\mu=-7$, $\beta=1$, and $\Delta\tau=0.01$, with $U_2\le0$ varied. In both scans, the BAFQMC results agree with finite-temperature exact diagonalization within statistical errors for all observables.
 
-
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
+    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
+    \label{fig:benchmark_attractive}
+\end{figure}
 
 The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a nonnegative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is nonnegative.
 
@@ -1381,94 +1386,9 @@ These examples illustrate the reach of BAFQMC beyond the current state of the ar
 \subsection{Kramers class: stripe superfluidity in frustrated \texorpdfstring{$p$-band bosons}{p-band bosons}}
 \label{sec:trs_orbital_hund}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{figures/benchmark_attractive.pdf}
-    \caption{\textbf{Attractive-density benchmark.} Results for Eq.~\eqref{eq:benchmark_general} with $\Delta=0$ on the periodic $3\times3$ triangular lattice at $t=1$, $U_1=1$, $\mu=-7$, and $\beta=1$. The panels show $\rho$, $-E$, $S_{\rm SF}(K)$, and $S_{\rm DW}(K)$ as $U_2$ varies. Red points denote finite-occupation reference values, and blue open circles denote BAFQMC means with standard-error bars.}
-    \label{fig:benchmark_attractive}
-\end{figure}
-
 Orbital bosons support spontaneous circulation, finite-momentum condensation, and stripe order without an applied gauge field. In $p$ bands, local interactions select angular-momentum-carrying $p_x\pm\ii p_y$ combinations through the orbital Hund channel, while directional tunneling and frustrated lattice geometry organize these circulating states into nonzero-momentum condensates and stripes~\cite{liuWu2006orbital,wuLiuMoore2006stripe,wu2009unconventional}. Interactions can also couple a spin doublet to orbital angular momentum in $p$-orbital bosons, producing an intertwined superfluid with Dirac excitations~\cite{liYuanHemmerichLi2018prl}. The model below combines these spin and orbital degrees of freedom with frustrated triangular-lattice hopping and a Kramers-protected sign-free weight. Quantum stripe order has also been observed in a triangular optical lattice~\cite{wangLuoLiu2023stripe}.
 
-Place two internal states $\sigma=\uparrow,\downarrow$ in the $p_x,p_y$ orbitals of each triangular-lattice site. Figure~\ref{fig:trs_orbital_stripe} summarizes the local orbital doublet and a representative stripe pattern.
-\begin{figure}[tb]
-    \centering
-    \definecolor{StripeBlue}{RGB}{55,105,160}
-    \definecolor{StripeOrange}{RGB}{205,110,50}
-    \begin{tikzpicture}[
-        x=1.25cm,y=1.25cm,
-        every node/.style={font=\sffamily\footnotesize},
-        bond/.style={draw=black!35,line width=0.45pt},
-        site/.style={circle,inner sep=1.2pt,line width=0.45pt}]
-        % Local orbital doublet.
-        \draw[rounded corners=2pt,draw=black!20,fill=black!1]
-            (0,0) rectangle (3.05,3.05);
-        \node[anchor=west,font=\sffamily\bfseries\footnotesize]
-            at (0.16,2.82) {(a) Local orbital doublet};
-        \node[anchor=east,color=StripeBlue] at (0.82,2.03) {$\uparrow$};
-        \draw[StripeBlue,line width=0.65pt] (1.42,2.03) circle (0.42);
-        \draw[StripeBlue,line width=0.65pt] (1.00,2.03) -- (1.84,2.03);
-        \draw[StripeBlue,line width=0.65pt] (1.42,1.61) -- (1.42,2.45);
-        \draw[StripeBlue,->,line width=0.7pt]
-            (1.42,2.45) arc[start angle=90,end angle=420,radius=0.42];
-        \node[anchor=west,color=StripeBlue] at (1.98,2.03)
-            {$p_x+\ii p_y$};
-        \node[anchor=east,color=StripeOrange] at (0.82,0.86) {$\downarrow$};
-        \draw[StripeOrange,line width=0.65pt] (1.42,0.86) circle (0.42);
-        \draw[StripeOrange,line width=0.65pt] (1.00,0.86) -- (1.84,0.86);
-        \draw[StripeOrange,line width=0.65pt] (1.42,0.44) -- (1.42,1.28);
-        \draw[StripeOrange,->,line width=0.7pt]
-            (1.42,1.28) arc[start angle=90,end angle=-240,radius=0.42];
-        \node[anchor=west,color=StripeOrange] at (1.98,0.86)
-            {$p_x-\ii p_y$};
-        \node[align=center,text=black!65] at (1.52,0.16)
-            {opposite orbital circulation};
-
-        % Triangular lattice and a representative stripe pattern.
-        \draw[rounded corners=2pt,draw=black!20,fill=black!1]
-            (3.35,0) rectangle (8.20,3.05);
-        \node[anchor=west,font=\sffamily\bfseries\footnotesize]
-            at (3.51,2.82) {(b) Triangular lattice};
-        \fill[StripeBlue!13]   (3.50,0.22) rectangle (7.95,0.74);
-        \fill[StripeOrange!13] (3.50,0.90) rectangle (7.95,1.42);
-        \fill[StripeBlue!13]   (3.50,1.58) rectangle (7.95,2.10);
-        \fill[StripeOrange!13] (3.50,2.26) rectangle (7.95,2.78);
-        % Horizontal bonds.
-        \foreach \j in {0,...,4}{
-            \draw[bond] ({3.75+0.68*\j},0.48) -- ({3.75+0.68*(\j+1)},0.48);
-            \draw[bond] ({4.09+0.68*\j},1.16) -- ({4.09+0.68*(\j+1)},1.16);
-            \draw[bond] ({3.75+0.68*\j},1.84) -- ({3.75+0.68*(\j+1)},1.84);
-            \draw[bond] ({4.09+0.68*\j},2.52) -- ({4.09+0.68*(\j+1)},2.52);
-        }
-        % Diagonal bonds between neighboring rows.
-        \foreach \j in {0,...,5}{
-            \draw[bond] ({3.75+0.68*\j},0.48) -- ({4.09+0.68*\j},1.16);
-            \draw[bond] ({4.09+0.68*\j},1.16) -- ({3.75+0.68*\j},1.84);
-            \draw[bond] ({3.75+0.68*\j},1.84) -- ({4.09+0.68*\j},2.52);
-        }
-        \foreach \j in {0,...,4}{
-            \draw[bond] ({3.75+0.68*\j},0.48) -- ({4.09+0.68*(\j+1)},1.16);
-            \draw[bond] ({4.09+0.68*\j},1.16) -- ({3.75+0.68*(\j+1)},1.84);
-            \draw[bond] ({3.75+0.68*\j},1.84) -- ({4.09+0.68*(\j+1)},2.52);
-        }
-        % Sites and alternating orbital circulation.
-        \foreach \j in {0,...,5}{
-            \node[site,draw=StripeBlue,fill=white] at ({3.75+0.68*\j},0.48) {};
-            \node[site,draw=StripeOrange,fill=white] at ({4.09+0.68*\j},1.16) {};
-            \node[site,draw=StripeBlue,fill=white] at ({3.75+0.68*\j},1.84) {};
-            \node[site,draw=StripeOrange,fill=white] at ({4.09+0.68*\j},2.52) {};
-        }
-        \draw[StripeBlue,->,line width=0.65pt]
-            (4.09,0.59) arc[start angle=90,end angle=420,radius=0.11];
-        \draw[StripeOrange,->,line width=0.65pt]
-            (4.43,1.27) arc[start angle=90,end angle=-240,radius=0.11];
-        \node[anchor=west,color=black!70,font=\sffamily\scriptsize] at (3.51,0.14)
-            {gray bonds: longitudinal $p$-orbital hopping};
-    \end{tikzpicture}
-    \caption{\textbf{Local degrees of freedom and stripe geometry of the Kramers-class $p$-band model.} Each site carries two internal states in the real $p_x,p_y$ orbital basis. The orbital-Hund channel favors the counter-rotating combinations $p_x\pm\ii p_y$, while the frustrated triangular bonds retain the longitudinal orbital overlap. A representative two-$M$-point condensate has uniform density and orbital angular momentum that alternates between neighboring rows; the two internal states carry opposite circulation.}
-    \label{fig:trs_orbital_stripe}
-\end{figure}
-Write $\hat{\bb p}_{i\sigma}=(\hat p_{ix\sigma},\hat p_{iy\sigma})$ and define the occupation and orbital angular momentum, in units of $\hbar$, by
+Place two internal states $\sigma=\uparrow,\downarrow$ in the $p_x,p_y$ orbitals of each triangular-lattice site. Write $\hat{\bb p}_{i\sigma}=(\hat p_{ix\sigma},\hat p_{iy\sigma})$ and define the occupation and orbital angular momentum, in units of $\hbar$, by
 \begin{equation}
     \hat n_{i\sigma}=\hat p_{ix\sigma}^{+}\hat p_{ix\sigma}
        +\hat p_{iy\sigma}^{+}\hat p_{iy\sigma},
