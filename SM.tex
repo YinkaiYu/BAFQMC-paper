@@ -1381,12 +1381,12 @@ Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark}
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-The following models show how the TRS criteria make orbital ordering, complex pairing, and geometrical frustration accessible to BAFQMC. The Kramers-class example combines directional $p$-orbital hopping with a minimal local Hund interaction to study counter-rotating orbital order. The pairing-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
+The following models show how the TRS criteria make orbital ordering, complex pairing, and geometrical frustration accessible to BAFQMC. The Kramers-class example combines directional $p$-orbital hopping with a local Hund interaction to study counter-rotating orbital order. The pairing-class example couples two kagome systems with opposite pairing-induced chiral bands. The split-orthogonal example combines odd-parity singlet pairing with frustrated hopping on the triangular lattice, linking opposite flavor currents to spiral flavor correlations.
 
 \subsection{Kramers class: orbital Hund's coupling and counter-rotating stripes}
 \label{sec:trs_orbital_hund}
 
-Orbital degrees of freedom allow bosons to develop spontaneous circulation without an imposed gauge field. Repulsive contact interactions favor angular-momentum-carrying $p_x\pm\ii p_y$ orbitals, the bosonic analogue of Hund's rule, while directional tunneling organizes these local moments into spatial patterns~\cite{liuWu2006orbital,wuLiuMoore2006stripe,wu2009unconventional}. Evidence for orbital stripe ordering in a triangular optical lattice~\cite{wangLuoLiu2023stripe} motivates a minimal two-component model that combines this orbital mechanism with Kramers-protected positivity.
+Orbital degrees of freedom allow bosons to develop spontaneous circulation without an imposed gauge field. Repulsive contact interactions favor angular-momentum-carrying $p_x\pm\ii p_y$ orbitals, the bosonic analogue of Hund's rule, while directional tunneling organizes these local moments into spatial patterns~\cite{liuWu2006orbital,wuLiuMoore2006stripe,wu2009unconventional}. Evidence for orbital stripe ordering in a triangular optical lattice~\cite{wangLuoLiu2023stripe} motivates a two-component model that combines this orbital mechanism with Kramers-protected positivity.
 
 Place two internal states $\sigma=\uparrow,\downarrow$ in the $p_x,p_y$ orbitals of each triangular-lattice site. Write $\hat{\bb p}_{i\sigma}=(\hat p_{ix\sigma},\hat p_{iy\sigma})$ and define the occupation and orbital angular momentum, in units of $\hbar$, by
 \begin{equation}
@@ -1403,7 +1403,7 @@ The Hamiltonian $\hat H=\hat H_0+\hat H_I$ is
     \hat H_0={}&t\sum_{\langle i,j\rangle,\sigma}
        \Bigl[(\bb e_{ij}\cdot\hat{\bb p}_{i\sigma}^{+})
              (\bb e_{ij}\cdot\hat{\bb p}_{j\sigma})
-             +\hc\Bigr]
+             +\mathrm{h.c.}\Bigr]
        -\mu\sum_{i,\sigma}\hat n_{i\sigma},
        \label{eq:trs_minimal_pband_H0}\\
     \hat H_I={}&\frac U2\sum_i
@@ -1441,7 +1441,7 @@ The band structure connects local circulation to orbital stripes. The lower band
 \end{equation}
 where $m$ labels horizontal lattice rows; the factor $(-1)^m$ is the interference pattern from the momentum difference of the two selected $M$ points. The site density is uniform, but the circulation reverses between adjacent rows and between components. Relative to a noncirculating single-$M$ condensate at the same filling, this coherent state lowers the interaction energy per site by $U\rho^2/2$ while retaining the band-minimum kinetic energy. The linear contributions from the operator squares are identical in this comparison. The Hund channel therefore gives a direct energetic advantage to counter-rotating orbital order without imposing a spatial pattern in the Hamiltonian.
 
-This minimal model brings the selection of orbital textures and their thermal melting into a sign-free setting. Single-particle correlations probe phase coherence, while correlations of $\hat L_{i\uparrow}-\hat L_{i\downarrow}$ detect orbital order even when the total angular momentum cancels. BAFQMC can determine the spatial order selected by interactions and quantum fluctuations, and whether orbital stripes persist after superfluid coherence is lost. The result connects a two-scale local Hamiltonian to the experimentally motivated problem of intertwined orbital and superfluid order.
+This model brings the selection of orbital textures and their thermal melting into a sign-free setting. Single-particle correlations probe phase coherence, while correlations of $\hat L_{i\uparrow}-\hat L_{i\downarrow}$ detect orbital order even when the total angular momentum cancels. BAFQMC can determine the spatial order selected by interactions and quantum fluctuations, and whether orbital stripes persist after superfluid coherence is lost. The result connects a two-scale local Hamiltonian to the experimentally motivated problem of intertwined orbital and superfluid order.
 
 \subsection{Pairing class: pairing-induced chiral bands}
 
