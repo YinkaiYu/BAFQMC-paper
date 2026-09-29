@@ -499,7 +499,7 @@ Successive quadratic evolution steps compose into another Gaussian operator, who
     \left[(-1)^N\det(I_{2N}-\mc M)\right]^{-1/2}.
     \label{eq:paired_trace_formula_appendix}
 \end{equation}
-The scalar contributions multiply across the slices, and the ordered operator product fixes the square-root sign. Together with the scalar prefactor, the determinant specifies the squared weight. The sign-free criteria complete this information: the TRS proofs in Sec.~\ref{app:trs_proof} express the full weight through reduced determinants, and reflection positivity establishes a nonnegative operator trace in Sec.~\ref{app:rp_proof}. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here.
+The scalar contributions multiply across the slices, and the ordered operator product fixes the square-root sign. Together with the scalar prefactor, the determinant specifies the squared weight. The sign-free criteria complete this information: the TRS proofs in Sec.~\ref{app:trs_proof} express the full weight through reduced determinants, and reflection positivity establishes a non-negative operator trace in Sec.~\ref{app:rp_proof}. The factor $(-1)^N$ is unity for the even number of modes in the sign-free TRS classes considered here.
 
 For configurations whose bare traces diverge, Sec.~\ref{app:regularization} gives the finite-part interpretation of this weight. When every slice separates into the same two independent conjugate bosonic subsystems, their traces can be regularized separately and multiplied to retain a modulus-square weight. This connects the Nambu trace formula to the regularized weights used in the symmetry criteria.
 
@@ -596,7 +596,7 @@ $[I_{2N}-(I_{2N}-\mc M_\ell)^{-1}](I_{2N}-\mc M_\ell)=-\mc M_\ell$. Substituting
     \right]^{-1/2}.
     \label{eq:update_ratio_main}
 \end{equation}
-The square root inherits the sign fixed for each full weight in Sec.~\ref{app:trace_paired}. In the paired benchmarks, the RP criterion and the trace convergence established in Sec.~\ref{app:benchmark_details} ensure that $W$ and $W'$ are nonnegative, fixing the positive ratio for nonzero weights. The identity update, $\Delta_\ell=0$ and $\delta\xi_\ell=0$, gives $W'/W=1$.
+The square root inherits the sign fixed for each full weight in Sec.~\ref{app:trace_paired}. In the paired benchmarks, the RP criterion and the trace convergence established in Sec.~\ref{app:benchmark_details} ensure that $W$ and $W'$ are non-negative, fixing the positive ratio for nonzero weights. The identity update, $\Delta_\ell=0$ and $\delta\xi_\ell=0$, gives $W'/W=1$.
 
 \emph{Onsite density updates.} A local density-field proposal acts on the four onsite Nambu components $\hat\chi_i=(\hat b_i,\hat c_i,\hat b_i^+,\hat c_i^+)^\trans$, even when the propagation between updates includes pairing. We retain the total- and relative-density channels of Eqs.~\eqref{eq:benchmark_hs_total} and~\eqref{eq:benchmark_hs_relative}, with $U_2=0$ for the main-text model. Their coefficients are
 \begin{equation}
@@ -886,7 +886,7 @@ In Nambu notation this finite part is written as
 \begin{equation}
     W_{\rm reg}(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]\left[(-1)^N\det[I_{2N}-\mc M(\phi)]\right]^{-1/2},
 \end{equation}
-where the scalar prefactor and the choice of square root are fixed as in Sec.~\ref{app:trace_paired}. For trace-convergent RP products, reflection positivity fixes the nonnegative operator weight.
+where the scalar prefactor and the choice of square root are fixed as in Sec.~\ref{app:trace_paired}. For trace-convergent RP products, reflection positivity fixes the non-negative operator weight.
 
 The determinant expressions in Eqs.~\eqref{eq:trace_formula_number} and~\eqref{eq:trace_formula_main} therefore give the regularized weights $W_{\rm reg}(\phi)$ sampled in BAFQMC. Wherever the bare trace converges, $W_{\rm reg}(\phi)=W_{\rm bare}(\phi)$. For configurations with divergent bare traces, the determinant expressions represent the finite parts identified above.
 
@@ -903,12 +903,12 @@ Subtracting the cutoff-dependent growing terms separately from each trace preser
     \left|\det(I_N-\mc M_+)^{-1}\right|,
     \label{eq:reg_conjugate_sectors}
 \end{equation}
-where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a nonnegative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. When the evolution cannot be separated into two independent conjugate subsystems, this separate regularization of conjugate traces does not apply.
+where $\mc M_+$ is the Nambu propagation matrix of one subsystem, containing $N/2$ bosonic modes. The last equality follows by taking the absolute value of its squared Gaussian trace. Thus conjugate subsystems retain a non-negative weight even when their bare traces diverge. This prescription agrees with the ordinary trace wherever it converges. When the evolution cannot be separated into two independent conjugate subsystems, this separate regularization of conjugate traces does not apply.
 
 The TRS criteria proved in Sec.~\ref{app:trs_proof} apply to these regularized weights and do not require the bare trace to converge for every fixed auxiliary-field configuration. The Kramers and split-orthogonal proofs fix the sign directly through their reduced determinants.
 
 \section{Proof of the time-reversal criterion}
-\label{app:nonnegative_proofs}
+\label{app:non-negative_proofs}
 \label{app:trs_proof}
 
 Time-reversal symmetry (TRS) ensures the positivity of Boltzmann weights that might otherwise acquire an unphysical sign or complex phase. In this section, we provide detailed proofs demonstrating how the identified symmetry classes rigorously eliminate the sign problem. We establish positivity for the three fundamental classes in the order introduced in the main text, beginning with the familiar Kramers argument for number-conserving particles~\cite{wu2005prb,li2016prl}.
@@ -944,7 +944,7 @@ If $\mc Bv=\lambda v$, its time-reversed partner satisfies
 \begin{equation}
     \mc B(\overline U\,\overline v)=\overline\lambda\,(\overline U\,\overline v).
 \end{equation}
-For real $\lambda$, the partners remain independent. If the partner were $cv$, applying time reversal twice would give $-v=|c|^2v$. Thus complex eigenvalues occur in conjugate pairs and real eigenvalues have Kramers degeneracy. Each pair contributes a nonnegative factor to the determinant,
+For real $\lambda$, the partners remain independent. If the partner were $cv$, applying time reversal twice would give $-v=|c|^2v$. Thus complex eigenvalues occur in conjugate pairs and real eigenvalues have Kramers degeneracy. Each pair contributes a non-negative factor to the determinant,
 \begin{equation}
     \det(I_N-\mc B)=\prod_{\rm pairs}|1-\lambda|^2\ge0,
     \qquad W=\det(I_N-\mc B)^{-1}>0.
@@ -1016,7 +1016,7 @@ For the Kramers class, every creation direction has an independent time-reversed
     \qquad [\hat d,(\Theta_1\hat d)^+]=0.
     \label{eq:trs_commutator_Kramers_pair}
 \end{equation}
-The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is nonnegative, establishing $W>0$. The conserved charge thus allows the Kramers pairing argument to apply to general quadratic evolution.
+The second equality follows by applying $\Theta_1$ once more and using $\Theta_1^2=-I$. Consequently $N_-$ is even. The exponential in Eq.~\eqref{eq:trs_boson_reduced_weight} is positive and the determinant is non-negative, establishing $W>0$. The conserved charge thus allows the Kramers pairing argument to apply to general quadratic evolution.
 
 \subsection{Pairing class \texorpdfstring{\(\{+,-\}\)}{\{+,-\}}}
 \label{app:trs_pairing}
@@ -1156,7 +1156,7 @@ Every slice preserves $\Theta(\hat b)=\hat c$, $\Theta(\hat c)=-\hat b$, with $\
 \end{equation}
 so, for example, $W=-1/2$ at $t=\pi/2$. This gives a negative weight in the single-$\{-\}$ class.
 
-Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and the $\{+,-\}$ class are sign-free for both statistics; we call the latter the pairing class for bosons and the Majorana class for fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a nonnegative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
+Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign-free classes. No proper subset suffices, and every sign-free class with more symmetries contains one of them. Table~\ref{tab:trs_boson_fermion} compares this result with the fermionic classification~\cite{li2016prl}. The Kramers class and the $\{+,-\}$ class are sign-free for both statistics; we call the latter the pairing class for bosons and the Majorana class for fermions. For the split-orthogonal class, Eq.~\eqref{eq:trs_boson_three_plus_det_sign} supplies a determinant sign $(-1)^{N/2}$. In the bosonic reduced trace, the same $N/2$ creation directions each contribute a minus sign because their commutators have the opposite sign, as in Eq.~\eqref{eq:trs_boson_reversed_mode}. These two factors cancel in Eq.~\eqref{eq:trs_boson_three_plus_weight}, giving a non-negative weight. Fermionic weights have no corresponding bosonic commutator factor, so the split-orthogonal class is not sign-free for fermions.
 
 \begin{table}[ht]
     \caption{\textbf{Time-reversal symmetry classes for sign-problem-free bosonic and fermionic AFQMC.} The Kramers class $\{-,-\}$ and the $\{+,-\}$ class are sign-free for both statistics; the latter is called the pairing class for bosons and the Majorana class for fermions. The split-orthogonal class $\{+,+,+\}$ is sign-free only for bosons. Each sign records $\Theta_a^2=\pm I$. Unlisted classes at a given number of symmetries admit negative weights. The fermionic entries follow Ref.~\cite{li2016prl}.}
@@ -1202,7 +1202,7 @@ Thus $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$ are the only fundamental bosonic sign
 \section{Proof of the reflection-positivity criterion}
 \label{app:rp_proof}
 
-Reflection positivity makes the configuration weight nonnegative by expressing the propagation as a sum of products between two conjugate bosonic sectors. The trace of each such product is a modulus square. We first establish this property and its preservation under successive evolution steps, then derive the generator condition and its Gaussian block form.
+Reflection positivity makes the configuration weight non-negative by expressing the propagation as a sum of products between two conjugate bosonic sectors. The trace of each such product is a modulus square. We first establish this property and its preservation under successive evolution steps, then derive the generator condition and its Gaussian block form.
 
 Let $\mc F_L$ and $\mc F_R$ be the Fock spaces generated by $\hat b_i$ and $\hat c_i$ ($i=1,\ldots,M$), so that $\mc F=\mc F_L\otimes\mc F_R$. The corresponding operator algebras are denoted by $\mathfrak A_L$ and $\mathfrak A_R$. Operators acting on different sectors commute. The antilinear reflection $\theta:\mathfrak A_L\to\mathfrak A_R$ maps the two flavors into one another and complex conjugates their coefficients,
 \begin{equation}
@@ -1231,7 +1231,7 @@ The trace of each term factorizes over the two Fock spaces. In occupation-number
     \left|\Tr_{\mc F_L}(\hat R)\right|^2
     \ge0.
 \end{equation}
-The phases in Eq.~\eqref{eq:theta_def_sm} correspond to a unitary change of the right-sector basis and leave its trace unchanged. Thus every finite sum in Eq.~\eqref{eq:rp_positive_set_sm} has a nonnegative trace. We call these sums reflection-positive.
+The phases in Eq.~\eqref{eq:theta_def_sm} correspond to a unitary change of the right-sector basis and leave its trace unchanged. Thus every finite sum in Eq.~\eqref{eq:rp_positive_set_sm} has a non-negative trace. We call these sums reflection-positive.
 
 To apply this observation to imaginary-time evolution, the reflected-product form must survive multiplication. Commuting the right-sector operator past the left-sector operator gives
 \begin{equation}
@@ -1246,7 +1246,7 @@ Expanding a product of sums therefore gives another sum of reflected products. I
     =
     \exp\!\left[\sum_\ell\xi_\ell(\phi_\ell)\right]\hat X.
 \end{equation}
-Its trace is consequently nonnegative,
+Its trace is consequently non-negative,
 \begin{equation}
     W(\phi)=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell(\phi_\ell)}\ge0,
 \end{equation}
@@ -1279,7 +1279,7 @@ For the coupling terms, expand the exponential. Commutation between the sectors 
     =\sum_{m=0}^{\infty}\frac{s^m}{m!}\,
     \hat Y_a^m\theta(\hat Y_a^m),\qquad s\ge0.
 \end{equation}
-Every coefficient is nonnegative and can be absorbed into the two reflected factors through its square root. Combining the within-sector and coupling terms through the Lie-Trotter product formula~\cite{trotter1959product} gives
+Every coefficient is non-negative and can be absorbed into the two reflected factors through its square root. Combining the within-sector and coupling terms through the Lie-Trotter product formula~\cite{trotter1959product} gives
 \begin{equation}
     \ee^{\hat h}
     =\ee^\xi\lim_{n\to\infty}
@@ -1288,7 +1288,7 @@ Every coefficient is nonnegative and can be absorbed into the two reflected fact
     \prod_a\ee^{\hat Y_a\theta(\hat Y_a)/n}
     \right]^n.
 \end{equation}
-Each factor is built from reflected products, and Eq.~\eqref{eq:rp_multiplication_sm} preserves their form throughout the multiplication. The exponential series and Trotter limit therefore establish Eq.~\eqref{eq:rp_generator_sm} as a sufficient condition for nonnegative weights in the trace-convergent regime.
+Each factor is built from reflected products, and Eq.~\eqref{eq:rp_multiplication_sm} preserves their form throughout the multiplication. The exponential series and Trotter limit therefore establish Eq.~\eqref{eq:rp_generator_sm} as a sufficient condition for non-negative weights in the trace-convergent regime.
 
 The Gaussian form makes this criterion especially transparent. Choose the reflection convention $\eta_i=1$ and collect the operators in the left sector as
 \begin{equation}
@@ -1354,7 +1354,7 @@ We first consider the number-conserving benchmarks, with $\Delta=0$. For each re
     \label{fig:benchmark_attractive}
 \end{figure}
 
-The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a nonnegative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is nonnegative.
+The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a non-negative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is non-negative.
 
 We now prove that the imaginary-time evolution operator has a convergent trace for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice dispersion is $\epsilon_{\bb k}=t|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}|^2-3t\ge-3t$. Thus $\mu<-3t-|\Delta|$ makes all Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ positive, and the quadratic propagator $T=\ee^{-\Delta\tau\hat K_0}$ is trace class, with
 \begin{equation}
