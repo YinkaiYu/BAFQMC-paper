@@ -1,0 +1,336 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>main.tex 近年文献遗漏审查 · 2026-10-08</title><style>
+body{margin:0;background:#f3f5f7;color:#202b34;font:16px/1.75 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1060px;margin:auto;background:white;padding:36px 30px}h1{font-size:29px;line-height:1.35}h2{margin-top:34px;border-top:1px solid #d9e0e5;padding-top:20px}h3{font-size:19px}a{color:#205f8e;overflow-wrap:anywhere}code,.quote{overflow-wrap:anywhere}.quote{background:#f5f7f9;padding:14px;font:14px/1.7 Georgia,serif;white-space:pre-wrap}.card{border:1px solid #d9e0e5;border-radius:8px;padding:17px;margin:16px 0}.badge{background:#e9eff6;color:#194569;padding:3px 8px;border-radius:4px}.muted{color:#576775;font-size:14px}summary{cursor:pointer;font-weight:600;padding:10px 0}li{margin:8px 0}.lead{border-left:4px solid #215d80;padding:10px 18px;background:#edf4f7}.refs{font-size:14px}table{border-collapse:collapse;width:100%;font-size:14px}td,th{text-align:left;border-bottom:1px solid #dce2e8;padding:10px;vertical-align:top}th{background:#f0f4f7}@media(max-width:650px){main{padding:18px 14px}h1{font-size:24px}table,tbody,tr,td,th{display:block}th{display:none}td{padding:6px}tr{border-bottom:2px solid #ccc}.card{padding:12px}}
+</style></head><body><main><h1>main.tex 近年相关文献遗漏审查</h1><p class="muted">核查日期：2026-10-08（北京时间） · 对照稿：a50e4a8 · 范围：main.tex，并交叉检查 SM.tex 与 references.bib</p>
+<div class="lead"><strong>结论：覆盖面已经很广，最该补的是直接方法前史和具体论述的归属。</strong><p>建议优先补 4 篇未实际引用的论文：Cai 等 2025、Shen 等 2020 与 2023、Shi–Zhang 2016；同时把已经引用的 Rubenstein 等 2012 放到前史和极点讨论的准确位置。两篇近期 VGP 工作是值得考虑的概念补充。无需再大幅堆叠费米 QMC 应用论文。</p></div>
+<p>本报告提供可执行的补引位置和证据判断，未改动 manuscript 或 BibTeX。检索重点为 2022–2026 年，并沿直接前作的参考文献回溯必要的原始贡献。优先级 A 表示直接归属／证据缺口，B 表示相关且有价值的补充，C 表示背景候选。优先级不按作者身份或引用次数排序。</p>
+<p>当前 main.tex 引用 141 个外部键，main.tex 与 SM.tex 合计 152 个；这是键数而非去重论文数。文献库里有条目，并不等于正文已经引用。</p>
+<h2>建议补引或调整的位置</h2>
+<article class="card"><h3><span class="badge">A</span> 直接相关的近年遗漏 · <a href="../../local_reference_pdfs/candidates/caiGaoLiQi2025.pdf">caiGaoLiQi2025</a></h3><p><strong>Auxiliary-field Monte Carlo method for frustrated spin systems</strong><br>Ning Cai, Yuan Gao, Wei Li, Yang Qi<br>Chin. Phys. B 34, 027504 (2025) · <a href="https://doi.org/10.1088/1674-1056/ada758">权威记录</a></p><p>将 Malpetti–Roscilde 的静态簇辅助场思路推广到受挫量子自旋；保留簇内量子求解，忽略簇间辅助场的虚时涨落，在有限簇大小下存在近似。</p><p><strong>与现稿的关系：</strong>正文和 BibTeX 均未收录，候选 PDF 已存在。建议放 main.tex:115 的近似玻色辅助场方法一组，紧邻 malpettiRoscilde2017。它不提供本文这种逐构型的精确 TRS/RP 判据，但名称、对象和研究目标都很接近，应明确承认。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">A</span> 已有条目未实际引用 · <a href="../../local_reference_pdfs/manuscript/shen2020.pdf">shen2020</a></h3><p><strong>Finite temperature auxiliary field quantum Monte Carlo in the canonical ensemble</strong><br>Tong Shen, Yuan Liu, Yang Yu, Brenda M. Rubenstein<br>J. Chem. Phys. 153, 204108 (2020) · <a href="https://doi.org/10.1063/5.0026606">权威记录</a></p><p>建立正则系综 AFQMC 递推方法，涉及玻色与费米系统。</p><p><strong>与现稿的关系：</strong>BibTeX 和本地 PDF 已有，但 main.tex、SM.tex 都未引用。应在 main.tex:292 的 canonical fixed-particle-number formulations 后引用；也可进入引言的玻色 AFQMC 前史。不能让读者以为正则系综 AFQMC 本身是本文首次提出的方向。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">A</span> 已有条目未实际引用 · <a href="../../local_reference_pdfs/candidates/shen2023.pdf">shen2023</a></h3><p><strong>Stable recursive auxiliary field quantum Monte Carlo algorithm in the canonical ensemble: Applications to thermometry and the Hubbard model</strong><br>Tong Shen, Hatem Barghathi, Jiangyong Yu, Adrian Del Maestro, Brenda M. Rubenstein<br>Phys. Rev. E 107, 055302 (2023) · <a href="https://doi.org/10.1103/PhysRevE.107.055302">权威记录</a></p><p>发展稳定的正则系综递推算法；正文数值应用主要为费米 Hubbard 模型，补充材料 III.C 明确给出玻色递推与粒子数投影。</p><p><strong>与现稿的关系：</strong>BibTeX 已有，候选 PDF 已有，正文与 SM 均未引用。建议与 shen2020 一起放在结尾。该文支持算法前史，不证明本文全部 TRS/RP 类在任意粒子数投影后仍然无符号。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">A</span> 历史归属缺口 · <a href="../../local_reference_pdfs/manuscript/Shi2016pre.pdf">Shi2016pre</a></h3><p><strong>Infinite variance in fermion quantum Monte Carlo calculations</strong><br>Hao Shi, Shiwei Zhang<br>Phys. Rev. E 93, 033303 (2016) · <a href="https://doi.org/10.1103/PhysRevE.93.033303">权威记录</a></p><p>分析无符号费米 QMC 仍可出现无限方差及错误误差棒，并提出 bridge-link 处理。</p><p><strong>与现稿的关系：</strong>虽非近年文章，却是当前结尾论述必须尊重的原始工作。main.tex:290 只引 Alexandru 2023 和 Wan–Zhang 2025，建议将本篇补在二者之前。后续两篇的参考文献也明确回溯本篇。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">A</span> 已有引用的位置不足 · <a href="../../local_reference_pdfs/manuscript/rubenstein2012pra.pdf">rubenstein2012pra</a></h3><p><strong>Finite-temperature auxiliary-field quantum Monte Carlo technique for Bose-Fermi mixtures</strong><br>Brenda M. Rubenstein, Shiwei Zhang, David R. Reichman<br>Phys. Rev. A 86, 053606 (2012) · <a href="https://doi.org/10.1103/PhysRevA.86.053606">权威记录</a></p><p>已有有限温玻色／玻费混合物 AFQMC，并在 V.A 专门讨论单粒子传播特征值接近或超过 1 的 rogue-eigenvalue 问题。</p><p><strong>与现稿的关系：</strong>本文确实已经引用，并非漏掉整篇。建议在 main.tex:115 的玻色 AFQMC 前史和 main.tex:290 的玻色极点句也引用。当前只在近似处理和逆行列式公式附近出现，容易低估其直接方法贡献；不宜将整篇概括成有偏算法。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">B</span> 近期概念邻近工作 · <a href="../../local_reference_pdfs/candidates/Babakhani2026prr.pdf">Babakhani2026prr</a></h3><p><strong>Stoquasticity is not enough: Toward a sharper diagnostic for quantum Monte Carlo simulability</strong><br>Arman Babakhani, Armen Karakashian<br>Phys. Rev. Research，2026-08-10 接收；核到 DOI，未确认卷页 · <a href="https://doi.org/10.1103/zpjk-p5yj">权威记录</a></p><p>用计算基态转移图上的消失几何相位（VGP）诊断无符号性，研究识别复杂度及符号严重程度。arXiv:2508.14382v2。</p><p><strong>与现稿的关系：</strong>正文已有 Hen 2021，尚无这一后续发展。建议在 main.tex:110 的符号问题理解／缓解组补入；若调整局域正性论述，也可在相关句引用。其机制是闭合路径相位，不是玻色高斯迹 TRS/RP。不要把标题误读为 stoquastic 权重本身会带符号。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">B</span> 最新的同方向延伸 · <a href="../../local_reference_pdfs/candidates/Karakashian2026arxiv.pdf">Karakashian2026arxiv</a></h3><p><strong>Dismantling the Stoquastic Dichotomy</strong><br>Armen Karakashian, Itay Hen<br>arXiv:2607.18596v1 (2026)，预印本 · <a href="https://arxiv.org/abs/2607.18596">权威记录</a></p><p>研究 VGP 与 stoquasticity 的计算复杂度关系，并构造容易识别 VGP、却难以找到相应 stoquastic 变换的例子。</p><p><strong>与现稿的关系：</strong>可与前一篇择一或并引。与本文“超越局域矩阵元正性”的语言邻近，但不取代本文的玻色 AFQMC 判据。推荐程度低于直接玻色方法前作，尚不应当作已确认的重要性共识。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<article class="card"><h3><span class="badge">C</span> 可选的本月预印本 · <a href="../../local_reference_pdfs/candidates/SanchezSegoviaAlhambra2026clusters.pdf">SanchezSegoviaAlhambra2026clusters</a></h3><p><strong>Efficient Quantum Monte Carlo through Cluster Expansions</strong><br>Jorge Sanchez-Segovia, Álvaro M. Alhambra<br>arXiv:2610.03893v1 (2026) · <a href="https://arxiv.org/abs/2610.03893">权威记录</a></p><p>在簇展开的收敛与采样条件下随机计算 log Z，给出高温有限局域维数模型的受控误差和多项式复杂度结果。</p><p><strong>与现稿的关系：</strong>已有候选缓存。可支持 main.tex:110 的新策略概述，但不是逐构型对称性正性定理，也不直接覆盖本文无截断玻色局域空间。可留在报告，不必为了追新加进正文。</p><p class="muted">引用次数：本轮未取得可统一比较的数据库快照，不填估计数字；该状态适用于全报告。</p></article>
+<h2>比“再加几篇”更应注意的三处表述</h2>
+<ol><li><strong>有限温玻色 AFQMC 的历史定位。</strong>引言与摘要中的“develop / introduce”应由上下文明确指向本文的无符号框架、TRS 分类和 RP 准则。2012 年已有有限温玻色 AFQMC；新意可以坚定表述，但不应使读者误会算法类别本身从本文开始。Cai 2025 属于另一条静态簇近似路线。</li>
+<li><strong>Fig. 1 是组织本文结果的示意图，不能读成整个 community 的完备分类。</strong>现稿已有 Alet、Wessel、Weber、Hen、Shackleton 等例外。VGP、簇基底与权重重组进一步说明，“受挫”并不等价于所有 WLQMC/SSE 实现都必然失败。叙述宜落在通常的局域／占据数基底及本文模型，保留引言已有的例外承认。本文证明仍是玻色 HS 权重的全局保护，贡献不因此减弱。</li>
+<li><strong>正则系综前史与正性证明是两个问题。</strong>Shen 两篇支持已有递推／投影算法，不能充当 main.tex:292 中“while retaining the sign-free condition”的证明。投影后的扇区是否仍受相同反幺正或反射结构保护，需要逐情形说明。这是现有展望句的证据边界，本轮未改变物理主张。</li></ol>
+<h2>已覆盖的 community：没有必要为凑数重复补引</h2>
+<p>现有正文已经覆盖费米 TRS、Majorana、RP、split-orthogonal 与 semigroup 方法（Wu–Zhang、Li–Jiang–Yao、Wei 等、Wang 等），受挫自旋的簇基底／重组方法（Alet–Damle–Pujari、Wessel 等、Weber 等）、基底优化（Hangleiter、Levy–Clark、Murota–Todo、Herz 等），符号与临界性（Mondaini–Tarat–Scalettar 等），内禀符号问题（Ringel、Golan、Smith、Seo）以及近期 twisted quantum doubles 工作。实验与应用方面已有轨道条纹凝聚和玻色配对／拓扑相关文献。最明显的不平衡是费米应用引用非常充足，而直接玻色方法及正则系综前史仍有缺口。</p>
+<p>Brenda Rubenstein、Shiwei Zhang 所在的玻色／正则 AFQMC 研究方向，Tommaso Roscilde 与 Yang Qi、Wei Li 所在的簇辅助场方向，以及 Itay Hen 所在的 PMR／几何相位方向，是本轮应特别核对归属的相邻社区。这里的姓名用于确认学术覆盖，不构成无利益冲突审查的推荐审稿人名单。</p>
+<p>没有发现需要用泛泛的新 QMC 测量算法、量子模拟实验或所有新自旋液体论文来填补的直接方法空白。已经按作者要求撤出的 Chen2026arxiv，本轮不建议重新加回。</p>
+<h2>引用键与已有文献的问题</h2>
+<p><strong>相同 DOI：</strong><a href="../../local_reference_pdfs/manuscript/Shackleton2026PRL.pdf">Shackleton2026PRL</a>, <a href="../../local_reference_pdfs/manuscript/shackleton2026.pdf">shackleton2026</a>。当前实际引用 Shackleton2026PRL, shackleton2026。两个键都在正文使用，应合并为同一个键，避免文末出现重复编号。</p>
+<p><strong>相同 DOI：</strong><a href="../../local_reference_pdfs/manuscript/Zhang2025PRB.pdf">Zhang2025PRB</a>, <a href="../../local_reference_pdfs/candidates/zhangBultinck2025.pdf">zhangBultinck2025</a>。当前实际引用 Zhang2025PRB。当前仅一个键实际使用，属于库内冗余，不是正文重复引用。</p>
+<p>Rubenstein 2012、Shen 2020/2023 的归属问题可通过小范围补引解决，不需要重写整篇引言。A 组建议共增加 4 篇实际引用，其中只有 Cai 2025 与 Shi 2016 需要新建 BibTeX 条目；另两篇已有条目可复用。报告中的新候选键只是建议命名，尚未写入 references.bib。</p>
+<h2>逐句对照：摘要、Introduction、Fig. 1</h2><p class="muted">下列英文直接取自本轮 main.tex，保留 TeX 原文便于定位。每组引用按出现次序列出，并链接精确键 PDF。标题和书目信息取自现有库；角色说明为本轮语义核对，不宣称对全部既有论文重新逐页审读或重新核实全部元数据。本轮全文重点核对的是上述直接前作与新候选。</p>
+<details class="card"><summary>摘要 · 句 1 · 优先级 A</summary><div class="quote">The sign problem poses a fundamental barrier to numerically exact quantum Monte Carlo simulations, severely hindering our understanding of quantum many-body physics across disciplines ranging from condensed matter to particle and nuclear physics.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>摘要 · 句 2 · 优先级 A</summary><div class="quote">Geometrical frustration makes this barrier especially acute for interacting bosons.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>摘要 · 句 3 · 优先级 A</summary><div class="quote">Here, we develop a bosonic auxiliary-field quantum Monte Carlo (BAFQMC) method and rigorously prove that time-reversal symmetry and reflection positivity each provide a general sufficient condition for sign-problem-free simulations.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>摘要 · 句 4 · 优先级 A</summary><div class="quote">Crucially, under either criterion, BAFQMC evades the sign problem even on frustrated lattices where conventional world-line and stochastic-series-expansion methods fail.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>摘要 · 句 5 · 优先级 A</summary><div class="quote">Benchmarking our approach on a two-flavor Bose-Hubbard model on the triangular lattice yields excellent quantitative agreement with finite-temperature exact diagonalization.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>摘要 · 句 6 · 优先级 A</summary><div class="quote">By establishing unifying principles to solve the sign problem in BAFQMC, our work substantially expands the reach of unbiased, numerically exact simulations for frustrated bosonic matter.</div><p><strong>叙事作用：</strong>概述问题、本文判据或基准证据；通常不在摘要插引文。</p><p><strong>证据／范围：</strong>本工作主张以正文定理、SM 和基准数据为证据；方法命名须与前史相容。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 1 · 优先级 B</summary><div class="quote">Understanding interacting quantum many-body systems remains a central challenge in modern physics~\cite{sachdev2011qpt,fradkin2013ftcmp}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/sachdev2011qpt.pdf">sachdev2011qpt</a> — Quantum Phase Transitions (2011)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+<li><a href="../../local_reference_pdfs/manuscript/fradkin2013ftcmp.pdf">fradkin2013ftcmp</a> — Field Theories of Condensed Matter Physics (2013)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 2 · 优先级 B</summary><div class="quote">Quantum Monte Carlo (QMC) methods are among the major numerical approaches for quantitative studies of these systems, particularly in more than one spatial dimension~\cite{blankenbecler1981prd,scalapino1981prl,hirsch1981prl,hirsch1985prb,sugiyamaKoonin1986,prokofev1998pla,sandvik1999prb}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/blankenbecler1981prd.pdf">blankenbecler1981prd</a> — Monte Carlo calculations of coupled boson-fermion systems. I (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/scalapino1981prl.pdf">scalapino1981prl</a> — Method for Performing Monte Carlo Calculations for Systems with Fermions (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hirsch1981prl.pdf">hirsch1981prl</a> — Efficient Monte Carlo Procedure for Systems with Fermions (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hirsch1985prb.pdf">hirsch1985prb</a> — Two-dimensional {Hubbard} model: Numerical simulation study (1985)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/sugiyamaKoonin1986.pdf">sugiyamaKoonin1986</a> — Auxiliary field Monte-Carlo for quantum many-body ground states (1986)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/prokofev1998pla.pdf">prokofev1998pla</a> — ``Worm&#x27;&#x27; algorithm in quantum Monte Carlo simulations (1998)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/sandvik1999prb.pdf">sandvik1999prb</a> — Stochastic series expansion method with operator-loop update (1999)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 3 · 优先级 B</summary><div class="quote">They are invaluable for strongly correlated matter, delivering unbiased and numerically exact results where perturbative frameworks often fail.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 4 · 优先级 B</summary><div class="quote">However, the central obstacle of QMC simulations is the notorious sign problem: when quantum-mechanical configuration weights are not non-negative, the required computational effort scales exponentially with system size and inverse temperature~\cite{loh1990prb}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/loh1990prb.pdf">loh1990prb</a> — Sign problem in the numerical simulation of many-electron systems (1990)<br>符号问题的代价／复杂度背景；不能将典型指数困难扩展为每个含符号模型的严格定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 5 · 优先级 B</summary><div class="quote">Therefore, the sign problem represents a fundamental barrier to exploring quantum many-body physics in various areas, ranging from condensed matter to particle and nuclear physics~\cite{li2019arcmp}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/li2019arcmp.pdf">li2019arcmp</a> — Sign-Problem-Free Fermionic Quantum Monte Carlo: Developments and Applications (2019)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 6 · 优先级 B</summary><div class="quote">Although no universal solution is expected~\cite{troyer2005prl}, the sign problem can be avoided in important classes of physical systems.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/troyer2005prl.pdf">troyer2005prl</a> — Computational Complexity and Fundamental Limitations to Fermionic Quantum Monte Carlo Simulations (2005)<br>符号问题的代价／复杂度背景；不能将典型指数困难扩展为每个含符号模型的严格定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 7 · 优先级 B</summary><div class="quote">Indeed, much of QMC&#x27;s continued impact~\cite{burovski2006prl,sandvik2007prl,capogrossoSansone2008pra,berg2012science,nasu2015prb,otsuka2016prx,Sandvik2016science,Huang2017science,Zhang2018prl,teixeira2023prb,Ding2026arxiv} rests on the ongoing discovery of sign-free formulations for pivotal models~\cite{lang1993prc,wu2005prb,li2015prb,li2016prl,chandrasekharanWiese1999,wang2015prl,wei2016prl,niuLu2025,Han2024pfaffianquantummontecarlo}, alongside a deepening theoretical understanding of the sign problem that has inspired novel strategies to avoid or mitigate it~\cite{li2019arcmp,hangleiter2020,levyClark2021,guptaAlbashHen2020,wanYao2022,mondainiTaratScalettar2022,zhangPanXuMeng2022,Mondaini2023prb,Li2022arXivAsymtotic,Berg2023PRL,yu2026,Qin2026PRB,Zhang2025PRB,LiXZ2026Signproblem,Shackleton2026PRL,Mondaini2026arxiv}.</div><p><strong>叙事作用：</strong>说明 QMC 成果、无符号构造与符号问题理解三条进展。</p><p><strong>证据／范围：</strong>保留三个引用簇分工；B 级 VGP 可放第三簇，C 级簇展开可选。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/burovski2006prl.pdf">burovski2006prl</a> — Critical Temperature and Thermodynamics of Attractive Fermions at Unitarity (2006)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/sandvik2007prl.pdf">sandvik2007prl</a> — Evidence for Deconfined Quantum Criticality in a Two-Dimensional {Heisenberg} Model with Four-Spin Interactions (2007)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/capogrossoSansone2008pra.pdf">capogrossoSansone2008pra</a> — {Monte Carlo} Study of the Two-Dimensional {Bose-Hubbard} Model (2008)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/berg2012science.pdf">berg2012science</a> — Sign-Problem-Free Quantum Monte Carlo of the Onset of Antiferromagnetism in Metals (2012)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/nasu2015prb.pdf">nasu2015prb</a> — Thermal Fractionalization of Quantum Spins in a {Kitaev} Model: Temperature-Linear Specific Heat and Coherent Transport of {Majorana} Fermions (2015)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/otsuka2016prx.pdf">otsuka2016prx</a> — Universal Quantum Criticality in the Metal-Insulator Transition of Two-Dimensional Interacting {Dirac} Electrons (2016)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Sandvik2016science.pdf">Sandvik2016science</a> — Quantum Criticality with Two Length Scales (2016)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Huang2017science.pdf">Huang2017science</a> — Numerical evidence of fluctuating stripes in the normal state of high-{$T_c$} cuprate superconductors (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Zhang2018prl.pdf">Zhang2018prl</a> — Continuous Easy-Plane Deconfined Phase Transition on the Kagome Lattice (2018)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/teixeira2023prb.pdf">teixeira2023prb</a> — Strange Metallicity in an Antiferromagnetic Quantum Critical Model: A Sign-Problem-Free Quantum {Monte Carlo} Study (2023)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Ding2026arxiv.pdf">Ding2026arxiv</a> — Quantum Monte Carlo in the Age of Many-Body Quantum Information (2026)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+</ul>
+<p><strong>引用簇 2</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/lang1993prc.pdf">lang1993prc</a> — Monte Carlo evaluation of path integrals for the nuclear shell model (1993)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wu2005prb.pdf">wu2005prb</a> — Sufficient condition for absence of the sign problem in the fermionic quantum Monte Carlo algorithm (2005)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2015prb.pdf">li2015prb</a> — Solving the fermion sign problem in quantum Monte Carlo simulations by Majorana representation (2015)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2016prl.pdf">li2016prl</a> — Majorana-Time-Reversal Symmetries: A Fundamental Principle for Sign-Problem-Free Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/chandrasekharanWiese1999.pdf">chandrasekharanWiese1999</a> — Meron-Cluster Solution of Fermion Sign Problems (1999)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wang2015prl.pdf">wang2015prl</a> — Split Orthogonal Group: A Guiding Principle for Sign-Problem-Free Fermionic Simulations (2015)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wei2016prl.pdf">wei2016prl</a> — Majorana Positivity and the Fermion Sign Problem of Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/niuLu2025.pdf">niuLu2025</a> — Sign-Problem-Free Nuclear Quantum Monte Carlo Simulation (2025)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Han2024pfaffianquantummontecarlo.pdf">Han2024pfaffianquantummontecarlo</a> — Pfaffian quantum Monte Carlo: solution to Majorana sign ambiguity and applications (2024)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+<p><strong>引用簇 3</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/li2019arcmp.pdf">li2019arcmp</a> — Sign-Problem-Free Fermionic Quantum Monte Carlo: Developments and Applications (2019)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hangleiter2020.pdf">hangleiter2020</a> — Easing the Monte Carlo sign problem (2020)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/levyClark2021.pdf">levyClark2021</a> — Mitigating the Sign Problem through Basis Rotations (2021)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/guptaAlbashHen2020.pdf">guptaAlbashHen2020</a> — Permutation matrix representation quantum Monte Carlo (2020)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wanYao2022.pdf">wanYao2022</a> — Mitigating the fermion sign problem by automatic differentiation (2022)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/mondainiTaratScalettar2022.pdf">mondainiTaratScalettar2022</a> — Quantum critical points and the sign problem (2022)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/zhangPanXuMeng2022.pdf">zhangPanXuMeng2022</a> — Fermion sign bounds theory in quantum Monte Carlo simulation (2022)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Mondaini2023prb.pdf">Mondaini2023prb</a> — Universality and critical exponents of the fermion sign problem (2023)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Li2022arXivAsymtotic.pdf">Li2022arXivAsymtotic</a> — Asymptotic sign free in interacting fermion models (2022)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Berg2023PRL.pdf">Berg2023PRL</a> — Robust Fermi-Liquid Instabilities in Sign Problem-Free Models (2023)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/yu2026.pdf">yu2026</a> — Preempting fermion sign problem: Unveiling quantum criticality through nonequilibrium dynamics in imaginary time (2026)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Qin2026PRB.pdf">Qin2026PRB</a> — Correlation between entanglement and the negative sign problem (2026)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Zhang2025PRB.pdf">Zhang2025PRB</a> — Constraints from antiunitary symmetries on phase diagrams of sign problem free models (2025)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/LiXZ2026Signproblem.pdf">LiXZ2026Signproblem</a> — Fermion sign problem and the structure of Lee-Yang zeros: The form of the partition function for indistinguishable particles and its zeros at 0 K (2026)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Shackleton2026PRL.pdf">Shackleton2026PRL</a> — Twisted Quantum Doubles Are Sign Problem-Free (2026)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Mondaini2026arxiv.pdf">Mondaini2026arxiv</a> — Sign problem and criticality in world-line quantum {Monte Carlo} methods (2026)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 8 · 优先级 A</summary><div class="quote">For bosonic systems, the sign problem is commonly attributed to geometrical frustration~\cite{hatanoSuzuki1992,henelius2000prb}.</div><p><strong>叙事作用：</strong>建立局域符号障碍并引出全局权重。</p><p><strong>证据／范围：</strong>保留基底／重组例外；VGP 两篇为 B 级候选；不将示意分类解释为穷尽所有算法。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/hatanoSuzuki1992.pdf">hatanoSuzuki1992</a> — Representation basis in quantum Monte Carlo calculations and the negative-sign problem (1992)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+<li><a href="../../local_reference_pdfs/manuscript/henelius2000prb.pdf">henelius2000prb</a> — Sign problem in Monte Carlo simulations of frustrated quantum spin systems (2000)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 9 · 优先级 B</summary><div class="quote">Off-diagonal hopping or exchange processes carry signs that cannot generally be made mutually compatible around closed loops of frustrated lattices such as the triangular and kagome lattices~\cite{hatanoSuzuki1992,henelius2000prb,hen2021}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/hatanoSuzuki1992.pdf">hatanoSuzuki1992</a> — Representation basis in quantum Monte Carlo calculations and the negative-sign problem (1992)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+<li><a href="../../local_reference_pdfs/manuscript/henelius2000prb.pdf">henelius2000prb</a> — Sign problem in Monte Carlo simulations of frustrated quantum spin systems (2000)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hen2021.pdf">hen2021</a> — Determining quantum Monte Carlo simulability with geometric phases (2021)<br>符号机制与表象：支持基底依赖、闭合路径或重组后的权重判断。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 10 · 优先级 B</summary><div class="quote">Apart from a limited number of models where specially designed formulations or regroupings eliminate or substantially reduce the negative signs~\cite{nakamura1998prb,nyfeler2008,alet2016prl,wessel2017,stapmanns2018,hangleiter2020,weber2022,weberCaciWessel2022,murotaTodo2025,shackleton2026,Herz2026arxiv}, most frustrated bosonic systems still lack sign-problem-free QMC formulations.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/nakamura1998prb.pdf">nakamura1998prb</a> — Vanishing of the negative-sign problem of quantum Monte Carlo simulations in one-dimensional frustrated spin systems (1998)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/nyfeler2008.pdf">nyfeler2008</a> — Nested Cluster Algorithm for Frustrated Quantum Antiferromagnets (2008)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/alet2016prl.pdf">alet2016prl</a> — Sign-Problem-Free Monte Carlo Simulation of Certain Frustrated Quantum Magnets (2016)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wessel2017.pdf">wessel2017</a> — Efficient Quantum Monte Carlo simulations of highly frustrated magnets: the frustrated spin-1/2 ladder (2017)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/stapmanns2018.pdf">stapmanns2018</a> — Thermodynamic properties of the {Shastry-Sutherland} model from quantum Monte Carlo simulations (2018)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hangleiter2020.pdf">hangleiter2020</a> — Easing the Monte Carlo sign problem (2020)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/weber2022.pdf">weber2022</a> — Quantum Monte Carlo simulations in the trimer basis: first-order transitions and thermal critical points in frustrated trilayer magnets (2022)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/weberCaciWessel2022.pdf">weberCaciWessel2022</a> — Cluster quantum Monte Carlo study of two-dimensional weakly coupled frustrated trimer antiferromagnets (2022)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/murotaTodo2025.pdf">murotaTodo2025</a> — Local Basis Transformation to Mitigate Negative Sign Problems (2025)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/shackleton2026.pdf">shackleton2026</a> — Twisted Quantum Doubles Are Sign Problem-Free (2026)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Herz2026arxiv.pdf">Herz2026arxiv</a> — Sign-optimized {Quantum Monte Carlo} (2026)<br>特殊模型／重组／缓解：支持受挫体系存在可计算例外，不能全部描述为普遍无符号定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 11 · 优先级 A</summary><div class="quote">For broad classes of chiral topological bosonic phases, the sign problem is even believed to be intrinsic~\cite{ringelKovrizhin2017,golanSmithRingel2020,smithGolanRingel2020,seo2025}.</div><p><strong>叙事作用：</strong>说明拓扑相中的符号障碍。</p><p><strong>证据／范围：</strong>no-go 的表象、局域性与相条件不能省略成普遍禁止；现有引用已覆盖这一方向。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/ringelKovrizhin2017.pdf">ringelKovrizhin2017</a> — Quantized gravitational responses, the sign problem, and quantum complexity (2017)<br>理论限制：支持特定条件下的内禀符号障碍，须保留定理适用范围。</li>
+<li><a href="../../local_reference_pdfs/manuscript/golanSmithRingel2020.pdf">golanSmithRingel2020</a> — Intrinsic sign problem in fermionic and bosonic chiral topological matter (2020)<br>理论限制：支持特定条件下的内禀符号障碍，须保留定理适用范围。</li>
+<li><a href="../../local_reference_pdfs/manuscript/smithGolanRingel2020.pdf">smithGolanRingel2020</a> — Intrinsic sign problems in topological quantum field theories (2020)<br>理论限制：支持特定条件下的内禀符号障碍，须保留定理适用范围。</li>
+<li><a href="../../local_reference_pdfs/manuscript/seo2025.pdf">seo2025</a> — Most Two-Dimensional Bosonic Topological Orders Forbid Sign-Problem-Free Quantum Monte Carlo Simulation: Nonpositive Gauss Sum as an Indicator (2025)<br>理论限制：支持特定条件下的内禀符号障碍，须保留定理适用范围。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 12 · 优先级 A</summary><div class="quote">Geometrical frustration has therefore become almost synonymous with the sign problem in bosonic QMC.</div><p><strong>叙事作用：</strong>建立局域符号障碍并引出全局权重。</p><p><strong>证据／范围：</strong>保留基底／重组例外；VGP 两篇为 B 级候选；不将示意分类解释为穷尽所有算法。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 13 · 优先级 B</summary><div class="quote">This computational barrier has placed some of the most sought-after phenomena in quantum matter beyond the reach of unbiased large-scale simulations, including bosonic fractional quantum Hall states~\cite{sorensen2005prl,wang2011prl,leonard2023}, frustrated supersolids~\cite{wang2009prl,gallegos2025}, chiral Mott phases and the associated quantum criticality~\cite{dhar2013,zaletel2014prb,baldelli2024}, frustrated superfluids~\cite{you2012prl,jiangFuXu2012,burba2026}, and quantum spin liquids~\cite{yan2011science,zhu2015prb,zhou2017rmp,balents2010,gallegos2025}.</div><p><strong>叙事作用：</strong>列出受计算障碍影响的物理目标。</p><p><strong>证据／范围：</strong>相论文支持物理动机，不独自证明其无任何符号自由算法；目前不必继续扩展相目录。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/sorensen2005prl.pdf">sorensen2005prl</a> — Fractional Quantum Hall States of Atoms in Optical Lattices (2005)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wang2011prl.pdf">wang2011prl</a> — Fractional Quantum Hall Effect of Hard-Core Bosons in Topological Flat Bands (2011)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/leonard2023.pdf">leonard2023</a> — Realization of a fractional quantum Hall state with ultracold atoms (2023)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+<p><strong>引用簇 2</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/wang2009prl.pdf">wang2009prl</a> — Extended Supersolid Phase of Frustrated Hard-Core Bosons on a Triangular Lattice (2009)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/gallegos2025.pdf">gallegos2025</a> — Phase Diagram of the Easy-Axis Triangular-Lattice {$J_1$-$J_2$} Model (2025)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+<p><strong>引用簇 3</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/dhar2013.pdf">dhar2013</a> — Chiral Mott insulator with staggered loop currents in the fully frustrated Bose-Hubbard model (2013)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/zaletel2014prb.pdf">zaletel2014prb</a> — Chiral bosonic Mott insulator on the frustrated triangular lattice (2014)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/baldelli2024.pdf">baldelli2024</a> — Frustrated extended Bose-Hubbard model and deconfined quantum critical points with optical lattices at the antimagic wavelength (2024)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+<p><strong>引用簇 4</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/you2012prl.pdf">you2012prl</a> — Superfluidity of Bosons in Kagome Lattices with Frustration (2012)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/jiangFuXu2012.pdf">jiangFuXu2012</a> — Pair superfluid and supersolid of correlated hard-core bosons on a triangular lattice (2012)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/burba2026.pdf">burba2026</a> — Chiral and pair superfluidity in triangular ladder produced by state-dependent {Kronig-Penney} lattice (2026)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+<p><strong>引用簇 5</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/yan2011science.pdf">yan2011science</a> — Spin-Liquid Ground State of the $S=1/2$ Kagome Heisenberg Antiferromagnet (2011)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/zhu2015prb.pdf">zhu2015prb</a> — Spin liquid phase of the $S=1/2$ $J_1-J_2$ Heisenberg model on the triangular lattice (2015)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/zhou2017rmp.pdf">zhou2017rmp</a> — Quantum spin liquid states (2017)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+<li><a href="../../local_reference_pdfs/manuscript/balents2010.pdf">balents2010</a> — Spin liquids in frustrated magnets (2010)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+<li><a href="../../local_reference_pdfs/manuscript/gallegos2025.pdf">gallegos2025</a> — Phase Diagram of the Easy-Axis Triangular-Lattice {$J_1$-$J_2$} Model (2025)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 14 · 优先级 A</summary><div class="quote">However, this familiar identification of frustration with the sign problem in bosonic systems is rooted in a specific paradigm: QMC frameworks that assemble statistical weights from local matrix elements, such as world-line QMC (WLQMC) and stochastic-series-expansion (SSE) methods~\cite{suzuki1976,sandvik1999prb,prokofev1998pla,evertz2003advphys,syljuasenSandvik2002,satoAssaadGrover2018,ringelKovrizhin2017,Rayudu2025arxiv}.</div><p><strong>叙事作用：</strong>建立局域符号障碍并引出全局权重。</p><p><strong>证据／范围：</strong>保留基底／重组例外；VGP 两篇为 B 级候选；不将示意分类解释为穷尽所有算法。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/suzuki1976.pdf">suzuki1976</a> — Relationship between d-Dimensional Quantal Spin Systems and (d+1)-Dimensional Ising Systems: Equivalence, Critical Exponents and Systematic Approximants of the Partition Function and Spin Correlations (1976)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/sandvik1999prb.pdf">sandvik1999prb</a> — Stochastic series expansion method with operator-loop update (1999)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/prokofev1998pla.pdf">prokofev1998pla</a> — ``Worm&#x27;&#x27; algorithm in quantum Monte Carlo simulations (1998)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/evertz2003advphys.pdf">evertz2003advphys</a> — The loop algorithm (2003)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/syljuasenSandvik2002.pdf">syljuasenSandvik2002</a> — Quantum Monte Carlo with directed loops (2002)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/satoAssaadGrover2018.pdf">satoAssaadGrover2018</a> — Quantum Monte Carlo Simulation of Frustrated Kondo Lattice Models (2018)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/ringelKovrizhin2017.pdf">ringelKovrizhin2017</a> — Quantized gravitational responses, the sign problem, and quantum complexity (2017)<br>理论限制：支持特定条件下的内禀符号障碍，须保留定理适用范围。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Rayudu2025arxiv.pdf">Rayudu2025arxiv</a> — Fast Mixing of Operator-Loop Path-Integral Quantum Monte Carlo for Stoquastic {XY} Hamiltonians (2025)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 15 · 优先级 B</summary><div class="quote">By contrast, auxiliary-field QMC (AFQMC)---the workhorse algorithm for interacting fermions---circumvents this local construction entirely.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 16 · 优先级 B</summary><div class="quote">Through a Hubbard-Stratonovich (HS) transformation, interactions are decoupled and the original quantum degrees of freedom are traced out exactly at fixed auxiliary fields, shifting the Monte Carlo sampling to the resulting global weight~\cite{stratonovich1957,hubbard1959,scalapino1981prl,blankenbecler1981prd,hirsch1981prl,assaadEvertz2008,Assaad2025scipostcodebases,CohenStead2026scipostcodebases}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/stratonovich1957.pdf">stratonovich1957</a> — A method for the computation of quantum distribution functions (1957)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hubbard1959.pdf">hubbard1959</a> — Calculation of Partition Functions (1959)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/scalapino1981prl.pdf">scalapino1981prl</a> — Method for Performing Monte Carlo Calculations for Systems with Fermions (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/blankenbecler1981prd.pdf">blankenbecler1981prd</a> — Monte Carlo calculations of coupled boson-fermion systems. I (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hirsch1981prl.pdf">hirsch1981prl</a> — Efficient Monte Carlo Procedure for Systems with Fermions (1981)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/assaadEvertz2008.pdf">assaadEvertz2008</a> — World-line and Determinantal Quantum Monte Carlo Methods for Spins, Phonons and Electrons (2008)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Assaad2025scipostcodebases.pdf">Assaad2025scipostcodebases</a> — The {ALF} ({Algorithms for Lattice Fermions}) project release 2.4. Documentation for the auxiliary-field quantum {Monte Carlo} code (2025)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+<li><a href="../../local_reference_pdfs/manuscript/CohenStead2026scipostcodebases.pdf">CohenStead2026scipostcodebases</a> — {SmoQyDQMC.jl}: A flexible implementation of determinant quantum {Monte Carlo} for {Hubbard} and electron-phonon interactions (version 2.0 release) (2026)<br>方法基础／实现／算法分析：支持所述 QMC 路线；软件与混合时间结果不是新正性定理。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 17 · 优先级 A</summary><div class="quote">Crucially, because the local operator degrees of freedom have already been traced out, geometrical frustration of individual matrix elements no longer dictates the sign~\cite{satoAssaadGrover2018}.</div><p><strong>叙事作用：</strong>建立局域符号障碍并引出全局权重。</p><p><strong>证据／范围：</strong>保留基底／重组例外；VGP 两篇为 B 级候选；不将示意分类解释为穷尽所有算法。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/satoAssaadGrover2018.pdf">satoAssaadGrover2018</a> — Quantum Monte Carlo Simulation of Frustrated Kondo Lattice Models (2018)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 18 · 优先级 B</summary><div class="quote">For fermions, while AFQMC can still suffer from negative determinant weights~\cite{loh1990prb}, the global symmetries and mathematical structures of the HS-decoupled Hamiltonian can rigorously protect weight positivity across broad classes of models~\cite{lang1993prc,wu2005prb,li2016prl,wei2016prl}.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/loh1990prb.pdf">loh1990prb</a> — Sign problem in the numerical simulation of many-electron systems (1990)<br>符号问题的代价／复杂度背景；不能将典型指数困难扩展为每个含符号模型的严格定理。</li>
+</ul>
+<p><strong>引用簇 2</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/lang1993prc.pdf">lang1993prc</a> — Monte Carlo evaluation of path integrals for the nuclear shell model (1993)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wu2005prb.pdf">wu2005prb</a> — Sufficient condition for absence of the sign problem in the fermionic quantum Monte Carlo algorithm (2005)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2016prl.pdf">li2016prl</a> — Majorana-Time-Reversal Symmetries: A Fundamental Principle for Sign-Problem-Free Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wei2016prl.pdf">wei2016prl</a> — Majorana Positivity and the Fermion Sign Problem of Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 19 · 优先级 B</summary><div class="quote">Principles such as time-reversal symmetry (TRS)~\cite{lang1993prc,wu2005prb,li2015prb,li2016prl}, reflection positivity (RP)~\cite{wei2016prl}, and related algebraic structures~\cite{wang2015prl,wei2024prb,li2019arcmp} have provided general routes to sign-problem-free simulations, enabling a wealth of large-scale fermionic studies~\cite{berg2012science,Wang2014prl,schattner2016prx,li2017prb,schattner2016prl,liJiangJianYao2017natcomm,jiang2017prb,gazit2017natphys,assaadGrover2016prx,gerlach2017prb,liJiangYao2017prl,lederer2017pnas,YU2024PRL,liVaeziMendlYao2018sciadv,liu2019natcomm,He2019PRL,Xu2023prr,Grover2021PRL,hofmann2022prx,liu2022prl,hofmann2023prl,lunts2023natcomm,Yu2024PRL2,cai2025pnas,patel2025prx,He2025PRL,wang2026arxivsuperradiantstronglycorrelatedquantum,Xu2026arXiv,shi2026arxivhightemperaturecharge4esuperconductivitysu4,He2026arXiv}.</div><p><strong>叙事作用：</strong>用已知费米正性准则引出玻色问题。</p><p><strong>证据／范围：</strong>准则与应用论文分组正确；大量应用引用不是玻色方法前史的替代。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/lang1993prc.pdf">lang1993prc</a> — Monte Carlo evaluation of path integrals for the nuclear shell model (1993)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wu2005prb.pdf">wu2005prb</a> — Sufficient condition for absence of the sign problem in the fermionic quantum Monte Carlo algorithm (2005)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2015prb.pdf">li2015prb</a> — Solving the fermion sign problem in quantum Monte Carlo simulations by Majorana representation (2015)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2016prl.pdf">li2016prl</a> — Majorana-Time-Reversal Symmetries: A Fundamental Principle for Sign-Problem-Free Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+</ul>
+<p><strong>引用簇 2</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/wei2016prl.pdf">wei2016prl</a> — Majorana Positivity and the Fermion Sign Problem of Quantum Monte Carlo Simulations (2016)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+</ul>
+<p><strong>引用簇 3</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/wang2015prl.pdf">wang2015prl</a> — Split Orthogonal Group: A Guiding Principle for Sign-Problem-Free Fermionic Simulations (2015)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wei2024prb.pdf">wei2024prb</a> — Semigroup approach to the sign problem in quantum Monte Carlo simulations (2024)<br>原始方法／正性结构：支持费米无符号准则及其发展。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2019arcmp.pdf">li2019arcmp</a> — Sign-Problem-Free Fermionic Quantum Monte Carlo: Developments and Applications (2019)<br>教材／综述背景：用于领域动机或路线概览，不替代原始贡献归属。</li>
+</ul>
+<p><strong>引用簇 4</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/berg2012science.pdf">berg2012science</a> — Sign-Problem-Free Quantum Monte Carlo of the Onset of Antiferromagnetism in Metals (2012)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Wang2014prl.pdf">Wang2014prl</a> — Competing Orders in the {2D} Half-Filled {$\mathrm{SU}(2N)$} {Hubbard} Model through the Pinning-Field Quantum {Monte Carlo} Simulations (2014)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/schattner2016prx.pdf">schattner2016prx</a> — Ising Nematic Quantum Critical Point in a Metal: A Monte Carlo Study (2016)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/li2017prb.pdf">li2017prb</a> — Nature of the effective interaction in electron-doped cuprate superconductors: A sign-problem-free quantum Monte Carlo study (2017)<br>符号问题研究或具体应用；标题对应的理论／缓解／物理应用角色须在当地引用簇中区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/schattner2016prl.pdf">schattner2016prl</a> — Competing Orders in a Nearly Antiferromagnetic Metal (2016)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/liJiangJianYao2017natcomm.pdf">liJiangJianYao2017natcomm</a> — Fermion-induced quantum critical points (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/jiang2017prb.pdf">jiang2017prb</a> — Charge-4e superconductors: A Majorana quantum Monte Carlo study (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/gazit2017natphys.pdf">gazit2017natphys</a> — Emergent Dirac fermions and broken symmetries in confined and deconfined phases of {Z2} gauge theories (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/assaadGrover2016prx.pdf">assaadGrover2016prx</a> — Simple Fermionic Model of Deconfined Phases and Phase Transitions (2016)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/gerlach2017prb.pdf">gerlach2017prb</a> — Quantum critical properties of a metallic spin-density-wave transition (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/liJiangYao2017prl.pdf">liJiangYao2017prl</a> — Edge Quantum Criticality and Emergent Supersymmetry in Topological Phases (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/lederer2017pnas.pdf">lederer2017pnas</a> — Superconductivity and non-Fermi liquid behavior near a nematic quantum critical point (2017)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/YU2024PRL.pdf">YU2024PRL</a> — Emergence of Competing Orders and Possible Quantum Spin Liquid in $\mathrm{SU}(N)$ Fermions (2024)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/liVaeziMendlYao2018sciadv.pdf">liVaeziMendlYao2018sciadv</a> — Numerical observation of emergent spacetime supersymmetry at quantum criticality (2018)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/liu2019natcomm.pdf">liu2019natcomm</a> — Superconductivity from the condensation of topological defects in a quantum spin-{Hall} insulator (2019)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/He2019PRL.pdf">He2019PRL</a> — Reaching the Continuum Limit in Finite-Temperature Ab Initio Field-Theory Computations in Many-Fermion Systems (2019)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Xu2023prr.pdf">Xu2023prr</a> — Trion states and quantum criticality of attractive {SU(3)} {Dirac} fermions (2023)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Grover2021PRL.pdf">Grover2021PRL</a> — Competing Nodal $d$-Wave Superconductivity and Antiferromagnetism (2021)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hofmann2022prx.pdf">hofmann2022prx</a> — Fermionic {Monte Carlo} Study of a Realistic Model of Twisted Bilayer Graphene (2022)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/liu2022prl.pdf">liu2022prl</a> — Metallic and Deconfined Quantum Criticality in {Dirac} Systems (2022)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/hofmann2023prl.pdf">hofmann2023prl</a> — Superconductivity, Charge Density Wave, and Supersolidity in Flat Bands with a Tunable Quantum Metric (2023)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/lunts2023natcomm.pdf">lunts2023natcomm</a> — Non-{Hertz-Millis} scaling of the antiferromagnetic quantum critical metal via scalable {Hybrid Monte Carlo} (2023)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Yu2024PRL2.pdf">Yu2024PRL2</a> — Non-Hermitian Strongly Interacting Dirac Fermions (2024)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/cai2025pnas.pdf">cai2025pnas</a> — Quantum spin liquid from electron--phonon coupling (2025)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/patel2025prx.pdf">patel2025prx</a> — Strange Metals and {Planckian} Transport in a Gapless Phase from Spatially Random Interactions (2025)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/He2025PRL.pdf">He2025PRL</a> — Extended Metal-Insulator Crossover with Strong Antiferromagnetic Spin Correlation in Half-Filled 3D Hubbard Model (2025)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/wang2026arxivsuperradiantstronglycorrelatedquantum.pdf">wang2026arxivsuperradiantstronglycorrelatedquantum</a> — Superradiant strongly correlated quantum states in cavity Hubbard model (2026)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/Xu2026arXiv.pdf">Xu2026arXiv</a> — Resolving Quantum Criticality in the Honeycomb Hubbard Model (2026)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/shi2026arxivhightemperaturecharge4esuperconductivitysu4.pdf">shi2026arxivhightemperaturecharge4esuperconductivitysu4</a> — High-temperature charge-4e superconductivity in SU(4) interacting fermions (2026)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+<li><a href="../../local_reference_pdfs/manuscript/He2026arXiv.pdf">He2026arXiv</a> — Finite-temperature quantum Monte Carlo study of Dirac quantum criticality: Algorithmic advances and comprehensive analysis (2026)<br>具体物理现象、模型或 QMC 应用：用于支持相应物理动机或成果，不作为本文玻色正性定理的证据。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 20 · 优先级 A</summary><div class="quote">Although AFQMC and related methods have also been applied to interacting bosons~\cite{sugiyamaKoonin1986,ulmkeScalettar2000,purwanto2004pre,purwanto2005pra}, no unifying criteria currently exist to guarantee sign-free weights.</div><p><strong>叙事作用：</strong>承接费米方法与玻色方法缺口。</p><p><strong>证据／范围：</strong>补 Cai 2025；Rubenstein 2012 应在直接方法前史出现；区分精确公式、受限规模的精确计算与有偏近似。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/sugiyamaKoonin1986.pdf">sugiyamaKoonin1986</a> — Auxiliary field Monte-Carlo for quantum many-body ground states (1986)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/ulmkeScalettar2000.pdf">ulmkeScalettar2000</a> — Auxiliary-field Monte Carlo for quantum spin and boson systems (2000)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/purwanto2004pre.pdf">purwanto2004pre</a> — Quantum Monte Carlo method for the ground state of many-boson systems (2004)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/purwanto2005pra.pdf">purwanto2005pra</a> — Correlation effects in the ground state of trapped atomic Bose gases (2005)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 21 · 优先级 A</summary><div class="quote">Consequently, whenever negative or complex weights appear, exact bosonic calculations remain confined to small systems, forcing large-scale simulations to rely on systematically biased approximations~\cite{purwanto2004pre,rubenstein2012pra,malpettiRoscilde2017}.</div><p><strong>叙事作用：</strong>承接费米方法与玻色方法缺口。</p><p><strong>证据／范围：</strong>补 Cai 2025；Rubenstein 2012 应在直接方法前史出现；区分精确公式、受限规模的精确计算与有偏近似。</p>
+<p><strong>引用簇 1</strong></p><ul class="refs">
+<li><a href="../../local_reference_pdfs/manuscript/purwanto2004pre.pdf">purwanto2004pre</a> — Quantum Monte Carlo method for the ground state of many-boson systems (2004)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/rubenstein2012pra.pdf">rubenstein2012pra</a> — Finite-temperature auxiliary-field quantum Monte Carlo technique for Bose-Fermi mixtures (2012)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+<li><a href="../../local_reference_pdfs/manuscript/malpettiRoscilde2017.pdf">malpettiRoscilde2017</a> — Auxiliary-Field Monte Carlo Method to Tackle Strong Interactions and Frustration in Lattice Bosons (2017)<br>方法前史：支持玻色或相关辅助场已有研究；各自的精确性和近似必须区分。</li>
+</ul>
+</details>
+<details class="card"><summary>Introduction · 句 22 · 优先级 B</summary><div class="quote">It is therefore both crucial and urgent to establish general principles, rooted in the global symmetries and mathematical structures of the Hamiltonian, that can systematically solve the sign problem in bosonic systems.</div><p><strong>叙事作用：</strong>为多体问题、QMC 或符号机制提供背景并推进叙事。</p><p><strong>证据／范围：</strong>现有经典锚点基本齐全；具体论文角色见各引用簇，不需仅为追新替换原始工作。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 23 · 优先级 A</summary><div class="quote">In this Letter, we provide unifying criteria for sign-problem-free AFQMC simulations in bosonic systems.</div><p><strong>叙事作用：</strong>从文献背景转入本文结果与证据。</p><p><strong>证据／范围：</strong>依赖本文定理与基准；不需要插入无关外文献。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 24 · 优先级 A</summary><div class="quote">We introduce a finite-temperature bosonic auxiliary-field quantum Monte Carlo (BAFQMC) method and rigorously prove that TRS and RP each furnish a general sufficient condition for strictly positive configuration weights.</div><p><strong>叙事作用：</strong>从文献背景转入本文结果与证据。</p><p><strong>证据／范围：</strong>依赖本文定理与基准；不需要插入无关外文献。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 25 · 优先级 A</summary><div class="quote">As illustrated in Fig.~\ref{fig:schematic}, whenever the HS-decoupled Hamiltonian satisfies either of these criteria, our BAFQMC framework completely evades the sign problem, even in strongly frustrated lattice geometries.</div><p><strong>叙事作用：</strong>从文献背景转入本文结果与证据。</p><p><strong>证据／范围：</strong>依赖本文定理与基准；不需要插入无关外文献。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 26 · 优先级 A</summary><div class="quote">This development brings unbiased, numerically exact simulations of a broad class of frustrated models within reach, bypassing the fundamental limitations of WLQMC and SSE and opening a new avenue to explore long-sought phases of frustrated bosonic matter.</div><p><strong>叙事作用：</strong>从文献背景转入本文结果与证据。</p><p><strong>证据／范围：</strong>依赖本文定理与基准；不需要插入无关外文献。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Introduction · 句 27 · 优先级 A</summary><div class="quote">To benchmark the method and demonstrate its reliability, we solve a frustrated two-flavor Bose-Hubbard model on the triangular lattice, finding excellent quantitative agreement with finite-temperature exact diagonalization.</div><p><strong>叙事作用：</strong>从文献背景转入本文结果与证据。</p><p><strong>证据／范围：</strong>依赖本文定理与基准；不需要插入无关外文献。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Fig. 1 · 句 1 · 优先级 A</summary><div class="quote">\textbf{Schematic illustration of sign-problem-free regimes in bosonic QMC.} Frustrated and unfrustrated lattices occupy the left and right regions.</div><p><strong>叙事作用：</strong>把局域权重与全局 HS 权重的区别映射为示意图。</p><p><strong>证据／范围：</strong>这是本文准则的示意范围；特殊基底、重组和其他非局域方法的例外见引言。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Fig. 1 · 句 2 · 优先级 A</summary><div class="quote">The upper region satisfies the time-reversal symmetry (TRS) or reflection positivity (RP) criterion for the HS-decoupled Hamiltonian.</div><p><strong>叙事作用：</strong>把局域权重与全局 HS 权重的区别映射为示意图。</p><p><strong>证据／范围：</strong>这是本文准则的示意范围；特殊基底、重组和其他非局域方法的例外见引言。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Fig. 1 · 句 3 · 优先级 A</summary><div class="quote">BAFQMC is sign-free throughout this region, while world-line QMC (WLQMC) and stochastic-series-expansion QMC (SSE) are sign-free in the right region.</div><p><strong>叙事作用：</strong>把局域权重与全局 HS 权重的区别映射为示意图。</p><p><strong>证据／范围：</strong>这是本文准则的示意范围；特殊基底、重组和其他非局域方法的例外见引言。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Fig. 1 · 句 4 · 优先级 A</summary><div class="quote">The upper-left quadrant marks the new sign-free regime unlocked by this work, illustrated by frustrated nearest-neighbor hopping ($t&gt;0$) on a triangular lattice.</div><p><strong>叙事作用：</strong>把局域权重与全局 HS 权重的区别映射为示意图。</p><p><strong>证据／范围：</strong>这是本文准则的示意范围；特殊基底、重组和其他非局域方法的例外见引言。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<details class="card"><summary>Fig. 1 · 句 5 · 优先级 A</summary><div class="quote">By tracing out bosons at fixed auxiliary fields, BAFQMC shifts the basis for positivity from local matrix elements to global TRS/RP protection of the resulting weights, opening frustrated bosonic systems to sign-free QMC.</div><p><strong>叙事作用：</strong>把局域权重与全局 HS 权重的区别映射为示意图。</p><p><strong>证据／范围：</strong>这是本文准则的示意范围；特殊基底、重组和其他非局域方法的例外见引言。</p>
+<p>无外部引用。自身结果以定理／数据为据；承接句无需机械补引。</p>
+</details>
+<h2>证据、缓存和作者决定</h2><p>当前 152 个外部引用键中，151 个能找到精确键 PDF；代码仓库引用不适用 PDF。缺失 PDF 键：无。sachdev2011qpt 与 fradkin2013ftcmp 的现有缓存是出版社前置页，不是完整书籍；该既有限制继续保留。新候选 PDF 为作者预印本或出版社公开全文，不能统一称为出版定稿。</p>
+<p>Babakhani2026prr 与 Karakashian2026arxiv 新增到 ignored 候选缓存。Shi2016pre 已有未引用的精确论文 PDF，下载核对 SHA-256 相同后保留既有文件并移除本轮重复副本，候选清单记录别名。三篇均经 WSL file、pdfinfo 和首页标题／作者核验。Cai、Shen 和簇展开候选沿用既有缓存。Babakhani 一篇目前只确认 APS 接收页面及 DOI，不虚构卷页。Cai 一篇未确认 arXiv 编号，不补填。未取得统一数据库引用次数，因此全报告不以数量证明重要性。</p>
+<p>报告桌面与 390 像素手机宽度显示正常；163 个本地 PDF 链接通过文件存在性检查，并实际点击了候选 Cai 2025 与既有 Shen 2020 的 PDF 链接。本轮只新增报告，不修改 TeX／BibTeX，因此没有重建 manuscript 或 diff PDF。审查期间出现的 main.tex 独立措辞编辑予以保留。</p>
+<ol><li>优先补 Cai 2025、Shen 2020/2023、Shi 2016，并调整 Rubenstein 2012 的引用位置。</li><li>VGP 两篇可择一或同时补入现有背景簇，保持其机制与本文贡献的区别。</li><li>合并 Shackleton 的两个实际引用键。</li><li>物理范围相关表述由作者决定是否作最小澄清；本轮保持源稿不变。</li></ol>
+<p class="muted">这是截至本轮检索范围的针对性审查，不是所有数据库的穷尽检索，也不推断作者或审稿人的态度。准确承认直接贡献，比泛泛增加引文更能避免学术归属误解。</p></main></body></html>
