@@ -1381,7 +1381,86 @@ Finite-temperature ED provides the reference values in Figs.~\ref{fig:benchmark}
 \section{More sign-problem-free models as examples and applications}
 \label{app:trs_models}
 
-In this section, we develop further applications of the TRS criteria to interacting bosons and frustrated quantum magnets. We first give a Kramers-class model of interacting $p$-orbital bosons with stripe superfluidity, then a pairing-class model coupling opposite chiral bosonic bands on the kagome lattice, and a split-orthogonal model of flavor-singlet odd-parity pairing on the frustrated triangular lattice. The odd-parity construction has a special status: the split-orthogonal class is the unique fundamental TRS class that guarantees sign-free odd-parity bosonic pairing, including $p$-wave pairing. The proof in Sec.~\ref{app:trs_two_flavor_odd_pairing} establishes this uniqueness by excluding the Kramers and pairing classes for this odd-parity pairing structure. We finally construct a soft-constrained Schwinger-boson model whose auxiliary-field generators satisfy the Kramers criterion and whose low-energy sector realizes the square-lattice spin-$1/2$ $J_1$--$J_2$ antiferromagnet, a longstanding target for sign-free QMC.
+In this section, we explore applications of BAFQMC to frustrated quantum magnets and interacting bosons. We begin with the longstanding spin-liquid controversy in the square-lattice spin-$1/2$ $J_1$--$J_2$ antiferromagnet and introduce a Schwinger-boson model that realizes this magnet in its low-energy sector. We then present interacting $p$-orbital bosons with stripe superfluidity, coupled opposite chiral bosonic bands on the kagome lattice, and flavor-singlet odd-parity pairing on the frustrated triangular lattice. These bosonic models illustrate the Kramers, pairing, and split-orthogonal classes, respectively. The odd-parity model has a special status: the split-orthogonal class is the unique fundamental TRS class that guarantees sign-free odd-parity bosonic pairing, including $p$-wave pairing. The proof in Sec.~\ref{app:trs_two_flavor_odd_pairing} establishes this uniqueness by excluding the Kramers and pairing classes for this odd-parity pairing structure.
+
+\subsection{Kramers class: frustrated square-lattice antiferromagnetism}
+\label{app:trs_square_j1j2}
+
+The spin-$1/2$ square-lattice $J_1$--$J_2$ Heisenberg antiferromagnet is a paradigmatic unresolved problem in quantum magnetism. Since the early proposal of a frustration-induced spin liquid~\cite{Chandra1988PRB}, its ground state near $J_2/J_1\simeq1/2$ has been debated for more than three decades. Antiferromagnetic exchange along the edges and diagonals of each square competes to destabilize magnetic order. Small $J_2/J_1$ favors staggered N\'eel order, while large $J_2/J_1$ favors stripe order. The central question is whether the intervening regime supports a quantum spin liquid with fractionalized spin excitations, or a valence-bond solid (VBS) with an ordered pattern of singlet bonds that breaks lattice symmetry~\cite{balents2010,zhou2017rmp}. Resolving this question would establish how a minimal frustrated magnet organizes quantum matter beyond conventional magnetic order.
+
+The disagreement persists among advanced numerical approaches. Density-matrix renormalization group calculations, neural-network wave functions, and finite projected entangled pair states have yielded evidence for an intermediate gapless spin liquid~\cite{Wang2018PRL,Nomura2021PRX,Liu2022SciBull}, whereas a subsequent excitation-spectrum study supports a direct N\'eel--VBS transition~\cite{Qian2024PRB}. A continuous direct transition would provide a setting for deconfined quantum criticality, where fractionalized degrees of freedom emerge at the boundary between two ordered phases~\cite{Senthil2004Science}. Weak order and long correlation lengths make the distinction especially sensitive to system size. Frustrated exchange produces a sign problem in conventional WLQMC and SSE~\cite{henelius2000prb}, obstructing the large-scale calculations needed to distinguish a finite spin-liquid phase from the vicinity of a critical point.
+
+Resolving this controversy motivates extending BAFQMC from bosonic matter to frustrated quantum magnets. The Schwinger-boson representation expresses spin interactions in bosonic form. With $\hat{\bb b}_i=(\hat b_{i\uparrow},\hat b_{i\downarrow})^\trans$ on each site,
+\begin{equation}
+    \hat{\bb S}_i=\frac12\hat{\bb b}_i^+\boldsymbol{\sigma}\hat{\bb b}_i,
+    \qquad \hat n_i=\hat b_{i\uparrow}^+\hat b_{i\uparrow}+\hat b_{i\downarrow}^+\hat b_{i\downarrow},
+    \label{eq:trs_square_spin_operators}
+\end{equation}
+where $\boldsymbol{\sigma}$ denotes the three Pauli matrices. The local spin length satisfies $\hat{\bb S}_i^2=\hat n_i(\hat n_i+2)/4$~\cite{readSachdev1991frustrated,sachdev1992kagome}. Consider the interacting bosonic Hamiltonian
+\begin{equation}
+    \hat H=J_1\sum_{\langle ij\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j
+      +J_2\sum_{\langle\!\langle ij\rangle\!\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j
+      +\lambda\sum_i\hat{\bb S}_i^2-\mu\sum_i\hat n_i,
+      \qquad J_1,J_2,\lambda>0.
+    \label{eq:trs_square_soft_model}
+\end{equation}
+The two bond sums run over nearest and next-nearest neighbors, respectively, with each bond counted once. The exchange interactions retain the frustrated magnetic competition, while the local term selects the spin magnitude through the boson occupation.
+
+For $n$ bosons on one site, the local energy is $E_n=\lambda n(n+2)/4-\mu n$. Single occupancy is the local ground-state sector for $3\lambda/4<\mu<5\lambda/4$. At the center of this interval, $\mu=\lambda$,
+\begin{equation}
+    E_n-E_1=\frac{\lambda}{4}(n-1)^2.
+    \label{eq:trs_square_occupation_gap}
+\end{equation}
+The two single-occupancy states $\hat b_{i\uparrow}^+|0\rangle$ and $\hat b_{i\downarrow}^+|0\rangle$ form a spin-$1/2$ doublet, and empty or doubly occupied sites cost $\lambda/4$ before exchange is included. Taking $\lambda\gg J_1,J_2$ selects this doublet as the local low-energy space. Since $[\hat H,\hat n_i]=0$, the exchange does not mix different occupation sectors. For $n_i=1$ at every site, Eq.~\eqref{eq:trs_square_soft_model} gives the spin Hamiltonian, up to an additive constant,
+\begin{equation}
+    \hat H_{\mathrm{spin}}=
+      J_1\sum_{\langle ij\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j
+      +J_2\sum_{\langle\!\langle ij\rangle\!\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j,
+      \qquad \hat{\bb S}_i^2=\frac34.
+    \label{eq:trs_square_heisenberg}
+\end{equation}
+
+For $\lambda>2(J_1+J_2)$, the bosonic interactions admit a Hubbard--Stratonovich transformation that preserves time-reversal symmetry for every auxiliary-field configuration. This is the symmetry used in the particle-number-conserving case of the TRS criterion in the main text. Each site has four neighbors of each type, so Eq.~\eqref{eq:trs_square_soft_model} becomes
+\begin{equation}
+    \hat H=\frac{J_1}{2}\sum_{\langle ij\rangle}
+       (\hat{\bb S}_i+\hat{\bb S}_j)^2
+      +\frac{J_2}{2}\sum_{\langle\!\langle ij\rangle\!\rangle}
+       (\hat{\bb S}_i+\hat{\bb S}_j)^2
+      +\bigl[\lambda-2(J_1+J_2)\bigr]\sum_i\hat{\bb S}_i^2
+       -\mu\sum_i\hat n_i.
+    \label{eq:trs_square_positive_squares}
+\end{equation}
+All square coefficients are then positive. After Trotter decomposition into individual bonds, sites, and spin components $\alpha=x,y,z$, the nearest-neighbor, next-nearest-neighbor, and onsite interactions are decoupled by the Hubbard--Stratonovich transformations
+\begin{align}
+    \ee^{-\Delta\tau J_1(\hat S_i^\alpha+\hat S_j^\alpha)^2/2}
+    &=\int\frac{d\phi}{\sqrt{2\pi}}\,
+       \ee^{-\phi^2/2}
+       \ee^{\ii\sqrt{\Delta\tau J_1}\,\phi
+          (\hat S_i^\alpha+\hat S_j^\alpha)},
+    \label{eq:trs_square_bond_HS}\\
+    \ee^{-\Delta\tau J_2(\hat S_i^\alpha+\hat S_j^\alpha)^2/2}
+    &=\int\frac{d\phi}{\sqrt{2\pi}}\,
+       \ee^{-\phi^2/2}
+       \ee^{\ii\sqrt{\Delta\tau J_2}\,\phi
+          (\hat S_i^\alpha+\hat S_j^\alpha)},
+    \label{eq:trs_square_diagonal_HS}\\
+    \ee^{-\Delta\tau[\lambda-2(J_1+J_2)](\hat S_i^\alpha)^2}
+    &=\int\frac{d\phi}{\sqrt{2\pi}}\,
+       \ee^{-\phi^2/2}
+       \ee^{\ii\sqrt{2\Delta\tau[\lambda-2(J_1+J_2)]}\,\phi\hat S_i^\alpha}.
+    \label{eq:trs_square_onsite_HS}
+\end{align}
+Each factor carries an independent real field $\phi$ at every imaginary-time step. The chemical-potential factor $\ee^{\Delta\tau\mu\hat n_i}$ is already quadratic in the bosons. Thus all resulting one-body factors conserve particle number.
+
+Time reversal acts on $(\hat b_{i\uparrow},\hat b_{i\downarrow})^\trans$ as $\Theta=\ii\sigma_y\mc K$, with $\Theta^2=-I$. It reverses $\hat{\bb S}_i$ and preserves $\hat n_i$. Antiunitarity also reverses $\ii$, giving
+\begin{equation}
+    \Theta\bigl[\ii\phi(\hat S_i^\alpha+\hat S_j^\alpha)\bigr]\Theta^{-1}
+       =\ii\phi(\hat S_i^\alpha+\hat S_j^\alpha).
+    \label{eq:trs_square_Kramers}
+\end{equation}
+The onsite couplings $\ii\phi\hat S_i^\alpha$ and the chemical-potential term are likewise invariant. Every one-body factor therefore preserves $\Theta$ for $\lambda>2(J_1+J_2)$, including in the strongly frustrated regime $J_2/J_1\simeq1/2$.
+
+The square-lattice $J_1$--$J_2$ antiferromagnet thus provides a concrete target for extending sign-problem-free BAFQMC to frustrated quantum magnets. Such an extension would enable large-scale calculations of a classic problem that has long resisted conventional sign-free QMC, opening a route to settle whether this minimal model hosts a quantum spin liquid or a direct N\'eel--VBS transition.
 
 \subsection{Kramers class: stripe superfluidity in frustrated \texorpdfstring{$p$-band bosons}{p-band bosons}}
 \label{sec:trs_orbital_hund}
@@ -1592,76 +1671,3 @@ On a bond $j=i+\bb\delta$, the two flavor currents are $\rho\sin(\bb K\cdot\bb\d
 These opposite currents have a direct connection to frustrated magnetic order. In this coherent state, $\langle\hat b_i^+\hat c_i\rangle=-\ii(\rho/2)\ee^{-2\ii\bb K\cdot\bb r_i}$, whose phase rotates by $120^\circ$ between the three triangular sublattices. Interpreting $b,c$ as two spin states, this is a coplanar $120^\circ$ spin texture. Opposite-valley occupation and flavor counterflow also underlie the chiral spin superfluid studied in Ref.~\cite{liNatuParamekanti2014chiral}. Pairing further shifts the low-energy momenta through $E_{\bb k}=\sqrt{\xi_{\bb k}^2-|\Delta_{\bb k}|^2}$, opening the possibility of incommensurate spin textures. Spiral order with a continuously tunable wave vector has been realized in triangular optical-lattice simulators~\cite{struck2011frustrated}. This model links singlet pairing and strong interactions to the spatial organization of the condensate.
 
 Beyond these zero-temperature properties, the model provides a setting to study the thermal melting of single-boson coherence and composite order. Theory predicts a chiral normal fluid between the superfluid and fully disordered phases in an orbital lattice model~\cite{liParamekantiHemmerich2014chiral}, whereas recent double-valley atomic experiments report the opposite sequence, with a time-reversal-symmetric superfluid as the intermediate phase~\cite{yuWuZhang2025vestigial}. These contrasting sequences expose a long-standing question: which order melts first, and when does an intermediate phase appear? This frustrated two-component model brings singlet pairing, single-boson coherence, and spin order into one sign-problem-free setting. Unbiased BAFQMC can determine their zero-temperature ordering and thermal evolution, resolve the competing melting scenarios, and identify intermediate phases.
-
-\subsection{Kramers class: frustrated square-lattice antiferromagnetism}
-\label{app:trs_square_j1j2}
-
-The spin-$1/2$ square-lattice $J_1$--$J_2$ Heisenberg antiferromagnet is a paradigmatic unresolved problem in quantum magnetism. Since the early proposal of a frustration-induced spin liquid~\cite{Chandra1988PRB}, its ground state near $J_2/J_1\simeq1/2$ has been debated for more than three decades. Antiferromagnetic exchange along the edges and diagonals of each square competes to destabilize magnetic order. Small $J_2/J_1$ favors staggered N\'eel order, while large $J_2/J_1$ favors stripe order. The central question is whether the intervening regime supports a quantum spin liquid with fractionalized spin excitations, or a valence-bond solid (VBS) with an ordered pattern of singlet bonds that breaks lattice symmetry~\cite{balents2010,zhou2017rmp}. Resolving this question would establish how a minimal frustrated magnet organizes quantum matter beyond conventional magnetic order.
-
-The disagreement persists among advanced numerical approaches. Density-matrix renormalization group calculations, neural-network wave functions, and finite projected entangled pair states have yielded evidence for an intermediate gapless spin liquid~\cite{Wang2018PRL,Nomura2021PRX,Liu2022SciBull}, whereas a subsequent excitation-spectrum study supports a direct N\'eel--VBS transition~\cite{Qian2024PRB}. A continuous direct transition would provide a setting for deconfined quantum criticality, where fractionalized degrees of freedom emerge at the boundary between two ordered phases~\cite{Senthil2004Science}. Weak order and long correlation lengths make the distinction especially sensitive to system size. Frustrated exchange produces a sign problem in conventional WLQMC and SSE~\cite{henelius2000prb}, obstructing the large-scale calculations needed to distinguish a finite spin-liquid phase from the vicinity of a critical point.
-
-A bosonic formulation connects this problem to the Kramers criterion. Introduce two Schwinger bosons $\hat b_i,\hat c_i$ on each square-lattice site, with
-\begin{equation}
-    \hat S_i^+=\hat b_i^+\hat c_i,\qquad
-    \hat S_i^z=\frac{\hat b_i^+\hat b_i-\hat c_i^+\hat c_i}{2},\qquad
-    \hat n_i=\hat b_i^+\hat b_i+\hat c_i^+\hat c_i.
-    \label{eq:trs_square_spin_operators}
-\end{equation}
-Here $\hat S_i^-=\hat c_i^+\hat b_i$, and the local spin length satisfies $\hat{\bb S}_i^2=\hat n_i(\hat n_i+2)/4$~\cite{readSachdev1991frustrated,sachdev1992kagome}. Consider the interacting bosonic Hamiltonian
-\begin{equation}
-\begin{aligned}
-    \hat H={}&J_1\sum_{\langle ij\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j
-      +J_2\sum_{\langle\!\langle ij\rangle\!\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j\\
-      &+\lambda\sum_i\hat{\bb S}_i^2-\mu\sum_i\hat n_i,
-      \qquad J_1,J_2,\lambda>0.
-\end{aligned}
-    \label{eq:trs_square_soft_model}
-\end{equation}
-The two bond sums run over nearest and next-nearest neighbors, respectively, with each bond counted once. The exchange interactions retain the frustrated magnetic competition, while the local term selects the spin magnitude through the boson occupation.
-
-For $n$ bosons on one site, the local energy is $E_n=\lambda n(n+2)/4-\mu n$. Single occupancy is the local ground-state sector for $3\lambda/4<\mu<5\lambda/4$. At the center of this interval, $\mu=\lambda$,
-\begin{equation}
-    E_n-E_1=\frac{\lambda}{4}(n-1)^2.
-    \label{eq:trs_square_occupation_gap}
-\end{equation}
-The two single-occupancy states $\hat b_i^+|0\rangle$ and $\hat c_i^+|0\rangle$ form a spin-$1/2$ doublet, and empty or doubly occupied sites cost $\lambda/4$ before exchange is included. Taking $\lambda\gg J_1,J_2$ selects this doublet as the local low-energy space. Since $[\hat H,\hat n_i]=0$, the exchange does not mix different occupation sectors. For $n_i=1$ at every site, Eq.~\eqref{eq:trs_square_soft_model} gives the spin Hamiltonian, up to an additive constant,
-\begin{equation}
-    \hat H_{\mathrm{spin}}=
-      J_1\sum_{\langle ij\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j
-      +J_2\sum_{\langle\!\langle ij\rangle\!\rangle}\hat{\bb S}_i\cdot\hat{\bb S}_j,
-      \qquad \hat{\bb S}_i^2=\frac34.
-    \label{eq:trs_square_heisenberg}
-\end{equation}
-
-The HS symmetry condition follows from a local square decomposition. Each site has four neighbors of each type, so Eq.~\eqref{eq:trs_square_soft_model} can be written as
-\begin{equation}
-\begin{aligned}
-    \hat H={}&\frac{J_1}{2}\sum_{\langle ij\rangle}
-       (\hat{\bb S}_i+\hat{\bb S}_j)^2
-      +\frac{J_2}{2}\sum_{\langle\!\langle ij\rangle\!\rangle}
-       (\hat{\bb S}_i+\hat{\bb S}_j)^2\\
-      &+\bigl[\lambda-2(J_1+J_2)\bigr]\sum_i\hat{\bb S}_i^2
-       -\mu\sum_i\hat n_i.
-\end{aligned}
-    \label{eq:trs_square_positive_squares}
-\end{equation}
-All square coefficients are positive when $\lambda>2(J_1+J_2)$. After Trotter decomposition into the components $\alpha=x,y,z$, a nearest-neighbor factor has the exact Gaussian HS identity
-\begin{equation}
-    \ee^{-\Delta\tau J_1(\hat S_i^\alpha+\hat S_j^\alpha)^2/2}
-    =\int\frac{d\phi}{\sqrt{2\pi}}\,
-       \ee^{-\phi^2/2}
-       \ee^{\ii\sqrt{\Delta\tau J_1}\,\phi
-          (\hat S_i^\alpha+\hat S_j^\alpha)}.
-    \label{eq:trs_square_bond_HS}
-\end{equation}
-The next-nearest-neighbor factors use $J_2$ in place of $J_1$. The onsite factors couple a real Gaussian field to $\hat S_i^\alpha$ with coefficient $\ii\sqrt{2\Delta\tau[\lambda-2(J_1+J_2)]}$. Every generator is quadratic in the bosons and conserves their number.
-
-On the flavor doublet $(\hat b_i,\hat c_i)^\trans$, take $\Theta=\ii\sigma_y\mc K$, with $\Theta^2=-I$. It reverses $\hat{\bb S}_i$ and preserves $\hat n_i$. Antiunitarity also reverses $\ii$, giving
-\begin{equation}
-    \Theta\bigl[\ii\phi(\hat S_i^\alpha+\hat S_j^\alpha)\bigr]\Theta^{-1}
-       =\ii\phi(\hat S_i^\alpha+\hat S_j^\alpha).
-    \label{eq:trs_square_Kramers}
-\end{equation}
-The same relation holds for the onsite fields, and the chemical-potential term is invariant. Thus $\lambda>2(J_1+J_2)$ places every auxiliary-field generator in the particle-number-conserving Kramers class throughout the frustrated range $J_1,J_2>0$. Establishing positive fixed-number or projected weights is the remaining step toward a sign-free simulation of the spin model.
-
-This construction identifies the disputed square-lattice spin liquid as a concrete target for canonical and ground-state BAFQMC. Spin correlations at $(\pi,\pi)$ and $(\pi,0)$ or $(0,\pi)$ distinguish N\'eel and stripe order. Bond-energy correlations reveal VBS order, while their size dependence together with low-energy singlet and triplet excitations tests whether the intervening regime remains a distinct phase in the thermodynamic limit~\cite{Wang2018PRL,Nomura2021PRX,Qian2024PRB}. Large-scale calculations along this route would directly confront the central alternatives in a longstanding quantum-magnetism debate, connecting the auxiliary-field symmetry framework to the search for fractionalized quantum matter.
