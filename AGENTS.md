@@ -14,6 +14,9 @@ Public preprint: https://arxiv.org/abs/2610.31541
 
 ## Writing
 
+- Apply the reader-friendly exposition principles below to manuscripts, notes, reports, and conversations with the user, including answers to physics questions.
+- Make the physical picture clear and develop derivations step by step, explaining the connections between equations. Use mathematical terminology only when it helps; explain indispensable unfamiliar terms in language familiar to physicists.
+- Answer the question directly. Keep attention on the physics the user asks about, without unsolicited negations, unrelated alternatives, or defensive qualifications that distract from the explanation.
 - Write confidently and directly. Make the importance and physical consequences of the work clear. Avoid unnecessary defensive qualifications that weaken established results or make the argument harder to read.
 - Write for a broad physics readership. Establish physical motivation before technical machinery, and build the argument with smooth physical and logical progression.
 - Readers have none of our collaboration context. Manuscript prose must serve their understanding, never deliberately answer an author request or advertise a revision.
