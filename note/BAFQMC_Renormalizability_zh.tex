@@ -21,7 +21,7 @@
 \begin{center}
 {\Large\bfseries 玻色辅助场行列式权重的可重整性}\par
 \vspace{6pt}
-{\normalsize 一个正权重的精确构造与吸引密度相互作用的对照}
+{\normalsize 一个精确例子与两类一般充分条件}
 \end{center}
 \vspace{3pt}
 
@@ -29,9 +29,10 @@
 固定辅助场的传播可能放大高占据态，使多体迹发散，而完整相互作用仍可使物理配分函数有限。
 本文研究在这种情况下，行列式表达式何时仍能作为精确的辅助场权重。
 我们构造一个单格点双分量密度模型的辅助场表示，其中一部分构型的裸迹指数发散，
-行列式权重却始终为正且有界，并准确给出配分函数和关联函数。
-随后研究一个含吸引总密度项的稳定模型，证明其常规解耦得到的正行列式积分严格小于物理配分函数。
-这两个例子说明，可重整性取决于相互作用与所选辅助场表示之间的具体关系。
+行列式权重却始终为正且有界，并准确给出配分函数。
+在此基础上，我们给出两类一般充分条件。第一类通过逸度连续变化时的行列式极点位置，
+判断任意有限模式数的数守恒辅助场表示是否可重整。第二类通过局部双分量辅助场平均，
+从一个已知精确的表示构造出一整类新的可重整表示。
 
 \section{问题的起点与截断的含义}
 
@@ -56,7 +57,7 @@
  =\frac{1}{(1-r_1)(1-r_2)}=\frac1{\det(I-B)}.
  \label{eq:trace}
 \end{equation}
-本文的固定场矩阵均为正规矩阵，因而 $|r_1|,|r_2|<1$ 保证该迹收敛。
+下文双分量例子的固定场矩阵均为正规矩阵，因而 $|r_1|,|r_2|<1$ 保证该迹收敛。
 若有本征值满足 $|r_i|>1$，高占据态的贡献指数增长。
 此时右侧的有理函数仍可能有限，是否能够用它计算配分函数，需要进一步证明。
 
@@ -323,215 +324,348 @@ $|\Tr\Gamma_n(B_0)|\le(n+1)q^n$，故
 \end{equation}
 因此，该模型的这一辅助场表示严格满足可重整性条件。
 
-\section{密度与关联函数的计算}
+\section{通过逸度路径检验可重整性}
+\label{sec:fugacity}
 
-观测量可以通过在迹中插入一个小的一体源来产生。
-令 $J$ 为作用在 $b,c$ 分量上的无量纲 $2\times2$ 矩阵，考虑
-\begin{equation}
- \Tr\!\left[\ee^{\hat{\boldsymbol a}^{+}J\hat{\boldsymbol a}}\ee^{-\beta H}\right].
- \label{eq:physicalsource}
-\end{equation}
-例如 $J=\eta I$ 生成总粒子数矩，$J=\diag(\eta_b,\eta_c)$ 生成分量密度及其关联。
-保持辅助场分布与式~\eqref{eq:newB} 中的 $R$ 不变，固定场表达式为
-\begin{equation}
- f_J(B)=\frac1{\det(I-\ee^JB)}.
-\end{equation}
-当 $B$ 的范数充分小时，可以用收敛的粒子数展开写成
-\begin{equation}
- f_J(B)=\sum_{n=0}^{\infty}
- \tr_n\!\left[\Gamma_n(\ee^J)\Gamma_n(B)\right],
- \label{eq:sourceexpansion}
-\end{equation}
-其中 $\tr_n$ 是有限粒子数子空间中的矩阵迹。
-每项对 $B$ 的坐标都满足 Laplace 方程，且级数及其导数在更小的邻域内一致收敛。
-因此 $\nabla_x^2f_J=0$ 在该邻域成立。
+前面的例子利用了双分量矩阵的特殊结构。
+下面给出适用于任意有限模式数的充分条件。
+其出发点是在配分函数中乘入 $z^{\hat N}$。
+对实数 $0<z<1$，这相当于将化学势降低 $-\beta^{-1}\log z$，从而增强对高占据态的压制。
+我们先在充分小的 $z$ 下建立普通的收敛迹恒等式，再将 $z$ 连续增加到物理值 $1$。
 
-$f_J$ 是 $x_\mu$ 的有理函数。将 $\nabla_x^2f_J$ 通分以后，分子为一个多项式。
-该多项式在一个开集内恒为零，因而恒等于零。
-所以只要分母非零，$f_J$ 都满足同一个 Laplace 方程。
+\subsection{条件及其可计算的形式}
 
-还需确认小的一体源不会使极点进入辅助球。以下矩阵范数取最大奇异值。
-在所有闭球内，有
+考虑 $m$ 个玻色模式，假设 $[H,\hat N]=0$，$Z<\infty$，
+且每个有限粒子数扇区的辅助场恒等式成立，
 \begin{equation}
- \|(I-B)^{-1}\|\le\frac1{(1-\alpha)(1-q)},
- \qquad \|B\|\le q+\alpha(1+q).
+ \int dP(\phi)\,\Gamma_n(B(\phi))
+ =\left.\ee^{-\beta H}\right|_{N=n}.
+ \label{eq:generalHS}
 \end{equation}
-利用 $I-\ee^JB=(I-B)-(\ee^J-I)B$，只要
+这里 $dP$ 为正的归一化测度。以下矩阵范数均取最大奇异值，
+$\sigma_{\min}$ 表示最小奇异值。
+若存在与构型无关的常数 $L<\infty$ 和 $\delta>0$，使
 \begin{equation}
- \|\ee^J-I\|\,[q+\alpha(1+q)]<(1-\alpha)(1-q),
+ \boxed{
+ \|B(\phi)\|\le L,\qquad
+ \sigma_{\min}[I-tB(\phi)]\ge\delta
+ \quad\text{对所有 }0\le t\le1,
+ }
+ \label{eq:pathcriterion}
 \end{equation}
-扰动后的矩阵就在所有辅助球内保持可逆。
-球面平均值性质于是给出
+在除去同一个零测度场集后成立，则该辅助场表示可重整，
 \begin{equation}
- \int dV\,f_J(B)=f_J(B_0).
+ \boxed{\int dP(\phi)\,\frac1{\det[I-B(\phi)]}=Z.}
+ \label{eq:generalresult}
 \end{equation}
-再完成高斯积分，便恢复式~\eqref{eq:physicalsource}。
-这些一致界允许在 $J=0$ 附近将任意有限阶源导数移入积分，
-从而得到通常的密度与数守恒多项式关联函数。
 
-例如总粒子数的固定场估计量为
-\begin{equation}
- N(B)=\left.\frac{\partial}{\partial\eta}
- \log\frac1{\det(I-\ee^\eta B)}\right|_{\eta=0}
- =\tr[B(I-B)^{-1}].
-\end{equation}
-其物理平均准确等于
-\begin{equation}
- \langle\hat N\rangle
- =\frac{\int d\phi\,p(\phi)\int dV\,W(B)N(B)}{Z}.
-\end{equation}
-因此，正权重辅助场采样同时给出正确的配分函数和观测量。
+第一个条件限制完整单粒子传播的大小。第二个条件要求从 $I$ 到 $I-B$ 的整条路径
+始终与奇异矩阵保持统一的正距离。
+二者都是有限维单粒子矩阵的条件，并允许 $B$ 的某些本征值模长大于一。
+当需要从对称性推导无符号采样时，可以再独立利用 Kramers 结构保证权重为正。
+本节关于配分函数的等式本身适用于一般的数守恒矩阵。
 
-\section{吸引总密度项的对照}
+\subsection{充分小的逸度恢复普通的迹公式}
 
-\subsection{稳定性与所选解耦}
+记物理的固定粒子数配分函数为
+\begin{equation}
+ Z_n=\Tr_{N=n}\ee^{-\beta H}\ge0,
+ \qquad Z(z)=\sum_{n=0}^{\infty}z^nZ_n.
+ \label{eq:physicalfugacity}
+\end{equation}
+这里 $Z(1)=Z$。另一方面，定义实际的行列式积分
+\begin{equation}
+ Z_{\rm det}(z)=\int dP(\phi)\,\frac1{\det[I-zB(\phi)]}.
+ \label{eq:detfugacity}
+\end{equation}
+我们将证明这两个函数在 $z=1$ 相等。
 
-对双分量密度相互作用
+$m$ 个模式中总粒子数为 $n$ 的子空间维数为
+$\binom{n+m-1}{m-1}$。
+由 $\|B\|\le L$，在该子空间中有
 \begin{equation}
- U_1(\hat n_b-\hat n_c)^2+U_2(\hat n_b+\hat n_c)^2-\mu\hat N,
+ |\Tr\Gamma_n(B)|\le\binom{n+m-1}{m-1}L^n.
 \end{equation}
-沿 $n_b=n_c=n$ 的能量为 $4U_2n^2-2\mu n$。
-当 $U_2<0$ 时，总密度方向需要额外的稳定项，才能得到有限的无限占据配分函数。
+因此对 $|z|L<1$，
+\begin{equation}
+ \sum_{n=0}^{\infty}|z|^n\int dP\,|\Tr\Gamma_n(B)|
+ \le\sum_{n=0}^{\infty}\binom{n+m-1}{m-1}(|z|L)^n
+ =\frac1{(1-|z|L)^m}.
+ \label{eq:smallzbound}
+\end{equation}
+这给出了占据数求和与辅助场积分交换次序所需的绝对收敛上界。
+对 $zB$ 使用普通玻色迹公式，并利用式~\eqref{eq:generalHS}，得到
+\begin{equation}
+ Z_{\rm det}(z)
+ =\int dP\sum_{n=0}^{\infty}z^n\Tr\Gamma_n(B)
+ =\sum_{n=0}^{\infty}z^nZ_n=Z(z)
+ \label{eq:smallzequality}
+\end{equation}
+在原点的一个邻域内成立。
 
-为单独检验稳定模型中的行列式表示，取
+\subsection{从小逸度延续到物理值}
+
+接下来必须保证式~\eqref{eq:detfugacity} 中的实际积分，沿 $0\le t\le1$ 始终保持同一个解析函数。
+解析函数在每一点附近都有收敛的 Taylor 展开，因此可以用相邻的展开逐步连接这条路径。
+为使辅助场积分也具有这一性质，需要对路径附近的复数 $z$ 给出统一控制。
+
+取 $t\in[0,1]$，写出
 \begin{equation}
- H=(u-v)\hat N^2+(2u+\varepsilon)\hat N,
- \qquad u>v>0,\quad\varepsilon>0.
- \label{eq:stablemodel}
+ I-zB=(I-tB)-(z-t)B.
 \end{equation}
-这是一个双分量单格点排斥密度模型，其能量随总粒子数平方增长。
-定义三个分量双线性算符
+由式~\eqref{eq:pathcriterion} 和奇异值的扰动界，
 \begin{equation}
- \hat S_j=\frac12(\hat b^+,\hat c^+)\sigma_j
- \begin{pmatrix}\hat b\\\hat c\end{pmatrix}.
+ \sigma_{\min}(I-zB)\ge\delta-|z-t|L.
 \end{equation}
-为得到它们与密度的关系，写出
+因此在复平面上，只要 $z$ 到实线段 $[0,1]$ 的距离小于 $\delta/(2L)$，就有
 \begin{equation}
- \hat S_z=\frac{\hat n_b-\hat n_c}{2},\qquad
- \hat S_+=\hat b^+\hat c,\qquad \hat S_-=\hat c^+\hat b.
+ \left|\frac1{\det(I-zB)}\right|\le\left(\frac2\delta\right)^m.
+ \label{eq:complexbound}
 \end{equation}
-玻色对易关系给出 $\hat S_+\hat S_-=\hat n_b(\hat n_c+1)$ 和
-$\hat S_-\hat S_+=\hat n_c(\hat n_b+1)$。因此
+$L=0$ 时所有传播矩阵均为零，结论直接成立。
+对于 $L>0$，式~\eqref{eq:complexbound} 给出了包含整条路径的共同无极点复邻域，
+并且上界与辅助场无关。
+因而行列式积分在这个邻域内解析。
+例如可以在邻域内取任意小闭合积分曲线，将对 $z$ 的积分与场积分交换，
+每个固定场有理函数的闭合曲线积分为零，平均后的函数也满足同样的解析条件。
+
+物理函数 $Z(z)$ 在 $|z|<1$ 内也解析，因为
+$\sum_n Z_n=Z<\infty$。
+式~\eqref{eq:smallzequality} 已经证明两个解析函数在原点附近相同。
+解析函数的唯一性于是将等式沿相连的邻域传递到所有实数 $0\le t<1$，
+\begin{equation}
+ Z_{\rm det}(t)=Z(t),\qquad 0\le t<1.
+\end{equation}
+
+最后取 $t\uparrow1$。物理侧各项非负，故
+\begin{equation}
+ \lim_{t\uparrow1}Z(t)=\sum_{n=0}^{\infty}Z_n=Z.
+\end{equation}
+行列式侧由式~\eqref{eq:complexbound} 的统一上界可将极限移入辅助场积分，
+\begin{equation}
+ \lim_{t\uparrow1}Z_{\rm det}(t)
+ =\int dP\,\frac1{\det(I-B)}.
+\end{equation}
+这就证明了式~\eqref{eq:generalresult}。
+结合有限截断恒等式，还立即得到
+\begin{equation}
+ \int dP\,\mathcal R_M(B)=Z_M-Z\longrightarrow0.
+\end{equation}
+因此，沿逸度路径的矩阵条件直接保证了截断相关项积分后的精确抵消。
+
+\subsection{两种便于检查的条件}
+
+式~\eqref{eq:pathcriterion} 可以转化为本征值位置的条件。
+先假设所有 $B(\phi)$ 一致有界，并将它们可能趋近的极限矩阵也包括在内。
+这一闭矩阵集合是紧集。
+若其中每个矩阵都没有落在正实轴区间 $[1,\infty)$ 上的本征值，则
+\begin{equation}
+ \det(I-tB)\ne0,\qquad 0\le t\le1.
+ \label{eq:spectralray}
+\end{equation}
+因为零点只能来自某个本征值满足 $t\lambda=1$。
+最小奇异值在这一紧集与 $[0,1]$ 的乘积上连续且处处为正，
+所以自动具有统一的正下界 $\delta$。
+这便满足式~\eqref{eq:pathcriterion}。
+
+该谱条件允许负实本征值或复本征值具有很大的模长。
+例如前面例子中的 $-5/4$ 使裸占据数求和指数增长，
+而相应的逸度极点位于 $z=-4/5$，与正实逸度路径分离。
+把所有极限构型也纳入检查，正是为了保证极点与路径之间存在统一距离。
+
+另一种只涉及厄米矩阵不等式的充分条件是
+\begin{equation}
+ \|B\|\le L,\qquad
+ \frac{B+B^{\dagger}}2\preceq(1-\delta_0)I,
+ \qquad 0<\delta_0\le1.
+ \label{eq:hermitianpart}
+\end{equation}
+这里 $A\preceq C$ 表示 $C-A$ 为半正定矩阵。
+对任意向量 $v$ 和 $t\in[0,1]$，
 \begin{align}
- \hat{\boldsymbol S}^2
- &=\hat S_z^2+\tfrac12(\hat S_+\hat S_-+\hat S_-\hat S_+)\nonumber\\
- &=\frac{(\hat n_b-\hat n_c)^2}{4}+\hat n_b\hat n_c+\frac{\hat n_b+\hat n_c}{2}
- =\frac{\hat N(\hat N+2)}4.
+ \operatorname{Re}\big[v^{\dagger}(I-tB)v\big]
+ &\ge[1-t(1-\delta_0)]\|v\|^2\nonumber\\
+ &\ge\delta_0\|v\|^2.
 \end{align}
-将此恒等式代入式~\eqref{eq:stablemodel}，得到
-\begin{equation}
- H=4u\hat{\boldsymbol S}^2-v\hat N^2+\varepsilon\hat N.
- \label{eq:stabledecomposition}
-\end{equation}
-在这一表达式中，$-v\hat N^2$ 正是吸引总密度项。
+再用 Cauchy--Schwarz 不等式，即得
+$\|(I-tB)v\|\ge\delta_0\|v\|$，从而满足式~\eqref{eq:pathcriterion}。
+这给出了一种无需沿逸度逐点计算本征值的检验办法。
 
-对它使用实高斯场 $x\sim\mathcal N(0,1)$，
-\begin{equation}
- \ee^{\beta v\hat N^2}
- =\avg_x\ee^{\sqrt{2\beta v}\,x\hat N}.
-\end{equation}
-对 $4u\hat{\boldsymbol S}^2$，将虚时间切片，并对每个 $\hat S_j^2$ 使用
-\begin{equation}
- \ee^{-4u\Delta\tau\hat S_j^2}
- =\avg_\varphi\ee^{\ii\sqrt{8u\Delta\tau}\,\varphi\hat S_j},
- \qquad\varphi\sim\mathcal N(0,1).
-\end{equation}
-每一步都是 $SU(2)$ 旋转。在连续虚时间极限，旋转乘积得到一个归一化的正分布，记为 $p_u(U)dU$。
-这一旋转扩散分布也称为群上的热核。
+\subsection{将判据应用于前面的双分量例子}
 
-在总粒子数 $n$ 扇区，$\hat{\boldsymbol S}^2$ 的本征值为 $n(n+2)/4$，
-该扇区维数为 $n+1$。因此旋转分布满足准确的有限维恒等式
+对于式~\eqref{eq:newB}，首先有
 \begin{equation}
- \int dU\,p_u(U)\Gamma_n(U)
- =\ee^{-\beta u n(n+2)}I_n.
- \label{eq:rotationidentity}
+ \|B\|\le q+\alpha(1+q).
 \end{equation}
-固定两个辅助场之后，完整单粒子传播为
+其次，对 $0\le t\le1$，直接计算得
 \begin{equation}
- B=rU,\qquad r=\ee^{-\beta\varepsilon+\sqrt{2\beta v}\,x}.
- \label{eq:rU}
+ |1-tq\ee^{\ii\phi}|^2-t^2|1-q\ee^{\ii\phi}|^2
+ =(1-t)(1+t-2tq\cos\phi)\ge0.
 \end{equation}
-实场的一部分取值使 $r>1$，对应发散的裸迹。
-
-\subsection{物理配分函数与行列式积分的比较}
-
-先在每个粒子数扇区完成旋转场积分。
-由式~\eqref{eq:rotationidentity} 得到收敛的正项级数
-\begin{equation}
- F(r)=\sum_{n=0}^{\infty}(n+1)\ee^{-\beta u n(n+2)}r^n,
- \qquad r>0.
-\end{equation}
-再利用 $\avg_x r^n=\ee^{-\beta\varepsilon n+\beta vn^2}$，得到
-\begin{equation}
- Z_{\rm phys}=\avg_xF(r)
- =\sum_{n=0}^{\infty}(n+1)
- \ee^{-\beta[(u-v)n^2+(2u+\varepsilon)n]}<\infty.
- \label{eq:physicalcounter}
-\end{equation}
-这些项均非负，所以逐项完成 $x$ 积分也是合法的。
-
-接下来计算固定场行列式的积分。
-设 $U$ 的本征值为 $\ee^{\pm\ii\theta}$，则
-\begin{equation}
- W(r,U)=\frac1{1-2r\cos\theta+r^2}>0
-\end{equation}
-除去零测度的极点 $r=1,U=I$。
-当 $r<1$ 时，收敛的粒子数展开与式~\eqref{eq:rotationidentity} 立即给出
-\begin{equation}
- \int dU\,p_u(U)W(r,U)=F(r).
-\end{equation}
-当 $r>1$ 时，直接从分母提取 $r^2$，有
-\begin{equation}
- W(r,U)=r^{-2}W(r^{-1},U).
-\end{equation}
-右侧的半径 $r^{-1}<1$，于是
-\begin{equation}
- \int dU\,p_u(U)W(r,U)=r^{-2}F(r^{-1}),\qquad r>1.
- \label{eq:outerbranch}
-\end{equation}
-这两个分支都不超过 $F(1)$，所以完整行列式积分有限。
-$r=1$ 对连续的 $x$ 分布为零测度，不影响积分值。
-
-将两个分支合并，物理结果与行列式结果的差为
+因此 $tR=t\alpha|1-q\ee^{\ii\phi}|\le\alpha|1-tq\ee^{\ii\phi}|$。
+利用矩阵 $I-tB$ 的 Kramers 双分量形式，
 \begin{align}
- Z_{\rm phys}-Z_{\rm reg}
- &=\avg_x\!\left[\boldsymbol1_{r>1}
-       \left(F(r)-r^{-2}F(r^{-1})\right)\right],\\
- F(r)-r^{-2}F(r^{-1})
- &=\sum_{n=0}^{\infty}(n+1)\ee^{-\beta u n(n+2)}
-       (r^n-r^{-n-2})>0,\qquad r>1.
+ \sigma_{\min}(I-tB)
+ &\ge |1-tq\ee^{\ii\phi}|-tR\nonumber\\
+ &\ge(1-\alpha)|1-tq\ee^{\ii\phi}|
+ \ge(1-\alpha)(1-q).
 \end{align}
-高斯场给 $r>1$ 区域正概率，因而
+式~\eqref{eq:pathcriterion} 因而对所有 $q,\alpha\in(0,1)$ 都成立。
+前面已证明该辅助场表示在每个有限粒子数扇区正确，
+所以一般逸度判据独立地保证了它的可重整性。
+
+\section{通过局部辅助场平均构造可重整表示}
+\label{sec:local}
+
+球面平均还可以直接推广到多模系统。
+这一方法从一个已知能正确给出配分函数的辅助场表示出发，在选定的两个分量上增加辅助场，
+通过一个局部矩阵条件保证扩充后的表示仍然可重整。
+它也可用于基准传播矩阵随辅助场无界增长的情况。
+
+\subsection{选取一个 Kramers 双重态}
+
+设基准传播矩阵 $B_0$ 作用在 $2m$ 个模式上，保持 $\Theta^2=-I$ 的 Kramers 对称。
+假设其权重 $W(B_0)=1/\det(I-B_0)$ 为正、可积，并已满足
 \begin{equation}
- \boxed{0<Z_{\rm reg}<Z_{\rm phys}.}
+ \int dP\,W(B_0)=Z.
+ \label{eq:referenceexact}
 \end{equation}
-例如 $\beta=1,u=2,v=1,\varepsilon=1$ 时，
+基准表示也满足各有限粒子数扇区的算符恒等式。
+这里基准传播可以取自逐构型迹收敛的表示，也可以取自已经证明可重整的表示。
+
+从 $2m$ 个单粒子模式中选取一对由 $\Theta$ 联系的正交态。
+用 $2m\times2$ 矩阵 $Q$ 的两列表示它们，$Q^{\dagger}Q=I_2$。
+选择其相位，使该双重态内的时间反演写成 $\ii\sigma_yK$。
+引入均匀的 $V\in SU(2)$，作局部更新
 \begin{equation}
- Z_{\rm phys}=1.00495999909050,\qquad
- Z_{\rm reg}=0.84382642724070.
+ B=B_0+RQVQ^{\dagger},\qquad R\ge0.
+ \label{eq:localupdate}
 \end{equation}
-这里模型稳定、权重为正且可积，截断余项的积分仍保留有限的非零贡献。
-因此式~\eqref{eq:stabledecomposition} 所对应的辅助场表示不满足可重整性条件。
+$R$ 可以依赖原来的辅助场，在对新场 $V$ 积分时保持固定。
+由于扰动在所选双重态内具有 Kramers 结构，更新后的完整矩阵也保持同一个时间反演对称。
 
-\section{物理结论与一个充分条件}
+局部条件只需要一个 $2\times2$ 矩阵，
+\begin{equation}
+ C=Q^{\dagger}(I-B_0)^{-1}Q.
+ \label{eq:localC}
+\end{equation}
+它是原来玻色 Green 矩阵在所选双重态内的子块。
+Kramers 对称保证 $C=c_0I+\ii\sum_{j=1}^3c_j\sigma_j$，各 $c_\mu$ 为实数，因而
+\begin{equation}
+ C^{\dagger}C=\|C\|^2I_2.
+\end{equation}
+给定与构型无关的 $0<\alpha<1$，取半径满足
+\begin{equation}
+ \boxed{R\|C\|\le\alpha<1.}
+ \label{eq:localcriterion}
+\end{equation}
+下面证明这就是保持可重整性的一个充分条件。
 
-双分量模型~\eqref{eq:model} 的构造表明，固定场的裸迹可以在正测度区域指数发散，
-同时保持正、有界、物理上精确的行列式权重。
-抵消发生在辅助场平均中，式~\eqref{eq:tailbound} 给出了截断余项积分趋于零的显式上界。
-正权重和正确物理平均分别由矩阵的 Kramers 结构与辅助场平均恒等式保证。
+\subsection{有限粒子数传播的平均保持不变}
 
-这一构造给出一个具体的充分条件。
-从一个迹收敛的双分量传播 $B_0$ 出发，在四维 Kramers 矩阵空间中引入均匀球面辅助场。
-只要有限粒子数传播矩阵元和行列式权重在球内满足 Laplace 方程，
-且整个闭球排除行列式极点，球面平均就同时保持物理传播与行列式权重。
-球面可以伸入本征值模长大于一的区域。
-因而这个条件允许高占据态在部分构型中增长，同时保证这些增长贡献在平均后准确消失。
+写 $X=x_0I+\ii\sum_jx_j\sigma_j$，则式~\eqref{eq:localupdate} 对应
+$B=B_0+QXQ^{\dagger}$，并在 $|x|=R$ 的球面上均匀平均。
+对 $x_\mu$ 的导数矩阵为 $QE_\mu Q^{\dagger}$，其中 $E_0=I$、$E_j=\ii\sigma_j$。
+任意两个张量因子上出现的二阶导数之和为
+\begin{equation}
+ \sum_{\mu=0}^3(QE_\mu Q^{\dagger})\otimes(QE_\mu Q^{\dagger})
+ =2(Q\otimes Q)(I-\mathsf P)(Q^{\dagger}\otimes Q^{\dagger}).
+\end{equation}
+相同的 $Q^{\dagger}$ 作用于两个粒子后，仍然保持它们的交换对称性。
+因此 $I-\mathsf P$ 在玻色对称子空间中给出零。
+这证明所有 $\Gamma_n(B_0+QXQ^{\dagger})$ 的矩阵元对四个 $x_\mu$ 都满足 Laplace 方程。
+在球面上平均，得到
+\begin{equation}
+ \boxed{\int dV\,\Gamma_n(B_0+RQVQ^{\dagger})=\Gamma_n(B_0).}
+ \label{eq:localoperator}
+\end{equation}
+这一恒等式对任意有限粒子数和任意有限模式数成立。
 
-吸引密度项的对照则展示了另一种结果。
-在式~\eqref{eq:rU} 的通常解耦中，$r>1$ 区域的行列式选择了
-$r^{-2}F(r^{-1})$，而该区域的物理贡献为 $F(r)$。
-二者之差在辅助场积分后严格保留。
-因此，对具体模型建立无偏的玻色辅助场采样，需要同时确定权重的符号与
-截断余项的积分行为。上述球面平均构造提供了二者能够同时成立的完整例子。
+\subsection{局部 Green 矩阵确定允许的半径}
+
+将 $I-B=(I-B_0)-QXQ^{\dagger}$ 因式分解，
+再用 $\det(I-AB)=\det(I-BA)$，得到
+\begin{align}
+ \det(I-B)
+ &=\det(I-B_0)\det[I-(I-B_0)^{-1}QXQ^{\dagger}]\nonumber\\
+ &=\det(I-B_0)\det(I_2-XC).
+ \label{eq:localdet}
+\end{align}
+因此整个多模权重对新辅助场的依赖都归结为一个双分量行列式。
+
+若 $C\ne0$，Kramers 双分量结构保证 $C$ 可逆，
+\begin{equation}
+ \det(I_2-XC)=\det(C)\det(C^{-1}-X)
+ =\|C\|^2|C^{-1}-X|^2.
+ \label{eq:localpole}
+\end{equation}
+这里 $|C^{-1}-X|$ 表示相应四维实坐标的欧氏距离，也等于该双分量矩阵的算符范数。
+新辅助场中的唯一极点位于 $X=C^{-1}$，到球心的距离为 $1/\|C\|$。
+式~\eqref{eq:localcriterion} 使整个闭球都与该极点保持距离。
+式~\eqref{eq:localpole} 的倒数在球内满足四维 Laplace 方程，
+于是球面平均给出
+\begin{equation}
+ \boxed{\int dV\,\frac1{\det(I-B_0-RQVQ^{\dagger})}
+ =\frac1{\det(I-B_0)}.}
+ \label{eq:localweight}
+\end{equation}
+若 $C=0$，式~\eqref{eq:localdet} 中的局部行列式恒为一，式~\eqref{eq:localweight} 对任意有限半径成立。
+
+此外，$\sigma_{\min}(I_2-XC)\ge1-R\|C\|\ge1-\alpha$。
+结合 Kramers 正性，得到
+\begin{equation}
+ 0<W(B)\le\frac{W(B_0)}{(1-\alpha)^2}.
+ \label{eq:localintegrable}
+\end{equation}
+基准权重的可积性因此直接传递给扩充后的表示。
+式~\eqref{eq:localweight} 与式~\eqref{eq:referenceexact} 保证完整配分函数准确恢复。
+
+为了同时对有限粒子数算符作绝对积分，一种容易满足的选择是取有界半径，
+并要求基准测度满足 $\int dP\,\|B_0\|^n<\infty$ 对每个有限整数 $n$ 成立。
+因为 $\|B\|\le\|B_0\|+R$，这一条件也控制扩充后的各有限扇区。
+结合式~\eqref{eq:localoperator}，最终得到
+\begin{equation}
+ \int dP\int dV\,[W_M(B)-W(B)]=Z_M-Z\longrightarrow0.
+\end{equation}
+
+\subsection{从一个例子到一类表示}
+
+这套局部构造适用于任意有限模式数，也允许连续进行有限次更新。
+每一步都利用当前传播矩阵计算式~\eqref{eq:localC}，
+然后选择满足式~\eqref{eq:localcriterion} 的半径，并保持各有限扇区的可积性。
+例如，取各次更新半径一致有界，基准传播具有所有有限阶矩，就能在整个过程中维持这一条件。
+有限粒子数恒等式、配分函数恒等式和正权重依次得到保持。
+式~\eqref{eq:localintegrable} 控制每一步积分，因而整个过程保持可积性。
+
+双分量例子正是这个一般构造的特例。
+其中 $Q=I_2$，
+\begin{equation}
+ C=(I-B_0)^{-1},\qquad
+ \|C\|=\frac1{|1-q\ee^{\ii\phi}|},\qquad
+ R=\alpha|1-q\ee^{\ii\phi}|,
+\end{equation}
+所以 $R\|C\|=\alpha$。
+局部半径条件限制的是行列式极点的位置。
+在符合该条件的辅助球面上，传播矩阵的本征值仍可越过单位圆，
+前面的 $q=\alpha=1/2$ 已给出了这种情形。
+
+\section{结论}
+
+模型 $H=\varepsilon\hat N+g(\hat n_b-\hat n_c)^2$ 的扩充辅助场表示
+提供了一个完整的可重整例子。
+一部分构型的裸迹随占据数截断指数增长，行列式权重始终为正且有界，
+完成辅助场积分后则精确得到物理配分函数。
+式~\eqref{eq:tailbound} 进一步给出了截断相关项积分趋于零的显式上界。
+
+两类充分条件把这一结果推广到模型族。
+对于给定的有限模式数表示，可以检查传播矩阵的统一界和
+$I-tB$ 在 $0\le t\le1$ 上的最小奇异值下界。
+这些条件保证从小逸度收敛迹到物理配分函数的连续延续，
+并由此证明截断余项在积分后消失。
+对于构造新的表示，可以在 Kramers 双重态中增加均匀旋转场，
+通过局部 Green 矩阵条件 $R\|Q^{\dagger}(I-B_0)^{-1}Q\|<1$
+保持原有的有限粒子数传播和行列式积分。
+这两种途径分别提供了检验已有表示与生成新表示的充分办法。
+它们给出可直接应用的可重整范围，适用性由各自明确列出的条件决定。
 
 \end{document}
