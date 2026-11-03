@@ -17,9 +17,11 @@ proofs. Preserve archived documents unless an edit to them is requested.
 
 ## Exposition And Physical Picture
 
-- Develop the argument like a lecture. Begin with the physical motivation and
-  familiar objects, introduce the necessary mathematical description, and build
-  toward the result in steps that a reader can follow in order.
+- Develop the argument like a lecture, making the mathematical reasoning and
+  physical picture clear. Either may lead, or they may develop together. Show the
+  derivation steps needed for understanding rather than replacing them with
+  qualitative discussion. Explain the meaning, assumptions, and purpose of
+  mathematical terms and results as they become necessary.
 - Before introducing a new condition, transformation, or calculation, make its
   purpose clear. Explain what physical question it resolves and connect the result
   to an intuitive physical picture when one is available.

@@ -16,9 +16,11 @@ current manuscript and the user's task as the starting point. Follow repository
 - Be confident and direct. State established results firmly and avoid unnecessary
   defensive qualifications. Let the physical advance and its consequences carry
   the significance.
-- Write for broad physics readers, introducing physical motivation before technical
-  detail. Build a smooth progression of questions, explanations, results, and
-  consequences, with no logical jumps.
+- Write for broad physics readers, making both mathematical reasoning and physical
+  meaning clear. Mathematics and physical intuition may appear in either order or
+  develop together. Show the derivation steps needed for understanding; qualitative
+  discussion cannot replace them. Explain the meaning, assumptions, and purpose of
+  mathematical terms and results when introducing them.
 - Readers encounter the text sequentially and have no collaboration context.
   Never write sentences that deliberately answer a private request, echo feedback,
   or advertise a revision.

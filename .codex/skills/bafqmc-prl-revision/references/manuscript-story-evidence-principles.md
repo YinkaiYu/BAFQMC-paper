@@ -11,8 +11,9 @@ preemptively defends against hypothetical objections.
 
 ## Reader Burden
 
-Use familiar theoretical-physics language. Explain physical objects before their
-compact mathematical representations and introduce unfamiliar concepts gradually.
+Use familiar theoretical-physics language. Connect mathematical derivations with
+their physical meaning in whichever order makes the argument clearest. Show the
+steps needed for understanding and explain unfamiliar concepts as they arise.
 Avoid obscure mathematical jargon, invented labels, internal shorthand, and lists
 of specialist terms.
 
