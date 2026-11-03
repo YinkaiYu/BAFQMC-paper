@@ -35,7 +35,7 @@
 若 $B$ 可逆，也可写成通常的二次型形式
 $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
 
-当固定场迹收敛时，占据数求和给出~\cite{Rubenstein2012PRA}
+当固定场迹收敛时，占据数求和给出
 \begin{equation}
  \Tr\Gamma(B)=\prod_j\sum_{n_j=0}^{\infty}r_j^{n_j}
  =\frac1{\det(I-B)},
@@ -48,14 +48,14 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
  =\int dP\,W(B),\qquad W(B)=\frac1{\det(I-B)}.}
  \label{eq:goal}
 \end{equation}
-这里 $dP$ 是辅助场测度。
+这里 $dP$ 表示对辅助场概率分布的积分。
 
 这一要求也可用截断说明。取与辅助场无关的总粒子数截断 $N\le M$，定义
 \begin{equation}
  W_M(B)=\sum_{n=0}^{M}\Tr\Gamma_n(B),\qquad
  Z_M=\Tr_{N\le M}\ee^{-\beta H}.
 \end{equation}
-有限扇区的 HS 恒等式给出 $\int dP\,W_M=Z_M$。
+固定有限粒子数下的 Hubbard--Stratonovich（HS）恒等式给出 $\int dP\,W_M=Z_M$。
 若 $Z<\infty$，则可重整性意味着
 \begin{equation}
  \lim_{M\to\infty}\int dP\,[W_M(B)-W(B)]=0.
@@ -89,7 +89,7 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
 它来自 $\avg_\phi\ee^{\ii\phi(n_b-n_c)}=\ee^{-\beta g(n_b-n_c)^2}$。
 原来两个本征值的模均为 $q$，所以每个构型的迹都收敛。
 
-现在增加一个独立辅助场 $V\in SU(2)$，按归一化均匀群测度 $dV$ 积分，并取
+现在增加一个独立辅助场 $V\in SU(2)$，对所有 $SU(2)$ 旋转作均匀平均，积分记为 $dV$，并取
 \begin{equation}
  \boxed{B=B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.}
  \label{eq:newB}
@@ -105,12 +105,12 @@ $SU(2)$ 矩阵可以写成
  V=v_0I+\ii\sum_{j=1}^3v_j\sigma_j,\qquad
  \sum_{\mu=0}^3v_\mu^2=1.
 \end{equation}
-其中 $\sigma_j$ 为 Pauli 矩阵。均匀群测度就是四维单位球面的均匀面积测度。
+其中 $\sigma_j$ 为 Pauli 矩阵。这种平均等价于在四维单位球面上按面积均匀取样。
 因此式~\eqref{eq:newB} 中的 $B$ 也具有形式
 \begin{equation}
  B=x_0I+\ii\sum_{j=1}^3x_j\sigma_j,\qquad x_\mu\in\mathbb R.
 \end{equation}
-它保持 Kramers 时间反演 $\Theta=\ii\sigma_yK$，两个本征值互为复共轭。
+它保持 Kramers 时间反演 $\Theta=\ii\sigma_yK$，其中 $K$ 表示复共轭，$\Theta^2=-I$。两个本征值互为复共轭。
 直接计算得到
 \begin{equation}
  |r_\pm|^2=\sum_{\mu=0}^3x_\mu^2,\qquad
@@ -123,8 +123,8 @@ $SU(2)$ 矩阵可以写成
 \begin{equation}
  B_0=-\frac12I,\qquad R=\frac34,\qquad B=-\frac54I.
 \end{equation}
-此时 $n$ 粒子扇区的迹为 $(n+1)(-5/4)^n$，随占据数指数增长。
-这个点附近的开集也满足 $|r_\pm|>1$，所以发散构型具有正概率。
+此时 $n$ 粒子子空间的迹为 $(n+1)(-5/4)^n$，随占据数指数增长。
+这个点周围的一片区域也满足 $|r_\pm|>1$，所以出现发散构型的概率大于零。
 
 另一方面，固定 $\phi$ 后，$B$ 在以 $B_0$ 为中心、半径为 $R$ 的四维球面上取值。
 球心到极点 $B=I$ 的距离为 $|1-q\ee^{\ii\phi}|=2R$。
@@ -160,7 +160,7 @@ $SU(2)$ 矩阵可以写成
  \int dV\,\Gamma_n(B_0+RV)=\Gamma_n(B_0).
  \label{eq:operatoraverage}
 \end{equation}
-这证明附加辅助场保持每个有限粒子数扇区中的完整传播算符。
+这证明附加辅助场保持每个固定粒子数子空间中的完整传播算符。
 
 再考虑权重。根据式~\eqref{eq:distances}，它是到极点距离 $s$ 的平方倒数，
 $W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
@@ -194,7 +194,7 @@ $W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
  =W_M(B_0)-W(B_0)
  =-\sum_{n=M+1}^{\infty}\Tr\Gamma_n(B_0).
 \end{equation}
-$B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子扇区维数为 $n+1$，故
+$B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，故
 \begin{equation}
  \left|\int dV\,[W_M(B)-W(B)]\right|
  \le\sum_{n=M+1}^{\infty}(n+1)q^n
@@ -206,24 +206,31 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子扇区维数为 $n+1$，故
 于是部分构型中指数增长的占据数贡献，在辅助场平均后变成了受 $q^n$ 压制的尾项。
 这给出了所需的精确抵消。
 
-\section{通过逸度变化判别可重整性}
+\section{通过改变化学势判别可重整性}
 
 上面的抵消可以直接计算。
-对于更一般的数守恒系统，可以引入逸度 $z$，将每个 $n$ 粒子扇区乘以 $z^n$。
-实数 $0<z<1$ 相当于降低化学势，从而加强对高占据态的压制。
-我们先在小 $z$ 下建立收敛迹公式，再将 $z$ 连续增加到物理值 $1$。
+对于更一般的粒子数守恒系统，可以先将化学势降低 $\Delta\mu>0$，
+使哈密顿量增加 $\Delta\mu\hat N$，从而加强对高占据态的压制。
+为方便计算，记
+\begin{equation}
+ z=\ee^{-\beta\Delta\mu},\qquad
+ \ee^{-\beta(H+\Delta\mu\hat N)}=z^{\hat N}\ee^{-\beta H}.
+\end{equation}
+因此，降低化学势会将每个 $n$ 粒子子空间的贡献乘以 $z^n$。
+我们先在化学势充分低、$z$ 充分小时建立收敛迹公式，
+再逐渐撤去这个化学势偏移，回到 $\Delta\mu=0$、$z=1$ 的原模型。
 
 \subsection{一个可直接检查的充分条件}
 
-考虑任意有限的 $m$ 个模式，假设物理配分函数有限，且每个有限粒子数扇区的 HS 恒等式成立。
+考虑任意有限的 $m$ 个模式，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
 若存在与构型无关的常数 $L<\infty$ 和 $\delta>0$，使
 \begin{equation}
  \boxed{\|B\|\le L,\qquad
  |\det(I-tB)|\ge\delta\quad\text{对所有 }0\le t\le1,}
  \label{eq:generalcriterion}
 \end{equation}
-则该辅助场表示可重整。这里 $\|B\|$ 是最大奇异值，条件可忽略同一个零测度场集。
-辅助场测度取正的归一化测度。
+则该辅助场表示可重整。这里 $\|B\|$ 是最大奇异值，也就是矩阵对向量长度的最大放大倍数。上述条件须对概率为一的同一组构型成立。
+辅助场按非负、归一化的概率分布积分。
 
 第二个条件检查从 $I$ 到 $I-B$ 的整条路径。
 沿这条路径，零点只能来自正实本征值 $r=1/t\ge1$。
@@ -239,14 +246,14 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子扇区维数为 $n+1$，故
  Z(z)=\sum_{n=0}^{\infty}z^nZ_n,\qquad
  Z_{\rm det}(z)=\int dP\,\frac1{\det(I-zB)}.
 \end{equation}
-$m$ 个模式的 $n$ 粒子扇区维数为 $\binom{n+m-1}{m-1}$。
+$m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 由 $\|B\|\le L$，当 $|z|L<1$ 时有
 \begin{equation}
  \sum_{n=0}^{\infty}|z|^n\int dP\,|\Tr\Gamma_n(B)|
  \le\sum_{n=0}^{\infty}\binom{n+m-1}{m-1}(|z|L)^n
  =\frac1{(1-|z|L)^m}.
 \end{equation}
-因此此时可以交换占据数求和与场积分。利用有限扇区的 HS 恒等式，得到
+因此此时可以交换占据数求和与场积分。利用固定有限粒子数下的 HS 恒等式，得到
 \begin{equation}
  Z_{\rm det}(z)
  =\int dP\sum_{n=0}^{\infty}z^n\Tr\Gamma_n(B)
@@ -254,14 +261,14 @@ $m$ 个模式的 $n$ 粒子扇区维数为 $\binom{n+m-1}{m-1}$。
  \label{eq:smallz}
 \end{equation}
 
-接下来沿 $0\le t\le1$ 增加逸度。
+接下来令实参数 $t$ 从 $0$ 增至 $1$，对应逐渐将化学势升回原值。
 由于 $B$ 一致有界，$\det(I-zB)$ 这个有限阶多项式的系数也一致有界。
-结合式~\eqref{eq:generalcriterion} 的非零下界，在整条实路径附近存在一个共同的复数邻域，满足
+结合式~\eqref{eq:generalcriterion} 的非零下界，在实轴线段 $[0,1]$ 周围存在一个对所有构型都适用的复平面区域，满足
 \begin{equation}
  |\det(I-zB)|\ge\frac\delta2,
  \qquad \left|\frac1{\det(I-zB)}\right|\le\frac2\delta.
 \end{equation}
-这保证 $Z_{\rm det}(z)$ 沿路径保持解析，且不会因场积分而产生额外奇点。
+这保证 $Z_{\rm det}(z)$ 沿路径保持解析，即在各点附近都能作收敛的 Taylor 展开，且不会因场积分而产生额外奇点。
 物理的 $Z(z)$ 在 $|z|<1$ 内也解析，因为 $Z_n\ge0$ 且 $\sum_nZ_n=Z<\infty$。
 两个解析函数已由式~\eqref{eq:smallz} 在原点附近相等，
 通过相邻的 Taylor 展开可将这一等式连续传递到所有实数 $0\le t<1$。
@@ -275,18 +282,10 @@ $m$ 个模式的 $n$ 粒子扇区维数为 $\binom{n+m-1}{m-1}$。
 \end{equation}
 再结合有限截断的 $\int dP\,W_M=Z_M$，便得到式~\eqref{eq:remainder} 中截断余项的积分趋于零。
 
-这个判据把可重整性与逸度变化时的极点位置联系起来。
+这个判据把可重整性与恢复化学势过程中行列式的极点位置联系起来。
 裸迹的收敛要求控制本征值模长，而上述证明允许本征值越过单位圆，
-只要从小逸度到物理值的路径受到式~\eqref{eq:generalcriterion} 的统一控制。
+只要从低化学势回到原模型的路径受到式~\eqref{eq:generalcriterion} 的统一控制。
 前面例子中的 $r=-5/4$ 对应极点 $z=-4/5$，因此它可以产生指数增长的裸占据数项，
 同时参与一个严格可重整的辅助场表示。
-
-\begin{thebibliography}{1}
-\bibitem{Rubenstein2012PRA}
-B.~M. Rubenstein, S. Zhang, and D.~R. Reichman,
-Finite-temperature auxiliary-field quantum Monte Carlo technique for Bose-Fermi mixtures,
-\href{https://doi.org/10.1103/PhysRevA.86.053606}{Phys. Rev. A \textbf{86}, 053606 (2012)},
-\href{https://arxiv.org/abs/1209.0186}{arXiv:1209.0186}.
-\end{thebibliography}
 
 \end{document}
