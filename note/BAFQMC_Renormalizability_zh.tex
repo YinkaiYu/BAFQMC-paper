@@ -9,7 +9,6 @@
 \newcommand{\diag}{\operatorname{diag}}
 \newcommand{\ee}{\mathrm e}
 \newcommand{\ii}{\mathrm i}
-\newcommand{\avg}{\mathbb E}
 \numberwithin{equation}{section}
 \setlength{\parskip}{3pt}
 \setlength{\emergencystretch}{2em}
@@ -27,38 +26,39 @@
 行列式权重能否在辅助场平均后恢复原来的热力学，取决于这些增长贡献能否精确抵消。
 下面用一个双分量密度模型展示这一机制，并给出适用于任意有限模式数的充分判据。
 
-\section{可重整性的物理问题}
+\section{可重整性的定义}
 
-记单粒子传播矩阵为 $B$，相应的多体传播为 $\Gamma(B)$。
-在总粒子数为 $n$ 的子空间中，$\Gamma_n(B)$ 就是让每个粒子按 $B$ 传播，
-再限制到完全对称的玻色子空间，即 $B^{\otimes n}$ 的对称部分。
-若 $B$ 可逆，也可写成通常的二次型形式
-$\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
+记单粒子传播矩阵为 $\mathcal B$，相应的多体传播为 $\hat U(\mathcal B)$。
+在总粒子数为 $n$ 的子空间中，将该算符记为 $\hat U_n(\mathcal B)$，
+它是 $\mathcal B^{\otimes n}$ 在完全对称玻色态上的作用。
+若 $\mathcal B$ 可逆，也可写成通常的二次型形式
+$\hat U(\mathcal B)=\exp[\hat{\boldsymbol a}^{+}(\log \mathcal B)\hat{\boldsymbol a}]$，
+其中 $\hat{\boldsymbol a}$ 收集各模式的湮灭算符。
 
 当固定场迹收敛时，占据数求和给出
 \begin{equation}
- \Tr\Gamma(B)=\prod_j\sum_{n_j=0}^{\infty}r_j^{n_j}
- =\frac1{\det(I-B)},
+ \Tr\hat U(\mathcal B)=\prod_j\sum_{n_j=0}^{\infty}r_j^{n_j}
+ =\frac1{\det(I-\mathcal B)},
 \end{equation}
-其中 $r_j$ 为 $B$ 的本征值。
+其中 $r_j$ 为 $\mathcal B$ 的本征值。
 若 $|r_j|>1$，占据数项指数增长，而右侧的行列式表达式仍可能有限。
 我们称一个辅助场表示可重整，是指该表达式在完整辅助场积分后准确恢复物理配分函数，
 \begin{equation}
  Z=\Tr\ee^{-\beta H}
- =\int dP\,W(B),\qquad W(B)=\frac1{\det(I-B)}.
+ =\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B),\qquad W(\mathcal B)=\frac1{\det(I-\mathcal B)}.
  \label{eq:goal}
 \end{equation}
-这里 $dP$ 表示对辅助场概率分布的积分。
+这里 $\phi$ 统指完整的辅助场构型，$\mathcal D\phi$ 表示对所有辅助场积分，$P_{\rm HS}(\phi)$ 为归一化的辅助场概率密度。
 
 这一要求也可用截断说明。取与辅助场无关的总粒子数截断 $N\le M$，定义
 \begin{equation}
- W_M(B)=\sum_{n=0}^{M}\Tr\Gamma_n(B),\qquad
+ W_M(\mathcal B)=\sum_{n=0}^{M}\Tr\hat U_n(\mathcal B),\qquad
  Z_M=\Tr_{N\le M}\ee^{-\beta H}.
 \end{equation}
-固定有限粒子数下的 Hubbard--Stratonovich（HS）恒等式给出 $\int dP\,W_M=Z_M$。
+固定有限粒子数下的 Hubbard--Stratonovich（HS）恒等式给出 $\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_M=Z_M$。
 若 $Z<\infty$，则可重整性意味着
 \begin{equation}
- \lim_{M\to\infty}\int dP\,[W_M(B)-W(B)]=0.
+ \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)\,[W_M(\mathcal B)-W(\mathcal B)]=0.
  \label{eq:remainder}
 \end{equation}
 下面直接证明一个例子满足这个等式。
@@ -78,22 +78,30 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
  \le\frac1{(1-q)^2}<\infty.
  \label{eq:physicalZ}
 \end{equation}
-通常的高斯 HS 变换引入实场 $\phi\sim\mathcal N(0,2\beta g)$，得到
+通常的高斯 HS 变换引入一个实辅助场 $\phi$，其概率密度为
 \begin{equation}
- \ee^{-\beta H}=\avg_\phi\Gamma(B_0),\qquad
- B_0=q\diag(\ee^{\ii\phi},\ee^{-\ii\phi}).
+ P_{\rm HS}(\phi)=\frac{1}{\sqrt{4\pi\beta g}}\exp\!\left(-\frac{\phi^2}{4\beta g}\right).
+\end{equation}
+相应的传播算符满足
+\begin{equation}
+ \ee^{-\beta H}=\int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\hat U(\mathcal B_0),\qquad
+ \mathcal B_0=q\diag(\ee^{\ii\phi},\ee^{-\ii\phi}).
  \label{eq:HS}
 \end{equation}
-它来自 $\avg_\phi\ee^{\ii\phi(n_b-n_c)}=\ee^{-\beta g(n_b-n_c)^2}$。
+这一表示来自高斯积分
+\begin{equation}
+ \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\ee^{\ii\phi(n_b-n_c)}=\ee^{-\beta g(n_b-n_c)^2}.
+\end{equation}
 原来两个本征值的模均为 $q$，所以每个构型的迹都收敛。
 
-现在增加一个独立辅助场 $V\in SU(2)$，对所有 $SU(2)$ 旋转作均匀平均，积分记为 $dV$，并取
+现在增加一个独立辅助场 $V\in SU(2)$，对所有 $SU(2)$ 旋转作均匀平均，
+积分记为 $dV$，归一化为 $\int dV=1$。取
 \begin{equation}
- B=B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.
+ \mathcal B=\mathcal B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.
  \label{eq:newB}
 \end{equation}
 这是附加在高斯 HS 变换之后的精确辅助场构造。
-固定场传播仍是玻色二次型，其生成元 $\log B$ 对新辅助场非线性。
+固定场传播仍是玻色二次型，其生成元 $\log \mathcal B$ 对新辅助场非线性。
 接下来分别证明这个构造保持物理传播和行列式积分。
 
 先看这个构造如何同时产生发散的裸迹和有限的正权重。
@@ -103,31 +111,31 @@ $SU(2)$ 矩阵可以写成
  \sum_{\mu=0}^3v_\mu^2=1.
 \end{equation}
 其中 $\sigma_j$ 为 Pauli 矩阵。这种平均等价于在四维单位球面上按面积均匀取样。
-因此式~\eqref{eq:newB} 中的 $B$ 也具有形式
+因此式~\eqref{eq:newB} 中的 $\mathcal B$ 也具有形式
 \begin{equation}
- B=x_0I+\ii\sum_{j=1}^3x_j\sigma_j,\qquad x_\mu\in\mathbb R.
+ \mathcal B=x_0I+\ii\sum_{j=1}^3x_j\sigma_j,\qquad x_\mu\in\mathbb R.
 \end{equation}
 它保持 Kramers 时间反演 $\Theta=\ii\sigma_yK$，其中 $K$ 表示复共轭，$\Theta^2=-I$。两个本征值互为复共轭。
 直接计算得到
 \begin{equation}
  |r_\pm|^2=\sum_{\mu=0}^3x_\mu^2,\qquad
- \det(I-B)=(1-x_0)^2+\sum_{j=1}^3x_j^2.
+ \det(I-\mathcal B)=(1-x_0)^2+\sum_{j=1}^3x_j^2.
  \label{eq:distances}
 \end{equation}
 本征值模长取决于到原点的距离，行列式极点则位于 $(1,0,0,0)$。
 
 取 $q=1/2$。在 $\phi=\pi$、$V=-I$ 处，
 \begin{equation}
- B_0=-\frac12I,\qquad R=\frac34,\qquad B=-\frac54I.
+ \mathcal B_0=-\frac12I,\qquad R=\frac34,\qquad \mathcal B=-\frac54I.
 \end{equation}
 此时 $n$ 粒子子空间的迹为 $(n+1)(-5/4)^n$，随占据数指数增长。
 这个点周围的一片区域也满足 $|r_\pm|>1$，所以出现发散构型的概率大于零。
 
-另一方面，固定 $\phi$ 后，$B$ 在以 $B_0$ 为中心、半径为 $R$ 的四维球面上取值。
-球心到极点 $B=I$ 的距离为 $|1-q\ee^{\ii\phi}|=2R$。
+另一方面，固定 $\phi$ 后，$\mathcal B$ 在以 $\mathcal B_0$ 为中心、半径为 $R$ 的四维球面上取值。
+球心到极点 $\mathcal B=I$ 的距离为 $|1-q\ee^{\ii\phi}|=2R$。
 整个球内的点到极点至少还有距离 $R$，因此
 \begin{equation}
- 0<W(B)\le\frac4{|1-q\ee^{\ii\phi}|^2}
+ 0<W(\mathcal B)\le\frac4{|1-q\ee^{\ii\phi}|^2}
  \le\frac4{(1-q)^2}.
  \label{eq:weightbound}
 \end{equation}
@@ -137,23 +145,21 @@ $SU(2)$ 矩阵可以写成
 这里用到一个球面平均性质。
 如果四维函数满足 $\nabla_x^2f=0$，且球内没有奇点，
 那么它在球面上的平均等于球心的值。
-这与无电荷区域中静电势的平均值性质相同。
 下面对物理传播和行列式权重各验证一次这个条件。
 
-先考虑固定粒子数传播 $\Gamma_n(B)$。
-令 $E_0=I$、$E_j=\ii\sigma_j$，则 $B=\sum_\mu x_\mu E_\mu$。
-对 $B^{\otimes n}$ 求二阶导数时，两次导数落在不同的粒子因子上。
+先考虑固定粒子数传播 $\hat U_n(\mathcal B)$。
+由 $\partial\mathcal B/\partial x_0=I$ 和 $\partial\mathcal B/\partial x_j=\ii\sigma_j$，
+对 $\mathcal B^{\otimes n}$ 求二阶导数时，两次导数落在不同的粒子因子上。
 任意一对因子的贡献包含
 \begin{equation}
- \sum_{\mu=0}^3E_\mu\otimes E_\mu
- =I\otimes I-\sum_{j=1}^3\sigma_j\otimes\sigma_j
- =2(I-\mathsf P),
+ I\otimes I-\sum_{j=1}^3\sigma_j\otimes\sigma_j
+ =2(I-\mathsf P_{12}),
 \end{equation}
-其中 $\mathsf P$ 交换两个粒子。
+其中 $\mathsf P_{12}$ 交换两个粒子。
 玻色态对粒子交换对称，所以这一贡献为零。
-因此 $\nabla_x^2\Gamma_n(B)=0$ 对每个矩阵元成立，球面平均给出
+因此 $\nabla_x^2\hat U_n(\mathcal B)=0$ 对每个矩阵元成立，球面平均给出
 \begin{equation}
- \int dV\,\Gamma_n(B_0+RV)=\Gamma_n(B_0).
+ \int dV\,\hat U_n(\mathcal B_0+RV)=\hat U_n(\mathcal B_0).
  \label{eq:operatoraverage}
 \end{equation}
 这证明附加辅助场保持每个固定粒子数子空间中的完整传播算符。
@@ -167,15 +173,15 @@ $W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
 \end{equation}
 辅助球内部排除了极点，所以同样有
 \begin{equation}
- \int dV\,W(B_0+RV)=W(B_0)
+ \int dV\,W(\mathcal B_0+RV)=W(\mathcal B_0)
  =\frac1{1-2q\cos\phi+q^2}.
  \label{eq:weightaverage}
 \end{equation}
 右侧正是原始收敛传播的迹。完成剩余的高斯积分，得到
 \begin{align}
- \avg_\phi\int dV\,W(B)
+ \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\int dV\,W(\mathcal B)
  &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
-        \avg_\phi\ee^{\ii\phi(n_b-n_c)}\nonumber\\
+        \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\ee^{\ii\phi(n_b-n_c)}\nonumber\\
  &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
         \ee^{-\beta g(n_b-n_c)^2}=Z.
  \label{eq:exactZ}
@@ -185,13 +191,13 @@ $W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
 上述平均恒等式还给出了截断项抵消的具体过程。
 式~\eqref{eq:operatoraverage} 与式~\eqref{eq:weightaverage} 分别保持有限截断迹和行列式权重，因而
 \begin{equation}
- \int dV\,[W_M(B)-W(B)]
- =W_M(B_0)-W(B_0)
- =-\sum_{n=M+1}^{\infty}\Tr\Gamma_n(B_0).
+ \int dV\,[W_M(\mathcal B)-W(\mathcal B)]
+ =W_M(\mathcal B_0)-W(\mathcal B_0)
+ =-\sum_{n=M+1}^{\infty}\Tr\hat U_n(\mathcal B_0).
 \end{equation}
-$B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，故
+$\mathcal B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，故
 \begin{equation}
- \left|\int dV\,[W_M(B)-W(B)]\right|
+ \left|\int dV\,[W_M(\mathcal B)-W(\mathcal B)]\right|
  \le\sum_{n=M+1}^{\infty}(n+1)q^n
  =\frac{q^{M+1}[(M+2)-(M+1)q]}{(1-q)^2}
  \longrightarrow0.
@@ -199,7 +205,6 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，�
 \end{equation}
 这一上界与 $\phi$ 无关，完成高斯积分后仍趋于零。
 于是部分构型中指数增长的占据数贡献，在辅助场平均后变成了受 $q^n$ 压制的尾项。
-这给出了所需的精确抵消。
 
 \section{通过改变化学势判别可重整性}
 
@@ -219,15 +224,15 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，�
 考虑任意有限的 $m$ 个模式，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
 若存在与构型无关的常数 $L<\infty$ 和 $\delta>0$，使
 \begin{equation}
- \|B\|\le L,\qquad
- |\det(I-tB)|\ge\delta\quad\text{对所有 }0\le t\le1,
+ \|\mathcal B\|\le L,\qquad
+ |\det(I-z\mathcal B)|\ge\delta\quad\text{对所有 }0\le z\le1,
  \label{eq:generalcriterion}
 \end{equation}
-则该辅助场表示可重整。这里 $\|B\|$ 是最大奇异值，也就是矩阵对向量长度的最大放大倍数。上述条件须对概率为一的同一组构型成立。
+则该辅助场表示可重整。这里 $\|\mathcal B\|$ 是最大奇异值，也就是矩阵对向量长度的最大放大倍数。上述条件须对概率为一的同一组构型成立。
 辅助场按非负、归一化的概率分布积分。
 
-第二个条件检查从 $I$ 到 $I-B$ 的整条路径。
-沿这条路径，零点只能来自正实本征值 $r=1/t\ge1$。
+第二个条件检查从 $I$ 到 $I-\mathcal B$ 的整条路径。
+沿这条路径，零点只能来自正实本征值 $r=1/z\ge1$。
 因此，在传播矩阵一致有界时，一个等价的检查方式是将所有可能的极限构型也包括在内，
 确认它们的本征值均避开正实轴区间 $[1,\infty)$。
 这一条件允许负实本征值或复本征值的模长超过一。
@@ -237,43 +242,44 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，�
 比较物理求和与行列式积分，
 \begin{equation}
  Z(z)=\sum_{n=0}^{\infty}z^nZ_n,\qquad
- Z_{\rm det}(z)=\int dP\,\frac1{\det(I-zB)}.
+ Z_{\rm det}(z)=\int\mathcal D\phi\,P_{\rm HS}(\phi)\,\frac1{\det(I-z\mathcal B)}.
 \end{equation}
 $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
-由 $\|B\|\le L$，当 $|z|L<1$ 时有
+由 $\|\mathcal B\|\le L$，当 $|z|L<1$ 时有
 \begin{equation}
- \sum_{n=0}^{\infty}|z|^n\int dP\,|\Tr\Gamma_n(B)|
+ \sum_{n=0}^{\infty}|z|^n\int\mathcal D\phi\,P_{\rm HS}(\phi)\,|\Tr\hat U_n(\mathcal B)|
  \le\sum_{n=0}^{\infty}\binom{n+m-1}{m-1}(|z|L)^n
  =\frac1{(1-|z|L)^m}.
 \end{equation}
 因此此时可以交换占据数求和与场积分。利用固定有限粒子数下的 HS 恒等式，得到
 \begin{equation}
  Z_{\rm det}(z)
- =\int dP\sum_{n=0}^{\infty}z^n\Tr\Gamma_n(B)
+ =\int\mathcal D\phi\,P_{\rm HS}(\phi)\sum_{n=0}^{\infty}z^n\Tr\hat U_n(\mathcal B)
  =\sum_{n=0}^{\infty}z^nZ_n=Z(z).
  \label{eq:smallz}
 \end{equation}
 
-接下来令实参数 $t$ 从 $0$ 增至 $1$，对应逐渐将化学势升回原值。
-由于 $B$ 一致有界，$\det(I-zB)$ 这个有限阶多项式的系数也一致有界。
+接下来令实参数 $z$ 从 $0$ 增至 $1$，对应逐渐将化学势升回原值。
+由于 $\mathcal B$ 一致有界，$\det(I-z\mathcal B)$ 这个有限阶多项式的系数也一致有界。
 结合式~\eqref{eq:generalcriterion} 的非零下界，在实轴线段 $[0,1]$ 周围存在一个对所有构型都适用的复平面区域，满足
 \begin{equation}
- |\det(I-zB)|\ge\frac\delta2,
- \qquad \left|\frac1{\det(I-zB)}\right|\le\frac2\delta.
+ |\det(I-z\mathcal B)|\ge\frac\delta2,
+ \qquad \left|\frac1{\det(I-z\mathcal B)}\right|\le\frac2\delta.
 \end{equation}
 这保证 $Z_{\rm det}(z)$ 沿路径保持解析，即在各点附近都能作收敛的 Taylor 展开，且不会因场积分而产生额外奇点。
 物理的 $Z(z)$ 在 $|z|<1$ 内也解析，因为 $Z_n\ge0$ 且 $\sum_nZ_n=Z<\infty$。
 两个解析函数已由式~\eqref{eq:smallz} 在原点附近相等，
-通过相邻的 Taylor 展开可将这一等式连续传递到所有实数 $0\le t<1$。
+通过相邻的 Taylor 展开可将这一等式连续传递到所有实数 $0\le z<1$。
 
-最后取 $t\uparrow1$。物理侧的正项级数趋于 $Z$，行列式侧的统一上界允许将极限移入积分。
+最后将化学势恢复到原值，即让实数 $z$ 从小于 $1$ 的一侧趋近 $1$。
+物理侧的正项级数趋于 $Z$，行列式侧的统一上界允许将极限移入积分。
 因此
 \begin{equation}
- Z=\lim_{t\uparrow1}Z(t)
- =\lim_{t\uparrow1}Z_{\rm det}(t)
- =\int dP\,\frac1{\det(I-B)}.
+ Z=\lim_{z\to1}Z(z)
+ =\lim_{z\to1}Z_{\rm det}(z)
+ =\int\mathcal D\phi\,P_{\rm HS}(\phi)\,\frac1{\det(I-\mathcal B)}.
 \end{equation}
-再结合有限截断的 $\int dP\,W_M=Z_M$，便得到式~\eqref{eq:remainder} 中截断余项的积分趋于零。
+再结合有限截断的 $\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_M=Z_M$，便得到式~\eqref{eq:remainder} 中截断余项的积分趋于零。
 
 这个判据把可重整性与恢复化学势过程中行列式的极点位置联系起来。
 裸迹的收敛要求控制本征值模长，而上述证明允许本征值越过单位圆，
