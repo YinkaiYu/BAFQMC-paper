@@ -1,0 +1,537 @@
+\documentclass[UTF8,11pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=23mm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={玻色辅助场行列式权重的可重整性},pdfauthor={}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\ee}{\mathrm e}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\avg}{\mathbb E}
+\numberwithin{equation}{section}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[1]
+\ctexset{section={format=\large\bfseries},subsection={format=\normalsize\bfseries}}
+\begin{document}
+\begin{center}
+{\Large\bfseries 玻色辅助场行列式权重的可重整性}\par
+\vspace{6pt}
+{\normalsize 一个正权重的精确构造与吸引密度相互作用的对照}
+\end{center}
+\vspace{3pt}
+
+玻色辅助场方法将相互作用转化为二次型传播，再对玻色自由度取迹。
+固定辅助场的传播可能放大高占据态，使多体迹发散，而完整相互作用仍可使物理配分函数有限。
+本文研究在这种情况下，行列式表达式何时仍能作为精确的辅助场权重。
+我们构造一个单格点双分量密度模型的辅助场表示，其中一部分构型的裸迹指数发散，
+行列式权重却始终为正且有界，并准确给出配分函数和关联函数。
+随后研究一个含吸引总密度项的稳定模型，证明其常规解耦得到的正行列式积分严格小于物理配分函数。
+这两个例子说明，可重整性取决于相互作用与所选辅助场表示之间的具体关系。
+
+\section{问题的起点与截断的含义}
+
+考虑有限个玻色模式组成的数守恒系统。记单粒子传播矩阵为 $B$，
+相应的多体传播算符记为 $\Gamma(B)$。在总粒子数为 $n$ 的子空间内，
+它让每个玻色子都按 $B$ 传播，再将波函数完全对称化。因此
+\begin{equation}
+ \Gamma_n(B)=\Sym^n(B).
+ \label{eq:sym}
+\end{equation}
+这里 $\Sym^n(B)$ 表示 $B^{\otimes n}$ 在完全对称子空间中的作用。
+真空扇区对应 $\Gamma_0(B)=1$。当 $B$ 可逆时，通常的二次型写法为
+\begin{equation}
+ \Gamma(B)=\exp\!\left[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}\right].
+\end{equation}
+其中 $\hat{\boldsymbol a}$ 收集所有模式的湮灭算符，$\hat{\boldsymbol a}^{+}$ 为对应的产生算符行向量。
+式~\eqref{eq:sym} 直接定义了每个有限粒子数扇区的传播，也适用于奇异矩阵 $B$。
+
+以两个模式为例，若 $B$ 的本征值为 $r_1,r_2$，占据数求和在收敛时给出
+\begin{equation}
+ \Tr\Gamma(B)=\sum_{n_1,n_2\ge0}r_1^{n_1}r_2^{n_2}
+ =\frac{1}{(1-r_1)(1-r_2)}=\frac1{\det(I-B)}.
+ \label{eq:trace}
+\end{equation}
+本文的固定场矩阵均为正规矩阵，因而 $|r_1|,|r_2|<1$ 保证该迹收敛。
+若有本征值满足 $|r_i|>1$，高占据态的贡献指数增长。
+此时右侧的有理函数仍可能有限，是否能够用它计算配分函数，需要进一步证明。
+
+将归一化辅助场测度写成 $dP$，并定义
+\begin{equation}
+ W(B)=\frac1{\det(I-B)}.
+\end{equation}
+我们关心的等式是
+\begin{equation}
+ Z=\Tr\ee^{-\beta H}\ \stackrel{?}{=}\ \int dP\,W(B).
+ \label{eq:question}
+\end{equation}
+为了准确描述截断项，采用与辅助场无关的总粒子数投影
+\begin{equation}
+ P_M=\boldsymbol 1_{\hat N\le M},\qquad
+ W_M(B)=\Tr[P_M\Gamma(B)],\qquad
+ Z_M=\Tr[P_M\ee^{-\beta H}].
+\end{equation}
+有限截断下的 HS 算符恒等式保证 $\int dP\,W_M=Z_M$。
+设 $Z<\infty$，则 $Z_M\to Z$。定义截断余项
+\begin{equation}
+ \mathcal R_M(B)=W_M(B)-W(B).
+\end{equation}
+若 $W$ 可积，式~\eqref{eq:question} 等价于
+\begin{equation}
+ \lim_{M\to\infty}\int dP\,\mathcal R_M(B)=0.
+ \label{eq:criterion}
+\end{equation}
+这就是本文采用的可重整性含义。物理配分函数有限保证 $Z_M$ 有极限，
+而式~\eqref{eq:criterion} 还要求该极限恰好等于行列式积分。
+
+\section{一个双分量密度模型及其辅助场表示}
+
+\subsection{通常的高斯解耦}
+
+取单格点上的两个玻色模式 $b,c$，令
+\begin{equation}
+ H=\varepsilon\hat N+g\hat D^2,\qquad
+ \hat N=\hat n_b+\hat n_c,\quad
+ \hat D=\hat n_b-\hat n_c,\qquad \varepsilon,g>0.
+ \label{eq:model}
+\end{equation}
+两种分量的占据数均取遍非负整数。$g\hat D^2$ 惩罚分量间的密度不平衡，
+$\varepsilon\hat N$ 压制总粒子数增长。因此
+\begin{equation}
+ Z=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
+       \ee^{-\beta g(n_b-n_c)^2}
+ \le\frac1{(1-q)^2}<\infty,
+ \qquad q=\ee^{-\beta\varepsilon}<1.
+ \label{eq:physicalZ}
+\end{equation}
+
+引入方差为 $2\beta g$ 的实高斯场 $\phi$，其概率密度为
+\begin{equation}
+ p(\phi)=\frac{\ee^{-\phi^2/(4\beta g)}}{\sqrt{4\pi\beta g}}.
+\end{equation}
+高斯积分 $\avg_\phi\ee^{\ii\phi D}=\ee^{-\beta gD^2}$ 给出
+\begin{equation}
+ \ee^{-\beta H}=\avg_\phi\Gamma(B_0(\phi)),\qquad
+ B_0(\phi)=q\diag(\ee^{\ii\phi},\ee^{-\ii\phi}).
+ \label{eq:originalHS}
+\end{equation}
+这里 $\avg_\phi$ 表示对 $p(\phi)d\phi$ 积分。
+由于 $\hat N$ 与 $\hat D$ 对易，该表示在任意 $\beta$ 下都是精确的。
+两个本征值的模均为 $q<1$，所以此表示中的每个固定场迹都收敛。
+
+\subsection{增加一个旋转辅助场}
+
+现在引入独立的 $SU(2)$ 矩阵 $V$，按归一化均匀群测度 $dV$ 积分。
+它可写成
+\begin{equation}
+ V=v_0I+\ii\sum_{j=1}^3v_j\sigma_j,\qquad
+ v_0^2+v_1^2+v_2^2+v_3^2=1,
+ \label{eq:V}
+\end{equation}
+其中 $\sigma_j$ 为 Pauli 矩阵。
+均匀群测度就是四维单位球面的均匀面积测度。
+选择一个固定参数 $0<\alpha<1$，定义
+\begin{equation}
+ R(\phi)=\alpha|1-q\ee^{\ii\phi}|,\qquad
+ \boxed{B(\phi,V)=B_0(\phi)+R(\phi)V.}
+ \label{eq:newB}
+\end{equation}
+这种构造在通常的高斯 HS 变换后，增加了一个紧致辅助场。
+新的单粒子传播仍对应玻色二次型，其生成元 $\log B$ 对辅助场的依赖为非线性。
+后面将逐个粒子数扇区证明它保持原来的物理传播。
+
+式~\eqref{eq:newB} 中的每个矩阵都有形式
+\begin{equation}
+ B=x_0I+\ii\sum_{j=1}^3x_j\sigma_j,\qquad x_\mu\in\mathbb R.
+ \label{eq:Bcoordinates}
+\end{equation}
+因此 $B$ 保持 $\Theta=\ii\sigma_yK$，其中 $K$ 表示复共轭，且 $\Theta^2=-I$。
+其本征值与行列式分别为
+\begin{align}
+ r_\pm&=x_0\pm\ii\sqrt{x_1^2+x_2^2+x_3^2},
+ &|r_\pm|^2&=x_0^2+x_1^2+x_2^2+x_3^2,\\
+ \det(I-B)&=(1-x_0)^2+x_1^2+x_2^2+x_3^2.
+ \label{eq:detcoordinates}
+\end{align}
+于是本征值模长由四维坐标到原点的距离决定，行列式由该坐标到 $(1,0,0,0)$ 的距离决定。
+这两个距离控制不同的物理问题，前者控制裸占据数求和，后者控制行列式权重的极点。
+
+\subsection{发散构型与权重的上界}
+
+取 $q=\alpha=1/2$。在 $\phi=\pi$、$V=-I$ 处，
+\begin{equation}
+ B_0=-\frac12I,\qquad R=\frac34,\qquad B=-\frac54I.
+\end{equation}
+其总粒子数 $n$ 扇区的迹为 $(n+1)(-5/4)^n$，随 $n$ 指数增长。
+本征值模长连续依赖辅助场，所以这个点附近存在一个开集，使 $|r_\pm|>1$。
+高斯测度和均匀球面测度都赋予该开集正概率。
+另一方面，$\phi=0$ 附近的辅助球满足 $|r_\pm|<1$。
+因此这一表示同时包含收敛构型和指数发散构型。
+
+对固定的 $\phi$，式~\eqref{eq:newB} 描述以 $B_0$ 为中心、半径为 $R$ 的四维球面。
+中心到行列式极点 $B=I$ 的距离为 $|1-q\ee^{\ii\phi}|$。
+由于 $R$ 仅为这一距离的 $\alpha$ 倍，整个闭球都与极点保持正距离。
+由三角不等式，球内任一点满足
+\begin{equation}
+ \sqrt{\det(I-B)}
+ \ge(1-\alpha)|1-q\ee^{\ii\phi}|
+ \ge(1-\alpha)(1-q).
+\end{equation}
+于是所有构型的权重都满足
+\begin{equation}
+ \boxed{0<W(B)\le\frac1{(1-\alpha)^2(1-q)^2}.}
+ \label{eq:bound}
+\end{equation}
+特别地，$q=\alpha=1/2$ 时 $W\le16$。
+
+\section{额外辅助场为什么保持物理传播}
+
+证明只需要一个球面平均性质。
+若四维坐标的函数 $f(x)$ 在某个球内满足 Laplace 方程
+\begin{equation}
+ \sum_{\mu=0}^3\frac{\partial^2 f}{\partial x_\mu^2}=0,
+ \label{eq:laplace}
+\end{equation}
+且在闭球上光滑，则它在任意同心球面上的平均等于球心的值。
+满足式~\eqref{eq:laplace} 的函数称为调和函数。
+这与静电势在无电荷区域中的平均值性质相同。
+对复函数，可以分别对实部和虚部使用这一性质。
+
+这一性质可以从散度定理直接理解。
+球面平均对半径的导数，正比于梯度穿过球面的总通量。
+散度定理将该通量写成球内 $\nabla^2f$ 的积分。
+当式~\eqref{eq:laplace} 成立时，球面平均与半径无关。
+将半径缩小到零，就得到球心处的值。
+
+现在证明玻色传播矩阵元恰好满足这个方程。
+将式~\eqref{eq:Bcoordinates} 写成 $B=\sum_{\mu=0}^3x_\mu E_\mu$，其中
+$E_0=I$、$E_j=\ii\sigma_j$。
+$B$ 对每个 $x_\mu$ 都是线性的，因此对 $B^{\otimes n}$ 求两次导数时，
+两次导数必须落在不同的张量因子上。对任意一对因子，出现的矩阵为
+\begin{equation}
+ \sum_{\mu=0}^3E_\mu\otimes E_\mu
+ =I\otimes I-\sum_{j=1}^3\sigma_j\otimes\sigma_j
+ =2(I-\mathsf P).
+ \label{eq:pauli}
+\end{equation}
+这里 $\mathsf P$ 交换两个单粒子分量空间，最后一步使用
+$\mathsf P=(I\otimes I+\sum_j\sigma_j\otimes\sigma_j)/2$。
+玻色态对交换两个粒子完全对称，因此 $\mathsf P$ 在相应子空间中等于恒等算符。
+式~\eqref{eq:pauli} 的贡献遂为零。
+对所有因子对求和后，得到
+\begin{equation}
+ \nabla_x^2\Gamma_n(B)=0.
+\end{equation}
+也就是说，每个有限粒子数传播矩阵元都是四维坐标的调和多项式。
+
+对以 $B_0$ 为中心的辅助球面应用平均值性质，便有
+\begin{equation}
+ \boxed{\int dV\,\Gamma_n(B_0+RV)=\Gamma_n(B_0),\qquad n=0,1,2,\ldots.}
+ \label{eq:sectoridentity}
+\end{equation}
+这证明额外辅助场保持每个粒子数扇区的完整算符。
+再利用式~\eqref{eq:originalHS}，得到
+\begin{equation}
+ \int d\phi\,p(\phi)\int dV\,\Gamma_n(B(\phi,V))
+ =\left.\ee^{-\beta H}\right|_{N=n}.
+ \label{eq:operatoridentity}
+\end{equation}
+其物理意义是，某些构型可以放大高占据态，但同一辅助球面上不同传播振幅的平均，
+精确恢复为 $q^n$ 控制的衰减传播。
+
+\section{行列式积分与截断项的抵消}
+
+\subsection{直接计算行列式的辅助场平均}
+
+根据式~\eqref{eq:detcoordinates}，行列式权重为
+\begin{equation}
+ W(B)=\frac1{|x-e_0|^2},\qquad e_0=(1,0,0,0).
+\end{equation}
+在四维空间中，径向函数的 Laplace 算符为
+$\partial_s^2+3s^{-1}\partial_s$，其中 $s=|x-e_0|$。
+因而
+\begin{equation}
+ \nabla_x^2\frac1{s^2}
+ =\frac6{s^4}+\frac3s\left(-\frac2{s^3}\right)=0,
+ \qquad s>0.
+\end{equation}
+辅助闭球排除了 $B=I$，所以权重在整个球内都满足平均值性质。
+因此对每个 $\phi$ 都有
+\begin{equation}
+ \boxed{\int dV\,W(B_0+RV)=W(B_0)
+ =\frac1{1-2q\cos\phi+q^2}.}
+ \label{eq:weightidentity}
+\end{equation}
+右侧是原始收敛传播的准确迹。
+在 $q<1$ 时将其展开，再作高斯积分，得到
+\begin{align}
+ \int d\phi\,p(\phi)\int dV\,W(B)
+ &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
+       \avg_\phi\ee^{\ii\phi(n_b-n_c)}\nonumber\\
+ &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
+       \ee^{-\beta g(n_b-n_c)^2}=Z.
+ \label{eq:exactZ}
+\end{align}
+展开中的绝对值之和不超过 $(1-q)^{-2}$，因此上述逐项积分合法。
+式~\eqref{eq:bound} 同时保证新的正权重积分有限。
+
+\subsection{显式追踪指数增长的截断余项}
+
+对两个不同的本征值 $r_+,r_-$，总粒子数为 $n$ 的迹为
+\begin{equation}
+ \Tr\Gamma_n(B)=\sum_{k=0}^n r_+^k r_-^{n-k}
+ =\frac{r_+^{n+1}-r_-^{n+1}}{r_+-r_-}.
+\end{equation}
+将 $n$ 从零加到 $M$，用有限几何级数求和，可得
+\begin{align}
+ W_M(B)&=\frac1{(1-r_+)(1-r_-)}+\mathcal R_M(B),\\
+ \mathcal R_M(B)&=-\frac1{r_+-r_-}
+ \left[\frac{r_+^{M+2}}{1-r_+}-\frac{r_-^{M+2}}{1-r_-}\right].
+ \label{eq:explicitremainder}
+\end{align}
+重根的情况由连续极限给出。
+这把截断无关的行列式项与含本征值高次幂的截断项明确分开。
+当 $|r_\pm|>1$ 时，后者包含指数增长的振荡贡献。
+
+式~\eqref{eq:sectoridentity} 与式~\eqref{eq:weightidentity} 分别保证
+\begin{equation}
+ \int dV\,W_M(B)=W_M(B_0),\qquad
+ \int dV\,W(B)=W(B_0).
+\end{equation}
+相减以后，截断余项的辅助场平均等于原来收敛传播的尾项，
+\begin{equation}
+ \int dV\,\mathcal R_M(B)
+ =-\sum_{n=M+1}^{\infty}\Tr\Gamma_n(B_0).
+\end{equation}
+因为 $B_0$ 是 $q$ 乘一个幺正矩阵，
+$|\Tr\Gamma_n(B_0)|\le(n+1)q^n$，故
+\begin{equation}
+ \left|\int dV\,\mathcal R_M(B)\right|
+ \le\sum_{n=M+1}^{\infty}(n+1)q^n
+ =\frac{q^{M+1}[(M+2)-(M+1)q]}{(1-q)^2}
+ \longrightarrow0.
+ \label{eq:tailbound}
+\end{equation}
+这个上界与 $\phi$ 无关。完成剩余的高斯场积分后，仍然得到零极限。
+更直接地，利用式~\eqref{eq:operatoridentity} 和式~\eqref{eq:exactZ}，
+\begin{equation}
+ \boxed{\int d\phi\,p(\phi)\int dV\,\mathcal R_M(B)=Z_M-Z\longrightarrow0.}
+\end{equation}
+因此，该模型的这一辅助场表示严格满足可重整性条件。
+
+\section{密度与关联函数的计算}
+
+观测量可以通过在迹中插入一个小的一体源来产生。
+令 $J$ 为作用在 $b,c$ 分量上的无量纲 $2\times2$ 矩阵，考虑
+\begin{equation}
+ \Tr\!\left[\ee^{\hat{\boldsymbol a}^{+}J\hat{\boldsymbol a}}\ee^{-\beta H}\right].
+ \label{eq:physicalsource}
+\end{equation}
+例如 $J=\eta I$ 生成总粒子数矩，$J=\diag(\eta_b,\eta_c)$ 生成分量密度及其关联。
+保持辅助场分布与式~\eqref{eq:newB} 中的 $R$ 不变，固定场表达式为
+\begin{equation}
+ f_J(B)=\frac1{\det(I-\ee^JB)}.
+\end{equation}
+当 $B$ 的范数充分小时，可以用收敛的粒子数展开写成
+\begin{equation}
+ f_J(B)=\sum_{n=0}^{\infty}
+ \tr_n\!\left[\Gamma_n(\ee^J)\Gamma_n(B)\right],
+ \label{eq:sourceexpansion}
+\end{equation}
+其中 $\tr_n$ 是有限粒子数子空间中的矩阵迹。
+每项对 $B$ 的坐标都满足 Laplace 方程，且级数及其导数在更小的邻域内一致收敛。
+因此 $\nabla_x^2f_J=0$ 在该邻域成立。
+
+$f_J$ 是 $x_\mu$ 的有理函数。将 $\nabla_x^2f_J$ 通分以后，分子为一个多项式。
+该多项式在一个开集内恒为零，因而恒等于零。
+所以只要分母非零，$f_J$ 都满足同一个 Laplace 方程。
+
+还需确认小的一体源不会使极点进入辅助球。以下矩阵范数取最大奇异值。
+在所有闭球内，有
+\begin{equation}
+ \|(I-B)^{-1}\|\le\frac1{(1-\alpha)(1-q)},
+ \qquad \|B\|\le q+\alpha(1+q).
+\end{equation}
+利用 $I-\ee^JB=(I-B)-(\ee^J-I)B$，只要
+\begin{equation}
+ \|\ee^J-I\|\,[q+\alpha(1+q)]<(1-\alpha)(1-q),
+\end{equation}
+扰动后的矩阵就在所有辅助球内保持可逆。
+球面平均值性质于是给出
+\begin{equation}
+ \int dV\,f_J(B)=f_J(B_0).
+\end{equation}
+再完成高斯积分，便恢复式~\eqref{eq:physicalsource}。
+这些一致界允许在 $J=0$ 附近将任意有限阶源导数移入积分，
+从而得到通常的密度与数守恒多项式关联函数。
+
+例如总粒子数的固定场估计量为
+\begin{equation}
+ N(B)=\left.\frac{\partial}{\partial\eta}
+ \log\frac1{\det(I-\ee^\eta B)}\right|_{\eta=0}
+ =\tr[B(I-B)^{-1}].
+\end{equation}
+其物理平均准确等于
+\begin{equation}
+ \langle\hat N\rangle
+ =\frac{\int d\phi\,p(\phi)\int dV\,W(B)N(B)}{Z}.
+\end{equation}
+因此，正权重辅助场采样同时给出正确的配分函数和观测量。
+
+\section{吸引总密度项的对照}
+
+\subsection{稳定性与所选解耦}
+
+对双分量密度相互作用
+\begin{equation}
+ U_1(\hat n_b-\hat n_c)^2+U_2(\hat n_b+\hat n_c)^2-\mu\hat N,
+\end{equation}
+沿 $n_b=n_c=n$ 的能量为 $4U_2n^2-2\mu n$。
+当 $U_2<0$ 时，总密度方向需要额外的稳定项，才能得到有限的无限占据配分函数。
+
+为单独检验稳定模型中的行列式表示，取
+\begin{equation}
+ H=(u-v)\hat N^2+(2u+\varepsilon)\hat N,
+ \qquad u>v>0,\quad\varepsilon>0.
+ \label{eq:stablemodel}
+\end{equation}
+这是一个双分量单格点排斥密度模型，其能量随总粒子数平方增长。
+定义三个分量双线性算符
+\begin{equation}
+ \hat S_j=\frac12(\hat b^+,\hat c^+)\sigma_j
+ \begin{pmatrix}\hat b\\\hat c\end{pmatrix}.
+\end{equation}
+为得到它们与密度的关系，写出
+\begin{equation}
+ \hat S_z=\frac{\hat n_b-\hat n_c}{2},\qquad
+ \hat S_+=\hat b^+\hat c,\qquad \hat S_-=\hat c^+\hat b.
+\end{equation}
+玻色对易关系给出 $\hat S_+\hat S_-=\hat n_b(\hat n_c+1)$ 和
+$\hat S_-\hat S_+=\hat n_c(\hat n_b+1)$。因此
+\begin{align}
+ \hat{\boldsymbol S}^2
+ &=\hat S_z^2+\tfrac12(\hat S_+\hat S_-+\hat S_-\hat S_+)\nonumber\\
+ &=\frac{(\hat n_b-\hat n_c)^2}{4}+\hat n_b\hat n_c+\frac{\hat n_b+\hat n_c}{2}
+ =\frac{\hat N(\hat N+2)}4.
+\end{align}
+将此恒等式代入式~\eqref{eq:stablemodel}，得到
+\begin{equation}
+ H=4u\hat{\boldsymbol S}^2-v\hat N^2+\varepsilon\hat N.
+ \label{eq:stabledecomposition}
+\end{equation}
+在这一表达式中，$-v\hat N^2$ 正是吸引总密度项。
+
+对它使用实高斯场 $x\sim\mathcal N(0,1)$，
+\begin{equation}
+ \ee^{\beta v\hat N^2}
+ =\avg_x\ee^{\sqrt{2\beta v}\,x\hat N}.
+\end{equation}
+对 $4u\hat{\boldsymbol S}^2$，将虚时间切片，并对每个 $\hat S_j^2$ 使用
+\begin{equation}
+ \ee^{-4u\Delta\tau\hat S_j^2}
+ =\avg_\varphi\ee^{\ii\sqrt{8u\Delta\tau}\,\varphi\hat S_j},
+ \qquad\varphi\sim\mathcal N(0,1).
+\end{equation}
+每一步都是 $SU(2)$ 旋转。在连续虚时间极限，旋转乘积得到一个归一化的正分布，记为 $p_u(U)dU$。
+这一旋转扩散分布也称为群上的热核。
+
+在总粒子数 $n$ 扇区，$\hat{\boldsymbol S}^2$ 的本征值为 $n(n+2)/4$，
+该扇区维数为 $n+1$。因此旋转分布满足准确的有限维恒等式
+\begin{equation}
+ \int dU\,p_u(U)\Gamma_n(U)
+ =\ee^{-\beta u n(n+2)}I_n.
+ \label{eq:rotationidentity}
+\end{equation}
+固定两个辅助场之后，完整单粒子传播为
+\begin{equation}
+ B=rU,\qquad r=\ee^{-\beta\varepsilon+\sqrt{2\beta v}\,x}.
+ \label{eq:rU}
+\end{equation}
+实场的一部分取值使 $r>1$，对应发散的裸迹。
+
+\subsection{物理配分函数与行列式积分的比较}
+
+先在每个粒子数扇区完成旋转场积分。
+由式~\eqref{eq:rotationidentity} 得到收敛的正项级数
+\begin{equation}
+ F(r)=\sum_{n=0}^{\infty}(n+1)\ee^{-\beta u n(n+2)}r^n,
+ \qquad r>0.
+\end{equation}
+再利用 $\avg_x r^n=\ee^{-\beta\varepsilon n+\beta vn^2}$，得到
+\begin{equation}
+ Z_{\rm phys}=\avg_xF(r)
+ =\sum_{n=0}^{\infty}(n+1)
+ \ee^{-\beta[(u-v)n^2+(2u+\varepsilon)n]}<\infty.
+ \label{eq:physicalcounter}
+\end{equation}
+这些项均非负，所以逐项完成 $x$ 积分也是合法的。
+
+接下来计算固定场行列式的积分。
+设 $U$ 的本征值为 $\ee^{\pm\ii\theta}$，则
+\begin{equation}
+ W(r,U)=\frac1{1-2r\cos\theta+r^2}>0
+\end{equation}
+除去零测度的极点 $r=1,U=I$。
+当 $r<1$ 时，收敛的粒子数展开与式~\eqref{eq:rotationidentity} 立即给出
+\begin{equation}
+ \int dU\,p_u(U)W(r,U)=F(r).
+\end{equation}
+当 $r>1$ 时，直接从分母提取 $r^2$，有
+\begin{equation}
+ W(r,U)=r^{-2}W(r^{-1},U).
+\end{equation}
+右侧的半径 $r^{-1}<1$，于是
+\begin{equation}
+ \int dU\,p_u(U)W(r,U)=r^{-2}F(r^{-1}),\qquad r>1.
+ \label{eq:outerbranch}
+\end{equation}
+这两个分支都不超过 $F(1)$，所以完整行列式积分有限。
+$r=1$ 对连续的 $x$ 分布为零测度，不影响积分值。
+
+将两个分支合并，物理结果与行列式结果的差为
+\begin{align}
+ Z_{\rm phys}-Z_{\rm reg}
+ &=\avg_x\!\left[\boldsymbol1_{r>1}
+       \left(F(r)-r^{-2}F(r^{-1})\right)\right],\\
+ F(r)-r^{-2}F(r^{-1})
+ &=\sum_{n=0}^{\infty}(n+1)\ee^{-\beta u n(n+2)}
+       (r^n-r^{-n-2})>0,\qquad r>1.
+\end{align}
+高斯场给 $r>1$ 区域正概率，因而
+\begin{equation}
+ \boxed{0<Z_{\rm reg}<Z_{\rm phys}.}
+\end{equation}
+例如 $\beta=1,u=2,v=1,\varepsilon=1$ 时，
+\begin{equation}
+ Z_{\rm phys}=1.00495999909050,\qquad
+ Z_{\rm reg}=0.84382642724070.
+\end{equation}
+这里模型稳定、权重为正且可积，截断余项的积分仍保留有限的非零贡献。
+因此式~\eqref{eq:stabledecomposition} 所对应的辅助场表示不满足可重整性条件。
+
+\section{物理结论与一个充分条件}
+
+双分量模型~\eqref{eq:model} 的构造表明，固定场的裸迹可以在正测度区域指数发散，
+同时保持正、有界、物理上精确的行列式权重。
+抵消发生在辅助场平均中，式~\eqref{eq:tailbound} 给出了截断余项积分趋于零的显式上界。
+正权重和正确物理平均分别由矩阵的 Kramers 结构与辅助场平均恒等式保证。
+
+这一构造给出一个具体的充分条件。
+从一个迹收敛的双分量传播 $B_0$ 出发，在四维 Kramers 矩阵空间中引入均匀球面辅助场。
+只要有限粒子数传播矩阵元和行列式权重在球内满足 Laplace 方程，
+且整个闭球排除行列式极点，球面平均就同时保持物理传播与行列式权重。
+球面可以伸入本征值模长大于一的区域。
+因而这个条件允许高占据态在部分构型中增长，同时保证这些增长贡献在平均后准确消失。
+
+吸引密度项的对照则展示了另一种结果。
+在式~\eqref{eq:rU} 的通常解耦中，$r>1$ 区域的行列式选择了
+$r^{-2}F(r^{-1})$，而该区域的物理贡献为 $F(r)$。
+二者之差在辅助场积分后严格保留。
+因此，对具体模型建立无偏的玻色辅助场采样，需要同时确定权重的符号与
+截断余项的积分行为。上述球面平均构造提供了二者能够同时成立的完整例子。
+
+\end{document}
