@@ -24,11 +24,11 @@ Use these as adaptable patterns:
 - "The important point is that [formal condition] can be checked after [decoupling/representation change]."
 - "Figure [n] summarizes the classification: [half-plane/sector] is accessible to [method], while [other sector] is covered by [comparison method]."
 - "To demonstrate the construction, we benchmark [method] against [reference] on [minimal frustrated model]."
-- "The agreement confirms both the Gaussian weight formula and the symmetry protection of the sampled ensemble."
+- "The agreement validates the implementation against the reference calculation."
 
 ## BAFQMC-Specific Voice Targets
 
-- Use the mentor revision in commit `66c6cd4` as the primary local rhythm cue. Reuse
+- Use the mentor revision in commit `66c6cd4` as a historical rhythm example. Reuse
   its moves---broad stakes, concrete obstruction, paradigm shift, rigorous result,
   benchmark, and opportunity---rather than its exact strings.
 - Use assertive, precise claims such as "BAFQMC covers the RP/TRS half-plane" instead of hedged claims such as "BAFQMC may help with some cases".

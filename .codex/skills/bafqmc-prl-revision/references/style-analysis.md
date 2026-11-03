@@ -1,12 +1,10 @@
 # Style Analysis Of Reference Sign-Problem-Free QMC Letters
 
-Use this file when drafting, condensing, or reviewing main-text prose. The papers are style models, not physics templates. Mimic their confidence, economy, and rhythm while preserving the BAFQMC manuscript's own Fig. 1 classification and bosonic claims.
+Use these historical style examples when helpful for drafting, condensing, or reviewing main-text prose. The papers are style models, not physics templates. Mimic their confidence, economy, and rhythm while preserving the BAFQMC manuscript's own Fig. 1 classification and bosonic claims.
 
 ## Mentor-Calibrated Voice And Information Hierarchy
 
-The mentor revision recorded in commit `66c6cd4` is the strongest local evidence for
-how this paper should sound. It supersedes earlier generic blueprints where they
-conflict. Learn the following decisions rather than copying its wording:
+The mentor revision in commit `66c6cd4` is a historical voice reference. Read these observations as examples of information hierarchy, not instructions to restore an old draft or override the current text:
 
 1. **Scale before mechanism.** The abstract and Introduction first establish the
    sign problem as a fundamental barrier with consequences across physics. They do

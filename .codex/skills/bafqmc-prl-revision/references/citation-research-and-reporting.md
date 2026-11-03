@@ -1,79 +1,16 @@
-# Citation Research, Evidence Cache, And Reports
+# Citation Research And Required PDF Cache
 
-Use this file for citation research throughout the manuscript, bibliography audits, reviewer coverage, PDF caching, and HTML research reports. It applies the general story-and-evidence method in `manuscript-story-evidence-principles.md`; the Introduction examples below illustrate the method rather than limiting it.
+Read the claim and its context before selecting references. Use original papers,
+reviews, and citation chains as needed to understand the relevant literature.
+Choose sources for their actual support of the text, and verify metadata using
+`reference-verification.md`. Broad coverage is valuable when it serves the physics.
 
-## Research Before Writing
+Keep the manuscript's physical story intact when adding citations. Distinguish
+method developments, theorems, applications, and motivating physical phases.
+A new reference does not by itself require an extra sentence or a larger rewrite.
 
-Do not begin by searching a few keywords and attaching the first matching reviews. Build the field map first.
-
-1. Read the current sentence and identify its exact evidence obligations.
-2. Use author-provided papers and reviews only as entry points.
-3. Inspect their reference lists, the references of the most relevant cited papers, and supplements when they contain a literature map.
-4. Follow the chain to original results, classic foundations, modern reviews, recent developments, and active research groups.
-5. Search beyond the supplied seeds for missing communities and newer work.
-6. Only after the field map is coherent should citations be selected and prose revised.
-7. After drafting, run a second sentence-by-sentence search from the current Introduction to find omissions, better sources, and citations that do not actually support the claim.
-
-Examples of useful entry points include the project's arXiv context papers and broad sign-problem reviews. They are not automatically citations. Their main value may be the literature and conceptual distinctions they reveal.
-
-## Evidence Obligations By Sentence
-
-Split a sentence into claims before selecting references. A sentence can contain several citation clusters.
-
-For example, the first-paragraph impact sentence has three conceptual clusters:
-
-1. QMC's major physical achievements;
-2. the ongoing development of sign-problem-free formulations;
-3. a deepening understanding of the sign problem and the avoid/mitigate methods it inspired.
-
-The third cluster may use two adjacent `\cite` commands when the prose distinguishes understanding from mitigation. Record all keys under the correct subcluster.
-
-For a list of physical phenomena, place citations immediately after each example. Do not make the author or reader reverse-engineer one large end-of-sentence pile.
-
-## Source Selection
-
-Priority is semantic fit first, authority second, strategic coverage third.
-
-- Prefer original method or result papers for concrete historical claims.
-- Use classic textbooks for broad foundational framing, not as substitutes for original QMC method history.
-- Use reviews as maps and entry points; do not present them as original criteria or discoveries.
-- A highly cited paper is not suitable if it does not discuss the claim. Marshall 1955, for example, is important for bipartite antiferromagnetic sign structure but does not belong in a sentence about the historical development of sign-problem-free QMC.
-- Distinguish exact sign-free formulations, sign mitigation, constrained or phaseless approximations, and physical studies made possible by sign-free QMC.
-- Distinguish locality-qualified no-go results from claims about arbitrary nonlocal or determinant QMC formulations.
-- Do not infer that a phase paper proves a sign barrier. Phase papers establish the physical target; method and no-go papers establish computational obstruction.
-
-## Breadth And Strategic Citations
-
-Broad citation coverage is an explicit project goal, provided it does not disrupt the narrative or misrepresent the literature.
-
-- Include relevant work from neighboring communities and active groups, including papers that may help prospective PRL referees recognize their field in the manuscript.
-- Identify potential referees by name, not only by community. Favor scholars active in recent years and record the papers that make them relevant.
-- Include recent work even when citation counts are low, while retaining classic high-authority anchors.
-- Large citation clusters are acceptable. Compress the prose, not the evidence.
-- Do not insert a sentence solely to cite a person. Find the legitimate claim that the paper supports, or keep it as a report-level candidate.
-
-## Metadata Verification
-
-Before adding or changing BibTeX, verify against primary or authoritative sources:
-
-- complete author list;
-- exact title;
-- journal, volume, page or article number, and year;
-- DOI;
-- arXiv identifier and version when relevant.
-
-Use publisher pages, DOI/Crossref, arXiv records, and author or institutional repositories. Never guess metadata from memory. Check that the cached PDF title and authors match the intended record.
-
-Report every added or modified BibTeX key and its verification source for author review.
-
-## Citation Counts
-
-Research reports should give a citation-count snapshot for current and candidate literature when feasible.
-
-- Name the database and snapshot date.
-- Do not compare counts from different databases as though they were one scale.
-- Treat counts as a guide to prominence, not a substitute for relevance or recency.
-- Preserve genuinely new papers with few or zero citations when their content is directly relevant.
+Maintain complete local PDF coverage for all external references cited in the main
+text and SM. This is a standing requirement, not an optional research convenience.
 
 ## Local PDF Cache
 
@@ -96,31 +33,13 @@ Requirements:
 7. When citations change, reconcile TeX keys, BibTeX keys, filenames, and both manifests.
 8. Record access-controlled items honestly. Do not call the candidate cache complete without stating exact exceptions.
 
-## Chinese HTML Report
+## Reports
 
-When the author requests an Introduction or reference audit, write a detailed standalone HTML report in Chinese. It should be readable as an author-facing research document, not a log of agent actions.
+When a report is requested, organize it around the author's question and the
+scientific evidence. Explain what the relevant papers establish and how they
+support the manuscript. Link to exact cached PDFs where useful. Report uncertain
+metadata and missing or inaccessible sources explicitly.
 
-For each current abstract, Introduction, or Fig. 1 sentence, include:
-
-- the exact English sentence;
-- its narrative purpose;
-- its position in the story;
-- physics that needs explanation or scope control;
-- current citation keys, grouped by the actual conceptual cluster or `\cite` position;
-- what each cited paper actually does;
-- why it supports this sentence;
-- priority A/B/C;
-- citation count, database, and date;
-- additional candidates and their tradeoffs.
-
-Compare substantive writing changes with the author's Chinese mother draft, not with previous agent reports. Previous reports are research inputs, not the author's evaluation baseline.
-
-Avoid invented audit jargon or unexplained new concepts. Use ordinary Chinese and explain domain terms before relying on them.
-
-Make every citation key a relative hyperlink to the exact local PDF when one exists. For multi-cluster sentences, list every key under its cluster rather than reporting only a total count. Validate all links from the report path.
-
-End with cache status, metadata uncertainties, access-controlled exceptions, and a compact author decision list. Browser-check desktop and mobile layouts and click at least one manuscript PDF and one candidate PDF.
-
-## Research Report Versus Manuscript
-
-The report may be exhaustive; the manuscript must remain story-led. Use the report to preserve caveats, alternatives, rejected sources, citation counts, and referee strategy. Transfer only the minimum prose needed to make the paper compelling and correct.
+Choose the format and detail suited to the request. Citation counts, referee
+suggestions, and full sentence-by-sentence audits are useful only when relevant;
+they are not required deliverables for routine citation work.
