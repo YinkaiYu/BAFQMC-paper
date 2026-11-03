@@ -287,4 +287,132 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 前面例子中的 $r=-5/4$ 对应极点 $z=-4/5$，因此它可以产生指数增长的裸占据数项，
 同时参与一个严格可重整的辅助场表示。
 
+\section{怎样判断具体模型}
+
+判别对象是给定哈密顿量及其 HS 表示。
+首先检查无限占据空间中的物理配分函数是否有限，再检查辅助场传播矩阵。
+满足式~\eqref{eq:generalcriterion} 可以直接确认可重整性。
+要确认不可重整性，则可以利用传播矩阵的特殊结构，算出行列式积分与物理配分函数之间的差别。
+
+一个特别容易应用的充分条件是，传播矩阵一致有界，且所有本征值的实部都小于一，并留有统一间隔，
+\begin{equation}
+ \|\mathcal B\|\le L<\infty,\qquad
+ \operatorname{Re}r_j\le1-\eta,\qquad 0<\eta\le1.
+ \label{eq:realpartcriterion}
+\end{equation}
+因为对实数 $0\le z\le1$，
+\begin{equation}
+ |\det(I-z\mathcal B)|
+ =\prod_{j=1}^{m}|1-zr_j|
+ \ge\prod_{j=1}^{m}(1-z\operatorname{Re}r_j)
+ \ge\eta^m,
+\end{equation}
+所以式~\eqref{eq:generalcriterion} 自动成立。
+这一检查只涉及单粒子传播矩阵，允许本征值的模长大于一。
+
+对于前面的可重整例子，取 $q=1/2$。
+由 $\mathcal B=\mathcal B_0+RV$ 和 $|v_0|\le1$，两个本征值的实部满足
+\begin{equation}
+ \operatorname{Re}r_\pm=x_0
+ \le\frac12\cos\phi+R
+ =\frac34-2\left(R-\frac14\right)^2
+ \le\frac34.
+\end{equation}
+中间一步使用 $R^2=\tfrac14(\tfrac54-\cos\phi)$。
+同时，$R\le3/4$ 给出 $\|\mathcal B\|\le q+R\le5/4$。
+因此这个例子满足式~\eqref{eq:realpartcriterion}，可取 $\eta=1/4$。
+这就能直接判定它可重整，其中也包括 $r=-5/4$ 附近的裸迹发散构型。
+
+再考虑 $2\times2$ 的 $J_1$--$J_2$ Schwinger 玻色子模型，
+\begin{equation}
+ H(\mu)=\sum_{\langle ij\rangle}J_{ij}\hat{\boldsymbol S}_i\cdot\hat{\boldsymbol S}_j
+       +\lambda\sum_i\hat{\boldsymbol S}_i^2-\mu\sum_i\hat n_i,
+ \qquad \hat{\boldsymbol S}_i^2=\frac{\hat n_i(\hat n_i+2)}4.
+\end{equation}
+这里每个格点有两个玻色分量，$\hat n_i$ 为它们的总占据数，
+$J_{ij}$ 取最近邻的 $J_1$ 或次近邻的 $J_2$。
+取 $J_1=1$、$0\le J_2\le1$、$\lambda=\mu=16$。
+相互作用可写为正系数的自旋平方项，局域系数 $\lambda-2(J_1+J_2)>0$，
+从而压制大占据数，物理配分函数有限。
+其连续虚时间 HS 表示具有
+\begin{equation}
+ \mathcal B(\phi;\mu)=\bigoplus_{i=1}^{N_s}\ee^{\beta\mu}U_i(\phi),
+ \qquad U_i\in SU(2),\qquad N_s=4.
+ \label{eq:rotationmodel}
+\end{equation}
+旋转矩阵及辅助场概率分布均与 $\mu$ 无关。
+
+对任意 $U_i$，设本征值为 $\ee^{\pm\ii\theta_i}$，则
+\begin{align}
+ \det(I-\ee^{\beta\mu}U_i)
+ &=1-2\ee^{\beta\mu}\cos\theta_i+\ee^{2\beta\mu}\nonumber\\
+ &=\ee^{2\beta\mu}\det(I-\ee^{-\beta\mu}U_i).
+\end{align}
+因此每个构型都满足
+\begin{equation}
+ W(\phi;\mu)=\ee^{-2N_s\beta\mu}W(\phi;-\mu).
+\end{equation}
+当 $\mu>0$ 时，右侧的负化学势传播本征值模长为 $\ee^{-\beta\mu}<1$，其迹收敛。
+完成辅助场积分，便得到
+\begin{equation}
+ Z_{\rm det}(\mu)=\ee^{-2N_s\beta\mu}Z(-\mu)<Z(\mu).
+ \label{eq:rotationfailure}
+\end{equation}
+最后的不等式使用了物理配分函数随化学势单调增加，以及 $\ee^{-2N_s\beta\mu}<1$。
+这严格证明该表示在正化学势下不可重整。
+同一判断适用于所有具有式~\eqref{eq:rotationmodel} 结构、旋转场分布与化学势无关且物理配分函数有限的模型。
+对这类表示，负化学势时的收敛迹给出正确结果，而正化学势时的行列式积分留下确定的有限差额。
+
+最后考虑双分量 Bose--Hubbard 模型的密度相互作用，
+\begin{equation}
+ H-\mu\hat N=H_{\rm hop}
+ +U_1\sum_i(\hat n_{b,i}-\hat n_{c,i})^2
+ +U_2\sum_i(\hat n_{b,i}+\hat n_{c,i})^2
+ -\mu\sum_i(\hat n_{b,i}+\hat n_{c,i}).
+ \label{eq:densitybenchmark}
+\end{equation}
+$H_{\rm hop}$ 为两种分量各自的格点间 hopping。
+取一个格点上 $n_b=n_c=n$、其余格点为空的 Fock 态。
+该态的 hopping 能量期望为零，因而
+\begin{equation}
+ \langle H-\mu\hat N\rangle=4U_2n^2-2\mu n.
+\end{equation}
+当 $U_2<0$ 时，该表达式随 $n$ 增大趋于负无穷。
+$U_1$ 项在这个方向上为零，有限化学势也无法压制负的二次项。
+因此这一无限占据模型的巨正则配分函数发散，已经无法满足本文以有限 $Z$ 为前提的可重整性定义。
+
+对于 $U_1>0$、$U_2<0$ 的连续高斯解耦，行列式权重的积分也可以直接检查。
+两个分量的传播互为复共轭，所以
+\begin{equation}
+ W(\phi)=\frac1{|\det(I-\mathcal B_b(\phi))|^2}.
+\end{equation}
+实的总密度场和虚的相对密度场可以分别改变传播的模长与相位。
+当它们在空间和虚时间上均匀时，单分量传播写成
+\begin{equation}
+ \mathcal B_b=\ee^{x+\ii y}\ee^{-\beta(h_0-\mu I)},
+\end{equation}
+其中 $h_0$ 是单分量 hopping 矩阵，$x,y$ 分别是上述两个高斯场的独立实线性组合。
+在 hopping 振幅 $t>0$ 的周期 $3\times3$ 三角格上，$\boldsymbol k=0$ 是能量为 $6t$ 的非简并模式。
+选择 $x=\beta(6t-\mu)$、$y=0$，恰有这一个模式的传播本征值等于一。
+记 $\delta x=x-\beta(6t-\mu)$，展开该本征值对应的行列式因子，
+\begin{equation}
+ 1-\ee^{\delta x+\ii y}\simeq-(\delta x+\ii y),\qquad
+ W(\phi)\ \propto\ \frac1{(\delta x)^2+y^2}.
+\end{equation}
+其余行列式因子在此处非零。其余辅助场的小变化只会移动这个简单零点，
+而高斯概率密度在这些有限场值处严格为正。
+因此完整积分在零点附近包含
+\begin{equation}
+ \int_{(\delta x)^2+y^2<\epsilon^2}
+       \frac{d(\delta x)\,dy}{(\delta x)^2+y^2}
+ =2\pi\int_0^\epsilon\frac{d\rho}{\rho}=\infty.
+\end{equation}
+所以这一 $U_2<0$ 表示的物理配分函数和正行列式积分都发散。
+有限占据截断得到的是截断模型的配分函数，其极限需要与这里的无限占据问题区分。
+
+这三个检查给出不同而明确的结果。
+球面辅助场例子由统一的本征值实部上界保证可重整。
+旋转型 Schwinger 玻色子模型在正化学势下由式~\eqref{eq:rotationfailure} 确认不可重整。
+式~\eqref{eq:densitybenchmark} 的吸引总密度项则使无截断配分函数本身发散。
+
 \end{document}
