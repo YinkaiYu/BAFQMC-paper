@@ -14,20 +14,20 @@
 \setlength{\parskip}{3pt}
 \setlength{\emergencystretch}{2em}
 \allowdisplaybreaks[1]
-\ctexset{section={format=\large\bfseries},subsection={format=\normalsize\bfseries}}
+\ctexset{section={format=\large\bfseries}}
+\pagestyle{empty}
 \begin{document}
 \begin{center}
 {\Large\bfseries 玻色辅助场行列式权重的可重整性}\par
-\vspace{6pt}
-{\normalsize 一个精确例子与一般充分判据}
 \end{center}
 \vspace{3pt}
 
-固定辅助场的玻色传播可以放大高占据态，使裸迹发散。
-本文给出一个双分量密度模型的精确例子，证明这些增长贡献在辅助场积分后消失，
-留下正确的行列式配分函数。随后给出适用于任意有限模式数的充分判据。
+相互作用可以压制玻色子的高占据态，使物理配分函数有限。
+将相互作用作辅助场分解后，某些构型的二次型传播却可能放大这些态，导致裸迹发散。
+行列式权重能否在辅助场平均后恢复原来的热力学，取决于这些增长贡献能否精确抵消。
+下面用一个双分量密度模型展示这一机制，并给出适用于任意有限模式数的充分判据。
 
-\section{需要证明什么}
+\section{可重整性的物理问题}
 
 记单粒子传播矩阵为 $B$，相应的多体传播为 $\Gamma(B)$。
 在总粒子数为 $n$ 的子空间中，$\Gamma_n(B)$ 就是让每个粒子按 $B$ 传播，
@@ -44,8 +44,8 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
 若 $|r_j|>1$，占据数项指数增长，而右侧的行列式表达式仍可能有限。
 我们称一个辅助场表示可重整，是指该表达式在完整辅助场积分后准确恢复物理配分函数，
 \begin{equation}
- \boxed{Z=\Tr\ee^{-\beta H}
- =\int dP\,W(B),\qquad W(B)=\frac1{\det(I-B)}.}
+ Z=\Tr\ee^{-\beta H}
+ =\int dP\,W(B),\qquad W(B)=\frac1{\det(I-B)}.
  \label{eq:goal}
 \end{equation}
 这里 $dP$ 表示对辅助场概率分布的积分。
@@ -63,9 +63,7 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
 \end{equation}
 下面直接证明一个例子满足这个等式。
 
-\section{双分量密度模型的精确构造}
-
-\subsection{模型与辅助场}
+\section{一个可重整的双分量模型}
 
 取单格点上的两个玻色模式 $b,c$，
 \begin{equation}
@@ -91,15 +89,14 @@ $\Gamma(B)=\exp[\hat{\boldsymbol a}^{+}(\log B)\hat{\boldsymbol a}]$。
 
 现在增加一个独立辅助场 $V\in SU(2)$，对所有 $SU(2)$ 旋转作均匀平均，积分记为 $dV$，并取
 \begin{equation}
- \boxed{B=B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.}
+ B=B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.
  \label{eq:newB}
 \end{equation}
 这是附加在高斯 HS 变换之后的精确辅助场构造。
 固定场传播仍是玻色二次型，其生成元 $\log B$ 对新辅助场非线性。
 接下来分别证明这个构造保持物理传播和行列式积分。
 
-\subsection{为什么部分构型的裸迹发散，而权重仍为正}
-
+先看这个构造如何同时产生发散的裸迹和有限的正权重。
 $SU(2)$ 矩阵可以写成
 \begin{equation}
  V=v_0I+\ii\sum_{j=1}^3v_j\sigma_j,\qquad
@@ -130,15 +127,14 @@ $SU(2)$ 矩阵可以写成
 球心到极点 $B=I$ 的距离为 $|1-q\ee^{\ii\phi}|=2R$。
 整个球内的点到极点至少还有距离 $R$，因此
 \begin{equation}
- \boxed{0<W(B)\le\frac4{|1-q\ee^{\ii\phi}|^2}
- \le\frac4{(1-q)^2}.}
+ 0<W(B)\le\frac4{|1-q\ee^{\ii\phi}|^2}
+ \le\frac4{(1-q)^2}.
  \label{eq:weightbound}
 \end{equation}
 所以行列式权重始终为正、有界。
 
-\subsection{额外辅助场平均为何精确}
-
-需要用到一个球面平均性质。
+要判断这个正权重是否恢复物理配分函数，还需计算辅助场平均。
+这里用到一个球面平均性质。
 如果四维函数满足 $\nabla_x^2f=0$，且球内没有奇点，
 那么它在球面上的平均等于球心的值。
 这与无电荷区域中静电势的平均值性质相同。
@@ -186,8 +182,7 @@ $W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
 \end{align}
 这里 $q<1$ 保证展开的绝对收敛。
 
-\subsection{截断相关项确实在积分后消失}
-
+上述平均恒等式还给出了截断项抵消的具体过程。
 式~\eqref{eq:operatoraverage} 与式~\eqref{eq:weightaverage} 分别保持有限截断迹和行列式权重，因而
 \begin{equation}
  \int dV\,[W_M(B)-W(B)]
@@ -220,13 +215,12 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，�
 我们先在化学势充分低、$z$ 充分小时建立收敛迹公式，
 再逐渐撤去这个化学势偏移，回到 $\Delta\mu=0$、$z=1$ 的原模型。
 
-\subsection{一个可直接检查的充分条件}
-
+这条恢复化学势的路径可以用单粒子传播矩阵来检查。
 考虑任意有限的 $m$ 个模式，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
 若存在与构型无关的常数 $L<\infty$ 和 $\delta>0$，使
 \begin{equation}
- \boxed{\|B\|\le L,\qquad
- |\det(I-tB)|\ge\delta\quad\text{对所有 }0\le t\le1,}
+ \|B\|\le L,\qquad
+ |\det(I-tB)|\ge\delta\quad\text{对所有 }0\le t\le1,
  \label{eq:generalcriterion}
 \end{equation}
 则该辅助场表示可重整。这里 $\|B\|$ 是最大奇异值，也就是矩阵对向量长度的最大放大倍数。上述条件须对概率为一的同一组构型成立。
@@ -238,8 +232,7 @@ $B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，�
 确认它们的本征值均避开正实轴区间 $[1,\infty)$。
 这一条件允许负实本征值或复本征值的模长超过一。
 
-\subsection{判据为什么成立}
-
+为证明这一条件足以恢复正确的配分函数，
 记固定粒子数的物理配分函数为 $Z_n=\Tr_{N=n}\ee^{-\beta H}$。
 比较物理求和与行列式积分，
 \begin{equation}
@@ -276,9 +269,9 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 最后取 $t\uparrow1$。物理侧的正项级数趋于 $Z$，行列式侧的统一上界允许将极限移入积分。
 因此
 \begin{equation}
- \boxed{Z=\lim_{t\uparrow1}Z(t)
+ Z=\lim_{t\uparrow1}Z(t)
  =\lim_{t\uparrow1}Z_{\rm det}(t)
- =\int dP\,\frac1{\det(I-B)}.}
+ =\int dP\,\frac1{\det(I-B)}.
 \end{equation}
 再结合有限截断的 $\int dP\,W_M=Z_M$，便得到式~\eqref{eq:remainder} 中截断余项的积分趋于零。
 
