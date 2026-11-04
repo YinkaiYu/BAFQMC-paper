@@ -22,9 +22,9 @@
 \vspace{3pt}
 
 相互作用可以压制玻色子的高占据态，使物理配分函数有限。
-将相互作用作辅助场分解后，某些构型的二次型传播却可能放大这些态，导致裸迹发散。
-行列式权重能否在辅助场平均后恢复原来的热力学，取决于这些增长贡献能否精确抵消。
-下面用一个双分量密度模型展示这一机制，并给出适用于任意有限模式数的充分判据。
+将相互作用作辅助场分解后，某些构型中高占据态的贡献却不再衰减，导致裸迹不收敛。
+行列式权重能否在辅助场平均后恢复物理配分函数，取决于截断相关的贡献能否在积分后精确抵消。
+下面从双分量 Bose--Hubbard 模型的标准高斯 HS 分解出发，证明一个裸迹不收敛而行列式积分准确的例子，并给出可直接检查的充分判据。
 
 \section{可重整性的定义}
 
@@ -41,7 +41,7 @@ $\hat U(\mathcal B)=\exp[\hat{\boldsymbol a}^{+}(\log \mathcal B)\hat{\boldsymbo
  =\frac1{\det(I-\mathcal B)},
 \end{equation}
 其中 $r_j$ 为 $\mathcal B$ 的本征值。
-若 $|r_j|>1$，占据数项指数增长，而右侧的行列式表达式仍可能有限。
+当 $|r_j|>1$ 时，占据数项指数增长；当 $|r_j|=1$ 时，占据数项也可能因持续振荡而不收敛。右侧的行列式表达式在这些情况下仍可能有限。
 我们称一个辅助场表示可重整，是指该表达式在完整辅助场积分后准确恢复物理配分函数，
 \begin{equation}
  Z=\Tr\ee^{-\beta H}
@@ -63,162 +63,178 @@ $\hat U(\mathcal B)=\exp[\hat{\boldsymbol a}^{+}(\log \mathcal B)\hat{\boldsymbo
 \end{equation}
 下面直接证明一个例子满足这个等式。
 
-\section{一个可重整的双分量模型}
+\section{排斥 Bose--Hubbard 原子极限中的例子}
 
-取单格点上的两个玻色模式 $b,c$，
-\begin{equation}
- H=\varepsilon\hat N+g(\hat n_b-\hat n_c)^2,
- \qquad \hat N=\hat n_b+\hat n_c,\qquad \varepsilon,g>0.
+考虑单格点上的两个玻色分量 $b,c$，同分量和不同分量之间具有相同的排斥强度 $U>0$。
+将化学势项包括在 $H$ 中，
+\begin{align}
+ H&=\frac U2\bigl[\hat n_b(\hat n_b-1)+\hat n_c(\hat n_c-1)\bigr]
+      +U\hat n_b\hat n_c-\mu\hat N \nonumber\\
+  &=\frac U2\hat N(\hat N-1)-\mu\hat N,\qquad
+ \hat N=\hat n_b+\hat n_c.
  \label{eq:model}
-\end{equation}
-相互作用惩罚两种分量的密度不平衡，$\varepsilon\hat N$ 压制总粒子数增长。
-令 $q=\ee^{-\beta\varepsilon}<1$，物理配分函数为
+\end{align}
+取 $\mu=-3U/2$，则
 \begin{equation}
- Z=\sum_{n_b,n_c\ge0}q^{n_b+n_c}\ee^{-\beta g(n_b-n_c)^2}
- \le\frac1{(1-q)^2}<\infty.
+ H=\frac U2\hat N(\hat N+2),\qquad
+ Z=\sum_{n=0}^{\infty}(n+1)\ee^{-\beta U n(n+2)/2}<\infty.
  \label{eq:physicalZ}
 \end{equation}
-通常的高斯 HS 变换引入一个实辅助场 $\phi$，其概率密度为
+这里 $n+1$ 是两个玻色模式在总粒子数为 $n$ 时的态数。总粒子数仍从零取到无穷，没有施加自旋长度约束。
+
+引入通常的 Schwinger 玻色子自旋算符，
 \begin{equation}
- P_{\rm HS}(\phi)=\frac{1}{\sqrt{4\pi\beta g}}\exp\!\left(-\frac{\phi^2}{4\beta g}\right).
+ \hat S_x=\frac{b^+c+c^+b}{2},\qquad
+ \hat S_y=\frac{b^+c-c^+b}{2\ii},\qquad
+ \hat S_z=\frac{\hat n_b-\hat n_c}{2}.
 \end{equation}
-相应的传播算符满足
+玻色对易关系给出
 \begin{equation}
- \ee^{-\beta H}=\int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\hat U(\mathcal B_0),\qquad
- \mathcal B_0=q\diag(\ee^{\ii\phi},\ee^{-\ii\phi}).
+ \hat S_x^2+\hat S_y^2=\hat n_b\hat n_c+\frac{\hat N}{2},
+ \qquad
+ \hat{\boldsymbol S}^{\,2}=\frac{\hat N(\hat N+2)}4.
+\end{equation}
+因此该物理哈密顿量恰好是三个自旋平方之和，
+\begin{equation}
+ H=2U(\hat S_x^2+\hat S_y^2+\hat S_z^2).
+ \label{eq:spinsquare}
+\end{equation}
+
+现在直接对式~\eqref{eq:spinsquare} 作标准高斯 HS 变换。
+令 $\Delta\tau=\beta/L_\tau$，对每个自旋分量使用
+\begin{equation}
+ \ee^{-2U\Delta\tau\hat S_\alpha^2}
+ =\int_{-\infty}^{\infty}\frac{d\phi_\alpha}{\sqrt{2\pi}}\,
+    \ee^{-\phi_\alpha^2/2}
+    \ee^{\ii\sqrt{4U\Delta\tau}\,\phi_\alpha\hat S_\alpha},
+ \qquad \alpha=x,y,z.
  \label{eq:HS}
 \end{equation}
-这一表示来自高斯积分
+将三个分量按 Trotter 分解相乘，并取连续虚时间极限，
 \begin{equation}
- \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\ee^{\ii\phi(n_b-n_c)}=\ee^{-\beta g(n_b-n_c)^2}.
+ \ee^{-\beta H}
+ =\lim_{L_\tau\to\infty}
+ \left(\ee^{-2U\Delta\tau\hat S_x^2}
+       \ee^{-2U\Delta\tau\hat S_y^2}
+       \ee^{-2U\Delta\tau\hat S_z^2}\right)^{L_\tau}.
 \end{equation}
-原来两个本征值的模均为 $q$，所以每个构型的迹都收敛。
+这一等式在每个固定有限粒子数子空间中成立。
+每个时间片只引入式~\eqref{eq:HS} 的三个独立实高斯场。
+对应的单粒子传播矩阵为
+\begin{equation}
+ \mathcal B_{L_\tau}(\phi)
+ =\prod_{\ell=1}^{L_\tau}
+ \left[
+ \ee^{\ii\sqrt{U\Delta\tau}\,\phi_{\ell x}\sigma_x}
+ \ee^{\ii\sqrt{U\Delta\tau}\,\phi_{\ell y}\sigma_y}
+ \ee^{\ii\sqrt{U\Delta\tau}\,\phi_{\ell z}\sigma_z}
+ \right]\in SU(2).
+ \label{eq:spinB}
+\end{equation}
+以下的 $\mathcal B$ 和辅助场积分均指这一标准 HS 表示的连续虚时间极限。
 
-现在增加一个独立辅助场 $V\in SU(2)$，对所有 $SU(2)$ 旋转作均匀平均，
-积分记为 $dV$，归一化为 $\int dV=1$。取
+每个构型的本征值都是 $\ee^{\pm\ii\theta}$，可取 $0\le\theta\le\pi$。
+在总粒子数为 $n$ 的子空间中，
 \begin{equation}
- \mathcal B=\mathcal B_0+RV,\qquad R=\frac12|1-q\ee^{\ii\phi}|.
- \label{eq:newB}
+ \Tr\hat U_n(\mathcal B)
+ =\sum_{k=0}^n\ee^{\ii(2k-n)\theta}
+ =\frac{\sin[(n+1)\theta]}{\sin\theta}.
+ \label{eq:character}
 \end{equation}
-这是附加在高斯 HS 变换之后的精确辅助场构造。
-固定场传播仍是玻色二次型，其生成元 $\log \mathcal B$ 对新辅助场非线性。
-接下来分别证明这个构造保持物理传播和行列式积分。
+对 $0<\theta<\pi$，这些项随 $n$ 持续振荡，并不趋于零；
+在 $\theta=0,\pi$ 处，则分别为 $n+1$ 和 $(-1)^n(n+1)$。
+因此每个构型的裸迹都不收敛。本例的发散发生在 $|r_\pm|=1$ 的单位圆边界。
+相应的行列式权重为
+\begin{equation}
+ W(\mathcal B)=\frac1{\det(I-\mathcal B)}
+ =\frac1{(1-\ee^{\ii\theta})(1-\ee^{-\ii\theta})}
+ =\frac1{4\sin^2(\theta/2)}.
+ \label{eq:spinW}
+\end{equation}
+它非负，在 $\theta=0$ 有极点。下面同时证明这个极点可积，以及完整积分给出正确的 $Z$。
 
-先看这个构造如何同时产生发散的裸迹和有限的正权重。
-$SU(2)$ 矩阵可以写成
+暂时将化学势降低 $\Delta\mu>0$，即在哈密顿量中加入 $\Delta\mu\hat N$，并记
 \begin{equation}
- V=v_0I+\ii\sum_{j=1}^3v_j\sigma_j,\qquad
- \sum_{\mu=0}^3v_\mu^2=1.
+ z=\ee^{-\beta\Delta\mu},\qquad 0<z<1.
 \end{equation}
-其中 $\sigma_j$ 为 Pauli 矩阵。这种平均等价于在四维单位球面上按面积均匀取样。
-因此式~\eqref{eq:newB} 中的 $\mathcal B$ 也具有形式
-\begin{equation}
- \mathcal B=x_0I+\ii\sum_{j=1}^3x_j\sigma_j,\qquad x_\mu\in\mathbb R.
-\end{equation}
-它保持 Kramers 时间反演 $\Theta=\ii\sigma_yK$，其中 $K$ 表示复共轭，$\Theta^2=-I$。两个本征值互为复共轭。
-直接计算得到
-\begin{equation}
- |r_\pm|^2=\sum_{\mu=0}^3x_\mu^2,\qquad
- \det(I-\mathcal B)=(1-x_0)^2+\sum_{j=1}^3x_j^2.
- \label{eq:distances}
-\end{equation}
-本征值模长取决于到原点的距离，行列式极点则位于 $(1,0,0,0)$。
-
-取 $q=1/2$。在 $\phi=\pi$、$V=-I$ 处，
-\begin{equation}
- \mathcal B_0=-\frac12I,\qquad R=\frac34,\qquad \mathcal B=-\frac54I.
-\end{equation}
-此时 $n$ 粒子子空间的迹为 $(n+1)(-5/4)^n$，随占据数指数增长。
-这个点周围的一片区域也满足 $|r_\pm|>1$，所以出现发散构型的概率大于零。
-
-另一方面，固定 $\phi$ 后，$\mathcal B$ 在以 $\mathcal B_0$ 为中心、半径为 $R$ 的四维球面上取值。
-球心到极点 $\mathcal B=I$ 的距离为 $|1-q\ee^{\ii\phi}|=2R$。
-整个球内的点到极点至少还有距离 $R$，因此
-\begin{equation}
- 0<W(\mathcal B)\le\frac4{|1-q\ee^{\ii\phi}|^2}
- \le\frac4{(1-q)^2}.
- \label{eq:weightbound}
-\end{equation}
-所以行列式权重始终为正、有界。
-
-要判断这个正权重是否恢复物理配分函数，还需计算辅助场平均。
-这里用到一个球面平均性质。
-如果四维函数满足 $\nabla_x^2f=0$，且球内没有奇点，
-那么它在球面上的平均等于球心的值。
-下面对物理传播和行列式权重各验证一次这个条件。
-
-先考虑固定粒子数传播 $\hat U_n(\mathcal B)$。
-由 $\partial\mathcal B/\partial x_0=I$ 和 $\partial\mathcal B/\partial x_j=\ii\sigma_j$，
-对 $\mathcal B^{\otimes n}$ 求二阶导数时，两次导数落在不同的粒子因子上。
-任意一对因子的贡献包含
-\begin{equation}
- I\otimes I-\sum_{j=1}^3\sigma_j\otimes\sigma_j
- =2(I-\mathsf P_{12}),
-\end{equation}
-其中 $\mathsf P_{12}$ 交换两个粒子。
-玻色态对粒子交换对称，所以这一贡献为零。
-因此 $\nabla_x^2\hat U_n(\mathcal B)=0$ 对每个矩阵元成立，球面平均给出
-\begin{equation}
- \int dV\,\hat U_n(\mathcal B_0+RV)=\hat U_n(\mathcal B_0).
- \label{eq:operatoraverage}
-\end{equation}
-这证明附加辅助场保持每个固定粒子数子空间中的完整传播算符。
-
-再考虑权重。根据式~\eqref{eq:distances}，它是到极点距离 $s$ 的平方倒数，
-$W=s^{-2}$。四维径向 Laplace 算符作用在它上面给出
-\begin{equation}
- \nabla_x^2\frac1{s^2}
- =\frac{d^2}{ds^2}\frac1{s^2}+\frac3s\frac{d}{ds}\frac1{s^2}
- =\frac6{s^4}-\frac6{s^4}=0.
-\end{equation}
-辅助球内部排除了极点，所以同样有
-\begin{equation}
- \int dV\,W(\mathcal B_0+RV)=W(\mathcal B_0)
- =\frac1{1-2q\cos\phi+q^2}.
- \label{eq:weightaverage}
-\end{equation}
-右侧正是原始收敛传播的迹。完成剩余的高斯积分，得到
+这将传播矩阵变成 $z\mathcal B$，其本征值模长均为 $z$。
+裸迹此时绝对收敛，故通常的 HS 迹公式给出
 \begin{align}
- \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\int dV\,W(\mathcal B)
- &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
-        \int_{-\infty}^{\infty}d\phi\,P_{\rm HS}(\phi)\ee^{\ii\phi(n_b-n_c)}\nonumber\\
- &=\sum_{n_b,n_c\ge0}q^{n_b+n_c}
-        \ee^{-\beta g(n_b-n_c)^2}=Z.
- \label{eq:exactZ}
+ Z(z)&=\sum_{n=0}^{\infty}(n+1)z^n\ee^{-\beta U n(n+2)/2}
+ \nonumber\\
+ &=\int\mathcal D\phi\,P_{\rm HS}(\phi)\,
+   \frac1{(1-z)^2+4z\sin^2(\theta/2)}.
+ \label{eq:spinregulator}
 \end{align}
-这里 $q<1$ 保证展开的绝对收敛。
-
-上述平均恒等式还给出了截断项抵消的具体过程。
-式~\eqref{eq:operatoraverage} 与式~\eqref{eq:weightaverage} 分别保持有限截断迹和行列式权重，因而
+为了撤去化学势偏移，利用逐构型成立的两个不等式，
 \begin{equation}
- \int dV\,[W_M(\mathcal B)-W(\mathcal B)]
- =W_M(\mathcal B_0)-W(\mathcal B_0)
- =-\sum_{n=M+1}^{\infty}\Tr\hat U_n(\mathcal B_0).
+ \frac1{(1-z)^2+4\sin^2(\theta/2)}
+ \ \le\
+ \frac1{(1-z)^2+4z\sin^2(\theta/2)}
+ \ \le\
+ \frac1z\,W(\mathcal B).
+ \label{eq:spinsandwich}
 \end{equation}
-$\mathcal B_0$ 为 $q$ 乘一个幺正矩阵，而 $n$ 粒子子空间维数为 $n+1$，故
+让实数 $z$ 从小于一的一侧趋近一。
+左侧为非负函数，并逐点单调增加到 $W(\mathcal B)$，所以它的积分也增加到 $\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B)$。
+中间项的积分由式~\eqref{eq:spinregulator} 趋于有限的 $Z$。
+第一个不等式因而给出 $\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B)\le Z$，同时证明了极点可积。
+第二个不等式则给出 $zZ(z)\le\int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B)$。
+再取同样的极限，得到反向不等式，最终有
 \begin{equation}
- \left|\int dV\,[W_M(\mathcal B)-W(\mathcal B)]\right|
- \le\sum_{n=M+1}^{\infty}(n+1)q^n
- =\frac{q^{M+1}[(M+2)-(M+1)q]}{(1-q)^2}
+ \int\mathcal D\phi\,P_{\rm HS}(\phi)\,
+ \frac1{\det(I-\mathcal B)}
+ =\sum_{n=0}^{\infty}(n+1)\ee^{-\beta U n(n+2)/2}
+ =Z.
+ \label{eq:exactZ}
+\end{equation}
+
+截断项的抵消也随之明确。
+对与辅助场无关的总粒子数截断 $N\le M$，有限粒子数 HS 恒等式与式~\eqref{eq:exactZ} 给出
+\begin{equation}
+ \int\mathcal D\phi\,P_{\rm HS}(\phi)\,[W_M(\mathcal B)-W(\mathcal B)]
+ =-\sum_{n=M+1}^{\infty}(n+1)\ee^{-\beta U n(n+2)/2}
  \longrightarrow0.
  \label{eq:tail}
 \end{equation}
-这一上界与 $\phi$ 无关，完成高斯积分后仍趋于零。
-于是部分构型中指数增长的占据数贡献，在辅助场平均后变成了受 $q^n$ 压制的尾项。
+固定构型中不消失的振荡项，经过相互作用本身的 HS 积分后，成为受排斥能量压制的高占据尾项。
+这证明该物理模型的自旋通道 HS 表示满足所定义的可重整性。
 
-\section{通过改变化学势判别可重整性}
-
-上面的抵消可以直接计算。
-对于更一般的粒子数守恒系统，可以先将化学势降低 $\Delta\mu>0$，
-使哈密顿量增加 $\Delta\mu\hat N$，从而加强对高占据态的压制。
-为方便计算，记
+这一结论涉及配分函数。若进一步计算密度，应先在 $z<1$ 时求导，再恢复化学势，
 \begin{equation}
- z=\ee^{-\beta\Delta\mu},\qquad
- \ee^{-\beta(H+\Delta\mu\hat N)}=z^{\hat N}\ee^{-\beta H}.
+ \langle\hat N\rangle=\lim_{z\to1}\frac{z}{Z(z)}\frac{dZ(z)}{dz}.
 \end{equation}
-因此，降低化学势会将每个 $n$ 粒子子空间的贡献乘以 $z^n$。
-我们先在化学势充分低、$z$ 充分小时建立收敛迹公式，
-再逐渐撤去这个化学势偏移，回到 $\Delta\mu=0$、$z=1$ 的原模型。
+在单位圆边界，逐构型表达式 $\Tr[\mathcal B(I-\mathcal B)^{-1}]$ 在极点之外恒等于 $-1$。
+行列式极点使求导与辅助场积分在这里不能直接交换，因此密度需要保留上述极限次序。
+
+\section{可直接检查的充分判据}
+
+上面的证明给出一个适用于更多模型的简单判据。
+对于任意有限模式数的粒子数守恒系统，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
+如果每个构型的 $\mathcal B$ 都是幺正矩阵，并保持同一个满足 $\Theta^2=-I$ 的 Kramers 时间反演，
+则这个 HS 表示可重整。
+
+事实上，设模式数为 $2N_s$，本征值可按 $\ee^{\pm\ii\theta_a}$ 配对。
+降低化学势后的行列式权重为
+\begin{equation}
+ \frac1{\det(I-z\mathcal B)}
+ =\prod_{a=1}^{N_s}
+   \frac1{(1-z)^2+4z\sin^2(\theta_a/2)}.
+ \label{eq:unitarycriterion}
+\end{equation}
+对每一对本征值使用式~\eqref{eq:spinsandwich}，得到
+\begin{equation}
+ \prod_{a=1}^{N_s}\frac1{(1-z)^2+4\sin^2(\theta_a/2)}
+ \le\frac1{\det(I-z\mathcal B)}
+ \le z^{-N_s}\frac1{\det(I-\mathcal B)}.
+\end{equation}
+左侧随 $z$ 从小于一的一侧趋近一而单调增加。
+与前一节完全相同的两步积分比较，便证明行列式积分有限且等于 $Z$。
+因此这个判据只需检查幺正性、Kramers 配对和物理配分函数有限性，无须逐个计算发散的裸迹。
+
+对于非幺正的传播，也可以利用降低化学势的路径建立充分判据。
+仍用 $z=\ee^{-\beta\Delta\mu}$，先在 $z$ 足够小时使用收敛迹公式，
+再将化学势恢复到原值。
 
 这条恢复化学势的路径可以用单粒子传播矩阵来检查。
 考虑任意有限的 $m$ 个模式，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
@@ -284,14 +300,13 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 这个判据把可重整性与恢复化学势过程中行列式的极点位置联系起来。
 裸迹的收敛要求控制本征值模长，而上述证明允许本征值越过单位圆，
 只要从低化学势回到原模型的路径受到式~\eqref{eq:generalcriterion} 的统一控制。
-前面例子中的 $r=-5/4$ 对应极点 $z=-4/5$，因此它可以产生指数增长的裸占据数项，
-同时参与一个严格可重整的辅助场表示。
+
 
 \section{怎样判断具体模型}
 
 判别对象是给定哈密顿量及其 HS 表示。
 首先检查无限占据空间中的物理配分函数是否有限，再检查辅助场传播矩阵。
-满足式~\eqref{eq:generalcriterion} 可以直接确认可重整性。
+幺正且具有 Kramers 配对的表示可以使用式~\eqref{eq:unitarycriterion} 的判据；更一般的表示可以检查式~\eqref{eq:generalcriterion}。
 要确认不可重整性，则可以利用传播矩阵的特殊结构，算出行列式积分与物理配分函数之间的差别。
 
 一个特别容易应用的充分条件是，传播矩阵一致有界，且所有本征值的实部都小于一，并留有统一间隔，
@@ -310,18 +325,11 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 所以式~\eqref{eq:generalcriterion} 自动成立。
 这一检查只涉及单粒子传播矩阵，允许本征值的模长大于一。
 
-对于前面的可重整例子，取 $q=1/2$。
-由 $\mathcal B=\mathcal B_0+RV$ 和 $|v_0|\le1$，两个本征值的实部满足
-\begin{equation}
- \operatorname{Re}r_\pm=x_0
- \le\frac12\cos\phi+R
- =\frac34-2\left(R-\frac14\right)^2
- \le\frac34.
-\end{equation}
-中间一步使用 $R^2=\tfrac14(\tfrac54-\cos\phi)$。
-同时，$R\le3/4$ 给出 $\|\mathcal B\|\le q+R\le5/4$。
-因此这个例子满足式~\eqref{eq:realpartcriterion}，可取 $\eta=1/4$。
-这就能直接判定它可重整，其中也包括 $r=-5/4$ 附近的裸迹发散构型。
+对于前面的 Bose--Hubbard 原子极限，式~\eqref{eq:spinB} 的每个因子都属于 $SU(2)$，
+故完整传播幺正，且保持 $\Theta=\ii\sigma_yK$，其中 $K$ 表示复共轭。
+物理配分函数的有限性已由式~\eqref{eq:physicalZ} 给出。
+这三点直接满足式~\eqref{eq:unitarycriterion} 的判据，所以自旋通道 HS 表示可重整。
+此处允许 $\mathcal B$ 接近 $I$，不需要行列式与零之间有统一间隔。
 
 再考虑 $2\times2$ 的 $J_1$--$J_2$ Schwinger 玻色子模型，
 \begin{equation}
@@ -361,7 +369,7 @@ $J_{ij}$ 取最近邻的 $J_1$ 或次近邻的 $J_2$。
 最后的不等式使用了物理配分函数随化学势单调增加，以及 $\ee^{-2N_s\beta\mu}<1$。
 这严格证明该表示在正化学势下不可重整。
 同一判断适用于所有具有式~\eqref{eq:rotationmodel} 结构、旋转场分布与化学势无关且物理配分函数有限的模型。
-对这类表示，负化学势时的收敛迹给出正确结果，而正化学势时的行列式积分留下确定的有限差额。
+对这类表示，负化学势时的裸迹收敛；在 $\mu=0$ 且物理配分函数有限时，幺正 Kramers 判据保证可重整；正化学势时则由式~\eqref{eq:rotationfailure} 留下确定的有限差额。
 
 最后考虑双分量 Bose--Hubbard 模型的密度相互作用，
 \begin{equation}
@@ -411,7 +419,7 @@ $U_1$ 项在这个方向上为零，有限化学势也无法压制负的二次�
 有限占据截断得到的是截断模型的配分函数，其极限需要与这里的无限占据问题区分。
 
 这三个检查给出不同而明确的结果。
-球面辅助场例子由统一的本征值实部上界保证可重整。
+排斥 Bose--Hubbard 原子极限的自旋通道 HS 表示由幺正 Kramers 判据保证可重整。
 旋转型 Schwinger 玻色子模型在正化学势下由式~\eqref{eq:rotationfailure} 确认不可重整。
 式~\eqref{eq:densitybenchmark} 的吸引总密度项则使无截断配分函数本身发散。
 
