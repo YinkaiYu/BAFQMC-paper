@@ -28,7 +28,7 @@
 
 \section{可重整性的定义}
 
-记单粒子传播矩阵为 $\mathcal B$，相应的多体传播为 $\hat U(\mathcal B)$。
+先讨论 HS 分解没有场依赖标量因子的情形。记单粒子传播矩阵为 $\mathcal B$，相应的多体传播为 $\hat U(\mathcal B)$。
 在总粒子数为 $n$ 的子空间中，将该算符记为 $\hat U_n(\mathcal B)$，
 它是 $\mathcal B^{\otimes n}$ 在完全对称玻色态上的作用。
 若 $\mathcal B$ 可逆，也可写成通常的二次型形式
@@ -492,6 +492,150 @@ $\Delta=4t\sin^2(\pi/N_s)>0$。
 化学势选择使所用单粒子动能的带底为零。
 将链上的动能换为 $t\sum_{\langle ij\rangle,\sigma}(a_{i\sigma}^+-a_{j\sigma}^+)(a_{i\sigma}-a_{j\sigma})$，同一推导便适用于任意有限连通晶格。
 
+\section{本征值超出单位圆的 Bose--Hubbard 模型}
+
+普通双分量 Bose--Hubbard 模型也存在本征值模长严格大于一、同时配分函数可重整的 HS 表示。
+这里需要保留密度平方平移产生的标量因子，完整的正规化权重一般为复数。
+本节直接证明其配分函数等式。
+
+取含偶数个格点的周期链，$N_s\ge4$，hopping 只连接相邻格点，
+\begin{equation}
+ H=K+\frac U2\sum_i(\hat n_i+1)^2,\qquad
+ K=-t\sum_{i,\sigma}
+ (a_{i\sigma}^+a_{i+1,\sigma}+a_{i+1,\sigma}^+a_{i\sigma}),
+ \qquad U>2t>0.
+ \label{eq:outside_model}
+\end{equation}
+因为
+\begin{equation}
+ \frac U2(\hat n_i+1)^2
+ =\frac U2\hat n_i(\hat n_i-1)+\frac{3U}{2}\hat n_i+\frac U2,
+\end{equation}
+它就是化学势 $\mu=-3U/2$ 的双分量排斥 Bose--Hubbard 模型，加上常数 $UN_s/2$。
+物理配分函数有限，能量下界为
+\begin{equation}
+ H\ge\frac{U}{2N_s}\hat N^2+(U-2t)\hat N+\frac{UN_s}{2}.
+\end{equation}
+
+采用下面的密度平方分解，
+\begin{equation}
+ \frac U2(\hat n_i+1)^2
+ =\frac U2(\hat n_i+2)^2-U\hat n_i-\frac{3U}{2}.
+\end{equation}
+对第一个平方直接作高斯 HS 变换，得到
+\begin{equation}
+ \ee^{-\frac{U\Delta\tau}{2}(\hat n_i+1)^2}
+ =\ee^{3U\Delta\tau/2}
+ \int\frac{d\phi}{\sqrt{2\pi U\Delta\tau}}
+ \ee^{-\phi^2/(2U\Delta\tau)}
+ \ee^{2\ii\phi}\ee^{(U\Delta\tau+\ii\phi)\hat n_i}.
+ \label{eq:outside_hs}
+\end{equation}
+这里 $\phi$ 是方差为 $U\Delta\tau$ 的实高斯场。
+$\ee^{2\ii\phi}$ 是 HS 恒等式的一部分，截断迹和正规化权重都必须保留这个标量因子。
+
+记 $h$ 为 $K$ 的单粒子 hopping 矩阵，$\|h\|=2t$、$\Tr h=0$。
+使用对称 Trotter 分解，单个分量的每片传播和完整传播为
+\begin{equation}
+ \mathcal B_{b,\ell}
+ =\ee^{-\Delta\tau h/2}
+   \ee^{U\Delta\tau I+\ii\Phi_\ell}
+   \ee^{-\Delta\tau h/2},\qquad
+ \Phi_\ell=\diag(\phi_{1\ell},\ldots,\phi_{N_s\ell}),\qquad
+ \mathcal B_b=\mathcal B_{b,L_\tau}\cdots\mathcal B_{b,1}.
+\end{equation}
+两个分量经历同一个密度场，所以 $\mathcal B=\diag(\mathcal B_b,\mathcal B_b)$。
+所有时间片的标量因子相乘得到
+\begin{equation}
+ C(\phi)=
+ \exp\!\left(\frac32\beta UN_s+2\ii\sum_{i,\ell}\phi_{i\ell}\right),
+ \qquad
+ W_{\rm reg}(\phi)=\frac{C(\phi)}{\det(I-\mathcal B_b)^2}.
+ \label{eq:outside_weight}
+\end{equation}
+辅助场测度 $P_{\rm HS}$ 仍为各实高斯密度的乘积。
+
+这些构型确实位于单位圆之外。
+由于 $\ee^{\ii\Phi_\ell}$ 幺正，逆传播满足统一上界
+\begin{equation}
+ \|\mathcal B_b^{-1}\|
+ \le\prod_{\ell=1}^{L_\tau}
+ \left\|\ee^{\Delta\tau h/2}
+          \ee^{-U\Delta\tau I-\ii\Phi_\ell}
+          \ee^{\Delta\tau h/2}\right\|
+ \le\ee^{-\beta(U-2t)}<1.
+ \label{eq:outside_bound}
+\end{equation}
+因此每个构型的所有本征值都满足
+\begin{equation}
+ |r_j|\ge\ee^{\beta(U-2t)}>1.
+\end{equation}
+裸占据数项随粒子数指数增长。
+
+要计算正规化权重的积分，可以将它改写为逆传播的收敛迹。
+首先，
+\begin{equation}
+ \det\mathcal B_b
+ =\exp\!\left(\beta UN_s+\ii\sum_{i,\ell}\phi_{i\ell}\right).
+\end{equation}
+利用 $\det(I-\mathcal B_b)=(-1)^{N_s}\det\mathcal B_b\,\det(I-\mathcal B_b^{-1})$，
+两个分量的平方消去符号，并得到
+\begin{equation}
+ W_{\rm reg}(\phi)
+ =\frac{C(\phi)(\det\mathcal B_b)^{-2}}
+        {\det(I-\mathcal B_b^{-1})^2}
+ =\frac{\ee^{-\beta UN_s/2}}{\det(I-\mathcal B_b^{-1})^2}.
+ \label{eq:outside_inverse}
+\end{equation}
+场依赖的显式标量相位在这一步准确抵消。
+式~\eqref{eq:outside_bound} 保证逆传播的迹绝对收敛，并受到与辅助场无关的上界控制。
+
+逆传播中，每片因子是
+\begin{equation}
+ \mathcal B_{b,\ell}^{-1}
+ =\ee^{+\Delta\tau h/2}
+  \ee^{-U\Delta\tau I-\ii\Phi_\ell}
+  \ee^{+\Delta\tau h/2}.
+\end{equation}
+将辅助场变换为 $\phi_{i\ell}\mapsto-\phi_{i,L_\tau+1-\ell}$，
+即同时反转场的符号和时间片次序，高斯测度保持不变。
+这时 hopping 矩阵变为 $-h$，线性密度项为 $+U\hat N$。
+剩余的高斯积分恢复
+\begin{equation}
+ \int\frac{d\phi}{\sqrt{2\pi U\Delta\tau}}\,
+ \ee^{-\phi^2/(2U\Delta\tau)}\ee^{\ii\phi\hat n_i}
+ =\ee^{-U\Delta\tau\hat n_i^2/2}.
+\end{equation}
+加上式~\eqref{eq:outside_inverse} 的常数因子，所得哈密顿量为
+\begin{equation}
+ H'=-K+\frac U2\sum_i(\hat n_i+1)^2.
+\end{equation}
+因为逆传播的迹收敛，可以交换迹与场积分。
+取连续虚时间极限后，
+\begin{equation}
+ \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_{\rm reg}(\phi)
+ =\Tr\ee^{-\beta H'}.
+\end{equation}
+偶数格点的最近邻链是二分晶格，变换 $a_{i\sigma}\mapsto(-1)^i a_{i\sigma}$
+将 hopping 变号，同时保持全部密度项。
+所以 $H'$ 与 $H$ 的能谱相同，最终有
+\begin{equation}
+ \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_{\rm reg}(\phi)
+ =\Tr\ee^{-\beta H}=Z.
+ \label{eq:outside_exact}
+\end{equation}
+对有限总粒子数截断，原始 HS 恒等式准确成立，因而
+\begin{equation}
+ \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)
+ \bigl[C(\phi)W_M(\mathcal B)-W_{\rm reg}(\phi)\bigr]
+ =\lim_{M\to\infty}(Z_M-Z)=0.
+\end{equation}
+
+这是普通晶格 Bose--Hubbard 哈密顿量的一个标准密度 HS 表示，
+在整个 $U>2t$ 参数区间内，其裸迹指数发散而完整正规化权重的积分准确。
+式~\eqref{eq:outside_inverse} 中两个分量给出同一个复行列式的平方，完整权重一般为复数。
+因此这证明了单位圆之外的配分函数可重整性，这一 HS 表示仍具有相位问题。
+
 \section{怎样判断具体模型}
 
 判别对象是给定哈密顿量及其 HS 表示。
@@ -608,7 +752,7 @@ $U_1$ 项在这个方向上为零，有限化学势也无法压制负的二次�
 所以这一 $U_2<0$ 表示的物理配分函数和正行列式积分都发散。
 有限占据截断得到的是截断模型的配分函数，其极限需要与这里的无限占据问题区分。
 
-这些检查给出明确的结果。
+上述检查中，式~\eqref{eq:outside_model} 的密度 HS 表示通过逆传播与二分晶格变换证明可重整，完整权重一般为复数。
 排斥 Bose--Hubbard 原子极限、具有式~\eqref{eq:bondmodel} 耦合关系的有限程晶格模型，以及总自旋相互作用模型，都由本征值位于单位圆内或边界上的 Kramers 判据保证可重整。
 旋转型 Schwinger 玻色子模型在正化学势下由式~\eqref{eq:rotationfailure} 确认不可重整。
 式~\eqref{eq:densitybenchmark} 的吸引总密度项则使无截断配分函数本身发散。
