@@ -24,7 +24,7 @@
 相互作用可以压制玻色子的高占据态，使物理配分函数有限。
 将相互作用作辅助场分解后，某些构型中高占据态的贡献却不再衰减，导致裸迹不收敛。
 行列式权重能否在辅助场平均后恢复物理配分函数，取决于截断相关的贡献能否在积分后精确抵消。
-下面从双分量 Bose--Hubbard 原子极限出发，给出可直接检查的充分判据，再用含 hopping 的晶格模型展示标准 HS 分解下的可重整性。
+下面先给出单位圆边界上的可重整例子及充分判据，再讨论含普通 hopping 的排斥模型。后者的数目守恒传播本征值严格超出单位圆；采用复辅助场路径后，包含高斯因子和 Jacobian 的完整权重处处为正，并准确恢复配分函数。
 
 \section{可重整性的定义}
 
@@ -61,7 +61,7 @@ $\hat U(\mathcal B)=\exp[\hat{\boldsymbol a}^{+}(\log \mathcal B)\hat{\boldsymbo
  \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)\,[W_M(\mathcal B)-W(\mathcal B)]=0.
  \label{eq:remainder}
 \end{equation}
-下面直接证明一个例子满足这个等式。
+若 HS 分解产生标量因子，应将它同时保留在截断权重和正规化权重中；改变辅助场积分路径时，还应包括路径 Jacobian。下面先证明一个无需这些附加因子的例子。
 
 \section{排斥 Bose--Hubbard 原子极限中的例子}
 
@@ -321,326 +321,352 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 只要从低化学势回到原模型的路径受到式~\eqref{eq:generalcriterion} 的统一控制。
 
 
-\section{含最近邻 hopping 和有限程相互作用的例子}
+\section{有 hopping 且传播本征值超出单位圆的模型}
+\label{sec:charging_model}
 
-在具有 $N_s$ 个格点的周期正方晶格上，每个格点有 $b,c$ 两个玻色分量，
-记 $a_{ib}=b_i$、$a_{ic}=c_i$，$\hat n_i=\sum_{\sigma=b,c}a_{i\sigma}^+a_{i\sigma}$。
-考虑含格点排斥和最近邻键排斥的扩展 Bose--Hubbard 模型，
+考虑两个格点、每个格点只有一种玻色子的扩展 Bose--Hubbard 模型，
+\begin{equation}
+ H=K+g\hat N(\hat N+2),\qquad
+ K=-t(a_1^+a_2+a_2^+a_1),\qquad
+ \hat N=\hat n_1+\hat n_2,\qquad g,t>0.
+ \label{eq:charging_dimer}
+\end{equation}
+将相互作用展开，
+\begin{equation}
+ H=K+g\sum_{i=1}^2\hat n_i(\hat n_i-1)
+       +2g\hat n_1\hat n_2+3g\hat N.
+\end{equation}
+所以格点内和格点间的密度排斥强度相等，均为 $2g$，化学势为 $\mu=-3g$。
+这是含普通 hopping 的物理相互作用模型。
+能量下界
+\begin{equation}
+ H\ge g\hat N^2+(2g-t)\hat N
+\end{equation}
+保证有限温度的配分函数收敛。
+
+使用无量纲参数 $a=\beta g$、$b=\beta t$。
+两个单粒子轨道的能量为 $-t,+t$，因此物理配分函数也可以直接写成
+\begin{equation}
+ Z=\sum_{n=0}^{\infty}
+ \ee^{-a n(n+2)}
+ \frac{\sinh[(n+1)b]}{\sinh b}.
+ \label{eq:dimer_physical_Z}
+\end{equation}
+下面从 HS 分解推导同一个配分函数。
+
+将密度平方平移，
+\begin{equation}
+ H=K+g(\hat N+2)^2-2g\hat N-4g.
+\end{equation}
+由于 $[K,\hat N]=0$，只需一个实高斯辅助场，且没有 Trotter 误差，
+\begin{equation}
+ \ee^{-\beta H}
+ =\int_{-\infty}^{\infty}\frac{d\phi}{\sqrt{4\pi a}}\,
+   \ee^{-\phi^2/(4a)}
+   \ee^{4a+2\ii\phi}
+   \ee^{(2a+\ii\phi)\hat N-\beta K}.
+ \label{eq:dimer_HS}
+\end{equation}
+它对应的普通数目守恒传播矩阵和标量因子为
+\begin{equation}
+ \mathcal B(\phi)=\ee^{2a+\ii\phi}\ee^{b\sigma_x},
+ \qquad C(\phi)=\ee^{4a+2\ii\phi}=\det\mathcal B(\phi).
+ \label{eq:dimer_B}
+\end{equation}
+两个本征值是 $r_\pm=\ee^{2a\pm b+\ii\phi}$。
+当 $2g>t$ 时，它们在每个实场构型中都严格位于单位圆外。
+
+完整正规化权重须保留式~\eqref{eq:dimer_HS} 的标量，
 \begin{align}
- H={}&-t\sum_{\langle ij\rangle,\sigma}
-       (a_{i\sigma}^+a_{j\sigma}+a_{j\sigma}^+a_{i\sigma})
-       +\frac U2\sum_i\hat n_i(\hat n_i-1)
-       -\mu\hat N \nonumber\\
-    &+\frac{2t}{3}\sum_{\langle ij\rangle}
-       \hat n_{d,ij}(\hat n_{d,ij}-1),
- \qquad t,U>0,\qquad \mu=-4t-\frac{3U}{2},
- \label{eq:bondmodel}
+ W_{\rm reg}(\phi)
+ &=\frac{C(\phi)}{\det[I-\mathcal B(\phi)]}
+ =\frac1{\det[I-\mathcal B(\phi)^{-1}]}\nonumber\\
+ &=\frac1{
+ (1-\ee^{-2a+b-\ii\phi})
+ (1-\ee^{-2a-b-\ii\phi})}.
+ \label{eq:dimer_inverse}
 \end{align}
-其中 $\hat N=\sum_i\hat n_i$，$\langle ij\rangle$ 对每条最近邻键计数一次。
-键上的两个模式及其总占据数定义为
-\begin{equation}
- d_{ij,\sigma}=\frac{a_{i\sigma}-a_{j\sigma}}{\sqrt2},\qquad
- \hat n_{d,ij}=\sum_\sigma d_{ij,\sigma}^+d_{ij,\sigma}.
- \label{eq:bondorbital}
-\end{equation}
-最后一项是每条键的反对称轨道中的排斥相互作用，只涉及该键的两个端点。
-将它展开到格点算符中，会包含密度相互作用、成对 hopping 和依赖占据数的 hopping。
-式~\eqref{eq:bondmodel} 指定了这些相互作用与普通 hopping 之间的耦合关系，$t$ 和 $U$ 可以独立取任意正值。
+第二步利用了
+$\det(I-\mathcal B)=\det\mathcal B\,\det(I-\mathcal B^{-1})$。
+逆传播的全部本征值模长小于一，所以右侧可以绝对收敛地展开。
 
-这个模型的 HS 分解可以直接从完整哈密顿量得到。
-分别用格点模式 $a_i$ 和键模式 $d_{ij}$ 定义自旋，
+逆传播的多体形式是
+$\ee^{-(2a+\ii\phi)\hat N+\beta K}$。
+将其占据数求和与高斯积分交换，使用
 \begin{equation}
- \hat{\boldsymbol S}_i=\frac12
- (a_{ib}^+,a_{ic}^+)\boldsymbol\sigma
- \begin{pmatrix}a_{ib}\\a_{ic}\end{pmatrix},\qquad
- \hat{\boldsymbol S}_{d,ij}=\frac12
- (d_{ij,b}^+,d_{ij,c}^+)\boldsymbol\sigma
- \begin{pmatrix}d_{ij,b}\\d_{ij,c}\end{pmatrix}.
+ \int_{-\infty}^{\infty}\frac{d\phi}{\sqrt{4\pi a}}\,
+ \ee^{-\phi^2/(4a)}\ee^{-\ii n\phi}=\ee^{-an^2},
 \end{equation}
-每条键的 $d_{ij,\sigma}$ 满足通常的玻色对易关系，所以原子例子中的自旋平方恒等式分别给出
+便得到
+\begin{equation}
+ \int_{-\infty}^{\infty}\frac{d\phi}{\sqrt{4\pi a}}\,
+ \ee^{-\phi^2/(4a)}W_{\rm reg}(\phi)
+ =\Tr\ee^{-\beta[-K+g\hat N(\hat N+2)]}
+ =Z.
+ \label{eq:dimer_exact_real}
+\end{equation}
+最后一步由格点变换 $a_2\mapsto-a_2$ 保证：它将 hopping 变号，同时保持全部密度项。
+因此该物理 HS 表示的配分函数准确性已经成立。
+
+实场上的 $W_{\rm reg}$ 一般为复数。
+下一节构造复辅助场积分路径，使包含高斯因子、$C(\phi)$ 和路径 Jacobian 的完整采样权重处处为正，同时保留上述配分函数等式。
+采用的参数范围为
+\begin{equation}
+ 0<t\le g,\qquad \beta g\ge4.
+ \label{eq:contour_parameters}
+\end{equation}
+
+\section{完整权重为正的辅助场积分路径}
+\label{sec:positive_contour}
+
+$\hat N+2$ 的本征值为整数，因此式~\eqref{eq:dimer_HS} 中的场依赖算符具有 $2\pi$ 周期。
+可以把实高斯场准确折叠到 $[0,2\pi)$，其概率密度为
 \begin{align}
- 2U\hat{\boldsymbol S}_i^2
- &=\frac U2\hat n_i(\hat n_i-1)+\frac{3U}{2}\hat n_i,\\
- \frac{8t}{3}\hat{\boldsymbol S}_{d,ij}^2
- &=\frac{2t}{3}\hat n_{d,ij}(\hat n_{d,ij}-1)+2t\hat n_{d,ij}.
+ P_a(\phi)
+ &=\frac1{\sqrt{4\pi a}}\sum_{k\in\mathbb Z}
+   \exp\!\left[-\frac{(\phi+2\pi k)^2}{4a}\right]\nonumber\\
+ &=\frac1{2\pi}\sum_{n\in\mathbb Z}\ee^{-an^2}\ee^{\ii n\phi}.
+ \label{eq:wrapped_gaussian}
 \end{align}
-最后一个线性项恰好包含普通 hopping，
+实轴上 $P_a>0$、$\int_0^{2\pi}P_a\,d\phi=1$。
+它准确保留高斯 HS 恒等式，
 \begin{equation}
- 2t\hat n_{d,ij}
- =t(\hat n_i+\hat n_j)
- -t\sum_\sigma(a_{i\sigma}^+a_{j\sigma}+a_{j\sigma}^+a_{i\sigma}).
+ \int_0^{2\pi}d\phi\,P_a(\phi)\ee^{\ii n\phi}
+ =\ee^{-an^2},\qquad n\in\mathbb Z.
 \end{equation}
-正方晶格每个格点属于四条键，故对所有键求和后，密度项为 $4t\hat N$。
-结合式~\eqref{eq:bondmodel} 的化学势，完整哈密顿量准确写为
-\begin{equation}
- H=2U\sum_i\hat{\boldsymbol S}_i^2
-   +\frac{8t}{3}\sum_{\langle ij\rangle}\hat{\boldsymbol S}_{d,ij}^2.
- \label{eq:bondsquares}
-\end{equation}
+式~\eqref{eq:wrapped_gaussian} 也给出 $P_a$ 对复数 $\phi$ 的解析延拓。
 
-对右侧每个自旋分量的平方作标准高斯 HS 分解。
-一般地，对任意一个这样的自旋分量 $\hat S_\alpha$ 和正系数 $g$，
+记完整的被积函数为
 \begin{equation}
- \ee^{-\Delta\tau g\hat S_\alpha^2}
- =\int\frac{d\phi}{\sqrt{2\pi}}\ee^{-\phi^2/2}
-       \ee^{\ii\sqrt{2g\Delta\tau}\,\phi\hat S_\alpha}.
+ f(\phi)=P_a(\phi)W_{\rm reg}(\phi),\qquad
+ Z=\int_0^{2\pi}f(\phi)\,d\phi.
+ \label{eq:contour_integrand}
 \end{equation}
-这里格点项取 $g=2U$，键项取 $g=8t/3$，并使用通常的连续虚时间极限。
-每个单粒子因子都是幺正矩阵。
-同时，$\Theta=(I_{N_s}\otimes\ii\sigma_y)K$ 将这些自旋分量变号，
-也将 $\ii$ 变号，因此保持每个 HS 因子。
-相乘得到的完整 $\mathcal B$ 仍幺正，并具有 Kramers 共轭配对。
-
-物理配分函数的有限性也可以直接检查。
-式~\eqref{eq:bondsquares} 的键平方项非负，故
+希望将路径写成 $\phi(x)=x+\ii y(x)$，$0\le x\le2\pi$，
+使累计积分始终为实数。
+为此定义
 \begin{equation}
- H\ge2U\sum_i\hat{\boldsymbol S}_i^2
- =\frac U2\sum_i\hat n_i(\hat n_i+2)
- \ge\frac{U}{2N_s}\hat N^2+U\hat N.
+ F(\phi)=\int_0^\phi f(w)\,dw,
+ \qquad \operatorname{Im}F(x+\ii y(x))=0.
+ \label{eq:contour_level}
 \end{equation}
-固定总粒子数 $n$ 的态数为 $\binom{n+2N_s-1}{2N_s-1}$，仅按幂律增长；
-上述二次能量下界因此保证 $Z<\infty$。
-每个构型的单粒子本征值模长均为一，裸占据数求和不收敛，而
+在下文的无奇点条带内，$F$ 与积分路径无关。
+沿着式~\eqref{eq:contour_level} 求导，得到可以直接求解的路径方程，
 \begin{equation}
- W(\mathcal B)
- =\prod_{a=1}^{N_s}\frac1{4\sin^2(\theta_a/2)}\ge0,
- \qquad r_{a,\pm}=\ee^{\pm\ii\theta_a}.
+ y'(x)=
+ -\frac{\operatorname{Im}f(x+\ii y(x))}
+        {\operatorname{Re}f(x+\ii y(x))},
+ \qquad y(0)=0.
+ \label{eq:contour_ode}
 \end{equation}
-式~\eqref{eq:unitarycriterion} 的判据随即给出
-\begin{equation}
- \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B)
- =\Tr\ee^{-\beta H},\qquad
- \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)\,[W_M-W]=0.
- \label{eq:bondexact}
-\end{equation}
+它只使用显式已知的 HS 密度和单粒子行列式。
 
-相邻键共享格点，它们的相互作用通常不对易。例如
-$[d_{12,\sigma},d_{23,\sigma'}^+]=-\delta_{\sigma\sigma'}/2$，
-所以 $\hat n_{d,12}$ 与 $\hat n_{d,23}$ 一般不对易。
-因此式~\eqref{eq:bondmodel} 包含真实的晶格间传播与相互作用。
-上述结论适用于给定耦合关系的扩展 Bose--Hubbard 参数族。
-
-\section{hopping 与总自旋相互作用的例子}
-
-另一类表达更简单的晶格模型保留普通 hopping，并引入总自旋相互作用。
-在含 $N_s\ge3$ 个格点的周期链上，取
+设路径上 $\operatorname{Re}f>0$，则包含 Jacobian 的完整权重为
 \begin{align}
- H={}&t\sum_{i,\sigma}
- (a_{i\sigma}^+-a_{i+1,\sigma}^+)(a_{i\sigma}-a_{i+1,\sigma})
- +g\hat{\boldsymbol S}_{\rm tot}^{\,2},
- \qquad t,g>0, \label{eq:collectivemodel}\\
- \hat{\boldsymbol S}_{\rm tot}&=\sum_i\hat{\boldsymbol S}_i.
+ w(x)
+ &=P_a(\phi(x))
+   \frac{C(\phi(x))}{\det[I-\mathcal B(\phi(x))]}
+   [1+\ii y'(x)]\nonumber\\
+ &=f(\phi(x))[1+\ii y'(x)]
+ =\frac{|f(\phi(x))|^2}{\operatorname{Re}f(\phi(x))}>0.
+ \label{eq:positive_full_weight}
 \end{align}
-动能项等于 $-t\sum_{i,\sigma}(a_{i\sigma}^+a_{i+1,\sigma}+\mathrm{h.c.})+2t\hat N$。
-其单粒子色散为 $\epsilon_k=4t\sin^2(k/2)$，零动量能量为零。
-相互作用
-\begin{equation}
- g\hat{\boldsymbol S}_{\rm tot}^{\,2}
- =g\sum_i\hat{\boldsymbol S}_i^2
- +2g\sum_{i<j}\hat{\boldsymbol S}_i\cdot\hat{\boldsymbol S}_j
-\end{equation}
-包含所有格点之间的自旋交换，因此这一例子的相互作用是长程的。
+这里的正性属于整个采样权重，包含折叠后的高斯因子、HS 标量和路径 Jacobian。
+下面证明这条路径确实存在、闭合，并且不会穿过行列式极点。
 
-先检查物理配分函数。
-有限链上，其余动量模式与零动量之间有能隙
-$\Delta=4t\sin^2(\pi/N_s)>0$。
-设零动量模式有 $n_0$ 个粒子，其余模式共有 $N_{\rm ex}$ 个粒子。
-同一空间轨道中的 $n_0$ 个双分量玻色子形成自旋 $n_0/2$，
-其余粒子的总自旋至多为 $N_{\rm ex}/2$。
-自旋相加因而给出
-\begin{equation}
- S\ge\frac{n_0-N_{\rm ex}}2,\qquad
- N=n_0+N_{\rm ex}\le2(S+N_{\rm ex}).
-\end{equation}
-动能和总自旋平方对易，故每个能量本征态满足
+在参数范围~\eqref{eq:contour_parameters} 中，考察条带
+$|\operatorname{Im}\phi|\le1/2$。
+式~\eqref{eq:dimer_inverse} 的极点满足
+$\operatorname{Re}\phi=2\pi k$、$\operatorname{Im}\phi=2a\pm b$。
+它们与实轴的距离至少为 $2a-b\ge a\ge4$，因此整个条带内没有极点。
+
+高斯 Fourier 系数和逆传播本征值都很小，可以逐项估计
 \begin{align}
- E&\ge\Delta N_{\rm ex}+gS(S+1)\nonumber\\
-  &\ge\min(\Delta,g)(N_{\rm ex}+S)
-   \ge\frac{\min(\Delta,g)}2N.
+ |2\pi P_a(\phi)-1|
+ &\le2\sum_{n=1}^{\infty}\ee^{-an^2}\cosh(n/2)
+ <0.042,\\
+ |W_{\rm reg}(\phi)-1|
+ &\le(1-\ee^{-a+1/2})^{-2}-1
+ <0.065.
+ \label{eq:strip_bounds}
 \end{align}
-于是有限模式数下
+这两个界给出
 \begin{equation}
- Z\le
- \left[1-\exp\!\left(-\frac{\beta\min(\Delta,g)}2\right)\right]^{-2N_s}
- <\infty.
+ \operatorname{Re}[2\pi f(\phi)]
+ >1-0.042-0.065(1+0.042)>0.89.
+ \label{eq:positive_real_part}
+\end{equation}
+在实轴上，还可以使用更强的界
+\begin{equation}
+ |W_{\rm reg}(x)-1|
+ \le(1-\ee^{-a})^{-2}-1<0.039.
+\end{equation}
+利用 $P_a(x)>0$ 及其归一化，对任意 $0\le x\le2\pi$ 都有
+\begin{equation}
+ |\operatorname{Im}F(x)|
+ =\left|\int_0^xP_a(s)\operatorname{Im}W_{\rm reg}(s)\,ds\right|
+ <0.039.
+ \label{eq:real_axis_phase}
 \end{equation}
 
-对总自旋的三个分量平方分别作标准高斯 HS 分解。
-它们产生同一个作用于所有格点的 $SU(2)$ 旋转，且与 hopping 对易。
-因此在连续虚时间极限中
+另一方面，沿虚方向移动时，
 \begin{equation}
- \mathcal B(\phi)=\ee^{-\beta h}\otimes U(\phi),
- \qquad U(\phi)\in SU(2),
- \label{eq:collectiveB}
+ \frac{\partial}{\partial y}\operatorname{Im}F(x+\ii y)
+ =\operatorname{Re}f(x+\ii y)>\frac{0.89}{2\pi}.
 \end{equation}
-其中 $h$ 是上述动能的单粒子矩阵。
-若 $U$ 的本征值为 $\ee^{\pm\ii\theta}$，则完整传播的本征值为
-\begin{equation}
- r_{k,\pm}=\ee^{-\beta\epsilon_k}\ee^{\pm\ii\theta}.
-\end{equation}
-零动量的两个本征值始终位于单位圆上，因此每个构型的裸迹仍不收敛。
-其余动量模式的本征值模长小于一。
-对应的权重为
-\begin{equation}
- W(\phi)=\prod_k
- \frac1{(1-\ee^{-\beta\epsilon_k})^2
-       +4\ee^{-\beta\epsilon_k}\sin^2(\theta/2)}\ge0.
-\end{equation}
-所有本征值均位于单位圆内或边界上，并具有 Kramers 配对，
-故式~\eqref{eq:unitarycriterion} 直接保证该模型可重整。
-这个例子允许任意有限链长和任意正的 $t,g$；
-化学势选择使所用单粒子动能的带底为零。
-将链上的动能换为 $t\sum_{\langle ij\rangle,\sigma}(a_{i\sigma}^+-a_{j\sigma}^+)(a_{i\sigma}-a_{j\sigma})$，同一推导便适用于任意有限连通晶格。
+从实轴移到 $y=1/2$ 或 $y=-1/2$，虚部的变化幅度至少为
+$0.89/(4\pi)>0.070$，超过式~\eqref{eq:real_axis_phase} 中的最大偏差。
+因此每个 $x$ 都有唯一的 $|y(x)|<1/2$ 使 $\operatorname{Im}F=0$。
+这就证明了式~\eqref{eq:contour_ode} 的解始终留在无极点条带内。
 
-\section{本征值超出单位圆的 Bose--Hubbard 模型}
-
-普通双分量 Bose--Hubbard 模型也存在本征值模长严格大于一、同时配分函数可重整的 HS 表示。
-这里需要保留密度平方平移产生的标量因子，完整的正规化权重一般为复数。
-本节直接证明其配分函数等式。
-
-取含偶数个格点的周期链，$N_s\ge4$，hopping 只连接相邻格点，
+$f$ 具有 $2\pi$ 周期，其一个周期的积分由式~\eqref{eq:dimer_exact_real} 等于实数 $Z$，故
+$F(\phi+2\pi)=F(\phi)+Z$。
+$\operatorname{Im}F$ 也具有同样的周期，所以 $y(x)$ 周期，且
+$y(2\pi)=y(0)=0$。
+路径变形不改变积分，最终有
 \begin{equation}
- H=K+\frac U2\sum_i(\hat n_i+1)^2,\qquad
- K=-t\sum_{i,\sigma}
- (a_{i\sigma}^+a_{i+1,\sigma}+a_{i+1,\sigma}^+a_{i\sigma}),
- \qquad U>2t>0.
- \label{eq:outside_model}
-\end{equation}
-因为
-\begin{equation}
- \frac U2(\hat n_i+1)^2
- =\frac U2\hat n_i(\hat n_i-1)+\frac{3U}{2}\hat n_i+\frac U2,
-\end{equation}
-它就是化学势 $\mu=-3U/2$ 的双分量排斥 Bose--Hubbard 模型，加上常数 $UN_s/2$。
-物理配分函数有限，能量下界为
-\begin{equation}
- H\ge\frac{U}{2N_s}\hat N^2+(U-2t)\hat N+\frac{UN_s}{2}.
+ \int_0^{2\pi}w(x)\,dx=Z,\qquad w(x)>0.
+ \label{eq:positive_contour_exact}
 \end{equation}
 
-采用下面的密度平方分解，
+再检查原始数目守恒传播。
+复路径上的两个本征值满足
 \begin{equation}
- \frac U2(\hat n_i+1)^2
- =\frac U2(\hat n_i+2)^2-U\hat n_i-\frac{3U}{2}.
+ |r_\pm(x)|=\ee^{2a\pm b-y(x)}
+ \ge\ee^{a-1/2}>1.
+ \label{eq:contour_outside}
 \end{equation}
-对第一个平方直接作高斯 HS 变换，得到
+因此每个采样构型都具有单位圆外本征值。
+固定总粒子数为 $n$ 的裸迹为
 \begin{equation}
- \ee^{-\frac{U\Delta\tau}{2}(\hat n_i+1)^2}
- =\ee^{3U\Delta\tau/2}
- \int\frac{d\phi}{\sqrt{2\pi U\Delta\tau}}
- \ee^{-\phi^2/(2U\Delta\tau)}
- \ee^{2\ii\phi}\ee^{(U\Delta\tau+\ii\phi)\hat n_i}.
- \label{eq:outside_hs}
+ \Tr\hat U_n(\mathcal B(\phi(x)))
+ =\ee^{[2a-y(x)+\ii x]n}
+   \frac{\sinh[(n+1)b]}{\sinh b}.
 \end{equation}
-这里 $\phi$ 是方差为 $U\Delta\tau$ 的实高斯场。
-$\ee^{2\ii\phi}$ 是 HS 恒等式的一部分，截断迹和正规化权重都必须保留这个标量因子。
+其模长随 $n$ 指数增长，裸占据数求和确实发散。
 
-记 $h$ 为 $K$ 的单粒子 hopping 矩阵，$\|h\|=2t$、$\Tr h=0$。
-使用对称 Trotter 分解，单个分量的每片传播和完整传播为
+最后，有限总粒子数截断的 HS 被积函数是无奇点的周期解析函数，
+所以同一复路径也保持有限截断恒等式。
+记
 \begin{equation}
- \mathcal B_{b,\ell}
- =\ee^{-\Delta\tau h/2}
-   \ee^{U\Delta\tau I+\ii\Phi_\ell}
-   \ee^{-\Delta\tau h/2},\qquad
- \Phi_\ell=\diag(\phi_{1\ell},\ldots,\phi_{N_s\ell}),\qquad
- \mathcal B_b=\mathcal B_{b,L_\tau}\cdots\mathcal B_{b,1}.
+ w_M(x)=P_a(\phi(x))\,\phi'(x)\,C(\phi(x))
+        \sum_{n=0}^{M}\Tr\hat U_n(\mathcal B(\phi(x))).
 \end{equation}
-两个分量经历同一个密度场，所以 $\mathcal B=\diag(\mathcal B_b,\mathcal B_b)$。
-所有时间片的标量因子相乘得到
+则 $\int_0^{2\pi}w_M(x)\,dx=Z_M$。
+结合式~\eqref{eq:positive_contour_exact}，
 \begin{equation}
- C(\phi)=
- \exp\!\left(\frac32\beta UN_s+2\ii\sum_{i,\ell}\phi_{i\ell}\right),
- \qquad
- W_{\rm reg}(\phi)=\frac{C(\phi)}{\det(I-\mathcal B_b)^2}.
- \label{eq:outside_weight}
+ \lim_{M\to\infty}\int_0^{2\pi}
+       [w_M(x)-w(x)]\,dx
+ =\lim_{M\to\infty}(Z_M-Z)=0.
+ \label{eq:contour_remainder}
 \end{equation}
-辅助场测度 $P_{\rm HS}$ 仍为各实高斯密度的乘积。
+这直接给出截断相关贡献在辅助场积分后精确抵消的物理例子，同时完整采样权重处处为正。
 
-这些构型确实位于单位圆之外。
-由于 $\ee^{\ii\Phi_\ell}$ 幺正，逆传播满足统一上界
-\begin{equation}
- \|\mathcal B_b^{-1}\|
- \le\prod_{\ell=1}^{L_\tau}
- \left\|\ee^{\Delta\tau h/2}
-          \ee^{-U\Delta\tau I-\ii\Phi_\ell}
-          \ee^{\Delta\tau h/2}\right\|
- \le\ee^{-\beta(U-2t)}<1.
- \label{eq:outside_bound}
-\end{equation}
-因此每个构型的所有本征值都满足
-\begin{equation}
- |r_j|\ge\ee^{\beta(U-2t)}>1.
-\end{equation}
-裸占据数项随粒子数指数增长。
+\section{判据及其向更大晶格的推广}
+\label{sec:inverse_criterion}
 
-要计算正规化权重的积分，可以将它改写为逆传播的收敛迹。
-首先，
+上述推导提供了两个可分开检查的充分条件。
+首先，若 $\mathcal B^{-1}$ 的迹一致绝对收敛，可以利用
 \begin{equation}
- \det\mathcal B_b
- =\exp\!\left(\beta UN_s+\ii\sum_{i,\ell}\phi_{i\ell}\right).
+ \frac{C(\phi)}{\det(I-\mathcal B)}
+ =\frac{(-1)^m C(\phi)/\det\mathcal B}
+        {\det(I-\mathcal B^{-1})}
+ \label{eq:inverse_criterion}
 \end{equation}
-利用 $\det(I-\mathcal B_b)=(-1)^{N_s}\det\mathcal B_b\,\det(I-\mathcal B_b^{-1})$，
-两个分量的平方消去符号，并得到
+计算正规化积分。
+这里 $m$ 为单粒子模式数。
+当右侧的 HS 积分恢复一个与原模型等谱的哈密顿量时，配分函数可重整性随即成立。
+本例中 $m=2$、$C=\det\mathcal B$，逆传播只把 hopping 变号，而二分晶格变换保证能谱相同。
+
+其次，完整积分的正性可以通过复路径单独建立。
+对一个 $2\pi$ 周期、条带内无奇点的被积函数 $f$，若其实轴积分为正实数，且存在 $c,\delta>0$ 满足
+\begin{equation}
+ \operatorname{Re}f(x+\ii y)\ge c
+ \quad (|y|\le\delta),\qquad
+ \sup_{0\le x\le2\pi}
+ \left|\operatorname{Im}\int_0^x f(s)\,ds\right|<c\delta,
+ \label{eq:contour_criterion}
+\end{equation}
+则上一节的证明直接给出周期路径 $|y(x)|<\delta$，
+其完整权重为 $|f|^2/\operatorname{Re}f>0$。
+因此可先用逆传播检查配分函数，再用式~\eqref{eq:contour_criterion} 检查正路径的存在性。
+
+这两个条件适用于任意含偶数个格点的有限二分晶格。
+每个格点取一种玻色子，考虑
+\begin{equation}
+ H=K+g\hat N(\hat N+N_s),\qquad
+ K=\sum_{ij}a_i^+h_{ij}a_j,\qquad
+ \hat N=\sum_i\hat n_i,\qquad N_s\ \text{为偶数}.
+ \label{eq:charging_lattice}
+\end{equation}
+$h$ 为只连接两个子晶格的 Hermitian hopping 矩阵。
+相互作用依赖总粒子数，是整体充电能；展开后包含所有格点对之间的密度排斥。
+普通最近邻 hopping 可以保留。
+物理配分函数有限，因为
+\begin{equation}
+ H\ge g\hat N^2+(gN_s-\|h\|)\hat N.
+\end{equation}
+
+使用恒等式
+$g\hat N(\hat N+N_s)=g(\hat N+N_s)^2-gN_s\hat N-gN_s^2$，
+同样得到一个高斯辅助场，
+\begin{equation}
+ \mathcal B(\phi)=\ee^{aN_s+\ii\phi}\ee^{-\beta h},
+ \qquad C(\phi)=\ee^{aN_s^2+\ii N_s\phi}
+              =\det\mathcal B(\phi),
+ \qquad a=\beta g.
+\end{equation}
+这里使用了 $\Tr h=0$。
+由于 $N_s$ 为偶数，
 \begin{equation}
  W_{\rm reg}(\phi)
- =\frac{C(\phi)(\det\mathcal B_b)^{-2}}
-        {\det(I-\mathcal B_b^{-1})^2}
- =\frac{\ee^{-\beta UN_s/2}}{\det(I-\mathcal B_b^{-1})^2}.
- \label{eq:outside_inverse}
+ =\frac1{\det[I-\ee^{-aN_s-\ii\phi}\ee^{\beta h}]}.
+ \label{eq:lattice_inverse_weight}
 \end{equation}
-场依赖的显式标量相位在这一步准确抵消。
-式~\eqref{eq:outside_bound} 保证逆传播的迹绝对收敛，并受到与辅助场无关的上界控制。
+只要 $gN_s>\|h\|$，逆传播的迹一致绝对收敛。
+其 HS 积分恢复 $-K+g\hat N(\hat N+N_s)$。
+在一个子晶格上作 $a_i\mapsto-a_i$，便将 $-K$ 变回 $K$，因此正规化积分准确等于 $Z$。
 
-逆传播中，每片因子是
+一个直接保证正路径存在的参数范围是
 \begin{equation}
- \mathcal B_{b,\ell}^{-1}
- =\ee^{+\Delta\tau h/2}
-  \ee^{-U\Delta\tau I-\ii\Phi_\ell}
-  \ee^{+\Delta\tau h/2}.
+ \beta g\ge4,\qquad \|h\|\le\frac{gN_s}{2}.
+ \label{eq:lattice_contour_domain}
 \end{equation}
-将辅助场变换为 $\phi_{i\ell}\mapsto-\phi_{i,L_\tau+1-\ell}$，
-即同时反转场的符号和时间片次序，高斯测度保持不变。
-这时 hopping 矩阵变为 $-h$，线性密度项为 $+U\hat N$。
-剩余的高斯积分恢复
+设 $h$ 的本征值为 $\epsilon_j$，则逆传播中的正系数
+$\ee^{-aN_s+\beta\epsilon_j}$ 满足
 \begin{equation}
- \int\frac{d\phi}{\sqrt{2\pi U\Delta\tau}}\,
- \ee^{-\phi^2/(2U\Delta\tau)}\ee^{\ii\phi\hat n_i}
- =\ee^{-U\Delta\tau\hat n_i^2/2}.
+ \max_j\ee^{-aN_s+\beta\epsilon_j}\le\ee^{-aN_s/2},
+ \qquad
+ \sum_j\ee^{-aN_s+\beta\epsilon_j}
+ \le N_s\ee^{-aN_s/2}\le2\ee^{-a}.
 \end{equation}
-加上式~\eqref{eq:outside_inverse} 的常数因子，所得哈密顿量为
+于是条带内的行列式因子可用几何级数估计，
 \begin{equation}
- H'=-K+\frac U2\sum_i(\hat n_i+1)^2.
+ |W_{\rm reg}(\phi)-1|
+ \le
+ \exp\!\left[
+ \frac{2\ee^{-a+1/2}}{1-\ee^{-a+1/2}}
+ \right]-1<0.065,
+ \qquad |\operatorname{Im}\phi|\le\frac12.
 \end{equation}
-因为逆传播的迹收敛，可以交换迹与场积分。
-取连续虚时间极限后，
-\begin{equation}
- \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_{\rm reg}(\phi)
- =\Tr\ee^{-\beta H'}.
-\end{equation}
-偶数格点的最近邻链是二分晶格，变换 $a_{i\sigma}\mapsto(-1)^i a_{i\sigma}$
-将 hopping 变号，同时保持全部密度项。
-所以 $H'$ 与 $H$ 的能谱相同，最终有
-\begin{equation}
- \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W_{\rm reg}(\phi)
- =\Tr\ee^{-\beta H}=Z.
- \label{eq:outside_exact}
-\end{equation}
-对有限总粒子数截断，原始 HS 恒等式准确成立，因而
-\begin{equation}
- \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)
- \bigl[C(\phi)W_M(\mathcal B)-W_{\rm reg}(\phi)\bigr]
- =\lim_{M\to\infty}(Z_M-Z)=0.
-\end{equation}
+在实轴上，将上式中的 $1/2$ 去掉，就得到小于 $0.039$ 的界。
+$P_a$ 的界限不变，所以式~\eqref{eq:positive_real_part}--\eqref{eq:real_axis_phase}
+以及正路径的证明全部适用。
 
-这是普通晶格 Bose--Hubbard 哈密顿量的一个标准密度 HS 表示，
-在整个 $U>2t$ 参数区间内，其裸迹指数发散而完整正规化权重的积分准确。
-式~\eqref{eq:outside_inverse} 中两个分量给出同一个复行列式的平方，完整权重一般为复数。
-因此这证明了单位圆之外的配分函数可重整性，这一 HS 表示仍具有相位问题。
+沿这条路径，原传播的每个本征值都有
+\begin{equation}
+ |r_j(x)|=\ee^{aN_s-y(x)-\beta\epsilon_j}
+ \ge\ee^{aN_s/2-1/2}>1.
+\end{equation}
+因此式~\eqref{eq:charging_lattice} 给出一个含普通 hopping 的晶格参数族：
+数目守恒传播的本征值超出单位圆，完整复路径权重为正，
+而截断余项积分仍按式~\eqref{eq:contour_remainder} 趋于零。
 
 \section{怎样判断具体模型}
 
 判别对象是给定哈密顿量及其 HS 表示。
 首先检查无限占据空间中的物理配分函数是否有限，再检查辅助场传播矩阵。
-本征值满足 $|r_j|\le1$ 且具有 Kramers 配对的表示可以使用式~\eqref{eq:unitarycriterion} 的判据；本征值模长可能超过一时，可以检查式~\eqref{eq:generalcriterion}。
+本征值满足 $|r_j|\le1$ 且具有 Kramers 配对的表示可以使用式~\eqref{eq:unitarycriterion} 的判据。本征值模长可能超过一时，可以检查式~\eqref{eq:generalcriterion} 的解析性条件，或使用式~\eqref{eq:inverse_criterion} 的逆传播方法；允许复辅助场路径时，再检查式~\eqref{eq:contour_criterion} 的正性条件。
 要确认不可重整性，则可以利用传播矩阵的特殊结构，算出行列式积分与物理配分函数之间的差别。
 
 一个特别容易应用的充分条件是，传播矩阵一致有界，且所有本征值的实部都小于一，并留有统一间隔，
@@ -752,8 +778,9 @@ $U_1$ 项在这个方向上为零，有限化学势也无法压制负的二次�
 所以这一 $U_2<0$ 表示的物理配分函数和正行列式积分都发散。
 有限占据截断得到的是截断模型的配分函数，其极限需要与这里的无限占据问题区分。
 
-上述检查中，式~\eqref{eq:outside_model} 的密度 HS 表示通过逆传播与二分晶格变换证明可重整，完整权重一般为复数。
-排斥 Bose--Hubbard 原子极限、具有式~\eqref{eq:bondmodel} 耦合关系的有限程晶格模型，以及总自旋相互作用模型，都由本征值位于单位圆内或边界上的 Kramers 判据保证可重整。
+两格点模型~\eqref{eq:charging_dimer} 及更大的二分晶格充电模型~\eqref{eq:charging_lattice}，
+由逆传播与 hopping 变号证明可重整，再由式~\eqref{eq:contour_criterion} 保证完整复路径权重为正。
+排斥 Bose--Hubbard 原子极限则由本征值位于单位圆边界上的 Kramers 判据保证可重整。
 旋转型 Schwinger 玻色子模型在正化学势下由式~\eqref{eq:rotationfailure} 确认不可重整。
 式~\eqref{eq:densitybenchmark} 的吸引总密度项则使无截断配分函数本身发散。
 
