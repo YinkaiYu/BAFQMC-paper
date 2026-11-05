@@ -24,7 +24,7 @@
 相互作用可以压制玻色子的高占据态，使物理配分函数有限。
 将相互作用作辅助场分解后，某些构型中高占据态的贡献却不再衰减，导致裸迹不收敛。
 行列式权重能否在辅助场平均后恢复物理配分函数，取决于截断相关的贡献能否在积分后精确抵消。
-下面从双分量 Bose--Hubbard 模型的标准高斯 HS 分解出发，证明一个裸迹不收敛而行列式积分准确的例子，并给出可直接检查的充分判据。
+下面从双分量 Bose--Hubbard 原子极限出发，给出可直接检查的充分判据，再用含 hopping 的晶格模型展示标准 HS 分解下的可重整性。
 
 \section{可重整性的定义}
 
@@ -209,30 +209,49 @@ $\hat U(\mathcal B)=\exp[\hat{\boldsymbol a}^{+}(\log \mathcal B)\hat{\boldsymbo
 
 \section{可直接检查的充分判据}
 
-上面的证明给出一个适用于更多模型的简单判据。
-对于任意有限模式数的粒子数守恒系统，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
-如果每个构型的 $\mathcal B$ 都是幺正矩阵，并保持同一个满足 $\Theta^2=-I$ 的 Kramers 时间反演，
-则这个 HS 表示可重整。
+上面的证明可以推广到所有本征值位于单位圆内或边界上的传播。
+考虑 $2N_s$ 个模式的粒子数守恒系统，假设物理配分函数有限，且每个固定粒子数子空间的 HS 恒等式成立。
+如果每个构型的 $\mathcal B$ 都保持同一个满足 $\Theta^2=-I$ 的 Kramers 时间反演，
+并且所有本征值满足 $|r_j|\le1$，则这个 HS 表示可重整。
+幺正传播是这一判据的一个特例。
 
-事实上，设模式数为 $2N_s$，本征值可按 $\ee^{\pm\ii\theta_a}$ 配对。
-降低化学势后的行列式权重为
+将本征值按 $r_a,r_a^*$ 配对，降低化学势后的权重为
 \begin{equation}
  \frac1{\det(I-z\mathcal B)}
- =\prod_{a=1}^{N_s}
-   \frac1{(1-z)^2+4z\sin^2(\theta_a/2)}.
+ =\prod_{a=1}^{N_s}\frac1{|1-zr_a|^2}\ge0,
+ \qquad 0<z<1,\quad |r_a|\le1.
  \label{eq:unitarycriterion}
 \end{equation}
-对每一对本征值使用式~\eqref{eq:spinsandwich}，得到
+固定总粒子数的迹是所有占据分配对应的本征值乘积之和，因此
 \begin{equation}
- \prod_{a=1}^{N_s}\frac1{(1-z)^2+4\sin^2(\theta_a/2)}
+ \left|\Tr\hat U_n(\mathcal B)\right|
+ =\left|\sum_{n_1+\cdots+n_{2N_s}=n}\prod_{j=1}^{2N_s}r_j^{n_j}\right|
+ \le\binom{n+2N_s-1}{2N_s-1}.
+\end{equation}
+乘以 $z^n$ 后，占据数求和由 $(1-z)^{-2N_s}$ 控制，可以与辅助场积分交换。
+所以 $z<1$ 时仍有 $\int\mathcal D\phi\,P_{\rm HS}(\phi)/\det(I-z\mathcal B)=Z(z)$。
+
+关键的逐构型估计是
+\begin{equation}
+ |1-zr_a|^2
+ =z|1-r_a|^2+(1-z)(1-z|r_a|^2),
+\end{equation}
+其中 $0\le1-z|r_a|^2\le1$。于是
+\begin{equation}
+ z|1-r_a|^2\le |1-zr_a|^2\le |1-r_a|^2+1-z,
+\end{equation}
+从而
+\begin{equation}
+ \prod_{a=1}^{N_s}\frac1{|1-r_a|^2+1-z}
  \le\frac1{\det(I-z\mathcal B)}
  \le z^{-N_s}\frac1{\det(I-\mathcal B)}.
+ \label{eq:spectralbound}
 \end{equation}
-左侧随 $z$ 从小于一的一侧趋近一而单调增加。
-与前一节完全相同的两步积分比较，便证明行列式积分有限且等于 $Z$。
-因此这个判据只需检查幺正性、Kramers 配对和物理配分函数有限性，无须逐个计算发散的裸迹。
+左侧随 $z$ 从小于一的一侧趋近一而单调增加到目标权重。
+积分后取极限，第一个不等式给出行列式积分不超过 $Z$，并保证极点可积；
+第二个不等式给出反向不等式。因此行列式积分恰好等于 $Z$。
 
-对于非幺正的传播，也可以利用降低化学势的路径建立充分判据。
+对于本征值模长可能超过一的传播，还可以利用降低化学势的路径建立另一充分判据。
 仍用 $z=\ee^{-\beta\Delta\mu}$，先在 $z$ 足够小时使用收敛迹公式，
 再将化学势恢复到原值。
 
@@ -302,11 +321,182 @@ $m$ 个模式的 $n$ 粒子子空间维数为 $\binom{n+m-1}{m-1}$。
 只要从低化学势回到原模型的路径受到式~\eqref{eq:generalcriterion} 的统一控制。
 
 
+\section{含最近邻 hopping 和有限程相互作用的例子}
+
+在具有 $N_s$ 个格点的周期正方晶格上，每个格点有 $b,c$ 两个玻色分量，
+记 $a_{ib}=b_i$、$a_{ic}=c_i$，$\hat n_i=\sum_{\sigma=b,c}a_{i\sigma}^+a_{i\sigma}$。
+考虑含格点排斥和最近邻键排斥的扩展 Bose--Hubbard 模型，
+\begin{align}
+ H={}&-t\sum_{\langle ij\rangle,\sigma}
+       (a_{i\sigma}^+a_{j\sigma}+a_{j\sigma}^+a_{i\sigma})
+       +\frac U2\sum_i\hat n_i(\hat n_i-1)
+       -\mu\hat N \nonumber\\
+    &+\frac{2t}{3}\sum_{\langle ij\rangle}
+       \hat n_{d,ij}(\hat n_{d,ij}-1),
+ \qquad t,U>0,\qquad \mu=-4t-\frac{3U}{2},
+ \label{eq:bondmodel}
+\end{align}
+其中 $\hat N=\sum_i\hat n_i$，$\langle ij\rangle$ 对每条最近邻键计数一次。
+键上的两个模式及其总占据数定义为
+\begin{equation}
+ d_{ij,\sigma}=\frac{a_{i\sigma}-a_{j\sigma}}{\sqrt2},\qquad
+ \hat n_{d,ij}=\sum_\sigma d_{ij,\sigma}^+d_{ij,\sigma}.
+ \label{eq:bondorbital}
+\end{equation}
+最后一项是每条键的反对称轨道中的排斥相互作用，只涉及该键的两个端点。
+将它展开到格点算符中，会包含密度相互作用、成对 hopping 和依赖占据数的 hopping。
+式~\eqref{eq:bondmodel} 指定了这些相互作用与普通 hopping 之间的耦合关系，$t$ 和 $U$ 可以独立取任意正值。
+
+这个模型的 HS 分解可以直接从完整哈密顿量得到。
+分别用格点模式 $a_i$ 和键模式 $d_{ij}$ 定义自旋，
+\begin{equation}
+ \hat{\boldsymbol S}_i=\frac12
+ (a_{ib}^+,a_{ic}^+)\boldsymbol\sigma
+ \begin{pmatrix}a_{ib}\\a_{ic}\end{pmatrix},\qquad
+ \hat{\boldsymbol S}_{d,ij}=\frac12
+ (d_{ij,b}^+,d_{ij,c}^+)\boldsymbol\sigma
+ \begin{pmatrix}d_{ij,b}\\d_{ij,c}\end{pmatrix}.
+\end{equation}
+每条键的 $d_{ij,\sigma}$ 满足通常的玻色对易关系，所以原子例子中的自旋平方恒等式分别给出
+\begin{align}
+ 2U\hat{\boldsymbol S}_i^2
+ &=\frac U2\hat n_i(\hat n_i-1)+\frac{3U}{2}\hat n_i,\\
+ \frac{8t}{3}\hat{\boldsymbol S}_{d,ij}^2
+ &=\frac{2t}{3}\hat n_{d,ij}(\hat n_{d,ij}-1)+2t\hat n_{d,ij}.
+\end{align}
+最后一个线性项恰好包含普通 hopping，
+\begin{equation}
+ 2t\hat n_{d,ij}
+ =t(\hat n_i+\hat n_j)
+ -t\sum_\sigma(a_{i\sigma}^+a_{j\sigma}+a_{j\sigma}^+a_{i\sigma}).
+\end{equation}
+正方晶格每个格点属于四条键，故对所有键求和后，密度项为 $4t\hat N$。
+结合式~\eqref{eq:bondmodel} 的化学势，完整哈密顿量准确写为
+\begin{equation}
+ H=2U\sum_i\hat{\boldsymbol S}_i^2
+   +\frac{8t}{3}\sum_{\langle ij\rangle}\hat{\boldsymbol S}_{d,ij}^2.
+ \label{eq:bondsquares}
+\end{equation}
+
+对右侧每个自旋分量的平方作标准高斯 HS 分解。
+一般地，对任意一个这样的自旋分量 $\hat S_\alpha$ 和正系数 $g$，
+\begin{equation}
+ \ee^{-\Delta\tau g\hat S_\alpha^2}
+ =\int\frac{d\phi}{\sqrt{2\pi}}\ee^{-\phi^2/2}
+       \ee^{\ii\sqrt{2g\Delta\tau}\,\phi\hat S_\alpha}.
+\end{equation}
+这里格点项取 $g=2U$，键项取 $g=8t/3$，并使用通常的连续虚时间极限。
+每个单粒子因子都是幺正矩阵。
+同时，$\Theta=(I_{N_s}\otimes\ii\sigma_y)K$ 将这些自旋分量变号，
+也将 $\ii$ 变号，因此保持每个 HS 因子。
+相乘得到的完整 $\mathcal B$ 仍幺正，并具有 Kramers 共轭配对。
+
+物理配分函数的有限性也可以直接检查。
+式~\eqref{eq:bondsquares} 的键平方项非负，故
+\begin{equation}
+ H\ge2U\sum_i\hat{\boldsymbol S}_i^2
+ =\frac U2\sum_i\hat n_i(\hat n_i+2)
+ \ge\frac{U}{2N_s}\hat N^2+U\hat N.
+\end{equation}
+固定总粒子数 $n$ 的态数为 $\binom{n+2N_s-1}{2N_s-1}$，仅按幂律增长；
+上述二次能量下界因此保证 $Z<\infty$。
+每个构型的单粒子本征值模长均为一，裸占据数求和不收敛，而
+\begin{equation}
+ W(\mathcal B)
+ =\prod_{a=1}^{N_s}\frac1{4\sin^2(\theta_a/2)}\ge0,
+ \qquad r_{a,\pm}=\ee^{\pm\ii\theta_a}.
+\end{equation}
+式~\eqref{eq:unitarycriterion} 的判据随即给出
+\begin{equation}
+ \int\mathcal D\phi\,P_{\rm HS}(\phi)\,W(\mathcal B)
+ =\Tr\ee^{-\beta H},\qquad
+ \lim_{M\to\infty}\int\mathcal D\phi\,P_{\rm HS}(\phi)\,[W_M-W]=0.
+ \label{eq:bondexact}
+\end{equation}
+
+相邻键共享格点，它们的相互作用通常不对易。例如
+$[d_{12,\sigma},d_{23,\sigma'}^+]=-\delta_{\sigma\sigma'}/2$，
+所以 $\hat n_{d,12}$ 与 $\hat n_{d,23}$ 一般不对易。
+因此式~\eqref{eq:bondmodel} 包含真实的晶格间传播与相互作用。
+上述结论适用于给定耦合关系的扩展 Bose--Hubbard 参数族。
+
+\section{hopping 与总自旋相互作用的例子}
+
+另一类表达更简单的晶格模型保留普通 hopping，并引入总自旋相互作用。
+在含 $N_s\ge3$ 个格点的周期链上，取
+\begin{align}
+ H={}&t\sum_{i,\sigma}
+ (a_{i\sigma}^+-a_{i+1,\sigma}^+)(a_{i\sigma}-a_{i+1,\sigma})
+ +g\hat{\boldsymbol S}_{\rm tot}^{\,2},
+ \qquad t,g>0, \label{eq:collectivemodel}\\
+ \hat{\boldsymbol S}_{\rm tot}&=\sum_i\hat{\boldsymbol S}_i.
+\end{align}
+动能项等于 $-t\sum_{i,\sigma}(a_{i\sigma}^+a_{i+1,\sigma}+\mathrm{h.c.})+2t\hat N$。
+其单粒子色散为 $\epsilon_k=4t\sin^2(k/2)$，零动量能量为零。
+相互作用
+\begin{equation}
+ g\hat{\boldsymbol S}_{\rm tot}^{\,2}
+ =g\sum_i\hat{\boldsymbol S}_i^2
+ +2g\sum_{i<j}\hat{\boldsymbol S}_i\cdot\hat{\boldsymbol S}_j
+\end{equation}
+包含所有格点之间的自旋交换，因此这一例子的相互作用是长程的。
+
+先检查物理配分函数。
+有限链上，其余动量模式与零动量之间有能隙
+$\Delta=4t\sin^2(\pi/N_s)>0$。
+设零动量模式有 $n_0$ 个粒子，其余模式共有 $N_{\rm ex}$ 个粒子。
+同一空间轨道中的 $n_0$ 个双分量玻色子形成自旋 $n_0/2$，
+其余粒子的总自旋至多为 $N_{\rm ex}/2$。
+自旋相加因而给出
+\begin{equation}
+ S\ge\frac{n_0-N_{\rm ex}}2,\qquad
+ N=n_0+N_{\rm ex}\le2(S+N_{\rm ex}).
+\end{equation}
+动能和总自旋平方对易，故每个能量本征态满足
+\begin{align}
+ E&\ge\Delta N_{\rm ex}+gS(S+1)\nonumber\\
+  &\ge\min(\Delta,g)(N_{\rm ex}+S)
+   \ge\frac{\min(\Delta,g)}2N.
+\end{align}
+于是有限模式数下
+\begin{equation}
+ Z\le
+ \left[1-\exp\!\left(-\frac{\beta\min(\Delta,g)}2\right)\right]^{-2N_s}
+ <\infty.
+\end{equation}
+
+对总自旋的三个分量平方分别作标准高斯 HS 分解。
+它们产生同一个作用于所有格点的 $SU(2)$ 旋转，且与 hopping 对易。
+因此在连续虚时间极限中
+\begin{equation}
+ \mathcal B(\phi)=\ee^{-\beta h}\otimes U(\phi),
+ \qquad U(\phi)\in SU(2),
+ \label{eq:collectiveB}
+\end{equation}
+其中 $h$ 是上述动能的单粒子矩阵。
+若 $U$ 的本征值为 $\ee^{\pm\ii\theta}$，则完整传播的本征值为
+\begin{equation}
+ r_{k,\pm}=\ee^{-\beta\epsilon_k}\ee^{\pm\ii\theta}.
+\end{equation}
+零动量的两个本征值始终位于单位圆上，因此每个构型的裸迹仍不收敛。
+其余动量模式的本征值模长小于一。
+对应的权重为
+\begin{equation}
+ W(\phi)=\prod_k
+ \frac1{(1-\ee^{-\beta\epsilon_k})^2
+       +4\ee^{-\beta\epsilon_k}\sin^2(\theta/2)}\ge0.
+\end{equation}
+所有本征值均位于单位圆内或边界上，并具有 Kramers 配对，
+故式~\eqref{eq:unitarycriterion} 直接保证该模型可重整。
+这个例子允许任意有限链长和任意正的 $t,g$；
+化学势选择使所用单粒子动能的带底为零。
+将链上的动能换为 $t\sum_{\langle ij\rangle,\sigma}(a_{i\sigma}^+-a_{j\sigma}^+)(a_{i\sigma}-a_{j\sigma})$，同一推导便适用于任意有限连通晶格。
+
 \section{怎样判断具体模型}
 
 判别对象是给定哈密顿量及其 HS 表示。
 首先检查无限占据空间中的物理配分函数是否有限，再检查辅助场传播矩阵。
-幺正且具有 Kramers 配对的表示可以使用式~\eqref{eq:unitarycriterion} 的判据；更一般的表示可以检查式~\eqref{eq:generalcriterion}。
+本征值满足 $|r_j|\le1$ 且具有 Kramers 配对的表示可以使用式~\eqref{eq:unitarycriterion} 的判据；本征值模长可能超过一时，可以检查式~\eqref{eq:generalcriterion}。
 要确认不可重整性，则可以利用传播矩阵的特殊结构，算出行列式积分与物理配分函数之间的差别。
 
 一个特别容易应用的充分条件是，传播矩阵一致有界，且所有本征值的实部都小于一，并留有统一间隔，
@@ -418,8 +608,8 @@ $U_1$ 项在这个方向上为零，有限化学势也无法压制负的二次�
 所以这一 $U_2<0$ 表示的物理配分函数和正行列式积分都发散。
 有限占据截断得到的是截断模型的配分函数，其极限需要与这里的无限占据问题区分。
 
-这三个检查给出不同而明确的结果。
-排斥 Bose--Hubbard 原子极限的自旋通道 HS 表示由幺正 Kramers 判据保证可重整。
+这些检查给出明确的结果。
+排斥 Bose--Hubbard 原子极限、具有式~\eqref{eq:bondmodel} 耦合关系的有限程晶格模型，以及总自旋相互作用模型，都由本征值位于单位圆内或边界上的 Kramers 判据保证可重整。
 旋转型 Schwinger 玻色子模型在正化学势下由式~\eqref{eq:rotationfailure} 确认不可重整。
 式~\eqref{eq:densitybenchmark} 的吸引总密度项则使无截断配分函数本身发散。
 
