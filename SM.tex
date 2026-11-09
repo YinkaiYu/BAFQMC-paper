@@ -1356,22 +1356,42 @@ We first consider the number-conserving benchmarks, with $\Delta=0$. For each re
 
 The paired benchmark in Fig.~\ref{fig:benchmark} uses $U_1=1$, $U_2=0$, $t=1$, $\beta=4$, $\Delta\tau=0.01$, and $\mu=-5$, with the pairing amplitude varied. The BAFQMC observables show quantitative agreement with finite-temperature exact diagonalization. Reflection positivity is obtained by reflecting between the two flavors with $\theta(\hat b_i)=\eta\hat c_i$ and $\theta(\hat b_i^+)=\overline\eta\hat c_i^+$, where $\eta=\Delta^*/|\Delta|$ for $\Delta\ne0$ (and $\eta=1$ when $\Delta=0$). The pairing part of each slice is then $\Delta\tau|\Delta|\sum_i[\hat b_i^+\theta(\hat b_i^+)+\hat b_i\theta(\hat b_i)]$. Thus every pair term is a product of a $b$-sector operator and its reflected $c$-sector partner with a non-negative coefficient. The hopping, chemical-potential, and density-field terms remain two conjugate within-sector evolutions, while the cross-flavor block is $F=(\Delta\tau|\Delta|/2)I_{2N_s}\succeq0$. Each slice is therefore reflection positive, and successive slices preserve this structure; the convergent trace is a sum of modulus squares and is non-negative.
 
-For the paired benchmark with $\Delta\ne0$, $U_1>0$, and $U_2=0$, we now prove that the imaginary-time evolution operator has a convergent trace for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice dispersion is $\epsilon_{\bb k}=t|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}|^2-3t\ge-3t$. Thus $\mu<-3t-|\Delta|$ makes all Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ positive, and the quadratic propagator $T=\ee^{-\Delta\tau\hat K_0}$ is trace class, with
+For the paired benchmark with $\Delta\ne0$, $U_1>0$, and $U_2=0$, we now prove that the imaginary-time evolution operator has a convergent trace for every auxiliary-field configuration. Let $\hat K_0$ denote the hopping, pairing, and chemical-potential terms in $\hat H-\mu\hat N$. The triangular-lattice dispersion is $\epsilon_{\bb k}=t|1+\ee^{\ii\bb k\cdot\bb a_1}+\ee^{\ii\bb k\cdot\bb a_2}|^2-3t\ge-3t$. Thus $\mu<-3t-|\Delta|$ makes all Bogoliubov energies $\omega_{\bb k}=\sqrt{(\epsilon_{\bb k}-\mu)^2-|\Delta|^2}$ positive. For every $\Delta\tau>0$, summing the quasiparticle occupations gives the finite trace of the positive thermal propagator $T=\ee^{-\Delta\tau\hat K_0}$,
 \begin{equation}
-    Z_0=\Tr\,\ee^{-\beta\hat K_0}
-    =\prod_{\bb k}\frac{\ee^{\beta(\epsilon_{\bb k}-\mu-\omega_{\bb k})}}
-    {(1-\ee^{-\beta\omega_{\bb k}})^2}<\infty.
+    \Tr T
+    =\prod_{\bb k}\frac{\ee^{\Delta\tau(\epsilon_{\bb k}-\mu-\omega_{\bb k})}}
+    {(1-\ee^{-\Delta\tau\omega_{\bb k}})^2}<\infty.
     \label{eq:benchmark_free_partition}
 \end{equation}
-For real HS fields, $V_\ell=\exp[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]$ is unitary: in the occupation basis it only changes phases and preserves norms. Each time slice therefore contains the same positive thermal propagator $T$, with such a phase rotation inserted between successive propagators. Applying H\"older's inequality to $\hat U(\phi)=\prod_{\ell=1}^{L_\tau}TV_\ell$ gives
+For real HS fields, $V_\ell=\exp[\ii\sqrt{2\Delta\tau U_1}\sum_i\varphi_{i\ell}(\hat n_{b,i}-\hat n_{c,i})]$ is unitary: in the occupation basis it only changes phases and preserves norms. Each time slice therefore contains the same positive thermal propagator $T$, with such a phase rotation inserted between successive propagators.
+
+To bound the full trace, choose a complete orthonormal many-body eigenbasis $T|a\rangle=t_a|a\rangle$, with $t_a>0$ and $\sum_a t_a=\Tr T$. Write $n=L_\tau$ and $(V_\ell)_{ab}=\langle a|V_\ell|b\rangle$. Unitarity implies that each column has unit norm,
 \begin{equation}
+    \sum_a |(V_\ell)_{ab}|^2
+    =\langle b|V_\ell^\hc V_\ell|b\rangle=1,
+    \qquad |(V_\ell)_{ab}|\le1.
+\end{equation}
+Inserting this basis between successive factors in $\hat U(\phi)=TV_1\cdots TV_n$ gives
+\begin{equation}
+    \Tr\hat U(\phi)
+    =\sum_{a_1,\ldots,a_n}t_{a_1}\cdots t_{a_n}
+    (V_1)_{a_1a_2}\cdots(V_n)_{a_na_1}.
+\end{equation}
+Each term contains one thermal weight per time slice, multiplied by matrix elements of modulus at most one. Taking absolute values therefore yields
+\begin{equation}
+\begin{aligned}
     \left|\Tr\hat U(\phi)\right|
-    \le\prod_{\ell=1}^{L_\tau}
-    \left[\Tr|TV_\ell|^{L_\tau}\right]^{1/L_\tau}
-    =\Tr T^{L_\tau}=Z_0<\infty,
+    &\le\sum_{a_1,\ldots,a_n}t_{a_1}\cdots t_{a_n}
+    \left|(V_1)_{a_1a_2}\cdots(V_n)_{a_na_1}\right|\\
+    &\le\sum_{a_1,\ldots,a_n}t_{a_1}\cdots t_{a_n}
+    =\left(\sum_a t_a\right)^n
+    =(\Tr T)^{L_\tau}<\infty.
+\end{aligned}
     \label{eq:benchmark_trace_bound}
 \end{equation}
-where $|X|=(X^\hc X)^{1/2}$. The equality uses $|TV_\ell|=V_\ell^\hc T V_\ell$, unitarity of $V_\ell$, and $L_\tau\Delta\tau=\beta$. Thus the thermal suppression of large occupations controls the full evolution even with arbitrary HS phase rotations between slices. The bound is independent of the auxiliary fields and proves trace convergence for every configuration. Together with reflection positivity, it gives $0\le W(\phi)\le Z_0$. This bound also excludes bosonic poles. In Eq.~\eqref{eq:paired_trace_formula_appendix}, the scalar prefactor accounts for normal ordering in the Nambu representation and is finite and nonzero. A zero of the determinant would therefore make the weight diverge, contradicting Eq.~\eqref{eq:benchmark_trace_bound}. Hence $\det(I_{2N}-\mc M)\ne0$ for every auxiliary-field configuration. Under this stability condition, BAFQMC encounters neither a bosonic pole nor the infinite-variance problem.
+The sum of absolute values is finite, so the trace converges for every configuration. Physically, thermal suppression of large quasiparticle occupations controls the full evolution even with arbitrary HS phase rotations between slices. At fixed $\Delta\tau$ and $L_\tau$, the bound is independent of the auxiliary fields. Together with reflection positivity, it gives $0\le W(\phi)\le(\Tr T)^{L_\tau}$, ensuring finite moments of the configuration weight under the normalized HS Gaussian measure.
+
+This bound also excludes bosonic poles. In Eq.~\eqref{eq:paired_trace_formula_appendix}, the scalar prefactor accounts for normal ordering in the Nambu representation and is finite and nonzero. A zero of the determinant would therefore make the weight diverge, contradicting Eq.~\eqref{eq:benchmark_trace_bound}. Hence $\det(I_{2N}-\mc M)\ne0$ for every auxiliary-field configuration. Under this stability condition, the benchmark is free of bosonic poles and the associated infinite-variance problem.
 
 With the positivity and finiteness of every configuration established, we now give the simulation parameters and the details of the exact-diagonalization reference. Each parameter point uses $\Delta\tau=0.01$, giving $L_\tau=400$ slices at $\beta=4$ and $L_\tau=100$ at $\beta=1$. We perform $500$ warmup sweeps, followed by $10^5$ measurement sweeps with one measurement bin per sweep. Statistical errors are standard errors over ten blocks of $10^4$ bins. Local field proposals are uniform shifts in $[-0.75,0.75]$ for number-conserving runs and $[-0.5,0.5]$ for paired runs. We stabilize matrix products every $N_{\rm wrap}=10$ slices using Secs.~\ref{app:stabilization_number} and~\ref{app:stabilization_paired}. The BAFQMC, ED, and benchmark implementations are available in Ref.~\cite{bafqmc_code}.
 
