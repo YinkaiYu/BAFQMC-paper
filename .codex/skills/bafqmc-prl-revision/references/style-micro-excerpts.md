@@ -32,7 +32,7 @@ Use these as adaptable patterns:
   its moves---broad stakes, concrete obstruction, paradigm shift, rigorous result,
   benchmark, and opportunity---rather than its exact strings.
 - Use assertive, precise claims such as "BAFQMC covers the RP/TRS half-plane" instead of hedged claims such as "BAFQMC may help with some cases".
-- Connect the broad problem, physical stakes, and classification clearly. In the formalism, develop the AFQMC picture, weight formulas, and criteria in the order that best supports understanding.
+- Connect the broad problem, physical stakes, and classification clearly.
 - Let citations sit behind the story. Do not turn a sentence into a taxonomy merely because the research report found many relevant terms or methods.
 - Exclude process language: never write "we now modify", "as requested", "this addresses", or "we have added".
 - Avoid reader-correction framing: do not begin by negating what the reader supposedly thinks.

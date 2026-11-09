@@ -1,7 +1,7 @@
 # Introduction And Frontmatter
 
 Write for a broad physics readership. Connect the problem, its physical importance,
-and the technical ideas in an order that makes the argument clear. The Introduction should give readers
+and the technical ideas clearly. The Introduction should give readers
 a reason to care and a connected path to the result.
 
 For BAFQMC, the distinction between local matrix-element positivity in WLQMC/SSE

@@ -17,8 +17,7 @@ current manuscript and the user's task as the starting point. Follow repository
   defensive qualifications. Let the physical advance and its consequences carry
   the significance.
 - Write for broad physics readers, making both mathematical reasoning and physical
-  meaning clear. Mathematics and physical intuition may appear in either order or
-  develop together. Show the derivation steps needed for understanding; qualitative
+  meaning clear. Show the derivation steps needed for understanding; qualitative
   discussion cannot replace them. Explain the meaning, assumptions, and purpose of
   mathematical terms and results when introducing them.
 - Let the physical purpose guide the derivation. Prefer elementary, intuitive

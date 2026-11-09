@@ -18,7 +18,7 @@ proofs. Preserve archived documents unless an edit to them is requested.
 ## Exposition And Physical Picture
 
 - Develop the argument like a lecture, making the mathematical reasoning and
-  physical picture clear. Either may lead, or they may develop together. Show the
+  physical picture clear. Show the
   derivation steps needed for understanding rather than replacing them with
   qualitative discussion. Explain the meaning, assumptions, and purpose of
   mathematical terms and results as they become necessary.

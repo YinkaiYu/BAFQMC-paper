@@ -19,7 +19,7 @@ Public preprint: https://arxiv.org/abs/2610.31541
 - Let the physical question guide the mathematics. Prefer elementary, intuitive derivations that physicists can follow directly, retaining the steps needed to establish the result. Introduce more abstract machinery when it helps solve or understand the physical problem, and explain how it does so.
 - Answer the question directly. Keep attention on the physics the user asks about, without unsolicited negations, unrelated alternatives, or defensive qualifications that distract from the explanation.
 - Write confidently and directly. Make the importance and physical consequences of the work clear. Avoid unnecessary defensive qualifications that weaken established results or make the argument harder to read.
-- Write for a broad physics readership, with smooth physical and logical progression. Mathematics may precede, follow, or develop alongside the physical picture; choose the order that makes the reasoning clearest.
+- Write for a broad physics readership, with smooth physical and logical progression.
 - Readers have none of our collaboration context. Manuscript prose must serve their understanding, never deliberately answer an author request or advertise a revision.
 - Lower the reader's burden. Prefer familiar physics language over obscure mathematical jargon, invented concepts, internal shorthand, or lists of specialist terminology.
 - Introduce new variables, notation, abbreviations, and conceptual entities only when necessary. Do not save writing effort by transferring explanation or backward searches to the reader.

@@ -7,7 +7,7 @@ below.
 
 ## Main Text
 
-- Connect the formulas to the AFQMC construction: HS fields decouple interactions into one-body problems, and the Monte Carlo samples spacetime auxiliary-field configurations. Choose the order of formulas and physical explanation to suit the argument.
+- Connect the formulas to the AFQMC construction: HS fields decouple interactions into one-body problems, and the Monte Carlo samples spacetime auxiliary-field configurations.
 - Introduce notation only when it carries a result. Prefer direct trace and determinant formulas over notation-only displays.
 - Use displayed equations for core formulas and results. Put local definitions, matrix conventions, and one-use objects inline when readability allows.
 - Explain what physical or algorithmic question each formula answers and how it follows from the preceding steps. Place the physical interpretation where it best helps understanding.

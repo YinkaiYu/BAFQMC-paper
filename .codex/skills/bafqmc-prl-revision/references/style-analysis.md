@@ -29,10 +29,6 @@ The mentor revision in commit `66c6cd4` is a historical voice reference. Read th
    variance difficulty, and identifies projector and canonical formulations as
    concrete next directions. It does more than repeat the abstract.
 
-These historical examples do not prescribe the order of mathematics and physical
-explanation. Choose the sequence that makes both the derivation and its physical
-purpose clear, using elementary, intuitive arguments where possible.
-
 ### Mentor-Calibrated Editing Test
 
 For high-visibility prose, ask:
