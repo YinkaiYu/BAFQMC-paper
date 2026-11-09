@@ -4,7 +4,7 @@
 
 [Read the paper](https://arxiv.org/abs/2610.31541) ·
 [PDF](https://arxiv.org/pdf/2610.31541) ·
-[arXiv v1 source](https://github.com/YinkaiYu/Paper2026-BAFQMC/tree/arxiv-v1) ·
+[arXiv v1 source](https://github.com/YinkaiYu/BAFQMC-paper/tree/arxiv-v1) ·
 [BAFQMC software](https://github.com/YinkaiYu/BAFQMC)
 
 Geometrical frustration makes many interacting bosonic systems difficult to study
@@ -34,7 +34,7 @@ For using and extending the algorithm, visit the dedicated
 | Shared numerical routines | [software/common/](software/common/README.md) |
 | Research notes and supporting calculations | [note/](note/) |
 
-The [`arxiv-v1`](https://github.com/YinkaiYu/Paper2026-BAFQMC/tree/arxiv-v1)
+The [`arxiv-v1`](https://github.com/YinkaiYu/BAFQMC-paper/tree/arxiv-v1)
 tag preserves the source corresponding to
 [arXiv:2610.31541v1](https://arxiv.org/abs/2610.31541v1).
 The `main` branch contains ongoing work, including research notes that develop
@@ -160,7 +160,7 @@ If you use this work in your research, please cite:
 
 Questions, corrections, and suggestions about the manuscript or its reproduction
 materials are welcome through this repository's
-[issues](https://github.com/YinkaiYu/Paper2026-BAFQMC/issues) and pull requests.
+[issues](https://github.com/YinkaiYu/BAFQMC-paper/issues) and pull requests.
 For algorithm development and software contributions, visit
 [YinkaiYu/BAFQMC](https://github.com/YinkaiYu/BAFQMC).
 
