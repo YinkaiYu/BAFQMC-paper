@@ -29,15 +29,15 @@ The mentor revision in commit `66c6cd4` is a historical voice reference. Read th
    variance difficulty, and identifies projector and canonical formulations as
    concrete next directions. It does more than repeat the abstract.
 
-Apply this hierarchy across the manuscript. A technical section may start closer to
-the formal object, but it should still tell the reader what physical or computational
-question the object resolves before developing machinery.
+These historical examples do not prescribe the order of mathematics and physical
+explanation. Choose the sequence that makes both the derivation and its physical
+purpose clear, using elementary, intuitive arguments where possible.
 
 ### Mentor-Calibrated Editing Test
 
 For high-visibility prose, ask:
 
-- Does the opening establish consequence before method detail?
+- Does the opening give readers a clear route into the question and its significance?
 - Is the precise obstruction clear rather than merely called difficult?
 - Does the method change the reader's picture of the problem?
 - Are theorem, benchmark, and outlook claims visibly separated by evidence level?

@@ -22,7 +22,7 @@ proofs. Preserve archived documents unless an edit to them is requested.
   derivation steps needed for understanding rather than replacing them with
   qualitative discussion. Explain the meaning, assumptions, and purpose of
   mathematical terms and results as they become necessary.
-- Before introducing a new condition, transformation, or calculation, make its
+- When introducing a new condition, transformation, or calculation, make its
   purpose clear. Explain what physical question it resolves and connect the result
   to an intuitive physical picture when one is available.
 - Let each paragraph use what has already been established and prepare the next
@@ -36,6 +36,9 @@ proofs. Preserve archived documents unless an edit to them is requested.
 
 ## Derivations And Notation
 
+- Let the physical purpose guide the mathematics. Prefer elementary, intuitive
+  derivations with explicit steps; explain any abstract tools needed and how they
+  help answer the physical question.
 - Aim for correct, concise, physically transparent arguments. Full formal rigor
   and exhaustive treatment of mathematical edge cases are unnecessary when they
   do not affect the physical result or its use.

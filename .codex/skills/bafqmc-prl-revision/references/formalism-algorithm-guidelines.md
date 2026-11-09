@@ -7,10 +7,10 @@ below.
 
 ## Main Text
 
-- Start from the physical AFQMC construction: HS fields decouple interactions into one-body problems, and the Monte Carlo samples spacetime auxiliary-field configurations.
+- Connect the formulas to the AFQMC construction: HS fields decouple interactions into one-body problems, and the Monte Carlo samples spacetime auxiliary-field configurations. Choose the order of formulas and physical explanation to suit the argument.
 - Introduce notation only when it carries a result. Prefer direct trace and determinant formulas over notation-only displays.
 - Use displayed equations for core formulas and results. Put local definitions, matrix conventions, and one-use objects inline when readability allows.
-- Before a formula, tell the reader what physical or algorithmic question it answers. After it, explain the consequence rather than immediately introducing another symbol.
+- Explain what physical or algorithmic question each formula answers and how it follows from the preceding steps. Place the physical interpretation where it best helps understanding.
 - Avoid compact prose that transfers work to the reader: unexplained forward references, abrupt technical openings, dense semicolon chains, or comparisons that do not state the concrete differences.
 - Keep early formalism independent of later benchmark details unless the object has already been introduced.
 - Compare bosonic and fermionic AFQMC weights through concrete formula differences: the matrix structure and whether the determinant is in the numerator or denominator.
@@ -19,6 +19,9 @@ below.
 
 ## Supplemental Derivations
 
+- Prefer elementary, intuitive routes that serve the physical question. Show the
+  algebra needed to follow the result; explain the content and purpose of any
+  abstract mathematical tool used.
 - Order derivations from simple to general: HS identities, number-conserving trace, Green functions, local updates, then paired/Nambu formulas.
 - For every local update, show the matrix factorization, determinant reduction, and Green/resolvent update. Use Sherman-Morrison or Woodbury explicitly when locality is essential.
 - Avoid phrases that hide algebra, such as "the same manipulation gives," when the omitted step is needed to check a formula.

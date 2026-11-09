@@ -1,13 +1,13 @@
 # Introduction And Frontmatter
 
-Write for a broad physics readership. Make the problem and its physical importance
-clear before introducing technical machinery. The Introduction should give readers
+Write for a broad physics readership. Connect the problem, its physical importance,
+and the technical ideas in an order that makes the argument clear. The Introduction should give readers
 a reason to care and a connected path to the result.
 
 For BAFQMC, the distinction between local matrix-element positivity in WLQMC/SSE
 and the global auxiliary-field weight provides a useful physical explanation of
-the advance. Explain this distinction before relying on compact symmetry or
-classification terminology. Let the current manuscript determine the exact scope.
+the advance. Explain the meaning of symmetry and classification terminology as it
+enters the argument. Let the current manuscript determine the exact scope.
 
 State the contribution confidently and directly. Avoid unnecessary defensive
 qualifications, repeated slogans, or specialist caveats that interrupt the

@@ -21,6 +21,9 @@ current manuscript and the user's task as the starting point. Follow repository
   develop together. Show the derivation steps needed for understanding; qualitative
   discussion cannot replace them. Explain the meaning, assumptions, and purpose of
   mathematical terms and results when introducing them.
+- Let the physical purpose guide the derivation. Prefer elementary, intuitive
+  arguments with explicit steps. When abstract mathematics is useful, explain its
+  content and its connection to the physical problem.
 - Readers encounter the text sequentially and have no collaboration context.
   Never write sentences that deliberately answer a private request, echo feedback,
   or advertise a revision.
