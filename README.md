@@ -87,7 +87,7 @@ python3 -m pip install -r reproducibility/requirements.txt
 python3 reproduce.py --mode plot
 ```
 
-This generates the main-text and supplemental benchmark figures under
+This generates the current 15-point main-text benchmark figure under
 `reproducibility/output/`. It uses the stored processed data and does not launch
 new simulations.
 
@@ -114,14 +114,17 @@ python3 reproduce.py --mode smoke --output reproducibility/output/smoke-check
 python3 reproduce.py
 ```
 
-The full campaign reruns the BAFQMC and reference calculations, processes the
-measurements, and generates the figures in a new
+The default campaign reruns the 15 current BAFQMC and reference calculations,
+processes the measurements, and generates the figure in a new
 `reproducibility/output/full-TIMESTAMP/` directory. Consult the
 [resource guide](reproducibility/RESOURCES.md) before starting a production run.
 
-Use `--scope main` or `--scope supplement` to select benchmarks, and
-`--model number_conserving` or `--model pairing` to select a solver. Resume an
-interrupted run with the same selections and output directory:
+The default `--scope main` selects the current U1 and Delta scans. The explicit
+`--scope supplement` selects seven historical attractive-density points retained
+for provenance; these are no longer part of the manuscript. `--scope all`
+includes both sets. Use `--model number_conserving` or `--model pairing` to
+select a solver. Resume an interrupted run with the same selections and output
+directory:
 
 ```bash
 python3 reproduce.py --resume --output reproducibility/output/full-TIMESTAMP

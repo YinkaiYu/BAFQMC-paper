@@ -1,11 +1,12 @@
-"""Map the archived solver inputs to the manuscript's three benchmark scans.
+"""Map archived solver inputs to the current and historical benchmark scans.
 
 The archive's ``row`` identifies a row of the original solver-specific figures.
 It remains part of the provenance; ``figure_row`` identifies the current layout.
-The archived solver uses the historical ``U1``/``U2`` labels, while the
-manuscript uses ``U1`` for the repulsive relative-density channel and ``U2``
-for the attractive total-density channel. Neither the solver couplings nor the
-original case order/seeds are rewritten.
+The archived solver uses the historical ``U1``/``U2`` labels. The current
+manuscript uses ``U1`` for the repulsive relative-density channel; ``U2``
+labels the historical attractive total-density scan. The ``supplement`` scope
+preserves that historical scan and its figure coordinates. Neither the solver
+couplings nor the original case order/seeds are rewritten.
 """
 from __future__ import annotations
 
@@ -56,7 +57,7 @@ def describe_case(case):
 
 
 def select_index(index, *, models=MODELS, scope="all"):
-    """Select paper/SM cases without modifying manifests or seed ordering."""
+    """Select current/historical cases without modifying manifests or seeds."""
     if scope not in SCOPES:
         raise ValueError(f"unknown benchmark scope: {scope}")
     selected = []
@@ -83,13 +84,14 @@ def output_stem(cases, figure):
 
 
 def selection_summary(cases):
-    """Human-readable counts in manuscript reading order."""
+    """Human-readable counts, identifying the historical supplement scope."""
     lines = []
     for description in BENCHMARKS.values():
         count = sum(c["manuscript"]["benchmark"] == description["benchmark"] for c in cases)
         if count:
+            section = "supplement (historical)" if description["section"] == "supplement" else "main"
             lines.append(
-                f"  {description['section']}: {description['scan_parameter']} scan, "
+                f"  {section}: {description['scan_parameter']} scan, "
                 f"{count} points -> {output_stem(cases, description['figure'])}.pdf ({description['panels']})"
             )
     return "\n".join(lines)

@@ -134,7 +134,7 @@ Here $L$ is the number of factors in the ordered product, $\ell$ labels the spac
 
 The simplest case is a one-body evolution that conserves particle number. Each slice is then a bosonic quadratic form
 $\hat h_\ell(\phi_\ell)=\hat{\bb a}^+B_\ell(\phi_\ell)\hat{\bb a}$, where
-$\hat{\bb a}=(\hat a_1,\ldots,\hat a_N)^\trans$ collects the annihilation operators of $N$ bosonic modes, $\hat a_j^+$ creates a boson in mode $j$, $B_\ell$ is an $N\times N$ coefficient matrix, and $[\hat a_i,\hat a_j^+]=\delta_{ij}$. The bosonic Gaussian trace gives~\cite{Rubenstein2012PRA}
+$\hat{\bb a}=(\hat a_1,\ldots,\hat a_N)^\trans$ collects the annihilation operators of $N$ bosonic modes, $\hat a_j^+$ creates a boson in mode $j$, $B_\ell$ is an $N\times N$ coefficient matrix, and $[\hat a_i,\hat a_j^+]=\delta_{ij}$. When the trace is finite, the bosonic Gaussian trace gives~\cite{Rubenstein2012PRA}
 \begin{equation}
     W(\phi)=
     \det\!\left(I_N-\mc B(\phi)\right)^{-1}.
@@ -146,7 +146,7 @@ If $\hat h_\ell$ contains pairing terms, particle number is not conserved and th
 $\hat\chi=(\hat{\bb a},\hat{\bb a}^+)^\trans$, $[\hat\chi_\mu,\hat\chi_\nu]=\Omega_{\mu\nu}$, and
 $\Omega=\left(\begin{smallmatrix}0&I_N\\-I_N&0\end{smallmatrix}\right)$, a quadratic slice is written as
 $\hat h_\ell(\phi_\ell)=-\frac12\hat\chi^\trans\Omega A_\ell(\phi_\ell)\hat\chi+\xi_\ell(\phi_\ell)$, with
-$\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes the normal-ordering constant in this Nambu representation. The corresponding trace formula is
+$\Omega A_\ell+A_\ell^\trans\Omega=0$. The scalar $\xi_\ell(\phi_\ell)$ includes the normal-ordering constant in this Nambu representation. When the trace is finite, the corresponding trace formula is
 \begin{equation}
     W(\phi)=\exp\!\left[\sum_{\ell=1}^{L}\xi_\ell(\phi_\ell)\right]
     \bigl[(-1)^N\det(I_{2N}-\mc M(\phi))\bigr]^{-\frac12}.
@@ -162,12 +162,12 @@ BAFQMC performs importance sampling of auxiliary-field configurations using the 
 
 \begin{theorem}[TRS criterion]
 \label{thm:trs}
- Assume that all $\hat h_\ell$ in \Eq{eq:Z_afqmc} share pairwise anticommuting time-reversal symmetries $\Theta_a$ with $\Theta_a^2=\pm I$ and $\Theta_a\Theta_b=-\Theta_b\Theta_a$ for $a\ne b$. They are sign-problem-free if they belong to the symmetry classes as shown in Table~\ref{tab:trs_periodic}.
+ Assume that all $\hat h_\ell$ in \Eq{eq:Z_afqmc} share pairwise anticommuting time-reversal symmetries $\Theta_a$ with $\Theta_a^2=\pm I$ and $\Theta_a\Theta_b=-\Theta_b\Theta_a$ for $a\ne b$. If they belong to a symmetry class listed in Table~\ref{tab:trs_periodic}, the weight $W=\Tr\prod_{\ell=1}^{L}\ee^{\hat h_\ell}$ is strictly positive whenever it is finite.
 \end{theorem}
 
 For a particle-number-conserving $\hat h_\ell = \hat{\bb a}^+B_\ell\hat{\bb a}$ that preserves a TRS with $\Theta^2=-I$, every eigenmode of the full propagation matrix $\mc B$  in \Eq{eq:trace_formula_number} with eigenvalue $\lambda$ has a time-reversed partner with eigenvalue $\overline\lambda$~\cite{wu2005prb}. Furthermore, these partner modes remain linearly independent even when $\lambda$ is real. Consequently, each pair contributes a factor of $(1-\lambda)(1-\overline\lambda)=|1-\lambda|^2$ to the determinant in \Eq{eq:trace_formula_number}, yielding a strictly positive Boltzmann weight $W=\prod_{\rm pairs}|1-\lambda|^{-2}>0$.
 
-Without the requirement of particle-number conservation, we can classify generic operators $\hat{h}_\ell$ according to their maximal set of mutually anticommuting TRSs, $\{\Theta_1,\cdots,\Theta_n\}$ (where $\Theta_a\Theta_b=-\Theta_b\Theta_a$ for $a\ne b$). Note that in this context, a TRS refers to a general antiunitary symmetry $\Theta = UK$, where $U$ is a unitary transformation and $K$ is complex conjugation. Based on these symmetry groups, we rigorously identify three fundamental sign-problem-free classes: $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$, where each sign indicates whether $\Theta_a^2=+I$ or $-I$. The mechanisms guaranteeing the absence of the sign problem in these classes are detailed below.
+Without the requirement of particle-number conservation, we can classify generic operators $\hat{h}_\ell$ according to their maximal set of mutually anticommuting TRSs, $\{\Theta_1,\cdots,\Theta_n\}$ (where $\Theta_a\Theta_b=-\Theta_b\Theta_a$ for $a\ne b$). Note that in this context, a TRS refers to a general antiunitary symmetry $\Theta = UK$, where $U$ is a unitary transformation and $K$ is complex conjugation. Based on these symmetry groups, we rigorously identify three sign-problem-free classes: $\{-,-\}$, $\{+,-\}$, and $\{+,+,+\}$, where each sign indicates whether $\Theta_a^2=+I$ or $-I$. The mechanisms guaranteeing the absence of the sign problem in these classes are detailed below.
 
 \emph{\underline{Kramers class}:} For $\Theta_1^2=\Theta_2^2=-I$, the product $Q=\Theta_1\Theta_2$ obeys $Q^2=-I$ and generates a conserved quadratic charge, $\hat Q=-\hat\chi^\trans\Omega(\ii Q)\hat\chi/2$, with $[\hat Q,\hat h_\ell]=0$. Charge conservation separates the $Q=\pm\ii$ operator sectors, while $\Theta_1$ acts within each sector. Thus its propagation eigenvalues retain Kramers pairing, $\lambda,\overline\lambda$, and contribute $|1-\lambda|^2$ to the reduced determinant. Because a conserved charge exists in this class, the absence of the sign problem originates from the Kramers degeneracy. We therefore call this class the ``Kramers class''.
 
@@ -175,45 +175,33 @@ Without the requirement of particle-number conservation, we can classify generic
 
 \emph{\underline{Split-orthogonal class}:} For the symmetry class with $\Theta_1^2=\Theta_2^2=\Theta_3^2=+I$, the first two symmetries define $Q=\Theta_1\Theta_2$ satisfying $Q^2=-I$. Projecting onto the $Q=+\ii$ sector, $\Theta_3$ pairs each annihilation direction with a creation direction, so the sector contains $N/2$ of each and the total Boltzmann weight takes the form $W\propto(-1)^{N/2}\det(I_N-\mc M_{+\ii})^{-1}$. Furthermore, it imposes the metric invariance $\mc M_{+\ii}^\trans\eta\mc M_{+\ii}=\eta$, where $\eta=\diag(I_{N/2},-I_{N/2})$ in an appropriate real basis, placing $\mc M_{+\ii}$ in the split-orthogonal group~\cite{wang2015prl}. Crucially, this structure fixes the sign of $\det(I_N-\mc M_{+\ii})$ to be $(-1)^{N/2}$, which cancels the factor from the $N/2$ bosonic creation operators and yields the strictly positive weight $W>0$.
 
- For symmetry classes with $n=3$ (other than $\{+,+,+\}$) and all classes with $n \geq 4$, where $n$ denotes the number of mutually anticommuting TRSs, the system necessarily possesses symmetries belonging to at least one of the $\{+,-\}$, $\{-,-\}$, or $\{+,+,+\}$ classes. Thus, they are inherently free from the sign problem. However, the remaining $\{+,+\}$ and $\{-\}$ classes can admit negative weights, as demonstrated by explicit counterexamples. Consequently, we rigorously prove that, based solely on symmetry requirements, there are exactly three fundamental sign-problem-free symmetry classes, as summarized in Table~\ref{tab:trs_periodic}. The Kramers and pairing classes are the bosonic counterparts of the two sign-free classes found in fermionic systems~\cite{li2016prl}. Intriguingly, the split-orthogonal class is sign-free only for bosons, possessing no fermionic counterpart. Detailed positivity proofs for these three fundamental classes are provided in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
+ For symmetry classes with $n=3$ (other than $\{+,+,+\}$) and all classes with $n \geq 4$, where $n$ denotes the number of mutually anticommuting TRSs, the system necessarily possesses symmetries belonging to at least one of the $\{+,-\}$, $\{-,-\}$, or $\{+,+,+\}$ classes. Thus, the same positivity results apply to these larger symmetry sets, as summarized in Table~\ref{tab:trs_periodic}. The Kramers and pairing classes are the bosonic counterparts of the two sign-free classes found in fermionic systems~\cite{li2016prl}. Intriguingly, the split-orthogonal class is sign-free only for bosons, possessing no fermionic counterpart. Detailed positivity proofs for these three classes are provided in Sec.~\ref{app:trs_proof} of the SM~\cite{SM}.
 
 \begin{table}[t]
-    \caption{\textbf{Periodic table of time-reversal symmetries for sign-problem-free bosonic AFQMC.} The Kramers class $\{-,-\}$, pairing class $\{+,-\}$, and split-orthogonal class $\{+,+,+\}$ are the three fundamental sign-problem-free classes, highlighted in bold blue. Each sign denotes $\Theta_a^2=\pm I$ for pairwise anticommuting time-reversal symmetries shared by the quadratic Hamiltonians at every imaginary-time slice. The label \emph{All} includes every possible sign assignment. Conversely, classes lacking these protective symmetries suffer from the sign problem and can yield negative Boltzmann weights.}
+    \caption{\textbf{Sufficient time-reversal symmetry conditions for sign-problem-free bosonic AFQMC.} The Kramers class $\{-,-\}$, pairing class $\{+,-\}$, and split-orthogonal class $\{+,+,+\}$ are highlighted in bold blue. Each sign denotes $\Theta_a^2=\pm I$ for pairwise anticommuting time-reversal symmetries shared by the quadratic Hamiltonians at every imaginary-time slice. The listed classes guarantee positive weights whenever the bosonic trace is finite. The label \emph{All} includes every possible sign assignment.}
     \label{tab:trs_periodic}
     \vspace{6pt}
     \fontencoding{T1}\sffamily
     \begin{tikzpicture}[x=\columnwidth,y=1pt,
         every node/.style={inner sep=0pt,outer sep=0pt,font=\sffamily\footnotesize},
         heading/.style={text=white,font=\sffamily\bfseries\footnotesize,align=center},
-        fundamental/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize}]
+        sufficient/.style={text=TRSAccent,font=\sffamily\bfseries\footnotesize}]
         \begin{scope}
-            \clip[rounded corners=2pt] (0,0) rectangle (1,-120);
-            \fill[TRSHeader]   (0,0)     rectangle (1,-22);
-            \fill[TRSRowLight] (0,-22)   rectangle (1,-36.5);
-            \fill[TRSRowShade] (0,-36.5) rectangle (1,-51);
-            \fill[TRSRowLight] (0,-51)   rectangle (1,-78.5);
-            \fill[TRSRowShade] (0,-78.5) rectangle (1,-105.5);
-            \fill[TRSRowLight] (0,-105.5) rectangle (1,-120);
-            \node[heading] at (0.075,-11) {No.\ of\\TRS};
-            \node[heading] at (0.41,-11) {Sign-problem-free};
-            \node[heading] at (0.835,-11) {Sign-problematic};
-            \node at (0.075,-29.25) {0};
-            \node at (0.41,-29.25) {None};
-            \node at (0.835,-29.25) {No TRS};
-            \node at (0.075,-43.75) {1};
-            \node at (0.41,-43.75) {None};
-            \node at (0.835,-43.75) {\{+\}, \{\textminus\}};
-            \node at (0.075,-64.75) {2};
-            \node[fundamental] at (0.41,-59) {\{\textminus,\textminus\} = Kramers class};
-            \node[fundamental] at (0.41,-71) {\{+,\textminus\} = pairing class};
-            \node at (0.835,-64.75) {\{+,+\}};
-            \node at (0.075,-92) {3};
-            \node[fundamental] at (0.41,-86) {\{+,+,+\} = split-orthogonal class};
-            \node at (0.41,-98) {\{+,+,\textminus\}, \{+,\textminus,\textminus\}, \{\textminus,\textminus,\textminus\}};
-            \node at (0.835,-92) {None};
-            \node at (0.075,-112.75) {\(\geq\)\,4};
-            \node at (0.41,-112.75) {All};
-            \node at (0.835,-112.75) {None};
+            \clip[rounded corners=2pt] (0,0) rectangle (1,-94);
+            \fill[TRSHeader]   (0,0)   rectangle (1,-22);
+            \fill[TRSRowLight] (0,-22) rectangle (1,-49);
+            \fill[TRSRowShade] (0,-49) rectangle (1,-76);
+            \fill[TRSRowLight] (0,-76) rectangle (1,-94);
+            \node[heading] at (0.10,-11) {No.\ of\\TRS};
+            \node[heading] at (0.59,-11) {Sign-problem-free classes};
+            \node at (0.10,-35.5) {2};
+            \node[sufficient] at (0.59,-30) {\{\textminus,\textminus\} = Kramers class};
+            \node[sufficient] at (0.59,-42) {\{+,\textminus\} = pairing class};
+            \node at (0.10,-62.5) {3};
+            \node[sufficient] at (0.59,-57) {\{+,+,+\} = split-orthogonal class};
+            \node at (0.59,-69) {\{+,+,\textminus\}, \{+,\textminus,\textminus\}, \{\textminus,\textminus,\textminus\}};
+            \node at (0.10,-85) {\(\geq\)\,4};
+            \node at (0.59,-85) {All};
         \end{scope}
     \end{tikzpicture}
 \end{table}
@@ -264,26 +252,25 @@ A crucial frustrated model identified in our framework is a two-flavor Bose-Hubb
     t\sum_{\langle ij\rangle}
     \left(\hat b_i^+\hat b_j+\hat c_i^+\hat c_j+\mathrm{h.c.}\right)
     -\sum_i\left(\Delta\,\hat b_i^+\hat c_i^+ +\mathrm{h.c.}\right)\\
-    &+U_1\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2
-    +U_2\sum_i\left(\hat n_{b,i}+\hat n_{c,i}\right)^2,
+    &+U_1\sum_i\left(\hat n_{b,i}-\hat n_{c,i}\right)^2.
 \end{aligned}
 \label{eq:benchmark_pairing}
 \end{equation}
-Here $\langle ij\rangle$ denotes nearest-neighbor bonds, $t$ is the hopping amplitude, $\Delta$ is the pairing amplitude, and $U_1,U_2$ are the Hubbard interaction strengths. For $t>0$, the hopping is frustrated and produces a sign problem in world-line QMC and SSE. However, BAFQMC avoids this obstruction. For $U_1\ge0$ and $U_2\le0$, the HS transformation in Sec.~\ref{app:hs_general} of the SM~\cite{SM} couples an imaginary field to $\hat n_{b,i}-\hat n_{c,i}$ and a real field to $\hat n_{b,i}+\hat n_{c,i}$, giving the two flavors complex-conjugate potentials. At $\Delta=0$, every slice preserves the TRS $\Theta=\ii\sigma_y K$ in flavor space, with $\Theta^2=-I$, and belongs to the sign-problem-free Kramers class. At $\Delta\ne0$, pairing yields the positive coupling block $F\propto|\Delta|I\succeq0$ in Eq.~\eqref{eq:rp_block_form}, and the RP criterion ensures sign-problem-free simulations for $U_2=0$~\cite{SM}.
+Here $\langle ij\rangle$ denotes nearest-neighbor bonds, $t$ is the hopping amplitude, $\Delta$ is the pairing amplitude, and $U_1\ge0$ is the Hubbard interaction strength. For $t>0$, the hopping is frustrated and produces a sign problem in world-line QMC and SSE. However, BAFQMC avoids this obstruction. The HS transformation in Sec.~\ref{app:hs_general} of the SM~\cite{SM} couples an imaginary field to $\hat n_{b,i}-\hat n_{c,i}$, giving the two flavors complex-conjugate potentials. At $\Delta=0$, every slice preserves the TRS $\Theta=\ii\sigma_y K$ in flavor space, with $\Theta^2=-I$, and belongs to the sign-problem-free Kramers class. At $\Delta\ne0$, pairing yields the positive coupling block $F\propto|\Delta|I\succeq0$ in Eq.~\eqref{eq:rp_block_form}, and the RP criterion ensures sign-problem-free simulations. For $\mu<-3t-|\Delta|$, the trace is finite for every auxiliary-field configuration~\cite{SM}.
 
-Figure~\ref{fig:benchmark} compares BAFQMC with finite-temperature exact diagonalization (ED) on a $3\times3$ triangular lattice with periodic boundary conditions. We set $U_2=0$ and scan $U_1$ at $\Delta=0$, then scan $\Delta$ at $U_1=1$. The BAFQMC results coincide with ED within statistical errors for the density, energy, and both structure factors. Similar agreement for the attractive $U_2$ interaction is shown in Sec.~\ref{app:benchmark_details} of the SM~\cite{SM}. These benchmarks establish the reliability of BAFQMC.
+Figure~\ref{fig:benchmark} compares BAFQMC with finite-temperature exact diagonalization (ED) on a $3\times3$ triangular lattice with periodic boundary conditions. We scan $U_1$ at $\Delta=0$, then scan $\Delta$ at $U_1=1$. The BAFQMC results coincide with ED within statistical errors for the density, energy, and both structure factors. These benchmarks establish the reliability of BAFQMC.
 
-Another important application of our symmetry criterion is the study of odd-parity bosonic pairing systems. Bose exchange symmetry gives the antisymmetric pair $\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+$. We prove in the SM~\cite{SM} that the split-orthogonal class is the unique fundamental TRS class guaranteeing sign-free odd-parity bosonic pairing, including $p$-wave pairing. This flavor-singlet pairing channel is central to finite-momentum superfluidity in $p$-wave resonant Bose gases~\cite{radzihovskyChoi2009pwave} and to the singlet bonds in Schwinger-boson theories of quantum spin liquids~\cite{readSachdev1991frustrated,sachdev1992kagome}. BAFQMC therefore opens unbiased access to broad classes of frustrated bosonic and spin models of longstanding physical interest.
+Another important application of our symmetry criterion is the study of odd-parity bosonic pairing systems. Bose exchange symmetry gives the antisymmetric pair $\hat b_i^+\hat c_j^+-\hat b_j^+\hat c_i^+$. We prove in the SM~\cite{SM} that the split-orthogonal criterion guarantees sign-free odd-parity bosonic pairing, including $p$-wave pairing. This flavor-singlet pairing channel is central to finite-momentum superfluidity in $p$-wave resonant Bose gases~\cite{radzihovskyChoi2009pwave} and to the singlet bonds in Schwinger-boson theories of quantum spin liquids~\cite{readSachdev1991frustrated,sachdev1992kagome}. BAFQMC therefore opens unbiased access to broad classes of frustrated bosonic and spin models of longstanding physical interest.
 
-We reveal more sign-problem-free models in the SM~\cite{SM}, including interacting $p$-orbital bosons and pairing-induced chiral bands. These models provide theoretical platforms for studying unconventional Bose-Einstein condensates~\cite{liuWu2006orbital,wu2009unconventional,wuLiuMoore2006stripe,liYuanHemmerichLi2018prl,wangLuoLiu2023stripe} and topological bosonic matter~\cite{peanoHoudeBrendel2016squeezing,bardynKarzigRefaelLiew2016bogoliubov,peanoHoudeMarquardt2016topological,slimWanjuraBrunelli2024bosonKitaev}.
+We reveal more sign-problem-free models in the SM~\cite{SM}, including interacting bosons with opposite magnetic fluxes and pairing-induced chiral bands. These models provide theoretical platforms for exploring artificial gauge fields and topological bosonic matter~\cite{aidelsburger2013,peanoHoudeBrendel2016squeezing,bardynKarzigRefaelLiew2016bogoliubov,peanoHoudeMarquardt2016topological,slimWanjuraBrunelli2024bosonKitaev}.
 
 \phantomsection\label{sec:concluding}
 \runinsection{Concluding remarks}
 In summary, we have formulated a BAFQMC framework that establishes unifying principles for tackling the sign problem in interacting bosonic systems. Our two sufficient criteria, rooted in time-reversal symmetry and reflection positivity, provide practical guidance for guaranteeing sign-problem-free simulation. We validated this approach by simulating a frustrated two-flavor Bose-Hubbard model on the triangular lattice, achieving excellent agreement with exact diagonalization within statistical errors. Crucially, our results demonstrate a fundamental shift in the organizing principle for bosonic sign-free simulations: from the positivity of local matrix elements to the global symmetries and mathematical structures of the Hamiltonian. As depicted in Fig.~\ref{fig:schematic}, this unlocks a new sign-problem-free route into the regime of geometric frustration, transcending the natural boundaries of world-line QMC and SSE.
 
-This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. The statistical distinction appears in the Gaussian trace: fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$. The inverse determinant can generate large weights near its poles~\cite{Rubenstein2012PRA}, giving a bosonic analogue of the infinite-variance problem known in fermionic AFQMC~\cite{Shi2016PRE,alexandru2023prd,wan2025infinite}. This numerical difficulty is most relevant when the sampled trajectory approaches such poles, for example at higher chemical potential, and its severity depends on the Hamiltonian, the HS decomposition, and the determinant representation.
+This result also connects the bosonic and fermionic auxiliary-field viewpoints. In both cases, symmetry conditions on the HS-decoupled one-body problem can define sign-free regions. The statistical distinction appears in the Gaussian trace: fermions produce $\det[I_N+\mc B(\phi)]$, whereas bosons produce the inverse determinant $\det[I_N-\mc B(\phi)]^{-1}$.
 
-A major frontier opened by this work is the ability to revisit frustrated bosonic and spin systems from a new perspective. Frustration has long obstructed local-weight QMC~\cite{henelius2000prb}, leaving the study of frustrated Bose-Hubbard models, frustrated quantum magnets, and spin-liquid physics largely reliant on methods outside the realm of sign-free QMC~\cite{wang2009prl,zaletel2014prb,yan2011science,zhu2015prb,zhou2017rmp}. Whenever such models admit an RP or TRS HS decoupling, BAFQMC provides a constructive route to sign-problem-free simulation. Similar positivity principles should also guide bosonic projector AFQMC, where ground-state properties can be targeted directly~\cite{purwanto2004pre,Wei2025arxiv}. Canonical fixed-particle-number formulations are another natural direction~\cite{Shen2020JCP,Shen2023PRE}, since removing grand-canonical high-occupation sectors offers a practical way to avoid determinant-pole variance problems while retaining the sign-free condition.
+A major frontier opened by this work is the ability to revisit frustrated bosonic and spin systems from a new perspective. Frustration has long obstructed local-weight QMC~\cite{henelius2000prb}, leaving the study of frustrated Bose-Hubbard models, frustrated quantum magnets, and spin-liquid physics largely reliant on methods outside the realm of sign-free QMC~\cite{wang2009prl,zaletel2014prb,yan2011science,zhu2015prb,zhou2017rmp}. Whenever such models admit an RP or TRS HS decoupling, BAFQMC provides a constructive route to sign-problem-free simulation. Similar positivity principles should also guide bosonic projector AFQMC, where ground-state properties can be targeted directly~\cite{purwanto2004pre,Wei2025arxiv}. Canonical fixed-particle-number formulations are another natural direction~\cite{Shen2020JCP,Shen2023PRE}.
 
 
 

@@ -1,44 +1,48 @@
 # Benchmark reproduction
 
-The default `python3 reproduce.py` reruns all 22 BAFQMC/reference calculations,
-processes the new measurements, and draws the benchmark figures in `main.tex`
-and the included `SM.tex`.
-See [RESOURCES.md](RESOURCES.md) for the 12–24 hour production budget, memory,
-scratch storage, and continuation commands. The optional `--mode plot` redraws
-the small stored dataset. Both paths draw the combined main-text benchmark and
-the separate attractive-density benchmark in the Supplemental Material.
+The default `python3 reproduce.py` reruns the 15 current BAFQMC/reference
+calculations, processes the new measurements, and draws the combined benchmark
+figure in `main.tex`. The optional `--mode plot` redraws the stored data.
+Seven attractive-density points from an earlier Supplemental Material are
+retained as an explicitly selected historical campaign.
+See [RESOURCES.md](RESOURCES.md) for the conservative 12–24 hour production
+budget, memory, scratch storage, and continuation commands.
 
 ## Data and reference conventions
 
 | Figure / row | Varying parameter | Fixed parameters | Reference |
 |---|---|---|---|
-| Main Fig. 2(a–d) | U1 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | U2 = 0, mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U1 = 0 |
-| Main Fig. 2(e–h) | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 1, U2 = 0, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
-| Supplemental Fig. S1(a–d) | U2 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U1 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U2 < 0 |
+| Main Fig. 2(a–d) | U1 = 0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2 | mu = -3.5, beta = 4 | Particle-shell ED; analytic free-boson reference at U1 = 0 |
+| Main Fig. 2(e–h) | Delta = 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3 | U1 = 1, mu = -5, beta = 4 | Dense ED with nmax = 3 and ncut = 4 |
+| Historical attractive-density scan | U2 = -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0 | U1 = 1, mu = -7, beta = 1 | Low-density finite-occupation-window reference for U2 < 0 |
 
 The stored input and data keys retain the historical solver convention. The
-manuscript uses `U1` for the repulsive relative-density channel and `U2` for
-the attractive total-density channel in both the main text and the supplement.
-No values, error bars, or reference selections change under this rearrangement.
+manuscript uses `U1` for the repulsive relative-density channel. In the archived
+two-channel model, `U2` denotes the attractive total-density channel; its
+coefficient is zero at every current manuscript point. Solver input names,
+stored measurements, error bars, and historical reference selections are preserved.
 
-`--scope main` selects the 15 points in the main-text figure, and
-`--scope supplement` selects the seven attractive-density points. The default
-`--scope all` includes both. Scope and solver selection are independent:
+`--scope main` is the default and selects the 15 points in the main-text figure.
+`--scope supplement` selects the seven historical attractive-density points;
+`--scope all` includes both sets. The historical scope name is retained for
+existing commands and does not refer to the current Supplemental Material.
+Scope and solver selection are independent:
 
 | Selection | Points | Scan |
 |---|---|---|
 | `--scope main` | 15 | U1 and Delta |
 | `--scope main --model number_conserving` | 8 | U1 |
 | `--scope main --model pairing` | 7 | Delta |
-| `--scope supplement` | 7 | U2 |
-| `--model number_conserving` | 15 | U1 and U2 |
+| `--scope supplement` | 7 | Historical U2 |
+| `--model number_conserving` | 8 | U1 |
+| `--scope all --model number_conserving` | 15 | U1 and historical U2 |
 
 The main-text model satisfies `mu < -3*t - abs(Delta)` at every plotted point.
-As proved in the SM subsection "Convergence throughout the auxiliary-field
-domain", its quadratic propagation and unitary relative-density HS factors
-give a finite trace throughout the auxiliary-field domain. This result applies
-to the main repulsive model with `U2=0`; the supplemental scan uses the separate
-two-channel model and its stated finite-occupation references.
+As proved in the SM benchmark section, its quadratic propagation and unitary
+relative-density HS factors give a finite trace throughout the auxiliary-field
+domain. This result applies
+to both current scans. The historical attractive-density scan retains its
+original finite-occupation references and is excluded from the current manuscript.
 
 The pairing implementation writes the real pair term with a positive input
 coefficient, whereas the manuscript writes it as `-Delta (b^+ c^+ + b c)`.
@@ -61,7 +65,7 @@ use their real parts and show the physical total energy as -E = -9 e, with the
 energy standard error multiplied by 9. The chemical-potential term is excluded
 from E. No statistical acceptance criterion removes points during reproduction.
 
-The supplemental negative-U2 reference uses the original low-density occupation
+The historical negative-U2 reference uses the original low-density occupation
 window: six completed particle shells, with a configured maximum of eight.
 This is the finite-window comparison encoded by `low_density_cutoff_accepted`
 in the ED records. The U1 = 0 reference in the main-text interaction scan is computed
@@ -76,12 +80,12 @@ data/index.json                  selected cases, parameters, plotted values, pro
 data/checksums.json              SHA-256 for every archived data/input file
 data/observables.csv             compact processed means, SEM, and ED values
 data/block_means.csv             ten block means per case and observable
-data/<model>/manifest.json       executable paper campaign
+data/<model>/manifest.json       current and historical campaign inputs
 data/<model>/inputs/<case>/      exact initial input files and ED parameters
 data/<model>/ed/<case>.json      original ED results
 data/<model>/raw/<case>.tar.gz   optional local raw archives, ignored by Git
 analysis.py                     raw-data statistics, references, tables, plot dispatch
-plot_manuscript.py               main U1/Delta grid and supplemental U2 scan
+plot_manuscript.py               main U1/Delta grid and historical U2 scan
 plot_number.py                  original 2 x 4 number-conserving layout
 plot_pairing.py                 original 1 x 4 paired layout
 plot_style.py                   shared original figure style
@@ -95,8 +99,9 @@ shipping the full Monte Carlo chains. `--mode check` verifies the processed
 files and statistics without making figures. `--mode raw` additionally checks
 the optional original raw archives when they are present locally.
 
-The current outputs are `figures/benchmark_combined.pdf` (two rows) and
-`figures/benchmark_attractive.pdf` (one row), with PNG previews alongside them.
+The default output is `figures/benchmark_combined.pdf` (two rows), with a PNG
+preview alongside it. Explicit selection of the historical scan also produces
+`figures/benchmark_attractive.pdf` (one row) and its PNG preview.
 Only the figures and rows covered by the selected scope and solver are drawn.
 An individual main-text row is written as
 `figures/benchmark_combined_number_conserving.pdf` or
@@ -106,16 +111,17 @@ The original layout modules and historical figure PDFs remain available for
 provenance and comparisons to earlier manuscript versions.
 
 Generated tables include `benchmark`, `section`, `figure`, `figure_row`, and
-`panels` to locate each point in the current manuscript. `scan_parameter`
+`panels` to locate each point in the current or historical figure. `scan_parameter`
 is the plotted symbol, `solver_parameter` is its input key, and `U` gives the
 scanned interaction coefficient. The JSON records collect these fields under
 `manuscript`. Existing case IDs and the archived `row` field retain their
-historical meaning; use `figure_row` for the current figure arrangement.
+historical meaning; use `figure_row` for the selected figure arrangement.
 
 ## Fresh calculations
 
-`--mode full` (the default) builds each solver, executes the paper campaign, runs ED,
-reblocks the new measurements, and draws both figures from the new results.
+`--mode full` (the default) builds each selected solver, executes the selected
+campaign, runs ED, reblocks the new measurements, and draws the selected figures.
+With the default scope, this is the 15-point current manuscript campaign.
 The original data stay fixed in `data/`. Output goes to the directory selected
 by `--output` and includes the numerical differences from ED.
 

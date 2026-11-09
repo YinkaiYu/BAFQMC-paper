@@ -5,7 +5,7 @@ param(
     [ValidateSet('both', 'number_conserving', 'pairing')]
     [string]$Model = 'both',
     [ValidateSet('all', 'main', 'supplement')]
-    [string]$Scope = 'all',
+    [string]$Scope = 'main',
     [string]$Output = '',
     [string]$PythonED = 'python3',
     [int]$Threads = 1,

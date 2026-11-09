@@ -1,12 +1,14 @@
 # Production resources and measured timings
 
-`python3 reproduce.py` runs the complete 22-point BAFQMC/reference calculation
-with the paper's parameters, then generates the processed data and figures.
-The main-text figure comprises eight number-conserving U points and seven
-paired Delta points; the Supplemental Material adds seven U1 points.
+`python3 reproduce.py` runs the current 15-point BAFQMC/reference calculation
+with the paper's parameters, then generates the processed data and figure.
+The main-text figure comprises eight number-conserving U1 points and seven
+paired Delta points. Seven historical attractive-density points remain available
+through `--scope supplement`; `--scope all` selects all 22 archived points.
 The default is one MPI rank, one numerical-library thread, and sequential cases.
-Plan for **12–24 hours, 16 GiB RAM with at least 8 GiB available, and 8 GiB of
-free disk** on a recent desktop. The time is a planning range assembled from
+The historical 22-point campaign's resource estimate provides a conservative
+budget for the current subset: **12–24 hours, 16 GiB RAM with at least 8 GiB
+available, and 8 GiB of free disk** on a recent desktop. The time is a planning range assembled from
 the measurements below; the whole integrated campaign has not been timed as
 one uninterrupted run. A slower processor or filesystem can take longer.
 
@@ -14,9 +16,10 @@ Use `python3 reproduce.py --plan` to display this budget without starting a job.
 The same estimate is printed before a production run. `--threads N` changes
 the numerical-library thread count; the one-thread timing range should not be
 divided by N because the stages scale differently.
-Use `--scope main` or `--scope supplement` to select the corresponding figure,
-and add `--model` to restrict the solver. The full campaign budget above includes
-all three scans.
+The default `--scope main` selects the current figure. `--scope supplement`
+selects the historical attractive-density figure, which is no longer in the
+manuscript. Add `--model` to restrict the solver. The budget above includes all
+three archived scans and has not been separately recalibrated for the current subset.
 
 ## Measured evidence
 
@@ -29,7 +32,7 @@ SciPy 1.17.1, and Numba 0.65.1.
 | Paired BAFQMC, Delta=0.2, original beta=4 and Delta tau=0.01, 500 warmup iterations, 1000 bins | 46.38 s elapsed | 65 MiB |
 | Paired ED, Delta=0.2, nmax=3, ncut=4, full 7297-state trace | 40.40 s elapsed | 3.01 GiB |
 | Main-text number-conserving BAFQMC, U=0.25 (input U2), beta=4, original warmup, 1000 bins | 5.47 s elapsed | 61 MiB |
-| Number-conserving BAFQMC, U1=-0.6, beta=1, original warmup, 1000 bins | 2.29 s elapsed | 61 MiB |
+| Historical attractive-density BAFQMC, input U1=-0.6, beta=1, original warmup, 1000 bins | 2.29 s elapsed | 61 MiB |
 | Original seven paired 100000-bin production chains | 12.20 h summed case elapsed time | Not recorded |
 | Historical supplemental attractive-density ED, six completed shells | 243.5–289.3 s per point | Not recorded |
 
@@ -39,11 +42,12 @@ Seven such points give about 9 h. Together with the historical complete runs,
 **9–13 h** is a useful budget for the paired BAFQMC stage on comparable hardware.
 The seven dense paired ED calculations add approximately **5–10 minutes**.
 The two number-conserving calibrations give an approximately **1.3–1.7 hour**
-budget for its 15 BAFQMC points. Number-conserving ED has varying block sizes;
+budget for its 15 archived BAFQMC points, including the seven historical
+attractive-density cases. Number-conserving ED has varying block sizes;
 the main-text U=0.25, seven-shell point dominates that reference stage.
 Its historical successful checkpoint was written about 67.5 minutes after the
 recorded start. That historical thread count was not retained. Allow roughly
-**3–5 hours for the complete number-conserving part**, including its ED stage.
+**3–5 hours for the complete archived number-conserving part**, including its ED stage.
 The recalculated paired ED point reproduced the archived four reference values
 to 5.3e-18 absolute accuracy.
 
